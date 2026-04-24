@@ -18,7 +18,7 @@ def read_column_values(file_path: Path, column_name: str) -> list[str]:
 def merge_domains() -> None:
     script_dir = Path(__file__).resolve().parent
     fact_check_file = script_dir / 'Fact_Check' / 'top_15_org_domains.csv'
-    news_file = script_dir / 'News' / 'national_sources_cpw_gt_900_20260424.csv'
+    news_file = script_dir / 'News' / 'national_sources_top5pct_both_20260424.csv'
     output_file = script_dir / 'merged_domains.csv'
 
     org_domains = read_column_values(fact_check_file, 'org_domain')
