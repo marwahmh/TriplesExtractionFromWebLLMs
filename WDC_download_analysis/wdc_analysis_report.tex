@@ -1,0 +1,1895 @@
+\documentclass[11pt,a4paper]{article}
+
+\usepackage[margin=2.5cm]{geometry}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{multirow}
+\usepackage{array}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{enumitem}
+\usepackage{microtype}
+\usepackage{lmodern}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{siunitx}
+\usepackage{tabularx}
+\usepackage{makecell}
+\usepackage{pdflscape}
+\usepackage{float}
+\usepackage[numbers,square,sort&compress]{natbib}
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=blue!60!black,
+  urlcolor=blue!60!black,
+  citecolor=blue!60!black
+}
+
+\definecolor{lightgray}{gray}{0.92}
+\newcolumntype{R}[1]{>{\raggedleft\arraybackslash}p{#1}}
+\newcolumntype{L}[1]{>{\raggedright\arraybackslash}p{#1}}
+\newcolumntype{C}[1]{>{\centering\arraybackslash}p{#1}}
+
+\title{\textbf{Structured Data on News \& Fact-Checking Domains:\\
+  Extraction and Quality Analysis of WDC Schema.org Annotations}\\[0.5em]
+  \large Technical Report}
+\author{Marwah Sulaiman}
+\date{May 2026}
+
+\begin{document}
+\maketitle
+\tableofcontents
+\newpage
+
+% =============================================================================
+\section{Motivation and Scope}
+\label{sec:motivation}
+% =============================================================================
+
+Structured semantic annotations embedded in web pages allow publishers to
+represent page content as machine-readable triples
+$\langle\text{subject, predicate, object}\rangle$ using shared vocabularies
+such as Schema.org~\citep{guha2016schema}.  Over 52\% of pages in the Common
+Crawl web archive already carry such annotations~\citep{commoncrawl2024},
+yet their quality remains limited: most Schema.org properties are left
+unpopulated, and annotations tend to describe page metadata rather than
+actual content.
+
+This work examines that gap specifically for news outlets and fact-checking
+organisations, sources that are particularly relevant for automated
+fact-checking.  The analysis is intended to motivate and ground a broader
+research on using large language models (LLMs) to automatically
+extract richer, content-grounded annotations from web pages, whose output
+could serve as structured evidence for fact-checking systems.
+
+In this work, we assess the completeness, syntactic correctness, structural complexity, and internal consistency of Schema.org annotations across a curated set of news and fact-checking domains, and conduct a dedicated analysis of the \texttt{ClaimReview}~\citep{schemaorg_claimreview} class used by fact-checking organisations.
+
+The \textbf{Web Data Commons (WDC)} project~\citep{meusel2014wdc} (\url{https://webdatacommons.org})
+extracts all structured data embedded in the Common Crawl web archive~\citep{commoncrawl2024} and
+publishes it as N-Quad files.  The 2024-12 release is the latest snapshot and
+covers the entire crawl; it also provides 50 Schema.org class-specific
+subsets, each includes all quads whose source pages declare at least one
+entity of that class.
+
+This report documents the full pipeline used to retrieve, process, and
+analyse WDC data restricted to a curated list of news and fact-checking
+domains, spanning three Jupyter notebooks:
+
+\begin{itemize}[leftmargin=1.5em]
+  \item \texttt{wdc\_lookup\_extractor.ipynb}: domain list assembly, chunk
+        planning, and per-class extraction;
+  \item \texttt{wdc\_analysis\_merged.ipynb}: corpus-wide structural and
+        quality analysis via DuckDB;
+  \item \texttt{wdc\_analysis\_by\_class.ipynb}: deep dive into the
+        \texttt{ClaimReview} class.
+\end{itemize}
+
+% % =============================================================================
+% \section{Target Domain Assembly}
+% \label{sec:domains}
+% % =============================================================================
+
+% \subsection{Why a curated domain list?}
+
+% Processing the full WDC corpus to find news-relevant data is impractical for
+% three reasons.  First, the WDC servers enforce an IP-level rate limit, making
+% parallel downloads from a single machine impossible.  Second, streaming and
+% filtering 14+ terabytes of compressed N-Quads is not standard practice in
+% research settings and would require substantial cluster infrastructure.  Third,
+% preliminary inspection of the WDC per-class lookup tables confirmed that
+% news and fact-checking pay-level domains (PLDs) are sparse across the 50 class
+% subsets, meaning most of the download effort would yield no relevant data.
+
+% A domain-targeted approach (identify the relevant domains first, then
+% download only the chunks containing their data) is therefore both practical
+% and more principled.
+
+
+
+% =============================================================================
+\section{WDC Data Retrieval Strategy}
+\label{sec:retrieval}
+% =============================================================================
+\subsection{Sources}
+
+Targetted domains were assembled from two primary sources:
+
+\paragraph{Fact-checking domains.}
+The \textbf{Fact-Check Insights} dataset~\citep{factcheckinsights2024}
+(\url{https://factcheckinsights.org/}) is a compilation of all fact-checks
+published by organisations verified by the Duke Reporters' Lab that carry
+\texttt{ClaimReview} and/or \texttt{MediaReview} markup.  From the
+\texttt{author.url} field of \texttt{claim\_review.csv}, the top-15
+fact-checking organisation domains ranked by publication frequency were
+extracted using \texttt{SourceDomainsExtraction/Fact\_Check/extract\_domains.py}.
+
+\paragraph{News domains.}
+The \textbf{Media Cloud Directory API}~\citep{mediacloud2024} (\url{https://www.mediacloud.org})
+indexes over 60{,}000 news sources worldwide.  National collections for each
+country were filtered to the top 5th percentile by total story count and
+stories per week, yielding high-volume national sources from every country.
+The output is \texttt{national\_sources\_top5pct\_both\_20260424.csv}, generated
+by \texttt{SourceDomainsExtraction/News/mediacloud\_national\_high\_volume.ipynb}.
+
+\vspace{1em}
+
+
+The two collections were merged into a final list of \textbf{388 domains}, which forms the basis for the retrieval pipeline described in the next subsections.
+
+
+\subsection{The PLD Lookup Table Approach}
+
+For each of the 50 WDC class-specific subsets, WDC publishes a \textbf{PLD
+lookup CSV} that maps pay-level domains to the chunk file numbers that contain
+their data.  This makes it possible to have a proper sample without downloading the full corpus: for
+each class, only the chunks that include quads of the target domain list
+need to be retrieved.
+
+\begin{enumerate}[leftmargin=1.5em]
+  \item Download the lookup CSV for every class.
+  \item Intersect each lookup with the 388 target domains.
+  \item Record which chunks are needed for which class.
+  \item Download and filter only those chunks.
+\end{enumerate}
+
+
+Out of 50 classes, \textbf{37 had at least one matching domain}; 13 had none.
+
+
+\subsection{Priority-Based Chunk Reduction}
+
+The naive plan required downloading \textbf{1{,}093 chunks} across 38 classes,
+estimated at roughly one week of sequential downloads.  A priority filter
+reduced the scope to \textbf{134 chunks} (37 classes) by applying the following
+rules:
+
+\begin{itemize}[leftmargin=1.5em]
+  \item At most \textbf{5 chunks per class} are selected.
+  \item Chunks are ranked by a score combining the count of matching target
+        PLDs they contain and their type: core PLDs (fact-checkers and major
+        news outlets) contribute a higher weight to the score than general
+        news domains, so chunks covering core sources are preferred.
+        Higher-scoring chunks are selected first.
+  \item \textbf{Core PLDs} (fact-checkers and major news outlets) bypass the
+        5-chunk cap: any chunk containing a core PLD is always included.
+  \item Each core PLD is allowed to appear in at most 5 classes to prevent
+        excessive duplication across the merged output.
+\end{itemize}
+
+The result is an \textbf{88\% reduction} in download volume (1{,}093~$\to$~134
+chunks) with full representation of the most important domains in each class.
+
+\subsection{Download Pipeline}
+
+The download script (\texttt{wdc\_domain\_filter.py}) implements several mechanisms suited to a rate-limited environment:
+
+\begin{itemize}[leftmargin=1.5em]
+  \item \textbf{Sequential downloads} with a 30-second pause between files.
+  \item \textbf{Exponential backoff} starting at 120 seconds on HTTP~429
+        responses, with each retry waiting longer than the last.
+  \item \textbf{Pipelined execution}: chunk $N{+}1$ is downloaded concurrently
+        while chunk $N$ is being filtered, hiding download latency.
+  \item \textbf{Checkpointing} to \texttt{checkpoint\_lookup.json}: the pipeline
+        can be safely interrupted and resumed.
+  \item \textbf{Immediate deletion} of each chunk file after filtering to
+        minimise disk usage.
+\end{itemize}
+
+For each downloaded chunk (a gzip-compressed N-Quads file), every line is
+scanned for target domain patterns (\texttt{://domain/}, \texttt{://domain>},
+\texttt{.domain/}, \texttt{.domain>}).  Matching lines are appended to
+\texttt{output/<ClassName>.nq}.
+
+% =============================================================================
+\section{Extraction Results}
+\label{sec:results_extract}
+% =============================================================================
+
+\subsection{Per-Class Output}
+
+Table~\ref{tab:class_results} summarises the extraction statistics for all 37
+classes that yielded data.  Total raw matches (before global deduplication)
+sum to \textbf{78{,}940{,}582 quads}.
+
+\begin{longtable}{L{5.6cm} R{2.1cm} R{2.0cm} R{1.5cm}}
+\caption{Per-class extraction results. Quads = lines in the per-class
+\texttt{.nq} file (before cross-class deduplication).}
+\label{tab:class_results}\\
+\toprule
+\textbf{Class} & \textbf{Quads} & \textbf{File (MB)} & \textbf{Chunks} \\
+\midrule
+\endfirsthead
+\multicolumn{4}{c}{\tablename~\ref{tab:class_results} (continued)}\\
+\toprule
+\textbf{Class} & \textbf{Quads} & \textbf{File (MB)} & \textbf{Chunks} \\
+\midrule
+\endhead
+\bottomrule
+\endfoot
+\bottomrule
+\endlastfoot
+Country                         & 26{,}683{,}479 & 4{,}409.1 & 5 \\
+SportsEvent                     &  9{,}633{,}393 & 1{,}754.4 & 4 \\
+Place                           &  7{,}807{,}918 & 1{,}580.6 & 4 \\
+AdministrativeArea              &  6{,}752{,}407 & 1{,}613.8 & 4 \\
+SportsTeam                      &  5{,}786{,}149 & 1{,}019.1 & 4 \\
+Event                           &  5{,}380{,}763 & 1{,}163.7 & 5 \\
+GeoCoordinates                  &  4{,}070{,}109 &   971.3   & 5 \\
+LocalBusiness                   &  3{,}489{,}727 &   609.8   & 5 \\
+Person                          &  2{,}433{,}147 &   621.6   & 7 \\
+Organization                    &  2{,}150{,}703 &   416.4   & 6 \\
+Product                         &  1{,}763{,}672 &   502.9   & 4 \\
+QAPage                          &  1{,}313{,}529 &   337.0   & 5 \\
+ClaimReview                     &    470{,}994   &   115.4   & 1 \\
+Language                        &    372{,}426   &    91.1   & 5 \\
+SearchAction                    &    294{,}263   &    73.2   & 5 \\
+Answer                          &    265{,}441   &    73.7   & 5 \\
+Question                        &    237{,}012   &    68.7   & 5 \\
+FAQPage                         &    218{,}073   &    65.4   & 5 \\
+Hospital                        &    243{,}676   &    34.5   & 1 \\
+Recipe                          &    207{,}258   &    42.6   & 5 \\
+JobPosting                      &    719{,}570   &   160.6   & 5 \\
+Dataset                         &    141{,}510   &    22.9   & 1 \\
+Movie                           &    143{,}037   &    26.9   & 5 \\
+StadiumOrArena                  &    736{,}013   &   128.4   & 2 \\
+City                            &    763{,}941   &   141.0   & 3 \\
+TVEpisode                       &    111{,}867   &    16.7   & 2 \\
+RadioStation                    &     67{,}173   &    13.5   & 1 \\
+Restaurant                      &     48{,}786   &    11.4   & 5 \\
+Book                            &     30{,}572   &     7.6   & 5 \\
+MusicRecording                  &     19{,}070   &     3.7   & 1 \\
+Hotel                           &      4{,}281   &     0.8   & 1 \\
+ShoppingCenter                  &      3{,}599   &     0.7   & 1 \\
+CollegeOrUniversity             &      2{,}198   &     0.6   & 2 \\
+GovernmentOrganization          &      1{,}517   &     0.3   & 1 \\
+LandmarksOrHistoricalBuildings  &        624     &     0.2   & 1 \\
+CreativeWork                    &     87{,}243   &    18.2   & 5 \\
+EducationalOrganization         &        252     &     0.06  & 2 \\
+\midrule
+\textbf{Total}                  & \textbf{78{,}940{,}582} & \textbf{16{,}505} & \textbf{134} \\
+\end{longtable}
+
+\subsection{Merging and Deduplication}
+
+All 37 per-class \texttt{.nq} files were merged into
+\texttt{output/merged.nq} with \textbf{global exact-line deduplication} across
+classes.  
+
+\begin{table}[H]
+\centering
+\caption{Merged corpus summary.}
+\label{tab:merged_summary}
+\begin{tabular}{lr}
+\toprule
+\textbf{Metric} & \textbf{Value} \\
+\midrule
+Unique quads (lines in \texttt{merged.nq}) & 69{,}621{,}246 \\
+Uncompressed file size & 14{,}360 MB (14.4 GB) \\
+Unique registered domains & 119 \\
+Unique subdomains (hosts) & 363 \\
+Distinct Schema.org types declared & 162 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Domain Coverage}
+
+Table~\ref{tab:domain_coverage} lists the top 15 registered domains in the merged corpus by quad count,
+combining page coverage, annotation density, and entity statistics for each outlet.
+
+\begin{table}[H]
+\centering
+\small
+\setlength{\tabcolsep}{4pt}
+\caption{Top 15 registered domains by quad count (merged corpus).
+  \textit{Pages}: distinct crawled pages;
+  \textit{Quads}: total RDF quads extracted;
+  \textit{\%Q}: share of the 69.6\,M corpus quads;
+  \textit{Q/p}: quads per page (annotation density);
+  \textit{Entities}: distinct entities across the domain's pages;
+  \textit{\%E}: share of the ${\sim}$12.2\,M corpus entities.}
+
+\label{tab:domain_coverage}
+\begin{tabular}{lrrrrrr}
+\toprule
+\textbf{Domain} & \textbf{Pages} & \textbf{Quads} & \textbf{\%Q} & \textbf{Q/p} & \textbf{Entities} & \textbf{\%E} \\
+\midrule
+ria.ru              & 101{,}258 & 26{,}812{,}929 & 38.5 & 264.8 & 3{,}638{,}349 & 29.8 \\
+elpais.com          &  36{,}821 &  7{,}975{,}385 & 11.5 & 216.6 & 1{,}301{,}395 & 10.7 \\
+cbssports.com       &  17{,}983 &  5{,}117{,}711 &  7.4 & 284.6 & 1{,}221{,}854 & 10.0 \\
+sports.ru           &  38{,}174 &  3{,}043{,}424 &  4.4 &  79.7 &   723{,}710   &  5.9 \\
+freepressjournal.in &  15{,}986 &  2{,}800{,}707 &  4.0 & 175.2 &   675{,}231   &  5.5 \\
+indiatimes.com      &  33{,}332 &  2{,}524{,}858 &  3.6 &  75.7 &   503{,}533   &  4.1 \\
+rbc.ua              &  30{,}542 &  2{,}455{,}246 &  3.5 &  80.4 &   408{,}279   &  3.3 \\
+cnn.com             &  18{,}825 &  1{,}915{,}302 &  2.8 & 101.7 &   281{,}225   &  2.3 \\
+cbsnews.com         &  12{,}334 &  1{,}700{,}837 &  2.4 & 137.9 &   251{,}695   &  2.1 \\
+lefigaro.fr         &  24{,}615 &  1{,}533{,}654 &  2.2 &  62.3 &   342{,}138   &  2.8 \\
+as.com              &  17{,}678 &  1{,}505{,}213 &  2.2 &  85.1 &   340{,}609   &  2.8 \\
+elespanol.com       &  13{,}306 &  1{,}284{,}796 &  1.8 &  96.6 &   248{,}921   &  2.0 \\
+aif.ru              &  30{,}720 &  1{,}241{,}772 &  1.8 &  40.4 &   266{,}521   &  2.2 \\
+wikipedia.org       &  66{,}735 &  1{,}228{,}468 &  1.8 &  18.4 &   277{,}768   &  2.3 \\
+dw.com              &  41{,}245 &    826{,}324   &  1.2 &  20.0 &   208{,}339   &  1.7 \\
+\midrule
+\textit{Remaining 104 domains} & \multicolumn{5}{l}{\textit{each ${<}1.2\%$ of total quads}} & \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The appendix provides the complete list of domains. It is worth noting that some news sources block the Common Crawl bot from indexing their pages, so not all domains are expected to appear in the retrieved data. Nevertheless, many major and high-value sources are well-represented.
+
+\subsection{Schema.org Type Distribution}
+
+The merged corpus contains 162 distinct Schema.org types.  The top 20 by
+entity count are shown in Table~\ref{tab:types_merged}.
+
+\begin{table}[H]
+\centering
+\caption{Top 20 declared entity types in the merged corpus.}
+\label{tab:types_merged}
+\begin{tabular}{lr}
+\toprule
+\textbf{Type} & \textbf{Entities} \\
+\midrule
+ImageObject              & 1{,}746{,}687 \\
+ListItem                 & 1{,}509{,}100 \\
+SportsTeam               & 1{,}045{,}713 \\
+Organization             & 1{,}043{,}512 \\
+PostalAddress            & 1{,}030{,}249 \\
+Country                  &   474{,}520 \\
+AggregateRating          &   462{,}696 \\
+SportsEvent              &   444{,}358 \\
+Person                   &   410{,}829 \\
+SiteNavigationElement    &   384{,}436 \\
+BreadcrumbList           &   302{,}673 \\
+Place                    &   580{,}546 \\
+NewsArticle              &   199{,}809 \\
+NewsMediaOrganization    &   184{,}805 \\
+Article                  &   172{,}671 \\
+BlogPosting              &   115{,}725 \\
+WebSite                  &   126{,}518 \\
+WebPage                  &   140{,}079 \\
+LocalBusiness            &   214{,}643 \\
+Thing                    &   104{,}639 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+
+% =============================================================================
+\section{Full-Corpus Quality Analysis}
+\label{sec:quality}
+% =============================================================================
+
+\subsection{From N-Quads to DuckDB}
+
+Applying the in-memory entity-store approach to the full 14 GB merged file
+caused an out-of-memory error.  The solution switches to a DuckDB~\citep{raasveldt2019duckdb} columnar
+store:
+
+\begin{enumerate}[leftmargin=1.5em]
+  \item The 14 GB file is read \textbf{line by line} in a single Python process.
+  \item Every \num{1000000} lines, four Python lists are flushed to a
+        $\sim$100 MB Parquet file and immediately cleared.
+  \item After all $\sim$70 Parquet files are written, DuckDB bulk-loads them
+        using its own internal streaming; no large Python object is ever held
+        in RAM.
+\end{enumerate}
+
+\begin{table}[H]
+\centering
+\caption{DuckDB entity store statistics.}
+\label{tab:db}
+\begin{tabular}{lr}
+\toprule
+\textbf{Metric} & \textbf{Value} \\
+\midrule
+Triples ingested        & 69{,}600{,}381 \\
+Parse errors (skipped)  &     20{,}865 \; (0.03\%) \\
+Entities                & 12{,}211{,}353 \\
+DuckDB store size       & 18.61 GB \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The 20{,}865 parse errors (0.03\%) are malformed N-Quad lines falling into two
+categories: \textbf{20{,}863} lines from \texttt{navbharattimes.indiatimes.com}
+carry language-tagged literals with an unfilled template placeholder
+(\texttt{"Hindi News"@\$lang}), where the site's JSON-LD renderer fails to
+substitute \texttt{\$lang} with a valid BCP~47 language tag; and \textbf{2}
+lines from \texttt{politifact.com} embed an HTML fragment inside a URI field
+(e.g., \texttt{<https://schema.org/url</div>{}>}), making the predicate
+unparseable.
+
+
+
+\subsection{Namespace Correctness}
+
+\begin{table}[H]
+\centering
+\caption{Schema.org namespace usage in the merged corpus.}
+\label{tab:namespace}
+\begin{tabular}{lrr}
+\toprule
+\textbf{URI class} & \textbf{Count} & \textbf{\%} \\
+\midrule
+Canonical (\texttt{http://schema.org/} or \texttt{https://schema.org/}) & 56{,}962{,}451 & 99.90\% \\
+Non-canonical (\texttt{https://www.schema.org/})                         &     57{,}157   &  0.10\% \\
+Truly malformed                                                           &           0    &  0.00\% \\
+Other namespaces (\texttt{rdf:}, \texttt{owl:}, etc.)                    &    405{,}175   &    -- \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The top non-canonical example is
+\texttt{https://www.schema.org/SiteNavigationElement} (17{,}372 occurrences);
+schema.org does not use the \texttt{www.} subdomain.
+
+\subsection{Type Validity}
+
+Of all \texttt{rdf:type} assertions referencing Schema.org, \textbf{99.76\%}
+use a class name that exists in the schema.org vocabulary (979 known classes).
+Invalid types account for 28{,}102 declarations (0.24\%), predominantly
+capitalisation errors or retired class names.
+Table~\ref{tab:invalid_types} lists the top invalid type names.
+
+\begin{table}[H]
+\centering
+\caption{Top invalid \texttt{rdf:type} names by declaration count.}
+\label{tab:invalid_types}
+\begin{tabular}{lr}
+\toprule
+\textbf{Invalid type} & \textbf{Declarations} \\
+\midrule
+imageObject          & 16{,}802 \\
+PERSON               &  6{,}286 \\
+person               &  2{,}500 \\
+Website              &  1{,}015 \\
+place                &    526 \\
+Webpage              &    458 \\
+liveBlogPosting      &    319 \\
+webpage              &    161 \\
+NewsPaper            &     15 \\
+Expert               &      7 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+
+\subsection{Property Validity}
+
+Property validity is assessed by checking whether each schema.org property is
+actually defined for the declaring entity's type (using \texttt{domainIncludes}
+with inheritance).
+
+Table~\ref{tab:top_valid_props} lists the 20 most frequently used valid
+Schema.org properties across the entire corpus (44{,}753{,}999 valid uses total).
+
+\begin{table}[H]
+\centering
+\caption{Top 20 most-used valid Schema.org properties.}
+\label{tab:top_valid_props}
+\begin{tabular}{lr}
+\toprule
+\textbf{Property} & \textbf{Uses} \\
+\midrule
+name             & 6{,}578{,}093 \\
+url              & 4{,}920{,}617 \\
+height           & 1{,}644{,}399 \\
+width            & 1{,}615{,}246 \\
+position         & 1{,}512{,}667 \\
+image            & 1{,}421{,}062 \\
+address          & 1{,}283{,}189 \\
+description      & 1{,}179{,}263 \\
+contentUrl       & 1{,}104{,}876 \\
+item             & 1{,}017{,}368 \\
+addressLocality  & 1{,}005{,}532 \\
+addressRegion    &   945{,}432   \\
+logo             &   918{,}988   \\
+addressCountry   &   807{,}141   \\
+postalCode       &   761{,}799   \\
+streetAddress    &   755{,}247   \\
+telephone        &   728{,}709   \\
+sameAs           &   672{,}483   \\
+datePublished    &   616{,}006   \\
+dateModified     &   613{,}182   \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+
+\begin{table}[H]
+\centering
+\caption{Property validity breakdown.}
+\label{tab:prop_validity}
+\begin{tabular}{lrr}
+\toprule
+\textbf{Category} & \textbf{Count} & \textbf{\%} \\
+\midrule
+Valid property uses   & 44{,}753{,}999 & 99.18\% \\
+Invalid property uses &    370{,}086   &  0.82\% \\
+\midrule
+\multicolumn{3}{l}{\small\itshape Breakdown of invalid uses by root cause:} \\
+\midrule
+Untyped entity (no \texttt{rdf:type})  & 115{,}149 & 31.1\% \\
+Unknown entity type                    & 101{,}467 & 27.4\% \\
+Unknown property (not in vocab)        &  93{,}779 & 25.3\% \\
+Domain mismatch (wrong type)           &  59{,}691 & 16.1\% \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Property violations are classified into four mutually exclusive categories.
+An \textbf{untyped entity} violation occurs when a triple's subject carries no
+\texttt{rdf:type} declaration, making it impossible to verify whether the
+property is applicable.
+An \textbf{unknown type} violation arises when the declared entity type is not
+recognised in the Schema.org vocabulary, so no valid property set can be
+derived.
+An \textbf{unknown property} violation is recorded when the property name
+itself does not exist in the Schema.org vocabulary, regardless of the entity
+type.
+Finally, a \textbf{domain mismatch} violation occurs when both the entity type
+and the property are individually valid Schema.org terms, but the property's
+\texttt{domainIncludes} constraint (including inherited types) does not cover
+the declared entity type.
+
+
+The top-20 individual invalid property names broken down by violation reason are shown in Table~\ref{tab:invalid_props}.
+
+\begin{table}[H]
+\centering
+\caption{Top 20 invalid property names by total misuse count, broken down by violation reason.}
+\label{tab:invalid_props}
+\begin{tabular}{lrrrrr}
+\toprule
+\textbf{Property} & \textbf{Total} & \textbf{Untyped} & \textbf{Unk.\ type} & \textbf{Unk.\ prop} & \textbf{Dom.\ mismatch} \\
+\midrule
+url                &  69{,}754 &  52{,}232 &  17{,}522 &       0 &          0 \\
+name               &  69{,}619 &  59{,}167 &  10{,}452 &       0 &          0 \\
+price              &  48{,}464 &      98   &       0   &       0 &  48{,}366 \\
+query-input        &  24{,}424 &       0   &       0   &  24{,}424 &        0 \\
+width              &  19{,}419 &       0   &  16{,}802 &       0 &   2{,}617 \\
+description        &  19{,}219 &      12   &  19{,}207 &       0 &          0 \\
+postID             &  17{,}323 &       0   &       0   &  17{,}323 &        0 \\
+height             &  16{,}804 &       0   &  16{,}802 &       0 &          2 \\
+Telephone          &  16{,}022 &       0   &       0   &  16{,}022 &        0 \\
+caption            &  16{,}017 &       0   &  16{,}017 &       0 &          0 \\
+partner            &  15{,}085 &       0   &       0   &  15{,}085 &        0 \\
+@name              &   9{,}029 &   1{,}701 &       0   &   7{,}328 &        0 \\
+primaryImageOfPage &   3{,}896 &       0   &       0   &       0 &   3{,}896 \\
+SameAs             &   3{,}667 &       0   &       0   &   3{,}667 &        0 \\
+jobTitle           &   1{,}820 &       0   &       7   &       0 &   1{,}813 \\
+haspart            &   1{,}596 &       0   &       0   &   1{,}596 &        0 \\
+publisher          &   1{,}120 &      12   &     323   &       0 &      785 \\
+address            &   1{,}094 &     412   &     526   &       0 &      156 \\
+isAccessibleForFree&     896   &       0   &     896   &       0 &          0 \\
+potentialAction    &     896   &       0   &     896   &       0 &          0 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The detailed domain-mismatch breakdown (entity type $\to$ property pairs) is shown in
+Table~\ref{tab:domain_mismatch}.
+
+\begin{table}[H]
+\centering
+\caption{Top 10 Domain-mismatch violations by entity type and property.}
+\label{tab:domain_mismatch}
+\begin{tabular}{llr}
+\toprule
+\textbf{Entity type} & \textbf{Property} & \textbf{Count} \\
+\midrule
+MedicalProcedure   & price               & 48{,}366 \\
+Person             & width               &  2{,}615 \\
+Article            & primaryImageOfPage  &  1{,}948 \\
+NewsArticle        & primaryImageOfPage  &  1{,}948 \\
+Organization       & jobTitle            &  1{,}813 \\
+Organization       & publisher           &    769 \\
+PerformanceRole    & actor               &    227 \\
+TouristAttraction  & author              &    210 \\
+TouristAttraction  & reviewBody          &    170 \\
+Event              & address             &    156 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+
+\subsection{Range Violations}
+
+Range violations occur when a property's value does not conform to the
+expected type specified by its \texttt{rangeIncludes} constraint in the
+Schema.org vocabulary.
+For example, a property that expects a \texttt{URL} or \texttt{Text} literal
+may instead receive a nested entity, or a property expecting an
+\texttt{Integer} may receive a free-form string.
+Unlike domain violations, which concern the \emph{subject} of a triple, range
+violations concern the \emph{object}: the value provided is incompatible with
+what the vocabulary prescribes for that property.
+
+
+\begin{table}[H]
+\centering
+\caption{Top range-violating properties (merged corpus).}
+\label{tab:range}
+\begin{tabular}{lrl}
+\toprule
+\textbf{Property} & \textbf{Violations} & \textbf{Example values} \\
+\midrule
+\texttt{height}                & 1{,}640{,}370 & \texttt{"60"}, \texttt{"675"} (not QuantitativeValue) \\
+\texttt{width}                 & 1{,}613{,}832 & \texttt{"600"}, \texttt{"300"} (not QuantitativeValue) \\
+\texttt{item}                  &   611{,}303   & literal URL strings instead of URIs \\
+\texttt{endDate}               &   395{,}515   & malformed dates / empty strings \\
+\texttt{startDate}             &   382{,}002   & \texttt{"Sep 14, 2024"} (not ISO 8601) \\
+\texttt{eventStatus}           &   188{,}068   & \texttt{"//schema.org/EventScheduled"} (malformed URI) \\
+\texttt{eventAttendanceMode}   &   158{,}336   & \texttt{"MixedEventAttendanceMode"} (not a URI) \\
+\texttt{cssSelector}           &   156{,}188   & CSS selector strings (internal use) \\
+\texttt{associatedMedia}       &    95{,}569   & literal URL strings \\
+\texttt{contentLocation}       &    94{,}625   & plain text location names (e.g.\ ``крым'') \\
+\texttt{datePublished}         &    83{,}558   & non-ISO date strings \\
+\texttt{mainEntity}            &    69{,}442   & Wikidata URI used as literal string \\
+\texttt{xpath}                 &    65{,}520   & literal XPath selector strings \\
+\texttt{author}                &    63{,}038   & plain string instead of Person/Organization \\
+\texttt{dateModified}          &    60{,}531   & non-ISO date strings \\
+\midrule
+\multicolumn{3}{l}{\small Total checked: 55{,}056{,}887 assertions \quad Total violations: 6{,}054{,}576 (11.00\%)} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The two largest violating properties (\texttt{height}, \texttt{width}) account
+for 54\% of all violations: publishers routinely provide raw integers
+where Schema.org expects a \texttt{QuantitativeValue} or \texttt{Distance} node.
+
+\subsection{Distinct Schema.org Types per Page}
+
+Across the 596{,}604 pages in the corpus, the mean number of distinct Schema.org
+types declared is \textbf{7.01} (median~7.0, max~29).
+Table~\ref{tab:types_per_page_dist} shows the distribution and
+Table~\ref{tab:types_per_page_domain} highlights representative domains.
+
+% maybe we can have this as a bar plot (maybe stacked bar plot that specifies the domains existing in each bar)
+
+\begin{table}[H]
+\centering
+\caption{Distribution of distinct Schema.org type count per page.}
+\label{tab:types_per_page_dist}
+\begin{tabular}{rrr}
+\toprule
+\textbf{Types/page} & \textbf{Pages} & \textbf{\%} \\
+\midrule
+2  &  29{,}296 &  4.9\% \\
+3  & 106{,}194 & 17.8\% \\
+4  &  62{,}479 & 10.5\% \\
+5  &  41{,}462 &  6.9\% \\
+7  &  77{,}075 & 12.9\% \\
+8  &  17{,}545 &  2.9\% \\
+9  &  36{,}538 &  6.1\% \\
+10 & 134{,}576 & 22.6\% \\
+11 &  24{,}943 &  4.2\% \\
+12+ & (remainder) & \\
+\midrule
+\textbf{Mean} & \multicolumn{2}{l}{7.01 \quad Median 7.0 \quad Max 29} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+% \begin{table}[H]
+% \centering
+% \caption{Selected domains: distinct types per page.}
+% \label{tab:types_per_page_domain}
+% \begin{tabular}{lrrr}
+% \toprule
+% \textbf{Domain} & \textbf{Pages} & \textbf{Avg types} & \textbf{Median} \\
+% \midrule
+% demagog.org.pl       &  1{,}335 & 14.87 & 15 \\
+% freepressjournal.in  & 15{,}986 & 14.00 & 14 \\
+% maariv.co.il         &  2{,}083 & 12.71 & 13 \\
+% cbsnews.com          & 12{,}334 & 11.72 & 12 \\
+% rbc.ua               & 30{,}542 & 10.00 & 10 \\
+% ria.ru               &101{,}258 &  9.84 & 10 \\
+% en.wikipedia.org     & 66{,}735 &  3.00 &  3 \\
+% dw.com               &206{,}665 &  2.74 &  3 \\
+% laverdad.es          & 15{,}518 &  2.00 &  2 \\
+% \bottomrule
+% \end{tabular}
+% \end{table}
+
+\subsection{Annotation Richness: Average Properties per Entity (AvP)}
+
+The \textit{Average Properties per Entity} (AvP) metric quantifies the descriptive depth of structured annotations by measuring the mean number of distinct properties populated per entity instance. Formally, given a set of extracted entities $E$, AvP is defined as:
+
+\begin{equation}
+    \text{AvP} = \frac{1}{|E|} \sum_{e \in E} |P(e)|
+\end{equation}
+
+\noindent where $P(e)$ denotes the set of properties populated for entity $e$. A higher AvP indicates that publishers provide more detailed, semantically rich markup, whereas a low AvP suggests sparse annotation where only mandatory or minimal properties are used. In the context of \texttt{schema.org} types deployed across web pages, AvP serves as a proxy for annotation quality: an entity annotated with only a \texttt{url} and \texttt{name} contributes far less structured knowledge than one that additionally specifies \texttt{author}, \texttt{datePublished}, \texttt{claimReviewed}, and \texttt{reviewRating}. Comparing AvP across domains or entity types therefore reveals not only how broadly structured data is adopted, but also how thoroughly it is used.
+
+
+% make it a bar plot
+\begin{table}[H]
+\centering
+\caption{Corpus-wide AvP distribution.}
+\label{tab:avp_dist}
+\begin{tabular}{rrr}
+\toprule
+\textbf{Properties} & \textbf{Entities} & \textbf{\%} \\
+\midrule
+0  &   460{,}708 &  3.8\% \\
+1  & 2{,}605{,}661 & 21.3\% \\
+2  & 2{,}601{,}181 & 21.3\% \\
+3  & 1{,}781{,}355 & 14.6\% \\
+4  & 1{,}862{,}873 & 15.3\% \\
+5  &   983{,}368 &  8.1\% \\
+6  &   283{,}701 &  2.3\% \\
+7  &   150{,}826 &  1.2\% \\
+8  &   297{,}050 &  2.4\% \\
+9  &   303{,}755 &  2.5\% \\
+10 &   262{,}424 &  2.1\% \\
+11 &   311{,}331 &  2.5\% \\
+12--19 & 209{,}832 & 1.7\% \\
+20+ &    96{,}348 &  0.8\% \\
+\midrule
+\textbf{Mean} & \multicolumn{2}{r}{3.70 \quad Median 3.0 \quad SD 3.60} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{AvP breakdown by Schema.org type for example types (full results for all 47 analysed types in Appendix).}
+\label{tab:avp_bytype}
+\begin{tabular}{lrrrr}
+\toprule
+\textbf{Type} & \textbf{Entities} & \textbf{Avail.\ props} & \textbf{AvP mean} & \textbf{Median} \\
+\midrule
+Article       &   172{,}671 & 136 & 19.57 & 25.0 \\
+NewsArticle   &   199{,}809 & 141 & 12.61 & 14.0 \\
+ClaimReview   &     8{,}729 & 139 &  6.60 &  6.0 \\
+Event         &    79{,}947 &  56 &  6.58 &  5.0 \\
+Organization  & 1{,}009{,}766 &  89 &  5.92 &  4.0 \\
+Rating        &    11{,}486 &  19 &  2.88 &  3.0 \\
+Product       &    45{,}456 &  72 &  2.81 &  2.0 \\
+Person        &   410{,}829 &  81 &  2.79 &  2.0 \\
+Claim         &     4{,}007 & 132 &  2.62 &  3.0 \\
+Place         &   580{,}546 &  60 &  2.02 &  2.0 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Property Coverage per Type}
+
+For each type, \emph{property coverage} is the average fraction of
+schema.org-defined properties used per entity (entities using no
+defined property contribute zero to the average). Across all 137
+types in the corpus, the macro-averaged coverage is $5.75\%$
+($\sigma = 4.64\%$), reflecting that most entities instantiate only
+a small subset of their type's defined vocabulary.
+
+\begin{table}[H]
+\centering
+\caption{Average per-entity property coverage for example types (full results for all 47 analysed types in Appendix).}
+\label{tab:prop_cov}
+\begin{tabular}{lrrr}
+\toprule
+\textbf{Type} & \textbf{Entities} & \textbf{Defined} & \textbf{Avg Coverage} \\
+\midrule
+Rating        &     11{,}516 &  19 & 15.09\% \\
+Article       &    172{,}671 & 136 & 14.38\% \\
+Event         &     80{,}561 &  56 & 11.63\% \\
+NewsArticle   &    199{,}809 & 141 &  8.79\% \\
+Organization  & 1{,}010{,}110 &  89 &  6.64\% \\
+ClaimReview   &      8{,}729 & 139 &  4.74\% \\
+Product       &     45{,}457 &  72 &  3.88\% \\
+Person        &    410{,}961 &  81 &  3.44\% \\
+Place         &    580{,}598 &  60 &  3.36\% \\
+Claim         &      4{,}007 & 132 &  1.98\% \\
+\midrule
+\multicolumn{3}{l}{\textit{Macro avg (137 types)}} & 5.75\% \\
+\multicolumn{3}{l}{\textit{Std dev}} & 4.64\% \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+
+
+\subsection{Characteristic Property Sets}
+
+A \emph{characteristic set} is the exact set of schema.org properties
+used by an entity. Tables below show the three most frequent sets for
+each of the ten example types; full results for all 47 analysed
+types are provided in the Appendix.
+
+\medskip\noindent\textbf{ClaimReview (24 unique sets).}
+
+\begin{center}
+\begin{tabular}{rlL{8cm}}
+\toprule
+\# & Count (\%) & Property set \\
+\midrule
+1 & 4{,}107 (47.1\%) & \{author, claimReviewed, datePublished, itemReviewed, reviewRating, url\} \\
+2 & 1{,}719 (19.7\%) & \{author, claimReviewed, datePublished, description, itemReviewed, reviewRating, url\} \\
+3 &   775   (8.9\%)  & \{author, claimReviewed, datePublished, reviewRating, url\} \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\medskip\noindent\textbf{Claim (13 unique sets).}
+
+\begin{center}
+\begin{tabular}{rlL{8cm}}
+\toprule
+\# & Count (\%) & Property set \\
+\midrule
+1 & 2{,}533 (63.2\%) & \{appearance, author, datePublished\} \\
+2 &   520  (13.0\%)  & \{datePublished\} \\
+3 &   410  (10.2\%)  & \{author, datePublished, url\} \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\medskip\noindent\textbf{NewsArticle (224 unique sets).}
+
+\begin{center}
+\begin{tabular}{rlL{8cm}}
+\toprule
+\# & Count (\%) & Property set \\
+\midrule
+1 & 41{,}330 (20.7\%) & \{author, dateModified, datePublished, headline, image, mainEntityOfPage, publisher\} \\
+2 & 18{,}582  (9.3\%) & \{articleBody, articleSection, author, dateModified, datePublished, description, hasPart, headline, image, inLanguage, isAccessibleForFree, isPartOf, keywords, mainEntityOfPage, publisher, url\} \\
+3 & 17{,}602  (8.8\%) & \{articleBody, articleSection, author, dateCreated, dateModified, datePublished, description, headline, image, keywords, locationCreated, mainEntityOfPage, publisher, publishingPrinciples\} \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\medskip\noindent\textbf{Article (133 unique sets).}
+
+\begin{center}
+\begin{tabular}{rlL{8cm}}
+\toprule
+\# & Count (\%) & Property set \\
+\midrule
+1 & 49{,}185 (28.5\%) & \{author, dateModified, datePublished, headline, image, mainEntity, name, publisher, sameAs, url\} \\
+2 & 17{,}949 (10.4\%) & \{author, dateModified, datePublished, headline, mainEntity, name, publisher, sameAs, url\} \\
+3 & 16{,}179  (9.4\%) & \{alternativeHeadline, associatedMedia, author, copyrightHolder, copyrightYear, creator, dateCreated, dateModified, datePublished, description, discussionUrl, genre, headline, image, inLanguage, keywords, license, mainEntityOfPage, name, publisher, publishingPrinciples, sourceOrganization, speakable, thumbnailUrl, url\} \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\medskip\noindent\textbf{Organization (63 unique sets).}
+
+\begin{center}
+\begin{tabular}{rlL{8cm}}
+\toprule
+\# & Count (\%) & Property set \\
+\midrule
+1 & 295{,}728 (29.3\%) & \{address, aggregateRating, award, email, image, legalName, logo, name, sameAs, telephone, url\} \\
+2 & 215{,}329 (21.3\%) & \{name\} \\
+3 & 166{,}687 (16.5\%) & \{logo, name\} \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\medskip\noindent\textbf{Person (170 unique sets).}
+
+\begin{center}
+\begin{tabular}{rlL{8cm}}
+\toprule
+\# & Count (\%) & Property set \\
+\midrule
+1 & 128{,}766 (31.3\%) & \{name, url\} \\
+2 & 124{,}946 (30.4\%) & \{name\} \\
+3 &  55{,}459 (13.5\%) & \{image, name, url\} \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\medskip\noindent\textbf{Event (52 unique sets).}
+
+\begin{center}
+\begin{tabular}{rlL{8cm}}
+\toprule
+\# & Count (\%) & Property set \\
+\midrule
+1 & 47{,}077 (58.4\%) & \{endDate, location, name, startDate, url\} \\
+2 & 29{,}364 (36.4\%) & \{description, endDate, eventStatus, image, location, name, performer, startDate, url\} \\
+3 &    614   (0.8\%)  & \{(no SO properties)\} \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\medskip\noindent\textbf{Place (18 unique sets).}
+
+\begin{center}
+\begin{tabular}{rlL{8cm}}
+\toprule
+\# & Count (\%) & Property set \\
+\midrule
+1 & 519{,}513 (89.5\%) & \{address, name\} \\
+2 &  28{,}241  (4.9\%) & \{name\} \\
+3 &  14{,}241  (2.5\%) & \{address, geo, hasMap, name, url\} \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\medskip\noindent\textbf{Product (31 unique sets).}
+
+\begin{center}
+\begin{tabular}{rlL{8cm}}
+\toprule
+\# & Count (\%) & Property set \\
+\midrule
+1 & 38{,}792 (85.3\%) & \{name, productID\} \\
+2 &  3{,}048  (6.7\%) & \{brand, category, description, image, name, offers, sku, url\} \\
+3 &    849   (1.9\%)  & \{brand, category, description, image, name, offers, releaseDate, sku, url\} \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\medskip\noindent\textbf{Rating (9 unique sets).}
+
+\begin{center}
+\begin{tabular}{rlL{8cm}}
+\toprule
+\# & Count (\%) & Property set \\
+\midrule
+1 & 4{,}104 (35.6\%) & \{alternateName, bestRating, ratingValue, worstRating\} \\
+2 & 3{,}603 (31.3\%) & \{alternateName\} \\
+3 & 2{,}593 (22.5\%) & \{bestRating, ratingValue, worstRating\} \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+
+\subsection{Property Fill Rate by Domain}
+
+Fill rate per entity = distinct properties used / properties defined for the
+entity's type.  Corpus-wide mean fill rate: \textbf{7.4\%}
+(11{,}823{,}497 typed entities; 45{,}124{,}082 distinct entity--predicate pairs).
+Domain-level aggregation is at the registered-domain level (e.g.\ subdomains of
+\texttt{cnn.com} are merged).
+
+\begin{table}[H]
+\centering
+\small
+\setlength{\tabcolsep}{4pt}
+\caption{Property fill rate for selected fact-checking organisations, news outlets,
+  and knowledge bases, aggregated at the registered-domain level,
+  sorted by fill rate within each group (descending).
+  \textit{Entities}: typed entities from this domain;
+  \textit{Avail.}: avg. number of Schema.org properties applicable to the entity's declared type;
+  \textit{Avg Used}: mean properties used per entity;
+  \textit{Fill\%}: avg used / avail.}
+\label{tab:fillrate}
+\begin{tabular}{lrrrr}
+\toprule
+\textbf{Domain} & \textbf{Entities} & \textbf{Avail.} & \textbf{Avg Used} & \textbf{Fill\%} \\
+\midrule
+\multicolumn{5}{l}{\textit{Fact-checking organisations}} \\
+\midrule
+politifact.com        &   3{,}935  &  91 & 4.10 &  8.0\% \\
+afp.com               &   2{,}373  &  93 & 3.61 &  6.6\% \\
+vishvasnews.com       &  16{,}987  &  85 & 3.57 &  5.8\% \\
+facta.news            &   8{,}631  &  70 & 3.12 &  5.8\% \\
+demagog.org.pl        &  23{,}075  &  75 & 3.05 &  5.8\% \\
+maldita.es            &   6{,}094  & 107 & 3.13 &  4.8\% \\
+factcheck.org         &  17{,}539  &  96 & 2.70 &  4.8\% \\
+leadstories.com       &  17{,}200  & 108 & 3.40 &  4.5\% \\
+fullfact.org          &   9{,}442  &  97 & 2.86 &  3.2\% \\
+\midrule
+\multicolumn{5}{l}{\textit{News outlets (global)}} \\
+\midrule
+cbsnews.com           &  249{,}990  &  99 & 3.80 &  5.6\% \\
+cnn.com               &  281{,}214  & 113 & 5.02 &  4.3\% \\
+aljazeera.com         &    2{,}971  & 117 & 2.97 &  2.9\% \\
+dw.com                &  208{,}338  & 121 & 2.74 &  2.3\% \\
+\midrule
+\multicolumn{5}{l}{\textit{News outlets (national/regional)}} \\
+\midrule
+lefigaro.fr           &   339{,}409   &  45 & 3.20 & 10.7\% \\
+ria.ru                & 3{,}537{,}108 &  78 & 5.08 & 10.0\% \\
+elpais.com            & 1{,}148{,}493 &  53 & 2.85 &  9.6\% \\
+rbc.ua                &   408{,}030   &  62 & 4.20 &  9.3\% \\
+elcomercio.pe         &    32{,}489   & 114 & 6.94 &  6.6\% \\
+lequipe.fr            &    11{,}259   &  83 & 3.63 &  6.6\% \\
+lavanguardia.com      &    18{,}085   & 119 & 7.24 &  6.1\% \\
+clarin.com            &     5{,}193   &  86 & 3.70 &  5.9\% \\
+indiatimes.com        &   499{,}882   & 104 & 3.39 &  4.5\% \\
+freepressjournal.in   &   659{,}227   & 109 & 2.88 &  4.3\% \\
+pravda.ru             &    57{,}486   &  36 & 1.51 &  4.2\% \\
+infobae.com           &    70{,}679   & 128 & 3.19 &  2.6\% \\
+\midrule
+\multicolumn{5}{l}{\textit{Knowledge base}} \\
+\midrule
+wikipedia.org         &   277{,}768   & 116 & 3.42 &  2.8\% \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{Distribution of per-entity fill rates across the full typed-entity corpus
+  (11{,}823{,}497 entities).}
+\label{tab:fillrate_dist}
+\begin{tabular}{lrr}
+\toprule
+\textbf{Fill rate range} & \textbf{Entities} & \textbf{\%} \\
+\midrule
+0--5\%    & 6{,}344{,}431 & 53.7\% \\
+5--10\%   & 1{,}442{,}584 & 12.2\% \\
+10--20\%  & 3{,}647{,}003 & 30.8\% \\
+20--30\%  &   389{,}462   &  3.3\% \\
+30--50\%  &        16     &  \textless{}0.1\% \\
+50--100\% &         1     &  \textless{}0.1\% \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Article and NewsArticle Pages}
+
+News and article pages are primary candidate sources for
+automated fact-checking: they carry the claims, contextual evidence, and
+source references that fact-checking pipelines need to reason over.
+To understand how much structured semantic information Schema.org annotations
+already provide on such pages, and therefore what LLM-based enrichment would
+still need to supply, we identify a representative set of article and
+news-article pages from the corpus and analyse the richness and coverage of
+their existing annotations.
+
+Pages were identified using four complementary signals: single entity (Article and/or NewsArticle) per
+page, subject URI matching the page URI, presence of
+\texttt{headline} + \texttt{datePublished}/author/body, and URL path
+heuristics.
+
+\begin{table}[H]
+\centering
+\caption{Article page identification.}
+\label{tab:article_id}
+\begin{tabular}{lr}
+\toprule
+\textbf{Filter} & \textbf{Pages} \\
+\midrule
+Candidate pages (Article or NewsArticle declared) & 356{,}132 \\
+Signal 1: single entity per page & 342{,}808 \\
+Signal 2: subject URL matches page URL & 5{,}613 \\
+Signal 3: has headline + date/author/body & 354{,}084 \\
+Signal 4: URL path looks like article & 354{,}740 \\
+\midrule
+Strict intersection (all 4 signals) & 5{,}610 \\
+\textbf{Lenient intersection (signals 1+3)} & \textbf{340{,}789} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{Article and NewsArticle statistics on 340{,}789 lenient article pages.}
+\label{tab:articles}
+\begin{tabular}{lrrrr}
+\toprule
+\textbf{Type} & \textbf{Entities} & \textbf{AvP} & \textbf{Avail.\ props} & \textbf{No-prop \%} \\
+\midrule
+Article     & 158{,}695 & 20.1 & 136 & 0.0\% \\
+NewsArticle & 178{,}854 & 12.6 & 141 & 0.0\% \\
+Overlap     &      81   & -- & -- & -- \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Beyond overall annotation depth, we examine four Schema.org properties with
+direct semantic relevance to fact-checking: \texttt{articleBody} (full article
+text), \texttt{about} (the
+entity the article reports on), \texttt{citation} (external sources cited by the author, supporting
+source verification), and \texttt{mentions} (named entities referenced in the
+text, which if populated would provide structured named-entity annotations
+without requiring additional extraction from raw text).
+Table~\ref{tab:article_props} reports their actual fill rates.
+
+
+
+\begin{table}[H]
+\centering
+\caption{Content property fill rates on article pages.}
+\label{tab:article_props}
+\begin{tabular}{lrrrl}
+\toprule
+\textbf{Property} & \textbf{Article} & \textbf{NewsArticle} & \textbf{Combined} & \textbf{Note} \\
+\midrule
+\texttt{articleBody} & 32.2\%  & 61.6\% & 47.8\% & full text \\
+\texttt{about}       & 39.6\%  &  1.3\% & 19.3\% & topic entity \\
+\texttt{citation}    & 23.3\%  &  0.3\% & 11.1\% & references \\
+\texttt{mentions}    & $<$0.1\% & $<$0.1\% & $<$0.1\% & named entities \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\noindent\textit{NewsArticle detail (178{,}854 entities):}
+\texttt{articleBody} 110{,}241 (61.6\%);
+\texttt{about} 2{,}286 (1.3\%);
+\texttt{citation} 448 (0.3\%);
+\texttt{mentions} 27 ($<$0.1\%).
+
+\paragraph{Structure of \texttt{about} targets.}
+Of the 65{,}146 Article and NewsArticle entities with an \texttt{about} link
+(19.3\%), the linked targets comprise 63{,}411 distinct entities across 9 types.
+Among those entities:
+\begin{itemize}[leftmargin=1.5em]
+  \item \texttt{Thing}: 62{,}955 (99.3\%): bare entities with no further
+        structured properties.
+  \item \texttt{SportsTeam}: 190 (0.3\%)
+  \item \texttt{SportsEvent}: 180 (0.3\%)
+  \item \texttt{Event}: 58 (0.1\%)
+  \item \texttt{GovernmentOrganization}: 12; \texttt{Person}: 8;
+        \texttt{EducationalOrganization}: 4; \texttt{Country}: 2;
+        \texttt{Organization}: 2
+\end{itemize}
+Sample \texttt{name} values from \texttt{Thing} targets reveal that these are
+not structured entities but free-text topic strings, typically comma-separated
+keyword lists, providing
+no usable structure.
+
+
+\paragraph{Characteristic property sets.}
+To understand \emph{what} is annotated on these pages and how richly, we
+examine the characteristic property sets: distinct combinations of Schema.org
+properties assigned to entities.
+Table~\ref{tab:charsets_all} shows the top-3 most common sets for all 20
+entity types on article pages: \texttt{Article}, \texttt{NewsArticle},
+and the 18 co-occurring types catalogued in Table~\ref{tab:cooccur}.
+
+\begin{table}[H]
+\centering
+\caption{Co-occurring entity types on Article/NewsArticle pages
+(base: 340{,}789 lenient article pages).}
+\label{tab:cooccur}
+\begin{tabular}{lrr}
+\toprule
+\textbf{Type} & \textbf{Pages} & \textbf{\% of article pages} \\
+\midrule
+ImageObject              & 340{,}654 & 100.0\% \\
+Organization             & 297{,}085 &  87.2\% \\
+WebPage                  & 204{,}916 &  60.1\% \\
+NewsArticle              & 182{,}175 &  53.5\% \\
+PostalAddress            & 156{,}314 &  45.9\% \\
+NewsMediaOrganization    & 156{,}825 &  46.0\% \\
+Article                  & 158{,}695 &  46.6\% \\
+ListItem                 & 168{,}463 &  49.4\% \\
+BreadcrumbList           & 168{,}208 &  49.4\% \\
+Person                   & 137{,}195 &  40.3\% \\
+WebSite                  & 112{,}988 &  33.2\% \\
+AggregateRating          &  96{,}115 &  28.2\% \\
+Country                  &  95{,}034 &  27.9\% \\
+Thing                    &  78{,}889 &  23.1\% \\
+SpeakableSpecification   &  76{,}483 &  22.4\% \\
+CreativeWork             &  50{,}186 &  14.7\% \\
+AdministrativeArea       &  48{,}074 &  14.1\% \\
+ContactPoint             &  44{,}991 &  13.2\% \\
+WebPageElement           &  34{,}852 &  10.2\% \\
+Product                  &  32{,}403 &   9.5\% \\
+Place                    &  27{,}458 &   8.1\% \\
+VideoObject              &  22{,}211 &   6.5\% \\
+CollectionPage           &  12{,}836 &   3.8\% \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\setlength{\tabcolsep}{4pt}
+\begin{longtable}{rrrp{9cm}}
+\caption{Top-3 characteristic property sets for all entity types on article
+  pages (340{,}789 lenient article pages).
+  \% = fraction of entities of that type within the article-page corpus.}
+\label{tab:charsets_all}\\
+\toprule
+\multicolumn{1}{c}{\textbf{\#}} & \textbf{Entities} & \textbf{\%} & \textbf{Properties} \\
+\midrule
+\endfirsthead
+\multicolumn{4}{c}{\tablename~\ref{tab:charsets_all} (continued)}\\
+\toprule
+\multicolumn{1}{c}{\textbf{\#}} & \textbf{Entities} & \textbf{\%} & \textbf{Properties} \\
+\midrule
+\endhead
+\midrule
+\multicolumn{4}{r}{\small\itshape continued\ldots}\\
+\endfoot
+\bottomrule
+\endlastfoot
+%
+\multicolumn{4}{l}{\textit{Article} (158{,}695 entities)} \\
+\midrule
+1 & 45{,}131 & 28.4 & \scriptsize author, dateModified, datePublished, headline, image, mainEntity, name, publisher, sameAs, url \\[2pt]
+2 & 17{,}393 & 11.0 & \scriptsize author, dateModified, datePublished, headline, mainEntity, name, publisher, sameAs, url \\[2pt]
+3 & 15{,}905 & 10.0 & \scriptsize alternativeHeadline, associatedMedia, author, copyrightHolder, copyrightYear, creator, dateCreated, dateModified, datePublished, description, discussionUrl, genre, headline, image, inLanguage, keywords, license, mainEntityOfPage, name, publisher, publishingPrinciples, sourceOrganization, speakable, thumbnailUrl, url \\[4pt]
+%
+\multicolumn{4}{l}{\textit{NewsArticle} (178{,}854 entities)} \\
+\midrule
+1 & 40{,}755 & 22.8 & \scriptsize author, dateModified, datePublished, headline, image, mainEntityOfPage, publisher \\[2pt]
+2 & 18{,}450 & 10.3 & \scriptsize articleBody, articleSection, author, dateModified, datePublished, description, hasPart, headline, image, inLanguage, isAccessibleForFree, isPartOf, keywords, mainEntityOfPage, publisher, url \\[2pt]
+3 & 17{,}548 &  9.8 & \scriptsize articleBody, articleSection, author, dateCreated, dateModified, datePublished, description, headline, image, keywords, locationCreated, mainEntityOfPage, publisher, publishingPrinciples \\[4pt]
+%
+\multicolumn{4}{l}{\textit{ImageObject} (1{,}561{,}640 entities)} \\
+\midrule
+1 & 767{,}153 & 49.1 & \scriptsize contentUrl, height, url, width \\[2pt]
+2 & 392{,}827 & 25.2 & \scriptsize height, url, width \\[2pt]
+3 & 189{,}519 & 12.1 & \scriptsize contentUrl, height, representativeOfPage, url, width \\[4pt]
+%
+\multicolumn{4}{l}{\textit{Organization} (859{,}726 entities)} \\
+\midrule
+1 & 294{,}265 & 34.2 & \scriptsize address, aggregateRating, award, email, image, legalName, logo, name, sameAs, telephone, url \\[2pt]
+2 & 162{,}374 & 18.9 & \scriptsize name \\[2pt]
+3 & 158{,}699 & 18.5 & \scriptsize address, aggregateRating, award, email, legalName, logo, name, sameAs, telephone, url \\[4pt]
+%
+\multicolumn{4}{l}{\textit{ListItem} (568{,}698 entities)} \\
+\midrule
+1 & 284{,}856 & 50.1 & \scriptsize item, name, position, url \\[2pt]
+2 & 147{,}397 & 25.9 & \scriptsize item, position \\[2pt]
+3 & 130{,}009 & 22.9 & \scriptsize item, name, position \\[4pt]
+%
+\multicolumn{4}{l}{\textit{PostalAddress} (540{,}246 entities)} \\
+\midrule
+1 & 470{,}697 & 87.1 & \scriptsize addressCountry, addressLocality, addressRegion, postalCode, streetAddress \\[2pt]
+2 &  32{,}460 &  6.0 & \scriptsize addressCountry, addressLocality, postalCode, streetAddress \\[2pt]
+3 &  17{,}007 &  3.1 & \scriptsize \textit{(no properties)} \\[4pt]
+%
+\multicolumn{4}{l}{\textit{AggregateRating} (454{,}443 entities)} \\
+\midrule
+1 & 453{,}015 & 99.7 & \scriptsize bestRating, ratingCount, ratingValue, worstRating \\[2pt]
+2 &   1{,}369 &  0.3 & \scriptsize bestRating, ratingCount, ratingValue \\[2pt]
+3 &        45 & $<$0.1 & \scriptsize ratingCount, ratingValue \\[4pt]
+%
+\multicolumn{4}{l}{\textit{Country} (453{,}044 entities)} \\
+\midrule
+1 & 453{,}039 & 100.0 & \scriptsize name \\[2pt]
+2 &         2 & $<$0.1 & \scriptsize description, name, url \\[2pt]
+3 &         1 & $<$0.1 & \scriptsize item, name, position \\[4pt]
+%
+\multicolumn{4}{l}{\textit{Person} (210{,}433 entities)} \\
+\midrule
+1 &  81{,}050 & 38.5 & \scriptsize name, url \\[2pt]
+2 &  75{,}654 & 36.0 & \scriptsize name \\[2pt]
+3 &  16{,}444 &  7.8 & \scriptsize image, jobTitle, name, sameAs, url \\[4pt]
+%
+\multicolumn{4}{l}{\textit{WebPage} (204{,}916 entities)} \\
+\midrule
+1 &  88{,}240 & 43.1 & \scriptsize \textit{(no properties)} \\[2pt]
+2 &  31{,}043 & 15.1 & \scriptsize name \\[2pt]
+3 &  27{,}487 & 13.4 & \scriptsize name, speakable, url \\[4pt]
+%
+\multicolumn{4}{l}{\textit{BreadcrumbList} (170{,}358 entities)} \\
+\midrule
+1 & 169{,}694 & 99.6 & \scriptsize itemListElement \\[2pt]
+2 &       664 &  0.4 & \scriptsize itemListElement, name \\[4pt]
+%
+\multicolumn{4}{l}{\textit{NewsMediaOrganization} (156{,}825 entities)} \\
+\midrule
+1 &  53{,}871 & 34.4 & \scriptsize logo, name \\[2pt]
+2 &  37{,}564 & 24.0 & \scriptsize logo, name, url \\[2pt]
+3 &  30{,}114 & 19.2 & \scriptsize foundingDate, logo, name, sameAs, url \\[4pt]
+%
+\multicolumn{4}{l}{\textit{WebSite} (102{,}011 entities)} \\
+\midrule
+1 &  94{,}955 & 93.1 & \scriptsize description, image, name, url \\[2pt]
+2 &   3{,}843 &  3.8 & \scriptsize potentialAction, url \\[2pt]
+3 &   3{,}179 &  3.1 & \scriptsize name, url \\[4pt]
+%
+\multicolumn{4}{l}{\textit{Thing} (79{,}127 entities)} \\
+\midrule
+1 &  75{,}242 & 95.1 & \scriptsize name \\[2pt]
+2 &   3{,}756 &  4.7 & \scriptsize name, url \\[2pt]
+3 &       124 &  0.2 & \scriptsize name, sameAs \\[4pt]
+%
+\multicolumn{4}{l}{\textit{SpeakableSpecification} (76{,}557 entities)} \\
+\midrule
+1 &  44{,}072 & 57.6 & \scriptsize cssSelector \\[2pt]
+2 &  32{,}424 & 42.4 & \scriptsize xpath \\[2pt]
+3 &        46 &  0.1 & \scriptsize cssSelector, xPath \\[4pt]
+%
+\multicolumn{4}{l}{\textit{AdministrativeArea} (57{,}499 entities)} \\
+\midrule
+1 &  57{,}493 & 100.0 & \scriptsize name \\[2pt]
+2 &         6 & $<$0.1 & \scriptsize description, name, url \\[4pt]
+%
+\multicolumn{4}{l}{\textit{ContactPoint} (54{,}341 entities)} \\
+\midrule
+1 &  29{,}616 & 54.5 & \scriptsize areaServed, availableLanguage, contactType, email, telephone \\[2pt]
+2 &  17{,}366 & 32.0 & \scriptsize contactType, telephone \\[2pt]
+3 &   6{,}522 & 12.0 & \scriptsize contactType, email \\[4pt]
+%
+\multicolumn{4}{l}{\textit{CreativeWork} (51{,}331 entities)} \\
+\midrule
+1 &  31{,}539 & 61.4 & \scriptsize name, productID \\[2pt]
+2 &  16{,}019 & 31.2 & \scriptsize name, url \\[2pt]
+3 &   1{,}707 &  3.3 & \scriptsize author, datePublished, keywords \\[4pt]
+%
+\multicolumn{4}{l}{\textit{WebPageElement} (34{,}852 entities)} \\
+\midrule
+1 &  34{,}852 & 100.0 & \scriptsize cssSelector, isAccessibleForFree \\[4pt]
+%
+\multicolumn{4}{l}{\textit{Product} (32{,}627 entities)} \\
+\midrule
+1 &  31{,}539 & 96.7 & \scriptsize name, productID \\[2pt]
+2 &       551 &  1.7 & \scriptsize Name, brand, description, image, mpn, productID, sku \\[2pt]
+3 &       241 &  0.7 & \scriptsize name \\
+\end{longtable}
+\setlength{\tabcolsep}{6pt}
+
+\noindent
+Across all 20 types, annotation follows highly regular, publisher-driven
+templates, and the dominant property sets are oriented towards publication
+metadata rather than semantic content.
+\texttt{Article} entities are the richest in the corpus (AvP 20.1): all
+characteristic sets share a stable publication-metadata core
+(\texttt{author}, \texttt{datePublished}, \texttt{headline}, \texttt{image},
+\texttt{publisher}, \texttt{url}), and richer sets extend this with editorial
+detail (\texttt{genre}, \texttt{keywords}, \texttt{license},
+\texttt{description}) and structural references such as \texttt{articleBody}
+and \texttt{citation}, though even these remain metadata-adjacent rather than
+content-grounding.
+\texttt{NewsArticle} entities are more compact (AvP 12.6): the dominant set
+(22.8\%) encodes just 7 metadata properties, and richer sets add paywall
+signals (\texttt{isAccessibleForFree}, \texttt{isPartOf}, \texttt{hasPart})
+and location metadata (\texttt{locationCreated}).
+The co-occurring types reinforce the same template-driven pattern:
+\texttt{BreadcrumbList} and \texttt{AggregateRating} are effectively
+single-set types (99.6\% and 99.7\% respectively); geographical references
+(\texttt{Country}, \texttt{AdministrativeArea}) converge at over 99\% on
+the single-property set \{\texttt{name}\}; \texttt{ImageObject} (present on
+virtually every article page) is annotated almost exclusively with technical
+dimensions (\texttt{contentUrl}, \texttt{height}, \texttt{url},
+\texttt{width}), with no caption, rights, or authorship metadata;
+\texttt{WebPage} is the sparsest type, with 43.1\% of instances carrying no
+Schema.org properties at all; and \texttt{Person} entities are thin, with
+74.5\% annotated using only \{\texttt{name}\} or \{\texttt{name},
+\texttt{url}\}.
+Against this backdrop, the content properties examined in
+Table~\ref{tab:article_props} are almost entirely absent: \texttt{mentions}
+fills at effectively 0\%, \texttt{about} at 19.3\% with 99.3\% of its
+targets being bare \texttt{Thing} nodes with no further structured
+properties, and \texttt{citation} at 11.1\%.
+Structured data on article pages therefore describes publication
+infrastructure rather than semantic content, motivating the use of LLMs to
+extract the richer, content-grounded annotations that Schema.org publishers
+currently omit.
+
+% =============================================================================
+\section{ClaimReview Analysis}
+\label{sec:claimreview}
+% =============================================================================
+
+This section reports on the full WDC 2024-12 ClaimReview class-specific
+subset (not restricted to the target domain list), enabling a broad assessment
+of how fact-checking organisations use Schema.org~\citep{schemaorg_claimreview}.
+%Related work on knowledge graphs derived from ClaimReview data includes \citep{tchechmedjiev2019claimskg}.
+
+\subsection{Dataset}
+
+\begin{table}[H]
+\centering
+\caption{ClaimReview dataset overview.}
+\label{tab:cr_dataset}
+\begin{tabular}{lr}
+\toprule
+\textbf{Metric} & \textbf{Value} \\
+\midrule
+Source file (\texttt{part\_0.gz}) & 57.6 MB compressed \\
+N-Quad lines parsed & 3{,}919{,}703 \\
+Parse errors & 2 \\
+All entities parsed & 787{,}354 \\
+\textbf{ClaimReview entities} & \textbf{60{,}313} \\
+Registered domains & 318 \\
+\midrule
+\multicolumn{2}{l}{\small\itshape Schema.org vocabulary for ClaimReview:} \\
+Properties defined for ClaimReview & 139 \\
+Properties actually used & 41 (29.5\%) \\
+Properties never used & 98 (70.5\%) \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Syntactic Validity}
+
+\begin{table}[H]
+\centering
+\caption{ClaimReview syntactic quality metrics.}
+\label{tab:cr_quality}
+\begin{tabular}{lrr}
+\toprule
+\textbf{Metric} & \textbf{Value} & \textbf{\%} \\
+\midrule
+Namespace correctness  & 316{,}261 / 316{,}261 & 100.00\% \\
+Type validity          &  60{,}539 /  60{,}540 & 100.00\% \\
+Property validity      & 255{,}057 / 255{,}721 & 99.74\% \\
+Range violations       &   5{,}858 / 258{,}093 &  2.27\% \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+ClaimReview is significantly cleaner than the full-corpus average on all
+four metrics.  The single type invalidity is \texttt{ExplainerNewsArticle}
+(a non-standard extension type used by one publisher).  Range violations are
+dominated by non-ISO date formats in \texttt{datePublished}
+(4{,}990 cases; e.g., \texttt{"10/08/2023"}, \texttt{"3 Nov. 2018"}) and
+strings in \texttt{potentialAction} where an \texttt{Action} node is expected
+(488 cases).
+
+\subsection{Property Coverage}
+
+\begin{table}[H]
+\centering
+\caption{Top 20 used ClaimReview properties, sorted by entity density
+  (density = fraction of ClaimReview entities that populate the property).}
+
+\label{tab:cr_coverage}
+\begin{tabular}{lrr}
+\toprule
+\textbf{Property} & \textbf{Entities using} & \textbf{Density \%} \\
+\midrule
+url                  & 36{,}466 & 60.46\% \\
+author               & 36{,}274 & 60.14\% \\
+claimReviewed        & 36{,}020 & 59.72\% \\
+reviewRating         & 35{,}766 & 59.30\% \\
+itemReviewed         & 33{,}730 & 55.92\% \\
+datePublished        & 32{,}992 & 54.70\% \\
+dateModified         &  6{,}813 & 11.30\% \\
+image                &  6{,}306 & 10.46\% \\
+publisher            &  5{,}649 &  9.37\% \\
+mainEntityOfPage     &  5{,}278 &  8.75\% \\
+name                 &  5{,}049 &  8.37\% \\
+description          &  4{,}949 &  8.21\% \\
+keywords             &  1{,}366 &  2.26\% \\
+inLanguage           &  1{,}345 &  2.23\% \\
+headline             &  1{,}291 &  2.14\% \\
+reviewBody           &  1{,}239 &  2.05\% \\
+sdPublisher          &    879   &  1.46\% \\
+isPartOf             &    735   &  1.22\% \\
+potentialAction      &    718   &  1.19\% \\
+dateCreated          &    385   &  0.64\% \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+
+
+Approximately 40\% of ClaimReview entities lack three core semantic
+properties: \texttt{claimReviewed}, \texttt{reviewRating}, \texttt{itemReviewed}.
+The \texttt{vpravda.ru} cluster (Section~\ref{sec:cr:domains}) accounts for
+most of this gap.
+
+\subsection{Annotation Richness (AvP)}
+
+\begin{table}[H]
+\centering
+\caption{ClaimReview AvP distribution.}
+\label{tab:cr_avp}
+\begin{tabular}{rrr}
+\toprule
+\textbf{Properties} & \textbf{Entities} & \textbf{\%} \\
+\midrule
+0  & 22{,}896 & 38.0\% \\
+1  &    165   &  0.3\% \\
+2  &     14   &  0.0\% \\
+3  &    161   &  0.3\% \\
+4  &    976   &  1.6\% \\
+5  &  5{,}587 &  9.3\% \\
+6  & 17{,}220 & 28.5\% \\
+7  &  5{,}474 &  9.1\% \\
+8  &  1{,}524 &  2.5\% \\
+9  &    492   &  0.8\% \\
+10 &  4{,}359 &  7.2\% \\
+11 &    475   &  0.8\% \\
+15 &    633   &  1.0\% \\
+20+ &   269   &  0.4\% \\
+\midrule
+\textbf{Mean 4.24} & \multicolumn{2}{l}{Median 6.0 \quad SD 3.79 \quad Max 24} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Nesting Depth}
+
+\begin{table}[H]
+\centering
+\caption{ClaimReview nesting depth distribution.}
+\label{tab:cr_depth}
+\begin{tabular}{lrr}
+\toprule
+\textbf{Depth} & \textbf{Entities} & \textbf{\%} \\
+\midrule
+0 & 23{,}552 & 39.0\% \\
+1 &  1{,}843 &  3.1\% \\
+2 & 24{,}635 & 40.8\% \\
+3 &  1{,}454 &  2.4\% \\
+4 &  7{,}583 & 12.6\% \\
+5 &    845   &  1.4\% \\
+6 &    301   &  0.5\% \\
+7 &      3   &  0.0\% \\
+8 &     97   &  0.2\% \\
+\midrule
+\textbf{Mean} & \multicolumn{2}{l}{1.54 ($\sigma = 1.47$) \quad Median 2.0 \quad Max 8} \\
+\midrule
+Flat (depth = 0) & 23{,}552 & 39.0\% \\
+Nested (depth $\geq 1$) & 36{,}761 & 61.0\% \\
+Deep (depth $\geq 3$) & 10{,}283 & 17.0\% \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{Cross-reference density for ClaimReview entities.}
+\label{tab:cr_xref}
+\begin{tabular}{lr}
+\toprule
+\textbf{Metric} & \textbf{Value} \\
+\midrule
+Total cross-refs             & 143{,}231 \\
+Avg refs per entity          & 2.37 \\
+Blank-node refs              & 115{,}168 (80.4\%) \\
+URI refs                     &  28{,}063 (19.6\%) \\
+\midrule
+\multicolumn{2}{l}{\small\itshape Types of directly referenced entities:} \\
+Organization  & 37{,}016 \\
+Rating        & 35{,}115 \\
+WebPage       & 21{,}994 \\
+Claim         & 19{,}824 \\
+CreativeWork  & 13{,}961 \\
+ImageObject   &  5{,}704 \\
+Person        &  5{,}566 \\
+(untyped)     &  1{,}706 \\
+LocalBusiness &  1{,}256 \\
+ItemPage      &    946   \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Properties that always link to structured entities (100\% struct):
+\texttt{itemReviewed}, \texttt{isPartOf}, \texttt{correction}, \texttt{video},
+\texttt{sdPublisher}, \texttt{article}, \texttt{copyrightHolder},
+\texttt{locationCreated}, \texttt{mentions}, \texttt{author}.
+
+\subsection{Characteristic Property Sets}
+
+\begin{table}[H]
+\centering
+\caption{Top 15 ClaimReview characteristic property sets (105 unique sets total).}
+\label{tab:cr_charsets}
+\begin{tabular}{rlL{9cm}}
+\toprule
+\textbf{\#} & \textbf{n (\%)} & \textbf{Property set} \\
+\midrule
+ 1 & 22{,}896 (38.0\%) & \{none, only \texttt{rdf:type}\} \\
+ 2 & 16{,}737 (27.8\%) & \{author, claimReviewed, datePublished, itemReviewed, reviewRating, url\} \\
+ 3 &  3{,}885 (6.4\%)  & \{author, claimReviewed, dateModified, datePublished, image, itemReviewed, mainEntityOfPage, publisher, reviewRating, url\} \\
+ 4 &  3{,}335 (5.5\%)  & \{author, claimReviewed, itemReviewed, reviewRating, url\} \\
+ 5 &  2{,}329 (3.9\%)  & \{author, claimReviewed, datePublished, itemReviewed, name, reviewRating, url\} \\
+ 6 &  1{,}719 (2.9\%)  & \{author, claimReviewed, datePublished, description, itemReviewed, reviewRating, url\} \\
+ 7 &  1{,}091 (1.8\%)  & \{author, claimReviewed, datePublished, reviewRating, url\} \\
+ 8 &    963 (1.6\%)    & \{author, claimReviewed, datePublished, description, itemReviewed, name, reviewRating, url\} \\
+ 9 &    878 (1.5\%)    & \{author, claimReviewed, datePublished, itemReviewed, reviewRating, sdPublisher, url\} \\
+10 &    626 (1.0\%)    & \{author, claimReviewed, dateModified, datePublished, description, headline, image, inLanguage, itemReviewed, keywords, mainEntityOfPage, name, publisher, reviewRating, url\} \\
+11 &    488 (0.8\%)    & \{description, image, name, potentialAction, url\} \\
+12 &    427 (0.7\%)    & \{author, claimReviewed, dateModified, datePublished, description, itemReviewed, reviewBody, reviewRating, url\} \\
+13 &    386 (0.6\%)    & \{author, claimReviewed, dateModified, datePublished, description, itemReviewed, keywords, reviewBody, reviewRating, url\} \\
+14 &    368 (0.6\%)    & \{author, claimReviewed, dateCreated, dateModified, datePublished, itemReviewed, reviewRating, url\} \\
+15 &    340 (0.6\%)    & \{author, claimReviewed, datePublished, image, inLanguage, isPartOf, itemReviewed, mainEntityOfPage, publisher, reviewRating, url\} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Set \#1 (38\%) is entirely the \texttt{vpravda.ru} cluster: entities carry only
+a \texttt{ClaimReview} type declaration with no semantic properties and are
+effectively noise. 
+
+\subsection{Structure of \texttt{itemReviewed}}
+
+\begin{table}[H]
+\centering
+\caption{Types of entities linked via \texttt{itemReviewed} (33{,}773 entities).}
+\label{tab:ir_types}
+\begin{tabular}{lrr}
+\toprule
+\textbf{Type} & \textbf{Count} & \textbf{\%} \\
+\midrule
+Claim        & 19{,}824 & 58.7\% \\
+CreativeWork & 13{,}930 & 41.2\% \\
+creativeWork (invalid capitalisation) &  17 & 0.1\% \\
+NewsArticle  &       2  & 0.0\% \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{Top 10 characteristic property sets for \texttt{itemReviewed} targets.}
+\label{tab:ir_charsets}
+\begin{tabular}{rlL{8.5cm}}
+\toprule
+\# & n (\%) & Property set \\
+\midrule
+ 1 & 12{,}832 (38.0\%) & \{appearance, author, datePublished\} \\
+ 2 &  7{,}156 (21.2\%) & \{author, datePublished\} \\
+ 3 &  3{,}885 (11.5\%) & \{author, dateModified, datePublished, name\} \\
+ 4 &  2{,}532 (7.5\%)  & \{author, datePublished, url\} \\
+ 5 &  1{,}719 (5.1\%)  & \{author, datePublished, keywords\} \\
+ 6 &  1{,}007 (3.0\%)  & \{author, datePublished, image, name\} \\
+ 7 &    736 (2.2\%)    & \{appearance, author, datePublished, firstAppearance\} \\
+ 8 &    647 (1.9\%)    & \{author\} \\
+ 9 &    644 (1.9\%)    & \{datePublished\} \\
+10 &    618 (1.8\%)    & \{author, dateModified, datePublished, image, mainEntityOfPage, name\} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+
+\subsection{Domain-Level Annotation Quality}
+\label{sec:cr:domains}
+
+\begin{table}[H]
+\centering
+\caption{Domain-level ClaimReview annotation quality (top 20 by entity count).
+  \textbf{\%}: share of all 60{,}313 ClaimReview entities;
+  \textbf{fill\%}: avg fraction of the 139 defined ClaimReview properties
+  populated per entity (overall avg: 3.1\%).}
+\label{tab:cr_domains}
+\small
+\begin{tabular}{L{3.2cm} R{1.2cm} R{1.0cm} R{1.2cm}}
+\toprule
+\textbf{Domain} & \textbf{n} & \textbf{\%} & \textbf{fill\%} \\
+\midrule
+vpravda.ru         & 22{,}891 & 38.0\% & 0.0\% \\
+afp.com            &  2{,}918 &  4.8\% & 4.7\% \\
+co.th              &  2{,}337 &  3.9\% & 4.3\% \\
+boomlive.in        &  2{,}152 &  3.6\% & 7.2\% \\
+leadstories.com    &  1{,}720 &  2.9\% & 5.0\% \\
+org.pl             &  1{,}667 &  2.8\% & 4.3\% \\
+healthday.com      &  1{,}330 &  2.2\% & 4.3\% \\
+provereno.media    &  1{,}255 &  2.1\% & 4.3\% \\
+types-cars.com     &  1{,}157 &  1.9\% & 4.3\% \\
+vishvasnews.com    &  1{,}000 &  1.7\% & 4.3\% \\
+misbar.com         &    963   &  1.6\% & 5.8\% \\
+com.br             &    894   &  1.5\% & 4.7\% \\
+fullfact.org       &    855   &  1.4\% & 6.8\% \\
+politifact.com     &    787   &  1.3\% & 4.3\% \\
+maldita.es         &    769   &  1.3\% & 3.6\% \\
+tempo.co           &    629   &  1.0\% & 3.6\% \\
+truthorfiction.com &    609   &  1.0\% & 3.6\% \\
+correctiv.org      &    577   &  1.0\% & 4.3\% \\
+newsmeter.in       &    567   &  0.9\% & 7.2\% \\
+facta.news         &    567   &  0.9\% & 4.3\% \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The corpus-wide average fill rate is \textbf{3.1\%} across all 60{,}313
+ClaimReview entities, driven almost entirely downward by \textbf{vpravda.ru}
+(Volgograd regional newspaper, Russia), which contributes 38\% of all entities
+with a fill rate of 0\%.
+Excluding this cluster, established fact-checking organisations reach fill
+rates of 3.6--7.2\%, with \texttt{boomlive.in} (7.2\%) and
+\texttt{fullfact.org} (6.8\%) annotating most richly relative to the
+defined vocabulary.
+
+
+\subsection{Example Entities}
+
+\paragraph{Depth-2 entity (canonical ClaimReview structure).}
+\begin{quote}\small
+\texttt{types: ClaimReview}\\
+\texttt{graph: https://pagellapolitica.it/fact-checking/...}\\
+\texttt{author} $\to$ \texttt{[Organization]\{name="Pagella Politica", url=...\}}\\
+\texttt{claimReviewed} = ``Ecco i costi della regolarizzazione...''\\
+\texttt{itemReviewed} $\to$ \texttt{[Claim]\{appearance=..., author=$\to$[Person], datePublished="2020-06-4"\}}\\
+\texttt{reviewRating} $\to$ \texttt{[Rating]\{alternateName="Ni'"\}}\\
+\texttt{url} = \texttt{<https://pagellapolitica.it/...>}
+\end{quote}
+
+\paragraph{Flat entity (depth~0, vpravda.ru noise).}
+\begin{quote}\small
+\texttt{types: ClaimReview}\\
+\texttt{graph: https://vpravda.ru/1-maya/}\\
+(no schema.org properties)
+\end{quote}
+
+\paragraph{Flat entity (depth~0, misapplied markup).}
+\begin{quote}\small
+\texttt{types: ClaimReview}\\
+\texttt{graph: https://www.swico.ch/de/}\\
+\texttt{claimReviewed} = ``Mitgliederfirmen vom Start-Up bis zum internationalen Konzern...''\\
+\texttt{reviewRating} = \texttt{"700"@de} \quad \small(numeric membership count used as verdict)\\
+\texttt{url} = \texttt{<https://www.swico.ch/de/...>}
+\end{quote}
+
+% =============================================================================
+\section{Key Findings}
+\label{sec:findings}
+% =============================================================================
+
+\begin{enumerate}[leftmargin=1.5em]
+
+\item \textbf{High syntactic quality, low semantic richness.}
+  Namespace correctness (99.9\%) and type validity (99.76\%) confirm that
+  publishers generally deploy Schema.org identifiers correctly.
+  Yet corpus-wide mean fill rate is just 7.4\% and mean AvP is 3.7
+  (median 3.0): the macro-averaged property coverage across all 137 types
+  is $5.75\%$ ($\sigma = 4.64\%$).  Publishers get the identifiers right
+  but leave the vast majority of applicable vocabulary fields empty.
+
+\item \textbf{Metadata, not content.}
+  On article pages, structured data describes publication infrastructure
+  (author, publisher, image, breadcrumbs) rather than semantic content.
+  The properties most relevant to knowledge-graph grounding are almost
+  entirely absent: \texttt{mentions} fills at effectively 0\% across all
+  340{,}789 lenient article pages; \texttt{about} reaches only 19.3\%
+  combined (39.6\% on \texttt{Article}, 1.3\% on \texttt{NewsArticle}),
+  and 99.3\% of those targets are bare \texttt{Thing} nodes carrying only
+  a free-text name string with no further structured properties;
+  \texttt{citation} appears on 11.1\% of pages.
+  These systematic gaps are the primary motivation for LLM-based enrichment.
+
+\item \textbf{Claim entities are structurally hollow.}
+  The \texttt{Claim} entity is the direct semantic payload of a
+  fact-check---the structured representation of what claim was reviewed.
+  Yet it has the lowest fill rate of any major type: 1.98\% (AvP 2.62 out
+  of 132 defined properties).  Its dominant property set,
+  \{appearance, author, datePublished\} (63.2\% of all \texttt{Claim}
+  entities), records provenance but not the claim text itself; the claim
+  statement is instead embedded in the parent \texttt{ClaimReview}'s
+  \texttt{claimReviewed} string, which is itself absent from 40.3\% of
+  all ClaimReview entities.
+
+\item \textbf{ClaimReview quality is bimodal.}
+  Established fact-checking organisations produce clean, deeply nested
+  records: excluding the \texttt{vpravda.ru} noise cluster, the six core
+  semantic properties (\texttt{author}, \texttt{claimReviewed},
+  \texttt{datePublished}, \texttt{itemReviewed}, \texttt{reviewRating},
+  \texttt{url}) are populated on approximately 96\% of remaining entities,
+  and median nesting depth is 2.  In stark contrast, \texttt{vpravda.ru}
+  inflates entity counts by 38\% while contributing zero semantic signal:
+  every entity carries only an \texttt{rdf:type} declaration.  Even among
+  the best-annotated organisations, fill rates peak at 7.2\%
+  (\texttt{boomlive.in}) and 6.8\% (\texttt{fullfact.org}),
+  indicating substantial room for automated enrichment.
+
+\item \textbf{Range violations concentrate in two structural patterns.}
+  Of the 11.0\% range-violation rate (6.05M violations from 55.1M checked
+  assertions), 54\% are pixel integers in \texttt{height}/\texttt{width}
+  where Schema.org expects a \texttt{QuantitativeValue} node, and most of
+  the remainder are non-ISO date strings (e.g.\ \texttt{"Sep 14, 2024"},
+  \texttt{"10/08/2023"}).  Neither is semantically critical for the
+  journalism use case, but both complicate automated parsing.
+
+\item \textbf{Verdict labels are uncontrolled.}
+  \texttt{reviewRating.alternateName} values appear in multiple languages,
+  scripts, and granularity levels with no standardised controlled vocabulary
+  enforced by Schema.org.  Cross-organisation comparison or aggregation
+  requires normalisation to a shared verdict taxonomy.
+
+\item \textbf{Schema.org vocabulary vastly underutilised.}
+  Only 41 of the 139 properties defined for \texttt{ClaimReview} (29.5\%)
+  are ever used by any publisher.  Rich vocabulary items such as
+  \texttt{NewsArticle.mentions}, \texttt{Article.about},
+  \texttt{ClaimReview.associatedClaimReview}, and
+  \texttt{Claim.appearance} are left entirely or almost entirely
+  unexploited despite being directly relevant to fact-checking.
+
+\item \textbf{Template-driven, publisher-uniform annotation.}
+  Characteristic property sets are highly concentrated: the single most
+  frequent set accounts for 28.4\% of \texttt{Article} entities, 22.8\%
+  of \texttt{NewsArticle} entities, and 27.8\% of non-noise
+  \texttt{ClaimReview} entities.  This uniformity reflects CMS-generated
+  rather than editorially curated Schema.org output, meaning that
+  completeness gaps are structural and cannot be closed by publisher
+  incentives alone.
+
+\end{enumerate}
+
+% =============================================================================
+\section{Implications for LLM-Based Triple Extraction}
+\label{sec:implications}
+% =============================================================================
+
+The gap between what Schema.org publishers annotate and what would be
+semantically useful for knowledge-graph grounding motivates using LLMs to
+\emph{generate} structured annotations:
+
+\begin{itemize}[leftmargin=1.5em]
+  \item \texttt{about}, \texttt{mentions}, and \texttt{keywords} are
+        systematically underpopulated; LLMs could populate these from
+        article text.
+  \item \texttt{ClaimReview.itemReviewed.author} (who made the claim) is
+        present in only 53.7\% of entities with \texttt{itemReviewed}, a
+        natural extraction target.
+  \item Verdict labels (\texttt{reviewRating.alternateName}) are multilingual
+        free-text; LLM classification could normalise them.
+  \item The 39.6\% of Article entities that do have an \texttt{about} link
+        but use bare \texttt{Thing} nodes could be enriched with named entities
+        and properties (name, identifier, type) extracted by LLMs.
+\end{itemize}
+
+The WDC data provides a baseline: LLM-extracted triples can be compared
+against the existing structured annotations for the minority of cases where
+those annotations are complete.
+
+% =============================================================================
+\section{End-to-End Summary}
+\label{sec:summary}
+% =============================================================================
+
+\begin{table}[H]
+\centering
+\caption{End-to-end pipeline summary.}
+\label{tab:e2e}
+\begin{tabular}{lr}
+\toprule
+\textbf{Stage / Metric} & \textbf{Value} \\
+\midrule
+\multicolumn{2}{l}{\textit{Target domain list}} \\
+Total domains & 388 (390 PLDs) \\
+Fact-check sources & Fact-Check Insights (top-15 orgs) \\
+News sources & Media Cloud national high-volume \\
+Manually added & 6 core domains \\
+\midrule
+\multicolumn{2}{l}{\textit{WDC chunk planning}} \\
+Classes queried & 50 \\
+Classes with matching domains & 37 \\
+Total chunks (na\"ive plan) & 1{,}093 \\
+Chunks after priority filter & 134 ($-$88\%) \\
+\midrule
+\multicolumn{2}{l}{\textit{Extraction}} \\
+Total raw quads matched & 78{,}940{,}582 \\
+Unique quads after deduplication & 69{,}621{,}246 \\
+Uncompressed merged file & 14.4 GB \\
+Distinct Schema.org types & 162 \\
+Unique registered domains & 119 \\
+\midrule
+\multicolumn{2}{l}{\textit{Full-corpus quality (DuckDB, 18.6 GB)}} \\
+Entities & 12{,}211{,}353 \\
+Namespace correctness & 99.90\% \\
+Type validity & 99.76\% \\
+Property validity & 99.18\% \\
+Range violation rate & 11.00\% \\
+Mean AvP & 3.70 (median 3.0) \\
+Mean fill rate & 7.4\% \\
+Lenient article pages & 340{,}789 \\
+\midrule
+\multicolumn{2}{l}{\textit{ClaimReview (full WDC subset)}} \\
+Entities & 60{,}313 \\
+Domains & 318 \\
+Namespace correctness & 100.00\% \\
+Type validity & 100.00\% \\
+Property validity & 99.74\% \\
+Range violations & 2.27\% \\
+Mean AvP & 4.24 (median 6.0) \\
+Mean nesting depth & 1.54 (median 2.0) \\
+Properties used / defined & 41 / 139 (29.5\%) \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\bibliographystyle{unsrtnat}
+\bibliography{wdc_analysis_report}
+
+\end{document}
