@@ -1763,7 +1763,7 @@ defined vocabulary.
 
 \subsection{Example Entities}
 
-\paragraph{Depth-2 entity (canonical ClaimReview structure).}
+\paragraph{Depth-2 entity (typical ClaimReview structure).}
 \begin{quote}\small
 \texttt{types: ClaimReview}\\
 \texttt{graph: https://pagellapolitica.it/fact-checking/...}\\
@@ -1875,90 +1875,79 @@ defined vocabulary.
 
 \end{enumerate}
 
-
 % =============================================================================
-\section{Key Findings}
-\label{sec:findings}
+\section{Implications for LLM-Based Triple Extraction}
+\label{sec:implications}
 % =============================================================================
 
-\begin{enumerate}[leftmargin=1.5em]
+The analyses above reveal a systematic gap between syntactically correct
+Schema.org annotations and semantically useful structured data on news and
+fact-checking pages.  This section translates each major finding into a
+concrete requirement or opportunity for LLM-based enrichment.
 
-\item \textbf{High syntactic quality, low semantic richness.}
-  Namespace correctness (99.9\%) and type validity (99.76\%) confirm that
-  publishers generally deploy Schema.org identifiers correctly.
-  Yet corpus-wide mean fill rate is just 7.4\% and mean AvP is 3.7
-  (median 3.0): the macro-averaged property coverage across all 137 types
-  is $5.75\%$ ($\sigma = 4.64\%$).  Publishers get the identifiers right
-  but leave the vast majority of applicable vocabulary fields empty.
+\paragraph{Direct extraction targets on article pages.}
+The three highest-priority missing properties are \texttt{mentions}
+($<$0.1\% fill, which would provide named-entity links), \texttt{about}
+(19.3\% combined fill, the primary topic entity), and \texttt{keywords}
+(sparse and uncontrolled).  An LLM operating on \texttt{articleBody}
+text (present on 47.8\% of article pages) can extract these
+properties directly.  For the remaining 52.2\% of pages without a
+structured body, the pipeline must first recover the article text from
+raw HTML before extraction can proceed.
 
-\item \textbf{Metadata, not content.}
-  On article pages, structured data describes publication infrastructure
-  (author, publisher, image, breadcrumbs) rather than semantic content.
-  The properties most relevant to knowledge-graph grounding are almost
-  entirely absent: \texttt{mentions} fills at effectively 0\% across all
-  340{,}789 lenient article pages; \texttt{about} reaches only 19.3\%
-  combined (39.6\% on \texttt{Article}, 1.3\% on \texttt{NewsArticle}),
-  and 99.3\% of those targets are bare \texttt{Thing} nodes carrying only
-  a free-text name string with no further structured properties;
-  \texttt{citation} appears on 11.1\% of pages.
-  These systematic gaps are the primary motivation for LLM-based enrichment.
+\paragraph{Entity typing and enrichment for \texttt{about} targets.}
+Of the 65{,}146 Article and NewsArticle entities that do supply an
+\texttt{about} link, 99.3\% point to bare \texttt{Thing} nodes carrying
+only a free-text name string.  LLMs can replace these with properly
+typed, property-populated entities (e.g.\ \texttt{Person},
+\texttt{Organization}, \texttt{Place}) and augment them with
+\texttt{sameAs} links to knowledge-base identifiers (Wikidata, DBpedia),
+converting keyword strings into grounded knowledge-graph nodes.
 
-\item \textbf{Claim entities are structurally hollow.}
-  The \texttt{Claim} entity is the direct semantic payload of a
-  fact-check, i.e.\ the structured representation of what claim was reviewed.
-  Yet it has the lowest fill rate of any major type: 1.98\% (AvP 2.62 out
-  of 132 defined properties).  Its dominant property set,
-  \{appearance, author, datePublished\} (63.2\% of all \texttt{Claim}
-  entities), records provenance but not the claim text itself; the claim
-  statement is instead embedded in the parent \texttt{ClaimReview}'s
-  \texttt{claimReviewed} string, which is itself absent from 40.3\% of
-  all ClaimReview entities.
+\paragraph{Claim text and provenance completion.}
+The claim statement (\texttt{claimReviewed}) is absent from 40.3\% of
+\texttt{ClaimReview} entities; \texttt{Claim.appearance}, which links to
+where the claim first circulated, is present in only $\sim$40\% of
+\texttt{itemReviewed} targets, yielding end-to-end structured source
+coverage of roughly 36\% across the legitimate fact-checking corpus.
+LLMs can synthesise both from the surrounding fact-check article text,
+filling in the two properties most directly needed to reconstruct what
+claim was reviewed and where it originated.
 
-\item \textbf{ClaimReview quality is bimodal.}
-  Established fact-checking organisations produce clean, deeply nested
-  records: excluding the \texttt{vpravda.ru} noise cluster, the six core
-  semantic properties (\texttt{author}, \texttt{claimReviewed},
-  \texttt{datePublished}, \texttt{itemReviewed}, \texttt{reviewRating},
-  \texttt{url}) are populated on approximately 96\% of remaining entities,
-  and median nesting depth is 2.  In stark contrast, \texttt{vpravda.ru}
-  inflates entity counts by 38\% while contributing zero semantic signal:
-  every entity carries only an \texttt{rdf:type} declaration.  Even among
-  the best-annotated organisations, fill rates peak at 7.2\%
-  (\texttt{boomlive.in}) and 6.8\% (\texttt{fullfact.org}),
-  indicating substantial room for automated enrichment.
+\paragraph{Verdict normalisation.}
+The \texttt{reviewRating.alternateName} field is populated with
+uncontrolled multilingual free-text labels.  LLM-based classification
+can normalise these to a shared verdict taxonomy (e.g.\
+True\,/\,Mostly True\,/\,Mostly False\,/\,False), enabling
+cross-organisation comparison and aggregation that is currently
+infeasible from the raw data.
 
-\item \textbf{Range violations concentrate in two structural patterns.}
-  Of the 11.0\% range-violation rate (6.05M violations from 55.1M checked
-  assertions), 54\% are pixel integers in \texttt{height}/\texttt{width}
-  where Schema.org expects a \texttt{QuantitativeValue} node, and most of
-  the remainder are non-ISO date strings (e.g.\ \texttt{"Sep 14, 2024"},
-  \texttt{"10/08/2023"}).  Neither is semantically critical for the
-  journalism use case, but both complicate automated parsing.
+\paragraph{Quality correction of systematic violations.}
+The 11\% range-violation rate and the identified domain mismatches
+(e.g.\ \texttt{MedicalProcedure}/\texttt{price} from a mis-typed entity,
+\texttt{Article}/\texttt{primaryImageOfPage}) are structural defects an
+LLM could detect and repair.  Correcting non-ISO date strings in
+\texttt{datePublished} alone would eliminate 83{,}558 range violations
+in the news-article subset, improving downstream parseability.
 
-\item \textbf{Verdict labels are uncontrolled.}
-  \texttt{reviewRating.alternateName} values appear in multiple languages,
-  scripts, and granularity levels with no standardised controlled vocabulary
-  enforced by Schema.org.  Cross-organisation comparison or aggregation
-  requires normalisation to a shared verdict taxonomy.
+\paragraph{Priority vocabulary for Schema.org-aligned output.}
+Since only 41 of 139 ClaimReview properties are ever used, LLM extraction
+need not attempt full schema coverage.  A targeted property set comprising
+\texttt{claimReviewed}, \texttt{reviewRating}, \texttt{itemReviewed},
+\texttt{author}, \texttt{datePublished}, \texttt{url},
+\texttt{Claim.appearance}, \texttt{Claim.author}, and
+\texttt{Article.mentions} covers the semantically critical vocabulary
+while remaining tractable for prompt engineering and output parsing.
 
-\item \textbf{Schema.org vocabulary vastly underutilised.}
-  Only 41 of the 139 properties defined for \texttt{ClaimReview} (29.5\%)
-  are ever used by any publisher.  Rich vocabulary items such as
-  \texttt{NewsArticle.mentions}, \texttt{Article.about},
-  \texttt{ClaimReview.associatedClaimReview}, and
-  \texttt{Claim.appearance} are left entirely or almost entirely
-  unexploited despite being directly relevant to fact-checking.
-
-\item \textbf{Template-driven, publisher-uniform annotation.}
-  Characteristic property sets are highly concentrated: the single most
-  frequent set accounts for 28.4\% of \texttt{Article} entities, 22.8\%
-  of \texttt{NewsArticle} entities, and 27.8\% of all \texttt{ClaimReview}
-  entities (the dominant legitimate pattern).  This uniformity reflects
-  CMS-generated rather than editorially curated Schema.org output, meaning
-  that completeness gaps are structural and cannot be closed by publisher
-  incentives alone.
-
-\end{enumerate}
+\paragraph{Existing annotations as evaluation baseline.}
+The WDC data provides partial ground truth for a subset of properties.
+Structured \texttt{ClaimReview} records from established organisations
+(e.g.\ \texttt{boomlive.in}, \texttt{fullfact.org},
+\texttt{politifact.com}) can serve as reference targets for evaluating
+LLM extraction: a model given the raw fact-check article text should
+reproduce the author, verdict, and \texttt{claimReviewed} string already
+recorded in the markup.  The $\approx$96\% fill rate of core fields in
+non-noise entities makes these examples reliable evaluation instances.
 
 % =============================================================================
 \section{End-to-End Summary}
