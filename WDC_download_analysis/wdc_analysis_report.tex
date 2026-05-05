@@ -274,6 +274,13 @@ EducationalOrganization         &        252     &     0.06  & 2 \\
 \textbf{Total}                  & \textbf{78{,}940{,}582} & \textbf{16{,}505} & \textbf{134} \\
 \end{longtable}
 
+The distribution is heavily skewed towards geographic and sports entity classes
+(\texttt{Country}, \texttt{SportsEvent}, \texttt{Place}) that news pages co-annotate
+as structural context rather than primary content.
+Content-specific classes such as \texttt{ClaimReview} (470{,}994 raw quads) and
+\texttt{Dataset} (141{,}510) contribute a small fraction of the total, already indicating
+that content-grounded annotation is rare relative to the surrounding page infrastructure.
+
 \subsection{Merging and Deduplication}
 
 All 37 per-class \texttt{.nq} files were merged into
@@ -296,6 +303,13 @@ Distinct Schema.org types declared & 162 \\
 \bottomrule
 \end{tabular}
 \end{table}
+
+Cross-class deduplication removed approximately 11.8\% of raw quads (9.3M),
+confirming that many pages appear in multiple per-class extracts.
+The 119 unique registered domains recovered (out of 388 targeted) indicates
+that a substantial share of the target list has no WDC footprint, primarily
+because many news sources block Common Crawl or were not crawled in the 2024-12
+snapshot.
 
 \subsection{Domain Coverage}
 
@@ -341,6 +355,12 @@ dw.com              &  41{,}245 &    826{,}324   &  1.2 &  20.0 &   208{,}339   
 \end{table}
 
 The appendix provides the complete list of domains. It is worth noting that some news sources block the Common Crawl bot from indexing their pages, so not all domains are expected to appear in the retrieved data. Nevertheless, many major and high-value sources are well-represented.
+The top three domains (\texttt{ria.ru}, \texttt{elpais.com}, \texttt{cbssports.com})
+account for 57.4\% of the corpus by quad count, introducing a coverage skew towards
+Russian- and Spanish-language sources and sports content.
+Annotation density (Q/p) ranges from 18.4 (\texttt{wikipedia.org}) to 284.6
+(\texttt{cbssports.com}), reflecting differences in how many distinct Schema.org
+entities each publisher embeds per page.
 
 \subsection{Schema.org Type Distribution}
 
@@ -379,6 +399,14 @@ Thing                    &   104{,}639 \\
 \end{tabular}
 \end{table}
 
+The top 20 types are dominated by structural and presentational classes:
+\texttt{ImageObject}, \texttt{ListItem}, \texttt{BreadcrumbList}, and
+\texttt{SiteNavigationElement} are generated automatically by CMS templates and
+carry no article-level semantic content.
+\texttt{NewsArticle} (199{,}809) and \texttt{Article} (172{,}671) are the only
+content-primary types in the top 20, yet together they represent under 3\% of total
+entities, illustrating how thin the content-grounded annotation layer is relative to
+the surrounding structural markup.
 
 % =============================================================================
 \section{Full-Corpus Quality Analysis}
@@ -429,6 +457,12 @@ unparseable.
 
 \subsection{Namespace Correctness}
 
+Before assessing semantic content, the technical correctness of Schema.org
+namespace URIs is verified.
+Non-canonical or malformed namespaces can render annotations invisible to
+parsers that perform exact URI matching against the canonical
+\texttt{schema.org} stem.
+
 \begin{table}[H]
 \centering
 \caption{Schema.org namespace usage in the merged corpus.}
@@ -448,6 +482,9 @@ Other namespaces (\texttt{rdf:}, \texttt{owl:}, etc.)                    &    40
 The top non-canonical example is
 \texttt{https://www.schema.org/SiteNavigationElement} (17{,}372 occurrences);
 schema.org does not use the \texttt{www.} subdomain.
+The 0.10\% non-canonical rate poses negligible analysis risk, but publishers
+relying on \texttt{https://www.schema.org/} may have their markup silently
+ignored by strict validator tooling and structured-data parsers.
 
 \subsection{Type Validity}
 
@@ -479,6 +516,12 @@ Expert               &      7 \\
 \end{tabular}
 \end{table}
 
+The top invalid types are simple capitalisation variants of standard classes
+(\texttt{imageObject}, \texttt{person}, \texttt{place}), consistent with
+copy-paste errors in CMS JSON-LD templates rather than intentional vocabulary
+extensions.
+These affect only 0.24\% of type declarations and do not materially alter the
+corpus-level quality assessment.
 
 \subsection{Property Validity}
 
@@ -521,6 +564,14 @@ dateModified     &   613{,}182   \\
 \end{tabular}
 \end{table}
 
+The top properties are dominated by identifiers (\texttt{name}, \texttt{url}),
+media dimensions (\texttt{height}, \texttt{width}), and address fields, all of
+which serve page presentation or search-engine indexing rather than semantic
+content grounding.
+Properties with direct relevance to article content or fact-checking
+(\texttt{articleBody}, \texttt{mentions}, \texttt{claimReviewed}) do not
+appear in the top 20, consistent with the metadata-first annotation pattern
+observed throughout this report.
 
 \begin{table}[H]
 \centering
@@ -593,6 +644,13 @@ potentialAction    &     896   &       0   &     896   &       0 &          0 \\
 \end{tabular}
 \end{table}
 
+The two largest invalid-property clusters differ in nature: properties applied
+to untyped entities (\texttt{url}, \texttt{name}) reflect incomplete JSON-LD
+serialisation where the entity type declaration is missing, while genuinely
+unknown properties (\texttt{query-input}, \texttt{postID}) are either
+Google-specific extensions or capitalisation errors in CMS templates.
+Neither category signals intentional vocabulary extension.
+
 The detailed domain-mismatch breakdown (entity type $\to$ property pairs) is shown in
 Table~\ref{tab:domain_mismatch}.
 
@@ -618,6 +676,11 @@ Event              & address             &    156 \\
 \end{tabular}
 \end{table}
 
+The \texttt{MedicalProcedure}/\texttt{price} case (48{,}366 occurrences) almost
+certainly originates from a single publisher whose entity type declaration is
+systematically wrong, inflating the domain-mismatch count disproportionately.
+The remaining violations are isolated CMS template errors and do not
+meaningfully affect the quality assessment of the news and fact-checking corpus.
 
 \subsection{Range Violations}
 
@@ -698,6 +761,13 @@ Table~\ref{tab:types_per_page_domain} highlights representative domains.
 \end{tabular}
 \end{table}
 
+A mean of 7 types per page confirms that news pages carry a predictable bundle
+of structural types (images, breadcrumbs, postal addresses) alongside their
+primary article entity.
+This layering inflates total entity counts with non-content types, meaning that
+the fraction of entities directly relevant to fact-checking is considerably
+smaller than the raw totals suggest.
+
 % \begin{table}[H]
 % \centering
 % \caption{Selected domains: distinct types per page.}
@@ -720,6 +790,7 @@ Table~\ref{tab:types_per_page_domain} highlights representative domains.
 % \end{table}
 
 \subsection{Annotation Richness: Average Properties per Entity (AvP)}
+\label{subsec:avp}
 
 The \textit{Average Properties per Entity} (AvP) metric quantifies the descriptive depth of structured annotations by measuring the mean number of distinct properties populated per entity instance. Formally, given a set of extracted entities $E$, AvP is defined as:
 
@@ -759,6 +830,12 @@ The \textit{Average Properties per Entity} (AvP) metric quantifies the descripti
 \end{tabular}
 \end{table}
 
+Over 57\% of entities have 3 or fewer properties populated, and the median of 3.0
+confirms that minimal annotation is the modal behaviour across the corpus.
+The long tail above 10 properties (under 8\% of entities) represents the richest
+annotations in the dataset, but even these cover only a small fraction of each
+type's defined vocabulary.
+
 \begin{table}[H]
 \centering
 \caption{AvP breakdown by Schema.org type for example types (full results for all 47 analysed types in Appendix).}
@@ -780,6 +857,12 @@ Place         &   580{,}546 &  60 &  2.02 &  2.0 \\
 \bottomrule
 \end{tabular}
 \end{table}
+
+\texttt{Article} entities are the most richly annotated content type (AvP 19.57),
+yet even they use fewer than 15\% of their 136 defined properties on average.
+\texttt{ClaimReview} (6.60) and \texttt{Claim} (2.62), the two types most
+directly relevant to fact-checking, capture basic provenance but leave the
+majority of their semantically useful vocabulary empty.
 
 \subsection{Property Coverage per Type}
 
@@ -815,7 +898,12 @@ Claim         &      4{,}007 & 132 &  1.98\% \\
 \end{tabular}
 \end{table}
 
-
+The macro-averaged coverage of 5.75\% means a typical entity uses fewer than
+1 in 17 properties its type defines.
+\texttt{ClaimReview} (4.74\%) and \texttt{Claim} (1.98\%) score below this
+average despite being the most content-critical types for fact-checking,
+reinforcing that the vocabulary gap is most acute precisely where structured
+annotations would be most valuable.
 
 \subsection{Characteristic Property Sets}
 
@@ -1030,6 +1118,13 @@ wikipedia.org         &   277{,}768   & 116 & 3.42 &  2.8\% \\
 \end{tabular}
 \end{table}
 
+Fact-checking organisations cluster in the 3.2--8.0\% fill range, with no
+organisation reaching double digits.
+National news outlets such as \texttt{lefigaro.fr} (10.7\%) and \texttt{ria.ru}
+(10.0\%) achieve comparatively higher rates partly because they annotate a
+narrower, more uniform type vocabulary, which inflates the per-type fill fraction
+relative to outlets that annotate across more diverse types.
+
 \begin{table}[H]
 \centering
 \caption{Distribution of per-entity fill rates across the full typed-entity corpus
@@ -1048,6 +1143,12 @@ wikipedia.org         &   277{,}768   & 116 & 3.42 &  2.8\% \\
 \bottomrule
 \end{tabular}
 \end{table}
+
+More than half (53.7\%) of all typed entities fall below 5\% fill rate, and
+essentially no entities exceed 30\%.
+This corpus-wide sparsity quantifies the gap that LLM-based extraction is
+intended to close: existing annotations provide a syntactically correct but
+semantically sparse scaffold, leaving most of each type's vocabulary unpopulated.
 
 \subsection{Article and NewsArticle Pages}
 
@@ -1085,6 +1186,12 @@ Strict intersection (all 4 signals) & 5{,}610 \\
 \end{tabular}
 \end{table}
 
+The near-total collapse from lenient to strict intersection (340{,}789 vs.\
+5{,}610 pages) reflects inconsistent serialisation practices: the page URI and
+the entity subject URI are rarely matched in this corpus.
+The lenient set (signals 1+3) is therefore adopted as the working article-page
+corpus, accepting that a small proportion of borderline pages may be included.
+
 \begin{table}[H]
 \centering
 \caption{Article and NewsArticle statistics on 340{,}789 lenient article pages.}
@@ -1099,6 +1206,12 @@ Overlap     &      81   & -- & -- & -- \\
 \bottomrule
 \end{tabular}
 \end{table}
+
+The zero no-prop rate confirms that all identified article pages carry at least
+one annotation, but the AvP figures (20.1 for \texttt{Article}, 12.6 for
+\texttt{NewsArticle}) against 136 and 141 defined properties correspond to
+coverage of 14.8\% and 8.9\% respectively, well below what a semantically
+complete fact-checking record would require.
 
 Beyond overall annotation depth, we examine four Schema.org properties with
 direct semantic relevance to fact-checking: \texttt{articleBody} (full article
@@ -1196,6 +1309,14 @@ CollectionPage           &  12{,}836 &   3.8\% \\
 \bottomrule
 \end{tabular}
 \end{table}
+
+The near-universal presence of \texttt{ImageObject} (100\%) and
+\texttt{Organization} (87.2\%) mirrors the standard CMS template: every
+article embeds images and a publisher entity regardless of content.
+Types directly useful for fact-checking (\texttt{ClaimReview}, \texttt{Claim})
+are entirely absent from these article pages, confirming that fact-check
+annotations exist only on dedicated fact-check pages and are not co-annotated
+on general news articles.
 
 \setlength{\tabcolsep}{4pt}
 \begin{longtable}{rrrp{9cm}}
@@ -1386,6 +1507,11 @@ of how fact-checking organisations use Schema.org~\citep{schemaorg_claimreview}.
 
 \subsection{Dataset}
 
+Unlike the domain-filtered corpus in the preceding sections, this dataset
+covers all \texttt{ClaimReview} entities across all crawled domains, providing
+the most comprehensive available snapshot of how fact-checking organisations
+deploy this vocabulary worldwide.
+
 \begin{table}[H]
 \centering
 \caption{ClaimReview dataset overview.}
@@ -1409,7 +1535,18 @@ Properties never used & 98 (70.5\%) \\
 \end{tabular}
 \end{table}
 
+That only 41 of 139 ClaimReview properties (29.5\%) are ever used by any
+publisher defines the practical vocabulary ceiling: the remaining 98
+properties are either unknown to publishers or deemed irrelevant to current
+deployment practice, representing the upper bound of what LLM-based annotation
+could add to existing records.
+
 \subsection{Syntactic Validity}
+
+The same four syntactic validity checks applied to the full corpus in
+Section~\ref{sec:quality} are repeated here for \texttt{ClaimReview}
+specifically, establishing whether the class-specific data is cleaner or
+noisier than the corpus average.
 
 \begin{table}[H]
 \centering
@@ -1436,6 +1573,13 @@ strings in \texttt{potentialAction} where an \texttt{Action} node is expected
 (488 cases).
 
 \subsection{Property Coverage}
+
+Property coverage here identifies which ClaimReview vocabulary fields are
+actively used and at what density, defined as the fraction of ClaimReview entities
+that populate each property.
+A low density for core semantic fields (\texttt{claimReviewed},
+\texttt{reviewRating}, \texttt{itemReviewed}) directly quantifies how much
+of the fact-check semantic contract is unfulfilled in practice.
 
 \begin{table}[H]
 \centering
@@ -1479,6 +1623,13 @@ The \texttt{vpravda.ru} cluster (Section~\ref{sec:cr:domains}) accounts for
 most of this gap.
 
 \subsection{Annotation Richness (AvP)}
+\label{subsec:cr_avp}
+
+AvP for ClaimReview is computed identically to Section~\ref{subsec:avp}, but
+interpreted against the class's minimal semantic contract: a usable
+\texttt{ClaimReview} record requires at minimum a claim text
+(\texttt{claimReviewed}), a verdict (\texttt{reviewRating}), and a link to the
+reviewed item (\texttt{itemReviewed}).
 
 \begin{table}[H]
 \centering
@@ -1508,7 +1659,22 @@ most of this gap.
 \end{tabular}
 \end{table}
 
+The bimodal shape, with 38\% of entities at 0 properties and the largest
+non-zero bin at 6 properties (28.5\%), maps directly onto the vpravda.ru
+noise cluster versus the canonical fact-checking structure used by
+established organisations (the 6-property set: author, claimReviewed,
+datePublished, itemReviewed, reviewRating, url).
+Excluding zero-property entities, the effective mean AvP rises to
+approximately 6.8, corresponding to about 4.9\% of the 139 defined properties,
+still well below the semantic richness the vocabulary supports.
+
 \subsection{Nesting Depth}
+
+Nesting depth measures how many levels of entity cross-references a
+\texttt{ClaimReview} record contains.
+Depth~0 means no linked sub-entities; the canonical structure has depth~2
+(\texttt{ClaimReview} $\to$ \texttt{Claim}/\texttt{Rating} leaf nodes).
+Greater depth indicates richer provenance encoding.
 
 \begin{table}[H]
 \centering
@@ -1536,6 +1702,13 @@ Deep (depth $\geq 3$) & 10{,}283 & 17.0\% \\
 \bottomrule
 \end{tabular}
 \end{table}
+
+Depth~0 (39\%) corresponds directly to the vpravda.ru noise cluster, while
+depth~2 (40.8\%) represents the canonical fact-check structure used by
+established organisations.
+The 17\% deeply nested entities (depth $\geq 3$) suggest publishers who
+additionally link the reviewed claim back to its original source article or
+provide extended provenance chains.
 
 \begin{table}[H]
 \centering
@@ -1570,7 +1743,17 @@ Properties that always link to structured entities (100\% struct):
 \texttt{sdPublisher}, \texttt{article}, \texttt{copyrightHolder},
 \texttt{locationCreated}, \texttt{mentions}, \texttt{author}.
 
+The 80.4\% blank-node rate means that most linked sub-entities are anonymous
+and cannot be resolved outside the embedding document, limiting
+cross-document entity linking.
+Only the 19.6\% URI references contribute globally reusable, resolvable
+identifiers to the knowledge graph.
+
 \subsection{Characteristic Property Sets}
+
+Characteristic property sets reveal which combinations of semantic fields
+publishers co-deploy, showing whether the core fact-check properties are
+consistently grouped or sparsely applied across the ecosystem.
 
 \begin{table}[H]
 \centering
@@ -1601,9 +1784,18 @@ Properties that always link to structured entities (100\% struct):
 
 Set \#1 (38\%) is entirely the \texttt{vpravda.ru} cluster: entities carry only
 a \texttt{ClaimReview} type declaration with no semantic properties and are
-effectively noise. 
+effectively noise.
+The dominant legitimate set (\#2, 27.8\%) contains the six core semantic fields.
+The remaining sets vary primarily in optional metadata fields (image, description,
+keywords), indicating that publishers extend the core rather than populate
+additional claim-semantic properties from the broader vocabulary.
 
 \subsection{Structure of \texttt{itemReviewed}}
+
+The \texttt{itemReviewed} property links a \texttt{ClaimReview} to a structured
+representation of the claim under evaluation.
+Its type and property richness directly determine how much structured information
+the fact-check record encodes about \emph{what} was reviewed.
 
 \begin{table}[H]
 \centering
@@ -1620,6 +1812,13 @@ NewsArticle  &       2  & 0.0\% \\
 \bottomrule
 \end{tabular}
 \end{table}
+
+\texttt{Claim} (58.7\%) and \texttt{CreativeWork} (41.2\%) are the only two
+types used.
+\texttt{CreativeWork} is a generic base type; its use rather than the more
+specific \texttt{Claim} indicates that a significant minority of publishers
+annotate the reviewed item at the coarsest available granularity, reducing
+semantic specificity without necessarily omitting factual content.
 
 \begin{table}[H]
 \centering
@@ -1643,9 +1842,20 @@ NewsArticle  &       2  & 0.0\% \\
 \end{tabular}
 \end{table}
 
+All dominant property sets record provenance metadata (\texttt{author},
+\texttt{datePublished}, \texttt{appearance}) rather than the claim text itself.
+The claim statement is instead encoded in the parent
+\texttt{ClaimReview.claimReviewed} string, which is absent from 40\% of all
+\texttt{ClaimReview} entities, a gap that cannot be filled without
+reference to the original fact-check article text.
 
 \subsection{Domain-Level Annotation Quality}
 \label{sec:cr:domains}
+
+Domain-level fill rates expose the gap between publishers that implement the
+ClaimReview schema thoroughly and those that contribute structurally empty or
+misapplied entries, and identify which organisations produce data reliable
+enough to serve as evaluation baselines for LLM extraction.
 
 \begin{table}[H]
 \centering
@@ -1751,7 +1961,7 @@ defined vocabulary.
 
 \item \textbf{Claim entities are structurally hollow.}
   The \texttt{Claim} entity is the direct semantic payload of a
-  fact-check---the structured representation of what claim was reviewed.
+  fact-check, i.e.\ the structured representation of what claim was reviewed.
   Yet it has the lowest fill rate of any major type: 1.98\% (AvP 2.62 out
   of 132 defined properties).  Its dominant property set,
   \{appearance, author, datePublished\} (63.2\% of all \texttt{Claim}
@@ -1821,7 +2031,7 @@ The three highest-priority missing properties are \texttt{mentions}
 ($<$0.1\% fill, which would provide named-entity links), \texttt{about}
 (19.3\% combined fill, the primary topic entity), and \texttt{keywords}
 (sparse and uncontrolled).  An LLM operating on \texttt{articleBody}
-text --- present on 47.8\% of article pages --- can extract these
+text (present on 47.8\% of article pages) can extract these
 properties directly.  For the remaining 52.2\% of pages without a
 structured body, the pipeline must first recover the article text from
 raw HTML before extraction can proceed.
@@ -1837,8 +2047,8 @@ converting keyword strings into grounded knowledge-graph nodes.
 
 \paragraph{Claim text and provenance completion.}
 The claim statement (\texttt{claimReviewed}) is absent from 40.3\% of
-\texttt{ClaimReview} entities; \texttt{Claim.appearance} --- linking to
-where the claim first circulated --- is present in only 38\% of
+\texttt{ClaimReview} entities; \texttt{Claim.appearance}, which links to
+where the claim first circulated, is present in only 38\% of
 \texttt{itemReviewed} targets.  LLMs can synthesise both from the
 surrounding fact-check article text, filling in the two properties most
 directly needed to reconstruct what claim was reviewed and where it
@@ -1862,11 +2072,11 @@ in the news-article subset, improving downstream parseability.
 
 \paragraph{Priority vocabulary for Schema.org-aligned output.}
 Since only 41 of 139 ClaimReview properties are ever used, LLM extraction
-need not attempt full schema coverage.  A targeted property set ---
+need not attempt full schema coverage.  A targeted property set comprising
 \texttt{claimReviewed}, \texttt{reviewRating}, \texttt{itemReviewed},
 \texttt{author}, \texttt{datePublished}, \texttt{url},
 \texttt{Claim.appearance}, \texttt{Claim.author}, and
-\texttt{Article.mentions} --- covers the semantically critical vocabulary
+\texttt{Article.mentions} covers the semantically critical vocabulary
 while remaining tractable for prompt engineering and output parsing.
 
 \paragraph{Existing annotations as evaluation baseline.}
@@ -1955,8 +2165,8 @@ a single trivial pattern (pixel integers in \texttt{height}/\texttt{width}).
 Yet the mean fill rate is just 7.4\% and mean AvP is 3.7: publishers emit
 structurally valid Schema.org markup but populate only a small fraction of
 the available vocabulary.  On the 340{,}789 article pages most relevant to
-automated fact-checking, the properties with the highest semantic value ---
-\texttt{mentions}, \texttt{about}, and \texttt{citation} --- fill at
+automated fact-checking, the properties with the highest semantic value:
+\texttt{mentions}, \texttt{about}, and \texttt{citation} fill at
 $<$0.1\%, 19.3\%, and 11.1\% respectively, and nearly all \texttt{about}
 targets are bare, untyped name strings.
 
@@ -1966,8 +2176,8 @@ approximately 96\% coverage of the six core semantic properties, but a single
 noise cluster (\texttt{vpravda.ru}) inflates entity counts by 38\% while
 contributing zero semantic content.  Even the best-annotated organisations
 fill only 7.2\% of the 139 defined ClaimReview properties, and the
-\texttt{Claim} entity --- the structured representation of the reviewed claim
-itself --- has an AvP of only 2.62 and a fill rate of 1.98\%.  Verdict labels
+\texttt{Claim} entity, i.e.\ the structured representation of the reviewed claim
+itself, has an AvP of only 2.62 and a fill rate of 1.98\%.  Verdict labels
 remain uncontrolled multilingual strings with no shared taxonomy.
 
 Together, these results establish the baseline against which LLM-based triple
@@ -1976,8 +2186,8 @@ arises from CMS-templated annotation that is uniform within publishers but
 shallow across the Schema.org vocabulary.  LLMs operating on article text can
 in principle populate \texttt{mentions}, type and enrich \texttt{about}
 targets, complete \texttt{claimReviewed} and \texttt{Claim.appearance}, and
-normalise verdict labels --- precisely the properties that existing markup
-leaves empty --- while the richer ClaimReview records from established
+normalise verdict labels (precisely the properties that existing markup
+leaves empty), while the richer ClaimReview records from established
 fact-checkers provide a reliable evaluation baseline for measuring extraction
 quality.
 
