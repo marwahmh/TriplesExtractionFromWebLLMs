@@ -1,0 +1,595 @@
+{
+  "article_id": "art1",
+  "match_model": "intfloat/e5-base-v2",
+  "expand_mode": true,
+  "relations": [
+    {
+      "relation_phrase": "recorded",
+      "definition": "Officially registered or documented a measured figure, occurrence, or statistic.",
+      "embedding_query_text": "recorded: Officially registered or documented a measured figure, occurrence, or statistic. Also called registered, reported, documented, logged.",
+      "observed_signatures": [
+        "Country → QuantitativeValue"
+      ],
+      "chosen_property": {
+        "label": "recordedStatistic",
+        "source": "vocab",
+        "vocab_id": "P0001",
+        "is_new_to_vocab": true,
+        "definition": "Relates a country or organization to a statistic or measured figure it officially recorded.",
+        "parent": null,
+        "domain": [
+          "Country"
+        ],
+        "range": [
+          "QuantitativeValue"
+        ],
+        "path": "",
+        "justification": "No candidate fits a geographic or organizational entity recording a quantitative statistic."
+      },
+      "llm_proposed": {
+        "source": "new",
+        "label": "recordedStatistic",
+        "is_new": true
+      },
+      "instances": [
+        "France -> 2,025 excess deaths",
+        "France -> more than 2,000 deaths",
+        "Belgium -> 1,222 excess deaths"
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "variableMeasured",
+          "signature": "Dataset/Observation → Property/PropertyValue/StatisticalVariable/Text",
+          "parent": null,
+          "score": 0.801,
+          "comment": "Relates a dataset or observation to the specific variable, property, or statistical concept that is being measured or recorded. Also called 'measured variable', 'observed property', 'data variable'. Examples: [WeatherDataset - variableMeasured - 'Air Temperature'], [CensusData - variableMeasured - 'Household Income'], [ClinicalTrialObservation - variableMeasured - 'Systolic Blood Pressure']."
+        },
+        {
+          "source": "schema.org",
+          "label": "legislationPassedBy",
+          "signature": "Legislation → Organization/Person",
+          "parent": "creator",
+          "score": 0.798,
+          "comment": "This property identifies the organization or person that legally enacted or passed a subject legislation, serving as its legal author. Also called \"enacted by\", \"promulgated by\", \"authorized by\". Examples: \"Act of Parliament legislationPassedBy The Parliament\", \"Government Decree legislationPassedBy The Cabinet\", \"Local Bylaw legislationPassedBy City Council\". Distinct from legislationResponsible, which indicates the ministry or individual responsible for elaboration or questions."
+        },
+        {
+          "source": "schema.org",
+          "label": "measuredProperty",
+          "signature": "Observation/StatisticalVariable → Property",
+          "parent": null,
+          "score": 0.797,
+          "comment": "This property identifies the specific characteristic or property that is being measured or observed within a subject observation or statistical variable. Also called \"property measured\", \"observed characteristic\", \"variable of interest\". Examples: \"Weather Observation measuredProperty 'Temperature'\", \"Survey Data measuredProperty 'Age'\", \"Medical Test measuredProperty 'Blood Pressure'\". Distinct from measurementTechnique, which describes how the property was measured."
+        },
+        {
+          "source": "schema.org",
+          "label": "recordedIn",
+          "signature": "Event → CreativeWork",
+          "parent": null,
+          "score": 0.797,
+          "comment": "An Event was captured, in whole or in part, by a CreativeWork. Also called 'captured by', 'documented in'. Examples: 'The concert event was recorded in the 'Live Album'.' 'The historical event was recorded in the 'Documentary Film'.' 'The conference was recorded in the 'Event Proceedings'.' 'The speech was recorded in the 'Audio Recording'.'"
+        },
+        {
+          "source": "schema.org",
+          "label": "datePublished",
+          "signature": "Certification/CreativeWork → Date/DateTime",
+          "parent": null,
+          "score": 0.797,
+          "comment": "A CreativeWork or Certification has a datePublished, which is the date of its first public release or broadcast. Also called publication date, release date, broadcast date. Examples: \"Book\" datePublished \"1984-06-08\", \"News Report\" datePublished \"2024-05-02T08:00:00Z\", \"Certification\" datePublished \"2023-09-01\". Distinct from dateCreated, which is when the work was initially made, and datePosted, which is for online listings rather than general publication."
+        }
+      ]
+    },
+    {
+      "relation_phrase": "issued",
+      "definition": "Published, released, or put forth an official alert, order, or notice.",
+      "embedding_query_text": "issued: Published, released, or put forth an official alert, order, or notice. Also called released, announced, published, proclaimed.",
+      "observed_signatures": [
+        "WeatherServiceOrganization → WarningSystem"
+      ],
+      "chosen_property": {
+        "label": "issuedAlert",
+        "source": "vocab",
+        "vocab_id": "P0002",
+        "is_new_to_vocab": true,
+        "definition": "Relates an organization or service to an official alert or warning system notice it released.",
+        "parent": null,
+        "domain": [
+          "WeatherServiceOrganization"
+        ],
+        "range": [
+          "WarningSystem"
+        ],
+        "path": "",
+        "justification": "Existing candidates pertain to creative work release events or dates rather than issuing alerts."
+      },
+      "llm_proposed": {
+        "source": "new",
+        "label": "issuedAlert",
+        "is_new": true
+      },
+      "instances": [
+        "Météo-France -> red heat alert"
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "releasedEvent",
+          "signature": "CreativeWork → PublicationEvent",
+          "parent": null,
+          "score": 0.805,
+          "comment": "A CreativeWork has a PublicationEvent indicating the place and time of its release. Also called 'release event', 'launch event'. Examples: 'The movie has a released event at the 'Cannes Film Festival'.' 'The book's released event was in 'New York City'.' 'The software has a released event on '2023-10-26'.' 'The album's released event was a 'listening party'.'"
+        },
+        {
+          "source": "schema.org",
+          "label": "publishedBy",
+          "signature": "PublicationEvent → Organization/Person",
+          "parent": null,
+          "score": 0.802,
+          "comment": "A PublicationEvent is associated with an Organization or Person responsible for publishing. Also called 'publisher of event', 'issued by'. Examples: 'The publication event was published by 'Springer Nature'.' 'The book launch was published by 'Penguin Random House'.' 'The journal issue was published by 'Dr. Jane Doe'.' 'The event was published by 'Academic Press'.'"
+        },
+        {
+          "source": "schema.org",
+          "label": "publishedOn",
+          "signature": "PublicationEvent → BroadcastService",
+          "parent": null,
+          "score": 0.8,
+          "comment": "A PublicationEvent is associated with a BroadcastService on which it was published. Also called 'broadcast on', 'aired on'. Examples: 'The publication event was published on 'BBC One'.' 'The news segment was published on 'CNN Breaking News'.' 'The special report was published on 'PBS'.'"
+        },
+        {
+          "source": "schema.org",
+          "label": "datePublished",
+          "signature": "Certification/CreativeWork → Date/DateTime",
+          "parent": null,
+          "score": 0.798,
+          "comment": "A CreativeWork or Certification has a datePublished, which is the date of its first public release or broadcast. Also called publication date, release date, broadcast date. Examples: \"Book\" datePublished \"1984-06-08\", \"News Report\" datePublished \"2024-05-02T08:00:00Z\", \"Certification\" datePublished \"2023-09-01\". Distinct from dateCreated, which is when the work was initially made, and datePosted, which is for online listings rather than general publication."
+        },
+        {
+          "source": "schema.org",
+          "label": "datePosted",
+          "signature": "CDCPMDRecord/JobPosting/RealEstateListing/SpecialAnnouncement → Date/DateTime",
+          "parent": null,
+          "score": 0.796,
+          "comment": "A JobPosting, RealEstateListing, or SpecialAnnouncement has a datePosted, which is the publication date of the online listing. Also called posting date, listing date, announcement date. Examples: \"Job Opening\" datePosted \"2024-05-01\", \"Apartment for Rent\" datePosted \"2024-04-20\", \"Public Notice\" datePosted \"2023-11-10T09:00:00Z\". Distinct from datePublished, which is for general publication or broadcast, whereas datePosted is specifically for online listings."
+        }
+      ]
+    },
+    {
+      "relation_phrase": "declared",
+      "definition": "Formally announced or proclaimed a specific status, condition, or measure.",
+      "embedding_query_text": "declared: Formally announced or proclaimed a specific status, condition, or measure. Also called proclaimed, announced, decreed, instituted.",
+      "observed_signatures": [
+        "GovernmentOrganization → EmergencyMeasure"
+      ],
+      "chosen_property": {
+        "label": "declaredMeasure",
+        "source": "vocab",
+        "vocab_id": "P0003",
+        "is_new_to_vocab": true,
+        "definition": "Relates a government organization to an emergency measure or official status it proclaimed.",
+        "parent": null,
+        "domain": [
+          "GovernmentOrganization"
+        ],
+        "range": [
+          "EmergencyMeasure"
+        ],
+        "path": "",
+        "justification": "No existing candidate covers a government declaring an emergency status or measure."
+      },
+      "llm_proposed": {
+        "source": "new",
+        "label": "declaredMeasure",
+        "is_new": true
+      },
+      "instances": [
+        "Portugal's government -> a state of alert"
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "eventStatus",
+          "signature": "Event → EventStatusType",
+          "parent": null,
+          "score": 0.796,
+          "comment": "An Event has an event status, which represents its current status, such as cancelled or rescheduled. Also called \"event state\", \"status of event\". Examples: \"The event has eventStatus 'EventCancelled'\", \"The concert's eventStatus is 'EventRescheduled'\", \"This gathering has eventStatus 'EventScheduled'\"."
+        },
+        {
+          "source": "schema.org",
+          "label": "legislationPassedBy",
+          "signature": "Legislation → Organization/Person",
+          "parent": "creator",
+          "score": 0.791,
+          "comment": "This property identifies the organization or person that legally enacted or passed a subject legislation, serving as its legal author. Also called \"enacted by\", \"promulgated by\", \"authorized by\". Examples: \"Act of Parliament legislationPassedBy The Parliament\", \"Government Decree legislationPassedBy The Cabinet\", \"Local Bylaw legislationPassedBy City Council\". Distinct from legislationResponsible, which indicates the ministry or individual responsible for elaboration or questions."
+        },
+        {
+          "source": "schema.org",
+          "label": "legalStatus",
+          "signature": "DietarySupplement/Drug/MedicalEntity → DrugLegalStatus/MedicalEnumeration/Text",
+          "parent": null,
+          "score": 0.789,
+          "comment": "A DietarySupplement, Drug, or MedicalEntity has a legal status, which is a DrugLegalStatus, MedicalEnumeration, or Text, indicating its legal classification, including controlled substance schedules. Also called \"regulatory status\", \"legal classification\", \"controlled substance status\". Examples: \"The Drug has a legalStatus 'PrescriptionOnly'.\", \"The DietarySupplement's legalStatus is 'OverTheCounter'.\", \"The MedicalEntity has a legalStatus indicating it's a 'ControlledSubstanceScheduleII'.\""
+        },
+        {
+          "source": "schema.org",
+          "label": "announcementLocation",
+          "signature": "SpecialAnnouncement → CivicStructure/LocalBusiness",
+          "parent": "spatialCoverage",
+          "score": 0.786,
+          "comment": "Relates a special announcement to a specific civic structure or local business associated with it. Also called \"associated facility\", \"announcement venue\", \"relevant location\". Examples: [Vaccine Announcement - announcementLocation - CivicStructure \"City Health Clinic\"], [Store Hours Announcement - announcementLocation - LocalBusiness \"Downtown Grocery\"], [Testing Announcement - announcementLocation - CivicStructure \"County Fairgrounds\"]."
+        },
+        {
+          "source": "schema.org",
+          "label": "actionStatus",
+          "signature": "Action → ActionStatusType",
+          "parent": null,
+          "score": 0.783,
+          "comment": "Relates an action to its current state of execution or disposition. Also called \"execution state\", \"status of action\", \"progress status\". Examples: [Order Delivery Action - actionStatus - \"CompletedActionStatus\"], [Download Action - actionStatus - \"ActiveActionStatus\"], [Payment Action - actionStatus - \"FailedActionStatus\"]."
+        }
+      ]
+    },
+    {
+      "relation_phrase": "works for",
+      "definition": "Is employed by or professionally affiliated with an organization or employer.",
+      "embedding_query_text": "works for: Is employed by or professionally affiliated with an organization or employer. Also called is employed by, works at, represents, belongs to.",
+      "observed_signatures": [
+        "Journalist → NewsMediaOrganization"
+      ],
+      "chosen_property": {
+        "label": "worksFor",
+        "source": "schema.org",
+        "vocab_id": null,
+        "is_new_to_vocab": false,
+        "definition": null,
+        "parent": null,
+        "domain": null,
+        "range": null,
+        "path": "",
+        "justification": "Exact fit for a person working for or employed by an organization."
+      },
+      "llm_proposed": {
+        "source": "schema.org",
+        "label": "worksFor",
+        "is_new": false
+      },
+      "instances": [
+        "the BBC's Justin Rowlatt -> BBC"
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "worksFor",
+          "signature": "Person → Organization",
+          "parent": null,
+          "score": 0.893,
+          "comment": "Relates a person to an organization that employs them or for which they perform services. Also called \"employed by\", \"employee of\", \"works at\", \"affiliated with\". Examples: \"Sundar Pichai - worksFor - Google\", \"Jane Doe - worksFor - Red Cross\", \"Professor Green - worksFor - Oxford University\"."
+        },
+        {
+          "source": "schema.org",
+          "label": "employee",
+          "signature": "Organization → Person",
+          "parent": null,
+          "score": 0.855,
+          "comment": "An Organization has an employee, who is a person working for that organization. Also called \"staff member\", \"worker\". Examples: \"The company has employee 'Jane Doe'\", \"The organization lists 'John Smith' as an employee\", \"'Alice Brown' is an employee of the firm.\"."
+        },
+        {
+          "source": "schema.org",
+          "label": "employees",
+          "signature": "Organization → Person",
+          "parent": null,
+          "score": 0.846,
+          "comment": "An Organization has employees, who are people working for that organization. Also called \"staff\", \"workforce\". Examples: \"The company has employees 'Jane Doe' and 'John Smith'\", \"The organization lists its employees\", \"The firm's employees are dedicated.\". Distinct from employee, which typically refers to a single person."
+        },
+        {
+          "source": "schema.org",
+          "label": "affiliation",
+          "signature": "Person → Organization",
+          "parent": "memberOf",
+          "score": 0.839,
+          "comment": "Relates a person to an organization, such as a school, club, or employer, with which they are formally associated. Also called \"affiliated with\", \"member of\", \"associated organization\". Examples: [Professor - affiliation - \"Stanford University\"], [Athlete - affiliation - \"Los Angeles Lakers\"], [Researcher - affiliation - \"CERN\"]."
+        },
+        {
+          "source": "schema.org",
+          "label": "maintainer",
+          "signature": "CreativeWork → Organization/Person",
+          "parent": null,
+          "score": 0.823,
+          "comment": "This property identifies the person or organization responsible for managing contributions to and/or publication of a subject creative work, such as a dataset or software package. Also called \"managed by\", \"curated by\", \"supported by\". Examples: \"Software Package A maintainer 'Open Source Community'\", \"Dataset B maintainer 'University Research Group'\", \"Project C maintainer 'John Doe'\"."
+        }
+      ]
+    },
+    {
+      "relation_phrase": "ignited in",
+      "definition": "Began burning or originated as a fire within a specific geographic location.",
+      "embedding_query_text": "ignited in: Began burning or originated as a fire within a specific geographic location. Also called started in, originated in, broke out in.",
+      "observed_signatures": [
+        "NaturalDisaster → City"
+      ],
+      "chosen_property": {
+        "label": "ignitedIn",
+        "source": "vocab",
+        "vocab_id": "P0004",
+        "is_new_to_vocab": true,
+        "definition": "Relates a natural disaster such as a fire to the geographic location where it originated or started burning.",
+        "parent": null,
+        "domain": [
+          "NaturalDisaster"
+        ],
+        "range": [
+          "City"
+        ],
+        "path": "",
+        "justification": "Existing candidates do not capture the specific origin point of a natural disaster like a wildfire."
+      },
+      "llm_proposed": {
+        "source": "new",
+        "label": "ignitedIn",
+        "is_new": true
+      },
+      "instances": [
+        "wildfires -> Sainte-Marie-la-Mer"
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "containedIn",
+          "signature": "Place → Place",
+          "parent": null,
+          "score": 0.834,
+          "comment": "A Place is contained within another Place. Also called \"located in\", \"part of\", \"within\". Examples: \"Paris\" is containedIn \"France\". \"California\" is containedIn \"United States\". \"The Louvre\" is containedIn \"Paris\"."
+        },
+        {
+          "source": "schema.org",
+          "label": "containedInPlace",
+          "signature": "Place → Place",
+          "parent": null,
+          "score": 0.832,
+          "comment": "A Place is contained within another Place. Also called \"located in\", \"part of\", \"within\". Examples: \"Paris\" is containedInPlace \"France\". \"California\" is containedInPlace \"United States\". \"The Louvre\" is containedInPlace \"Paris\"."
+        },
+        {
+          "source": "schema.org",
+          "label": "fromLocation",
+          "signature": "ExerciseAction/MoveAction/TransferAction → Place",
+          "parent": "location",
+          "score": 0.805,
+          "comment": "An ExerciseAction, MoveAction, or TransferAction has a fromLocation, indicating the starting place of the object or agent before the action. Also called \"origin location\", \"starting point\", \"departure location\". Examples: \"The MoveAction's fromLocation is 'New York'.\", \"This TransferAction originated from 'Warehouse A'.\", \"The ExerciseAction started from 'the gym'.\" Distinct from location, which is a general location, and toLocation, which is the destination."
+        },
+        {
+          "source": "schema.org",
+          "label": "source",
+          "signature": "InstantaneousEvent → Thing",
+          "parent": null,
+          "score": 0.805,
+          "comment": "Relates an instantaneous event to the entity, cause, or origin that triggered it. Also called \"caused by\", \"originated from\", \"event source\". Examples: [Earthquake Event - source - San Andreas Fault], [Power Outage - source - Lightning Strike], [Data Breach - source - Phishing Email]."
+        },
+        {
+          "source": "schema.org",
+          "label": "firstAppearance",
+          "signature": "Claim → CreativeWork",
+          "parent": "workExample",
+          "score": 0.799,
+          "comment": "A Claim has a firstAppearance in a CreativeWork, indicating where it was first known to occur. Also called \"first mentioned in\", \"initially appeared in\", \"original publication\". Examples: \"The Claim's firstAppearance was in 'The New York Times article'.\", \"This Claim has its firstAppearance in 'a scientific paper'.\", \"The firstAppearance of the claim was in 'a blog post'.\""
+        }
+      ]
+    },
+    {
+      "relation_phrase": "spread to",
+      "definition": "Extended or expanded its reach or physical presence into a new place or area.",
+      "embedding_query_text": "spread to: Extended or expanded its reach or physical presence into a new place or area. Also called moved to, reached, extended to, advanced to.",
+      "observed_signatures": [
+        "NaturalDisaster → City"
+      ],
+      "chosen_property": {
+        "label": "spreadTo",
+        "source": "vocab",
+        "vocab_id": "P0005",
+        "is_new_to_vocab": true,
+        "definition": "Relates a disaster or event to a new location into which it expanded or extended.",
+        "parent": null,
+        "domain": [
+          "NaturalDisaster"
+        ],
+        "range": [
+          "City"
+        ],
+        "path": "",
+        "justification": "Existing candidates like toLocation are restricted to specific action types rather than natural disasters expanding into new areas."
+      },
+      "llm_proposed": {
+        "source": "new",
+        "label": "spreadTo",
+        "is_new": true
+      },
+      "instances": [
+        "wildfires -> Canet-en-Roussillon"
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "containedInPlace",
+          "signature": "Place → Place",
+          "parent": null,
+          "score": 0.837,
+          "comment": "A Place is contained within another Place. Also called \"located in\", \"part of\", \"within\". Examples: \"Paris\" is containedInPlace \"France\". \"California\" is containedInPlace \"United States\". \"The Louvre\" is containedInPlace \"Paris\"."
+        },
+        {
+          "source": "schema.org",
+          "label": "containedIn",
+          "signature": "Place → Place",
+          "parent": null,
+          "score": 0.835,
+          "comment": "A Place is contained within another Place. Also called \"located in\", \"part of\", \"within\". Examples: \"Paris\" is containedIn \"France\". \"California\" is containedIn \"United States\". \"The Louvre\" is containedIn \"Paris\"."
+        },
+        {
+          "source": "schema.org",
+          "label": "containsPlace",
+          "signature": "Place → Place",
+          "parent": null,
+          "score": 0.821,
+          "comment": "A Place contains another Place. Also called \"encompasses\", \"includes location\", \"holds place\". Examples: \"France\" containsPlace \"Paris\". \"United States\" containsPlace \"California\". \"Paris\" containsPlace \"The Louvre\"."
+        },
+        {
+          "source": "schema.org",
+          "label": "toLocation",
+          "signature": "ExerciseAction/InsertAction/MoveAction/TransferAction → Place",
+          "parent": "location",
+          "score": 0.812,
+          "comment": "Relates a movement, insertion, transfer, or exercise action to the final destination or place where the object or agent ends up. Also called 'destination', 'final location', 'moved to', 'transferred to'. Examples: [RelocationAction - toLocation - SeattleOffice], [InsertCardAction - toLocation - ATM_Slot], [JoggingSession - toLocation - CentralPark]. Distinct from fromLocation, which is the starting point of the action."
+        },
+        {
+          "source": "schema.org",
+          "label": "fromLocation",
+          "signature": "ExerciseAction/MoveAction/TransferAction → Place",
+          "parent": "location",
+          "score": 0.8,
+          "comment": "An ExerciseAction, MoveAction, or TransferAction has a fromLocation, indicating the starting place of the object or agent before the action. Also called \"origin location\", \"starting point\", \"departure location\". Examples: \"The MoveAction's fromLocation is 'New York'.\", \"This TransferAction originated from 'Warehouse A'.\", \"The ExerciseAction started from 'the gym'.\" Distinct from location, which is a general location, and toLocation, which is the destination."
+        }
+      ]
+    },
+    {
+      "relation_phrase": "located in",
+      "definition": "Is geographically situated within the boundaries of a specified region, place, or country.",
+      "embedding_query_text": "located in: Is geographically situated within the boundaries of a specified region, place, or country. Also called situated in, found in, positioned in, lying within.",
+      "observed_signatures": [
+        "DefinedRegion → Country"
+      ],
+      "chosen_property": {
+        "label": "containedIn",
+        "source": "schema.org",
+        "vocab_id": null,
+        "is_new_to_vocab": false,
+        "definition": null,
+        "parent": null,
+        "domain": null,
+        "range": null,
+        "path": "",
+        "justification": "Exact match for a geographic region contained within a country."
+      },
+      "llm_proposed": {
+        "source": "schema.org",
+        "label": "containedIn",
+        "is_new": false
+      },
+      "instances": [
+        "the south of France -> France",
+        "the south and east of the Netherlands -> the Netherlands",
+        "areas of the southwest -> Spain"
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "containedIn",
+          "signature": "Place → Place",
+          "parent": null,
+          "score": 0.878,
+          "comment": "A Place is contained within another Place. Also called \"located in\", \"part of\", \"within\". Examples: \"Paris\" is containedIn \"France\". \"California\" is containedIn \"United States\". \"The Louvre\" is containedIn \"Paris\"."
+        },
+        {
+          "source": "schema.org",
+          "label": "containedInPlace",
+          "signature": "Place → Place",
+          "parent": null,
+          "score": 0.875,
+          "comment": "A Place is contained within another Place. Also called \"located in\", \"part of\", \"within\". Examples: \"Paris\" is containedInPlace \"France\". \"California\" is containedInPlace \"United States\". \"The Louvre\" is containedInPlace \"Paris\"."
+        },
+        {
+          "source": "schema.org",
+          "label": "geoWithin",
+          "signature": "GeospatialGeometry/Place → GeospatialGeometry/Place",
+          "parent": null,
+          "score": 0.85,
+          "comment": "A GeospatialGeometry or Place is geoWithin another GeospatialGeometry or Place if the subject is entirely contained within the interior of the object. Also called \"is inside\", \"located within\", \"contained by\". Examples: \"The city is geoWithin 'the state'.\", \"The building is geoWithin 'the property boundary'.\", \"The point is geoWithin 'the polygon'.\" Distinct from geoContains, which is the inverse relationship (subject contains object)."
+        },
+        {
+          "source": "schema.org",
+          "label": "containsPlace",
+          "signature": "Place → Place",
+          "parent": null,
+          "score": 0.849,
+          "comment": "A Place contains another Place. Also called \"encompasses\", \"includes location\", \"holds place\". Examples: \"France\" containsPlace \"Paris\". \"United States\" containsPlace \"California\". \"Paris\" containsPlace \"The Louvre\"."
+        },
+        {
+          "source": "schema.org",
+          "label": "geoCoveredBy",
+          "signature": "GeospatialGeometry/Place → GeospatialGeometry/Place",
+          "parent": null,
+          "score": 0.834,
+          "comment": "A GeospatialGeometry or Place is geoCoveredBy another GeospatialGeometry or Place if the subject is entirely covered by the object. Also called \"is covered by\", \"lies within\", \"is encompassed by\". Examples: \"The city is geoCoveredBy 'the state'.\", \"The small island is geoCoveredBy 'the ocean'.\", \"The point is geoCoveredBy 'the polygon'.\" Distinct from geoCovers, which is the inverse relationship (subject covers object)."
+        }
+      ]
+    },
+    {
+      "relation_phrase": "proposed",
+      "definition": "Put forward a plan, strategy, or idea for consideration or implementation.",
+      "embedding_query_text": "proposed: Put forward a plan, strategy, or idea for consideration or implementation. Also called put forward, suggested, advocated, tabled.",
+      "observed_signatures": [
+        "PoliticalParty → Policy"
+      ],
+      "chosen_property": {
+        "label": "proposedPolicy",
+        "source": "vocab",
+        "vocab_id": "P0006",
+        "is_new_to_vocab": true,
+        "definition": "Relates a political party or organization to a policy or strategy it put forward for consideration.",
+        "parent": null,
+        "domain": [
+          "PoliticalParty"
+        ],
+        "range": [
+          "Policy"
+        ],
+        "path": "",
+        "justification": "No candidate fits a political organization proposing a policy or strategy."
+      },
+      "llm_proposed": {
+        "source": "new",
+        "label": "proposedPolicy",
+        "is_new": true
+      },
+      "instances": [
+        "ReformUK -> a \"resilience strategy\""
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "suggestedAnswer",
+          "signature": "Question → Answer/ItemList",
+          "parent": null,
+          "score": 0.82,
+          "comment": "Relates a question to a potential, suggested, or candidate answer. Also called \"possible answer\", \"proposed answer\", \"candidate response\". Examples: [Math Question - suggestedAnswer - \"42\"], [Trivia Question - suggestedAnswer - \"Paris\"], [Forum Question - suggestedAnswer - Helpful User Post]."
+        },
+        {
+          "source": "schema.org",
+          "label": "actionableFeedbackPolicy",
+          "signature": "NewsMediaOrganization/Organization → CreativeWork/URL",
+          "parent": "publishingPrinciples",
+          "score": 0.791,
+          "comment": "Relates an organization or news media organization to its policy regarding public engagement and feedback on its coverage or activities. Also called \"feedback policy\", \"public engagement policy\", \"reader feedback guidelines\". Examples: [Times Newspaper - actionableFeedbackPolicy - \"https://times.com/feedback-policy\"], [Local News Station - actionableFeedbackPolicy - \"https://localnews.org/engagement\"], [Global Media Corp - actionableFeedbackPolicy - PolicyDocument]."
+        },
+        {
+          "source": "schema.org",
+          "label": "itemOffered",
+          "signature": "Demand/Offer → AggregateOffer/CreativeWork/Event/MenuItem/Product/Service/Trip",
+          "parent": null,
+          "score": 0.784,
+          "comment": "A Demand or Offer offers an item, which is an AggregateOffer, CreativeWork, Event, MenuItem, Product, Service, or Trip, representing what is being made available or requested. Also called \"product offered\", \"service provided\", \"item for sale\". Examples: \"The Offer has an itemOffered that is a 'laptop'.\", \"The Demand specifies an itemOffered that is a 'consulting service'.\", \"The Offer's itemOffered is a 'concert ticket'.\""
+        },
+        {
+          "source": "schema.org",
+          "label": "seeks",
+          "signature": "Organization/Person → Demand",
+          "parent": null,
+          "score": 0.781,
+          "comment": "Relates an organization or person to a demand representing products or services they are looking to acquire. Also called \"demands\", \"looking for\", \"wants to buy\". Examples: [Construction Company - seeks - Steel Supply Demand], [Tech Startup - seeks - Office Space Lease Demand], [Individual - seeks - Used Car Purchase Demand]."
+        },
+        {
+          "source": "schema.org",
+          "label": "potentialAction",
+          "signature": "Thing → Action",
+          "parent": null,
+          "score": 0.779,
+          "comment": "potentialAction is an Action that could ideally be performed with a Thing as its object. Also called possible action, available action, actionable item. Examples: A book potentialAction ReadAction. A product potentialAction BuyAction. A person potentialAction CallAction."
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,802 @@
+{
+  "article_id": "art2",
+  "match_model": "intfloat/e5-base-v2",
+  "expand_mode": true,
+  "relations": [
+    {
+      "relation_phrase": "fiancé of",
+      "definition": "A person who is engaged to be married to the object.",
+      "embedding_query_text": "fiancé of: A person who is engaged to be married to the object. Also called engaged to, betrothed to, future spouse of.",
+      "observed_signatures": [
+        "Person → Person"
+      ],
+      "chosen_property": {
+        "label": "fianceOf",
+        "source": "vocab",
+        "vocab_id": "P0007",
+        "is_new_to_vocab": true,
+        "definition": "Relates a person to their fiancé, the person to whom they are engaged to be married.",
+        "parent": null,
+        "domain": [
+          "Person"
+        ],
+        "range": [
+          "Person"
+        ],
+        "path": "",
+        "justification": "No candidate property represents engagement or fiancé relationship between two persons."
+      },
+      "llm_proposed": {
+        "source": "new",
+        "label": "fianceOf",
+        "is_new": true
+      },
+      "instances": [
+        "Travis Kelce -> Taylor Swift"
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "spouse",
+          "signature": "Person → Person",
+          "parent": null,
+          "score": 0.834,
+          "comment": "Relates a person to their legally married partner. Also called \"married to\", \"husband of\", \"wife of\". Examples: [Barack Obama - spouse - Michelle Obama], [Prince Albert - spouse - Queen Victoria], [Marie Curie - spouse - Pierre Curie]."
+        },
+        {
+          "source": "schema.org",
+          "label": "makesOffer",
+          "signature": "Organization/Person → Offer",
+          "parent": null,
+          "score": 0.79,
+          "comment": "This property links a subject organization or person to an offer for products or services that they provide. Also called \"offers\", \"provides offer\", \"sells\". Examples: \"Retailer X makesOffer 'Discounted Laptop Offer'\", \"Consultant Y makesOffer 'Hourly Service Offer'\", \"Restaurant Z makesOffer 'Dinner Menu Offer'\"."
+        },
+        {
+          "source": "schema.org",
+          "label": "memberOf",
+          "signature": "Organization/Person → MemberProgramTier/Organization/ProgramMembership",
+          "parent": null,
+          "score": 0.79,
+          "comment": "This property indicates the organization, program membership, or member program tier to which a subject person or organization belongs. Also called \"belongs to\", \"is a member of\", \"affiliated with\". Examples: \"John Doe memberOf 'Sports Club'\", \"Company X memberOf 'Industry Association'\", \"Jane Smith memberOf 'Gold Tier Membership'\". Distinct from member, which identifies members of an organization or program."
+        },
+        {
+          "source": "schema.org",
+          "label": "children",
+          "signature": "Person → Person",
+          "parent": null,
+          "score": 0.789,
+          "comment": "A Person has a Person who is their child. Also called \"offspring\", \"son or daughter\", \"descendant\". Examples: \"John Doe\" has children \"Jane Doe\". \"Mary Smith\" has children \"Peter Smith\". \"Alice Brown\" has children \"Bob Brown\"."
+        },
+        {
+          "source": "schema.org",
+          "label": "isRelatedTo",
+          "signature": "Product/Service → Product/Service",
+          "parent": null,
+          "score": 0.787,
+          "comment": "A Product or Service is related to another Product or Service, indicating a general connection or association. Also called \"associated with\", \"connected to\", \"linked to\". Examples: \"Product A isRelatedTo Product B (e.g., complementary products).\", \"Service X isRelatedTo Service Y (e.g., bundled services).\", \"The software isRelatedTo a specific hardware device.\" Distinct from `isSimilarTo`, which implies functional similarity."
+        }
+      ]
+    },
+    {
+      "relation_phrase": "located in",
+      "definition": "The geographical or administrative place where the subject entity is situated.",
+      "embedding_query_text": "located in: The geographical or administrative place where the subject entity is situated. Also called situated in, based in, positioned in.",
+      "observed_signatures": [
+        "EventVenue → City"
+      ],
+      "chosen_property": {
+        "label": "containedIn",
+        "source": "schema.org",
+        "vocab_id": null,
+        "is_new_to_vocab": false,
+        "definition": null,
+        "parent": null,
+        "domain": null,
+        "range": null,
+        "path": "",
+        "justification": "containedIn models a Place (such as an EventVenue) being contained within another Place (such as a City)."
+      },
+      "llm_proposed": {
+        "source": "schema.org",
+        "label": "containedIn",
+        "is_new": false
+      },
+      "instances": [
+        "Madison Square Garden -> New York City"
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "containedIn",
+          "signature": "Place → Place",
+          "parent": null,
+          "score": 0.856,
+          "comment": "A Place is contained within another Place. Also called \"located in\", \"part of\", \"within\". Examples: \"Paris\" is containedIn \"France\". \"California\" is containedIn \"United States\". \"The Louvre\" is containedIn \"Paris\"."
+        },
+        {
+          "source": "schema.org",
+          "label": "containedInPlace",
+          "signature": "Place → Place",
+          "parent": null,
+          "score": 0.852,
+          "comment": "A Place is contained within another Place. Also called \"located in\", \"part of\", \"within\". Examples: \"Paris\" is containedInPlace \"France\". \"California\" is containedInPlace \"United States\". \"The Louvre\" is containedInPlace \"Paris\"."
+        },
+        {
+          "source": "schema.org",
+          "label": "location",
+          "signature": "Action/Event/InteractionCounter/Organization → Place/PostalAddress/Text/VirtualLocation",
+          "parent": null,
+          "score": 0.84,
+          "comment": "This property indicates the physical or virtual place where a subject action, event, interaction counter, or organization is situated or occurs. Also called \"venue\", \"address\", \"site\". Examples: \"Concert Event location 'Madison Square Garden'\", \"Company Headquarters location '123 Main St, Anytown'\", \"Online Meeting location 'Zoom Link'\". Distinct from locationCreated, which specifies where a creative work was originally made."
+        },
+        {
+          "source": "schema.org",
+          "label": "foundingLocation",
+          "signature": "Organization → Place",
+          "parent": null,
+          "score": 0.829,
+          "comment": "An Organization has a foundingLocation, which is the specific place where it was established. Also called \"place of origin\", \"establishment location\", \"birthplace\". Examples: \"The Organization's foundingLocation is 'Menlo Park, California'.\", \"This company's foundingLocation is 'a garage in Silicon Valley'.\", \"The foundingLocation of the university is 'Cambridge, England'.\" Distinct from location, which is a general current location."
+        },
+        {
+          "source": "schema.org",
+          "label": "studyLocation",
+          "signature": "MedicalStudy → AdministrativeArea",
+          "parent": null,
+          "score": 0.828,
+          "comment": "Relates a medical study to the administrative area or geographic location where it is conducted. Also called \"trial location\", \"study site location\", \"geographic study area\". Examples: [Vaccine Trial - studyLocation - California], [Diabetes Study - studyLocation - United Kingdom], [Oncology Study - studyLocation - Tokyo]."
+        }
+      ]
+    },
+    {
+      "relation_phrase": "plays for",
+      "definition": "A sports player who is a member of or competes on behalf of the object team or country.",
+      "embedding_query_text": "plays for: A sports player who is a member of or competes on behalf of the object team or country. Also called represents, competes for, member of.",
+      "observed_signatures": [
+        "Person → SportsTeam",
+        "Person → Country"
+      ],
+      "chosen_property": {
+        "label": "playsFor",
+        "source": "vocab",
+        "vocab_id": "P0008",
+        "is_new_to_vocab": true,
+        "definition": "Relates a sports player to the team or country for which they play or compete.",
+        "parent": null,
+        "domain": [
+          "Person"
+        ],
+        "range": [
+          "SportsTeam",
+          "Country"
+        ],
+        "path": "",
+        "justification": "The candidate 'athlete' has the reverse subject-object direction, and other candidates do not fit."
+      },
+      "llm_proposed": {
+        "source": "new",
+        "label": "playsFor",
+        "is_new": true
+      },
+      "instances": [
+        "Travis Kelce -> Kansas City Chiefs",
+        "Folarin Balogun -> United States"
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "athlete",
+          "signature": "SportsTeam → Person",
+          "parent": null,
+          "score": 0.843,
+          "comment": "A SportsTeam has an athlete who is a Person playing as a member of the team. Also called team member, player, sports person. Examples: The Lakers have athlete 'LeBron James', The national soccer team has athlete 'Lionel Messi', The Warriors have athlete 'Stephen Curry'."
+        },
+        {
+          "source": "schema.org",
+          "label": "competitor",
+          "signature": "SportsEvent → Person/SportsTeam",
+          "parent": null,
+          "score": 0.835,
+          "comment": "A SportsEvent features a Person or SportsTeam who is a competitor in the event. Also called \"participant\", \"opponent\", \"player\". Examples: A sports event has competitor \"Team A\". A sports event has competitor \"John Doe\". A sports event has competitor \"Los Angeles Lakers\"."
+        },
+        {
+          "source": "schema.org",
+          "label": "sportsTeam",
+          "signature": "ExerciseAction → SportsTeam",
+          "parent": "participant",
+          "score": 0.821,
+          "comment": "Relates an exercise action to the sports team that participated in the action. Also called \"participating team\", \"represented team\", \"sports team participant\". Examples: [Passing Action - sportsTeam - Real Madrid], [Touchdown Action - sportsTeam - New England Patriots], [Rowing Action - sportsTeam - Oxford Rowing Club]."
+        },
+        {
+          "source": "schema.org",
+          "label": "sport",
+          "signature": "SportsEvent/SportsOrganization → Text/URL",
+          "parent": null,
+          "score": 0.819,
+          "comment": "Relates a sports event or sports organization to the specific sport or athletic game it is associated with. Also called \"associated sport\", \"type of sport\", \"played sport\". Examples: [World Series - sport - \"Baseball\"], [FIFA - sport - \"Soccer\"], [Wimbledon - sport - \"Tennis\"]."
+        },
+        {
+          "source": "schema.org",
+          "label": "awayTeam",
+          "signature": "SportsEvent → Person/SportsTeam",
+          "parent": "competitor",
+          "score": 0.807,
+          "comment": "A SportsEvent has an awayTeam which is the Person or SportsTeam designated as the visiting competitor. Also called visiting team, opponent team, guest team. Examples: A soccer match has awayTeam 'Manchester United', The basketball game features awayTeam 'Golden State Warriors', The tennis match has awayTeam 'Serena Williams'. Distinct from homeTeam, which is the host competitor."
+        }
+      ]
+    },
+    {
+      "relation_phrase": "held position",
+      "definition": "The official role, job title, or political office held by the subject.",
+      "embedding_query_text": "held position: The official role, job title, or political office held by the subject. Also called served as, holds office of, occupied role of.",
+      "observed_signatures": [
+        "Person → PoliticalPosition"
+      ],
+      "chosen_property": {
+        "label": "jobTitle",
+        "source": "schema.org",
+        "vocab_id": null,
+        "is_new_to_vocab": false,
+        "definition": null,
+        "parent": null,
+        "domain": null,
+        "range": null,
+        "path": "",
+        "justification": "jobTitle links a Person to their professional role or position held."
+      },
+      "llm_proposed": {
+        "source": "schema.org",
+        "label": "jobTitle",
+        "is_new": false
+      },
+      "instances": [
+        "Zohran Mamdani -> New York City Mayor",
+        "Lord North -> Prime Minister"
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "jobTitle",
+          "signature": "Person → DefinedTerm/Text",
+          "parent": null,
+          "score": 0.814,
+          "comment": "A Person has a job title, which is a DefinedTerm or Text, describing their professional role. Also called \"professional title\", \"position held\", \"occupation\". Examples: \"The Person has a jobTitle 'Financial Manager'.\", \"Her jobTitle is 'Senior Software Engineer'.\", \"The Person's jobTitle is 'Chief Executive Officer'.\""
+        },
+        {
+          "source": "schema.org",
+          "label": "namedPosition",
+          "signature": "Role → Text/URL",
+          "parent": null,
+          "score": 0.806,
+          "comment": "A Role specifies a named position, which is the particular position played or filled by a person or organization within a larger organization. Also called role title, position held, job title. Examples: A player's role has named position 'Quarterback'. An employee's role has named position 'Senior Software Engineer'. A board member's role has named position 'Treasurer'. Distinct from roleName, which is a more general description of the role."
+        },
+        {
+          "source": "schema.org",
+          "label": "responsibilities",
+          "signature": "JobPosting/Occupation → Text",
+          "parent": null,
+          "score": 0.805,
+          "comment": "Relates a job posting or occupation to the textual description of duties and responsibilities associated with the role. Also called \"job duties\", \"role responsibilities\", \"tasks required\". Examples: [Software Engineer Posting - responsibilities - \"Write clean code and maintain APIs\"], [Nurse Occupation - responsibilities - \"Provide patient care and administer medication\"], [Manager Posting - responsibilities - \"Lead team meetings and set quarterly goals\"]."
+        },
+        {
+          "source": "schema.org",
+          "label": "title",
+          "signature": "JobPosting → Text",
+          "parent": null,
+          "score": 0.803,
+          "comment": "Relates a job posting to the official name or designation of the employment position. Also called 'job title', 'position name', 'role designation'. Examples: [SoftwareEngineerPosting - title - 'Senior Full-Stack Developer'], [NurseVacancy - title - 'Registered Nurse (ICU)'], [SalesRole - title - 'Account Executive']."
+        },
+        {
+          "source": "schema.org",
+          "label": "roleName",
+          "signature": "Role → Text/URL",
+          "parent": null,
+          "score": 0.803,
+          "comment": "Relates a role to the textual name or title of the position played or performed. Also called \"role title\", \"position name\", \"job title in role\". Examples: [Inker Role - roleName - \"Inker\"], [Quarterback Role - roleName - \"Quarterback\"], [Lead Actor Role - roleName - \"Protagonist\"]."
+        }
+      ]
+    },
+    {
+      "relation_phrase": "created",
+      "definition": "The subject brought the object media or work into existence.",
+      "embedding_query_text": "created: The subject brought the object media or work into existence. Also called authored, developed, produced.",
+      "observed_signatures": [
+        "Person → TVSeries"
+      ],
+      "chosen_property": {
+        "label": "created",
+        "source": "vocab",
+        "vocab_id": "P0009",
+        "is_new_to_vocab": true,
+        "definition": "Relates a person to a creative work or media that they brought into existence.",
+        "parent": null,
+        "domain": [
+          "Person"
+        ],
+        "range": [
+          "TVSeries"
+        ],
+        "path": "",
+        "justification": "None of the candidates express the relationship of a person creating a creative work."
+      },
+      "llm_proposed": {
+        "source": "new",
+        "label": "created",
+        "is_new": true
+      },
+      "instances": [
+        "Lena Dunham -> Girls"
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "subjectOf",
+          "signature": "Thing → CreativeWork/Event",
+          "parent": null,
+          "score": 0.836,
+          "comment": "Relates any thing to a creative work or event that is about or describes it. Also called \"described in\", \"subject of work\", \"featured in\". Examples: [Albert Einstein - subjectOf - Biography Book], [Solar Eclipse - subjectOf - Science Documentary], [New Product - subjectOf - Launch Event]."
+        },
+        {
+          "source": "schema.org",
+          "label": "produces",
+          "signature": "Service → Thing",
+          "parent": null,
+          "score": 0.835,
+          "comment": "produces is the Thing that is the tangible outcome or output generated by a Service. Also called generates, yields, results in, creates. Examples: A passport application service produces a passport. A permit application service produces a building permit. A printing service produces printed documents."
+        },
+        {
+          "source": "schema.org",
+          "label": "material",
+          "signature": "CreativeWork/Product → Product/Text/URL",
+          "parent": null,
+          "score": 0.827,
+          "comment": "This property specifies the material, as a product, text, or URL, from which a subject creative work or product is made. Also called \"made of\", \"composed of\", \"fabric\". Examples: \"Jacket material 'Leather'\", \"Book material 'Paper'\", \"Sculpture material 'Bronze'\"."
+        },
+        {
+          "source": "schema.org",
+          "label": "about",
+          "signature": "Certification/CommunicateAction/CreativeWork/DefinedTerm/DefinedTermSet/Event → Thing",
+          "parent": null,
+          "score": 0.826,
+          "comment": "Relates a creative work, event, or term to the subject matter or topic it describes. Also called \"subject matter of\", \"topic of\", \"focuses on\", \"covers\". Examples: [Book \"The Hobbit\" - about - \"Middle-earth\"], [Lecture - about - \"Quantum Physics\"], [Article - about - \"Climate Change\"]. Distinct from mainEntity, which is the primary, singular topic that the page or work is explicitly a representation of."
+        },
+        {
+          "source": "schema.org",
+          "label": "workFeatured",
+          "signature": "Event → CreativeWork",
+          "parent": null,
+          "score": 0.823,
+          "comment": "Relates an event to a creative work that is showcased, exhibited, or highlighted during the event. Also called \"featured work\", \"showcased creation\", \"exhibited piece\". Examples: \"Art Exhibition 2023 - workFeatured - Starry Night\", \"Film Festival - workFeatured - Pulp Fiction\", \"Book Launch - workFeatured - The Promise\". Distinct from workPerformed, which is specifically a work that is actively performed (like a play or concert) during the event."
+        }
+      ]
+    },
+    {
+      "relation_phrase": "sibling of",
+      "definition": "A person sharing one or both parents with the object.",
+      "embedding_query_text": "sibling of: A person sharing one or both parents with the object. Also called brother of, sister of, related to as sibling.",
+      "observed_signatures": [
+        "Person → Person"
+      ],
+      "chosen_property": {
+        "label": "sibling",
+        "source": "schema.org",
+        "vocab_id": null,
+        "is_new_to_vocab": false,
+        "definition": null,
+        "parent": null,
+        "domain": null,
+        "range": null,
+        "path": "",
+        "justification": "sibling directly connects a person to another person who is their sibling."
+      },
+      "llm_proposed": {
+        "source": "schema.org",
+        "label": "sibling",
+        "is_new": false
+      },
+      "instances": [
+        "Rachel Antonoff -> Jack Antonoff"
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "sibling",
+          "signature": "Person → Person",
+          "parent": null,
+          "score": 0.89,
+          "comment": "Relates a person to one of their siblings. Also called \"brother or sister\", \"sibling of\", \"has sibling\". Examples: [Prince William - sibling - Prince Harry], [Venus Williams - sibling - Serena Williams], [Luke Skywalker - sibling - Leia Organa]. Distinct from siblings, which is a plural variant."
+        },
+        {
+          "source": "schema.org",
+          "label": "siblings",
+          "signature": "Person → Person",
+          "parent": null,
+          "score": 0.866,
+          "comment": "Relates a person to their siblings. Also called \"brothers and sisters\", \"has siblings\", \"sibling list\". Examples: [Prince William - siblings - Prince Harry], [Venus Williams - siblings - Serena Williams], [Luke Skywalker - siblings - Leia Organa]. Distinct from sibling, which is the singular variant."
+        },
+        {
+          "source": "schema.org",
+          "label": "children",
+          "signature": "Person → Person",
+          "parent": null,
+          "score": 0.834,
+          "comment": "A Person has a Person who is their child. Also called \"offspring\", \"son or daughter\", \"descendant\". Examples: \"John Doe\" has children \"Jane Doe\". \"Mary Smith\" has children \"Peter Smith\". \"Alice Brown\" has children \"Bob Brown\"."
+        },
+        {
+          "source": "schema.org",
+          "label": "relatedTo",
+          "signature": "Person → Person",
+          "parent": null,
+          "score": 0.814,
+          "comment": "A Person has a generic familial relation to another Person. Also called 'family relation', 'kin'. Examples: 'John is related to 'Jane'.' 'She is related to 'her cousin'.' 'The person is related to 'their sibling'.' 'He is related to 'his aunt'.'"
+        },
+        {
+          "source": "schema.org",
+          "label": "parent",
+          "signature": "Person → Person",
+          "parent": null,
+          "score": 0.813,
+          "comment": "A Person has a parent, who is an individual from whom they are descended. Also called is child of, mother, father. Examples: Alice has parent 'Bob'. John has parent 'Mary'. A child has parent 'their biological mother'. Distinct from children, which is the inverse property."
+        }
+      ]
+    },
+    {
+      "relation_phrase": "producer of",
+      "definition": "A person who produces artistic or musical work for the object.",
+      "embedding_query_text": "producer of: A person who produces artistic or musical work for the object. Also called music producer for, collaborator with.",
+      "observed_signatures": [
+        "Person → Person"
+      ],
+      "chosen_property": {
+        "label": "producerOf",
+        "source": "vocab",
+        "vocab_id": "P0010",
+        "is_new_to_vocab": true,
+        "definition": "Relates a music or artistic producer to the artist or person whose work they produce.",
+        "parent": null,
+        "domain": [
+          "Person"
+        ],
+        "range": [
+          "Person"
+        ],
+        "path": "",
+        "justification": "The candidate 'producer' relates a CreativeWork to its producer, whereas this relation connects a producer person to an artist person."
+      },
+      "llm_proposed": {
+        "source": "new",
+        "label": "producerOf",
+        "is_new": true
+      },
+      "instances": [
+        "Jack Antonoff -> Taylor Swift"
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "producer",
+          "signature": "CreativeWork → Organization/Person",
+          "parent": null,
+          "score": 0.888,
+          "comment": "A producer is the Organization or Person responsible for overseeing the creation and production of a CreativeWork, such as a movie or music album. Also called made by, created by, executive producer, production company. Examples: A movie producer Steven Spielberg. A music album producer Columbia Records. A TV series producer Shonda Rhimes. Distinct from director, who guides the artistic and dramatic aspects, and creator, who originates the work."
+        },
+        {
+          "source": "schema.org",
+          "label": "album",
+          "signature": "MusicGroup → MusicAlbum",
+          "parent": null,
+          "score": 0.833,
+          "comment": "Relates a music group or artist to a music album they produced. Also called \"music album\", \"produced album\", \"released album\". Examples: [MusicGroup \"The Beatles\" - album - MusicAlbum \"Abbey Road\"], [Artist \"Taylor Swift\" - album - MusicAlbum \"Midnights\"], [Band \"Pink Floyd\" - album - MusicAlbum \"The Dark Side of the Moon\"]. Distinct from albums, which is a plural collection relation."
+        },
+        {
+          "source": "schema.org",
+          "label": "composer",
+          "signature": "Event/MusicComposition → Organization/Person",
+          "parent": null,
+          "score": 0.829,
+          "comment": "A MusicComposition or an Event featuring music has an Organization or Person who wrote the musical piece. Also called \"written by\", \"composed by\", \"music by\". Examples: The composition \"Symphony No. 5\" has composer \"Ludwig van Beethoven\". The musical \"Hamilton\" has composer \"Lin-Manuel Miranda\". The song \"Bohemian Rhapsody\" has composer \"Freddie Mercury\". Distinct from `byArtist`, which is the person or group who performed the work."
+        },
+        {
+          "source": "schema.org",
+          "label": "sdPublisher",
+          "signature": "CreativeWork → Organization/Person",
+          "parent": null,
+          "score": 0.824,
+          "comment": "Relates a creative work to the organization or person responsible for generating and publishing its structured data markup. Also called \"metadata publisher\", \"structured data creator\", \"markup publisher\". Examples: [Aggregated Event Page - sdPublisher - Event Aggregator Corp], [Student Project Page - sdPublisher - Jane Doe], [Open Data Portal - sdPublisher - City Government]."
+        },
+        {
+          "source": "schema.org",
+          "label": "albumProductionType",
+          "signature": "MusicAlbum → MusicAlbumProductionType",
+          "parent": null,
+          "score": 0.822,
+          "comment": "Relates a music album to its production classification, such as a studio, live, or soundtrack album. Also called \"production type\", \"album format\", \"recording type\". Examples: [Album \"Abbey Road\" - albumProductionType - \"StudioAlbum\"], [Album \"MTV Unplugged\" - albumProductionType - \"LiveAlbum\"], [Album \"Star Wars OST\" - albumProductionType - \"Soundtrack\"]."
+        }
+      ]
+    },
+    {
+      "relation_phrase": "publicist of",
+      "definition": "A person responsible for managing public relations and press for the object.",
+      "embedding_query_text": "publicist of: A person responsible for managing public relations and press for the object. Also called press officer for, media representative for.",
+      "observed_signatures": [
+        "Person → Person"
+      ],
+      "chosen_property": {
+        "label": "publicistOf",
+        "source": "vocab",
+        "vocab_id": "P0011",
+        "is_new_to_vocab": true,
+        "definition": "Relates a publicist to the person or entity whose public relations they manage.",
+        "parent": null,
+        "domain": [
+          "Person"
+        ],
+        "range": [
+          "Person"
+        ],
+        "path": "",
+        "justification": "No candidate property represents a publicist managing public relations for a person."
+      },
+      "llm_proposed": {
+        "source": "new",
+        "label": "publicistOf",
+        "is_new": true
+      },
+      "instances": [
+        "Tree Paine -> Taylor Swift"
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "accountablePerson",
+          "signature": "CreativeWork → Person",
+          "parent": null,
+          "score": 0.798,
+          "comment": "Relates a creative work to the person who is legally responsible or accountable for its content. Also called \"legally responsible person\", \"accountable party\", \"responsible editor\". Examples: [News Article - accountablePerson - Person \"Jane Doe\"], [Corporate Report - accountablePerson - Person \"John Smith\"], [Medical Guide - accountablePerson - Person \"Dr. Alice Green\"]."
+        },
+        {
+          "source": "schema.org",
+          "label": "sdPublisher",
+          "signature": "CreativeWork → Organization/Person",
+          "parent": null,
+          "score": 0.796,
+          "comment": "Relates a creative work to the organization or person responsible for generating and publishing its structured data markup. Also called \"metadata publisher\", \"structured data creator\", \"markup publisher\". Examples: [Aggregated Event Page - sdPublisher - Event Aggregator Corp], [Student Project Page - sdPublisher - Jane Doe], [Open Data Portal - sdPublisher - City Government]."
+        },
+        {
+          "source": "schema.org",
+          "label": "broadcaster",
+          "signature": "BroadcastService → Organization",
+          "parent": null,
+          "score": 0.794,
+          "comment": "A BroadcastService is operated or owned by an Organization that acts as its broadcaster. Also called \"operated by\", \"owned by\", \"broadcast by\", \"station owner\". Examples: \"BBC One\" has broadcaster \"British Broadcasting Corporation\". \"CNN\" has broadcaster \"Warner Bros. Discovery\". \"NPR\" has broadcaster \"National Public Radio\"."
+        },
+        {
+          "source": "schema.org",
+          "label": "maintainer",
+          "signature": "CreativeWork → Organization/Person",
+          "parent": null,
+          "score": 0.794,
+          "comment": "This property identifies the person or organization responsible for managing contributions to and/or publication of a subject creative work, such as a dataset or software package. Also called \"managed by\", \"curated by\", \"supported by\". Examples: \"Software Package A maintainer 'Open Source Community'\", \"Dataset B maintainer 'University Research Group'\", \"Project C maintainer 'John Doe'\"."
+        },
+        {
+          "source": "schema.org",
+          "label": "producer",
+          "signature": "CreativeWork → Organization/Person",
+          "parent": null,
+          "score": 0.793,
+          "comment": "A producer is the Organization or Person responsible for overseeing the creation and production of a CreativeWork, such as a movie or music album. Also called made by, created by, executive producer, production company. Examples: A movie producer Steven Spielberg. A music album producer Columbia Records. A TV series producer Shonda Rhimes. Distinct from director, who guides the artistic and dramatic aspects, and creator, who originates the work."
+        }
+      ]
+    },
+    {
+      "relation_phrase": "student at",
+      "definition": "An individual enrolled in and studying at an educational institution.",
+      "embedding_query_text": "student at: An individual enrolled in and studying at an educational institution. Also called attending, enrolled at, studies at.",
+      "observed_signatures": [
+        "Person → CollegeOrUniversity"
+      ],
+      "chosen_property": {
+        "label": "alumniOf",
+        "source": "schema.org",
+        "vocab_id": null,
+        "is_new_to_vocab": false,
+        "definition": null,
+        "parent": null,
+        "domain": null,
+        "range": null,
+        "path": "",
+        "justification": "alumniOf connects a Person to an educational organization they attend or attended."
+      },
+      "llm_proposed": {
+        "source": "schema.org",
+        "label": "alumniOf",
+        "is_new": false
+      },
+      "instances": [
+        "Elizabeth Maxey -> University of Mississippi",
+        "Hayden Mason -> University of Mississippi"
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "alumniOf",
+          "signature": "Person → EducationalOrganization/Organization",
+          "parent": null,
+          "score": 0.838,
+          "comment": "Relates a person to an educational organization or other organization they graduated from or attended. Also called \"graduated from\", \"attended school at\", \"former student of\". Examples: [Person \"Barack Obama\" - alumniOf - \"Columbia University\"], [Person \"Elon Musk\" - alumniOf - \"University of Pennsylvania\"], [Person \"Emma Watson\" - alumniOf - \"Brown University\"]. Distinct from alumni, which is the inverse relation mapping an organization to its graduates."
+        },
+        {
+          "source": "schema.org",
+          "label": "alumni",
+          "signature": "EducationalOrganization/Organization → Person",
+          "parent": null,
+          "score": 0.829,
+          "comment": "Relates an educational organization or other organization to a person who graduated from or attended it. Also called \"graduates\", \"former students\", \"alumni members\". Examples: [Harvard University - alumni - Person \"Bill Gates\"], [Stanford University - alumni - Person \"Larry Page\"], [High School - alumni - Person \"Jane Doe\"]. Distinct from alumniOf, which is the inverse relation mapping a Person to their school."
+        },
+        {
+          "source": "schema.org",
+          "label": "financialAidEligible",
+          "signature": "Course/EducationalOccupationalProgram → DefinedTerm/Text",
+          "parent": null,
+          "score": 0.81,
+          "comment": "A Course or EducationalOccupationalProgram is financialAidEligible for a specific type or program of financial assistance that students can use for tuition or fees. Also called \"eligible for financial aid\", \"financial assistance program\", \"aid program\". Examples: \"The Course is financialAidEligible for 'Pell Grants'.\", \"This EducationalOccupationalProgram is financialAidEligible for 'federal student loans'.\", \"The program is financialAidEligible for 'scholarships'.\""
+        },
+        {
+          "source": "schema.org",
+          "label": "member",
+          "signature": "Organization/ProgramMembership → Organization/Person",
+          "parent": null,
+          "score": 0.807,
+          "comment": "This property identifies an organization or person who is a member of a subject organization or program membership. Also called \"has member\", \"includes member\", \"comprises member\". Examples: \"Club A member 'John Doe'\", \"Company B member 'Subsidiary C'\", \"ProgramMembership X member 'Jane Smith'\". Distinct from memberOf, which indicates the organization or program a person/organization belongs to."
+        },
+        {
+          "source": "schema.org",
+          "label": "affiliation",
+          "signature": "Person → Organization",
+          "parent": "memberOf",
+          "score": 0.807,
+          "comment": "Relates a person to an organization, such as a school, club, or employer, with which they are formally associated. Also called \"affiliated with\", \"member of\", \"associated organization\". Examples: [Professor - affiliation - \"Stanford University\"], [Athlete - affiliation - \"Los Angeles Lakers\"], [Researcher - affiliation - \"CERN\"]."
+        }
+      ]
+    },
+    {
+      "relation_phrase": "works for",
+      "definition": "An employee or journalist employed by or affiliated with the object organization.",
+      "embedding_query_text": "works for: An employee or journalist employed by or affiliated with the object organization. Also called employed by, staff member at, affiliated with.",
+      "observed_signatures": [
+        "Person → NewsMediaOrganization"
+      ],
+      "chosen_property": {
+        "label": "worksFor",
+        "source": "schema.org",
+        "vocab_id": null,
+        "is_new_to_vocab": false,
+        "definition": null,
+        "parent": null,
+        "domain": null,
+        "range": null,
+        "path": "",
+        "justification": "worksFor directly connects a Person to the Organization that employs them."
+      },
+      "llm_proposed": {
+        "source": "schema.org",
+        "label": "worksFor",
+        "is_new": false
+      },
+      "instances": [
+        "Nardine Saad -> BBC News"
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "employee",
+          "signature": "Organization → Person",
+          "parent": null,
+          "score": 0.869,
+          "comment": "An Organization has an employee, who is a person working for that organization. Also called \"staff member\", \"worker\". Examples: \"The company has employee 'Jane Doe'\", \"The organization lists 'John Smith' as an employee\", \"'Alice Brown' is an employee of the firm.\"."
+        },
+        {
+          "source": "schema.org",
+          "label": "worksFor",
+          "signature": "Person → Organization",
+          "parent": null,
+          "score": 0.864,
+          "comment": "Relates a person to an organization that employs them or for which they perform services. Also called \"employed by\", \"employee of\", \"works at\", \"affiliated with\". Examples: \"Sundar Pichai - worksFor - Google\", \"Jane Doe - worksFor - Red Cross\", \"Professor Green - worksFor - Oxford University\"."
+        },
+        {
+          "source": "schema.org",
+          "label": "employees",
+          "signature": "Organization → Person",
+          "parent": null,
+          "score": 0.844,
+          "comment": "An Organization has employees, who are people working for that organization. Also called \"staff\", \"workforce\". Examples: \"The company has employees 'Jane Doe' and 'John Smith'\", \"The organization lists its employees\", \"The firm's employees are dedicated.\". Distinct from employee, which typically refers to a single person."
+        },
+        {
+          "source": "schema.org",
+          "label": "colleague",
+          "signature": "Person → Person/URL",
+          "parent": null,
+          "score": 0.83,
+          "comment": "A Person has a Person or URL representing a colleague. Also called \"co-worker\", \"associate\", \"professional peer\". Examples: \"John Doe\" has colleague \"Jane Smith\". \"Mary Lee\" has colleague \"https://example.com/bob\". \"Peter Jones\" has colleague \"Sarah Brown\"."
+        },
+        {
+          "source": "schema.org",
+          "label": "affiliation",
+          "signature": "Person → Organization",
+          "parent": "memberOf",
+          "score": 0.828,
+          "comment": "Relates a person to an organization, such as a school, club, or employer, with which they are formally associated. Also called \"affiliated with\", \"member of\", \"associated organization\". Examples: [Professor - affiliation - \"Stanford University\"], [Athlete - affiliation - \"Los Angeles Lakers\"], [Researcher - affiliation - \"CERN\"]."
+        }
+      ]
+    },
+    {
+      "relation_phrase": "from country",
+      "definition": "The country of origin or nationality of the subject person.",
+      "embedding_query_text": "from country: The country of origin or nationality of the subject person. Also called native of, originating from, hails from.",
+      "observed_signatures": [
+        "Person → Country"
+      ],
+      "chosen_property": {
+        "label": "nationality",
+        "source": "schema.org",
+        "vocab_id": null,
+        "is_new_to_vocab": false,
+        "definition": null,
+        "parent": null,
+        "domain": null,
+        "range": null,
+        "path": "",
+        "justification": "nationality links a Person to the Country of their citizenship or origin."
+      },
+      "llm_proposed": {
+        "source": "schema.org",
+        "label": "nationality",
+        "is_new": false
+      },
+      "instances": [
+        "Laura Bonne -> Belgium"
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "nationality",
+          "signature": "Person → Country",
+          "parent": null,
+          "score": 0.849,
+          "comment": "A Person holds a specific nationality, indicating the country of their citizenship or origin. Also called is a national of, citizenship, country of origin. Examples: John Doe has nationality 'United States'. Marie Curie had nationality 'Poland'. A traveler has nationality 'Germany'. Distinct from birthPlace, which is where the person was born."
+        },
+        {
+          "source": "schema.org",
+          "label": "countryOfOrigin",
+          "signature": "CreativeWork/Movie/Product/TVEpisode/TVSeason/TVSeries → Country",
+          "parent": null,
+          "score": 0.839,
+          "comment": "A CreativeWork or Product has a countryOfOrigin, which specifies the country from which it originates. Also called origin country, nation of origin, produced in. Examples: \"French Wine\" countryOfOrigin \"France\", \"Japanese Anime\" countryOfOrigin \"Japan\", \"German Car\" countryOfOrigin \"Germany\". Distinct from countryOfAssembly, which specifies where a product was assembled, and countryOfLastProcessing, which indicates where it was last processed before import."
+        },
+        {
+          "source": "schema.org",
+          "label": "birthPlace",
+          "signature": "Person → Place",
+          "parent": null,
+          "score": 0.838,
+          "comment": "A Person has a birthPlace which is the Place where they were born. Also called place of birth, born in, birth location. Examples: A person has birthPlace 'London', John Doe's birthPlace is 'New York City', Her birthPlace is 'Paris, France'."
+        },
+        {
+          "source": "schema.org",
+          "label": "parent",
+          "signature": "Person → Person",
+          "parent": null,
+          "score": 0.799,
+          "comment": "A Person has a parent, who is an individual from whom they are descended. Also called is child of, mother, father. Examples: Alice has parent 'Bob'. John has parent 'Mary'. A child has parent 'their biological mother'. Distinct from children, which is the inverse property."
+        },
+        {
+          "source": "schema.org",
+          "label": "alumniOf",
+          "signature": "Person → EducationalOrganization/Organization",
+          "parent": null,
+          "score": 0.797,
+          "comment": "Relates a person to an educational organization or other organization they graduated from or attended. Also called \"graduated from\", \"attended school at\", \"former student of\". Examples: [Person \"Barack Obama\" - alumniOf - \"Columbia University\"], [Person \"Elon Musk\" - alumniOf - \"University of Pennsylvania\"], [Person \"Emma Watson\" - alumniOf - \"Brown University\"]. Distinct from alumni, which is the inverse relation mapping an organization to its graduates."
+        }
+      ]
+    }
+  ]
+}

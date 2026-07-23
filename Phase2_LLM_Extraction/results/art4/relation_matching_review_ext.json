@@ -1,0 +1,386 @@
+{
+  "article_id": "art4",
+  "match_model": "intfloat/e5-base-v2",
+  "expand_mode": true,
+  "relations": [
+    {
+      "relation_phrase": "held in",
+      "definition": "Identifies the geographic location or venue where an event takes place.",
+      "embedding_query_text": "held in: Identifies the geographic location or venue where an event takes place. Also called located in, hosted in, takes place in.",
+      "observed_signatures": [
+        "SportsEvent → City"
+      ],
+      "chosen_property": {
+        "label": "location",
+        "source": "schema.org",
+        "vocab_id": null,
+        "is_new_to_vocab": false,
+        "definition": null,
+        "parent": null,
+        "domain": null,
+        "range": null,
+        "path": "",
+        "justification": "Matches the physical location where an event takes place, fitting SportsEvent -> City."
+      },
+      "llm_proposed": {
+        "source": "schema.org",
+        "label": "location",
+        "is_new": false
+      },
+      "instances": [
+        "2025 tournament -> New York"
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "containedInPlace",
+          "signature": "Place → Place",
+          "parent": null,
+          "score": 0.859,
+          "comment": "A Place is contained within another Place. Also called \"located in\", \"part of\", \"within\". Examples: \"Paris\" is containedInPlace \"France\". \"California\" is containedInPlace \"United States\". \"The Louvre\" is containedInPlace \"Paris\"."
+        },
+        {
+          "source": "schema.org",
+          "label": "containedIn",
+          "signature": "Place → Place",
+          "parent": null,
+          "score": 0.859,
+          "comment": "A Place is contained within another Place. Also called \"located in\", \"part of\", \"within\". Examples: \"Paris\" is containedIn \"France\". \"California\" is containedIn \"United States\". \"The Louvre\" is containedIn \"Paris\"."
+        },
+        {
+          "source": "schema.org",
+          "label": "location",
+          "signature": "Action/Event/InteractionCounter/Organization → Place/PostalAddress/Text/VirtualLocation",
+          "parent": null,
+          "score": 0.851,
+          "comment": "This property indicates the physical or virtual place where a subject action, event, interaction counter, or organization is situated or occurs. Also called \"venue\", \"address\", \"site\". Examples: \"Concert Event location 'Madison Square Garden'\", \"Company Headquarters location '123 Main St, Anytown'\", \"Online Meeting location 'Zoom Link'\". Distinct from locationCreated, which specifies where a creative work was originally made."
+        },
+        {
+          "source": "schema.org",
+          "label": "containsPlace",
+          "signature": "Place → Place",
+          "parent": null,
+          "score": 0.842,
+          "comment": "A Place contains another Place. Also called \"encompasses\", \"includes location\", \"holds place\". Examples: \"France\" containsPlace \"Paris\". \"United States\" containsPlace \"California\". \"Paris\" containsPlace \"The Louvre\"."
+        },
+        {
+          "source": "schema.org",
+          "label": "events",
+          "signature": "Organization/Place → Event",
+          "parent": null,
+          "score": 0.839,
+          "comment": "An Organization or Place is associated with events, which are upcoming or past occurrences. Also called \"associated events\", \"related events\". Examples: \"The organization is hosting several events\", \"The place is known for its events\", \"The venue's events calendar is full.\". Distinct from event, which typically refers to a single event."
+        }
+      ]
+    },
+    {
+      "relation_phrase": "received prize money",
+      "definition": "Indicates the financial compensation or monetary reward earned or taken home by an individual or team for participating or achieving a specific result in a competition.",
+      "embedding_query_text": "received prize money: Indicates the financial compensation or monetary reward earned or taken home by an individual or team for participating or achieving a specific result in a competition. Also called earned prize money, won prize money, was awarded.",
+      "observed_signatures": [
+        "TennisPlayer → MonetaryAmount"
+      ],
+      "chosen_property": {
+        "label": "receivedPrizeMoney",
+        "source": "vocab",
+        "vocab_id": "P0012",
+        "is_new_to_vocab": true,
+        "definition": "Specifies the monetary amount of prize money earned or received by an individual or team.",
+        "parent": null,
+        "domain": [
+          "TennisPlayer"
+        ],
+        "range": [
+          "MonetaryAmount"
+        ],
+        "path": "",
+        "justification": "No existing property links a person/athlete directly to the monetary amount of prize money won."
+      },
+      "llm_proposed": {
+        "source": "new",
+        "label": "receivedPrizeMoney",
+        "is_new": true
+      },
+      "instances": [
+        "Jannik Sinner -> Â£2.84m",
+        "Jannik Sinner -> $3.6m",
+        "Aryna Sabalenka -> Â£2.84m",
+        "Aryna Sabalenka -> $3.6m"
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "winner",
+          "signature": "LoseAction → Person",
+          "parent": "participant",
+          "score": 0.803,
+          "comment": "Relates a losing action to the person who won or emerged victorious in the competition. Also called \"victor\", \"champion\", \"winning participant\". Examples: \"Chess Match Defeat - winner - Garry Kasparov\", \"100m Sprint Loss - winner - Usain Bolt\", \"Final Debate Defeat - winner - Jane Doe\"."
+        },
+        {
+          "source": "schema.org",
+          "label": "awards",
+          "signature": "CreativeWork/Organization/Person/Product → Text",
+          "parent": null,
+          "score": 0.79,
+          "comment": "A CreativeWork, Organization, Person, or Product has awards which are Text descriptions of honors or prizes it has received. Also called won awards, received honors, prizes. Examples: A film has awards 'Oscar, Golden Globe', The company won awards 'Best Employer, Innovation Award', This product received awards 'Editor's Choice, Best Value'."
+        },
+        {
+          "source": "schema.org",
+          "label": "awayTeam",
+          "signature": "SportsEvent → Person/SportsTeam",
+          "parent": "competitor",
+          "score": 0.789,
+          "comment": "A SportsEvent has an awayTeam which is the Person or SportsTeam designated as the visiting competitor. Also called visiting team, opponent team, guest team. Examples: A soccer match has awayTeam 'Manchester United', The basketball game features awayTeam 'Golden State Warriors', The tennis match has awayTeam 'Serena Williams'. Distinct from homeTeam, which is the host competitor."
+        },
+        {
+          "source": "schema.org",
+          "label": "funding",
+          "signature": "BioChemEntity/CreativeWork/Event/MedicalEntity/Organization/Person/Product → Grant",
+          "parent": null,
+          "score": 0.789,
+          "comment": "A BioChemEntity, CreativeWork, Event, MedicalEntity, Organization, Person, or Product receives funding through a Grant that provides direct or indirect financial support. Also called \"grant received\", \"sponsored by\", \"supported by grant\". Examples: \"The CreativeWork received funding from 'Grant X'.\", \"This research project has funding from 'a federal grant'.\", \"The organization's funding comes from 'multiple grants'.\" Distinct from funder, which is the entity providing the funding."
+        },
+        {
+          "source": "schema.org",
+          "label": "award",
+          "signature": "CreativeWork/Organization/Person/Product/Service → Text",
+          "parent": null,
+          "score": 0.788,
+          "comment": "A CreativeWork, Organization, Person, Product, or Service has an award which is a Text describing a single honor or prize it has received. Also called won award, received award, honor. Examples: A film has award 'Oscar', The company won award 'Best Employer', This product received award 'Editor's Choice'."
+        }
+      ]
+    },
+    {
+      "relation_phrase": "awarded prize money",
+      "definition": "Specifies the amount of financial payout or prize purse provided by a competition, organization, or allocated for a specific placement or round.",
+      "embedding_query_text": "awarded prize money: Specifies the amount of financial payout or prize purse provided by a competition, organization, or allocated for a specific placement or round. Also called offered prize money, provided prize money, paid out.",
+      "observed_signatures": [
+        "CompetitionRank → MonetaryAmount",
+        "SportsEvent → MonetaryAmount"
+      ],
+      "chosen_property": {
+        "label": "awardedPrizeMoney",
+        "source": "vocab",
+        "vocab_id": "P0013",
+        "is_new_to_vocab": true,
+        "definition": "Specifies the amount of prize money purse offered by a sports event or allocated to a competition rank.",
+        "parent": null,
+        "domain": [
+          "CompetitionRank",
+          "SportsEvent"
+        ],
+        "range": [
+          "MonetaryAmount"
+        ],
+        "path": "",
+        "justification": "No candidate covers the total prize purse or payout structure of events and competition ranks."
+      },
+      "llm_proposed": {
+        "source": "new",
+        "label": "awardedPrizeMoney",
+        "is_new": true
+      },
+      "instances": [
+        "US Open -> Â£67.3m",
+        "US Open -> $90m",
+        "Wimbledon -> Â£53.5m",
+        "Australian Open -> Â£47m",
+        "French Open -> Â£49m",
+        "Winner -> Â£3.73m",
+        "Runner-up -> Â£1.87m",
+        "Semi-final -> Â£943,000",
+        "Quarter-final -> Â£494,000",
+        "Round four -> Â£299,000",
+        "Round three -> Â£177,000",
+        "Round two -> Â£115,000",
+        "Round one -> Â£82,000"
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "funding",
+          "signature": "BioChemEntity/CreativeWork/Event/MedicalEntity/Organization/Person/Product → Grant",
+          "parent": null,
+          "score": 0.806,
+          "comment": "A BioChemEntity, CreativeWork, Event, MedicalEntity, Organization, Person, or Product receives funding through a Grant that provides direct or indirect financial support. Also called \"grant received\", \"sponsored by\", \"supported by grant\". Examples: \"The CreativeWork received funding from 'Grant X'.\", \"This research project has funding from 'a federal grant'.\", \"The organization's funding comes from 'multiple grants'.\" Distinct from funder, which is the entity providing the funding."
+        },
+        {
+          "source": "schema.org",
+          "label": "sponsor",
+          "signature": "CreativeWork/Event/Grant/MedicalStudy/Organization/Person → Organization/Person",
+          "parent": null,
+          "score": 0.803,
+          "comment": "Relates a creative work, event, grant, medical study, organization, or person to an organization or person that supports it financially or through a pledge. Also called \"sponsored by\", \"funded by\", \"backed by\". Examples: [Charity Gala - sponsor - Coca-Cola], [Clinical Trial - sponsor - Pfizer], [Research Grant - sponsor - National Science Foundation]."
+        },
+        {
+          "source": "schema.org",
+          "label": "amount",
+          "signature": "DatedMoneySpecification/InvestmentOrDeposit/LoanOrCredit/MonetaryGrant/MoneyTransfer → MonetaryAmount/Number",
+          "parent": null,
+          "score": 0.8,
+          "comment": "Relates a financial specification, investment, loan, grant, or money transfer to the monetary amount or number of currency units involved. Also called \"monetary value\", \"sum of money\", \"transaction amount\". Examples: [MoneyTransfer - amount - \"$150 USD\"], [MonetaryGrant - amount - \"€50,000 EUR\"], [Loan - amount - \"$10,000 USD\"]."
+        },
+        {
+          "source": "schema.org",
+          "label": "funder",
+          "signature": "CreativeWork/Event/Grant/MonetaryGrant/Organization/Person → Organization/Person",
+          "parent": "sponsor",
+          "score": 0.799,
+          "comment": "A CreativeWork, Event, Grant, MonetaryGrant, Organization, or Person has a funder, which is the Organization or Person providing financial support or sponsorship. Also called \"sponsor\", \"grantor\", \"financial supporter\". Examples: \"The CreativeWork's funder is 'the National Endowment for the Arts'.\", \"This Event has 'Acme Corp' as its funder.\", \"The funder of the research is 'a private foundation'.\" Distinct from fundedItem, which is the entity receiving the funding."
+        },
+        {
+          "source": "schema.org",
+          "label": "fundedItem",
+          "signature": "Grant → BioChemEntity/CreativeWork/Event/MedicalEntity/Organization/Person/Product",
+          "parent": null,
+          "score": 0.799,
+          "comment": "A Grant funds a fundedItem, which is a BioChemEntity, CreativeWork, Event, MedicalEntity, Organization, Person, or Product that receives direct or indirect financial support. Also called \"grant recipient\", \"sponsored item\", \"supported project\". Examples: \"The Grant supports a fundedItem that is 'a research project'.\", \"This Grant's fundedItem is 'a new medical device'.\", \"The fundedItem is 'a non-profit organization'.\" Distinct from funder, which is the entity providing the grant."
+        }
+      ]
+    },
+    {
+      "relation_phrase": "part of",
+      "definition": "Indicates that the subject is a division, unit, team, or component of the target organization or entity.",
+      "embedding_query_text": "part of: Indicates that the subject is a division, unit, team, or component of the target organization or entity. Also called subdivision of, unit of, affiliated with, belongs to.",
+      "observed_signatures": [
+        "Organization → NewsMediaOrganization"
+      ],
+      "chosen_property": {
+        "label": "memberOf",
+        "source": "schema.org",
+        "vocab_id": null,
+        "is_new_to_vocab": false,
+        "definition": null,
+        "parent": null,
+        "domain": null,
+        "range": null,
+        "path": "",
+        "justification": "Accurately represents an organization belonging to or being a part of a larger organization."
+      },
+      "llm_proposed": {
+        "source": "schema.org",
+        "label": "memberOf",
+        "is_new": false
+      },
+      "instances": [
+        "Ask Me Anything team -> BBC Sport"
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "member",
+          "signature": "Organization/ProgramMembership → Organization/Person",
+          "parent": null,
+          "score": 0.851,
+          "comment": "This property identifies an organization or person who is a member of a subject organization or program membership. Also called \"has member\", \"includes member\", \"comprises member\". Examples: \"Club A member 'John Doe'\", \"Company B member 'Subsidiary C'\", \"ProgramMembership X member 'Jane Smith'\". Distinct from memberOf, which indicates the organization or program a person/organization belongs to."
+        },
+        {
+          "source": "schema.org",
+          "label": "memberOf",
+          "signature": "Organization/Person → MemberProgramTier/Organization/ProgramMembership",
+          "parent": null,
+          "score": 0.847,
+          "comment": "This property indicates the organization, program membership, or member program tier to which a subject person or organization belongs. Also called \"belongs to\", \"is a member of\", \"affiliated with\". Examples: \"John Doe memberOf 'Sports Club'\", \"Company X memberOf 'Industry Association'\", \"Jane Smith memberOf 'Gold Tier Membership'\". Distinct from member, which identifies members of an organization or program."
+        },
+        {
+          "source": "schema.org",
+          "label": "members",
+          "signature": "Organization/ProgramMembership → Organization/Person",
+          "parent": null,
+          "score": 0.847,
+          "comment": "This property identifies an organization or person who is a member of a subject organization or program membership. Also called \"has members\", \"includes members\", \"comprises members\". Examples: \"Club A members 'John Doe'\", \"Company B members 'Subsidiary C'\", \"ProgramMembership X members 'Jane Smith'\". Distinct from memberOf, which indicates the organization or program a person/organization belongs to."
+        },
+        {
+          "source": "schema.org",
+          "label": "department",
+          "signature": "Organization → Organization",
+          "parent": null,
+          "score": 0.843,
+          "comment": "An Organization has a department, which is a sub-organization or division within it. Also called organizational unit, division, section. Examples: \"University\" department \"Computer Science Department\", \"Hospital\" department \"Emergency Room\", \"Company\" department \"Marketing Department\"."
+        },
+        {
+          "source": "schema.org",
+          "label": "affiliation",
+          "signature": "Person → Organization",
+          "parent": "memberOf",
+          "score": 0.835,
+          "comment": "Relates a person to an organization, such as a school, club, or employer, with which they are formally associated. Also called \"affiliated with\", \"member of\", \"associated organization\". Examples: [Professor - affiliation - \"Stanford University\"], [Athlete - affiliation - \"Los Angeles Lakers\"], [Researcher - affiliation - \"CERN\"]."
+        }
+      ]
+    },
+    {
+      "relation_phrase": "asked",
+      "definition": "Indicates that the subject made a request, inquiry, or petition to the target entity.",
+      "embedding_query_text": "asked: Indicates that the subject made a request, inquiry, or petition to the target entity. Also called requested of, appealed to, petitioned.",
+      "observed_signatures": [
+        "Person → SportsOrganization"
+      ],
+      "chosen_property": {
+        "label": "asked",
+        "source": "vocab",
+        "vocab_id": "P0014",
+        "is_new_to_vocab": true,
+        "definition": "Indicates that the subject made an inquiry, request, or petition to the target entity.",
+        "parent": null,
+        "domain": [
+          "Person"
+        ],
+        "range": [
+          "SportsOrganization"
+        ],
+        "path": "",
+        "justification": "None of the candidates express a person making a request or inquiry to an organization."
+      },
+      "llm_proposed": {
+        "source": "new",
+        "label": "asked",
+        "is_new": true
+      },
+      "instances": [
+        "Trump -> Fifa"
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "seeks",
+          "signature": "Organization/Person → Demand",
+          "parent": null,
+          "score": 0.843,
+          "comment": "Relates an organization or person to a demand representing products or services they are looking to acquire. Also called \"demands\", \"looking for\", \"wants to buy\". Examples: [Construction Company - seeks - Steel Supply Demand], [Tech Startup - seeks - Office Space Lease Demand], [Individual - seeks - Used Car Purchase Demand]."
+        },
+        {
+          "source": "schema.org",
+          "label": "suggestedAnswer",
+          "signature": "Question → Answer/ItemList",
+          "parent": null,
+          "score": 0.808,
+          "comment": "Relates a question to a potential, suggested, or candidate answer. Also called \"possible answer\", \"proposed answer\", \"candidate response\". Examples: [Math Question - suggestedAnswer - \"42\"], [Trivia Question - suggestedAnswer - \"Paris\"], [Forum Question - suggestedAnswer - Helpful User Post]."
+        },
+        {
+          "source": "schema.org",
+          "label": "question",
+          "signature": "AskAction → Question",
+          "parent": "object",
+          "score": 0.794,
+          "comment": "An AskAction involves a Question. Also called 'inquiry', 'asked question'. Examples: 'The ask action posed the question 'What is the capital of France?'.' 'The action involved the question 'How does this work?'.' 'The ask action presented the question 'Are you available tomorrow?'.'"
+        },
+        {
+          "source": "schema.org",
+          "label": "eligibleCustomerType",
+          "signature": "Demand/Offer → BusinessEntityType",
+          "parent": null,
+          "score": 0.794,
+          "comment": "A Demand or Offer specifies an eligible customer type, which is the type of customer for whom the offer is valid. Also called \"customer segment\", \"target customer\". Examples: \"The offer is for eligibleCustomerType 'Business'\", \"The demand specifies eligibleCustomerType 'Public'\", \"This deal is valid for eligibleCustomerType 'Student'\"."
+        },
+        {
+          "source": "schema.org",
+          "label": "makesOffer",
+          "signature": "Organization/Person → Offer",
+          "parent": null,
+          "score": 0.791,
+          "comment": "This property links a subject organization or person to an offer for products or services that they provide. Also called \"offers\", \"provides offer\", \"sells\". Examples: \"Retailer X makesOffer 'Discounted Laptop Offer'\", \"Consultant Y makesOffer 'Hourly Service Offer'\", \"Restaurant Z makesOffer 'Dinner Menu Offer'\"."
+        }
+      ]
+    }
+  ]
+}
