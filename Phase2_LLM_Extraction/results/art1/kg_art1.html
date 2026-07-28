@@ -392,7 +392,7 @@ function highlightFilter(filter) {
                   // adding nodes and edges to the graph
                   data = {nodes: nodes, edges: edges};
 
-                  var options = {"nodes": {"shape": "dot", "font": {"size": 40, "face": "arial", "color": "#0b0b0b", "strokeWidth": 4, "strokeColor": "#fcfcfb"}}, "edges": {"arrows": {"to": {"enabled": true, "scaleFactor": 0.6}}, "color": {"inherit": false, "opacity": 0.8}, "smooth": {"enabled": true, "type": "dynamic"}, "font": {"size": 30, "face": "arial", "color": "#333333", "strokeWidth": 5, "strokeColor": "#fcfcfb", "align": "middle"}, "width": 1.5}, "physics": {"barnesHut": {"gravitationalConstant": -32000, "centralGravity": 0.2, "springLength": 150, "springConstant": 0.02, "damping": 0.5, "avoidOverlap": 0.7}, "minVelocity": 0.75, "stabilization": {"enabled": true, "iterations": 400}}, "interaction": {"hover": true, "tooltipDelay": 120, "navigationButtons": true, "keyboard": true}};
+                  var options = {"nodes": {"shape": "dot", "font": {"size": 40, "face": "arial", "color": "#0b0b0b", "strokeWidth": 4, "strokeColor": "#fcfcfb"}}, "edges": {"arrows": {"to": {"enabled": true, "scaleFactor": 0.6}}, "color": {"inherit": false, "opacity": 0.8}, "smooth": {"enabled": true, "type": "dynamic"}, "font": {"size": 30, "face": "arial", "color": "#333333", "strokeWidth": 5, "strokeColor": "#fcfcfb", "align": "middle"}, "width": 1.5}, "physics": {"barnesHut": {"gravitationalConstant": -32000, "centralGravity": 0.2, "springLength": 150, "springConstant": 0.02, "damping": 0.5, "avoidOverlap": 0.7}, "minVelocity": 0.75, "stabilization": {"enabled": true, "iterations": 400, "fit": true}}, "interaction": {"hover": true, "tooltipDelay": 120, "navigationButtons": true, "keyboard": true}};
 
                   
 
@@ -432,5 +432,14 @@ function highlightFilter(filter) {
               }
               drawGraph();
         </script>
-    </body>
+    
+<script type="text/javascript">
+  (function () {
+    if (typeof network === "undefined") return;
+    var stop = function () { network.setOptions({ physics: false }); };
+    network.on("stabilizationIterationsDone", stop);
+    setTimeout(stop, 4000);
+  })();
+</script>
+</body>
 </html>
