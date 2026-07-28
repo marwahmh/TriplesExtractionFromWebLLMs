@@ -2,26 +2,49 @@
   "properties": [
     {
       "id": "P0001",
-      "canonical_label": "recordedStatistic",
-      "definition": "Relates a country or organization to a statistic or measured figure it officially recorded.",
+      "canonical_label": "recordedValue",
+      "definition": "A country registered or documented a quantitative value or number.",
       "parent": null,
       "domain": [
         "Country"
       ],
       "range": [
-        "QuantitativeValue"
+        "QuantitativeValue",
+        "Number"
       ],
       "aliases": [],
-      "support": 3,
+      "support": 11,
       "first_seen": "art1",
       "provenance": [
         {
           "article": "art1",
           "relation_phrase": "recorded",
           "instances": [
-            "France -> 2,025 excess deaths",
             "France -> more than 2,000 deaths",
-            "Belgium -> 1,222 excess deaths"
+            "Belgium -> 1,222 excess deaths",
+            "France -> 2,025",
+            "the Netherlands -> 480 excess deaths"
+          ]
+        },
+        {
+          "article": "art5",
+          "relation_phrase": "confirmed in",
+          "direction": "inverse",
+          "instances": [
+            "Democratic Republic of Congo -> 1,400 cases",
+            "Democratic Republic of Congo -> 438 deaths"
+          ]
+        },
+        {
+          "article": "art5",
+          "relation_phrase": "occurred in",
+          "direction": "inverse",
+          "instances": [
+            "Democratic Republic of Congo -> 1,460 confirmed cases",
+            "Democratic Republic of Congo -> 150 suspected cases",
+            "Democratic Republic of Congo -> 452 deaths",
+            "Uganda -> 20 confirmed cases",
+            "France -> one confirmed case"
           ]
         }
       ],
@@ -29,24 +52,26 @@
     },
     {
       "id": "P0002",
-      "canonical_label": "issuedAlert",
-      "definition": "Relates an organization or service to an official alert or warning system notice it released.",
+      "canonical_label": "occurredDuring",
+      "definition": "A quantitative value or event took place within a specified duration or during a specific event.",
       "parent": null,
       "domain": [
-        "WeatherServiceOrganization"
+        "QuantitativeValue"
       ],
       "range": [
-        "WarningSystem"
+        "Duration",
+        "WeatherEvent"
       ],
       "aliases": [],
-      "support": 1,
+      "support": 2,
       "first_seen": "art1",
       "provenance": [
         {
           "article": "art1",
-          "relation_phrase": "issued",
+          "relation_phrase": "occurred during",
           "instances": [
-            "Météo-France -> red heat alert"
+            "more than 2,000 deaths -> the last week of a record-breaking European heatwave in June",
+            "1,222 excess deaths -> heatwave"
           ]
         }
       ],
@@ -54,14 +79,14 @@
     },
     {
       "id": "P0003",
-      "canonical_label": "declaredMeasure",
-      "definition": "Relates a government organization to an emergency measure or official status it proclaimed.",
+      "canonical_label": "occurredInMonth",
+      "definition": "A weather condition occurred within a specific month.",
       "parent": null,
       "domain": [
-        "GovernmentOrganization"
+        "WeatherCondition"
       ],
       "range": [
-        "EmergencyMeasure"
+        "Month"
       ],
       "aliases": [],
       "support": 1,
@@ -69,9 +94,9 @@
       "provenance": [
         {
           "article": "art1",
-          "relation_phrase": "declared",
+          "relation_phrase": "occurred in",
           "instances": [
-            "Portugal's government -> a state of alert"
+            "record-breaking temperatures -> June"
           ]
         }
       ],
@@ -79,24 +104,30 @@
     },
     {
       "id": "P0004",
-      "canonical_label": "ignitedIn",
-      "definition": "Relates a natural disaster such as a fire to the geographic location where it originated or started burning.",
+      "canonical_label": "experiencedIncreaseOf",
+      "definition": "An entity or duration saw a rise in a quantitative value or percentage.",
       "parent": null,
       "domain": [
-        "NaturalDisaster"
+        "Duration",
+        "QuantitativeValue",
+        "DefinedRegion"
       ],
       "range": [
-        "City"
+        "Percentage",
+        "Number"
       ],
       "aliases": [],
-      "support": 1,
+      "support": 4,
       "first_seen": "art1",
       "provenance": [
         {
           "article": "art1",
-          "relation_phrase": "ignited in",
+          "relation_phrase": "experienced increase of",
           "instances": [
-            "wildfires -> Sainte-Marie-la-Mer"
+            "the last week of a record-breaking European heatwave in June -> 29%",
+            "1,222 excess deaths -> 39%",
+            "22 and 28 June -> 2,025",
+            "the Paris region -> 62%"
           ]
         }
       ],
@@ -104,8 +135,688 @@
     },
     {
       "id": "P0005",
+      "canonical_label": "ministerOfCountry",
+      "definition": "A person holds a ministerial position within a specific country.",
+      "parent": null,
+      "domain": [
+        "GovernmentOfficial"
+      ],
+      "range": [
+        "Country"
+      ],
+      "aliases": [],
+      "support": 4,
+      "first_seen": "art1",
+      "provenance": [
+        {
+          "article": "art1",
+          "relation_phrase": "is minister of",
+          "instances": [
+            "French health minister Stéphanie Rist -> France",
+            "French Interior Minister Laurent Nuñez -> France",
+            "Prime Minister Sebastien Lecornu -> France"
+          ]
+        },
+        {
+          "article": "art5",
+          "relation_phrase": "is position in",
+          "direction": "as_is",
+          "instances": [
+            "DR Congo's Health Minister -> Democratic Republic of Congo"
+          ]
+        }
+      ],
+      "path": ""
+    },
+    {
+      "id": "P0006",
+      "canonical_label": "notedIncreaseInDeathsForAgeGroup",
+      "definition": "A person or organization observed and stated an increase in mortality within a specific age demographic.",
+      "parent": null,
+      "domain": [
+        "GovernmentOfficial"
+      ],
+      "range": [
+        "Age"
+      ],
+      "aliases": [],
+      "support": 1,
+      "first_seen": "art1",
+      "provenance": [
+        {
+          "article": "art1",
+          "relation_phrase": "noted increase in deaths for age group",
+          "instances": [
+            "French health minister Stéphanie Rist -> 45"
+          ]
+        }
+      ],
+      "path": ""
+    },
+    {
+      "id": "P0007",
+      "canonical_label": "experienced",
+      "definition": "An entity underwent or was subjected to a particular event or condition.",
+      "parent": null,
+      "domain": [
+        "Country",
+        "Duration"
+      ],
+      "range": [
+        "Date",
+        "WeatherCondition"
+      ],
+      "aliases": [],
+      "support": 2,
+      "first_seen": "art1",
+      "provenance": [
+        {
+          "article": "art1",
+          "relation_phrase": "experienced",
+          "instances": [
+            "France -> 24 June",
+            "This summer -> record-breaking temperatures"
+          ]
+        }
+      ],
+      "path": ""
+    },
+    {
+      "id": "P0008",
+      "canonical_label": "reachedTemperatureOf",
+      "definition": "A location or entity attained a specific temperature.",
+      "parent": null,
+      "domain": [
+        "City",
+        "Country"
+      ],
+      "range": [
+        "Temperature"
+      ],
+      "aliases": [],
+      "support": 2,
+      "first_seen": "art1",
+      "provenance": [
+        {
+          "article": "art1",
+          "relation_phrase": "reached temperature of",
+          "instances": [
+            "Paris -> 41C",
+            "the country -> 40C"
+          ]
+        }
+      ],
+      "path": ""
+    },
+    {
+      "id": "P0009",
+      "canonical_label": "isPartOfGeographicalArea",
+      "definition": "A geographical region is a part of a larger geographical area.",
+      "parent": null,
+      "domain": [
+        "DefinedRegion",
+        "Country"
+      ],
+      "range": [
+        "Country",
+        "Continent"
+      ],
+      "aliases": [],
+      "support": 3,
+      "first_seen": "art1",
+      "provenance": [
+        {
+          "article": "art1",
+          "relation_phrase": "is part of",
+          "instances": [
+            "half the nation -> France",
+            "the UK -> Europe",
+            "southern Britain -> the UK"
+          ]
+        }
+      ],
+      "path": ""
+    },
+    {
+      "id": "P0010",
+      "canonical_label": "placedUnder",
+      "definition": "An entity was subjected to or put into a specific state, alert, or measure.",
+      "parent": null,
+      "domain": [
+        "DefinedRegion"
+      ],
+      "range": [
+        "WarningSystem"
+      ],
+      "aliases": [],
+      "support": 2,
+      "first_seen": "art1",
+      "provenance": [
+        {
+          "article": "art1",
+          "relation_phrase": "placed under",
+          "instances": [
+            "half the nation -> red heat alert",
+            "areas of the southwest -> orange alert"
+          ]
+        }
+      ],
+      "path": ""
+    },
+    {
+      "id": "P0011",
+      "canonical_label": "expectsConditionsFrom",
+      "definition": "An entity anticipates certain conditions starting from a specific time or event.",
+      "parent": null,
+      "domain": [
+        "Country"
+      ],
+      "range": [
+        "Duration"
+      ],
+      "aliases": [],
+      "support": 1,
+      "first_seen": "art1",
+      "provenance": [
+        {
+          "article": "art1",
+          "relation_phrase": "expects conditions from",
+          "instances": [
+            "the UK -> this weekend"
+          ]
+        }
+      ],
+      "path": ""
+    },
+    {
+      "id": "P0012",
+      "canonical_label": "movingTowards",
+      "definition": "An entity is progressing in the direction of another entity or location.",
+      "parent": null,
+      "domain": [
+        "WeatherEvent"
+      ],
+      "range": [
+        "Country"
+      ],
+      "aliases": [],
+      "support": 2,
+      "first_seen": "art1",
+      "provenance": [
+        {
+          "article": "art1",
+          "relation_phrase": "moving towards",
+          "instances": [
+            "a large area of high pressure -> Portugal",
+            "a large area of high pressure -> Spain"
+          ]
+        }
+      ],
+      "path": ""
+    },
+    {
+      "id": "P0013",
+      "canonical_label": "forecastToExperienceConditionsBy",
+      "definition": "An entity is predicted to undergo certain conditions by a specified time or event.",
+      "parent": null,
+      "domain": [
+        "Country",
+        "DefinedRegion"
+      ],
+      "range": [
+        "Duration"
+      ],
+      "aliases": [],
+      "support": 2,
+      "first_seen": "art1",
+      "provenance": [
+        {
+          "article": "art1",
+          "relation_phrase": "forecast to experience conditions by",
+          "instances": [
+            "France -> the weekend",
+            "southern Britain -> the weekend"
+          ]
+        }
+      ],
+      "path": ""
+    },
+    {
+      "id": "P0014",
+      "canonical_label": "celebrates",
+      "definition": "A group of people celebrates a holiday or event.",
+      "parent": null,
+      "domain": [
+        "PeopleAudience"
+      ],
+      "range": [
+        "HolidayWeekend"
+      ],
+      "aliases": [],
+      "support": 1,
+      "first_seen": "art1",
+      "provenance": [
+        {
+          "article": "art1",
+          "relation_phrase": "celebrates",
+          "instances": [
+            "millions of Americans -> the July Fourth holiday weekend"
+          ]
+        }
+      ],
+      "path": ""
+    },
+    {
+      "id": "P0015",
+      "canonical_label": "includesEvent",
+      "definition": "A temporal event or period includes another event.",
+      "parent": null,
+      "domain": [
+        "HolidayWeekend"
+      ],
+      "range": [
+        "Festival"
+      ],
+      "aliases": [],
+      "support": 2,
+      "first_seen": "art1",
+      "provenance": [
+        {
+          "article": "art1",
+          "relation_phrase": "includes",
+          "instances": [
+            "the July Fourth holiday weekend -> July Fourth"
+          ]
+        },
+        {
+          "article": "art2",
+          "relation_phrase": "commemorates",
+          "direction": "as_is",
+          "instances": [
+            "4 July weekend -> 250th birthday"
+          ]
+        }
+      ],
+      "path": ""
+    },
+    {
+      "id": "P0016",
+      "canonical_label": "affectedInRegion",
+      "definition": "A group of people or entities experienced an impact within a specific region.",
+      "parent": null,
+      "domain": [
+        "PeopleAudience"
+      ],
+      "range": [
+        "DefinedRegion"
+      ],
+      "aliases": [],
+      "support": 2,
+      "first_seen": "art1",
+      "provenance": [
+        {
+          "article": "art1",
+          "relation_phrase": "affected in",
+          "instances": [
+            "millions of Americans -> the central and eastern US"
+          ]
+        },
+        {
+          "article": "art5",
+          "relation_phrase": "tested positive in",
+          "direction": "as_is",
+          "instances": [
+            "individual -> Haut-Uele province"
+          ]
+        }
+      ],
+      "path": ""
+    },
+    {
+      "id": "P0017",
+      "canonical_label": "causes",
+      "definition": "An entity is the reason or origin for another event or phenomenon.",
+      "parent": null,
+      "domain": [
+        "EnvironmentalPhenomenon"
+      ],
+      "range": [
+        "WeatherCondition",
+        "WeatherEventCategory",
+        "Resource",
+        "NaturalDisaster"
+      ],
+      "aliases": [],
+      "support": 4,
+      "first_seen": "art1",
+      "provenance": [
+        {
+          "article": "art1",
+          "relation_phrase": "causes",
+          "instances": [
+            "Climate change -> record-breaking temperatures",
+            "Climate change -> summer heatwaves",
+            "Climate change -> Europe's water supply",
+            "Climate change -> wildfires"
+          ]
+        }
+      ],
+      "path": ""
+    },
+    {
+      "id": "P0018",
+      "canonical_label": "warmsFasterThan",
+      "definition": "An entity is increasing in temperature at a higher rate compared to another entity or standard.",
+      "parent": null,
+      "domain": [
+        "Continent"
+      ],
+      "range": [
+        "Quantity"
+      ],
+      "aliases": [],
+      "support": 1,
+      "first_seen": "art1",
+      "provenance": [
+        {
+          "article": "art1",
+          "relation_phrase": "warms faster than",
+          "instances": [
+            "Europe -> the global average"
+          ]
+        }
+      ],
+      "path": ""
+    },
+    {
+      "id": "P0019",
+      "canonical_label": "reportedAbout",
+      "definition": "An organization provided information or findings about an entity or situation.",
+      "parent": null,
+      "domain": [
+        "WeatherServiceOrganization"
+      ],
+      "range": [
+        "Continent"
+      ],
+      "aliases": [],
+      "support": 1,
+      "first_seen": "art1",
+      "provenance": [
+        {
+          "article": "art1",
+          "relation_phrase": "reported",
+          "instances": [
+            "Copernicus climate service -> Europe"
+          ]
+        }
+      ],
+      "path": ""
+    },
+    {
+      "id": "P0020",
+      "canonical_label": "includesDeathsOfAgeGroup",
+      "definition": "A quantitative value of deaths comprises individuals within a specific age demographic.",
+      "parent": null,
+      "domain": [
+        "QuantitativeValue"
+      ],
+      "range": [
+        "Age"
+      ],
+      "aliases": [],
+      "support": 2,
+      "first_seen": "art1",
+      "provenance": [
+        {
+          "article": "art1",
+          "relation_phrase": "includes deaths of age group",
+          "instances": [
+            "1,222 excess deaths -> 85",
+            "480 excess deaths -> 80"
+          ]
+        }
+      ],
+      "path": ""
+    },
+    {
+      "id": "P0021",
+      "canonical_label": "isApproximately",
+      "definition": "A quantitative value is roughly equivalent to another quantitative value.",
+      "parent": null,
+      "domain": [
+        "Number"
+      ],
+      "range": [
+        "Percentage"
+      ],
+      "aliases": [],
+      "support": 1,
+      "first_seen": "art1",
+      "provenance": [
+        {
+          "article": "art1",
+          "relation_phrase": "is approximately",
+          "instances": [
+            "2,025 -> nearly 30%"
+          ]
+        }
+      ],
+      "path": ""
+    },
+    {
+      "id": "P0022",
+      "canonical_label": "deathsSinceDate",
+      "definition": "A statistical population experienced deaths starting from a particular date.",
+      "parent": null,
+      "domain": [
+        "StatisticalPopulation"
+      ],
+      "range": [
+        "Date"
+      ],
+      "aliases": [],
+      "support": 1,
+      "first_seen": "art1",
+      "provenance": [
+        {
+          "article": "art1",
+          "relation_phrase": "died since",
+          "instances": [
+            "72 people -> 18 June"
+          ]
+        }
+      ],
+      "path": ""
+    },
+    {
+      "id": "P0023",
+      "canonical_label": "expects",
+      "definition": "An entity anticipates a future event or condition.",
+      "parent": null,
+      "domain": [
+        "Country"
+      ],
+      "range": [
+        "Duration"
+      ],
+      "aliases": [],
+      "support": 1,
+      "first_seen": "art1",
+      "provenance": [
+        {
+          "article": "art1",
+          "relation_phrase": "expects",
+          "instances": [
+            "the Netherlands -> a cooler week ahead"
+          ]
+        }
+      ],
+      "path": ""
+    },
+    {
+      "id": "P0024",
+      "canonical_label": "forecastToReachTemperatureOf",
+      "definition": "A location or entity is predicted to attain a specific temperature.",
+      "parent": null,
+      "domain": [
+        "City",
+        "Country",
+        "DefinedRegion"
+      ],
+      "range": [
+        "Temperature",
+        "TemperatureRange"
+      ],
+      "aliases": [],
+      "support": 7,
+      "first_seen": "art1",
+      "provenance": [
+        {
+          "article": "art1",
+          "relation_phrase": "forecast to reach temperature of",
+          "instances": [
+            "the south of France -> 40C",
+            "Bordeaux -> 36C to 37C",
+            "Toulouse -> 36C to 37C",
+            "Agen -> 36C to 37C",
+            "Portugal -> 40C",
+            "Portugal -> 25C",
+            "Spain -> 40C"
+          ]
+        }
+      ],
+      "path": ""
+    },
+    {
+      "id": "P0025",
+      "canonical_label": "appliesToRegion",
+      "definition": "An alert, rule, or condition is relevant or in effect for a specific region.",
+      "parent": null,
+      "domain": [
+        "WarningSystem"
+      ],
+      "range": [
+        "DefinedRegion"
+      ],
+      "aliases": [],
+      "support": 1,
+      "first_seen": "art1",
+      "provenance": [
+        {
+          "article": "art1",
+          "relation_phrase": "applies to",
+          "instances": [
+            "red heat alert -> the southern part of the country"
+          ]
+        }
+      ],
+      "path": ""
+    },
+    {
+      "id": "P0026",
+      "canonical_label": "riskComparedTo",
+      "definition": "The level of danger or possibility of an event is evaluated against a standard or another entity.",
+      "parent": null,
+      "domain": [
+        "NaturalDisaster"
+      ],
+      "range": [
+        "Standard"
+      ],
+      "aliases": [],
+      "support": 1,
+      "first_seen": "art1",
+      "provenance": [
+        {
+          "article": "art1",
+          "relation_phrase": "risk compared to",
+          "instances": [
+            "wildfires -> summer norms"
+          ]
+        }
+      ],
+      "path": ""
+    },
+    {
+      "id": "P0027",
+      "canonical_label": "occurredSince",
+      "definition": "An event or incident took place starting from a specific point in time.",
+      "parent": null,
+      "domain": [
+        "IncidentCount"
+      ],
+      "range": [
+        "InstantaneousEvent"
+      ],
+      "aliases": [],
+      "support": 1,
+      "first_seen": "art1",
+      "provenance": [
+        {
+          "article": "art1",
+          "relation_phrase": "occurred since",
+          "instances": [
+            "7,000 fires -> the start of the summer season"
+          ]
+        }
+      ],
+      "path": ""
+    },
+    {
+      "id": "P0028",
+      "canonical_label": "resultedInBurningOf",
+      "definition": "An event caused a specific area to be consumed by fire.",
+      "parent": null,
+      "domain": [
+        "IncidentCount"
+      ],
+      "range": [
+        "AreaMeasurement"
+      ],
+      "aliases": [],
+      "support": 1,
+      "first_seen": "art1",
+      "provenance": [
+        {
+          "article": "art1",
+          "relation_phrase": "resulted in burning of",
+          "instances": [
+            "7,000 fires -> 8,700 hectares"
+          ]
+        }
+      ],
+      "path": ""
+    },
+    {
+      "id": "P0029",
+      "canonical_label": "evacuatedDueTo",
+      "definition": "A group of people or entities were moved from a place of danger because of an event.",
+      "parent": null,
+      "domain": [
+        "StatisticalPopulation"
+      ],
+      "range": [
+        "NaturalDisaster"
+      ],
+      "aliases": [],
+      "support": 1,
+      "first_seen": "art1",
+      "provenance": [
+        {
+          "article": "art1",
+          "relation_phrase": "evacuated due to",
+          "instances": [
+            "Nearly 3,000 people -> wildfires"
+          ]
+        }
+      ],
+      "path": ""
+    },
+    {
+      "id": "P0030",
       "canonical_label": "spreadTo",
-      "definition": "Relates a disaster or event to a new location into which it expanded or extended.",
+      "definition": "An event or phenomenon extended its reach to another location or entity.",
       "parent": null,
       "domain": [
         "NaturalDisaster"
@@ -128,15 +839,15 @@
       "path": ""
     },
     {
-      "id": "P0006",
-      "canonical_label": "proposedPolicy",
-      "definition": "Relates a political party or organization to a policy or strategy it put forward for consideration.",
+      "id": "P0031",
+      "canonical_label": "proposedPolicyGoal",
+      "definition": "An organization put forward a plan, policy, or goal for consideration.",
       "parent": null,
       "domain": [
         "PoliticalParty"
       ],
       "range": [
-        "Policy"
+        "PolicyGoal"
       ],
       "aliases": [],
       "support": 1,
@@ -146,48 +857,80 @@
           "article": "art1",
           "relation_phrase": "proposed",
           "instances": [
-            "ReformUK -> a \"resilience strategy\""
+            "ReformUK -> net zero targets"
           ]
         }
       ],
       "path": ""
     },
     {
-      "id": "P0007",
-      "canonical_label": "fianceOf",
-      "definition": "Relates a person to their fiancé, the person to whom they are engaged to be married.",
+      "id": "P0032",
+      "canonical_label": "isProposedReplacementFor",
+      "definition": "A policy or entity is suggested to take the place of another policy or entity.",
       "parent": null,
       "domain": [
-        "Person"
+        "Policy"
       ],
       "range": [
-        "Person"
+        "PolicyGoal"
       ],
       "aliases": [],
       "support": 1,
-      "first_seen": "art2",
+      "first_seen": "art1",
       "provenance": [
         {
-          "article": "art2",
-          "relation_phrase": "fiancé of",
+          "article": "art1",
+          "relation_phrase": "is proposed replacement for",
           "instances": [
-            "Travis Kelce -> Taylor Swift"
+            "a \"resilience strategy\" -> net zero targets"
           ]
         }
       ],
       "path": ""
     },
     {
-      "id": "P0008",
-      "canonical_label": "playsFor",
-      "definition": "Relates a sports player to the team or country for which they play or compete.",
+      "id": "P0033",
+      "canonical_label": "notResponsibleFor",
+      "definition": "An organization disclaims accountability or liability for the content or actions of another entity.",
+      "parent": null,
+      "domain": [
+        "NewsMediaOrganization"
+      ],
+      "range": [
+        "WebsiteCategory"
+      ],
+      "aliases": [],
+      "support": 2,
+      "first_seen": "art1",
+      "provenance": [
+        {
+          "article": "art1",
+          "relation_phrase": "not responsible for",
+          "instances": [
+            "BBC -> external sites"
+          ]
+        },
+        {
+          "article": "art5",
+          "relation_phrase": "not responsible for",
+          "direction": "as_is",
+          "instances": [
+            "BBC -> external sites"
+          ]
+        }
+      ],
+      "path": ""
+    },
+    {
+      "id": "P0034",
+      "canonical_label": "isFianceOf",
+      "definition": "A marital engagement relation between two people.",
       "parent": null,
       "domain": [
         "Person"
       ],
       "range": [
-        "SportsTeam",
-        "Country"
+        "Person"
       ],
       "aliases": [],
       "support": 2,
@@ -195,9 +938,221 @@
       "provenance": [
         {
           "article": "art2",
+          "relation_phrase": "is fiancé of",
+          "instances": [
+            "Taylor Swift -> Travis Kelce",
+            "Travis Kelce -> Taylor Swift"
+          ]
+        }
+      ],
+      "path": ""
+    },
+    {
+      "id": "P0035",
+      "canonical_label": "initiatedCelebrationsAt",
+      "definition": "A person or group initiated celebrations at a specific venue.",
+      "parent": null,
+      "domain": [
+        "Person"
+      ],
+      "range": [
+        "EventVenue"
+      ],
+      "aliases": [],
+      "support": 2,
+      "first_seen": "art2",
+      "provenance": [
+        {
+          "article": "art2",
+          "relation_phrase": "kicked off celebrations at",
+          "instances": [
+            "Taylor Swift -> Madison Square Garden",
+            "Travis Kelce -> Madison Square Garden"
+          ]
+        }
+      ],
+      "path": ""
+    },
+    {
+      "id": "P0036",
+      "canonical_label": "isFriendOf",
+      "definition": "A social relation indicating friendship between two people.",
+      "parent": null,
+      "domain": [
+        "Person"
+      ],
+      "range": [
+        "Person"
+      ],
+      "aliases": [],
+      "support": 3,
+      "first_seen": "art2",
+      "provenance": [
+        {
+          "article": "art2",
+          "relation_phrase": "is friend of",
+          "instances": [
+            "Lena Dunham -> Taylor Swift",
+            "Lena Dunham -> Travis Kelce",
+            "Gigi Hadid -> Taylor Swift"
+          ]
+        }
+      ],
+      "path": ""
+    },
+    {
+      "id": "P0037",
+      "canonical_label": "broadcastsLiveFeedOf",
+      "definition": "A news organization broadcasts live footage of an event or location.",
+      "parent": null,
+      "domain": [
+        "NewsMediaOrganization"
+      ],
+      "range": [
+        "EventVenue"
+      ],
+      "aliases": [],
+      "support": 1,
+      "first_seen": "art2",
+      "provenance": [
+        {
+          "article": "art2",
+          "relation_phrase": "fired up live feed of",
+          "instances": [
+            "TMZ -> Madison Square Garden"
+          ]
+        }
+      ],
+      "path": ""
+    },
+    {
+      "id": "P0038",
+      "canonical_label": "hostsEventDuring",
+      "definition": "An event venue hosts an event that takes place within a specified time period.",
+      "parent": null,
+      "domain": [
+        "EventVenue"
+      ],
+      "range": [
+        "Duration"
+      ],
+      "aliases": [],
+      "support": 1,
+      "first_seen": "art2",
+      "provenance": [
+        {
+          "article": "art2",
+          "relation_phrase": "has event during",
+          "instances": [
+            "arena -> 29 June - 3 July"
+          ]
+        }
+      ],
+      "path": ""
+    },
+    {
+      "id": "P0039",
+      "canonical_label": "donatedAmount",
+      "definition": "A person or entity gave a specific monetary amount.",
+      "parent": null,
+      "domain": [
+        "Person"
+      ],
+      "range": [
+        "MonetaryAmount"
+      ],
+      "aliases": [],
+      "support": 2,
+      "first_seen": "art2",
+      "provenance": [
+        {
+          "article": "art2",
+          "relation_phrase": "donated",
+          "instances": [
+            "Taylor Swift -> $26m",
+            "Travis Kelce -> $26m"
+          ]
+        }
+      ],
+      "path": ""
+    },
+    {
+      "id": "P0040",
+      "canonical_label": "donatedToOrganizationsIn",
+      "definition": "A philanthropic relation where an entity gives to organizations located within a specific geographical area.",
+      "parent": null,
+      "domain": [
+        "Person"
+      ],
+      "range": [
+        "City",
+        "Country"
+      ],
+      "aliases": [],
+      "support": 8,
+      "first_seen": "art2",
+      "provenance": [
+        {
+          "article": "art2",
+          "relation_phrase": "donated to organizations in",
+          "instances": [
+            "Taylor Swift -> United States",
+            "Travis Kelce -> United States",
+            "Taylor Swift -> New York City",
+            "Travis Kelce -> New York City",
+            "Taylor Swift -> Nashville",
+            "Travis Kelce -> Nashville",
+            "Taylor Swift -> Kansas City",
+            "Travis Kelce -> Kansas City"
+          ]
+        }
+      ],
+      "path": ""
+    },
+    {
+      "id": "P0041",
+      "canonical_label": "startedCareerIn",
+      "definition": "A professional origin relation indicating the geographical place where a person's career began.",
+      "parent": null,
+      "domain": [
+        "Person"
+      ],
+      "range": [
+        "City"
+      ],
+      "aliases": [],
+      "support": 1,
+      "first_seen": "art2",
+      "provenance": [
+        {
+          "article": "art2",
+          "relation_phrase": "started career in",
+          "instances": [
+            "Taylor Swift -> Nashville"
+          ]
+        }
+      ],
+      "path": ""
+    },
+    {
+      "id": "P0042",
+      "canonical_label": "playsForCountry",
+      "definition": "A person plays for the national team of a specific country.",
+      "parent": null,
+      "domain": [
+        "Person"
+      ],
+      "range": [
+        "Country"
+      ],
+      "aliases": [],
+      "support": 1,
+      "first_seen": "art2",
+      "provenance": [
+        {
+          "article": "art2",
           "relation_phrase": "plays for",
           "instances": [
-            "Travis Kelce -> Kansas City Chiefs",
             "Folarin Balogun -> United States"
           ]
         }
@@ -205,34 +1160,140 @@
       "path": ""
     },
     {
-      "id": "P0009",
-      "canonical_label": "created",
-      "definition": "Relates a person to a creative work or media that they brought into existence.",
+      "id": "P0043",
+      "canonical_label": "informed",
+      "definition": "A communication relation where one entity conveys information to another.",
       "parent": null,
       "domain": [
-        "Person"
+        "Organization"
       ],
       "range": [
-        "TVSeries"
+        "NewsMediaOrganization"
       ],
       "aliases": [],
-      "support": 1,
+      "support": 2,
       "first_seen": "art2",
       "provenance": [
         {
           "article": "art2",
-          "relation_phrase": "created",
+          "relation_phrase": "informed",
           "instances": [
-            "Lena Dunham -> Girls"
+            "Swift's representatives -> BBC News",
+            "city officials -> BBC News"
           ]
         }
       ],
       "path": ""
     },
     {
-      "id": "P0010",
-      "canonical_label": "producerOf",
-      "definition": "Relates a music or artistic producer to the artist or person whose work they produce.",
+      "id": "P0044",
+      "canonical_label": "plannedEntryTo",
+      "definition": "An intention relation indicating that an entity made arrangements to enter a specific location.",
+      "parent": null,
+      "domain": [
+        "Person"
+      ],
+      "range": [
+        "EventVenue"
+      ],
+      "aliases": [],
+      "support": 2,
+      "first_seen": "art2",
+      "provenance": [
+        {
+          "article": "art2",
+          "relation_phrase": "planned entry to",
+          "instances": [
+            "Taylor Swift -> arena",
+            "Travis Kelce -> arena"
+          ]
+        }
+      ],
+      "path": ""
+    },
+    {
+      "id": "P0045",
+      "canonical_label": "hasBeenFanFor",
+      "definition": "A temporal relation indicating the duration of an entity's admiration or support for another.",
+      "parent": null,
+      "domain": [
+        "Person"
+      ],
+      "range": [
+        "Duration"
+      ],
+      "aliases": [],
+      "support": 1,
+      "first_seen": "art2",
+      "provenance": [
+        {
+          "article": "art2",
+          "relation_phrase": "has been fan for",
+          "instances": [
+            "Ryan Weng -> 15 years"
+          ]
+        }
+      ],
+      "path": ""
+    },
+    {
+      "id": "P0046",
+      "canonical_label": "visited",
+      "definition": "A spatial relation indicating that an entity went to a specific location.",
+      "parent": null,
+      "domain": [
+        "Person"
+      ],
+      "range": [
+        "EventVenue"
+      ],
+      "aliases": [],
+      "support": 5,
+      "first_seen": "art2",
+      "provenance": [
+        {
+          "article": "art2",
+          "relation_phrase": "visited",
+          "instances": [
+            "Rusty Carbaug -> Madison Square Garden",
+            "Jack Antonoff -> Madison Square Garden",
+            "Bradley Cooper -> arena",
+            "Gigi Hadid -> arena",
+            "Laura Bonne -> Madison Square Garden"
+          ]
+        }
+      ],
+      "path": ""
+    },
+    {
+      "id": "P0047",
+      "canonical_label": "positionIn",
+      "definition": "A hierarchical relation indicating that a role or office exists within a specific geographical or organizational context.",
+      "parent": null,
+      "domain": [
+        "PoliticalPosition"
+      ],
+      "range": [
+        "City"
+      ],
+      "aliases": [],
+      "support": 1,
+      "first_seen": "art2",
+      "provenance": [
+        {
+          "article": "art2",
+          "relation_phrase": "is position in",
+          "instances": [
+            "New York City Mayor -> New York City"
+          ]
+        }
+      ],
+      "path": ""
+    },
+    {
+      "id": "P0048",
+      "canonical_label": "producesFor",
+      "definition": "A professional relation indicating that a person is responsible for the production of another person's work.",
       "parent": null,
       "domain": [
         "Person"
@@ -246,7 +1307,7 @@
       "provenance": [
         {
           "article": "art2",
-          "relation_phrase": "producer of",
+          "relation_phrase": "is producer of",
           "instances": [
             "Jack Antonoff -> Taylor Swift"
           ]
@@ -255,9 +1316,9 @@
       "path": ""
     },
     {
-      "id": "P0011",
-      "canonical_label": "publicistOf",
-      "definition": "Relates a publicist to the person or entity whose public relations they manage.",
+      "id": "P0049",
+      "canonical_label": "isPublicistOf",
+      "definition": "A professional relation indicating that a person manages the public relations for another person.",
       "parent": null,
       "domain": [
         "Person"
@@ -271,7 +1332,7 @@
       "provenance": [
         {
           "article": "art2",
-          "relation_phrase": "publicist of",
+          "relation_phrase": "is publicist of",
           "instances": [
             "Tree Paine -> Taylor Swift"
           ]
@@ -280,58 +1341,468 @@
       "path": ""
     },
     {
-      "id": "P0012",
-      "canonical_label": "receivedPrizeMoney",
-      "definition": "Specifies the monetary amount of prize money earned or received by an individual or team.",
+      "id": "P0050",
+      "canonical_label": "postedOn",
+      "definition": "A digital content relation indicating that an entity published content on a social media platform.",
       "parent": null,
       "domain": [
-        "TennisPlayer"
+        "Person"
       ],
       "range": [
-        "MonetaryAmount"
+        "SocialMediaPlatform"
       ],
       "aliases": [],
-      "support": 4,
-      "first_seen": "art4",
+      "support": 1,
+      "first_seen": "art2",
       "provenance": [
         {
-          "article": "art4",
-          "relation_phrase": "received prize money",
+          "article": "art2",
+          "relation_phrase": "posted on",
           "instances": [
-            "Jannik Sinner -> Â£2.84m",
-            "Jannik Sinner -> $3.6m",
-            "Aryna Sabalenka -> Â£2.84m",
-            "Aryna Sabalenka -> $3.6m"
+            "Selena Gomez -> Instagram"
           ]
         }
       ],
       "path": ""
     },
     {
-      "id": "P0013",
-      "canonical_label": "awardedPrizeMoney",
-      "definition": "Specifies the amount of prize money purse offered by a sports event or allocated to a competition rank.",
+      "id": "P0051",
+      "canonical_label": "publishedVideoOf",
+      "definition": "A media content relation indicating that a news organization released a video featuring a person.",
       "parent": null,
       "domain": [
-        "CompetitionRank",
-        "SportsEvent"
+        "Periodical"
+      ],
+      "range": [
+        "Person"
+      ],
+      "aliases": [],
+      "support": 1,
+      "first_seen": "art2",
+      "provenance": [
+        {
+          "article": "art2",
+          "relation_phrase": "published video of",
+          "instances": [
+            "People Magazine -> Lena Dunham"
+          ]
+        }
+      ],
+      "path": ""
+    },
+    {
+      "id": "P0052",
+      "canonical_label": "traveledThrough",
+      "definition": "A movement relation indicating that an entity passed through a geographical area.",
+      "parent": null,
+      "domain": [
+        "Person"
+      ],
+      "range": [
+        "AdministrativeArea"
+      ],
+      "aliases": [],
+      "support": 2,
+      "first_seen": "art2",
+      "provenance": [
+        {
+          "article": "art2",
+          "relation_phrase": "traveled through",
+          "instances": [
+            "Lena Dunham -> Manhattan"
+          ]
+        },
+        {
+          "article": "art5",
+          "relation_phrase": "traveled to",
+          "direction": "as_is",
+          "instances": [
+            "Former President Zuma -> India"
+          ]
+        }
+      ],
+      "path": ""
+    },
+    {
+      "id": "P0053",
+      "canonical_label": "departedFrom",
+      "definition": "A movement relation indicating that an entity left a specific location.",
+      "parent": null,
+      "domain": [
+        "Person"
+      ],
+      "range": [
+        "EventVenue"
+      ],
+      "aliases": [],
+      "support": 2,
+      "first_seen": "art2",
+      "provenance": [
+        {
+          "article": "art2",
+          "relation_phrase": "departed from",
+          "instances": [
+            "Taylor Swift -> Madison Square Garden"
+          ]
+        },
+        {
+          "article": "art5",
+          "relation_phrase": "fled from",
+          "direction": "as_is",
+          "instances": [
+            "individual -> isolation unit"
+          ]
+        }
+      ],
+      "path": ""
+    },
+    {
+      "id": "P0054",
+      "canonical_label": "hasAgeQualifier",
+      "definition": "A descriptive relation indicating a temporal attribute or characteristic of an entity.",
+      "parent": null,
+      "domain": [
+        "EventVenue"
+      ],
+      "range": [
+        "AgeQualifier"
+      ],
+      "aliases": [],
+      "support": 1,
+      "first_seen": "art2",
+      "provenance": [
+        {
+          "article": "art2",
+          "relation_phrase": "has age qualifier",
+          "instances": [
+            "arena -> six-decade-old"
+          ]
+        }
+      ],
+      "path": ""
+    },
+    {
+      "id": "P0055",
+      "canonical_label": "hasAge",
+      "definition": "A demographic relation indicating the specific age of a person.",
+      "parent": null,
+      "domain": [
+        "Person"
+      ],
+      "range": [
+        "Age"
+      ],
+      "aliases": [],
+      "support": 3,
+      "first_seen": "art2",
+      "provenance": [
+        {
+          "article": "art2",
+          "relation_phrase": "has age",
+          "instances": [
+            "Elizabeth Maxey -> 21",
+            "Hayden Mason -> 19",
+            "Laura Bonne -> 20 year old"
+          ]
+        }
+      ],
+      "path": ""
+    },
+    {
+      "id": "P0056",
+      "canonical_label": "intervenedFor",
+      "definition": "An action relation indicating that an entity took action on behalf of another.",
+      "parent": null,
+      "domain": [
+        "PoliticalPosition"
+      ],
+      "range": [
+        "Person"
+      ],
+      "aliases": [],
+      "support": 1,
+      "first_seen": "art2",
+      "provenance": [
+        {
+          "article": "art2",
+          "relation_phrase": "intervened for",
+          "instances": [
+            "president -> Folarin Balogun"
+          ]
+        }
+      ],
+      "path": ""
+    },
+    {
+      "id": "P0057",
+      "canonical_label": "spokeToPeopleIn",
+      "definition": "A communication relation indicating that a person addressed or interviewed individuals within a specific geographical area.",
+      "parent": null,
+      "domain": [
+        "Person"
+      ],
+      "range": [
+        "Country"
+      ],
+      "aliases": [],
+      "support": 1,
+      "first_seen": "art2",
+      "provenance": [
+        {
+          "article": "art2",
+          "relation_phrase": "spoke to people in",
+          "instances": [
+            "Nardine Saad -> United States"
+          ]
+        }
+      ],
+      "path": ""
+    },
+    {
+      "id": "P0058",
+      "canonical_label": "performedShows",
+      "definition": "An artistic relation indicating that an artist presented a number of shows or acts.",
+      "parent": null,
+      "domain": [
+        "Person"
+      ],
+      "range": [
+        "Quantity"
+      ],
+      "aliases": [],
+      "support": 1,
+      "first_seen": "art2",
+      "provenance": [
+        {
+          "article": "art2",
+          "relation_phrase": "performed",
+          "instances": [
+            "The Watermelon Sugar singer -> 12 shows"
+          ]
+        }
+      ],
+      "path": ""
+    },
+    {
+      "id": "P0059",
+      "canonical_label": "performedAtVenue",
+      "definition": "An artistic relation indicating that an artist presented a performance at a specific venue.",
+      "parent": null,
+      "domain": [
+        "Person"
+      ],
+      "range": [
+        "EventVenue"
+      ],
+      "aliases": [],
+      "support": 1,
+      "first_seen": "art2",
+      "provenance": [
+        {
+          "article": "art2",
+          "relation_phrase": "performed at",
+          "instances": [
+            "The Watermelon Sugar singer -> stadium"
+          ]
+        }
+      ],
+      "path": ""
+    },
+    {
+      "id": "P0060",
+      "canonical_label": "awardsPrizeMoney",
+      "definition": "An event or category provides a monetary amount as a prize.",
+      "parent": null,
+      "domain": [
+        "SportsEvent",
+        "TennisEventCategory"
       ],
       "range": [
         "MonetaryAmount"
       ],
       "aliases": [],
-      "support": 13,
+      "support": 16,
       "first_seen": "art4",
       "provenance": [
         {
           "article": "art4",
-          "relation_phrase": "awarded prize money",
+          "relation_phrase": "awards",
           "instances": [
             "US Open -> Â£67.3m",
             "US Open -> $90m",
+            "men's and women's singles -> Â£3.74m",
+            "men's and women's singles -> $5m",
+            "US Open singles draw -> Â£3.73m",
+            "US Open singles draw -> Â£1.87m",
+            "US Open singles draw -> Â£943,000",
+            "US Open singles draw -> Â£494,000",
+            "US Open singles draw -> Â£299,000",
+            "US Open singles draw -> Â£177,000",
+            "US Open singles draw -> Â£115,000",
+            "US Open singles draw -> Â£82,000",
+            "wheelchair competition -> Â£1.2m"
+          ]
+        },
+        {
+          "article": "art4",
+          "relation_phrase": "awarded",
+          "direction": "as_is",
+          "instances": [
             "Wimbledon -> Â£53.5m",
             "Australian Open -> Â£47m",
-            "French Open -> Â£49m",
+            "French Open -> Â£49m"
+          ]
+        }
+      ],
+      "path": ""
+    },
+    {
+      "id": "P0061",
+      "canonical_label": "includesCompetitionCategory",
+      "definition": "A larger event includes a specific category of competition.",
+      "parent": null,
+      "domain": [
+        "SportsEvent"
+      ],
+      "range": [
+        "TennisEventCategory"
+      ],
+      "aliases": [],
+      "support": 1,
+      "first_seen": "art4",
+      "provenance": [
+        {
+          "article": "art4",
+          "relation_phrase": "includes",
+          "instances": [
+            "US Open -> men's and women's singles"
+          ]
+        }
+      ],
+      "path": ""
+    },
+    {
+      "id": "P0062",
+      "canonical_label": "hasEventFormat",
+      "definition": "An event has a specific structure or rules.",
+      "parent": null,
+      "domain": [
+        "SportsEvent"
+      ],
+      "range": [
+        "TennisEventFormat"
+      ],
+      "aliases": [],
+      "support": 2,
+      "first_seen": "art4",
+      "provenance": [
+        {
+          "article": "art4",
+          "relation_phrase": "has_format",
+          "instances": [
+            "US Open -> US Open mixed doubles format",
+            "2025 US Open -> US Open mixed doubles format"
+          ]
+        }
+      ],
+      "path": ""
+    },
+    {
+      "id": "P0063",
+      "canonical_label": "occursInYear",
+      "definition": "A temporal relation indicating the year in which an event takes place.",
+      "parent": null,
+      "domain": [
+        "SportsEvent"
+      ],
+      "range": [
+        "CalendarYear"
+      ],
+      "aliases": [],
+      "support": 2,
+      "first_seen": "art4",
+      "provenance": [
+        {
+          "article": "art4",
+          "relation_phrase": "occurs_in",
+          "instances": [
+            "Wimbledon 2026 -> 2026",
+            "FIFA World Cup 2026 -> 2026"
+          ]
+        }
+      ],
+      "path": ""
+    },
+    {
+      "id": "P0064",
+      "canonical_label": "distributedAmong",
+      "definition": "A monetary amount is shared among different categories of participants.",
+      "parent": null,
+      "domain": [
+        "MonetaryAmount"
+      ],
+      "range": [
+        "TennisPlayerCategory"
+      ],
+      "aliases": [],
+      "support": 2,
+      "first_seen": "art4",
+      "provenance": [
+        {
+          "article": "art4",
+          "relation_phrase": "distributed_among",
+          "instances": [
+            "Â£67.3m -> men's, women's, doubles and wheelchair competitors",
+            "$90m -> men's, women's, doubles and wheelchair competitors"
+          ]
+        }
+      ],
+      "path": ""
+    },
+    {
+      "id": "P0065",
+      "canonical_label": "receivedPrizeMoney",
+      "definition": "A person or category obtains a monetary amount as a prize.",
+      "parent": null,
+      "domain": [
+        "TennisPlayer",
+        "TennisPlayerCategory",
+        "CompetitionRank"
+      ],
+      "range": [
+        "MonetaryAmount"
+      ],
+      "aliases": [],
+      "support": 17,
+      "first_seen": "art4",
+      "provenance": [
+        {
+          "article": "art4",
+          "relation_phrase": "received",
+          "instances": [
+            "Jannik Sinner -> Â£2.84m",
+            "Jannik Sinner -> $3.6m",
+            "Aryna Sabalenka -> Â£2.84m",
+            "Aryna Sabalenka -> $3.6m",
+            "Sara Errani -> Â£736,880",
+            "Sara Errani -> $1m",
+            "Andrea Vavassori -> Â£736,880",
+            "Andrea Vavassori -> $1m"
+          ]
+        },
+        {
+          "article": "art4",
+          "relation_phrase": "receive",
+          "direction": "as_is",
+          "instances": [
+            "Men's and women's doubles pairs -> Â£750,000"
+          ]
+        },
+        {
+          "article": "art4",
+          "relation_phrase": "receives",
+          "direction": "as_is",
+          "instances": [
             "Winner -> Â£3.73m",
             "Runner-up -> Â£1.87m",
             "Semi-final -> Â£943,000",
@@ -346,9 +1817,171 @@
       "path": ""
     },
     {
-      "id": "P0014",
-      "canonical_label": "asked",
-      "definition": "Indicates that the subject made an inquiry, request, or petition to the target entity.",
+      "id": "P0066",
+      "canonical_label": "wonAtLocation",
+      "definition": "A person achieved a victory at a specific location.",
+      "parent": null,
+      "domain": [
+        "TennisPlayer"
+      ],
+      "range": [
+        "SportsActivityLocation"
+      ],
+      "aliases": [],
+      "support": 2,
+      "first_seen": "art4",
+      "provenance": [
+        {
+          "article": "art4",
+          "relation_phrase": "won_at",
+          "instances": [
+            "Jannik Sinner -> Flushing Meadows",
+            "Aryna Sabalenka -> Flushing Meadows"
+          ]
+        }
+      ],
+      "path": ""
+    },
+    {
+      "id": "P0067",
+      "canonical_label": "wonEvent",
+      "definition": "A person achieves victory in a competition or event.",
+      "parent": null,
+      "domain": [
+        "TennisPlayer"
+      ],
+      "range": [
+        "SportsEvent"
+      ],
+      "aliases": [],
+      "support": 2,
+      "first_seen": "art4",
+      "provenance": [
+        {
+          "article": "art4",
+          "relation_phrase": "won",
+          "instances": [
+            "Sara Errani -> mixed doubles championship",
+            "Andrea Vavassori -> mixed doubles championship"
+          ]
+        }
+      ],
+      "path": ""
+    },
+    {
+      "id": "P0068",
+      "canonical_label": "defeated",
+      "definition": "One competitor or team defeats another in a contest.",
+      "parent": null,
+      "domain": [
+        "TennisPlayer",
+        "Country"
+      ],
+      "range": [
+        "TennisPlayer",
+        "Country"
+      ],
+      "aliases": [],
+      "support": 6,
+      "first_seen": "art4",
+      "provenance": [
+        {
+          "article": "art4",
+          "relation_phrase": "beat",
+          "instances": [
+            "Sara Errani -> Casper Ruud",
+            "Sara Errani -> Iga Swiatek",
+            "Andrea Vavassori -> Casper Ruud",
+            "Andrea Vavassori -> Iga Swiatek",
+            "Mexico -> England",
+            "England -> Mexico"
+          ]
+        }
+      ],
+      "path": ""
+    },
+    {
+      "id": "P0069",
+      "canonical_label": "lostTo",
+      "definition": "One competitor or team was defeated by another in a contest.",
+      "parent": null,
+      "domain": [
+        "TennisPlayer"
+      ],
+      "range": [
+        "TennisPlayer"
+      ],
+      "aliases": [],
+      "support": 4,
+      "first_seen": "art4",
+      "provenance": [
+        {
+          "article": "art4",
+          "relation_phrase": "lost_to",
+          "instances": [
+            "Casper Ruud -> Sara Errani",
+            "Casper Ruud -> Andrea Vavassori",
+            "Iga Swiatek -> Sara Errani",
+            "Iga Swiatek -> Andrea Vavassori"
+          ]
+        }
+      ],
+      "path": ""
+    },
+    {
+      "id": "P0070",
+      "canonical_label": "hasCompetitionRound",
+      "definition": "A competition includes a specific stage or round.",
+      "parent": null,
+      "domain": [
+        "SportsEvent"
+      ],
+      "range": [
+        "CompetitionRound"
+      ],
+      "aliases": [],
+      "support": 1,
+      "first_seen": "art4",
+      "provenance": [
+        {
+          "article": "art4",
+          "relation_phrase": "has_round",
+          "instances": [
+            "mixed doubles championship -> final"
+          ]
+        }
+      ],
+      "path": ""
+    },
+    {
+      "id": "P0071",
+      "canonical_label": "offersCoverageOf",
+      "definition": "An organization provides coverage or broadcast of an event.",
+      "parent": null,
+      "domain": [
+        "NewsMediaOrganization"
+      ],
+      "range": [
+        "SportsEvent"
+      ],
+      "aliases": [],
+      "support": 1,
+      "first_seen": "art4",
+      "provenance": [
+        {
+          "article": "art4",
+          "relation_phrase": "offers",
+          "instances": [
+            "BBC Sport -> FIFA World Cup 2026"
+          ]
+        }
+      ],
+      "path": ""
+    },
+    {
+      "id": "P0072",
+      "canonical_label": "madeRequestTo",
+      "definition": "A person made a request to an organization.",
       "parent": null,
       "domain": [
         "Person"
@@ -371,34 +2004,118 @@
       "path": ""
     },
     {
-      "id": "P0015",
-      "canonical_label": "hasBegunIn",
-      "definition": "Relates an event or trial to the country or location where it has started.",
+      "id": "P0073",
+      "canonical_label": "requestedToReview",
+      "definition": "An organization is requested to perform a review regarding a person or situation.",
       "parent": null,
       "domain": [
-        "MedicalTrial"
+        "SportsOrganization"
       ],
       "range": [
-        "Country"
+        "Person"
       ],
       "aliases": [],
       "support": 1,
-      "first_seen": "art5",
+      "first_seen": "art4",
       "provenance": [
         {
-          "article": "art5",
-          "relation_phrase": "has begun in",
+          "article": "art4",
+          "relation_phrase": "to_review",
           "instances": [
-            "Ebola treatments trial -> Democratic Republic of Congo"
+            "Fifa -> Balogun"
           ]
         }
       ],
       "path": ""
     },
     {
-      "id": "P0016",
+      "id": "P0074",
+      "canonical_label": "playedAgainst",
+      "definition": "Two teams or countries competed in a match.",
+      "parent": null,
+      "domain": [
+        "Country"
+      ],
+      "range": [
+        "Country"
+      ],
+      "aliases": [],
+      "support": 2,
+      "first_seen": "art4",
+      "provenance": [
+        {
+          "article": "art4",
+          "relation_phrase": "played_against",
+          "instances": [
+            "Mexico -> England",
+            "England -> Mexico"
+          ]
+        }
+      ],
+      "path": ""
+    },
+    {
+      "id": "P0075",
+      "canonical_label": "interestedInRecruiting",
+      "definition": "An organization has an interest in a person for acquisition or recruitment.",
+      "parent": null,
+      "domain": [
+        "SportsTeam"
+      ],
+      "range": [
+        "Person"
+      ],
+      "aliases": [],
+      "support": 1,
+      "first_seen": "art4",
+      "provenance": [
+        {
+          "article": "art4",
+          "relation_phrase": "interested_in",
+          "instances": [
+            "Man City -> Anderson"
+          ]
+        }
+      ],
+      "path": ""
+    },
+    {
+      "id": "P0076",
+      "canonical_label": "holdsCopyrightForYear",
+      "definition": "An organization possesses the legal right to control the reproduction and distribution of content for a specific year.",
+      "parent": null,
+      "domain": [
+        "NewsMediaOrganization"
+      ],
+      "range": [
+        "CalendarYear"
+      ],
+      "aliases": [],
+      "support": 2,
+      "first_seen": "art4",
+      "provenance": [
+        {
+          "article": "art4",
+          "relation_phrase": "holds_copyright_for",
+          "instances": [
+            "BBC -> 2026"
+          ]
+        },
+        {
+          "article": "art5",
+          "relation_phrase": "holds copyright for",
+          "direction": "as_is",
+          "instances": [
+            "BBC -> 2026"
+          ]
+        }
+      ],
+      "path": ""
+    },
+    {
+      "id": "P0077",
       "canonical_label": "announced",
-      "definition": "Relates an organization to a trial or event that it publicly announced.",
+      "definition": "An organization or person publicly stated or made known an event or fact.",
       "parent": null,
       "domain": [
         "InternationalOrganization"
@@ -421,9 +2138,9 @@
       "path": ""
     },
     {
-      "id": "P0017",
-      "canonical_label": "outbreakIn",
-      "definition": "Relates a medical condition or disease to the country or area where an outbreak is occurring.",
+      "id": "P0078",
+      "canonical_label": "hasOutbreakIn",
+      "definition": "A medical condition or disease is actively spreading within a specific geographic location.",
       "parent": null,
       "domain": [
         "MedicalCondition"
@@ -437,7 +2154,7 @@
       "provenance": [
         {
           "article": "art5",
-          "relation_phrase": "outbreak in",
+          "relation_phrase": "has outbreak in",
           "instances": [
             "Ebola -> Democratic Republic of Congo"
           ]
@@ -446,9 +2163,9 @@
       "path": ""
     },
     {
-      "id": "P0018",
+      "id": "P0079",
       "canonical_label": "isChiefOf",
-      "definition": "Relates a person to the organization of which they hold the top executive leadership position.",
+      "definition": "A person holds the highest leadership role within an organization.",
       "parent": null,
       "domain": [
         "Person"
@@ -471,82 +2188,25 @@
       "path": ""
     },
     {
-      "id": "P0019",
-      "canonical_label": "saidOn",
-      "definition": "Relates a person to the day of the week or date on which they made a statement.",
-      "parent": null,
-      "domain": [
-        "Person"
-      ],
-      "range": [
-        "DayOfWeek"
-      ],
-      "aliases": [],
-      "support": 1,
-      "first_seen": "art5",
-      "provenance": [
-        {
-          "article": "art5",
-          "relation_phrase": "said on",
-          "instances": [
-            "Tedros Adhanom Ghebreyesus -> Thursday"
-          ]
-        }
-      ],
-      "path": ""
-    },
-    {
-      "id": "P0020",
-      "canonical_label": "confirmedIn",
-      "definition": "Relates a numerical statistic or case count to the country where it was verified.",
-      "parent": null,
-      "domain": [
-        "NumericalStatistic"
-      ],
-      "range": [
-        "Country"
-      ],
-      "aliases": [],
-      "support": 6,
-      "first_seen": "art5",
-      "provenance": [
-        {
-          "article": "art5",
-          "relation_phrase": "confirmed in",
-          "instances": [
-            "1,400 cases -> Democratic Republic of Congo",
-            "438 deaths -> Democratic Republic of Congo",
-            "1,460 confirmed cases -> Democratic Republic of Congo",
-            "452 deaths -> Democratic Republic of Congo",
-            "20 confirmed cases -> Uganda",
-            "one confirmed case -> France"
-          ]
-        }
-      ],
-      "path": ""
-    },
-    {
-      "id": "P0021",
-      "canonical_label": "reported",
-      "definition": "Relates an organization or entity to statistics, individuals, or medical conditions it reported on.",
+      "id": "P0080",
+      "canonical_label": "isSourceFor",
+      "definition": "An entity provides information or data about another entity or statistic.",
       "parent": null,
       "domain": [
         "InternationalOrganization",
-        "NewsMediaOrganization",
         "GovernmentOrganization"
       ],
       "range": [
         "NumericalStatistic",
-        "Person",
         "MedicalCondition"
       ],
       "aliases": [],
-      "support": 10,
+      "support": 8,
       "first_seen": "art5",
       "provenance": [
         {
           "article": "art5",
-          "relation_phrase": "reported",
+          "relation_phrase": "is source for",
           "instances": [
             "World Health Organization (WHO) -> 1,400 cases",
             "World Health Organization (WHO) -> 438 deaths",
@@ -554,8 +2214,6 @@
             "World Health Organization (WHO) -> 150 suspected cases",
             "World Health Organization (WHO) -> 452 deaths",
             "World Health Organization (WHO) -> 213 people",
-            "Reuters -> pregnant woman",
-            "AFP -> pregnant woman",
             "Africa CDC -> Ebola",
             "US public health authorities -> Ebola"
           ]
@@ -564,9 +2222,9 @@
       "path": ""
     },
     {
-      "id": "P0022",
+      "id": "P0081",
       "canonical_label": "isSpeciesOf",
-      "definition": "Relates a viral or biological taxon to the medical condition it belongs to or causes.",
+      "definition": "A biological classification where one taxon is a specific type or subdivision of a broader taxon.",
       "parent": null,
       "domain": [
         "Taxon"
@@ -589,62 +2247,9 @@
       "path": ""
     },
     {
-      "id": "P0023",
-      "canonical_label": "sponsors",
-      "definition": "Relates an organization to a medical trial or event that it provides support or funding for.",
-      "parent": null,
-      "domain": [
-        "InternationalOrganization"
-      ],
-      "range": [
-        "MedicalTrial"
-      ],
-      "aliases": [],
-      "support": 1,
-      "first_seen": "art5",
-      "provenance": [
-        {
-          "article": "art5",
-          "relation_phrase": "sponsors",
-          "instances": [
-            "World Health Organization (WHO) -> Ebola treatments trial"
-          ]
-        }
-      ],
-      "path": ""
-    },
-    {
-      "id": "P0024",
-      "canonical_label": "coordinates",
-      "definition": "Relates an academic or research organization to a medical trial or project it organizes.",
-      "parent": null,
-      "domain": [
-        "ResearchOrganization",
-        "CollegeOrUniversity"
-      ],
-      "range": [
-        "MedicalTrial"
-      ],
-      "aliases": [],
-      "support": 3,
-      "first_seen": "art5",
-      "provenance": [
-        {
-          "article": "art5",
-          "relation_phrase": "coordinates",
-          "instances": [
-            "Institut National de Recherche Biomédicale -> Ebola treatments trial",
-            "Institute of Tropical Medicine -> Ebola treatments trial",
-            "University of Oxford -> Ebola treatments trial"
-          ]
-        }
-      ],
-      "path": ""
-    },
-    {
-      "id": "P0025",
+      "id": "P0082",
       "canonical_label": "spokeTo",
-      "definition": "Relates a person to the professional group or audience they addressed.",
+      "definition": "A person communicated verbally with another person or group.",
       "parent": null,
       "domain": [
         "Person"
@@ -667,59 +2272,9 @@
       "path": ""
     },
     {
-      "id": "P0026",
-      "canonical_label": "spokeFrom",
-      "definition": "Relates a person to the physical structure or venue from which they delivered a statement.",
-      "parent": null,
-      "domain": [
-        "Person"
-      ],
-      "range": [
-        "CivicStructure"
-      ],
-      "aliases": [],
-      "support": 1,
-      "first_seen": "art5",
-      "provenance": [
-        {
-          "article": "art5",
-          "relation_phrase": "spoke from",
-          "instances": [
-            "Tedros Adhanom Ghebreyesus -> WHO headquarters"
-          ]
-        }
-      ],
-      "path": ""
-    },
-    {
-      "id": "P0027",
-      "canonical_label": "beganIn",
-      "definition": "Relates a disease or medical condition to the month or time period when its outbreak began.",
-      "parent": null,
-      "domain": [
-        "MedicalCondition"
-      ],
-      "range": [
-        "Month"
-      ],
-      "aliases": [],
-      "support": 1,
-      "first_seen": "art5",
-      "provenance": [
-        {
-          "article": "art5",
-          "relation_phrase": "began in",
-          "instances": [
-            "Ebola -> May"
-          ]
-        }
-      ],
-      "path": ""
-    },
-    {
-      "id": "P0028",
+      "id": "P0083",
       "canonical_label": "declared",
-      "definition": "Relates an international organization to a public health situation or emergency status it proclaimed.",
+      "definition": "An entity formally announced or proclaimed a status or situation.",
       "parent": null,
       "domain": [
         "InternationalOrganization"
@@ -742,15 +2297,15 @@
       "path": ""
     },
     {
-      "id": "P0029",
-      "canonical_label": "suspectedIn",
-      "definition": "Relates a statistic of unconfirmed or suspected cases to the country where they are suspected.",
+      "id": "P0084",
+      "canonical_label": "recoveredFrom",
+      "definition": "A person regained health after suffering from a medical condition.",
       "parent": null,
       "domain": [
         "NumericalStatistic"
       ],
       "range": [
-        "Country"
+        "MedicalCondition"
       ],
       "aliases": [],
       "support": 1,
@@ -758,48 +2313,18 @@
       "provenance": [
         {
           "article": "art5",
-          "relation_phrase": "suspected in",
+          "relation_phrase": "recovered from",
           "instances": [
-            "150 suspected cases -> Democratic Republic of Congo"
+            "213 people -> Ebola"
           ]
         }
       ],
       "path": ""
     },
     {
-      "id": "P0030",
-      "canonical_label": "asOf",
-      "definition": "Relates a statistic or data point to the specific date as of which it was recorded.",
-      "parent": null,
-      "domain": [
-        "NumericalStatistic"
-      ],
-      "range": [
-        "Date"
-      ],
-      "aliases": [],
-      "support": 6,
-      "first_seen": "art5",
-      "provenance": [
-        {
-          "article": "art5",
-          "relation_phrase": "as of",
-          "instances": [
-            "1,460 confirmed cases -> 1 July",
-            "150 suspected cases -> 1 July",
-            "452 deaths -> 1 July",
-            "20 confirmed cases -> 1 July",
-            "two deaths -> 1 July",
-            "one confirmed case -> 1 July"
-          ]
-        }
-      ],
-      "path": ""
-    },
-    {
-      "id": "P0031",
+      "id": "P0085",
       "canonical_label": "resultedIn",
-      "definition": "Relates an initial case statistic to a secondary outcome statistic.",
+      "definition": "One event or statistic led to another event or statistic as a consequence.",
       "parent": null,
       "domain": [
         "NumericalStatistic"
@@ -822,34 +2347,9 @@
       "path": ""
     },
     {
-      "id": "P0032",
-      "canonical_label": "causes",
-      "definition": "Relates an infectious agent class to the medical condition it causes.",
-      "parent": null,
-      "domain": [
-        "InfectiousAgentClass"
-      ],
-      "range": [
-        "MedicalCondition"
-      ],
-      "aliases": [],
-      "support": 1,
-      "first_seen": "art5",
-      "provenance": [
-        {
-          "article": "art5",
-          "relation_phrase": "causes",
-          "instances": [
-            "virus -> Ebola"
-          ]
-        }
-      ],
-      "path": ""
-    },
-    {
-      "id": "P0033",
+      "id": "P0086",
       "canonical_label": "infects",
-      "definition": "Relates an infectious agent class to the animal or plant taxon it infects.",
+      "definition": "A pathogen or disease agent transmits to and affects a living organism.",
       "parent": null,
       "domain": [
         "InfectiousAgentClass"
@@ -858,78 +2358,24 @@
         "Taxon"
       ],
       "aliases": [],
-      "support": 1,
+      "support": 2,
       "first_seen": "art5",
       "provenance": [
         {
           "article": "art5",
           "relation_phrase": "infects",
           "instances": [
-            "virus -> animals"
+            "virus -> animals",
+            "virus -> humans"
           ]
         }
       ],
       "path": ""
     },
     {
-      "id": "P0034",
-      "canonical_label": "isOrganizationOf",
-      "definition": "Relates a government organization to the country to which it belongs.",
-      "parent": null,
-      "domain": [
-        "GovernmentOrganization"
-      ],
-      "range": [
-        "Country"
-      ],
-      "aliases": [],
-      "support": 2,
-      "first_seen": "art5",
-      "provenance": [
-        {
-          "article": "art5",
-          "relation_phrase": "is organization of",
-          "instances": [
-            "Congolese health authorities -> Democratic Republic of Congo",
-            "DR Congo's health ministry -> Democratic Republic of Congo"
-          ]
-        }
-      ],
-      "path": ""
-    },
-    {
-      "id": "P0035",
-      "canonical_label": "stated",
-      "definition": "Relates a government organization to an entity or topic regarding which it issued a public statement.",
-      "parent": null,
-      "domain": [
-        "GovernmentOrganization"
-      ],
-      "range": [
-        "MedicalCondition",
-        "Country",
-        "Person"
-      ],
-      "aliases": [],
-      "support": 3,
-      "first_seen": "art5",
-      "provenance": [
-        {
-          "article": "art5",
-          "relation_phrase": "stated",
-          "instances": [
-            "Congolese health authorities -> Ebola",
-            "DR Congo's health ministry -> Democratic Republic of Congo",
-            "Nigeria's government -> one of its nationals"
-          ]
-        }
-      ],
-      "path": ""
-    },
-    {
-      "id": "P0036",
+      "id": "P0087",
       "canonical_label": "restrictedTo",
-      "definition": "Relates a medical condition or disease to the state or area to which its cases are confined.",
+      "definition": "An event or condition is limited to a specific geographic area or scope.",
       "parent": null,
       "domain": [
         "MedicalCondition"
@@ -954,9 +2400,35 @@
       "path": ""
     },
     {
-      "id": "P0037",
+      "id": "P0088",
+      "canonical_label": "testedPositiveFor",
+      "definition": "A person or sample showed the presence of a specific medical condition or substance.",
+      "parent": null,
+      "domain": [
+        "Person"
+      ],
+      "range": [
+        "MedicalCondition"
+      ],
+      "aliases": [],
+      "support": 2,
+      "first_seen": "art5",
+      "provenance": [
+        {
+          "article": "art5",
+          "relation_phrase": "tested positive for",
+          "instances": [
+            "pregnant woman -> Ebola",
+            "individual -> Ebola"
+          ]
+        }
+      ],
+      "path": ""
+    },
+    {
+      "id": "P0089",
       "canonical_label": "hasPopulationOf",
-      "definition": "Relates a city to its total population count.",
+      "definition": "A geographic area contains a specific number of inhabitants.",
       "parent": null,
       "domain": [
         "City"
@@ -979,59 +2451,9 @@
       "path": ""
     },
     {
-      "id": "P0038",
-      "canonical_label": "fledFrom",
-      "definition": "Relates a person to a medical facility from which they escaped.",
-      "parent": null,
-      "domain": [
-        "Person"
-      ],
-      "range": [
-        "MedicalClinic"
-      ],
-      "aliases": [],
-      "support": 1,
-      "first_seen": "art5",
-      "provenance": [
-        {
-          "article": "art5",
-          "relation_phrase": "fled from",
-          "instances": [
-            "individual -> isolation unit"
-          ]
-        }
-      ],
-      "path": ""
-    },
-    {
-      "id": "P0039",
-      "canonical_label": "testedPositiveIn",
-      "definition": "Relates a person to the state or area where they underwent testing and returned a positive result.",
-      "parent": null,
-      "domain": [
-        "Person"
-      ],
-      "range": [
-        "State"
-      ],
-      "aliases": [],
-      "support": 1,
-      "first_seen": "art5",
-      "provenance": [
-        {
-          "article": "art5",
-          "relation_phrase": "tested positive in",
-          "instances": [
-            "individual -> Haut-Uele province"
-          ]
-        }
-      ],
-      "path": ""
-    },
-    {
-      "id": "P0040",
+      "id": "P0090",
       "canonical_label": "launchedIn",
-      "definition": "Relates a public policy or effort to the state or region where it was implemented.",
+      "definition": "An initiative or effort was started or introduced in a specific geographic area.",
       "parent": null,
       "domain": [
         "Policy"
@@ -1055,9 +2477,9 @@
       "path": ""
     },
     {
-      "id": "P0041",
+      "id": "P0091",
       "canonical_label": "bannedIn",
-      "definition": "Relates a social event or gathering type to the location where it is prohibited.",
+      "definition": "An activity or event is prohibited within a specific geographic area.",
       "parent": null,
       "domain": [
         "SocialEvent"
@@ -1084,87 +2506,9 @@
       "path": ""
     },
     {
-      "id": "P0042",
-      "canonical_label": "isCapitalOf",
-      "definition": "Relates a city to the country for which it serves as the seat of government.",
-      "parent": "containedIn",
-      "domain": [
-        "City"
-      ],
-      "range": [
-        "Country"
-      ],
-      "aliases": [],
-      "support": 2,
-      "first_seen": "art5",
-      "provenance": [
-        {
-          "article": "art5",
-          "relation_phrase": "is capital of",
-          "instances": [
-            "Kinshsasa -> Democratic Republic of Congo",
-            "Praia -> Cape Verde"
-          ]
-        }
-      ],
-      "path": "containedIn"
-    },
-    {
-      "id": "P0043",
-      "canonical_label": "preventsSpreadOf",
-      "definition": "Relates a policy or social event restriction to the medical condition whose spread it aims to curb.",
-      "parent": null,
-      "domain": [
-        "SocialEvent"
-      ],
-      "range": [
-        "MedicalCondition"
-      ],
-      "aliases": [],
-      "support": 1,
-      "first_seen": "art5",
-      "provenance": [
-        {
-          "article": "art5",
-          "relation_phrase": "prevents spread of",
-          "instances": [
-            "public gatherings -> Ebola"
-          ]
-        }
-      ],
-      "path": ""
-    },
-    {
-      "id": "P0044",
-      "canonical_label": "isSymptomOf",
-      "definition": "Relates a medical symptom to the medical condition it indicates.",
-      "parent": null,
-      "domain": [
-        "MedicalSymptom"
-      ],
-      "range": [
-        "MedicalCondition"
-      ],
-      "aliases": [],
-      "support": 3,
-      "first_seen": "art5",
-      "provenance": [
-        {
-          "article": "art5",
-          "relation_phrase": "is symptom of",
-          "instances": [
-            "fever -> Ebola",
-            "headache -> Ebola",
-            "tiredness -> Ebola"
-          ]
-        }
-      ],
-      "path": ""
-    },
-    {
-      "id": "P0045",
+      "id": "P0092",
       "canonical_label": "testsFor",
-      "definition": "Relates a laboratory to the medical condition for which it conducts diagnostic tests.",
+      "definition": "A laboratory or facility performs diagnostic procedures to detect a specific medical condition.",
       "parent": null,
       "domain": [
         "Laboratory"
@@ -1187,92 +2531,40 @@
       "path": ""
     },
     {
-      "id": "P0046",
-      "canonical_label": "impedes",
-      "definition": "Relates a societal event or conflict to a disease response or condition it hinders.",
+      "id": "P0093",
+      "canonical_label": "hasNumberOfSpecies",
+      "definition": "A biological classification includes a specific count of its subdivisions.",
       "parent": null,
       "domain": [
-        "SocietalEvent"
-      ],
-      "range": [
         "MedicalCondition"
       ],
-      "aliases": [],
-      "support": 1,
-      "first_seen": "art5",
-      "provenance": [
-        {
-          "article": "art5",
-          "relation_phrase": "impedes",
-          "instances": [
-            "conflict -> Ebola"
-          ]
-        }
-      ],
-      "path": ""
-    },
-    {
-      "id": "P0047",
-      "canonical_label": "controls",
-      "definition": "Relates a rebel or military group to the state or region it controls.",
-      "parent": null,
-      "domain": [
-        "RebelGroup"
-      ],
       "range": [
-        "State"
-      ],
-      "aliases": [],
-      "support": 2,
-      "first_seen": "art5",
-      "provenance": [
-        {
-          "article": "art5",
-          "relation_phrase": "controls",
-          "instances": [
-            "M23 rebel group -> North Kivu",
-            "M23 rebel group -> South Kivu"
-          ]
-        }
-      ],
-      "path": ""
-    },
-    {
-      "id": "P0048",
-      "canonical_label": "isNumberOf",
-      "definition": "Relates a numerical count to the medical condition or cases it quantifies.",
-      "parent": null,
-      "domain": [
         "Quantity"
       ],
-      "range": [
-        "MedicalCondition"
-      ],
       "aliases": [],
-      "support": 2,
+      "support": 1,
       "first_seen": "art5",
       "provenance": [
         {
           "article": "art5",
-          "relation_phrase": "is number of",
+          "relation_phrase": "has number of species",
           "instances": [
-            "six -> Ebola",
-            "three -> Ebola"
+            "Ebola -> six"
           ]
         }
       ],
       "path": ""
     },
     {
-      "id": "P0049",
-      "canonical_label": "killedBy",
-      "definition": "Relates a person to the occupational group or individuals that caused their death.",
+      "id": "P0094",
+      "canonical_label": "hasNumberOfOutbreakCausingSpecies",
+      "definition": "A biological classification includes a specific count of its subdivisions that are known to cause outbreaks.",
       "parent": null,
       "domain": [
-        "Person"
+        "MedicalCondition"
       ],
       "range": [
-        "Occupation"
+        "Quantity"
       ],
       "aliases": [],
       "support": 1,
@@ -1280,24 +2572,24 @@
       "provenance": [
         {
           "article": "art5",
-          "relation_phrase": "killed by",
+          "relation_phrase": "has number of outbreak-causing species",
           "instances": [
-            "one of its nationals -> police officers"
+            "Ebola -> three"
           ]
         }
       ],
       "path": ""
     },
     {
-      "id": "P0050",
-      "canonical_label": "isNationalOf",
-      "definition": "Relates a person to the government or country of which they hold citizenship.",
-      "parent": "nationality",
+      "id": "P0095",
+      "canonical_label": "killed",
+      "definition": "A person caused the death of another person.",
+      "parent": null,
       "domain": [
-        "Person"
+        "Occupation"
       ],
       "range": [
-        "GovernmentOrganization"
+        "Person"
       ],
       "aliases": [],
       "support": 1,
@@ -1305,18 +2597,18 @@
       "provenance": [
         {
           "article": "art5",
-          "relation_phrase": "is national of",
+          "relation_phrase": "killed",
           "instances": [
-            "one of its nationals -> Nigeria's government"
+            "police officers -> one of its nationals"
           ]
         }
       ],
-      "path": "nationality"
+      "path": ""
     },
     {
-      "id": "P0051",
+      "id": "P0096",
       "canonical_label": "areFansOf",
-      "definition": "Relates a fan organization to the country or team they support.",
+      "definition": "A group of people express strong admiration or support for a team or entity.",
       "parent": null,
       "domain": [
         "Organization"
@@ -1339,12 +2631,12 @@
       "path": ""
     },
     {
-      "id": "P0052",
-      "canonical_label": "lostTo",
-      "definition": "Relates a country or team to the opponent that defeated them in a sports match.",
+      "id": "P0097",
+      "canonical_label": "against",
+      "definition": "A competition or conflict involves two opposing entities.",
       "parent": null,
       "domain": [
-        "Country"
+        "SportsScore"
       ],
       "range": [
         "Country"
@@ -1355,43 +2647,18 @@
       "provenance": [
         {
           "article": "art5",
-          "relation_phrase": "lost to",
+          "relation_phrase": "against",
           "instances": [
-            "Cape Verde -> Argentina"
+            "3-2 defeat -> Argentina"
           ]
         }
       ],
       "path": ""
     },
     {
-      "id": "P0053",
-      "canonical_label": "occurredIn",
-      "definition": "Relates a sports score or match outcome to the sports event in which it took place.",
-      "parent": "sportsEvent",
-      "domain": [
-        "SportsScore"
-      ],
-      "range": [
-        "SportsEvent"
-      ],
-      "aliases": [],
-      "support": 1,
-      "first_seen": "art5",
-      "provenance": [
-        {
-          "article": "art5",
-          "relation_phrase": "occurred in",
-          "instances": [
-            "3-2 defeat -> World Cup"
-          ]
-        }
-      ],
-      "path": "location > sportsEvent"
-    },
-    {
-      "id": "P0054",
-      "canonical_label": "impacts",
-      "definition": "Relates a statistic or metric to the educational organization it impacts.",
+      "id": "P0098",
+      "canonical_label": "affects",
+      "definition": "One entity has an impact or influence on another entity.",
       "parent": null,
       "domain": [
         "NumericalStatistic"
@@ -1405,7 +2672,7 @@
       "provenance": [
         {
           "article": "art5",
-          "relation_phrase": "impacts",
+          "relation_phrase": "affects",
           "instances": [
             "enrolment numbers -> More than 2,000 primary schools"
           ]
@@ -1414,109 +2681,9 @@
       "path": ""
     },
     {
-      "id": "P0055",
-      "canonical_label": "traveledTo",
-      "definition": "Relates a person to the country to which they traveled.",
-      "parent": null,
-      "domain": [
-        "Person"
-      ],
-      "range": [
-        "Country"
-      ],
-      "aliases": [],
-      "support": 1,
-      "first_seen": "art5",
-      "provenance": [
-        {
-          "article": "art5",
-          "relation_phrase": "traveled to",
-          "instances": [
-            "Former President Zuma -> India"
-          ]
-        }
-      ],
-      "path": ""
-    },
-    {
-      "id": "P0056",
-      "canonical_label": "involvedIn",
-      "definition": "Relates a person to a political scandal or event in which they are implicated.",
-      "parent": null,
-      "domain": [
-        "Person"
-      ],
-      "range": [
-        "PoliticalScandal"
-      ],
-      "aliases": [],
-      "support": 1,
-      "first_seen": "art5",
-      "provenance": [
-        {
-          "article": "art5",
-          "relation_phrase": "involved in",
-          "instances": [
-            "Former President Zuma -> corruption scandal"
-          ]
-        }
-      ],
-      "path": ""
-    },
-    {
-      "id": "P0057",
-      "canonical_label": "holdsCopyrightFor",
-      "definition": "Relates a media organization to the year or content for which it holds copyright.",
-      "parent": null,
-      "domain": [
-        "NewsMediaOrganization"
-      ],
-      "range": [
-        "CalendarYear"
-      ],
-      "aliases": [],
-      "support": 1,
-      "first_seen": "art5",
-      "provenance": [
-        {
-          "article": "art5",
-          "relation_phrase": "holds copyright for",
-          "instances": [
-            "BBC -> 2026"
-          ]
-        }
-      ],
-      "path": ""
-    },
-    {
-      "id": "P0058",
-      "canonical_label": "notResponsibleFor",
-      "definition": "Relates an organization to an external website group for which it disclaims responsibility.",
-      "parent": null,
-      "domain": [
-        "NewsMediaOrganization"
-      ],
-      "range": [
-        "WebsiteGroup"
-      ],
-      "aliases": [],
-      "support": 1,
-      "first_seen": "art5",
-      "provenance": [
-        {
-          "article": "art5",
-          "relation_phrase": "not responsible for",
-          "instances": [
-            "BBC -> external sites"
-          ]
-        }
-      ],
-      "path": ""
-    },
-    {
-      "id": "P0059",
-      "canonical_label": "hasPolicy",
-      "definition": "Relates an organization to a policy or guideline it maintains.",
+      "id": "P0099",
+      "canonical_label": "hasPolicyOn",
+      "definition": "An entity maintains a formal approach or set of rules regarding a specific issue or activity.",
       "parent": null,
       "domain": [
         "NewsMediaOrganization"
@@ -1530,7 +2697,7 @@
       "provenance": [
         {
           "article": "art5",
-          "relation_phrase": "has policy",
+          "relation_phrase": "has policy on",
           "instances": [
             "BBC -> external linking"
           ]
@@ -1539,5 +2706,5 @@
       "path": ""
     }
   ],
-  "next_id": 60
+  "next_id": 100
 }

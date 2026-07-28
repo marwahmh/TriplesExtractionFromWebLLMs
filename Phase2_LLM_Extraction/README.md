@@ -20,6 +20,8 @@ side (nb5–7) — that share the same *define → embed → retrieve → reuse-
 | 5 | `5_property_enrichment.ipynb` | **once** | `schemaorg-current-https.jsonld` | `schema_properties{,_enriched}.json`, `enriched_prop_defs_cache.json` |
 | 6 | `6_relation_extraction.ipynb` | per article | `dataset/articles/<id>.txt` + `typed_deduped_entities_ext*.json` (nb4) | `results/<id>/oie_relations.json` |
 | 7 | `7_property_extension.ipynb` | per article, incremental | enriched property pool + `oie_relations.json` | `relation_vocabulary.json`, `results/<id>/relations_ext.json` (+ consolidated) |
+| **Visualization** ||||
+| 8 | `8_kg_visualization.ipynb` | per article | `results/<id>/relations_ext*.json` (nb7) | `results/<id>/kg_<id>.png` (static), `kg_<id>.html` (interactive) |
 
 Run order: **1 & 5 once**, then per article **2 → 4** (entities), then **6 → 7** (relations, since
 relations are extracted between nb4's typed entities). nb3 is an optional schema.org-only baseline;
@@ -39,6 +41,7 @@ Phase2_LLM_Extraction/
 ├── 5_property_enrichment.ipynb    # once:        parse + Gemini-enrich schema.org PROPERTIES
 ├── 6_relation_extraction.ipynb    # per-article: Gemini open relations between nb4's typed entities
 ├── 7_property_extension.ipynb     # per-article: canonicalize relations -> schema.org u prop-vocab, else mint
+├── 8_kg_visualization.ipynb       # per-article: draw the KG (nodes=entities, edges=relations) -> png + interactive html
 ├── dataset/
 │   ├── articles.csv               # catalog: title, url, domain, source
 │   ├── build_dataset.ipynb        # scrapes article bodies from the catalog
@@ -92,12 +95,37 @@ embedding step itself.
   a stable id) and extracts every stated relation as a directed `[subject, relation_phrase, object]`
   triple with a verbatim evidence span — inventing the free-form `relation_phrase`, exactly as nb2
   invents type labels. Only entities from the given list may be arguments.
-- **nb7** canonicalizes at the **relation-phrase** level: one query per distinct phrase, retrieved
-  against **schema.org properties ∪ property-vocabulary**. The selection LLM checks direction and
-  `domain → range` fit (the property analogue of a class's ancestor `path`), prefers a schema.org
-  property on overlap (**schema.org-first**), and mints a new `ex:` property (with a `subPropertyOf`
-  parent + domain/range) only when nothing fits. Instances are then deduplicated deterministically on
-  `(subject, chosen_property, object)`, so two phrases that map to the same property between the same
-  two entities collapse into one triple (evidence spans unioned).
-- The property pool encodes the `domain → range` signature in each property's `embedding_text`, the
-  same way the class pool encodes the ancestor `path`, so nb5's pool is a drop-in twin of nb1's.
+- **nb7** retrieves at the **relation-phrase** level (one query per distinct phrase, against
+  **schema.org properties ∪ property-vocabulary**) but resolves at the **instance** level: for each
+  phrase the judge returns one or more **assignments**, each a subset of the phrase's instances plus the
+  property chosen for that subset. So a single phrase can **split across properties** when its instances
+  have different signatures (e.g. *"located in"* → `containedInPlace` for City→Country but `location`
+  for Event→Place). Per assignment it checks direction and `domain → range` fit (loosely — see below),
+  prefers a schema.org property on overlap (**schema.org-first**), and mints a new `ex:` property (with
+  a `subPropertyOf` parent + domain/range) only when nothing fits. Instances are then deduplicated
+  deterministically on `(subject, chosen_property, object)`, so instances that land on the same property
+  between the same two entities collapse into one triple (evidence unioned). The review file records
+  each phrase's assignments, so a split is fully auditable.
+- **Domain/range is a soft signal at the judge, not a hard filter.** schema.org's domain/range are
+  permissive suggestions and entity types are often sub-/super-/sibling types of the declared ones, so
+  the judge reuses a meaning-preserving candidate even when the argument types aren't an exact match —
+  it won't mint merely because types differ, only when reuse would change or lose the relation's meaning.
+- **Inverse reuse.** A phrase can be matched to a candidate that expresses the *opposite* direction:
+  the judge sets `direction: "inverse"` and nb7 **swaps subject and object** so the stored triple runs
+  in the property's direction — reusing an existing property instead of minting a redundant new one
+  (e.g. an `employs` phrase reuses `worksFor` as *object → subject*). Each schema.org candidate also
+  shows its `inverseOf` name as a hint. Because inverse reuse orients the triple to the property, the
+  `relations_ext.json` records carry `phrase_directions` (which phrase was flipped) and the
+  preservation check compares **unordered** entity pairs.
+- **Embedding style is symmetric.** Both the relation-phrase **query** and every property **document**
+  (schema.org and vocab) share one shape: `name: definition [Also called synonyms]`, authored to the
+  same template in nb5 and nb6. The `domain → range` **signature is deliberately not embedded** (the
+  query has no counterpart for it); it lives in the `signature` field and is given to the **LLM judge**.
+- **Definitions are direction-NEUTRAL** — they describe the relation as an association between two kinds
+  of entity without fixing which is subject/object (e.g. *"An employment relation between a person and
+  an organization."*). This is deliberate: a direction-explicit gloss would make an inverse property
+  look like a *different* relation and push it out of the retrieved top-k, defeating **inverse reuse**.
+  Neutral glosses let a property **and its inverse** both surface as candidates; the judge then decides
+  `as_is` vs `inverse` from the `signature` + instance types (the reliable direction signal), not from
+  the comment wording. So: retrieval finds the relation *concept* (direction-agnostic); the judge
+  resolves *direction*.
