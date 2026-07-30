@@ -8,23 +8,37 @@ growing a persistent vocabulary) only when nothing in schema.org fits.
 The pipeline has two symmetric halves — an **entity/type** side (nb1–4) and a **relation/property**
 side (nb5–7) — that share the same *define → embed → retrieve → reuse-best-match-else-mint* recipe:
 
+Notebooks now live under `notebooks/<track>/` (`0_shared`, `two_staged`, `e2e`). Per-article outputs
+under `results/<id>/` are split into `two_staged/` (staged pipeline) and `e2e/` (single-call baseline);
+cross-article vocabularies/reports live in `results/_global/`.
+
 | # | Notebook | Scope | Reads | Writes |
 |---|----------|-------|-------|--------|
 | 0 | `dataset/build_dataset.ipynb` | build corpus | `dataset/articles.csv` | `dataset/articles/*.txt` |
-| **Entity / type side** ||||
-| 1 | `1_schema_enrichment.ipynb` | **once** | `schemaorg-current-https.jsonld` | `schema_classes{,_enriched}.json`, `enriched_defs_cache.json`, `reference/*` |
-| 2 | `2_oie_extraction.ipynb` | per article | `dataset/articles/<id>.txt` | `results/<id>/oie_entities.json` |
-| 3 | `3_schema_matching.ipynb` | per article | enriched class pool + `oie_entities.json` | `results/<id>/schema_matching_*.json` *(optional schema.org-only baseline)* |
-| 4 | `4_type_extension.ipynb` | per article, incremental | enriched class pool + `oie_entities.json` | `type_vocabulary.json`, `results/<id>/typed_deduped_entities_ext.json` (+ consolidated) |
-| **Relation / property side** ||||
-| 5 | `5_property_enrichment.ipynb` | **once** | `schemaorg-current-https.jsonld` | `schema_properties{,_enriched}.json`, `enriched_prop_defs_cache.json` |
-| 6 | `6_relation_extraction.ipynb` | per article | `dataset/articles/<id>.txt` + `typed_deduped_entities_ext*.json` (nb4) | `results/<id>/oie_relations.json` |
-| 7 | `7_property_extension.ipynb` | per article, incremental | enriched property pool + `oie_relations.json` | `relation_vocabulary.json`, `results/<id>/relations_ext.json` (+ consolidated) |
+| **Entity / type side** (`two_staged`) ||||
+| 1 | `0_shared/1_schema_enrichment.ipynb` | **once** | `schemaorg-current-https.jsonld` | `schema_classes{,_enriched}.json`, `enriched_defs_cache.json`, `reference/*` |
+| 2 | `two_staged/2_oie_extraction.ipynb` | per article | `dataset/articles/<id>.txt` | `<id>/two_staged/1_entities/oie_entities.json` |
+| 3 | `two_staged/3_schema_matching.ipynb` | per article | enriched class pool + `oie_entities.json` | `<id>/two_staged/1_entities/schema_matching_*.json` *(optional schema.org-only baseline)* |
+| 4 | `two_staged/4_type_extension.ipynb` | per article, incremental | enriched class pool + `oie_entities.json` | `_global/type_vocabulary.json`, `<id>/two_staged/1_entities/entities_typed.json` (+ `_consolidated`), `entity_type_matching_review.json` |
+| **Relation / property side** (`two_staged`) ||||
+| 5 | `0_shared/5_property_enrichment.ipynb` | **once** | `schemaorg-current-https.jsonld` | `schema_properties{,_enriched}.json`, `enriched_prop_defs_cache.json` |
+| 6 | `two_staged/6_relation_extraction.ipynb` | per article | `<id>.txt` + `1_entities/entities_typed*.json` (nb4) | `<id>/two_staged/2_binary_relations/oie_relations.json` |
+| 7 | `two_staged/7_property_extension.ipynb` | per article, incremental | enriched property pool + `oie_relations.json` | `_global/relation_vocabulary.json`, `<id>/two_staged/2_binary_relations/relations.json` (+ `_consolidated`) |
+| **N-ary event reification** ||||
+| 6b | `two_staged/6b_event_reification.ipynb` | per article | `1_entities/entities_typed*.json` (nb4) | `<id>/two_staged/3_nary_graph/nary_graph.json` |
+| 7b | `two_staged/7b_nary_property_extension.ipynb` | per article, incremental | `3_nary_graph/nary_graph.json` + property pool | `<id>/two_staged/3_nary_graph/nary_graph_extended.json`, `_global/nary_relation_vocabulary.json` |
+| 6c | `e2e/6c_e2e_reification.ipynb` | per article (**baseline**) | `dataset/articles/<id>.txt` (raw) | `<id>/e2e/nary_graph.json` |
+| 6d | `e2e/6d_e2e_type_canonicalization.ipynb` | per article, incremental | `<id>/e2e/nary_graph.json` | `_global/e2e/type_vocabulary.json`, `<id>/e2e/nary_graph_typed.json` |
+| 6e | `e2e/6e_e2e_relation_canonicalization.ipynb` | per article, incremental | `<id>/e2e/nary_graph_typed.json` (6d) | `_global/e2e/nary_relation_vocabulary.json`, `<id>/e2e/nary_graph_extended.json` |
 | **Visualization** ||||
-| 8 | `8_kg_visualization.ipynb` | per article | `results/<id>/relations_ext*.json` (nb7) | `results/<id>/kg_<id>.png` (static), `kg_<id>.html` (interactive) |
+| 8 | `0_shared/8_kg_visualization.ipynb` | per article | any graph file above | `<id>/two_staged/viz/kg_{binary,reified}.{png,html}`, `<id>/e2e/viz/kg.{png,html}` |
 
 Run order: **1 & 5 once**, then per article **2 → 4** (entities), then **6 → 7** (relations, since
-relations are extracted between nb4's typed entities). nb3 is an optional schema.org-only baseline;
+relations are extracted between nb4's typed entities); reified track adds **6b → 7b**. The **e2e track**
+is independent: **6c → 6d → 6e** (single-call graph, then its own type then relation canonicalization
+against SEPARATE `_global/e2e/` vocabularies). 6d and 6e each end with the same **optional global
+re-consolidation + hierarchy** tail as nb4/nb7 (writes `*_consolidated.*` + `*_hierarchy*.txt` under
+`_global/e2e/`, leaving the raw incremental outputs untouched). nb3 is an optional schema.org-only baseline;
 nb4 and nb7 are self-contained. Each per-article notebook has an `ARTICLE_ID` / `SELECTED_ARTICLES`
 config cell plus a final **batch** cell. nb4 and nb7 each end with an **optional global
 re-consolidation** block that cleans the grown vocabulary into `*_consolidated.*` files, leaving the
@@ -34,14 +48,23 @@ raw incremental outputs untouched.
 
 ```
 Phase2_LLM_Extraction/
-├── 1_schema_enrichment.ipynb      # once:        parse + Gemini-enrich schema.org CLASSES
-├── 2_oie_extraction.ipynb         # per-article: Gemini entities + free-form types
-├── 3_schema_matching.ipynb        # per-article: embedding retrieval to schema.org (baseline)
-├── 4_type_extension.ipynb         # per-article: canonicalize types -> schema.org u type-vocab, else mint
-├── 5_property_enrichment.ipynb    # once:        parse + Gemini-enrich schema.org PROPERTIES
-├── 6_relation_extraction.ipynb    # per-article: Gemini open relations between nb4's typed entities
-├── 7_property_extension.ipynb     # per-article: canonicalize relations -> schema.org u prop-vocab, else mint
-├── 8_kg_visualization.ipynb       # per-article: draw the KG (nodes=entities, edges=relations) -> png + interactive html
+├── notebooks/
+│   ├── 0_shared/
+│   │   ├── 1_schema_enrichment.ipynb      # once:  parse + Gemini-enrich schema.org CLASSES
+│   │   ├── 5_property_enrichment.ipynb    # once:  parse + Gemini-enrich schema.org PROPERTIES
+│   │   └── 8_kg_visualization.ipynb       # draw the KG (binary / reified / e2e) -> png + interactive html
+│   ├── two_staged/
+│   │   ├── 2_oie_extraction.ipynb         # Gemini entities + free-form types
+│   │   ├── 3_schema_matching.ipynb        # embedding retrieval to schema.org (baseline)
+│   │   ├── 4_type_extension.ipynb         # canonicalize types -> schema.org ∪ type-vocab, else mint
+│   │   ├── 6_relation_extraction.ipynb    # Gemini open relations between nb4's typed entities
+│   │   ├── 6b_event_reification.ipynb     # reify facts into Event/Observation/Claim n-ary hubs
+│   │   ├── 7_property_extension.ipynb     # canonicalize relations -> schema.org ∪ prop-vocab, else mint
+│   │   └── 7b_nary_property_extension.ipynb  # canonicalize n-ary relation phrases -> properties
+│   └── e2e/
+│       ├── 6c_e2e_reification.ipynb            # BASELINE: raw text -> entities+n-ary graph in ONE call
+│       ├── 6d_e2e_type_canonicalization.ipynb  # canonicalize e2e entity types  (twin of nb4)
+│       └── 6e_e2e_relation_canonicalization.ipynb  # canonicalize e2e relations (twin of nb7b)
 ├── dataset/
 │   ├── articles.csv               # catalog: title, url, domain, source
 │   ├── build_dataset.ipynb        # scrapes article bodies from the catalog
@@ -57,13 +80,36 @@ Phase2_LLM_Extraction/
 │   ├── enriched_prop_defs_cache.json    # resumable property-enrichment cache
 │   └── reference/                       # human-readable type/property trees
 └── results/
-    ├── type_vocabulary.json           # grown minted-type vocab (nb4)      (+ _consolidated)
-    ├── relation_vocabulary.json       # grown minted-property vocab (nb7)  (+ _consolidated)
+    ├── _global/                       # cross-article vocabularies & consolidation reports
+    │   ├── type_vocabulary.json           # grown minted-type vocab (nb4)      (+ _consolidated)
+    │   ├── relation_vocabulary.json       # grown minted-property vocab (nb7)  (+ _consolidated)
+    │   ├── nary_relation_vocabulary.json  # n-ary relation-phrase vocab (nb7b)
+    │   ├── e2e/                           # SEPARATE e2e vocabularies (6d, 6e) — kept comparable, never mixed
+    │   │   ├── type_vocabulary.json           # e2e entity-type vocab (6d)
+    │   │   └── nary_relation_vocabulary.json  # e2e relation-property vocab (6e)
+    │   └── *_hierarchy*.txt, *_consolidation_report.json, *_changes.json
     └── art<N>/                        # per-article outputs (one folder per article)
-        ├── oie_entities.json                       # nb2
-        ├── typed_deduped_entities_ext.json         # nb4  (+ _consolidated)
-        ├── oie_relations.json                      # nb6
-        └── relations_ext.json                      # nb7  (+ _consolidated)
+        ├── two_staged/                    # staged pipeline (nb2–7b)
+        │   ├── 1_entities/
+        │   │   ├── oie_entities.json                   # nb2
+        │   │   ├── entities_typed.json                 # nb4  (+ _consolidated)
+        │   │   └── entity_type_matching_review.json    # nb4
+        │   ├── 2_binary_relations/
+        │   │   ├── oie_relations.json                  # nb6
+        │   │   ├── relations.json                      # nb7  (+ _consolidated)
+        │   │   └── relation_matching_review.json       # nb7
+        │   ├── 3_nary_graph/
+        │   │   ├── nary_graph.json                     # nb6b
+        │   │   ├── nary_graph_extended.json            # nb7b
+        │   │   └── nary_relation_matching_review.json  # nb7b
+        │   └── viz/  kg_binary.{png,html}, kg_reified.{png,html}   # nb8
+        └── e2e/                           # single-call baseline (nb6c) + its own canonicalization
+            ├── nary_graph.json                         # nb6c  (free-form types & phrases)
+            ├── nary_graph_typed.json                   # 6d    (entity types canonicalized)
+            ├── nary_graph_extended.json                # 6e    (relations canonicalized — final e2e KG)
+            ├── entity_type_matching_review.json        # 6d
+            ├── nary_relation_matching_review.json      # 6e
+            └── viz/  kg.{png,html}                     # nb8
 ```
 
 Article ids line up end to end: `dataset/articles/art7.txt` → `results/art7/`.
