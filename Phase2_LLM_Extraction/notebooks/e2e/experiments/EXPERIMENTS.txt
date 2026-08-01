@@ -1,0 +1,86 @@
+E2E RELATION-CANONICALIZATION — RETRIEVAL EXPERIMENTS
+=====================================================
+
+Context
+-------
+The main e2e pipeline is 6c (single-call extraction) -> 6d (entity-type canonicalization)
+-> 6e (relation canonicalization). 6e is the BASELINE: for each free-form relation_phrase it
+retrieves the top-10 candidate properties (schema.org + grown vocab, mixed) by definition
+embedding, and an LLM reuses one or mints a new ex: property.
+
+These experiments (6f-6k) each change ONE thing about how the relation-canonicalization
+CANDIDATES are produced, to see if we can raise correct schema.org reuse and cut minting /
+"predicate explosion" without extra cost. All ran on the same 4 articles (art1, art2, art4, art5),
+on the "dedup" 6c variant, and each wrote to its own *_<suffix> files (kept here).
+
+Reference numbers for the baseline 6e (dedup, summed over the 4 articles):
+  schema.org reuse 193 | mints 148 | distinct mints 70 | object-baked "explosion" mints 11
+  bad matches 7 | ~217k tokens.
+
+Baseline finding (why we ran these at all): ~54% of 6e's mints were AVOIDABLE — a schema.org
+property existed but the top-10 (mixed) retrieval never offered it, because the self-similar
+growing vocab crowds schema.org out of the shortlist.
+
+
+6f — FULL SCHEMA         (nary_graph_dedup_extended_fullschema.json)
+   Aim:    does giving the LLM the ENTIRE schema.org property catalog beat top-10 retrieval?
+   Change: replaced top-k retrieval with the full ~1500-property catalog, listed once per call.
+   Found:  recovered a few precise properties retrieval missed, but 4x MORE predicate explosion
+           (46 object-baked mints vs 11) and ~1.8x tokens. Not worth it.
+
+6g — HYBRID (hard type-signature)   (..._hybrid.json)
+   Aim:    complement definition-embedding with structure — match a property's domain->range to
+           the observed subject_type->object_type.
+   Change: added a top-5 lane that HARD-matches domain/range via the schema.org class hierarchy,
+           reciprocal-rank-fused with the embedding lane.
+   Found:  the hard type-match surfaced type-compatible-but-WRONG properties (areaServed, byDay,
+           errorCode) -> worst bad-match count (22). Type shape alone is too permissive.
+
+6h — SIGNATURE-AWARE EMBEDDING (single lane)   (no result files — built, not run)
+   Aim:    fold the signature into the embedding (soft) instead of a separate hard lane.
+   Change: embed (relation name + observed signature) vs property (definition + its domain->range).
+   Found:  not executed on the 4 articles.
+
+6i — DUAL EMBEDDING (soft signature lane)   (..._dualemb.json)
+   Aim:    give the signature its OWN soft embedding lane, to get 6g's coverage without its junk.
+   Change: a second dense retrieval over (property label + domain->range), top-5, RRF-merged with
+           the definition lane.
+   Found:  cleaner than 6g (bad matches 6) but still leaked byDay and raised explosion to 18
+           object-baked mints (vs 11). No net win over the baseline.
+
+6j — QUOTA RETRIEVAL   (..._quota.json)   ***WINNER***
+   Aim:    stop the growing vocab from crowding schema.org out of the mixed top-10.
+   Change: retrieve top-K_SCHEMA=10 from schema.org AND top-K_VOCAB=3 from vocab SEPARATELY
+           (guaranteed schema.org slots), instead of one top-10 over the merged pool.
+   Found:  matched full-schema's schema.org reuse (217, +24 vs baseline) at ~62% of its cost;
+           FEWEST total (124) and distinct (67) mints; NO new bad matches. The clear winner.
+           (Follow-up: of chosen schema.org, 15% came from ranks 6-10, so keep K_SCHEMA>=8;
+            the vocab lane fired only ~9 times, so K_VOCAB could shrink.)
+
+6k — SCHEMA-ONLY INLINE + per-article RECONSOLIDATION   (..._recon.json)
+   Aim:    test whether dropping inline vocab candidates and reconsolidating mints periodically is
+           cheaper at scale.
+   Change: K_VOCAB=0 inline (schema.org or mint); after each article, compare each NEW mint to its
+           top-5 nearest PRIOR-article vocab entries and let the LLM merge synonyms.
+   Found:  FAILED — 0 merges. The duplication is WITHIN an article / the seed article (e.g. the
+           "is a" phrase minted isAForecast/isAStatus/isAnAlertLevel/isAWeatherCondition, all with
+           the SAME definition), which the new-vs-prior scheme never compares. Per-article
+           new-vs-prior reconsolidation is insufficient; it needs GLOBAL scope.
+
+
+OVERALL CONCLUSIONS
+-------------------
+1. Retrieval tuning has a clear winner: QUOTA (6j) — separate schema.org/vocab lanes. Adopt it.
+   (None of the signature-based lanes beat it; type shape as a hard or standalone signal adds junk.)
+2. Predicate "explosion" (isAForecast, forecastForCountry, recordedQuantity ...) is a MINT-NAMING
+   problem, not a retrieval one — same-meaning mints get different object-specific labels. This was
+   fixed AFTER these runs by adding the "general, reusable, no object baked in" rule to every mint
+   prompt (see EVENT_REIFICATION_DESIGN.md §3). Re-running with that rule should collapse the
+   identical-definition explosions at the source.
+
+NOTE ON PATHS
+-------------
+These notebooks were originally in notebooks/e2e/ and still write their outputs to
+results/<id>/e2e/ and results/_global/e2e/ (ROOT-relative paths unchanged). The result files were
+ARCHIVED here after running. If you re-run an experiment, its outputs will land back in
+results/<id>/e2e/ (not the experiments/ subfolder) — move them again, or update the paths.
