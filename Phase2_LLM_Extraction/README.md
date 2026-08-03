@@ -25,11 +25,13 @@ cross-article vocabularies/reports live in `results/_global/`.
 | 6 | `two_staged/6_relation_extraction.ipynb` | per article | `<id>.txt` + `1_entities/entities_typed*.json` (nb4) | `<id>/two_staged/2_binary_relations/oie_relations.json` |
 | 7 | `two_staged/7_property_extension.ipynb` | per article, incremental | enriched property pool + `oie_relations.json` | `_global/relation_vocabulary.json`, `<id>/two_staged/2_binary_relations/relations.json` (+ `_consolidated`) |
 | **N-ary event reification** ||||
-| 6b | `two_staged/6b_event_reification.ipynb` | per article | `1_entities/entities_typed*.json` (nb4) | `<id>/two_staged/3_nary_graph/nary_graph.json` |
+| 6b | `two_staged/6b_event_reification.ipynb` | per article | `1_entities/entities_typed*.json` (nb4) | `<id>/two_staged/3_nary_graph/nary_graph.json`, `_global/hub_type_vocabulary.json` |
 | 7b | `two_staged/7b_nary_property_extension.ipynb` | per article, incremental | `3_nary_graph/nary_graph.json` + property pool | `<id>/two_staged/3_nary_graph/nary_graph_extended.json`, `_global/nary_relation_vocabulary.json` |
 | 6c | `e2e/6c_e2e_reification.ipynb` | per article (**baseline**) | `dataset/articles/<id>.txt` (raw) | `<id>/e2e/nary_graph.json` |
 | 6d | `e2e/6d_e2e_type_canonicalization.ipynb` | per article, incremental | `<id>/e2e/nary_graph.json` | `_global/e2e/type_vocabulary.json`, `<id>/e2e/nary_graph_typed.json` |
 | 6e | `e2e/6e_e2e_relation_canonicalization.ipynb` | per article, incremental | `<id>/e2e/nary_graph_typed.json` (6d) | `_global/e2e/nary_relation_vocabulary.json`, `<id>/e2e/nary_graph_extended.json` |
+| **E2E retrieval experiments** (archived) ||||
+| 6f–6k | `e2e/experiments/*.ipynb` | per article (**offline study**) | `<id>/e2e/nary_graph_typed.json` (6d) | `_global/e2e/experiments/*_dedup_<variant>.json` |
 | **Visualization** ||||
 | 8 | `0_shared/8_kg_visualization.ipynb` | per article | any graph file above | `<id>/two_staged/viz/kg_{binary,reified}.{png,html}`, `<id>/e2e/viz/kg.{png,html}` |
 
@@ -43,6 +45,13 @@ nb4 and nb7 are self-contained. Each per-article notebook has an `ARTICLE_ID` / 
 config cell plus a final **batch** cell. nb4 and nb7 each end with an **optional global
 re-consolidation** block that cleans the grown vocabulary into `*_consolidated.*` files, leaving the
 raw incremental outputs untouched.
+
+The **e2e/experiments/** notebooks (6f–6k) are archived variants of the 6e relation-canonicalization
+step, each changing one thing about how candidate properties are retrieved (full-schema, hybrid
+type-signature, dual-embedding, quota, schema-only + reconsolidation) to cut avoidable minting. They
+are an offline study, not part of the run order; the winner was **6j (quota retrieval)** — separate
+schema.org / vocab retrieval lanes. See `notebooks/e2e/experiments/EXPERIMENTS.txt` for the full aims
+and findings.
 
 ## Layout
 
@@ -64,7 +73,8 @@ Phase2_LLM_Extraction/
 │   └── e2e/
 │       ├── 6c_e2e_reification.ipynb            # BASELINE: raw text -> entities+n-ary graph in ONE call
 │       ├── 6d_e2e_type_canonicalization.ipynb  # canonicalize e2e entity types  (twin of nb4)
-│       └── 6e_e2e_relation_canonicalization.ipynb  # canonicalize e2e relations (twin of nb7b)
+│       ├── 6e_e2e_relation_canonicalization.ipynb  # canonicalize e2e relations (twin of nb7b)
+│       └── experiments/                        # archived 6e retrieval variants (6f-6k) — see EXPERIMENTS.txt
 ├── dataset/
 │   ├── articles.csv               # catalog: title, url, domain, source
 │   ├── build_dataset.ipynb        # scrapes article bodies from the catalog
@@ -83,10 +93,12 @@ Phase2_LLM_Extraction/
     ├── _global/                       # cross-article vocabularies & consolidation reports
     │   ├── type_vocabulary.json           # grown minted-type vocab (nb4)      (+ _consolidated)
     │   ├── relation_vocabulary.json       # grown minted-property vocab (nb7)  (+ _consolidated)
+    │   ├── hub_type_vocabulary.json       # n-ary node ('hub') type vocab (nb6b/7b), parented into the type tree
     │   ├── nary_relation_vocabulary.json  # n-ary relation-phrase vocab (nb7b)
     │   ├── e2e/                           # SEPARATE e2e vocabularies (6d, 6e) — kept comparable, never mixed
     │   │   ├── type_vocabulary.json           # e2e entity-type vocab (6d)
-    │   │   └── nary_relation_vocabulary.json  # e2e relation-property vocab (6e)
+    │   │   ├── nary_relation_vocabulary.json  # e2e relation-property vocab (6e)
+    │   │   └── experiments/                   # archived per-variant outputs of 6f-6k (*_dedup_<variant>.json)
     │   └── *_hierarchy*.txt, *_consolidation_report.json, *_changes.json
     └── art<N>/                        # per-article outputs (one folder per article)
         ├── two_staged/                    # staged pipeline (nb2–7b)

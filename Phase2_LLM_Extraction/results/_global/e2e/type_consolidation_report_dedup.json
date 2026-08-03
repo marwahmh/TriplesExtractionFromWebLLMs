@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-08-01T16:49:06",
+  "timestamp": "2026-08-03T16:50:21",
   "match_model": "intfloat/e5-base-v2",
   "gemini_model": "gemini-2.5-flash",
   "expand_mode": true,
@@ -13,22 +13,38 @@
     "art5"
   ],
   "n_articles": 4,
-  "vocab_size_before": 31,
-  "vocab_size_after": 30,
+  "vocab_size_before": 61,
+  "vocab_size_after": 58,
   "n_merges": 1,
-  "n_types_removed": 1,
-  "n_reparented": 0,
+  "n_types_removed": 3,
+  "n_reparented": 9,
   "merges": [
     {
       "kind": "synonym",
       "action": "merge",
-      "survivor_id": "T0016",
-      "survivor_label": "WeatherEvent",
-      "reason": "Both describe an occurrence or phenomenon related to atmospheric conditions.",
+      "survivor_id": "T0041",
+      "survivor_label": "AlertIssuance",
+      "reason": "All entries have identical labels and definitions for 'AlertIssuance'.",
       "merged": [
         {
-          "id": "T0018",
-          "label": "WeatherPhenomenon",
+          "id": "T0046",
+          "label": "AlertIssuance",
+          "support": 1,
+          "articles": [
+            "art1"
+          ]
+        },
+        {
+          "id": "T0049",
+          "label": "AlertIssuance",
+          "support": 1,
+          "articles": [
+            "art1"
+          ]
+        },
+        {
+          "id": "T0050",
+          "label": "AlertIssuance",
           "support": 1,
           "articles": [
             "art1"
@@ -38,11 +54,82 @@
       "articles": [
         "art1"
       ],
-      "resulting_support": 2,
-      "resulting_aliases": [
-        "WeatherPhenomenon"
-      ]
+      "resulting_support": 4,
+      "resulting_aliases": []
     }
   ],
-  "reparents": []
+  "reparents": [
+    {
+      "kind": "subtype",
+      "action": "subclass",
+      "parent_id": "T0001",
+      "parent_label": "DateRange",
+      "reason": "SpecificDay, HolidayPeriod, CalendarYear, and Month are all specific kinds of DateRange.",
+      "children": [
+        {
+          "id": "T0003",
+          "label": "SpecificDay",
+          "old_parent": "Thing"
+        },
+        {
+          "id": "T0006",
+          "label": "HolidayPeriod",
+          "old_parent": "Intangible"
+        },
+        {
+          "id": "T0031",
+          "label": "CalendarYear",
+          "old_parent": "Thing"
+        },
+        {
+          "id": "T0038",
+          "label": "Month",
+          "old_parent": "Thing"
+        }
+      ]
+    },
+    {
+      "kind": "subtype",
+      "action": "subclass",
+      "parent_id": "T0007",
+      "parent_label": "NaturalPhenomenon",
+      "reason": "WeatherEvent, Disaster, DiseaseOutbreak, and DisasterProgressionEvent are all specific types of natural phenomena or events stemming from them.",
+      "children": [
+        {
+          "id": "T0008",
+          "label": "WeatherEvent",
+          "old_parent": "Event"
+        },
+        {
+          "id": "T0010",
+          "label": "Disaster",
+          "old_parent": "Event"
+        },
+        {
+          "id": "T0040",
+          "label": "DiseaseOutbreak",
+          "old_parent": "Event"
+        },
+        {
+          "id": "T0048",
+          "label": "DisasterProgressionEvent",
+          "old_parent": "Disaster"
+        }
+      ]
+    },
+    {
+      "kind": "subtype",
+      "action": "subclass",
+      "parent_id": "T0024",
+      "parent_label": "Actor",
+      "reason": "An Actress is a specific type of Actor (female).",
+      "children": [
+        {
+          "id": "T0015",
+          "label": "Actress",
+          "old_parent": "Thing"
+        }
+      ]
+    }
+  ]
 }
