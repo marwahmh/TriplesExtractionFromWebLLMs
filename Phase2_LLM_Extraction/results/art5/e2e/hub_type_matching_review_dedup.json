@@ -2,15 +2,15 @@
   "article_id": "art5",
   "types": [
     {
-      "event_type": "EbolaTreatmentTrial",
+      "event_type": "ClinicalTrialStart",
       "chosen": {
-        "label": "MedicalTrialEvent",
+        "label": "TrialImplementationEvent",
         "source": "vocab",
-        "vocab_id": "T0060",
-        "definition": "An event involving the testing of a medical treatment, drug, or intervention.",
+        "vocab_id": "T0081",
+        "definition": "An event involving the testing or initial implementation of a proposal, scheme, or system on a limited or experimental basis.",
         "parent": "Event",
-        "is_new_to_vocab": true,
-        "justification": "None of the existing candidates describe a medical trial; a new type is needed to capture this specific activity."
+        "is_new_to_vocab": false,
+        "justification": "A clinical trial starting is a direct example of the testing or initial implementation of a scheme."
       },
       "examples": [
         "Ebola treatments trial begins"
@@ -18,223 +18,510 @@
       "candidates": [
         {
           "source": "vocab",
-          "id": "T0040",
-          "label": "DiseaseOutbreak",
+          "id": "T0081",
+          "label": "TrialImplementationEvent",
           "path": "Thing > Event",
-          "score": 0.776,
-          "comment": "A sudden increase in occurrences of a disease in a particular time and place."
+          "score": 0.81,
+          "comment": "An event involving the testing or initial implementation of a proposal, scheme, or system on a limited or experimental basis."
         },
         {
           "source": "vocab",
-          "id": "T0054",
-          "label": "LawEnforcementPresenceEvent",
+          "id": "T0076",
+          "label": "PublicAlertEvent",
           "path": "Thing > Event",
-          "score": 0.75,
-          "comment": "An event characterized by the presence of law enforcement personnel at a specific location."
+          "score": 0.789,
+          "comment": ""
         },
         {
           "source": "vocab",
-          "id": "T0057",
-          "label": "MediaCoverageEvent",
+          "id": "T0079",
+          "label": "PublicAlertEvent",
           "path": "Thing > Event",
-          "score": 0.745,
-          "comment": "An event characterized by the presence and activity of media personnel covering another event or situation."
+          "score": 0.789,
+          "comment": ""
         },
         {
           "source": "vocab",
-          "id": "T0047",
-          "label": "EvacuationEvent",
+          "id": "T0080",
+          "label": "PublicAlertEvent",
           "path": "Thing > Event",
-          "score": 0.745,
-          "comment": "An event where people or animals are moved from a place of danger to a safer location."
+          "score": 0.789,
+          "comment": ""
+        },
+        {
+          "source": "vocab",
+          "id": "T0094",
+          "label": "CeremonyStartEvent",
+          "path": "Thing > Event",
+          "score": 0.781,
+          "comment": "An event marking the beginning of a formal ceremony."
+        }
+      ]
+    },
+    {
+      "event_type": "PatientEnrollment",
+      "chosen": {
+        "label": "PatientEnrollmentEvent",
+        "source": "vocab",
+        "vocab_id": "T0110",
+        "definition": "An event where a patient is registered or admitted into a clinical trial or study.",
+        "parent": "TrialImplementationEvent",
+        "is_new_to_vocab": true,
+        "justification": "No existing candidate specifically captures the act of patient enrollment in a trial; TrialImplementationEvent is too broad."
+      },
+      "examples": [
+        "First patient enrolled in trial"
+      ],
+      "candidates": [
+        {
+          "source": "vocab",
+          "id": "T0081",
+          "label": "TrialImplementationEvent",
+          "path": "Thing > Event",
+          "score": 0.799,
+          "comment": "An event involving the testing or initial implementation of a proposal, scheme, or system on a limited or experimental basis."
+        },
+        {
+          "source": "vocab",
+          "id": "T0096",
+          "label": "EntryPlanningEvent",
+          "path": "Thing > Event",
+          "score": 0.77,
+          "comment": "An event involving the planning of an entry or access method."
         },
         {
           "source": "schema.org",
-          "label": "OnDemandEvent",
-          "path": "Thing > Event > PublicationEvent",
-          "score": 0.744,
-          "comment": "An OnDemandEvent, as a PublicationEvent, is a publication event where a program is available on-demand. Also called catch-up TV, podcast release, streaming event. Examples: a TV show episode available for streaming after broadcast, a podcast episode release, a movie available for rent online. Distinct from BroadcastEvent, which is a live or scheduled transmission."
+          "label": "UserPlusOnes",
+          "path": "Thing > Event > UserInteraction",
+          "score": 0.77,
+          "comment": "An outdated type representing a user's interaction of giving a \"+1\" endorsement, typically on Google+ or similar platforms. Also called user endorsement, +1, social recommendation. Examples: a user giving a +1 to a web page, endorsing a business, recommending content."
+        },
+        {
+          "source": "vocab",
+          "id": "T0094",
+          "label": "CeremonyStartEvent",
+          "path": "Thing > Event",
+          "score": 0.769,
+          "comment": "An event marking the beginning of a formal ceremony."
+        },
+        {
+          "source": "vocab",
+          "id": "T0080",
+          "label": "PublicAlertEvent",
+          "path": "Thing > Event",
+          "score": 0.769,
+          "comment": ""
+        }
+      ]
+    },
+    {
+      "event_type": "TrialSponsorship",
+      "chosen": {
+        "label": "TrialSponsorshipEvent",
+        "source": "vocab",
+        "vocab_id": "T0111",
+        "definition": "An event where an entity provides financial or organizational support for a clinical trial or study.",
+        "parent": "Event",
+        "is_new_to_vocab": true,
+        "justification": "No existing candidate captures the specific act of sponsoring a trial; TrialImplementationEvent is about the execution, not the funding."
+      },
+      "examples": [
+        "WHO sponsors trial"
+      ],
+      "candidates": [
+        {
+          "source": "vocab",
+          "id": "T0081",
+          "label": "TrialImplementationEvent",
+          "path": "Thing > Event",
+          "score": 0.803,
+          "comment": "An event involving the testing or initial implementation of a proposal, scheme, or system on a limited or experimental basis."
+        },
+        {
+          "source": "vocab",
+          "id": "T0080",
+          "label": "PublicAlertEvent",
+          "path": "Thing > Event",
+          "score": 0.775,
+          "comment": ""
+        },
+        {
+          "source": "vocab",
+          "id": "T0079",
+          "label": "PublicAlertEvent",
+          "path": "Thing > Event",
+          "score": 0.775,
+          "comment": ""
+        },
+        {
+          "source": "vocab",
+          "id": "T0076",
+          "label": "PublicAlertEvent",
+          "path": "Thing > Event",
+          "score": 0.775,
+          "comment": ""
+        },
+        {
+          "source": "vocab",
+          "id": "T0109",
+          "label": "CompetitionWinEvent",
+          "path": "Thing > Event",
+          "score": 0.774,
+          "comment": "An event where a participant or team achieves victory in a competition or contest."
+        }
+      ]
+    },
+    {
+      "event_type": "TrialCoordination",
+      "chosen": {
+        "label": "TrialImplementationEvent",
+        "source": "vocab",
+        "vocab_id": "T0081",
+        "definition": "An event involving the testing or initial implementation of a proposal, scheme, or system on a limited or experimental basis.",
+        "parent": "Event",
+        "is_new_to_vocab": false,
+        "justification": "Coordination is an integral part of the testing and implementation process of a trial."
+      },
+      "examples": [
+        "Trial coordinated by scientists"
+      ],
+      "candidates": [
+        {
+          "source": "vocab",
+          "id": "T0081",
+          "label": "TrialImplementationEvent",
+          "path": "Thing > Event",
+          "score": 0.809,
+          "comment": "An event involving the testing or initial implementation of a proposal, scheme, or system on a limited or experimental basis."
+        },
+        {
+          "source": "vocab",
+          "id": "T0095",
+          "label": "SetupConfirmationEvent",
+          "path": "Thing > Event",
+          "score": 0.776,
+          "comment": "An event where the setup or arrangement of something is confirmed."
+        },
+        {
+          "source": "vocab",
+          "id": "T0090",
+          "label": "PoliceBarricadeDeploymentEvent",
+          "path": "Thing > Event",
+          "score": 0.775,
+          "comment": "An event involving the deployment of police barricades."
+        },
+        {
+          "source": "vocab",
+          "id": "T0080",
+          "label": "PublicAlertEvent",
+          "path": "Thing > Event",
+          "score": 0.775,
+          "comment": ""
+        },
+        {
+          "source": "vocab",
+          "id": "T0079",
+          "label": "PublicAlertEvent",
+          "path": "Thing > Event",
+          "score": 0.775,
+          "comment": ""
+        }
+      ]
+    },
+    {
+      "event_type": "DrugTesting",
+      "chosen": {
+        "label": "TrialImplementationEvent",
+        "source": "vocab",
+        "vocab_id": "T0081",
+        "definition": "An event involving the testing or initial implementation of a proposal, scheme, or system on a limited or experimental basis.",
+        "parent": "Event",
+        "is_new_to_vocab": false,
+        "justification": "Testing drugs on patients is a core activity within the implementation of a trial."
+      },
+      "examples": [
+        "Patients tested on antiviral drugs"
+      ],
+      "candidates": [
+        {
+          "source": "vocab",
+          "id": "T0081",
+          "label": "TrialImplementationEvent",
+          "path": "Thing > Event",
+          "score": 0.769,
+          "comment": "An event involving the testing or initial implementation of a proposal, scheme, or system on a limited or experimental basis."
+        },
+        {
+          "source": "vocab",
+          "id": "T0080",
+          "label": "PublicAlertEvent",
+          "path": "Thing > Event",
+          "score": 0.751,
+          "comment": ""
+        },
+        {
+          "source": "vocab",
+          "id": "T0079",
+          "label": "PublicAlertEvent",
+          "path": "Thing > Event",
+          "score": 0.751,
+          "comment": ""
+        },
+        {
+          "source": "vocab",
+          "id": "T0076",
+          "label": "PublicAlertEvent",
+          "path": "Thing > Event",
+          "score": 0.751,
+          "comment": ""
+        },
+        {
+          "source": "schema.org",
+          "label": "UserPlusOnes",
+          "path": "Thing > Event > UserInteraction",
+          "score": 0.749,
+          "comment": "An outdated type representing a user's interaction of giving a \"+1\" endorsement, typically on Google+ or similar platforms. Also called user endorsement, +1, social recommendation. Examples: a user giving a +1 to a web page, endorsing a business, recommending content."
         }
       ]
     },
     {
       "event_type": "EbolaOutbreakStart",
       "chosen": {
-        "label": "DiseaseOutbreak",
+        "label": "DiseaseOutbreakEvent",
         "source": "vocab",
-        "vocab_id": "T0040",
-        "definition": "A sudden increase in occurrences of a disease in a particular time and place.",
+        "vocab_id": "T0112",
+        "definition": "An event marking the sudden and widespread occurrence of a disease in a particular community or region.",
         "parent": "Event",
-        "is_new_to_vocab": false,
-        "justification": "The event directly describes the beginning of a disease outbreak, which aligns with the definition of DiseaseOutbreak."
+        "is_new_to_vocab": true,
+        "justification": "No existing candidate specifically describes the start of a disease outbreak; PublicAlertEvent is a consequence, not the outbreak itself."
       },
       "examples": [
-        "Ebola outbreak began"
+        "Ebola outbreak began in DR Congo"
       ],
       "candidates": [
         {
           "source": "vocab",
-          "id": "T0040",
-          "label": "DiseaseOutbreak",
+          "id": "T0076",
+          "label": "PublicAlertEvent",
           "path": "Thing > Event",
-          "score": 0.84,
-          "comment": "A sudden increase in occurrences of a disease in a particular time and place."
+          "score": 0.782,
+          "comment": ""
         },
         {
           "source": "vocab",
-          "id": "T0053",
+          "id": "T0080",
+          "label": "PublicAlertEvent",
+          "path": "Thing > Event",
+          "score": 0.782,
+          "comment": ""
+        },
+        {
+          "source": "vocab",
+          "id": "T0079",
+          "label": "PublicAlertEvent",
+          "path": "Thing > Event",
+          "score": 0.782,
+          "comment": ""
+        },
+        {
+          "source": "vocab",
+          "id": "T0106",
           "label": "ArrivalEvent",
           "path": "Thing > Event",
-          "score": 0.78,
-          "comment": "An event marking the act of a person or group reaching a destination."
+          "score": 0.781,
+          "comment": "An event where a person or group arrives at a location."
         },
         {
           "source": "vocab",
-          "id": "T0048",
-          "label": "DisasterProgressionEvent",
-          "path": "Thing > Event > Disaster",
-          "score": 0.779,
-          "comment": "An event describing the expansion, intensification, or development of a disaster over time or space."
-        },
-        {
-          "source": "vocab",
-          "id": "T0059",
-          "label": "DepartureEvent",
+          "id": "T0105",
+          "label": "ArrivalEvent",
           "path": "Thing > Event",
-          "score": 0.775,
-          "comment": "An event marking the act of a person or group leaving a location or event."
-        },
-        {
-          "source": "vocab",
-          "id": "T0047",
-          "label": "EvacuationEvent",
-          "path": "Thing > Event",
-          "score": 0.775,
-          "comment": "An event where people or animals are moved from a place of danger to a safer location."
+          "score": 0.781,
+          "comment": "An event where a person or group arrives at a location."
         }
       ]
     },
     {
       "event_type": "PublicHealthEmergencyDeclaration",
       "chosen": {
-        "label": "PublicStatementEvent",
+        "label": "PublicAlertEvent",
         "source": "vocab",
-        "vocab_id": "T0058",
-        "definition": "An event where a public figure makes a statement, announcement, or allusion.",
+        "vocab_id": "T0068",
+        "definition": "An event where an official warning or advisory is issued to the public regarding a potential or ongoing hazard or situation.",
         "parent": "Event",
         "is_new_to_vocab": false,
-        "justification": "A declaration of a public health emergency is a specific type of public statement or announcement."
+        "justification": "A declaration of a public health emergency is an official warning or advisory to the public."
       },
       "examples": [
-        "Public health emergency declared"
+        "WHO declares public health emergency"
       ],
       "candidates": [
         {
           "source": "vocab",
-          "id": "T0058",
-          "label": "PublicStatementEvent",
+          "id": "T0080",
+          "label": "PublicAlertEvent",
           "path": "Thing > Event",
-          "score": 0.8,
-          "comment": "An event where a public figure makes a statement, announcement, or allusion."
+          "score": 0.825,
+          "comment": ""
         },
         {
           "source": "vocab",
-          "id": "T0043",
-          "label": "SocietalImpactEvent",
+          "id": "T0079",
+          "label": "PublicAlertEvent",
           "path": "Thing > Event",
-          "score": 0.791,
-          "comment": "An event describing the effects or consequences of a phenomenon on a society or population."
+          "score": 0.825,
+          "comment": ""
         },
         {
           "source": "vocab",
-          "id": "T0040",
-          "label": "DiseaseOutbreak",
+          "id": "T0076",
+          "label": "PublicAlertEvent",
           "path": "Thing > Event",
-          "score": 0.791,
-          "comment": "A sudden increase in occurrences of a disease in a particular time and place."
+          "score": 0.825,
+          "comment": ""
         },
         {
           "source": "vocab",
-          "id": "T0048",
-          "label": "DisasterProgressionEvent",
-          "path": "Thing > Event > Disaster",
-          "score": 0.79,
-          "comment": "An event describing the expansion, intensification, or development of a disaster over time or space."
+          "id": "T0068",
+          "label": "PublicAlertEvent",
+          "path": "Thing > Event",
+          "score": 0.824,
+          "comment": "An event where an official warning or advisory is issued to the public regarding a potential or ongoing hazard or situation."
         },
         {
           "source": "vocab",
-          "id": "T0042",
-          "label": "EmergencyPreparednessEvent",
+          "id": "T0064",
+          "label": "ExcessMortalityEvent",
           "path": "Thing > Event",
-          "score": 0.79,
-          "comment": "An event involving actions taken to prepare for or mitigate the impact of an impending emergency or disaster."
+          "score": 0.788,
+          "comment": "An event characterized by a statistically significant increase in the number of deaths above the expected baseline for a given period and region."
+        }
+      ]
+    },
+    {
+      "event_type": "BodyTransport",
+      "chosen": {
+        "label": "BodyTransportationEvent",
+        "source": "vocab",
+        "vocab_id": "T0113",
+        "definition": "An event involving the movement of a deceased human body from one location to another.",
+        "parent": "Event",
+        "is_new_to_vocab": true,
+        "justification": "Neither ArrivalEvent nor DepartureEvent fully captures the specific act of transporting a body, which implies both aspects and the nature of the cargo."
+      },
+      "examples": [
+        "Woman's body transported to Kisangani"
+      ],
+      "candidates": [
+        {
+          "source": "vocab",
+          "id": "T0107",
+          "label": "DepartureEvent",
+          "path": "Thing > Event",
+          "score": 0.768,
+          "comment": "An event where a person or group leaves a location."
+        },
+        {
+          "source": "vocab",
+          "id": "T0102",
+          "label": "ArrivalEvent",
+          "path": "Thing > Event",
+          "score": 0.761,
+          "comment": "An event where a person or group arrives at a location."
+        },
+        {
+          "source": "vocab",
+          "id": "T0106",
+          "label": "ArrivalEvent",
+          "path": "Thing > Event",
+          "score": 0.761,
+          "comment": "An event where a person or group arrives at a location."
+        },
+        {
+          "source": "vocab",
+          "id": "T0105",
+          "label": "ArrivalEvent",
+          "path": "Thing > Event",
+          "score": 0.761,
+          "comment": "An event where a person or group arrives at a location."
+        },
+        {
+          "source": "vocab",
+          "id": "T0104",
+          "label": "ArrivalEvent",
+          "path": "Thing > Event",
+          "score": 0.761,
+          "comment": "An event where a person or group arrives at a location."
         }
       ]
     },
     {
       "event_type": "ContactTracingLaunch",
       "chosen": {
-        "label": "PublicHealthInitiativeLaunch",
+        "label": "ContactTracingEvent",
         "source": "vocab",
-        "vocab_id": "T0061",
-        "definition": "An event marking the official start or launch of a public health program or effort.",
+        "vocab_id": "T0114",
+        "definition": "An event involving the initiation or execution of identifying and monitoring individuals who may have come into contact with an infected person.",
         "parent": "Event",
         "is_new_to_vocab": true,
-        "justification": "None of the existing candidates fit; this describes the launch of a public health effort, which is a form of emergency preparedness."
+        "justification": "No existing candidate describes the specific public health intervention of launching contact tracing."
       },
       "examples": [
-        "Contact-tracing efforts launched"
+        "Contact tracing launched"
       ],
       "candidates": [
         {
           "source": "vocab",
-          "id": "T0053",
+          "id": "T0102",
           "label": "ArrivalEvent",
           "path": "Thing > Event",
-          "score": 0.775,
-          "comment": "An event marking the act of a person or group reaching a destination."
-        },
-        {
-          "source": "schema.org",
-          "label": "UserPlusOnes",
-          "path": "Thing > Event > UserInteraction",
-          "score": 0.767,
-          "comment": "An outdated type representing a user's interaction of giving a \"+1\" endorsement, typically on Google+ or similar platforms. Also called user endorsement, +1, social recommendation. Examples: a user giving a +1 to a web page, endorsing a business, recommending content."
-        },
-        {
-          "source": "schema.org",
-          "label": "UserCheckins",
-          "path": "Thing > Event > UserInteraction",
-          "score": 0.766,
-          "comment": "An outdated type representing a user's interaction of checking into a location or event. Also called user check-in, location check-in, event attendance. Examples: a user checking into a restaurant, checking into a concert, marking attendance at a conference."
+          "score": 0.781,
+          "comment": "An event where a person or group arrives at a location."
         },
         {
           "source": "vocab",
-          "id": "T0054",
-          "label": "LawEnforcementPresenceEvent",
+          "id": "T0106",
+          "label": "ArrivalEvent",
           "path": "Thing > Event",
-          "score": 0.759,
-          "comment": "An event characterized by the presence of law enforcement personnel at a specific location."
+          "score": 0.781,
+          "comment": "An event where a person or group arrives at a location."
         },
         {
-          "source": "schema.org",
-          "label": "Hackathon",
+          "source": "vocab",
+          "id": "T0105",
+          "label": "ArrivalEvent",
           "path": "Thing > Event",
-          "score": 0.757,
-          "comment": "A Hackathon is an event where participants collaboratively engage in intensive computer programming or design over a short period. Also called coding sprint, dev challenge, programming marathon. Examples: university hackathon, corporate innovation sprint, open-source code jam."
+          "score": 0.781,
+          "comment": "An event where a person or group arrives at a location."
+        },
+        {
+          "source": "vocab",
+          "id": "T0104",
+          "label": "ArrivalEvent",
+          "path": "Thing > Event",
+          "score": 0.781,
+          "comment": "An event where a person or group arrives at a location."
+        },
+        {
+          "source": "vocab",
+          "id": "T0084",
+          "label": "ArrivalEvent",
+          "path": "Thing > Event",
+          "score": 0.781,
+          "comment": "An event where a person or group arrives at a location."
         }
       ]
     },
     {
-      "event_type": "PublicGatheringsBan",
+      "event_type": "PublicGatheringBan",
       "chosen": {
-        "label": "PublicStatementEvent",
+        "label": "PublicGatheringRestrictionEvent",
         "source": "vocab",
-        "vocab_id": "T0058",
-        "definition": "An event where a public figure makes a statement, announcement, or allusion.",
+        "vocab_id": "T0115",
+        "definition": "An event where official measures are implemented to limit or prohibit public gatherings.",
         "parent": "Event",
-        "is_new_to_vocab": false,
-        "justification": "The act of banning public gatherings is typically enacted and communicated through a public statement or announcement."
+        "is_new_to_vocab": true,
+        "justification": "PublicAlertEvent is too broad as a ban is a specific restriction, not just an alert or warning."
       },
       "examples": [
         "Public gatherings banned"
@@ -242,43 +529,100 @@
       "candidates": [
         {
           "source": "vocab",
-          "id": "T0058",
-          "label": "PublicStatementEvent",
+          "id": "T0076",
+          "label": "PublicAlertEvent",
           "path": "Thing > Event",
-          "score": 0.827,
-          "comment": "An event where a public figure makes a statement, announcement, or allusion."
+          "score": 0.834,
+          "comment": ""
         },
         {
           "source": "vocab",
-          "id": "T0043",
-          "label": "SocietalImpactEvent",
+          "id": "T0079",
+          "label": "PublicAlertEvent",
           "path": "Thing > Event",
-          "score": 0.797,
-          "comment": "An event describing the effects or consequences of a phenomenon on a society or population."
+          "score": 0.834,
+          "comment": ""
         },
         {
           "source": "vocab",
-          "id": "T0054",
-          "label": "LawEnforcementPresenceEvent",
+          "id": "T0080",
+          "label": "PublicAlertEvent",
           "path": "Thing > Event",
-          "score": 0.79,
-          "comment": "An event characterized by the presence of law enforcement personnel at a specific location."
+          "score": 0.834,
+          "comment": ""
         },
         {
           "source": "vocab",
-          "id": "T0056",
-          "label": "FanGatheringEvent",
+          "id": "T0068",
+          "label": "PublicAlertEvent",
           "path": "Thing > Event",
-          "score": 0.789,
-          "comment": "An event where a group of enthusiasts or supporters congregate, typically related to a specific person, team, or interest."
+          "score": 0.831,
+          "comment": "An event where an official warning or advisory is issued to the public regarding a potential or ongoing hazard or situation."
         },
         {
           "source": "vocab",
-          "id": "T0057",
-          "label": "MediaCoverageEvent",
+          "id": "T0090",
+          "label": "PoliceBarricadeDeploymentEvent",
           "path": "Thing > Event",
-          "score": 0.78,
-          "comment": "An event characterized by the presence and activity of media personnel covering another event or situation."
+          "score": 0.8,
+          "comment": "An event involving the deployment of police barricades."
+        }
+      ]
+    },
+    {
+      "event_type": "DiagnosisImprovement",
+      "chosen": {
+        "label": "DiagnosticImprovementEvent",
+        "source": "vocab",
+        "vocab_id": "T0116",
+        "definition": "An event indicating a positive advancement or enhancement in the methods or accuracy of diagnosing a condition or disease.",
+        "parent": "Event",
+        "is_new_to_vocab": true,
+        "justification": "No existing candidate captures the concept of an improvement in diagnostic capabilities or processes."
+      },
+      "examples": [
+        "Diagnosis improved across affected region"
+      ],
+      "candidates": [
+        {
+          "source": "vocab",
+          "id": "T0071",
+          "label": "IncreasedFrequencyEvent",
+          "path": "Thing > Event",
+          "score": 0.765,
+          "comment": "An event characterized by a notable increase in the frequency of a particular phenomenon or type of event."
+        },
+        {
+          "source": "vocab",
+          "id": "T0089",
+          "label": "ActivityObservationEvent",
+          "path": "Thing > Event",
+          "score": 0.764,
+          "comment": "An event characterized by the observation of activity at a specific location."
+        },
+        {
+          "source": "vocab",
+          "id": "T0069",
+          "label": "WeatherSystemDevelopment",
+          "path": "Thing > Event",
+          "score": 0.764,
+          "comment": "An event describing the formation or intensification of a weather system, such as a high-pressure system or a storm."
+        },
+        {
+          "source": "vocab",
+          "id": "T0081",
+          "label": "TrialImplementationEvent",
+          "path": "Thing > Event",
+          "score": 0.764,
+          "comment": "An event involving the testing or initial implementation of a proposal, scheme, or system on a limited or experimental basis."
+        },
+        {
+          "source": "vocab",
+          "id": "T0067",
+          "label": "RecordTemperatureEvent",
+          "path": "Thing > Event",
+          "score": 0.763,
+          "comment": "An event marking a new record for the highest or lowest temperature observed in a specific location or period."
         }
       ]
     }

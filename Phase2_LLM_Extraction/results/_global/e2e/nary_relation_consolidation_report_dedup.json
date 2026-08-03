@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-08-03T17:00:14",
+  "timestamp": "2026-08-03T18:05:38",
   "match_model": "intfloat/e5-base-v2",
   "gemini_model": "gemini-2.5-flash",
   "expand_mode": true,
@@ -13,34 +13,73 @@
     "art5"
   ],
   "n_articles": 4,
-  "vocab_size_before": 60,
-  "vocab_size_after": 59,
-  "n_merges": 1,
-  "n_props_removed": 1,
-  "n_reparented": 10,
+  "vocab_size_before": 91,
+  "vocab_size_after": 88,
+  "n_merges": 2,
+  "n_props_removed": 3,
+  "n_reparented": 18,
   "merges": [
     {
       "kind": "synonym",
       "action": "merge",
-      "survivor_id": "P0006",
-      "survivor_label": "estimatedAttendance",
-      "reason": "estimatedAttendance and guestCount both indicate the number of people at an event.",
+      "survivor_id": "P0002",
+      "survivor_label": "occurredIn",
+      "reason": "All indicate the time period or event within which the subject took place.",
       "merged": [
         {
-          "id": "P0012",
-          "label": "guestCount",
-          "support": 1,
+          "id": "P0011",
+          "label": "occursDuring",
+          "support": 5,
+          "articles": [
+            "art1",
+            "art2"
+          ]
+        },
+        {
+          "id": "P0041",
+          "label": "occurredDuring",
+          "support": 2,
+          "articles": [
+            "art2",
+            "art5"
+          ]
+        }
+      ],
+      "articles": [
+        "art1",
+        "art2",
+        "art4",
+        "art5"
+      ],
+      "resulting_support": 16,
+      "resulting_aliases": [
+        "occursDuring",
+        "occurredDuring"
+      ]
+    },
+    {
+      "kind": "synonym",
+      "action": "merge",
+      "survivor_id": "P0016",
+      "survivor_label": "occurredOn",
+      "reason": "Both specify the date or time when an event took place.",
+      "merged": [
+        {
+          "id": "P0025",
+          "label": "occurredAt",
+          "support": 2,
           "articles": [
             "art2"
           ]
         }
       ],
       "articles": [
-        "art2"
+        "art2",
+        "art5"
       ],
-      "resulting_support": 3,
+      "resulting_support": 12,
       "resulting_aliases": [
-        "guestCount"
+        "occurredAt"
       ]
     }
   ],
@@ -48,19 +87,38 @@
     {
       "kind": "subproperty",
       "action": "subproperty",
-      "parent_id": "P0001",
-      "parent_label": "hasPercentage",
-      "reason": "hasPercentageIncrease and hasProportion are specific types of hasPercentage.",
+      "parent_id": "P0019",
+      "parent_label": "hasSource",
+      "reason": "Announced by and declared by are specific ways of indicating a source of information.",
       "children": [
         {
-          "id": "P0004",
-          "label": "hasPercentageIncrease",
+          "id": "P0074",
+          "label": "announcedBy",
           "old_parent": null
         },
         {
-          "id": "P0005",
-          "label": "hasProportion",
+          "id": "P0077",
+          "label": "declaredBy",
           "old_parent": null
+        }
+      ]
+    },
+    {
+      "kind": "subproperty",
+      "action": "subproperty",
+      "parent_id": "P0034",
+      "parent_label": "statesArrivalAt",
+      "reason": "These are specific types of arrival time statements.",
+      "children": [
+        {
+          "id": "P0037",
+          "label": "expectedAt",
+          "old_parent": "arrivalTime"
+        },
+        {
+          "id": "P0059",
+          "label": "arrivedHomeAt",
+          "old_parent": "arrivalTime"
         }
       ]
     },
@@ -68,12 +126,12 @@
       "kind": "subproperty",
       "action": "subproperty",
       "parent_id": "P0015",
-      "parent_label": "locatedOutside",
-      "reason": "waitingOutside is a specific action that implies being locatedOutside.",
+      "parent_label": "hasParticipant",
+      "reason": "An observer is a type of participant.",
       "children": [
         {
-          "id": "P0029",
-          "label": "waitingOutside",
+          "id": "P0026",
+          "label": "hasObserver",
           "old_parent": null
         }
       ]
@@ -81,13 +139,32 @@
     {
       "kind": "subproperty",
       "action": "subproperty",
-      "parent_id": "P0028",
-      "parent_label": "hasAge",
-      "reason": "isInAgeGroup is a specific way of expressing hasAge.",
+      "parent_id": "P0043",
+      "parent_label": "isFanOf",
+      "reason": "These are specific types of membership or affiliation.",
       "children": [
         {
-          "id": "P0019",
-          "label": "isInAgeGroup",
+          "id": "P0051",
+          "label": "playsFor",
+          "old_parent": "memberOf"
+        },
+        {
+          "id": "P0060",
+          "label": "hasAffiliation",
+          "old_parent": "memberOf"
+        }
+      ]
+    },
+    {
+      "kind": "subproperty",
+      "action": "subproperty",
+      "parent_id": "P0042",
+      "parent_label": "wantsToSee",
+      "reason": "Disbelieving is a specific type of seeking or wanting to see (or not see).",
+      "children": [
+        {
+          "id": "P0061",
+          "label": "disbelieved",
           "old_parent": null
         }
       ]
@@ -95,13 +172,13 @@
     {
       "kind": "subproperty",
       "action": "subproperty",
-      "parent_id": "P0030",
-      "parent_label": "hasPrizeMoney",
-      "reason": "hasTotalPrizeMoney is a specific type of hasPrizeMoney.",
+      "parent_id": "P0063",
+      "parent_label": "realized",
+      "reason": "Realized after is a specific type of realization.",
       "children": [
         {
-          "id": "P0033",
-          "label": "hasTotalPrizeMoney",
+          "id": "P0062",
+          "label": "realizedAfter",
           "old_parent": null
         }
       ]
@@ -109,13 +186,79 @@
     {
       "kind": "subproperty",
       "action": "subproperty",
-      "parent_id": "P0037",
-      "parent_label": "announcedBy",
-      "reason": "announcedByPerson is a specific type of announcedBy.",
+      "parent_id": "P0065",
+      "parent_label": "praises",
+      "reason": "Reason for praise is a specific type of praise (endorsement).",
+      "children": [
+        {
+          "id": "P0066",
+          "label": "reasonForPraise",
+          "old_parent": "cause"
+        }
+      ]
+    },
+    {
+      "kind": "subproperty",
+      "action": "subproperty",
+      "parent_id": "P0018",
+      "parent_label": "locatedUnder",
+      "reason": "These are specific types of location relations.",
       "children": [
         {
           "id": "P0038",
-          "label": "announcedByPerson",
+          "label": "locatedOutside",
+          "old_parent": "location"
+        },
+        {
+          "id": "P0064",
+          "label": "waitingOutside",
+          "old_parent": "location"
+        }
+      ]
+    },
+    {
+      "kind": "subproperty",
+      "action": "subproperty",
+      "parent_id": "P0029",
+      "parent_label": "isLocationOf",
+      "reason": "Being a home of is a specific type of being a location of.",
+      "children": [
+        {
+          "id": "P0030",
+          "label": "isHomeOf",
+          "old_parent": "location"
+        }
+      ]
+    },
+    {
+      "kind": "subproperty",
+      "action": "subproperty",
+      "parent_id": "P0057",
+      "parent_label": "onPlatform",
+      "reason": "These are specific types of instruments used.",
+      "children": [
+        {
+          "id": "P0058",
+          "label": "transportedBy",
+          "old_parent": "instrument"
+        }
+      ]
+    },
+    {
+      "kind": "subproperty",
+      "action": "subproperty",
+      "parent_id": "P0031",
+      "parent_label": "hasRecipient",
+      "reason": "These are specific types of recipients or beneficiaries.",
+      "children": [
+        {
+          "id": "P0032",
+          "label": "isFor",
+          "old_parent": null
+        },
+        {
+          "id": "P0035",
+          "label": "statesFor",
           "old_parent": null
         }
       ]
@@ -123,23 +266,13 @@
     {
       "kind": "subproperty",
       "action": "subproperty",
-      "parent_id": "P0040",
-      "parent_label": "hasCases",
-      "reason": "hasConfirmedCases, hasSuspectedCases, and hasRecoveredPatients are specific types of hasCases.",
+      "parent_id": "P0076",
+      "parent_label": "tests",
+      "reason": "Is a is a general classification, testing is a specific action.",
       "children": [
         {
-          "id": "P0046",
-          "label": "hasConfirmedCases",
-          "old_parent": null
-        },
-        {
-          "id": "P0047",
-          "label": "hasSuspectedCases",
-          "old_parent": null
-        },
-        {
-          "id": "P0048",
-          "label": "hasRecoveredPatients",
+          "id": "P0075",
+          "label": "isA",
           "old_parent": null
         }
       ]
@@ -147,14 +280,14 @@
     {
       "kind": "subproperty",
       "action": "subproperty",
-      "parent_id": "P0059",
-      "parent_label": "hasSpeciesCount",
-      "reason": "speciesKnownToCauseOutbreaks is a specific type of hasSpeciesCount.",
+      "parent_id": "P0089",
+      "parent_label": "complicatesTackling",
+      "reason": "Species causing outbreaks is a specific way of complicating tackling.",
       "children": [
         {
-          "id": "P0060",
-          "label": "speciesKnownToCauseOutbreaks",
-          "old_parent": null
+          "id": "P0091",
+          "label": "speciesCauseOutbreaks",
+          "old_parent": "cause"
         }
       ]
     }

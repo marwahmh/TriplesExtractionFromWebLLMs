@@ -2,25 +2,74 @@
   "properties": [
     {
       "id": "P0001",
-      "canonical_label": "hasPercentage",
-      "definition": "Indicates a percentage value associated with the subject.",
+      "canonical_label": "hasCount",
+      "definition": "Indicates the numerical quantity associated with the subject.",
       "parent": null,
       "domain": [
-        "DeathIncrease"
+        "ExcessMortalityEvent",
+        "DrowningCount",
+        "FireCount"
       ],
       "range": [
-        "Number"
+        "Integer"
       ],
       "aliases": [],
-      "support": 2,
+      "support": 14,
       "first_seen": "art1",
       "provenance": [
         {
           "article": "art1",
-          "relation_phrase": "has percentage",
+          "relation_phrase": "has count",
           "instances": [
-            "Deaths rose 29% in last week of June -> 29%",
-            "Deaths rose 62% in Paris region -> 62%"
+            "France records excess deaths -> 2,025",
+            "Belgium records excess deaths -> 1,222",
+            "72 people died by drowning -> 72",
+            "Netherlands records excess deaths -> 480",
+            "Nearly 7,000 fires broken out -> nearly 7,000"
+          ]
+        },
+        {
+          "article": "art2",
+          "relation_phrase": "hasQuantity",
+          "direction": "as_is",
+          "instances": [
+            "Expected attendance for Thursday event -> 100 people"
+          ]
+        },
+        {
+          "article": "art5",
+          "relation_phrase": "has confirmed cases",
+          "direction": "as_is",
+          "instances": [
+            "Confirmed Ebola cases and deaths -> 1,400",
+            "Ebola statistics in DR Congo as of July 1 -> 1,460",
+            "Ebola cases in Uganda and France as of July 1 -> 20",
+            "Ebola cases in Uganda and France as of July 1 -> one confirmed case"
+          ]
+        },
+        {
+          "article": "art5",
+          "relation_phrase": "has deaths",
+          "direction": "as_is",
+          "instances": [
+            "Confirmed Ebola cases and deaths -> 438",
+            "Ebola statistics in DR Congo as of July 1 -> 452"
+          ]
+        },
+        {
+          "article": "art5",
+          "relation_phrase": "current number of",
+          "direction": "as_is",
+          "instances": [
+            "Number of Ebola testing laboratories increased -> 10"
+          ]
+        },
+        {
+          "article": "art5",
+          "relation_phrase": "number of species",
+          "direction": "as_is",
+          "instances": [
+            "Ebola species and outbreak causation -> six"
           ]
         }
       ],
@@ -28,52 +77,82 @@
     },
     {
       "id": "P0002",
-      "canonical_label": "comparedTo",
-      "definition": "Indicates a comparison between the subject and the object.",
-      "parent": null,
+      "canonical_label": "occurredIn",
+      "definition": "Specifies the time period or event within which the subject took place.",
+      "parent": "temporal",
       "domain": [
-        "DeathIncrease",
-        "WildfireRiskAssessment"
+        "HeatwaveEvent"
       ],
       "range": [
-        "DateRange",
-        "Observation"
+        "Month"
       ],
       "aliases": [],
-      "support": 2,
+      "support": 9,
       "first_seen": "art1",
       "provenance": [
         {
           "article": "art1",
-          "relation_phrase": "compared to",
+          "relation_phrase": "occurred in",
           "instances": [
-            "Deaths rose 29% in last week of June -> week before",
-            "Wildfire risk very high -> summer norms"
+            "European heatwave -> June"
+          ]
+        },
+        {
+          "article": "art4",
+          "relation_phrase": "occurs in",
+          "direction": "as_is",
+          "instances": [
+            "US Open singles winner prize money -> 2025",
+            "2024 US Open winner prize money -> 2024",
+            "Wimbledon prize money -> 2025",
+            "Australian Open prize money -> 2025",
+            "French Open prize money -> 2025",
+            "2025 US Open mixed doubles championship start -> 2025"
+          ]
+        },
+        {
+          "article": "art4",
+          "relation_phrase": "in round",
+          "direction": "as_is",
+          "instances": [
+            "Errani and Vavassori win mixed doubles -> final"
+          ]
+        },
+        {
+          "article": "art5",
+          "relation_phrase": "began in",
+          "direction": "as_is",
+          "instances": [
+            "Ebola outbreak began in DR Congo -> May"
           ]
         }
       ],
-      "path": ""
+      "path": "temporal"
     },
     {
       "id": "P0003",
-      "canonical_label": "hasRate",
-      "definition": "Indicates the speed or frequency at which something occurs or changes.",
+      "canonical_label": "forecastFor",
+      "definition": "Indicates the predicted location or time for an event or condition.",
       "parent": null,
       "domain": [
-        "ContinentWarmingRate"
+        "TemperatureRiseEvent"
       ],
       "range": [
-        "Observation"
+        "Continent",
+        "Duration",
+        "DateRange"
       ],
       "aliases": [],
-      "support": 1,
+      "support": 3,
       "first_seen": "art1",
       "provenance": [
         {
           "article": "art1",
-          "relation_phrase": "has rate",
+          "relation_phrase": "forecast for",
           "instances": [
-            "Europe fastest warming continent -> global average"
+            "Forecast of extreme temperatures -> Europe",
+            "Forecast of extreme temperatures -> next few days",
+            "Forecast of extreme temperatures -> this weekend"
           ]
         }
       ],
@@ -81,29 +160,31 @@
     },
     {
       "id": "P0004",
-      "canonical_label": "hasPercentageIncrease",
-      "definition": "Indicates the percentage by which something has grown.",
+      "canonical_label": "hasPercentage",
+      "definition": "Indicates the percentage value associated with the subject.",
       "parent": null,
       "domain": [
-        "ExcessDeaths"
+        "DeathIncreasePercentage"
       ],
       "range": [
-        "Number"
+        "Percentage"
       ],
       "aliases": [],
-      "support": 2,
+      "support": 4,
       "first_seen": "art1",
       "provenance": [
         {
           "article": "art1",
-          "relation_phrase": "has percentage increase",
+          "relation_phrase": "has percentage",
           "instances": [
-            "Belgium records excess deaths -> 39%"
+            "Deaths rose 29% in last week of June -> 29%",
+            "Belgium deaths 39% more than usual -> 39%",
+            "Paris region deaths rose 62% -> 62%"
           ]
         },
         {
           "article": "art4",
-          "relation_phrase": "has increase of",
+          "relation_phrase": "has percentage",
           "direction": "as_is",
           "instances": [
             "US Open prize pot increase -> 39%"
@@ -114,24 +195,27 @@
     },
     {
       "id": "P0005",
-      "canonical_label": "hasProportion",
-      "definition": "Indicates the fraction or share of a whole that the subject represents.",
+      "canonical_label": "comparedTo",
+      "definition": "Establishes a comparison between the subject and the object.",
       "parent": null,
       "domain": [
-        "ExcessDeaths"
+        "DeathIncreasePercentage",
+        "HighFireRisk"
       ],
       "range": [
-        "Quantity"
+        "DateRange",
+        "Standard"
       ],
       "aliases": [],
-      "support": 1,
+      "support": 2,
       "first_seen": "art1",
       "provenance": [
         {
           "article": "art1",
-          "relation_phrase": "proportion of",
+          "relation_phrase": "compared to",
           "instances": [
-            "Belgium records excess deaths -> almost half"
+            "Deaths rose 29% in last week of June -> week before",
+            "Forest fire risk very high -> summer norms"
           ]
         }
       ],
@@ -139,25 +223,32 @@
     },
     {
       "id": "P0006",
-      "canonical_label": "estimatedAttendance",
-      "definition": "The approximate number of people expected or present at an event.",
+      "canonical_label": "appliesTo",
+      "definition": "Indicates that a rule, condition, or statement is relevant for the object.",
       "parent": null,
       "domain": [
-        "WeddingEvent"
+        "DeathDemographics",
+        "DeathIncrease",
+        "PublicAlertEvent"
       ],
       "range": [
-        "Quantity"
+        "AgeGroup",
+        "Quantity",
+        "DefinedRegion"
       ],
       "aliases": [],
-      "support": 2,
-      "first_seen": "art2",
+      "support": 5,
+      "first_seen": "art1",
       "provenance": [
         {
-          "article": "art2",
-          "relation_phrase": "has estimated attendance",
+          "article": "art1",
+          "relation_phrase": "applies to",
           "instances": [
-            "Taylor Swift and Travis Kelce's wedding celebrations -> 100 people",
-            "Taylor Swift and Travis Kelce's wedding celebrations -> 1,000 guests"
+            "Clear increase in deaths over 45 -> over 45",
+            "Half of France under red heat alert -> half the nation",
+            "Almost half of Belgium deaths over 85 -> 85 and over",
+            "Most Netherlands deaths aged 80 and older -> 80 and older",
+            "Spain southwest on orange alert -> southwest"
           ]
         }
       ],
@@ -165,49 +256,61 @@
     },
     {
       "id": "P0007",
-      "canonical_label": "followedBy",
-      "definition": "Indicates that one event or action occurs after another.",
-      "parent": null,
+      "canonical_label": "hasTemperatureRange",
+      "definition": "Indicates a specific temperature range associated with the subject.",
+      "parent": "value",
       "domain": [
-        "WeddingEvent"
+        "TemperatureForecast"
       ],
       "range": [
-        "WeddingEvent"
+        "TemperatureRange"
       ],
       "aliases": [],
       "support": 1,
-      "first_seen": "art2",
+      "first_seen": "art1",
       "provenance": [
         {
-          "article": "art2",
-          "relation_phrase": "followed by",
+          "article": "art1",
+          "relation_phrase": "has value",
           "instances": [
-            "Taylor Swift and Travis Kelce's wedding celebrations -> Taylor Swift and Travis Kelce's wedding celebrations"
+            "Bordeaux, Toulouse, Agen 36-37C forecast -> 36C to 37C"
           ]
         }
       ],
-      "path": ""
+      "path": "value"
     },
     {
       "id": "P0008",
-      "canonical_label": "appliesToPeriod",
-      "definition": "Indicates the duration or time frame over which a rule, condition, or event is valid or active.",
+      "canonical_label": "affects",
+      "definition": "Indicates that a subject has an impact or influence on an object.",
       "parent": null,
       "domain": [
-        "Filming Consent Warning"
+        "TemperatureRiseEvent",
+        "ExtremeWeatherImpact"
       ],
       "range": [
-        "DateRange"
+        "Country",
+        "StatisticalPopulation"
       ],
       "aliases": [],
-      "support": 1,
-      "first_seen": "art2",
+      "support": 4,
+      "first_seen": "art1",
       "provenance": [
         {
-          "article": "art2",
-          "relation_phrase": "applies to period",
+          "article": "art1",
+          "relation_phrase": "affects",
           "instances": [
-            "Sign warns of filming inside venue -> 29 June - 3 July"
+            "Forecast of extreme temperatures -> UK",
+            "Americans affected by extreme heat -> millions of Americans"
+          ]
+        },
+        {
+          "article": "art5",
+          "relation_phrase": "attacks",
+          "direction": "as_is",
+          "instances": [
+            "virus -> immune system",
+            "virus -> organs"
           ]
         }
       ],
@@ -215,28 +318,26 @@
     },
     {
       "id": "P0009",
-      "canonical_label": "benefitedLocation",
-      "definition": "Indicates the geographical area or place that received a benefit.",
+      "canonical_label": "forecastToAffect",
+      "definition": "Indicates the predicted impact or influence on a particular entity or region.",
       "parent": null,
       "domain": [
-        "DonationEvent"
+        "TemperatureRiseEvent"
       ],
       "range": [
-        "City",
-        "Country"
+        "Country",
+        "DefinedRegion"
       ],
       "aliases": [],
-      "support": 4,
-      "first_seen": "art2",
+      "support": 2,
+      "first_seen": "art1",
       "provenance": [
         {
-          "article": "art2",
-          "relation_phrase": "benefited location",
+          "article": "art1",
+          "relation_phrase": "forecast to affect",
           "instances": [
-            "Couple donates to charities -> US",
-            "Couple donates to charities -> New York City",
-            "Couple donates to charities -> Nashville",
-            "Couple donates to charities -> Kansas City"
+            "Forecast of extreme temperatures -> France",
+            "Forecast of extreme temperatures -> southern Britain"
           ]
         }
       ],
@@ -244,24 +345,24 @@
     },
     {
       "id": "P0010",
-      "canonical_label": "startedMusicCareerIn",
-      "definition": "Indicates the location where a person began their professional music career.",
+      "canonical_label": "occursBy",
+      "definition": "Indicates the deadline or time by which an event is expected to happen.",
       "parent": null,
       "domain": [
-        "Person"
+        "TemperatureRiseEvent"
       ],
       "range": [
-        "City"
+        "DateRange"
       ],
       "aliases": [],
       "support": 1,
-      "first_seen": "art2",
+      "first_seen": "art1",
       "provenance": [
         {
-          "article": "art2",
-          "relation_phrase": "started music career in",
+          "article": "art1",
+          "relation_phrase": "occurs by",
           "instances": [
-            "Taylor Swift -> Nashville"
+            "Forecast of extreme temperatures -> this weekend"
           ]
         }
       ],
@@ -269,49 +370,60 @@
     },
     {
       "id": "P0011",
-      "canonical_label": "hasNFLTeamIn",
-      "definition": "Indicates the city or region where an individual's NFL team is based.",
-      "parent": null,
+      "canonical_label": "occursDuring",
+      "definition": "Specifies the time period or event within which the subject took place.",
+      "parent": "temporal",
       "domain": [
-        "Person"
+        "ExtremeWeatherImpact"
       ],
       "range": [
-        "City"
+        "HolidayWeekend"
       ],
       "aliases": [],
-      "support": 1,
-      "first_seen": "art2",
+      "support": 5,
+      "first_seen": "art1",
       "provenance": [
         {
-          "article": "art2",
-          "relation_phrase": "has NFL team in",
+          "article": "art1",
+          "relation_phrase": "occurs during",
           "instances": [
-            "Travis Kelce -> Kansas City"
+            "Americans affected by extreme heat -> July Fourth holiday weekend"
+          ]
+        },
+        {
+          "article": "art2",
+          "relation_phrase": "during",
+          "direction": "as_is",
+          "instances": [
+            "Sign suggests filming during preparations -> preparations",
+            "Guests not allowed phones during ceremony -> the main ceremony",
+            "Mayor alludes to wedding chatter -> press conferences",
+            "City unlikely to shut down for just anybody -> a holiday weekend"
           ]
         }
       ],
-      "path": ""
+      "path": "temporal"
     },
     {
       "id": "P0012",
-      "canonical_label": "guestCount",
-      "definition": "Indicates the number of guests associated with an event or reservation.",
+      "canonical_label": "hasRate",
+      "definition": "Indicates a specific rate associated with the subject.",
       "parent": null,
       "domain": [
-        "Permit Details"
+        "FastestWarmingContinent"
       ],
       "range": [
-        "Quantity"
+        "RateComparison"
       ],
       "aliases": [],
       "support": 1,
-      "first_seen": "art2",
+      "first_seen": "art1",
       "provenance": [
         {
-          "article": "art2",
-          "relation_phrase": "states guest count",
+          "article": "art1",
+          "relation_phrase": "has rate",
           "instances": [
-            "Permit details for pre-party night -> 100 people"
+            "Europe fastest warming continent -> twice as fast as the global average"
           ]
         }
       ],
@@ -319,24 +431,24 @@
     },
     {
       "id": "P0013",
-      "canonical_label": "expectedToBeginWith",
-      "definition": "Indicates the initial activity or phase of an anticipated event.",
+      "canonical_label": "issuedFor",
+      "definition": "Indicates the time period or event for which something was issued.",
       "parent": null,
       "domain": [
-        "Phone Restriction"
+        "PublicAlertEvent"
       ],
       "range": [
-        "Time"
+        "DateRange"
       ],
       "aliases": [],
       "support": 1,
-      "first_seen": "art2",
+      "first_seen": "art1",
       "provenance": [
         {
-          "article": "art2",
-          "relation_phrase": "expected to begin with",
+          "article": "art1",
+          "relation_phrase": "issued for",
           "instances": [
-            "Guests not allowed phones during ceremony -> mid-afternoon"
+            "Red alerts issued for forest fires -> Friday and Saturday"
           ]
         }
       ],
@@ -344,27 +456,24 @@
     },
     {
       "id": "P0014",
-      "canonical_label": "confirmedBy",
-      "definition": "Indicates the entity that verified or validated a piece of information.",
+      "canonical_label": "hasArea",
+      "definition": "Indicates the area associated with the subject.",
       "parent": null,
       "domain": [
-        "Canopy Tent Use",
-        "Permit Application Confirmation"
+        "AreaBurned"
       ],
       "range": [
-        "NewsMediaOrganization",
-        "City"
+        "Area"
       ],
       "aliases": [],
-      "support": 2,
-      "first_seen": "art2",
+      "support": 1,
+      "first_seen": "art1",
       "provenance": [
         {
-          "article": "art2",
-          "relation_phrase": "confirmed by",
+          "article": "art1",
+          "relation_phrase": "has area",
           "instances": [
-            "Canopy tent for guest arrivals -> BBC News",
-            "City officials confirm street closure permit application -> New York City"
+            "About 8,700 hectares burned -> about 8,700 hectares"
           ]
         }
       ],
@@ -372,28 +481,101 @@
     },
     {
       "id": "P0015",
-      "canonical_label": "locatedOutside",
-      "definition": "Indicates that an entity is situated in the exterior area of a location.",
+      "canonical_label": "hasParticipant",
+      "definition": "Indicates a person or entity involved in an event or activity.",
       "parent": null,
       "domain": [
-        "Canopy Tent Use",
+        "StudentDisbelief",
+        "WeddingCelebration",
+        "ArrivalEvent",
+        "GuestDropOffEvent",
+        "LargerCelebration",
+        "PolicePresenceEvent",
+        "MediaCoverageEvent",
+        "ActivityObservationEvent",
+        "PoliceBarricadeDeploymentEvent",
+        "CrowdControlEvent",
+        "FilmingSuggestion",
+        "CharitableDonationEvent",
+        "PhoneRestriction",
+        "CeremonyStartEvent",
+        "EntryPlanningEvent",
         "FanGatheringEvent",
-        "MediaCoverageEvent"
+        "MediaMonitoringEvent",
+        "EquipmentUnloadingEvent",
+        "RedCarpetDeploymentEvent",
+        "AllusionEvent",
+        "PublicationEvent",
+        "DepartureEvent"
       ],
       "range": [
-        "StadiumOrArena"
+        "Student",
+        "MusicGroup",
+        "AmericanFootballPlayer",
+        "Actress",
+        "MusicProducer",
+        "Clothing",
+        "Guest",
+        "Count",
+        "PoliceForce",
+        "FilmCrew",
+        "HowToTool",
+        "EventStaff",
+        "Worker",
+        "Action",
+        "SocialEvent",
+        "Supporter",
+        "NewsMediaOrganization",
+        "Mayor",
+        "Celebrity",
+        "Designer",
+        "SportsBroadcaster",
+        "Publicist",
+        "PopStar"
       ],
       "aliases": [],
-      "support": 3,
+      "support": 35,
       "first_seen": "art2",
       "provenance": [
         {
           "article": "art2",
-          "relation_phrase": "located outside",
+          "relation_phrase": "hasParticipant",
           "instances": [
-            "Canopy tent for guest arrivals -> Madison Square Garden",
-            "Fans gather outside venue -> Madison Square Garden",
-            "Media monitors outside arena -> Madison Square Garden"
+            "Taylor Swift and Travis Kelce's Wedding Celebrations -> Taylor Swift",
+            "Taylor Swift and Travis Kelce's Wedding Celebrations -> Travis Kelce",
+            "High-profile friends spotted arriving -> Lena Dunham",
+            "High-profile friends spotted arriving -> Jack Antonoff",
+            "High-profile friends spotted arriving -> formal attire",
+            "Guests dropped off by SUVs -> guests",
+            "Larger celebration planned for Friday -> 1,000 guests",
+            "Police presence outside arena -> a small army of cops",
+            "Camera crews trying to glimpse event -> camera crews",
+            "Activity observed at loading bay -> stationary forklifts",
+            "Activity observed at loading bay -> event staffer",
+            "Activity observed at loading bay -> several men in cargo shorts",
+            "Police deploying metal barricades -> a small army of cops",
+            "People told to move back by police -> guests",
+            "Sign suggests filming during preparations -> filming",
+            "Couple donates to charities -> Taylor Swift",
+            "Couple donates to charities -> Travis Kelce",
+            "Guests not allowed phones during ceremony -> guests",
+            "Main ceremony to begin with cocktails -> mid-afternoon cocktails",
+            "VIPs plan underground entry -> VIPs",
+            "VIPs plan underground entry -> Taylor Swift",
+            "VIPs plan underground entry -> Travis Kelce",
+            "Fans gathered outside venue -> fans",
+            "Media monitoring outside arena -> media outlets",
+            "Crews unloading equipment -> crews",
+            "Workers rolling out red carpet -> workers",
+            "Mayor alludes to wedding chatter -> Zohran Mamdani",
+            "Celebrities start to emerge -> celebrities",
+            "Rachel Antonoff follows behind -> Rachel Antonoff",
+            "Erin Andrews seen in gown -> Erin Andrews",
+            "Tree Paine seen in dress -> Tree Paine",
+            "Selena Gomez posts Instagram images -> Selena Gomez",
+            "Swift leaves Thursday night event -> Taylor Swift",
+            "Students initially disbelieved venue choice -> Elizabeth Maxey",
+            "Students initially disbelieved venue choice -> Hayden Mason"
           ]
         }
       ],
@@ -401,25 +583,47 @@
     },
     {
       "id": "P0016",
-      "canonical_label": "hadTemperature",
-      "definition": "Indicates the measured temperature during a specific period or at a specific location.",
+      "canonical_label": "occurredOn",
+      "definition": "Specifies the date or time when an event took place.",
       "parent": null,
       "domain": [
-        "FanGatheringEvent"
+        "ArrivalEvent",
+        "ExpectedAttendance",
+        "LargerCelebration",
+        "PolicePresenceEvent",
+        "CharitableDonationEvent",
+        "SetupConfirmationEvent",
+        "RedCarpetDeploymentEvent"
       ],
       "range": [
-        "TemperatureMeasurement"
+        "DayPart",
+        "TemporalReference"
       ],
       "aliases": [],
-      "support": 2,
+      "support": 10,
       "first_seen": "art2",
       "provenance": [
         {
           "article": "art2",
-          "relation_phrase": "had temperature",
+          "relation_phrase": "occurredOn",
           "instances": [
-            "Fans gather outside venue -> 100F",
-            "Fans gather outside venue -> 37C"
+            "High-profile friends spotted arriving -> Thursday evening",
+            "Expected attendance for Thursday event -> Thursday evening",
+            "Larger celebration planned for Friday -> Friday",
+            "Police presence outside arena -> Thursday evening",
+            "Couple donates to charities -> Thursday evening",
+            "BBC confirms tent for guest arrivals -> Thursday evening",
+            "Workers rolling out red carpet -> Earlier in the week"
+          ]
+        },
+        {
+          "article": "art5",
+          "relation_phrase": "on date",
+          "direction": "as_is",
+          "instances": [
+            "Tedros announces first patient enrollment -> Thursday",
+            "Tedros statement on therapeutics -> Thursday",
+            "Public gatherings banned -> Earlier this week"
           ]
         }
       ],
@@ -427,14 +631,14 @@
     },
     {
       "id": "P0017",
-      "canonical_label": "isFanOf",
-      "definition": "Indicates a person's admiration or support for another person, group, or thing.",
+      "canonical_label": "uses",
+      "definition": "Indicates an entity employing an object or method.",
       "parent": null,
       "domain": [
-        "Fan Statement"
+        "EntryPlanningEvent"
       ],
       "range": [
-        "Person"
+        "AccessPoint"
       ],
       "aliases": [],
       "support": 1,
@@ -442,9 +646,9 @@
       "provenance": [
         {
           "article": "art2",
-          "relation_phrase": "is fan of",
+          "relation_phrase": "uses",
           "instances": [
-            "Ryan Weng's statement on wedding -> Taylor Swift"
+            "VIPs plan underground entry -> underground entry"
           ]
         }
       ],
@@ -452,14 +656,14 @@
     },
     {
       "id": "P0018",
-      "canonical_label": "hasBeenFanFor",
-      "definition": "Indicates the duration for which a person has been a fan of someone or something.",
-      "parent": null,
+      "canonical_label": "locatedUnder",
+      "definition": "Indicates an entity's position directly beneath another.",
+      "parent": "location",
       "domain": [
-        "Fan Statement"
+        "GuestDropOffEvent"
       ],
       "range": [
-        "Duration"
+        "TemporaryStructure"
       ],
       "aliases": [],
       "support": 1,
@@ -467,34 +671,86 @@
       "provenance": [
         {
           "article": "art2",
-          "relation_phrase": "has been fan for",
+          "relation_phrase": "locatedUnder",
           "instances": [
-            "Ryan Weng's statement on wedding -> 15 years"
+            "Guests dropped off by SUVs -> white canopy tent"
           ]
         }
       ],
-      "path": ""
+      "path": "location"
     },
     {
       "id": "P0019",
-      "canonical_label": "isInAgeGroup",
-      "definition": "Indicates the age range or period of life a person is currently in.",
+      "canonical_label": "hasSource",
+      "definition": "Indicates the origin or provider of information, a claim, or an event.",
       "parent": null,
       "domain": [
-        "Person"
+        "EventDubbing",
+        "BroadcastEvent",
+        "DonationPurpose",
+        "PermitDetails",
+        "SetupConfirmationEvent",
+        "FanMotivation",
+        "FanSupport",
+        "PermitApplicationConfirmation",
+        "CelebrityArrivalReport",
+        "PublicationEvent",
+        "RealizationOfEvent",
+        "VenueAestheticsOpinion",
+        "FanPraiseForVenue"
       ],
       "range": [
-        "AgeGroup"
+        "NewsMediaOrganization",
+        "Representative",
+        "Supporter",
+        "Pilot",
+        "GovernmentOfficial",
+        "Newspaper",
+        "Periodical",
+        "Student",
+        "Tourist"
       ],
       "aliases": [],
-      "support": 1,
+      "support": 19,
       "first_seen": "art2",
       "provenance": [
         {
           "article": "art2",
-          "relation_phrase": "is in",
+          "relation_phrase": "hasSource",
           "instances": [
-            "Rusty Carbaug -> her 30s"
+            "Media speculation on event type -> media outlets",
+            "TMZ live feed of loading bays -> TMZ",
+            "Swift's reps on donation purpose -> Swift's representatives",
+            "Permit details for Thursday/Friday events -> Associated Press",
+            "BBC confirms tent for guest arrivals -> BBC News",
+            "Ryan Weng's reason for attending -> Ryan Weng",
+            "Rusty Carbaug's support for Swift -> Rusty Carbaug",
+            "City officials confirm permit application -> City officials",
+            "Page Six reports Cooper and Hadid arrival -> Page Six",
+            "People Magazine publishes Dunham video -> People Magazine",
+            "Students realize event is real -> Hayden Mason",
+            "Swift can make anything look pretty -> Elizabeth Maxey",
+            "Laura Bonne praises venue decision -> Laura Bonne"
+          ]
+        },
+        {
+          "article": "art5",
+          "relation_phrase": "according to",
+          "direction": "as_is",
+          "instances": [
+            "Confirmed Ebola cases and deaths -> World Health Organization",
+            "Ebola statistics in DR Congo as of July 1 -> World Health Organization",
+            "Outbreak potential to be largest ever -> Africa CDC",
+            "Outbreak potential to be largest ever -> US public health authorities"
+          ]
+        },
+        {
+          "article": "art5",
+          "relation_phrase": "reported by",
+          "direction": "as_is",
+          "instances": [
+            "Pregnant woman tests positive for Ebola -> Reuters",
+            "Pregnant woman tests positive for Ebola -> AFP"
           ]
         }
       ],
@@ -502,24 +758,26 @@
     },
     {
       "id": "P0020",
-      "canonical_label": "woreShirtHonoring",
-      "definition": "Indicates that a person wore a shirt as a tribute or in recognition of someone or something.",
+      "canonical_label": "describesAs",
+      "definition": "Indicates how an entity is characterized or labeled.",
       "parent": null,
       "domain": [
-        "Person"
+        "EventDubbing"
       ],
       "range": [
-        "Person"
+        "SocialEvent",
+        "FoodEvent"
       ],
       "aliases": [],
-      "support": 1,
+      "support": 2,
       "first_seen": "art2",
       "provenance": [
         {
           "article": "art2",
-          "relation_phrase": "wore shirt honoring",
+          "relation_phrase": "describesAs",
           "instances": [
-            "Rusty Carbaug -> Travis Kelce"
+            "Media speculation on event type -> a pre-party",
+            "Media speculation on event type -> possible rehearsal dinner"
           ]
         }
       ],
@@ -527,24 +785,26 @@
     },
     {
       "id": "P0021",
-      "canonical_label": "reportedTo",
-      "definition": "Indicates the entity that received or was informed of a report.",
+      "canonical_label": "forEvent",
+      "definition": "Indicates the event for which something is intended or occurs.",
       "parent": null,
       "domain": [
-        "Permit Application Confirmation"
+        "ExpectedAttendance",
+        "CrowdControlEvent"
       ],
       "range": [
-        "NewsMediaOrganization"
+        "WeddingCelebration"
       ],
       "aliases": [],
-      "support": 1,
+      "support": 2,
       "first_seen": "art2",
       "provenance": [
         {
           "article": "art2",
-          "relation_phrase": "reported to",
+          "relation_phrase": "forEvent",
           "instances": [
-            "City officials confirm street closure permit application -> BBC News"
+            "Expected attendance for Thursday event -> Taylor Swift and Travis Kelce's Wedding Celebrations",
+            "People told to move back by police -> Taylor Swift and Travis Kelce's Wedding Celebrations"
           ]
         }
       ],
@@ -552,24 +812,27 @@
     },
     {
       "id": "P0022",
-      "canonical_label": "celebrates",
-      "definition": "Indicates an event or occasion that is being commemorated or honored.",
+      "canonical_label": "followedBy",
+      "definition": "Indicates that one event or entity comes after another in sequence.",
       "parent": null,
       "domain": [
-        "Country"
+        "WeddingCelebration",
+        "CeremonyStartEvent"
       ],
       "range": [
-        "Anniversary"
+        "LargerCelebration",
+        "SocialEvent"
       ],
       "aliases": [],
-      "support": 1,
+      "support": 2,
       "first_seen": "art2",
       "provenance": [
         {
           "article": "art2",
-          "relation_phrase": "celebrates",
+          "relation_phrase": "followedBy",
           "instances": [
-            "US -> America's 250th birthday"
+            "Taylor Swift and Travis Kelce's Wedding Celebrations -> Larger celebration planned for Friday",
+            "Main ceremony to begin with cocktails -> a reception"
           ]
         }
       ],
@@ -577,14 +840,14 @@
     },
     {
       "id": "P0023",
-      "canonical_label": "marks",
-      "definition": "Indicates that an event or period signifies or commemorates something.",
+      "canonical_label": "from",
+      "definition": "Indicates the origin or starting point of an entity or action.",
       "parent": null,
       "domain": [
-        "HolidayPeriod"
+        "DepartureEvent"
       ],
       "range": [
-        "Anniversary"
+        "WeddingCelebration"
       ],
       "aliases": [],
       "support": 1,
@@ -592,9 +855,9 @@
       "provenance": [
         {
           "article": "art2",
-          "relation_phrase": "marks",
+          "relation_phrase": "from",
           "instances": [
-            "4 July weekend -> America's 250th birthday"
+            "Swift leaves Thursday night event -> Taylor Swift and Travis Kelce's Wedding Celebrations"
           ]
         }
       ],
@@ -602,81 +865,6 @@
     },
     {
       "id": "P0024",
-      "canonical_label": "coincidesWith",
-      "definition": "Indicates that two or more events or periods happen at the same time.",
-      "parent": null,
-      "domain": [
-        "HolidayPeriod"
-      ],
-      "range": [
-        "SportsEvent"
-      ],
-      "aliases": [],
-      "support": 1,
-      "first_seen": "art2",
-      "provenance": [
-        {
-          "article": "art2",
-          "relation_phrase": "coincides with",
-          "instances": [
-            "4 July weekend -> World Cup"
-          ]
-        }
-      ],
-      "path": ""
-    },
-    {
-      "id": "P0025",
-      "canonical_label": "isPublicistFor",
-      "definition": "Indicates the client for whom a publicist works.",
-      "parent": null,
-      "domain": [
-        "Publicist"
-      ],
-      "range": [
-        "Person"
-      ],
-      "aliases": [],
-      "support": 1,
-      "first_seen": "art2",
-      "provenance": [
-        {
-          "article": "art2",
-          "relation_phrase": "is publicist for",
-          "instances": [
-            "Tree Paine -> Taylor Swift"
-          ]
-        }
-      ],
-      "path": ""
-    },
-    {
-      "id": "P0026",
-      "canonical_label": "postedOn",
-      "definition": "Indicates the platform or medium where content was published.",
-      "parent": null,
-      "domain": [
-        "PopStar"
-      ],
-      "range": [
-        "SocialMediaPlatform"
-      ],
-      "aliases": [],
-      "support": 1,
-      "first_seen": "art2",
-      "provenance": [
-        {
-          "article": "art2",
-          "relation_phrase": "posted on",
-          "instances": [
-            "Selena Gomez -> Instagram"
-          ]
-        }
-      ],
-      "path": ""
-    },
-    {
-      "id": "P0027",
       "canonical_label": "fromCountry",
       "definition": "Indicates the country of origin for a person.",
       "parent": null,
@@ -701,9 +889,585 @@
       "path": ""
     },
     {
+      "id": "P0025",
+      "canonical_label": "occurredAt",
+      "definition": "Specifies the date or time when an event took place.",
+      "parent": null,
+      "domain": [
+        "ActivityObservationEvent"
+      ],
+      "range": [
+        "TimeOfDay"
+      ],
+      "aliases": [],
+      "support": 2,
+      "first_seen": "art2",
+      "provenance": [
+        {
+          "article": "art2",
+          "relation_phrase": "occurredAt",
+          "instances": [
+            "Activity observed at loading bay -> 18:00 ET",
+            "Activity observed at loading bay -> 22:00 GMT"
+          ]
+        }
+      ],
+      "path": ""
+    },
+    {
+      "id": "P0026",
+      "canonical_label": "hasObserver",
+      "definition": "Indicates a person or entity that observes an event or phenomenon.",
+      "parent": null,
+      "domain": [
+        "PoliceBarricadeDeploymentEvent"
+      ],
+      "range": [
+        "Reporter"
+      ],
+      "aliases": [],
+      "support": 1,
+      "first_seen": "art2",
+      "provenance": [
+        {
+          "article": "art2",
+          "relation_phrase": "hasObserver",
+          "instances": [
+            "Police deploying metal barricades -> Reporters"
+          ]
+        }
+      ],
+      "path": ""
+    },
+    {
+      "id": "P0027",
+      "canonical_label": "locatedNear",
+      "definition": "Indicates that an entity is in close proximity to another.",
+      "parent": "location",
+      "domain": [
+        "SignageDisplayEvent"
+      ],
+      "range": [
+        "StadiumOrArena"
+      ],
+      "aliases": [],
+      "support": 1,
+      "first_seen": "art2",
+      "provenance": [
+        {
+          "article": "art2",
+          "relation_phrase": "locatedNear",
+          "instances": [
+            "Sign warning of video/photo consent -> Madison Square Garden"
+          ]
+        }
+      ],
+      "path": "location"
+    },
+    {
       "id": "P0028",
-      "canonical_label": "hasAge",
-      "definition": "Indicates the duration of existence for an entity.",
+      "canonical_label": "warnsOf",
+      "definition": "Indicates that a warning is given about a particular event or condition.",
+      "parent": null,
+      "domain": [
+        "SignageDisplayEvent"
+      ],
+      "range": [
+        "Action"
+      ],
+      "aliases": [],
+      "support": 1,
+      "first_seen": "art2",
+      "provenance": [
+        {
+          "article": "art2",
+          "relation_phrase": "warnsOf",
+          "instances": [
+            "Sign warning of video/photo consent -> filming"
+          ]
+        }
+      ],
+      "path": ""
+    },
+    {
+      "id": "P0029",
+      "canonical_label": "isLocationOf",
+      "definition": "Indicates that a place is where an entity or event is located or originated.",
+      "parent": "location",
+      "domain": [
+        "City"
+      ],
+      "range": [
+        "MusicGroup"
+      ],
+      "aliases": [],
+      "support": 1,
+      "first_seen": "art2",
+      "provenance": [
+        {
+          "article": "art2",
+          "relation_phrase": "isLocationOf",
+          "instances": [
+            "Nashville -> Taylor Swift"
+          ]
+        }
+      ],
+      "path": "location"
+    },
+    {
+      "id": "P0030",
+      "canonical_label": "isHomeOf",
+      "definition": "Indicates that a place is the primary residence or base for an entity.",
+      "parent": "location",
+      "domain": [
+        "City"
+      ],
+      "range": [
+        "SportsTeam"
+      ],
+      "aliases": [],
+      "support": 1,
+      "first_seen": "art2",
+      "provenance": [
+        {
+          "article": "art2",
+          "relation_phrase": "isHomeOf",
+          "instances": [
+            "Kansas City -> Kelce's NFL team"
+          ]
+        }
+      ],
+      "path": "location"
+    },
+    {
+      "id": "P0031",
+      "canonical_label": "hasRecipient",
+      "definition": "Indicates the entity that receives something.",
+      "parent": "recipient",
+      "domain": [
+        "DonationPurpose",
+        "PermitApplicationConfirmation"
+      ],
+      "range": [
+        "NewsMediaOrganization"
+      ],
+      "aliases": [],
+      "support": 2,
+      "first_seen": "art2",
+      "provenance": [
+        {
+          "article": "art2",
+          "relation_phrase": "hasRecipient",
+          "instances": [
+            "Swift's reps on donation purpose -> BBC News",
+            "City officials confirm permit application -> BBC News"
+          ]
+        }
+      ],
+      "path": "participant > recipient"
+    },
+    {
+      "id": "P0032",
+      "canonical_label": "isFor",
+      "definition": "Indicates the purpose or beneficiary for which something is intended.",
+      "parent": null,
+      "domain": [
+        "DonationPurpose"
+      ],
+      "range": [
+        "NGO"
+      ],
+      "aliases": [],
+      "support": 1,
+      "first_seen": "art2",
+      "provenance": [
+        {
+          "article": "art2",
+          "relation_phrase": "isFor",
+          "instances": [
+            "Swift's reps on donation purpose -> charities"
+          ]
+        }
+      ],
+      "path": ""
+    },
+    {
+      "id": "P0033",
+      "canonical_label": "states",
+      "definition": "Indicates that an entity formally declares or expresses information.",
+      "parent": null,
+      "domain": [
+        "PermitDetails"
+      ],
+      "range": [
+        "Count",
+        "Guest"
+      ],
+      "aliases": [],
+      "support": 2,
+      "first_seen": "art2",
+      "provenance": [
+        {
+          "article": "art2",
+          "relation_phrase": "states",
+          "instances": [
+            "Permit details for Thursday/Friday events -> 100 people",
+            "Permit details for Thursday/Friday events -> guests"
+          ]
+        }
+      ],
+      "path": ""
+    },
+    {
+      "id": "P0034",
+      "canonical_label": "statesArrivalAt",
+      "definition": "Indicates the time or place of an announced arrival.",
+      "parent": "arrivalTime",
+      "domain": [
+        "PermitDetails"
+      ],
+      "range": [
+        "TimeOfDay"
+      ],
+      "aliases": [],
+      "support": 1,
+      "first_seen": "art2",
+      "provenance": [
+        {
+          "article": "art2",
+          "relation_phrase": "statesArrivalAt",
+          "instances": [
+            "Permit details for Thursday/Friday events -> 17:30 ET"
+          ]
+        }
+      ],
+      "path": "arrivalTime"
+    },
+    {
+      "id": "P0035",
+      "canonical_label": "statesFor",
+      "definition": "Indicates the purpose or beneficiary for which something is stated.",
+      "parent": null,
+      "domain": [
+        "PermitDetails"
+      ],
+      "range": [
+        "SocialEvent"
+      ],
+      "aliases": [],
+      "support": 1,
+      "first_seen": "art2",
+      "provenance": [
+        {
+          "article": "art2",
+          "relation_phrase": "statesFor",
+          "instances": [
+            "Permit details for Thursday/Friday events -> a pre-party night"
+          ]
+        }
+      ],
+      "path": ""
+    },
+    {
+      "id": "P0036",
+      "canonical_label": "statesUntil",
+      "definition": "Indicates the end point in time for a stated duration or event.",
+      "parent": "endTime",
+      "domain": [
+        "PermitDetails"
+      ],
+      "range": [
+        "TimeOfDay"
+      ],
+      "aliases": [],
+      "support": 1,
+      "first_seen": "art2",
+      "provenance": [
+        {
+          "article": "art2",
+          "relation_phrase": "statesUntil",
+          "instances": [
+            "Permit details for Thursday/Friday events -> 22:30 ET"
+          ]
+        }
+      ],
+      "path": "endTime"
+    },
+    {
+      "id": "P0037",
+      "canonical_label": "expectedAt",
+      "definition": "Indicates the anticipated time or location of an event or entity.",
+      "parent": "arrivalTime",
+      "domain": [
+        "CeremonyStartEvent"
+      ],
+      "range": [
+        "TimeOfDay"
+      ],
+      "aliases": [],
+      "support": 1,
+      "first_seen": "art2",
+      "provenance": [
+        {
+          "article": "art2",
+          "relation_phrase": "expectedAt",
+          "instances": [
+            "Main ceremony to begin with cocktails -> mid-afternoon"
+          ]
+        }
+      ],
+      "path": "arrivalTime"
+    },
+    {
+      "id": "P0038",
+      "canonical_label": "locatedOutside",
+      "definition": "Indicates an entity's position directly outside another.",
+      "parent": "location",
+      "domain": [
+        "TemporaryStructure",
+        "FanGatheringEvent"
+      ],
+      "range": [
+        "StadiumOrArena"
+      ],
+      "aliases": [],
+      "support": 2,
+      "first_seen": "art2",
+      "provenance": [
+        {
+          "article": "art2",
+          "relation_phrase": "locatedOutside",
+          "instances": [
+            "a large white canopy tent -> Madison Square Garden",
+            "Fans gathered outside venue -> Madison Square Garden"
+          ]
+        }
+      ],
+      "path": "location"
+    },
+    {
+      "id": "P0039",
+      "canonical_label": "usedFor",
+      "definition": "Indicates the purpose or function of an object or entity.",
+      "parent": null,
+      "domain": [
+        "TemporaryStructure"
+      ],
+      "range": [
+        "Guest"
+      ],
+      "aliases": [],
+      "support": 3,
+      "first_seen": "art2",
+      "provenance": [
+        {
+          "article": "art2",
+          "relation_phrase": "usedFor",
+          "instances": [
+            "a large white canopy tent -> guests"
+          ]
+        },
+        {
+          "article": "art5",
+          "relation_phrase": "for",
+          "direction": "as_is",
+          "instances": [
+            "No approved treatments for Bundibugyo virus -> Bundibugyo virus species",
+            "Number of Ebola testing laboratories increased -> Ebola"
+          ]
+        }
+      ],
+      "path": ""
+    },
+    {
+      "id": "P0040",
+      "canonical_label": "despiteWarningFrom",
+      "definition": "Indicates an action taken despite a warning issued by a specific source.",
+      "parent": null,
+      "domain": [
+        "FanGatheringEvent"
+      ],
+      "range": [
+        "Mayor"
+      ],
+      "aliases": [],
+      "support": 1,
+      "first_seen": "art2",
+      "provenance": [
+        {
+          "article": "art2",
+          "relation_phrase": "despiteWarningFrom",
+          "instances": [
+            "Fans gathered outside venue -> Zohran Mamdani"
+          ]
+        }
+      ],
+      "path": ""
+    },
+    {
+      "id": "P0041",
+      "canonical_label": "occurredDuring",
+      "definition": "Specifies the time period or event within which the subject took place.",
+      "parent": "temporal",
+      "domain": [
+        "FanGatheringEvent"
+      ],
+      "range": [
+        "Temperature"
+      ],
+      "aliases": [],
+      "support": 2,
+      "first_seen": "art2",
+      "provenance": [
+        {
+          "article": "art2",
+          "relation_phrase": "occurredDuring",
+          "instances": [
+            "Fans gathered outside venue -> 100F"
+          ]
+        },
+        {
+          "article": "art5",
+          "relation_phrase": "spread for",
+          "direction": "as_is",
+          "instances": [
+            "Outbreak potential to be largest ever -> weeks"
+          ]
+        }
+      ],
+      "path": "temporal"
+    },
+    {
+      "id": "P0042",
+      "canonical_label": "wantsToSee",
+      "definition": "Indicates a desire to observe or witness something.",
+      "parent": "seeks",
+      "domain": [
+        "FanMotivation"
+      ],
+      "range": [
+        "SocialEvent"
+      ],
+      "aliases": [],
+      "support": 1,
+      "first_seen": "art2",
+      "provenance": [
+        {
+          "article": "art2",
+          "relation_phrase": "wantsToSee",
+          "instances": [
+            "Ryan Weng's reason for attending -> a wedding"
+          ]
+        }
+      ],
+      "path": "seeks"
+    },
+    {
+      "id": "P0043",
+      "canonical_label": "isFanOf",
+      "definition": "Indicates that a person is an admirer or supporter of another person or entity.",
+      "parent": "memberOf",
+      "domain": [
+        "FanMotivation"
+      ],
+      "range": [
+        "MusicGroup"
+      ],
+      "aliases": [],
+      "support": 1,
+      "first_seen": "art2",
+      "provenance": [
+        {
+          "article": "art2",
+          "relation_phrase": "isFanOf",
+          "instances": [
+            "Ryan Weng's reason for attending -> Taylor Swift"
+          ]
+        }
+      ],
+      "path": "memberOf"
+    },
+    {
+      "id": "P0044",
+      "canonical_label": "forDuration",
+      "definition": "Specifies the length of time for which an action or state persists.",
+      "parent": "duration",
+      "domain": [
+        "FanMotivation",
+        "MediaMonitoringEvent"
+      ],
+      "range": [
+        "Duration"
+      ],
+      "aliases": [],
+      "support": 2,
+      "first_seen": "art2",
+      "provenance": [
+        {
+          "article": "art2",
+          "relation_phrase": "forDuration",
+          "instances": [
+            "Ryan Weng's reason for attending -> 15 years",
+            "Media monitoring outside arena -> several days"
+          ]
+        }
+      ],
+      "path": "duration"
+    },
+    {
+      "id": "P0045",
+      "canonical_label": "hasAgeGroup",
+      "definition": "Indicates the age group of a person or entity.",
+      "parent": null,
+      "domain": [
+        "Pilot"
+      ],
+      "range": [
+        "AgeGroup"
+      ],
+      "aliases": [],
+      "support": 1,
+      "first_seen": "art2",
+      "provenance": [
+        {
+          "article": "art2",
+          "relation_phrase": "hasAge",
+          "instances": [
+            "Rusty Carbaug -> her 30s"
+          ]
+        }
+      ],
+      "path": ""
+    },
+    {
+      "id": "P0046",
+      "canonical_label": "hasAgeDuration",
+      "definition": "Indicates the age of an entity as a duration.",
+      "parent": null,
+      "domain": [
+        "StadiumOrArena"
+      ],
+      "range": [
+        "Duration"
+      ],
+      "aliases": [],
+      "support": 1,
+      "first_seen": "art2",
+      "provenance": [
+        {
+          "article": "art2",
+          "relation_phrase": "hasAge",
+          "instances": [
+            "Madison Square Garden -> six-decade-old"
+          ]
+        }
+      ],
+      "path": ""
+    },
+    {
+      "id": "P0047",
+      "canonical_label": "hasAgeValue",
+      "definition": "Indicates the numerical age of a person or entity.",
       "parent": null,
       "domain": [
         "Student",
@@ -718,7 +1482,7 @@
       "provenance": [
         {
           "article": "art2",
-          "relation_phrase": "has age",
+          "relation_phrase": "hasAge",
           "instances": [
             "Elizabeth Maxey -> 21",
             "Hayden Mason -> 19",
@@ -729,10 +1493,426 @@
       "path": ""
     },
     {
-      "id": "P0029",
-      "canonical_label": "waitingOutside",
-      "definition": "Indicates that a person is waiting in the exterior area of a location.",
+      "id": "P0048",
+      "canonical_label": "wishesWell",
+      "definition": "Indicates expressing good wishes or hopes for someone's well-being.",
       "parent": null,
+      "domain": [
+        "Pilot"
+      ],
+      "range": [
+        "MusicGroup"
+      ],
+      "aliases": [],
+      "support": 1,
+      "first_seen": "art2",
+      "provenance": [
+        {
+          "article": "art2",
+          "relation_phrase": "wishesWell",
+          "instances": [
+            "Rusty Carbaug -> Taylor Swift"
+          ]
+        }
+      ],
+      "path": ""
+    },
+    {
+      "id": "P0049",
+      "canonical_label": "wore",
+      "definition": "Indicates the clothing or attire an entity was wearing.",
+      "parent": null,
+      "domain": [
+        "Pilot",
+        "ImageCaptureEvent",
+        "ArrivalEvent",
+        "PublicationEvent"
+      ],
+      "range": [
+        "Clothing"
+      ],
+      "aliases": [],
+      "support": 6,
+      "first_seen": "art2",
+      "provenance": [
+        {
+          "article": "art2",
+          "relation_phrase": "wore",
+          "instances": [
+            "Rusty Carbaug -> a Kansas-themed T-shirt",
+            "Paparazzi capture Antonoff's image -> a tux",
+            "Rachel Antonoff follows behind -> a bubblegum-pink dress",
+            "Erin Andrews seen in gown -> a silver sparkly gown",
+            "Tree Paine seen in dress -> a light blue dress",
+            "Selena Gomez posts Instagram images -> black gown with gem earrings"
+          ]
+        }
+      ],
+      "path": ""
+    },
+    {
+      "id": "P0050",
+      "canonical_label": "inHonorOf",
+      "definition": "Indicates that an action is performed to show respect or admiration for someone or something.",
+      "parent": null,
+      "domain": [
+        "Clothing"
+      ],
+      "range": [
+        "AmericanFootballPlayer"
+      ],
+      "aliases": [],
+      "support": 1,
+      "first_seen": "art2",
+      "provenance": [
+        {
+          "article": "art2",
+          "relation_phrase": "inHonorOf",
+          "instances": [
+            "a Kansas-themed T-shirt -> Travis Kelce"
+          ]
+        }
+      ],
+      "path": ""
+    },
+    {
+      "id": "P0051",
+      "canonical_label": "playsFor",
+      "definition": "Indicates the team or organization an individual is a member of for playing a sport.",
+      "parent": "memberOf",
+      "domain": [
+        "AmericanFootballPlayer"
+      ],
+      "range": [
+        "SportsTeam"
+      ],
+      "aliases": [],
+      "support": 1,
+      "first_seen": "art2",
+      "provenance": [
+        {
+          "article": "art2",
+          "relation_phrase": "playsFor",
+          "instances": [
+            "Travis Kelce -> Kelce's NFL team"
+          ]
+        }
+      ],
+      "path": "memberOf"
+    },
+    {
+      "id": "P0052",
+      "canonical_label": "expressesOpinion",
+      "definition": "Indicates that an entity conveys a personal belief or judgment.",
+      "parent": null,
+      "domain": [
+        "FanSupport",
+        "VenueAestheticsOpinion"
+      ],
+      "range": [
+        "MusicGroup",
+        "AmericanFootballPlayer"
+      ],
+      "aliases": [],
+      "support": 3,
+      "first_seen": "art2",
+      "provenance": [
+        {
+          "article": "art2",
+          "relation_phrase": "expressesOpinion",
+          "instances": [
+            "Rusty Carbaug's support for Swift -> Taylor Swift",
+            "Rusty Carbaug's support for Swift -> Travis Kelce",
+            "Swift can make anything look pretty -> Taylor Swift"
+          ]
+        }
+      ],
+      "path": ""
+    },
+    {
+      "id": "P0053",
+      "canonical_label": "confirms",
+      "definition": "Indicates that an entity formally declares or verifies information.",
+      "parent": null,
+      "domain": [
+        "PermitApplicationConfirmation"
+      ],
+      "range": [
+        "Permit"
+      ],
+      "aliases": [],
+      "support": 1,
+      "first_seen": "art2",
+      "provenance": [
+        {
+          "article": "art2",
+          "relation_phrase": "confirms",
+          "instances": [
+            "City officials confirm permit application -> street closure permits"
+          ]
+        }
+      ],
+      "path": ""
+    },
+    {
+      "id": "P0054",
+      "canonical_label": "marks",
+      "definition": "Indicates that an event or date signifies or commemorates something.",
+      "parent": null,
+      "domain": [
+        "HolidayWeekend"
+      ],
+      "range": [
+        "Event"
+      ],
+      "aliases": [],
+      "support": 1,
+      "first_seen": "art2",
+      "provenance": [
+        {
+          "article": "art2",
+          "relation_phrase": "marks",
+          "instances": [
+            "4 July weekend -> America's 250th birthday"
+          ]
+        }
+      ],
+      "path": ""
+    },
+    {
+      "id": "P0055",
+      "canonical_label": "had",
+      "definition": "Indicates possession or a characteristic of an entity.",
+      "parent": "owns",
+      "domain": [
+        "ImageCaptureEvent"
+      ],
+      "range": [
+        "Thing"
+      ],
+      "aliases": [],
+      "support": 1,
+      "first_seen": "art2",
+      "provenance": [
+        {
+          "article": "art2",
+          "relation_phrase": "had",
+          "instances": [
+            "Paparazzi capture Antonoff's image -> a toothpick"
+          ]
+        }
+      ],
+      "path": "owns"
+    },
+    {
+      "id": "P0056",
+      "canonical_label": "reportsArrivalOf",
+      "definition": "Indicates that a source provides information about someone's arrival.",
+      "parent": null,
+      "domain": [
+        "CelebrityArrivalReport"
+      ],
+      "range": [
+        "Actor",
+        "Model"
+      ],
+      "aliases": [],
+      "support": 2,
+      "first_seen": "art2",
+      "provenance": [
+        {
+          "article": "art2",
+          "relation_phrase": "reportsArrivalOf",
+          "instances": [
+            "Page Six reports Cooper and Hadid arrival -> Bradley Cooper",
+            "Page Six reports Cooper and Hadid arrival -> Gigi Hadid"
+          ]
+        }
+      ],
+      "path": ""
+    },
+    {
+      "id": "P0057",
+      "canonical_label": "onPlatform",
+      "definition": "Indicates the platform or medium used for an action.",
+      "parent": "instrument",
+      "domain": [
+        "PublicationEvent"
+      ],
+      "range": [
+        "SocialMediaPlatform"
+      ],
+      "aliases": [],
+      "support": 1,
+      "first_seen": "art2",
+      "provenance": [
+        {
+          "article": "art2",
+          "relation_phrase": "on",
+          "instances": [
+            "Selena Gomez posts Instagram images -> Instagram"
+          ]
+        }
+      ],
+      "path": "instrument"
+    },
+    {
+      "id": "P0058",
+      "canonical_label": "transportedBy",
+      "definition": "Indicates the means of conveyance used for transportation.",
+      "parent": "instrument",
+      "domain": [
+        "PublicationEvent"
+      ],
+      "range": [
+        "Vehicle"
+      ],
+      "aliases": [],
+      "support": 1,
+      "first_seen": "art2",
+      "provenance": [
+        {
+          "article": "art2",
+          "relation_phrase": "transportedBy",
+          "instances": [
+            "People Magazine publishes Dunham video -> black SUV"
+          ]
+        }
+      ],
+      "path": "instrument"
+    },
+    {
+      "id": "P0059",
+      "canonical_label": "arrivedHomeAt",
+      "definition": "Indicates the time or location of someone's arrival at their residence.",
+      "parent": "arrivalTime",
+      "domain": [
+        "DepartureEvent"
+      ],
+      "range": [
+        "TimeOfDay"
+      ],
+      "aliases": [],
+      "support": 1,
+      "first_seen": "art2",
+      "provenance": [
+        {
+          "article": "art2",
+          "relation_phrase": "arrivedHomeAt",
+          "instances": [
+            "Swift leaves Thursday night event -> early hours of Friday morning"
+          ]
+        }
+      ],
+      "path": "arrivalTime"
+    },
+    {
+      "id": "P0060",
+      "canonical_label": "hasAffiliation",
+      "definition": "Indicates an entity's formal or informal connection to an organization or group.",
+      "parent": "memberOf",
+      "domain": [
+        "StudentDisbelief"
+      ],
+      "range": [
+        "CollegeOrUniversity"
+      ],
+      "aliases": [],
+      "support": 1,
+      "first_seen": "art2",
+      "provenance": [
+        {
+          "article": "art2",
+          "relation_phrase": "hasAffiliation",
+          "instances": [
+            "Students initially disbelieved venue choice -> University of Mississippi"
+          ]
+        }
+      ],
+      "path": "memberOf"
+    },
+    {
+      "id": "P0061",
+      "canonical_label": "disbelieved",
+      "definition": "Indicates a lack of belief or acceptance in something.",
+      "parent": null,
+      "domain": [
+        "StudentDisbelief"
+      ],
+      "range": [
+        "MusicGroup",
+        "StadiumOrArena"
+      ],
+      "aliases": [],
+      "support": 2,
+      "first_seen": "art2",
+      "provenance": [
+        {
+          "article": "art2",
+          "relation_phrase": "disbelieved",
+          "instances": [
+            "Students initially disbelieved venue choice -> Taylor Swift",
+            "Students initially disbelieved venue choice -> Madison Square Garden"
+          ]
+        }
+      ],
+      "path": ""
+    },
+    {
+      "id": "P0062",
+      "canonical_label": "realizedAfter",
+      "definition": "Indicates that a realization occurred subsequent to a specific event.",
+      "parent": null,
+      "domain": [
+        "RealizationOfEvent"
+      ],
+      "range": [
+        "Permit"
+      ],
+      "aliases": [],
+      "support": 1,
+      "first_seen": "art2",
+      "provenance": [
+        {
+          "article": "art2",
+          "relation_phrase": "realizedAfter",
+          "instances": [
+            "Students realize event is real -> street closure permits"
+          ]
+        }
+      ],
+      "path": ""
+    },
+    {
+      "id": "P0063",
+      "canonical_label": "realized",
+      "definition": "Indicates that an entity became aware of or understood something.",
+      "parent": "knows",
+      "domain": [
+        "RealizationOfEvent"
+      ],
+      "range": [
+        "WeddingCelebration"
+      ],
+      "aliases": [],
+      "support": 1,
+      "first_seen": "art2",
+      "provenance": [
+        {
+          "article": "art2",
+          "relation_phrase": "realized",
+          "instances": [
+            "Students realize event is real -> Taylor Swift and Travis Kelce's Wedding Celebrations"
+          ]
+        }
+      ],
+      "path": "knows"
+    },
+    {
+      "id": "P0064",
+      "canonical_label": "waitingOutside",
+      "definition": "Indicates that an entity is waiting in an external location relative to another.",
+      "parent": "location",
       "domain": [
         "Tourist"
       ],
@@ -745,27 +1925,80 @@
       "provenance": [
         {
           "article": "art2",
-          "relation_phrase": "waiting outside",
+          "relation_phrase": "waitingOutside",
           "instances": [
             "Laura Bonne -> Madison Square Garden"
           ]
         }
       ],
-      "path": ""
+      "path": "location"
     },
     {
-      "id": "P0030",
+      "id": "P0065",
+      "canonical_label": "praises",
+      "definition": "Indicates that an entity expresses admiration or approval for something.",
+      "parent": "endorsee",
+      "domain": [
+        "FanPraiseForVenue"
+      ],
+      "range": [
+        "StadiumOrArena"
+      ],
+      "aliases": [],
+      "support": 1,
+      "first_seen": "art2",
+      "provenance": [
+        {
+          "article": "art2",
+          "relation_phrase": "praises",
+          "instances": [
+            "Laura Bonne praises venue decision -> Madison Square Garden"
+          ]
+        }
+      ],
+      "path": "participant > endorsee"
+    },
+    {
+      "id": "P0066",
+      "canonical_label": "reasonForPraise",
+      "definition": "Indicates the underlying cause or justification for expressing admiration.",
+      "parent": "cause",
+      "domain": [
+        "FanPraiseForVenue"
+      ],
+      "range": [
+        "MusicGroup"
+      ],
+      "aliases": [],
+      "support": 1,
+      "first_seen": "art2",
+      "provenance": [
+        {
+          "article": "art2",
+          "relation_phrase": "reasonForPraise",
+          "instances": [
+            "Laura Bonne praises venue decision -> Taylor Swift"
+          ]
+        }
+      ],
+      "path": "cause"
+    },
+    {
+      "id": "P0067",
       "canonical_label": "hasPrizeMoney",
-      "definition": "Indicates the monetary award associated with an event or achievement.",
+      "definition": "Indicates the amount of money awarded as a prize.",
       "parent": null,
       "domain": [
-        "PrizeMoneyAwarded"
+        "PrizeMoneyPerRound",
+        "GrandSlamPrizeMoney",
+        "PrizeAwardEvent",
+        "DoublesWinnerPrizeMoney"
       ],
       "range": [
         "MonetaryAmount"
       ],
       "aliases": [],
-      "support": 16,
+      "support": 13,
       "first_seen": "art4",
       "provenance": [
         {
@@ -773,72 +2006,33 @@
           "relation_phrase": "has prize money",
           "instances": [
             "US Open singles winner prize money -> £3.74m",
-            "2024 US Open singles winner prize money -> £2.84m",
-            "Wimbledon 2025 prize money -> £53.5m",
-            "Australian Open 2025 prize money -> £47m",
-            "French Open 2025 prize money -> £49m",
-            "US Open singles draw prize money -> £3.73m",
-            "US Open singles draw prize money -> £1.87m",
-            "US Open singles draw prize money -> £943,000",
-            "US Open singles draw prize money -> £494,000",
-            "US Open singles draw prize money -> £299,000",
-            "US Open singles draw prize money -> £177,000",
-            "US Open singles draw prize money -> £115,000",
-            "US Open singles draw prize money -> £82,000",
-            "Mixed doubles winner prize money -> £736,880",
-            "Doubles winner prize money -> £750,000",
-            "Wheelchair competition prize money -> £1.2m"
+            "Wimbledon prize money -> £53.5m",
+            "Australian Open prize money -> £47m",
+            "French Open prize money -> £49m",
+            "US Open singles winner prize money -> £3.73m",
+            "US Open singles runner-up prize money -> £1.87m",
+            "US Open singles semi-final prize money -> £943,000",
+            "US Open singles quarter-final prize money -> £494,000",
+            "US Open singles round four prize money -> £299,000",
+            "US Open singles round three prize money -> £177,000",
+            "US Open singles round two prize money -> £115,000",
+            "US Open singles round one prize money -> £82,000",
+            "Men's and women's doubles winner prize money -> £750,000"
           ]
         }
       ],
       "path": ""
     },
     {
-      "id": "P0031",
-      "canonical_label": "forYear",
-      "definition": "Indicates the year an event or observation took place or is relevant to.",
+      "id": "P0068",
+      "canonical_label": "forTournament",
+      "definition": "Indicates the tournament to which prize money or an event belongs.",
       "parent": null,
       "domain": [
-        "PrizeMoneyAwarded"
+        "PrizeAwardEvent"
       ],
       "range": [
-        "CalendarYear"
-      ],
-      "aliases": [],
-      "support": 5,
-      "first_seen": "art4",
-      "provenance": [
-        {
-          "article": "art4",
-          "relation_phrase": "for year",
-          "instances": [
-            "US Open singles winner prize money -> 2025",
-            "Wimbledon 2025 prize money -> 2025",
-            "Australian Open 2025 prize money -> 2025",
-            "French Open 2025 prize money -> 2025"
-          ]
-        },
-        {
-          "article": "art4",
-          "relation_phrase": "for year",
-          "direction": "as_is",
-          "instances": [
-            "US Open mixed doubles championship start -> 2025"
-          ]
-        }
-      ],
-      "path": ""
-    },
-    {
-      "id": "P0032",
-      "canonical_label": "sinceYear",
-      "definition": "Indicates the starting year from which a condition or trend has been observed.",
-      "parent": null,
-      "domain": [
-        "PrizePotIncrease"
-      ],
-      "range": [
-        "CalendarYear"
+        "SportsEvent"
       ],
       "aliases": [],
       "support": 1,
@@ -846,133 +2040,162 @@
       "provenance": [
         {
           "article": "art4",
-          "relation_phrase": "since year",
+          "relation_phrase": "for tournament",
           "instances": [
-            "US Open prize pot increase -> 2024"
+            "US Open singles winner prize money -> US Open"
           ]
         }
       ],
       "path": ""
     },
     {
-      "id": "P0033",
-      "canonical_label": "hasTotalPrizeMoney",
-      "definition": "Indicates the aggregate monetary award for a competition.",
+      "id": "P0069",
+      "canonical_label": "receivedPrizeMoney",
+      "definition": "Indicates the amount of prize money received by a participant.",
       "parent": null,
       "domain": [
-        "TotalPrizeMoney"
+        "PrizeAwardEvent",
+        "CompetitionWinEvent"
       ],
       "range": [
         "MonetaryAmount"
       ],
       "aliases": [],
-      "support": 1,
+      "support": 2,
+      "first_seen": "art4",
+      "provenance": [
+        {
+          "article": "art4",
+          "relation_phrase": "received prize money",
+          "instances": [
+            "2024 US Open winner prize money -> £2.84m",
+            "Errani and Vavassori win mixed doubles -> £736,880"
+          ]
+        }
+      ],
+      "path": ""
+    },
+    {
+      "id": "P0070",
+      "canonical_label": "hasTotalPrizeMoney",
+      "definition": "Indicates the overall sum of money offered as prizes.",
+      "parent": null,
+      "domain": [
+        "TotalPrizeMoney",
+        "WheelchairCompetitionPrizeMoney"
+      ],
+      "range": [
+        "MonetaryAmount"
+      ],
+      "aliases": [],
+      "support": 2,
       "first_seen": "art4",
       "provenance": [
         {
           "article": "art4",
           "relation_phrase": "has total prize money",
           "instances": [
-            "US Open total prize money -> £67.3m"
+            "US Open total prize money -> £67.3m",
+            "Wheelchair competition total prize money -> £1.2m"
           ]
         }
       ],
       "path": ""
     },
     {
-      "id": "P0034",
-      "canonical_label": "distributedAmong",
-      "definition": "Indicates the recipients or categories among whom something is shared.",
+      "id": "P0071",
+      "canonical_label": "sharedAmong",
+      "definition": "Indicates the groups or categories among whom something is distributed.",
       "parent": null,
       "domain": [
         "TotalPrizeMoney"
       ],
       "range": [
-        "TennisCompetitionCategory"
+        "TennisClassification"
       ],
       "aliases": [],
-      "support": 1,
+      "support": 4,
       "first_seen": "art4",
       "provenance": [
         {
           "article": "art4",
-          "relation_phrase": "distributed among",
+          "relation_phrase": "shared among",
           "instances": [
-            "US Open total prize money -> men's, women's, doubles and wheelchair competitors"
+            "US Open total prize money -> men's",
+            "US Open total prize money -> women's",
+            "US Open total prize money -> doubles",
+            "US Open total prize money -> wheelchair competitors"
           ]
         }
       ],
       "path": ""
     },
     {
-      "id": "P0035",
-      "canonical_label": "hasPrizeFor",
-      "definition": "Indicates the specific achievement or placement for which a prize is awarded.",
+      "id": "P0072",
+      "canonical_label": "forRank",
+      "definition": "Indicates the rank or position for which a prize or value is given.",
       "parent": null,
       "domain": [
-        "PrizeMoneyAwarded"
+        "PrizeMoneyPerRound"
       ],
       "range": [
-        "TournamentPlacement"
-      ],
-      "aliases": [],
-      "support": 8,
-      "first_seen": "art4",
-      "provenance": [
-        {
-          "article": "art4",
-          "relation_phrase": "has prize for",
-          "instances": [
-            "US Open singles draw prize money -> Winner",
-            "US Open singles draw prize money -> Runner-up",
-            "US Open singles draw prize money -> Semi-final",
-            "US Open singles draw prize money -> Quarter-final",
-            "US Open singles draw prize money -> Round four",
-            "US Open singles draw prize money -> Round three",
-            "US Open singles draw prize money -> Round two",
-            "US Open singles draw prize money -> Round one"
-          ]
-        }
-      ],
-      "path": ""
-    },
-    {
-      "id": "P0036",
-      "canonical_label": "forVirusSpecies",
-      "definition": "Indicates the specific virus species that a treatment or trial is intended for.",
-      "parent": null,
-      "domain": [
-        "MedicalTrialEvent",
-        "LackOfApprovedTreatments"
-      ],
-      "range": [
-        "Taxon"
+        "CompetitionRank"
       ],
       "aliases": [],
       "support": 2,
-      "first_seen": "art5",
+      "first_seen": "art4",
       "provenance": [
         {
-          "article": "art5",
-          "relation_phrase": "for virus species",
+          "article": "art4",
+          "relation_phrase": "for rank",
           "instances": [
-            "Ebola treatments trial begins -> Bundibugyo virus",
-            "No approved vaccines or treatments -> Bundibugyo virus"
+            "US Open singles winner prize money -> Winner",
+            "US Open singles runner-up prize money -> Runner-up"
           ]
         }
       ],
       "path": ""
     },
     {
-      "id": "P0037",
-      "canonical_label": "announcedBy",
-      "definition": "Indicates the organization or entity that made an announcement.",
+      "id": "P0073",
+      "canonical_label": "forRound",
+      "definition": "Indicates the round of a competition for which a prize or value is given.",
       "parent": null,
       "domain": [
-        "MedicalTrialEvent"
+        "PrizeMoneyPerRound"
       ],
       "range": [
-        "Organization"
+        "CompetitionRound"
+      ],
+      "aliases": [],
+      "support": 6,
+      "first_seen": "art4",
+      "provenance": [
+        {
+          "article": "art4",
+          "relation_phrase": "for round",
+          "instances": [
+            "US Open singles semi-final prize money -> Semi-final",
+            "US Open singles quarter-final prize money -> Quarter-final",
+            "US Open singles round four prize money -> Round four",
+            "US Open singles round three prize money -> Round three",
+            "US Open singles round two prize money -> Round two",
+            "US Open singles round one prize money -> Round one"
+          ]
+        }
+      ],
+      "path": ""
+    },
+    {
+      "id": "P0074",
+      "canonical_label": "announcedBy",
+      "definition": "Indicates the entity that made an announcement.",
+      "parent": null,
+      "domain": [
+        "TrialStartAnnouncement"
+      ],
+      "range": [
+        "MedicalOrganization"
       ],
       "aliases": [],
       "support": 1,
@@ -982,22 +2205,22 @@
           "article": "art5",
           "relation_phrase": "announced by",
           "instances": [
-            "Ebola treatments trial begins -> World Health Organization"
+            "WHO announces trial start -> World Health Organization"
           ]
         }
       ],
       "path": ""
     },
     {
-      "id": "P0038",
-      "canonical_label": "announcedByPerson",
-      "definition": "Indicates the individual who made an announcement.",
+      "id": "P0075",
+      "canonical_label": "isA",
+      "definition": "Indicates an identity or classification.",
       "parent": null,
       "domain": [
-        "MedicalTrialEvent"
+        "TrialSponsorshipEvent"
       ],
       "range": [
-        "Person"
+        "TrialImplementationEvent"
       ],
       "aliases": [],
       "support": 1,
@@ -1005,128 +2228,24 @@
       "provenance": [
         {
           "article": "art5",
-          "relation_phrase": "announced by person",
+          "relation_phrase": "is",
           "instances": [
-            "Ebola treatments trial begins -> Tedros Adhanom Ghebreyesus"
+            "WHO sponsors trial -> Ebola treatments trial begins"
           ]
         }
       ],
       "path": ""
     },
     {
-      "id": "P0039",
-      "canonical_label": "announcedOn",
-      "definition": "Indicates the date or day on which an announcement was made.",
+      "id": "P0076",
+      "canonical_label": "tests",
+      "definition": "Indicates what is being evaluated or examined in a test or trial.",
       "parent": null,
       "domain": [
-        "MedicalTrialEvent"
+        "TrialImplementationEvent"
       ],
       "range": [
-        "DayOfWeek"
-      ],
-      "aliases": [],
-      "support": 1,
-      "first_seen": "art5",
-      "provenance": [
-        {
-          "article": "art5",
-          "relation_phrase": "announced on",
-          "instances": [
-            "Ebola treatments trial begins -> Thursday"
-          ]
-        }
-      ],
-      "path": ""
-    },
-    {
-      "id": "P0040",
-      "canonical_label": "hasCases",
-      "definition": "Indicates the number of disease cases associated with a location or event.",
-      "parent": null,
-      "domain": [
-        "EbolaCasesAndDeaths"
-      ],
-      "range": [
-        "Quantity"
-      ],
-      "aliases": [],
-      "support": 1,
-      "first_seen": "art5",
-      "provenance": [
-        {
-          "article": "art5",
-          "relation_phrase": "has cases",
-          "instances": [
-            "Ebola cases and deaths confirmed -> 1,400 cases"
-          ]
-        }
-      ],
-      "path": ""
-    },
-    {
-      "id": "P0041",
-      "canonical_label": "hasDeaths",
-      "definition": "Indicates the number of deaths associated with a disease or event.",
-      "parent": null,
-      "domain": [
-        "EbolaCasesAndDeaths",
-        "EbolaCaseStatistics"
-      ],
-      "range": [
-        "Quantity"
-      ],
-      "aliases": [],
-      "support": 2,
-      "first_seen": "art5",
-      "provenance": [
-        {
-          "article": "art5",
-          "relation_phrase": "has deaths",
-          "instances": [
-            "Ebola cases and deaths confirmed -> 438 deaths",
-            "Ebola case statistics as of July 1 -> 452 deaths"
-          ]
-        }
-      ],
-      "path": ""
-    },
-    {
-      "id": "P0042",
-      "canonical_label": "attributedToCountry",
-      "definition": "Indicates the source or origin of a claim, statement, or statistic, specifically when attributed to a country.",
-      "parent": null,
-      "domain": [
-        "OutbreakRestriction",
-        "ImprovedDiagnosis"
-      ],
-      "range": [
-        "Country"
-      ],
-      "aliases": [],
-      "support": 2,
-      "first_seen": "art5",
-      "provenance": [
-        {
-          "article": "art5",
-          "relation_phrase": "attributed to",
-          "instances": [
-            "Outbreak restricted to three provinces -> Democratic Republic of Congo",
-            "Improved Ebola diagnosis -> Democratic Republic of Congo"
-          ]
-        }
-      ],
-      "path": ""
-    },
-    {
-      "id": "P0043",
-      "canonical_label": "testsFor",
-      "definition": "Indicates what a trial or procedure is designed to evaluate.",
-      "parent": null,
-      "domain": [
-        "MedicalTrialEvent"
-      ],
-      "range": [
-        "MedicalCondition"
+        "DrugClass"
       ],
       "aliases": [],
       "support": 1,
@@ -1136,47 +2255,22 @@
           "article": "art5",
           "relation_phrase": "tests",
           "instances": [
-            "Ebola treatments trial begins -> Ebola"
+            "Patients tested on antiviral drugs -> two antiviral drugs"
           ]
         }
       ],
       "path": ""
     },
     {
-      "id": "P0044",
-      "canonical_label": "statedOn",
-      "definition": "Indicates the date or day on which a statement was made.",
-      "parent": null,
-      "domain": [
-        "StatementOnRecovery"
-      ],
-      "range": [
-        "DayOfWeek"
-      ],
-      "aliases": [],
-      "support": 1,
-      "first_seen": "art5",
-      "provenance": [
-        {
-          "article": "art5",
-          "relation_phrase": "stated on",
-          "instances": [
-            "People recovering from disease -> Thursday"
-          ]
-        }
-      ],
-      "path": ""
-    },
-    {
-      "id": "P0045",
+      "id": "P0077",
       "canonical_label": "declaredBy",
       "definition": "Indicates the entity that made a formal declaration.",
       "parent": null,
       "domain": [
-        "PublicStatementEvent"
+        "PublicAlertEvent"
       ],
       "range": [
-        "Organization"
+        "MedicalOrganization"
       ],
       "aliases": [],
       "support": 1,
@@ -1186,50 +2280,22 @@
           "article": "art5",
           "relation_phrase": "declared by",
           "instances": [
-            "Public health emergency declared -> World Health Organization"
+            "WHO declares public health emergency -> World Health Organization"
           ]
         }
       ],
       "path": ""
     },
     {
-      "id": "P0046",
-      "canonical_label": "hasConfirmedCases",
-      "definition": "Indicates the number of officially verified disease cases.",
-      "parent": null,
-      "domain": [
-        "EbolaCasesUgandaFrance",
-        "EbolaCaseStatistics"
-      ],
-      "range": [
-        "Quantity"
-      ],
-      "aliases": [],
-      "support": 3,
-      "first_seen": "art5",
-      "provenance": [
-        {
-          "article": "art5",
-          "relation_phrase": "has confirmed cases",
-          "instances": [
-            "Ebola case statistics as of July 1 -> 1,460 confirmed cases",
-            "Ebola cases in Uganda and France -> 20 confirmed cases",
-            "Ebola cases in Uganda and France -> one confirmed case"
-          ]
-        }
-      ],
-      "path": ""
-    },
-    {
-      "id": "P0047",
+      "id": "P0078",
       "canonical_label": "hasSuspectedCases",
-      "definition": "Indicates the number of disease cases that are believed to exist but are not yet officially verified.",
-      "parent": null,
+      "definition": "Indicates the number of suspected cases of a disease or condition.",
+      "parent": "hasCount",
       "domain": [
-        "EbolaCaseStatistics"
+        "EbolaStatisticsDRCongo"
       ],
       "range": [
-        "Quantity"
+        "Count"
       ],
       "aliases": [],
       "support": 1,
@@ -1239,48 +2305,23 @@
           "article": "art5",
           "relation_phrase": "has suspected cases",
           "instances": [
-            "Ebola case statistics as of July 1 -> 150 suspected cases"
+            "Ebola statistics in DR Congo as of July 1 -> 150"
           ]
         }
       ],
-      "path": ""
+      "path": "hasCount"
     },
     {
-      "id": "P0048",
-      "canonical_label": "hasRecoveredPatients",
-      "definition": "Indicates the number of individuals who have recovered from a disease.",
+      "id": "P0079",
+      "canonical_label": "asOf",
+      "definition": "Indicates the temporal reference point for the reported information.",
       "parent": null,
       "domain": [
-        "EbolaCaseStatistics"
-      ],
-      "range": [
-        "Quantity"
-      ],
-      "aliases": [],
-      "support": 1,
-      "first_seen": "art5",
-      "provenance": [
-        {
-          "article": "art5",
-          "relation_phrase": "has recovered patients",
-          "instances": [
-            "Ebola case statistics as of July 1 -> 213 people"
-          ]
-        }
-      ],
-      "path": ""
-    },
-    {
-      "id": "P0049",
-      "canonical_label": "asOfDate",
-      "definition": "Indicates the date or time at which a reported statistic or situation is current.",
-      "parent": null,
-      "domain": [
-        "EbolaCaseStatistics",
+        "EbolaStatisticsDRCongo",
         "EbolaCasesUgandaFrance"
       ],
       "range": [
-        "Date"
+        "TemporalExpression"
       ],
       "aliases": [],
       "support": 2,
@@ -1290,50 +2331,23 @@
           "article": "art5",
           "relation_phrase": "as of",
           "instances": [
-            "Ebola case statistics as of July 1 -> 1 July",
-            "Ebola cases in Uganda and France -> 1 July"
+            "Ebola statistics in DR Congo as of July 1 -> 1 July",
+            "Ebola cases in Uganda and France as of July 1 -> 1 July"
           ]
         }
       ],
       "path": ""
     },
     {
-      "id": "P0050",
-      "canonical_label": "restrictedTo",
-      "definition": "Indicates the geographical areas or limits within which something is confined.",
-      "parent": null,
+      "id": "P0080",
+      "canonical_label": "hasRecoveredPatients",
+      "definition": "Indicates the number of recovered patients for a disease or condition.",
+      "parent": "hasCount",
       "domain": [
-        "OutbreakRestriction"
+        "EbolaStatisticsDRCongo"
       ],
       "range": [
-        "State"
-      ],
-      "aliases": [],
-      "support": 3,
-      "first_seen": "art5",
-      "provenance": [
-        {
-          "article": "art5",
-          "relation_phrase": "restricted to",
-          "instances": [
-            "Outbreak restricted to three provinces -> South Kivu",
-            "Outbreak restricted to three provinces -> North Kivu",
-            "Outbreak restricted to three provinces -> Ituri"
-          ]
-        }
-      ],
-      "path": ""
-    },
-    {
-      "id": "P0051",
-      "canonical_label": "testedPositiveFor",
-      "definition": "Indicates the disease or substance for which a test result was positive.",
-      "parent": null,
-      "domain": [
-        "EbolaPositiveBodyTransport"
-      ],
-      "range": [
-        "MedicalCondition"
+        "Count"
       ],
       "aliases": [],
       "support": 1,
@@ -1341,24 +2355,74 @@
       "provenance": [
         {
           "article": "art5",
-          "relation_phrase": "tested positive for",
+          "relation_phrase": "has recovered patients",
           "instances": [
-            "Pregnant woman tested positive for Ebola -> Ebola"
+            "Ebola statistics in DR Congo as of July 1 -> 213"
           ]
         }
       ],
-      "path": ""
+      "path": "hasCount"
     },
     {
-      "id": "P0052",
+      "id": "P0081",
+      "canonical_label": "infects",
+      "definition": "Indicates the host or organism that is affected by an infection.",
+      "parent": "affects",
+      "domain": [
+        "InfectiousDisease"
+      ],
+      "range": [
+        "Animal"
+      ],
+      "aliases": [],
+      "support": 1,
+      "first_seen": "art5",
+      "provenance": [
+        {
+          "article": "art5",
+          "relation_phrase": "infects",
+          "instances": [
+            "Ebola -> animals"
+          ]
+        }
+      ],
+      "path": "affects"
+    },
+    {
+      "id": "P0082",
+      "canonical_label": "typicallyInfects",
+      "definition": "Indicates the usual host or organism that is affected by an infection.",
+      "parent": "infects",
+      "domain": [
+        "InfectiousDisease"
+      ],
+      "range": [
+        "Taxon"
+      ],
+      "aliases": [],
+      "support": 1,
+      "first_seen": "art5",
+      "provenance": [
+        {
+          "article": "art5",
+          "relation_phrase": "typically infects",
+          "instances": [
+            "Ebola -> fruit bats"
+          ]
+        }
+      ],
+      "path": "affects > infects"
+    },
+    {
+      "id": "P0083",
       "canonical_label": "hasPopulation",
-      "definition": "Indicates the number of inhabitants in a specific geographical area.",
-      "parent": null,
+      "definition": "Indicates the number of inhabitants in a specific location.",
+      "parent": "hasCount",
       "domain": [
         "City"
       ],
       "range": [
-        "Quantity"
+        "Count"
       ],
       "aliases": [],
       "support": 1,
@@ -1372,15 +2436,15 @@
           ]
         }
       ],
-      "path": ""
+      "path": "hasCount"
     },
     {
-      "id": "P0053",
+      "id": "P0084",
       "canonical_label": "testedPositiveIn",
       "definition": "Indicates the location where a positive test result was obtained.",
       "parent": null,
       "domain": [
-        "EbolaPatientFled"
+        "EbolaEscapeAndPositiveTest"
       ],
       "range": [
         "State"
@@ -1393,22 +2457,22 @@
           "article": "art5",
           "relation_phrase": "tested positive in",
           "instances": [
-            "Individual fled isolation and tested positive -> Haut-Uele province"
+            "Suspected Ebola patient fled and tested positive -> Haut-Uele province"
           ]
         }
       ],
       "path": ""
     },
     {
-      "id": "P0054",
-      "canonical_label": "occurredOn",
-      "definition": "Indicates the date or period when an event took place.",
+      "id": "P0085",
+      "canonical_label": "banned",
+      "definition": "Indicates what has been prohibited or forbidden.",
       "parent": null,
       "domain": [
-        "PublicStatementEvent"
+        "PublicGatheringRestrictionEvent"
       ],
       "range": [
-        "DateRange"
+        "SocialEvent"
       ],
       "aliases": [],
       "support": 1,
@@ -1416,24 +2480,24 @@
       "provenance": [
         {
           "article": "art5",
-          "relation_phrase": "occurred on",
+          "relation_phrase": "banned",
           "instances": [
-            "Public gatherings banned -> Earlier this week"
+            "Public gatherings banned -> public gatherings"
           ]
         }
       ],
       "path": ""
     },
     {
-      "id": "P0055",
-      "canonical_label": "hasPurpose",
-      "definition": "Indicates the reason or aim for an action or event.",
+      "id": "P0086",
+      "canonical_label": "toPreventSpreadOf",
+      "definition": "Indicates the purpose of an action, specifically to stop the dissemination of something.",
       "parent": null,
       "domain": [
-        "PublicStatementEvent"
+        "PublicGatheringRestrictionEvent"
       ],
       "range": [
-        "DiseaseOutbreak"
+        "InfectiousDisease"
       ],
       "aliases": [],
       "support": 1,
@@ -1441,24 +2505,24 @@
       "provenance": [
         {
           "article": "art5",
-          "relation_phrase": "purpose",
+          "relation_phrase": "to prevent spread of",
           "instances": [
-            "Public gatherings banned -> current deadly Ebola outbreak"
+            "Public gatherings banned -> Ebola"
           ]
         }
       ],
       "path": ""
     },
     {
-      "id": "P0056",
+      "id": "P0087",
       "canonical_label": "symptomsAppearIn",
-      "definition": "Indicates the duration within which symptoms of a disease typically manifest.",
+      "definition": "Indicates the time frame within which symptoms manifest.",
       "parent": null,
       "domain": [
-        "MedicalCondition"
+        "EbolaContagionPeriod"
       ],
       "range": [
-        "Duration"
+        "TemporalDuration"
       ],
       "aliases": [],
       "support": 1,
@@ -1468,22 +2532,22 @@
           "article": "art5",
           "relation_phrase": "symptoms appear in",
           "instances": [
-            "Ebola -> two to 21 days"
+            "Ebola contagion and symptom appearance -> two to 21 days"
           ]
         }
       ],
       "path": ""
     },
     {
-      "id": "P0057",
-      "canonical_label": "previousNumberOfLaboratories",
-      "definition": "Indicates the former count of laboratories involved in a specific activity.",
-      "parent": null,
+      "id": "P0088",
+      "canonical_label": "previousCount",
+      "definition": "Indicates the quantity of something before a change occurred.",
+      "parent": "hasCount",
       "domain": [
-        "ImprovedDiagnosis"
+        "LaboratoryIncrease"
       ],
       "range": [
-        "Quantity"
+        "Count"
       ],
       "aliases": [],
       "support": 1,
@@ -1491,24 +2555,24 @@
       "provenance": [
         {
           "article": "art5",
-          "relation_phrase": "previous number of laboratories",
+          "relation_phrase": "previous number of",
           "instances": [
-            "Improved Ebola diagnosis -> four laboratories"
+            "Number of Ebola testing laboratories increased -> four laboratories"
           ]
         }
       ],
-      "path": ""
+      "path": "hasCount"
     },
     {
-      "id": "P0058",
-      "canonical_label": "currentNumberOfLaboratories",
-      "definition": "Indicates the present count of laboratories involved in a specific activity.",
+      "id": "P0089",
+      "canonical_label": "complicatesTackling",
+      "definition": "Indicates a factor that complicates efforts to address an issue.",
       "parent": null,
       "domain": [
-        "ImprovedDiagnosis"
+        "ConflictImpactOnOutbreak"
       ],
       "range": [
-        "Quantity"
+        "DiseaseOutbreakEvent"
       ],
       "aliases": [],
       "support": 1,
@@ -1516,24 +2580,50 @@
       "provenance": [
         {
           "article": "art5",
-          "relation_phrase": "current number of laboratories",
+          "relation_phrase": "makes difficult to tackle",
           "instances": [
-            "Improved Ebola diagnosis -> 10"
+            "Conflict makes tackling outbreak difficult -> Ebola outbreak began in DR Congo"
           ]
         }
       ],
       "path": ""
     },
     {
-      "id": "P0059",
-      "canonical_label": "hasSpeciesCount",
-      "definition": "Indicates the total number of species belonging to a particular category.",
+      "id": "P0090",
+      "canonical_label": "controlsPartsOf",
+      "definition": "Indicates the geographical areas or entities over which control is exercised.",
       "parent": null,
       "domain": [
-        "MedicalCondition"
+        "RebelGroup"
       ],
       "range": [
-        "Quantity"
+        "State"
+      ],
+      "aliases": [],
+      "support": 2,
+      "first_seen": "art5",
+      "provenance": [
+        {
+          "article": "art5",
+          "relation_phrase": "controls parts of",
+          "instances": [
+            "M23 rebel group -> North Kivu",
+            "M23 rebel group -> South Kivu"
+          ]
+        }
+      ],
+      "path": ""
+    },
+    {
+      "id": "P0091",
+      "canonical_label": "speciesCauseOutbreaks",
+      "definition": "Indicates which species are responsible for causing outbreaks.",
+      "parent": "cause",
+      "domain": [
+        "EbolaSpeciesInformation"
+      ],
+      "range": [
+        "Count"
       ],
       "aliases": [],
       "support": 1,
@@ -1541,39 +2631,14 @@
       "provenance": [
         {
           "article": "art5",
-          "relation_phrase": "has species count",
+          "relation_phrase": "species cause outbreaks",
           "instances": [
-            "Ebola -> six"
+            "Ebola species and outbreak causation -> three"
           ]
         }
       ],
-      "path": ""
-    },
-    {
-      "id": "P0060",
-      "canonical_label": "speciesKnownToCauseOutbreaks",
-      "definition": "Indicates the number of species within a larger group that are known to cause outbreaks.",
-      "parent": null,
-      "domain": [
-        "MedicalCondition"
-      ],
-      "range": [
-        "Quantity"
-      ],
-      "aliases": [],
-      "support": 1,
-      "first_seen": "art5",
-      "provenance": [
-        {
-          "article": "art5",
-          "relation_phrase": "species known to cause outbreaks",
-          "instances": [
-            "Ebola -> three"
-          ]
-        }
-      ],
-      "path": ""
+      "path": "cause"
     }
   ],
-  "next_id": 61
+  "next_id": 92
 }
