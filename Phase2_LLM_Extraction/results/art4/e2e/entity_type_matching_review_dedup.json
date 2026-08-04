@@ -14,7 +14,7 @@
         "definition": null,
         "parent": null,
         "path": "Thing > Event",
-        "justification": "The OIE type and mentions are specific instances of athletic competitions, which perfectly align with SportsEvent, explicitly including 'a tennis tournament' in its definition."
+        "justification": "The OIE type 'TennisTournament' is explicitly listed as an example of schema.org:SportsEvent."
       },
       "llm_proposed": {
         "source": "schema.org",
@@ -43,25 +43,28 @@
           "comment": "A local business or sports activity location featuring multiple tennis courts and related facilities. Also called tennis center, tennis club, tennis facility. Examples: 'Indian Wells Tennis Garden', a community tennis complex, a private tennis club."
         },
         {
-          "source": "schema.org",
-          "label": "DeliveryEvent",
+          "source": "vocab",
+          "id": "T0073",
+          "label": "RedCarpetRolloutEvent",
           "path": "Thing > Event",
-          "score": 0.8,
-          "comment": "An event representing the delivery of an item, typically a product or package. Also called Shipping event, package delivery, consignment event. Examples: A package arriving at its destination, a food delivery being completed, a furniture delivery appointment. Distinct from Order, which is the request for items, not the delivery itself."
+          "score": 0.814,
+          "comment": "An event involving the preparation and display of a red carpet, typically for a high-profile gathering."
         },
         {
-          "source": "schema.org",
-          "label": "MusicEvent",
+          "source": "vocab",
+          "id": "T0066",
+          "label": "CharitableDonationEvent",
           "path": "Thing > Event",
-          "score": 0.797,
-          "comment": "A MusicEvent is an event primarily featuring musical performances. Also called concert, musical performance, gig. Examples: a rock concert, a classical symphony performance, a music festival. Distinct from PerformingArtsEvent, which includes broader performance types like theatre or dance."
+          "score": 0.813,
+          "comment": "An event where a donation is made to a charity."
         },
         {
-          "source": "schema.org",
-          "label": "TheaterEvent",
+          "source": "vocab",
+          "id": "T0075",
+          "label": "CelebrityArrivalEvent",
           "path": "Thing > Event",
-          "score": 0.795,
-          "comment": "An event representing a live performance in a theater. Also called stage play, theatrical show, drama performance. Examples: a Broadway musical, a local community play, a Shakespearean tragedy."
+          "score": 0.811,
+          "comment": "An event where a celebrity arrives at a location."
         }
       ]
     },
@@ -76,7 +79,7 @@
         "definition": null,
         "parent": null,
         "path": "Thing > Intangible > StructuredValue",
-        "justification": "The OIE type and mentions represent specific quantities of money with currency, which is precisely what MonetaryAmount describes."
+        "justification": "schema.org:MonetaryAmount directly represents a quantity of money, matching the OIE type and mentions."
       },
       "llm_proposed": {
         "source": "schema.org",
@@ -125,39 +128,38 @@
           "comment": "A quantitative value distribution representing a statistical distribution of monetary amounts. Also called money distribution, financial range, income distribution. Examples: \"average salary range\", \"distribution of asset values\", \"price range for a product category\"."
         },
         {
-          "source": "vocab",
-          "id": "T0039",
-          "label": "AgeValue",
-          "path": "Number",
-          "score": 0.823,
-          "comment": "A numerical value representing the age of a person or thing."
-        },
-        {
           "source": "schema.org",
           "label": "MonetaryGrant",
           "path": "Thing > Intangible > Grant",
           "score": 0.814,
           "comment": "An intangible grant that provides a sum of money. Also called financial grant, money award, cash donation. Examples: a research grant, a scholarship, a government subsidy. Distinct from Grant, which can be non-monetary."
+        },
+        {
+          "source": "schema.org",
+          "label": "QuantitativeValue",
+          "path": "Thing > Intangible > StructuredValue",
+          "score": 0.813,
+          "comment": "A QuantitativeValue is a StructuredValue representing a point value or interval for product characteristics or other purposes. Also called numerical value, measurable value. Examples: a product's weight of '5 kg', a temperature range of '20-25°C', a height of '1.8 meters', a price of '$99.99'. Distinct from QualitativeValue, which represents a predefined, non-numeric value."
         }
       ]
     },
     {
       "oie_type": "Year",
-      "embedding_query_text": "Year: A specific calendar year. Also called Annual Period, Calendar Year. Examples: 2025, 2024.",
+      "embedding_query_text": "Year: A specific calendar year. Also called Calendar Year, Annual Period. Examples: 2025, 2024.",
       "chosen_type": {
-        "label": "CalendarYear",
+        "label": "Year",
         "source": "vocab",
-        "vocab_id": "T0057",
-        "is_new_to_vocab": true,
-        "definition": "A specific calendar year.",
-        "parent": "Duration",
-        "path": "Quantity > Duration",
-        "justification": "No existing candidate precisely captures a 'Year' as a distinct entity; Date is too granular, and DateRange is too broad. Minting a specific type for calendar years."
+        "vocab_id": "T0056",
+        "is_new_to_vocab": false,
+        "definition": "A period of 365 or 366 days, divided into 12 months, starting from January 1st.",
+        "parent": "Thing",
+        "path": "Thing",
+        "justification": "The vocab:Year type is a direct and precise match for the OIE type 'Year' and its mentions."
       },
       "llm_proposed": {
-        "source": "new",
-        "label": "CalendarYear",
-        "is_new": true
+        "source": "vocab",
+        "label": "Year",
+        "is_new": false
       },
       "mentions": [
         "2025",
@@ -166,17 +168,17 @@
       "candidates": [
         {
           "source": "vocab",
-          "id": "T0003",
-          "label": "DateRange",
-          "path": "Quantity > Duration",
-          "score": 0.813,
-          "comment": "A specified period of time between two dates."
+          "id": "T0056",
+          "label": "Year",
+          "path": "Thing",
+          "score": 0.835,
+          "comment": "A period of 365 or 366 days, divided into 12 months, starting from January 1st."
         },
         {
           "source": "schema.org",
           "label": "Date",
           "path": "",
-          "score": 0.812,
+          "score": 0.814,
           "comment": "Date is a data type representing a specific calendar date, typically formatted according to ISO 8601. Also called calendar date, specific day. Examples: \"2023-10-27\", \"1999-12-31\", \"0001-01-01\"."
         },
         {
@@ -188,18 +190,19 @@
         },
         {
           "source": "vocab",
-          "id": "T0001",
-          "label": "Month",
-          "path": "Quantity > Duration",
+          "id": "T0002",
+          "label": "DateRange",
+          "path": "Thing > Intangible",
           "score": 0.805,
-          "comment": "A period of time corresponding to one of the twelve divisions of a year."
+          "comment": "A specified period of time between two dates."
         },
         {
-          "source": "schema.org",
-          "label": "Schedule",
-          "path": "Thing > Intangible",
-          "score": 0.803,
-          "comment": "A definition of a repeating time period used to describe a regularly occurring event, specifying frequency, days, and start/end times. Also called timetable, recurring event plan, calendar entry, routine. Examples: a weekly yoga class schedule, a bus route timetable, a daily meeting schedule, a concert series calendar."
+          "source": "vocab",
+          "id": "T0040",
+          "label": "TimeOfDay",
+          "path": "Thing",
+          "score": 0.804,
+          "comment": "A general period within a day."
         }
       ]
     },
@@ -214,7 +217,7 @@
         "definition": null,
         "parent": null,
         "path": "Thing > Place > AdministrativeArea",
-        "justification": "The OIE type and mention directly match the definition and examples of the Schema.org City type."
+        "justification": "schema.org:City is a direct and explicit match for the OIE type 'City' and its mention."
       },
       "llm_proposed": {
         "source": "schema.org",
@@ -234,10 +237,10 @@
         },
         {
           "source": "vocab",
-          "id": "T0030",
+          "id": "T0044",
           "label": "Mayor",
-          "path": "Thing > Person",
-          "score": 0.799,
+          "path": "Thing",
+          "score": 0.802,
           "comment": "The elected head of a city, town, or other municipality."
         },
         {
@@ -249,7 +252,7 @@
         },
         {
           "source": "vocab",
-          "id": "T0007",
+          "id": "T0005",
           "label": "Archipelago",
           "path": "Thing > Place > Landform",
           "score": 0.789,
@@ -266,21 +269,21 @@
     },
     {
       "oie_type": "Percentage",
-      "embedding_query_text": "Percentage: A rate, number, or amount in each hundred. Also called Percent, Rate. Examples: 39%.",
+      "embedding_query_text": "Percentage: A rate, number, or amount in each hundred. Also called Percent, Rate, Proportion. Examples: 39%.",
       "chosen_type": {
-        "label": "Percentage",
+        "label": "PercentageValue",
         "source": "vocab",
-        "vocab_id": "T0002",
-        "is_new_to_vocab": false,
-        "definition": "A rate, number, or amount in each hundred.",
-        "parent": "Number",
-        "path": "Number",
-        "justification": "The OIE type and mention directly match the definition of the vocabulary Percentage type."
+        "vocab_id": "T0080",
+        "is_new_to_vocab": true,
+        "definition": "A numerical value expressed as a fraction of 100.",
+        "parent": "QuantitativeValue",
+        "path": "Thing > Intangible > StructuredValue > QuantitativeValue",
+        "justification": "No existing candidate precisely captures the concept of a percentage; a new type is minted as a specific kind of quantitative value."
       },
       "llm_proposed": {
-        "source": "vocab",
-        "label": "Percentage",
-        "is_new": false
+        "source": "new",
+        "label": "PercentageValue",
+        "is_new": true
       },
       "mentions": [
         "39%"
@@ -288,43 +291,40 @@
       "candidates": [
         {
           "source": "vocab",
-          "id": "T0002",
-          "label": "Percentage",
-          "path": "Number",
-          "score": 0.901,
-          "comment": "A rate, number, or amount in each hundred."
-        },
-        {
-          "source": "vocab",
           "id": "T0001",
           "label": "Month",
-          "path": "Quantity > Duration",
-          "score": 0.777,
-          "comment": "A period of time corresponding to one of the twelve divisions of a year."
-        },
-        {
-          "source": "vocab",
-          "id": "T0010",
-          "label": "RateComparison",
           "path": "Thing > Intangible",
-          "score": 0.772,
-          "comment": "A statement comparing the speed or frequency of one process or event to another."
+          "score": 0.777,
+          "comment": "A unit of time, typically one of the twelve divisions of the year."
         },
         {
           "source": "vocab",
-          "id": "T0039",
-          "label": "AgeValue",
-          "path": "Number",
-          "score": 0.768,
-          "comment": "A numerical value representing the age of a person or thing."
+          "id": "T0040",
+          "label": "TimeOfDay",
+          "path": "Thing",
+          "score": 0.773,
+          "comment": "A general period within a day."
         },
         {
-          "source": "vocab",
-          "id": "T0024",
-          "label": "Count",
+          "source": "schema.org",
+          "label": "HyperTocEntry",
+          "path": "Thing > CreativeWork",
+          "score": 0.759,
+          "comment": "A HyperTocEntry is a creative work representing an individual item or section within a HyperToc, specifying its associated media and time offsets. Also called table of contents item, media chapter, section marker. Examples: 'Introduction (0:00-5:30)', 'Keynote Speech (10:15-30:00)', 'Q&A Session (30:00-45:00)'."
+        },
+        {
+          "source": "schema.org",
+          "label": "Integer",
           "path": "Number",
-          "score": 0.761,
-          "comment": "A numerical quantity representing the number of discrete items or entities."
+          "score": 0.756,
+          "comment": "Integer is a data type representing a whole number without a fractional component. Also called whole number, natural number (if positive), counting number. Examples: 0, 1, -5, 1000. Distinct from Float, which includes decimal values."
+        },
+        {
+          "source": "schema.org",
+          "label": "TierBenefitEnumeration",
+          "path": "Thing > Intangible > Enumeration",
+          "score": 0.756,
+          "comment": "An enumeration of specific benefits offered as part of a loyalty or membership program. Also called loyalty program benefit, membership perk, reward tier. Examples: free shipping, early access to sales, exclusive content, dedicated customer support."
         }
       ]
     },
@@ -339,7 +339,7 @@
         "definition": null,
         "parent": null,
         "path": "Thing",
-        "justification": "The OIE type and mentions are all individual human beings, which is the exact definition of Schema.org Person."
+        "justification": "schema.org:Person is a direct and explicit match for the OIE type 'Person' and its mentions."
       },
       "llm_proposed": {
         "source": "schema.org",
@@ -364,41 +364,41 @@
         },
         {
           "source": "vocab",
-          "id": "T0020",
-          "label": "AmericanFootballPlayer",
-          "path": "Thing > Person",
-          "score": 0.817,
-          "comment": "A person who plays American football professionally."
+          "id": "T0052",
+          "label": "Student",
+          "path": "Thing",
+          "score": 0.794,
+          "comment": "A person who is studying at a school or university."
         },
         {
           "source": "vocab",
-          "id": "T0056",
-          "label": "Celebrity",
-          "path": "Thing > Person",
-          "score": 0.814,
-          "comment": "A famous person, especially in entertainment or sport."
-        },
-        {
-          "source": "vocab",
-          "id": "T0055",
-          "label": "Guest",
-          "path": "Thing > Person",
-          "score": 0.799,
-          "comment": "A person invited to an event or hosted at a location."
+          "id": "T0042",
+          "label": "Fan",
+          "path": "Thing",
+          "score": 0.79,
+          "comment": "An enthusiastic admirer of a person, group, or sport."
         },
         {
           "source": "vocab",
           "id": "T0036",
-          "label": "PopStar",
-          "path": "Thing > Person",
-          "score": 0.798,
-          "comment": "A famous singer of pop music."
+          "label": "Actress",
+          "path": "Thing",
+          "score": 0.785,
+          "comment": "A female actor who performs in plays, films, or television."
+        },
+        {
+          "source": "vocab",
+          "id": "T0075",
+          "label": "CelebrityArrivalEvent",
+          "path": "Thing > Event",
+          "score": 0.782,
+          "comment": "An event where a celebrity arrives at a location."
         }
       ]
     },
     {
       "oie_type": "Location",
-      "embedding_query_text": "Location: A specific place or position. Also called Venue, Site, Area. Examples: Flushing Meadows.",
+      "embedding_query_text": "Location: A specific place or position. Also called Place, Site, Venue. Examples: Flushing Meadows.",
       "chosen_type": {
         "label": "Place",
         "source": "schema.org",
@@ -407,7 +407,7 @@
         "definition": null,
         "parent": null,
         "path": "Thing",
-        "justification": "The OIE type 'Location' is a general term for a physical position, which is best represented by Schema.org's Place."
+        "justification": "schema.org:Place is the most appropriate general type for 'Location' as defined, encompassing specific physical extensions."
       },
       "llm_proposed": {
         "source": "schema.org",
@@ -422,58 +422,56 @@
           "source": "schema.org",
           "label": "Place",
           "path": "Thing",
-          "score": 0.868,
+          "score": 0.872,
           "comment": "A Place is an entity that has a somewhat fixed, physical extension. Also called location, venue, site. Examples: a city, a building, a park, a specific address. Distinct from Event, which is a happening in time."
         },
         {
-          "source": "vocab",
-          "id": "T0045",
-          "label": "AccessPoint",
+          "source": "schema.org",
+          "label": "Residence",
           "path": "Thing > Place",
-          "score": 0.828,
-          "comment": "A specific way or means of gaining physical access to a place."
-        },
-        {
-          "source": "vocab",
-          "id": "T0055",
-          "label": "Guest",
-          "path": "Thing > Person",
-          "score": 0.825,
-          "comment": "A person invited to an event or hosted at a location."
+          "score": 0.821,
+          "comment": "A Residence is a Place where a person lives. Also called home, dwelling, abode. Examples: a house, an apartment, a condominium, a dormitory room."
         },
         {
           "source": "schema.org",
-          "label": "SportsActivityLocation",
-          "path": "Thing > Organization > LocalBusiness",
-          "score": 0.819,
-          "comment": "A local business or facility providing a venue for sports activities. Also called sports venue, athletic facility, recreation center, playing field. Examples: a local gym, a public tennis court, a community swimming pool, a golf course."
+          "label": "TouristAttraction",
+          "path": "Thing > Place",
+          "score": 0.818,
+          "comment": "A specific place or feature that draws tourists due to its interest or appeal. Also called point of interest, visitor attraction, landmark. Examples: the Eiffel Tower, a national park, a historical museum, a famous statue. Distinct from TouristDestination, which is a broader area containing one or more attractions."
         },
         {
           "source": "schema.org",
           "label": "Seat",
           "path": "Thing > Intangible",
-          "score": 0.817,
+          "score": 0.815,
           "comment": "A specific seating location, often reserved, within an event venue or transportation. Also called reserved spot, seating assignment, chair, place. Examples: seat 12A on an airplane, row F seat 5 at a concert, a specific table at a restaurant."
+        },
+        {
+          "source": "schema.org",
+          "label": "SportsActivityLocation",
+          "path": "Thing > Organization > LocalBusiness",
+          "score": 0.814,
+          "comment": "A local business or facility providing a venue for sports activities. Also called sports venue, athletic facility, recreation center, playing field. Examples: a local gym, a public tennis court, a community swimming pool, a golf course."
         }
       ]
     },
     {
-      "oie_type": "TennisTournamentSeries",
-      "embedding_query_text": "TennisTournamentSeries: A series of major tennis tournaments. Also called Major Tennis Events, Grand Slam Series. Examples: Grand Slam.",
+      "oie_type": "TennisTournamentCategory",
+      "embedding_query_text": "TennisTournamentCategory: A classification or group of tennis tournaments. Also called Tennis Tournament Type, Tournament Class. Examples: Grand Slam.",
       "chosen_type": {
-        "label": "EventSeries",
-        "source": "schema.org",
-        "vocab_id": null,
-        "is_new_to_vocab": false,
-        "definition": null,
-        "parent": null,
-        "path": "Thing > Event",
-        "justification": "The OIE type and mention refer to a collection of related events, which is precisely what EventSeries describes."
+        "label": "TennisTournamentCategory",
+        "source": "vocab",
+        "vocab_id": "T0081",
+        "is_new_to_vocab": true,
+        "definition": "A classification or group of tennis tournaments based on prestige, format, or other criteria.",
+        "parent": "CategoryCode",
+        "path": "Thing > Intangible > DefinedTerm > CategoryCode",
+        "justification": "No existing candidate represents a category of tennis tournaments; a new type is minted as a specific category code."
       },
       "llm_proposed": {
-        "source": "schema.org",
-        "label": "EventSeries",
-        "is_new": false
+        "source": "new",
+        "label": "TennisTournamentCategory",
+        "is_new": true
       },
       "mentions": [
         "Grand Slam"
@@ -481,196 +479,17 @@
       "candidates": [
         {
           "source": "schema.org",
-          "label": "EventSeries",
-          "path": "Thing > Event",
-          "score": 0.836,
-          "comment": "An EventSeries is an Event representing a collection of events that share unifying characteristics, such as a recurring festival or a thematic lecture series. Also called event cycle, recurring event, series of events. Examples: The Olympic Games, a monthly book club meeting, a season of a concert series, a weekly farmers market."
-        },
-        {
-          "source": "schema.org",
           "label": "TennisComplex",
           "path": "Thing > Organization > LocalBusiness > SportsActivityLocation",
-          "score": 0.815,
+          "score": 0.817,
           "comment": "A local business or sports activity location featuring multiple tennis courts and related facilities. Also called tennis center, tennis club, tennis facility. Examples: 'Indian Wells Tennis Garden', a community tennis complex, a private tennis club."
-        },
-        {
-          "source": "schema.org",
-          "label": "VideoGameSeries",
-          "path": "Thing > CreativeWork > CreativeWorkSeries",
-          "score": 0.809,
-          "comment": "A sequence of related video games, often sharing a common storyline, characters, or gameplay mechanics. Also called game franchise, video game saga, game series. Examples: The Final Fantasy series, The Elder Scrolls series, Grand Theft Auto series."
-        },
-        {
-          "source": "schema.org",
-          "label": "SportsEvent",
-          "path": "Thing > Event",
-          "score": 0.808,
-          "comment": "An event involving athletic competition or display. Also called athletic contest, game, match, sporting competition. Examples: a football game, an Olympic event, a marathon race, a tennis tournament."
-        },
-        {
-          "source": "schema.org",
-          "label": "BookSeries",
-          "path": "Thing > CreativeWork > CreativeWorkSeries",
-          "score": 0.806,
-          "comment": "A CreativeWorkSeries comprising a sequence of books published as a set or with a common theme. Also called book collection, literary series, saga. Examples: \"Harry Potter series\", \"The Chronicles of Narnia\", \"A Song of Ice and Fire\". Distinct from Book, which is a single volume."
-        }
-      ]
-    },
-    {
-      "oie_type": "TournamentRank",
-      "embedding_query_text": "TournamentRank: A position or standing in a tournament based on performance. Also called Placement, Standing, Position. Examples: Winner, Runner-up.",
-      "chosen_type": {
-        "label": "CompetitionRank",
-        "source": "vocab",
-        "vocab_id": "T0058",
-        "is_new_to_vocab": true,
-        "definition": "A position or standing achieved by a participant in a competition.",
-        "parent": "Intangible",
-        "path": "Thing > Intangible",
-        "justification": "No existing candidate accurately represents a rank or standing within a competition; existing types are for events, actions, or organizations."
-      },
-      "llm_proposed": {
-        "source": "new",
-        "label": "CompetitionRank",
-        "is_new": true
-      },
-      "mentions": [
-        "Winner",
-        "Runner-up"
-      ],
-      "candidates": [
-        {
-          "source": "schema.org",
-          "label": "SportsEvent",
-          "path": "Thing > Event",
-          "score": 0.796,
-          "comment": "An event involving athletic competition or display. Also called athletic contest, game, match, sporting competition. Examples: a football game, an Olympic event, a marathon race, a tennis tournament."
-        },
-        {
-          "source": "schema.org",
-          "label": "GameServerStatus",
-          "path": "Thing > Intangible > Enumeration > StatusEnumeration",
-          "score": 0.794,
-          "comment": "A GameServerStatus is a StatusEnumeration representing the operational status of a game server. Also called server status, game server state. Examples: Online, Offline, Maintenance."
-        },
-        {
-          "source": "schema.org",
-          "label": "TieAction",
-          "path": "Thing > Action > AchieveAction",
-          "score": 0.792,
-          "comment": "The act of achieving a draw or stalemate in a competitive activity. Also called draw, stalemate, tie game. Examples: two chess players agreeing to a draw, a soccer match ending in a tie, a race where two competitors finish simultaneously."
-        },
-        {
-          "source": "vocab",
-          "id": "T0051",
-          "label": "EventStaff",
-          "path": "Thing > Person",
-          "score": 0.792,
-          "comment": "A person responsible for the organization and execution of an event."
         },
         {
           "source": "schema.org",
           "label": "SportsOrganization",
           "path": "Thing > Organization",
-          "score": 0.787,
+          "score": 0.81,
           "comment": "A general category for organizations involved in sports, including teams, governing bodies, and associations. Also called athletic organization, sports body, sports group. Examples: the NBA, a local youth soccer league, the International Olympic Committee."
-        }
-      ]
-    },
-    {
-      "oie_type": "TournamentRound",
-      "embedding_query_text": "TournamentRound: A stage or phase within a tournament. Also called Stage, Phase, Match Round. Examples: Semi-final, Quarter-final, Round four, Round three.",
-      "chosen_type": {
-        "label": "CompetitionRound",
-        "source": "vocab",
-        "vocab_id": "T0059",
-        "is_new_to_vocab": true,
-        "definition": "A distinct stage or phase within a competition or tournament.",
-        "parent": "Event",
-        "path": "Thing > Event",
-        "justification": "No existing candidate represents a specific stage or phase of a tournament; existing types are for entire events or unrelated concepts."
-      },
-      "llm_proposed": {
-        "source": "new",
-        "label": "CompetitionRound",
-        "is_new": true
-      },
-      "mentions": [
-        "Semi-final",
-        "Quarter-final",
-        "Round four",
-        "Round three",
-        "Round two",
-        "Round one",
-        "final"
-      ],
-      "candidates": [
-        {
-          "source": "schema.org",
-          "label": "SportsEvent",
-          "path": "Thing > Event",
-          "score": 0.82,
-          "comment": "An event involving athletic competition or display. Also called athletic contest, game, match, sporting competition. Examples: a football game, an Olympic event, a marathon race, a tennis tournament."
-        },
-        {
-          "source": "vocab",
-          "id": "T0003",
-          "label": "DateRange",
-          "path": "Quantity > Duration",
-          "score": 0.805,
-          "comment": "A specified period of time between two dates."
-        },
-        {
-          "source": "schema.org",
-          "label": "TheaterEvent",
-          "path": "Thing > Event",
-          "score": 0.798,
-          "comment": "An event representing a live performance in a theater. Also called stage play, theatrical show, drama performance. Examples: a Broadway musical, a local community play, a Shakespearean tragedy."
-        },
-        {
-          "source": "schema.org",
-          "label": "EventAttendanceModeEnumeration",
-          "path": "Thing > Intangible > Enumeration",
-          "score": 0.794,
-          "comment": "An EventAttendanceModeEnumeration is an Enumeration of modes for organizing an event, indicating whether it is online or offline. Also called attendance type, event format, participation mode. Examples: OnlineEventAttendanceMode, OfflineEventAttendanceMode, MixedEventAttendanceMode."
-        },
-        {
-          "source": "schema.org",
-          "label": "ConferenceEvent",
-          "path": "Thing > Event",
-          "score": 0.789,
-          "comment": "An event specifically organized as a conference, typically involving presentations, discussions, and networking. Also called conference, convention, symposium, summit. Examples: A tech conference, an academic symposium, a business summit, a medical convention. Distinct from Event, which is a general occurrence."
-        }
-      ]
-    },
-    {
-      "oie_type": "TennisChampionship",
-      "embedding_query_text": "TennisChampionship: A competition to determine a champion in tennis. Also called Tennis Title Event, Tennis Tournament. Examples: mixed doubles championship.",
-      "chosen_type": {
-        "label": "SportsEvent",
-        "source": "schema.org",
-        "vocab_id": null,
-        "is_new_to_vocab": false,
-        "definition": null,
-        "parent": null,
-        "path": "Thing > Event",
-        "justification": "A championship is a type of athletic competition, fitting the definition of SportsEvent."
-      },
-      "llm_proposed": {
-        "source": "schema.org",
-        "label": "SportsEvent",
-        "is_new": false
-      },
-      "mentions": [
-        "mixed doubles championship"
-      ],
-      "candidates": [
-        {
-          "source": "schema.org",
-          "label": "TennisComplex",
-          "path": "Thing > Organization > LocalBusiness > SportsActivityLocation",
-          "score": 0.841,
-          "comment": "A local business or sports activity location featuring multiple tennis courts and related facilities. Also called tennis center, tennis club, tennis facility. Examples: 'Indian Wells Tennis Garden', a community tennis complex, a private tennis club."
         },
         {
           "source": "schema.org",
@@ -681,30 +500,94 @@
         },
         {
           "source": "schema.org",
-          "label": "SportsTeam",
-          "path": "Thing > Organization > SportsOrganization",
+          "label": "MapCategoryType",
+          "path": "Thing > Intangible > Enumeration",
+          "score": 0.805,
+          "comment": "An enumeration of different categories or kinds of maps. Also called map type, map classification, cartography category. Examples: \"RoadMap\", \"SatelliteMap\", \"TerrainMap\", \"HybridMap\"."
+        },
+        {
+          "source": "vocab",
+          "id": "T0060",
+          "label": "WeddingCelebration",
+          "path": "Thing > Event",
+          "score": 0.801,
+          "comment": "An event celebrating a wedding."
+        }
+      ]
+    },
+    {
+      "oie_type": "TournamentStage",
+      "embedding_query_text": "TournamentStage: A specific phase or round within a tournament. Also called Round, Phase, Level. Examples: Winner, Runner-up, Semi-final, Quarter-final.",
+      "chosen_type": {
+        "label": "TournamentStage",
+        "source": "vocab",
+        "vocab_id": "T0082",
+        "is_new_to_vocab": true,
+        "definition": "A specific phase, round, or outcome within a competitive tournament.",
+        "parent": "Thing",
+        "path": "Thing",
+        "justification": "No existing candidate represents a tournament stage or outcome; a new type is minted with 'Thing' as a general parent."
+      },
+      "llm_proposed": {
+        "source": "new",
+        "label": "TournamentStage",
+        "is_new": true
+      },
+      "mentions": [
+        "Winner",
+        "Runner-up",
+        "Semi-final",
+        "Quarter-final",
+        "Round four",
+        "Round three",
+        "Round two",
+        "Round one"
+      ],
+      "candidates": [
+        {
+          "source": "vocab",
+          "id": "T0073",
+          "label": "RedCarpetRolloutEvent",
+          "path": "Thing > Event",
+          "score": 0.807,
+          "comment": "An event involving the preparation and display of a red carpet, typically for a high-profile gathering."
+        },
+        {
+          "source": "vocab",
+          "id": "T0060",
+          "label": "WeddingCelebration",
+          "path": "Thing > Event",
+          "score": 0.805,
+          "comment": "An event celebrating a wedding."
+        },
+        {
+          "source": "vocab",
+          "id": "T0061",
+          "label": "GuestArrivalEvent",
+          "path": "Thing > Event",
+          "score": 0.805,
+          "comment": "An event where guests arrive at a location or gathering."
+        },
+        {
+          "source": "vocab",
+          "id": "T0002",
+          "label": "DateRange",
+          "path": "Thing > Intangible",
           "score": 0.803,
-          "comment": "An organization consisting of a group of athletes who compete together in a sport. Also called athletic team, squad, club, side. Examples: the Los Angeles Lakers, the New England Patriots, a high school basketball team."
+          "comment": "A specified period of time between two dates."
         },
         {
           "source": "schema.org",
-          "label": "BowlingAlley",
-          "path": "Thing > Organization > LocalBusiness > SportsActivityLocation",
-          "score": 0.8,
-          "comment": "A BowlingAlley is a SportsActivityLocation where people can engage in the sport of bowling. Also called bowling center, bowling lane, ten-pin alley. Examples: AMF Bowling, local bowling alley, a bowling club."
-        },
-        {
-          "source": "schema.org",
-          "label": "SportsActivityLocation",
-          "path": "Thing > Organization > LocalBusiness",
-          "score": 0.796,
-          "comment": "A local business or facility providing a venue for sports activities. Also called sports venue, athletic facility, recreation center, playing field. Examples: a local gym, a public tennis court, a community swimming pool, a golf course."
+          "label": "SportsEvent",
+          "path": "Thing > Event",
+          "score": 0.802,
+          "comment": "An event involving athletic competition or display. Also called athletic contest, game, match, sporting competition. Examples: a football game, an Olympic event, a marathon race, a tennis tournament."
         }
       ]
     },
     {
       "oie_type": "TennisCompetition",
-      "embedding_query_text": "TennisCompetition: An organized event where tennis players compete. Also called Tennis Event, Tennis Tournament. Examples: wheelchair competition.",
+      "embedding_query_text": "TennisCompetition: A specific competitive event within tennis, often a sub-category of a larger tournament. Also called Tennis Event, Tennis Contest, Tennis Match. Examples: mixed doubles championship, wheelchair competition.",
       "chosen_type": {
         "label": "SportsEvent",
         "source": "schema.org",
@@ -713,7 +596,7 @@
         "definition": null,
         "parent": null,
         "path": "Thing > Event",
-        "justification": "A competition is an organized event involving athletic competition, which is the core definition of SportsEvent."
+        "justification": "Specific competitive events within tennis, like championships or competitions, are instances of schema.org:SportsEvent."
       },
       "llm_proposed": {
         "source": "schema.org",
@@ -721,6 +604,7 @@
         "is_new": false
       },
       "mentions": [
+        "mixed doubles championship",
         "wheelchair competition"
       ],
       "candidates": [
@@ -728,42 +612,106 @@
           "source": "schema.org",
           "label": "TennisComplex",
           "path": "Thing > Organization > LocalBusiness > SportsActivityLocation",
-          "score": 0.835,
+          "score": 0.838,
           "comment": "A local business or sports activity location featuring multiple tennis courts and related facilities. Also called tennis center, tennis club, tennis facility. Examples: 'Indian Wells Tennis Garden', a community tennis complex, a private tennis club."
         },
         {
           "source": "schema.org",
           "label": "SportsEvent",
           "path": "Thing > Event",
-          "score": 0.834,
+          "score": 0.836,
           "comment": "An event involving athletic competition or display. Also called athletic contest, game, match, sporting competition. Examples: a football game, an Olympic event, a marathon race, a tennis tournament."
         },
         {
+          "source": "vocab",
+          "id": "T0073",
+          "label": "RedCarpetRolloutEvent",
+          "path": "Thing > Event",
+          "score": 0.818,
+          "comment": "An event involving the preparation and display of a red carpet, typically for a high-profile gathering."
+        },
+        {
+          "source": "vocab",
+          "id": "T0060",
+          "label": "WeddingCelebration",
+          "path": "Thing > Event",
+          "score": 0.816,
+          "comment": "An event celebrating a wedding."
+        },
+        {
+          "source": "vocab",
+          "id": "T0066",
+          "label": "CharitableDonationEvent",
+          "path": "Thing > Event",
+          "score": 0.813,
+          "comment": "An event where a donation is made to a charity."
+        }
+      ]
+    },
+    {
+      "oie_type": "TennisCompetitorCategory",
+      "embedding_query_text": "TennisCompetitorCategory: A classification of participants in a tennis competition. Also called Player Group, Competitor Type. Examples: men's and women's doubles pairs, men's, women's, doubles and wheelchair competitors.",
+      "chosen_type": {
+        "label": "TennisCompetitorCategory",
+        "source": "vocab",
+        "vocab_id": "T0083",
+        "is_new_to_vocab": true,
+        "definition": "A classification of participants in a tennis competition based on gender, format, or physical ability.",
+        "parent": "CategoryCode",
+        "path": "Thing > Intangible > DefinedTerm > CategoryCode",
+        "justification": "No existing candidate represents a category of tennis competitors; a new type is minted as a specific category code."
+      },
+      "llm_proposed": {
+        "source": "new",
+        "label": "TennisCompetitorCategory",
+        "is_new": true
+      },
+      "mentions": [
+        "men's and women's doubles pairs",
+        "men's, women's, doubles and wheelchair competitors"
+      ],
+      "candidates": [
+        {
           "source": "schema.org",
-          "label": "SportsTeam",
-          "path": "Thing > Organization > SportsOrganization",
-          "score": 0.801,
-          "comment": "An organization consisting of a group of athletes who compete together in a sport. Also called athletic team, squad, club, side. Examples: the Los Angeles Lakers, the New England Patriots, a high school basketball team."
+          "label": "TennisComplex",
+          "path": "Thing > Organization > LocalBusiness > SportsActivityLocation",
+          "score": 0.807,
+          "comment": "A local business or sports activity location featuring multiple tennis courts and related facilities. Also called tennis center, tennis club, tennis facility. Examples: 'Indian Wells Tennis Garden', a community tennis complex, a private tennis club."
         },
         {
           "source": "schema.org",
           "label": "SportsOrganization",
           "path": "Thing > Organization",
-          "score": 0.793,
+          "score": 0.8,
           "comment": "A general category for organizations involved in sports, including teams, governing bodies, and associations. Also called athletic organization, sports body, sports group. Examples: the NBA, a local youth soccer league, the International Olympic Committee."
         },
         {
           "source": "schema.org",
-          "label": "DeliveryEvent",
+          "label": "SportsEvent",
           "path": "Thing > Event",
-          "score": 0.791,
-          "comment": "An event representing the delivery of an item, typically a product or package. Also called Shipping event, package delivery, consignment event. Examples: A package arriving at its destination, a food delivery being completed, a furniture delivery appointment. Distinct from Order, which is the request for items, not the delivery itself."
+          "score": 0.798,
+          "comment": "An event involving athletic competition or display. Also called athletic contest, game, match, sporting competition. Examples: a football game, an Olympic event, a marathon race, a tennis tournament."
+        },
+        {
+          "source": "vocab",
+          "id": "T0038",
+          "label": "RepresentativeGroup",
+          "path": "Thing",
+          "score": 0.796,
+          "comment": "A group of individuals acting on behalf of another person or organization."
+        },
+        {
+          "source": "schema.org",
+          "label": "PhysicalActivityCategory",
+          "path": "Thing > Intangible > Enumeration",
+          "score": 0.796,
+          "comment": "PhysicalActivityCategory is an enumeration for categories of physical activity, organized by physiologic classification. Also called exercise type, activity classification. Examples: AerobicActivity, StrengthTraining, Flexibility. Distinct from PhysicalActivity, which is an instance of an activity."
         }
       ]
     },
     {
       "oie_type": "Organization",
-      "embedding_query_text": "Organization: A structured group of people with a particular purpose. Also called Company, Agency, Institution. Examples: BBC Sport's Ask Me Anything team, BBC.",
+      "embedding_query_text": "Organization: A structured group of people with a particular purpose. Also called Company, Agency, Institution. Examples: BBC Sport.",
       "chosen_type": {
         "label": "Organization",
         "source": "schema.org",
@@ -772,7 +720,7 @@
         "definition": null,
         "parent": null,
         "path": "Thing",
-        "justification": "The OIE type and mentions directly match the definition of Schema.org Organization, which covers groups with a particular purpose."
+        "justification": "schema.org:Organization is a direct and explicit match for the OIE type 'Organization' and its mention."
       },
       "llm_proposed": {
         "source": "schema.org",
@@ -780,110 +728,163 @@
         "is_new": false
       },
       "mentions": [
-        "BBC Sport's Ask Me Anything team",
-        "BBC"
+        "BBC Sport"
       ],
       "candidates": [
         {
           "source": "schema.org",
           "label": "Organization",
           "path": "Thing",
-          "score": 0.885,
+          "score": 0.89,
           "comment": "An Organization is a group of people with a particular purpose, such as a school, NGO, corporation, or club. Also called entity, institution, association. Examples: Google, Harvard University, Red Cross, a local sports club. Distinct from Person, which is an individual."
         },
         {
           "source": "schema.org",
           "label": "SportsOrganization",
           "path": "Thing > Organization",
-          "score": 0.847,
+          "score": 0.859,
           "comment": "A general category for organizations involved in sports, including teams, governing bodies, and associations. Also called athletic organization, sports body, sports group. Examples: the NBA, a local youth soccer league, the International Olympic Committee."
         },
         {
-          "source": "schema.org",
-          "label": "SearchRescueOrganization",
-          "path": "Thing > Organization",
-          "score": 0.829,
-          "comment": "An organization dedicated to finding and providing aid to people who are lost or in imminent danger. Also called SAR team, rescue service, emergency search unit. Examples: a mountain rescue team, a coast guard search and rescue unit, a volunteer SAR group."
-        },
-        {
-          "source": "schema.org",
-          "label": "ResearchOrganization",
-          "path": "Thing > Organization",
-          "score": 0.826,
-          "comment": "A ResearchOrganization is an Organization dedicated to conducting research. Also called scientific institute, research company, academic research center. Examples: Max Planck Society, Bell Labs, a university research department, a pharmaceutical research firm."
+          "source": "vocab",
+          "id": "T0039",
+          "label": "CharityOrganizationType",
+          "path": "Thing",
+          "score": 0.837,
+          "comment": "A category of non-profit organization that provides aid or services."
         },
         {
           "source": "schema.org",
           "label": "SportsTeam",
           "path": "Thing > Organization > SportsOrganization",
-          "score": 0.824,
+          "score": 0.834,
           "comment": "An organization consisting of a group of athletes who compete together in a sport. Also called athletic team, squad, club, side. Examples: the Los Angeles Lakers, the New England Patriots, a high school basketball team."
+        },
+        {
+          "source": "schema.org",
+          "label": "SearchRescueOrganization",
+          "path": "Thing > Organization",
+          "score": 0.83,
+          "comment": "An organization dedicated to finding and providing aid to people who are lost or in imminent danger. Also called SAR team, rescue service, emergency search unit. Examples: a mountain rescue team, a coast guard search and rescue unit, a volunteer SAR group."
         }
       ]
     },
     {
-      "oie_type": "TennisCategory",
-      "embedding_query_text": "TennisCategory: A classification of tennis players or events based on gender, number of players, or other criteria. Also called Tennis Division, Player Group, Event Type. Examples: men's singles, women's singles, men's, women's.",
+      "oie_type": "Team",
+      "embedding_query_text": "Team: A group of people working together. Also called Group, Squad, Unit. Examples: Ask Me Anything team.",
       "chosen_type": {
-        "label": "TennisClassification",
+        "label": "RepresentativeGroup",
         "source": "vocab",
-        "vocab_id": "T0060",
-        "is_new_to_vocab": true,
-        "definition": "A category or classification used to group tennis players or events based on criteria such as gender, number of players, or specific equipment.",
-        "parent": "Intangible",
-        "path": "Thing > Intangible",
-        "justification": "No existing candidate precisely captures a classification specific to tennis players or events; PhysicalActivityCategory is too broad and focused on physiological types."
+        "vocab_id": "T0038",
+        "is_new_to_vocab": false,
+        "definition": "A group of individuals acting on behalf of another person or organization.",
+        "parent": "Thing",
+        "path": "Thing",
+        "justification": "vocab:RepresentativeGroup best describes a general 'Team' as a group of individuals working together, which fits the mention."
       },
       "llm_proposed": {
-        "source": "new",
-        "label": "TennisClassification",
-        "is_new": true
+        "source": "vocab",
+        "label": "RepresentativeGroup",
+        "is_new": false
       },
       "mentions": [
-        "men's singles",
-        "women's singles",
-        "men's",
-        "women's",
-        "doubles",
-        "wheelchair competitors",
-        "men's and women's doubles pairs"
+        "Ask Me Anything team"
       ],
       "candidates": [
+        {
+          "source": "vocab",
+          "id": "T0038",
+          "label": "RepresentativeGroup",
+          "path": "Thing",
+          "score": 0.834,
+          "comment": "A group of individuals acting on behalf of another person or organization."
+        },
+        {
+          "source": "schema.org",
+          "label": "SportsTeam",
+          "path": "Thing > Organization > SportsOrganization",
+          "score": 0.822,
+          "comment": "An organization consisting of a group of athletes who compete together in a sport. Also called athletic team, squad, club, side. Examples: the Los Angeles Lakers, the New England Patriots, a high school basketball team."
+        },
+        {
+          "source": "schema.org",
+          "label": "SearchRescueOrganization",
+          "path": "Thing > Organization",
+          "score": 0.797,
+          "comment": "An organization dedicated to finding and providing aid to people who are lost or in imminent danger. Also called SAR team, rescue service, emergency search unit. Examples: a mountain rescue team, a coast guard search and rescue unit, a volunteer SAR group."
+        },
         {
           "source": "schema.org",
           "label": "SportsOrganization",
           "path": "Thing > Organization",
-          "score": 0.822,
+          "score": 0.795,
           "comment": "A general category for organizations involved in sports, including teams, governing bodies, and associations. Also called athletic organization, sports body, sports group. Examples: the NBA, a local youth soccer league, the International Olympic Committee."
         },
         {
           "source": "schema.org",
-          "label": "PhysicalActivityCategory",
-          "path": "Thing > Intangible > Enumeration",
-          "score": 0.816,
-          "comment": "PhysicalActivityCategory is an enumeration for categories of physical activity, organized by physiologic classification. Also called exercise type, activity classification. Examples: AerobicActivity, StrengthTraining, Flexibility. Distinct from PhysicalActivity, which is an instance of an activity."
-        },
+          "label": "Organization",
+          "path": "Thing",
+          "score": 0.794,
+          "comment": "An Organization is a group of people with a particular purpose, such as a school, NGO, corporation, or club. Also called entity, institution, association. Examples: Google, Harvard University, Red Cross, a local sports club. Distinct from Person, which is an individual."
+        }
+      ]
+    },
+    {
+      "oie_type": "TennisCompetitionCategory",
+      "embedding_query_text": "TennisCompetitionCategory: A classification of tennis competitions based on gender or format. Also called Tennis Event Type, Competition Format. Examples: men's and women's singles.",
+      "chosen_type": {
+        "label": "TennisCompetitionCategory",
+        "source": "vocab",
+        "vocab_id": "T0084",
+        "is_new_to_vocab": true,
+        "definition": "A classification of tennis competitions based on participant gender, number, or format.",
+        "parent": "CategoryCode",
+        "path": "Thing > Intangible > DefinedTerm > CategoryCode",
+        "justification": "No existing candidate represents a category of tennis competitions; a new type is minted as a specific category code."
+      },
+      "llm_proposed": {
+        "source": "new",
+        "label": "TennisCompetitionCategory",
+        "is_new": true
+      },
+      "mentions": [
+        "men's and women's singles"
+      ],
+      "candidates": [
         {
           "source": "schema.org",
           "label": "SportsEvent",
           "path": "Thing > Event",
-          "score": 0.808,
+          "score": 0.821,
           "comment": "An event involving athletic competition or display. Also called athletic contest, game, match, sporting competition. Examples: a football game, an Olympic event, a marathon race, a tennis tournament."
         },
         {
           "source": "schema.org",
           "label": "TennisComplex",
           "path": "Thing > Organization > LocalBusiness > SportsActivityLocation",
-          "score": 0.808,
+          "score": 0.813,
           "comment": "A local business or sports activity location featuring multiple tennis courts and related facilities. Also called tennis center, tennis club, tennis facility. Examples: 'Indian Wells Tennis Garden', a community tennis complex, a private tennis club."
         },
         {
-          "source": "vocab",
-          "id": "T0004",
-          "label": "AgeGroup",
-          "path": "Thing > Intangible",
-          "score": 0.805,
-          "comment": "A category of people defined by their age range."
+          "source": "schema.org",
+          "label": "SportsOrganization",
+          "path": "Thing > Organization",
+          "score": 0.803,
+          "comment": "A general category for organizations involved in sports, including teams, governing bodies, and associations. Also called athletic organization, sports body, sports group. Examples: the NBA, a local youth soccer league, the International Olympic Committee."
+        },
+        {
+          "source": "schema.org",
+          "label": "PhysicalActivityCategory",
+          "path": "Thing > Intangible > Enumeration",
+          "score": 0.8,
+          "comment": "PhysicalActivityCategory is an enumeration for categories of physical activity, organized by physiologic classification. Also called exercise type, activity classification. Examples: AerobicActivity, StrengthTraining, Flexibility. Distinct from PhysicalActivity, which is an instance of an activity."
+        },
+        {
+          "source": "schema.org",
+          "label": "GenderType",
+          "path": "Thing > Intangible > Enumeration",
+          "score": 0.799,
+          "comment": "A GenderType is an Enumeration of genders. Also called sex, gender identity. Examples: Male, Female, NonBinary."
         }
       ]
     }
