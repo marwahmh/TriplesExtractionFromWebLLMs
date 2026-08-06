@@ -5,7 +5,7 @@
   "types": [
     {
       "oie_type": "Country",
-      "embedding_query_text": "Country: A sovereign state or nation. Also called Nation, State, Realm. Examples: Democratic Republic of Congo, Belgium, UK, Uganda.",
+      "embedding_query_text": "Country: A nation or state, typically occupying a particular territory and having its own government. Also called Nation, State, Realm, Land. Examples: Democratic Republic of Congo, Belgium, UK, Uganda.",
       "chosen_type": {
         "label": "Country",
         "source": "schema.org",
@@ -14,7 +14,7 @@
         "definition": null,
         "parent": null,
         "path": "Thing > Place > AdministrativeArea",
-        "justification": "The OIE_TYPE 'Country' and its mentions perfectly match schema.org/Country."
+        "justification": "The OIE type 'Country' and its mentions perfectly align with schema.org/Country."
       },
       "llm_proposed": {
         "source": "schema.org",
@@ -26,122 +26,174 @@
         "Belgium",
         "UK",
         "Uganda",
-        "France",
-        "Morocco",
-        "Spain",
-        "South Africa"
+        "France"
       ],
       "candidates": [
         {
           "source": "schema.org",
           "label": "Country",
           "path": "Thing > Place > AdministrativeArea",
-          "score": 0.852,
+          "score": 0.847,
           "comment": "A Country is a sovereign state or nation, representing a primary administrative division of the Earth's surface. Also called nation, state, sovereign state, realm. Examples: United States, Canada, France, Japan, Brazil."
         },
         {
           "source": "schema.org",
           "label": "State",
           "path": "Thing > Place > AdministrativeArea",
-          "score": 0.815,
+          "score": 0.814,
           "comment": "A major administrative division of a country, such as a state or province. Also called province, region, territory, commonwealth. Examples: California, Ontario, Bavaria, Texas."
         },
         {
           "source": "vocab",
-          "id": "T0054",
-          "label": "SecretaryOfState",
-          "path": "Thing",
-          "score": 0.779,
-          "comment": "A senior official in the government, typically responsible for foreign affairs."
-        },
-        {
-          "source": "vocab",
-          "id": "T0005",
+          "id": "T0008",
           "label": "Archipelago",
           "path": "Thing > Place > Landform",
-          "score": 0.777,
+          "score": 0.788,
           "comment": "A group or chain of islands."
         },
         {
           "source": "vocab",
-          "id": "T0038",
-          "label": "RepresentativeGroup",
+          "id": "T0034",
+          "label": "GroupOfPeople",
           "path": "Thing",
-          "score": 0.771,
-          "comment": "A group of individuals acting on behalf of another person or organization."
+          "score": 0.787,
+          "comment": "A collection of individuals."
+        },
+        {
+          "source": "vocab",
+          "id": "T0003",
+          "label": "GovernmentOfficial",
+          "path": "Thing > Person",
+          "score": 0.782,
+          "comment": "A person holding an office or position in a government."
         }
       ]
     },
     {
-      "oie_type": "Organization",
-      "embedding_query_text": "Organization: A structured group of people with a particular purpose. Also called Institution, Association, Body. Examples: World Health Organization, Institut National de Recherche Biomédicale, Institute of Tropical Medicine, University of Oxford.",
+      "oie_type": "Disease Outbreak",
+      "embedding_query_text": "Disease Outbreak: A sudden increase in the incidence of a disease in a particular area or population. Also called Epidemic, Infection surge, Disease flare-up. Examples: Ebola outbreak, current deadly Ebola outbreak, the disease, Ebola.",
       "chosen_type": {
-        "label": "Organization",
-        "source": "schema.org",
-        "vocab_id": null,
-        "is_new_to_vocab": false,
-        "definition": null,
-        "parent": null,
-        "path": "Thing",
-        "justification": "The OIE_TYPE 'Organization' and its mentions perfectly match schema.org/Organization."
+        "label": "DiseaseOutbreak",
+        "source": "vocab",
+        "vocab_id": "T0063",
+        "is_new_to_vocab": true,
+        "definition": "A sudden, widespread occurrence of a disease in a particular area or population.",
+        "parent": "MedicalEntity",
+        "path": "Thing > MedicalEntity",
+        "justification": "No existing candidate accurately represents 'Disease Outbreak' as an entity; it describes a medical phenomenon, making MedicalEntity a suitable parent."
       },
       "llm_proposed": {
-        "source": "schema.org",
-        "label": "Organization",
-        "is_new": false
+        "source": "new",
+        "label": "DiseaseOutbreak",
+        "is_new": true
       },
       "mentions": [
-        "World Health Organization",
-        "Institut National de Recherche Biomédicale",
-        "Institute of Tropical Medicine",
-        "University of Oxford",
-        "Africa CDC",
-        "US public health authorities",
-        "M23 rebel group",
-        "BBC"
+        "Ebola outbreak"
+      ],
+      "candidates": [
+        {
+          "source": "vocab",
+          "id": "T0022",
+          "label": "ExcessDeathsEvent",
+          "path": "Thing > Event",
+          "score": 0.829,
+          "comment": "An event characterized by a number of deaths higher than expected for a given period."
+        },
+        {
+          "source": "vocab",
+          "id": "T0019",
+          "label": "Heatwave",
+          "path": "Thing > Event > WeatherEvent",
+          "score": 0.809,
+          "comment": "A prolonged period of abnormally hot weather."
+        },
+        {
+          "source": "vocab",
+          "id": "T0017",
+          "label": "WeatherEvent",
+          "path": "Thing > Event",
+          "score": 0.802,
+          "comment": "A specific occurrence or incident related to weather."
+        },
+        {
+          "source": "schema.org",
+          "label": "InfectiousDisease",
+          "path": "Thing > MedicalEntity > MedicalCondition",
+          "score": 0.8,
+          "comment": "An InfectiousDisease is a medical condition resulting from the presence of pathogenic microbial agents like viruses, bacteria, or fungi. Also called communicable disease, contagious illness, infection. Examples: influenza, COVID-19, malaria, tuberculosis. Distinct from MedicalCondition, which is a broader category for any health problem."
+        },
+        {
+          "source": "vocab",
+          "id": "T0025",
+          "label": "EvacuationEvent",
+          "path": "Thing > Event",
+          "score": 0.797,
+          "comment": "An event involving the organized departure of people from a place, especially in an emergency."
+        }
+      ]
+    },
+    {
+      "oie_type": "International Organization",
+      "embedding_query_text": "International Organization: An organization with an international membership, scope, or presence. Also called Global body, Multinational group, World agency. Examples: World Health Organization, WHO.",
+      "chosen_type": {
+        "label": "InternationalOrganization",
+        "source": "vocab",
+        "vocab_id": "T0064",
+        "is_new_to_vocab": true,
+        "definition": "An organization with an international membership, scope, or presence.",
+        "parent": "Organization",
+        "path": "Thing > Organization",
+        "justification": "While MedicalOrganization fits the example, the OIE type 'International Organization' focuses on scope, which is not captured by existing candidates. Organization is a suitable parent."
+      },
+      "llm_proposed": {
+        "source": "new",
+        "label": "InternationalOrganization",
+        "is_new": true
+      },
+      "mentions": [
+        "World Health Organization"
       ],
       "candidates": [
         {
           "source": "schema.org",
           "label": "Organization",
           "path": "Thing",
-          "score": 0.898,
+          "score": 0.842,
           "comment": "An Organization is a group of people with a particular purpose, such as a school, NGO, corporation, or club. Also called entity, institution, association. Examples: Google, Harvard University, Red Cross, a local sports club. Distinct from Person, which is an individual."
+        },
+        {
+          "source": "schema.org",
+          "label": "WorkersUnion",
+          "path": "Thing > Organization",
+          "score": 0.82,
+          "comment": "An organization that advocates for the interests of its worker members through collective bargaining and political lobbying. Also called labor union, trade union, industrial union. Examples: United Auto Workers (UAW), National Education Association (NEA), a local plumbers' union."
         },
         {
           "source": "schema.org",
           "label": "MedicalOrganization",
           "path": "Thing > Organization",
-          "score": 0.85,
+          "score": 0.818,
           "comment": "An organization, physical or virtual, operating in the medical domain, such as a hospital or clinic. Also called healthcare organization, medical institution, health system. Examples: \"Mayo Clinic\", \"World Health Organization\", \"Doctors Without Borders\". Distinct from Organization, which is a broader category for any group."
         },
         {
           "source": "schema.org",
-          "label": "ResearchOrganization",
+          "label": "SearchRescueOrganization",
           "path": "Thing > Organization",
-          "score": 0.839,
-          "comment": "A ResearchOrganization is an Organization dedicated to conducting research. Also called scientific institute, research company, academic research center. Examples: Max Planck Society, Bell Labs, a university research department, a pharmaceutical research firm."
+          "score": 0.818,
+          "comment": "An organization dedicated to finding and providing aid to people who are lost or in imminent danger. Also called SAR team, rescue service, emergency search unit. Examples: a mountain rescue team, a coast guard search and rescue unit, a volunteer SAR group."
         },
         {
           "source": "schema.org",
-          "label": "SportsOrganization",
+          "label": "NGO",
           "path": "Thing > Organization",
-          "score": 0.838,
-          "comment": "A general category for organizations involved in sports, including teams, governing bodies, and associations. Also called athletic organization, sports body, sports group. Examples: the NBA, a local youth soccer league, the International Olympic Committee."
-        },
-        {
-          "source": "vocab",
-          "id": "T0039",
-          "label": "CharityOrganizationType",
-          "path": "Thing",
-          "score": 0.837,
-          "comment": "A category of non-profit organization that provides aid or services."
+          "score": 0.815,
+          "comment": "An NGO (Non-governmental Organization) is a non-profit organization that operates independently of any government. Also called non-profit organization, charity, civil society organization. Examples: Doctors Without Borders, Amnesty International, local community charity. Distinct from Organization, which is a broader category including for-profit entities."
         }
       ]
     },
     {
       "oie_type": "Person",
-      "embedding_query_text": "Person: An individual human being. Also called Individual, Human, Man, Woman. Examples: Tedros Adhanom Ghebreyesus, Dr Samuel Roger Kamba, pregnant woman, individual.",
+      "embedding_query_text": "Person: A human being as an individual. Also called Individual, Human, Man, Woman, Child. Examples: patient, pregnant woman, individual, first patient.",
       "chosen_type": {
         "label": "Person",
         "source": "schema.org",
@@ -150,7 +202,7 @@
         "definition": null,
         "parent": null,
         "path": "Thing",
-        "justification": "The OIE_TYPE 'Person' and its mentions perfectly match schema.org/Person."
+        "justification": "The OIE type 'Person' and its mentions perfectly align with schema.org/Person."
       },
       "llm_proposed": {
         "source": "schema.org",
@@ -158,55 +210,118 @@
         "is_new": false
       },
       "mentions": [
-        "Tedros Adhanom Ghebreyesus",
-        "Dr Samuel Roger Kamba",
+        "patient",
         "pregnant woman",
-        "individual",
-        "Nigerian Richard Itoro"
+        "individual"
       ],
       "candidates": [
         {
           "source": "schema.org",
           "label": "Person",
           "path": "Thing",
-          "score": 0.867,
+          "score": 0.872,
           "comment": "A Person is an individual human being, whether alive, dead, undead, or fictional. Also called individual, human, character. Examples: John Doe, Albert Einstein, Sherlock Holmes. Distinct from Organization, which is a group of people."
         },
         {
-          "source": "schema.org",
-          "label": "IndividualPhysician",
-          "path": "Thing > Organization > LocalBusiness > MedicalBusiness > Physician",
-          "score": 0.808,
-          "comment": "An IndividualPhysician is a medical business representing a single medical practitioner. Also called doctor, medical doctor, general practitioner, specialist. Examples: Dr. Jane Smith (a family doctor), Dr. John Doe (a cardiologist), a local pediatrician. Distinct from Physician, which is the general role, and MedicalOrganization, which is a facility."
+          "source": "vocab",
+          "id": "T0034",
+          "label": "GroupOfPeople",
+          "path": "Thing",
+          "score": 0.849,
+          "comment": "A collection of individuals."
         },
         {
           "source": "vocab",
-          "id": "T0038",
-          "label": "RepresentativeGroup",
-          "path": "Thing",
-          "score": 0.801,
-          "comment": "A group of individuals acting on behalf of another person or organization."
+          "id": "T0036",
+          "label": "ImportantPerson",
+          "path": "Thing > Person",
+          "score": 0.814,
+          "comment": "An individual recognized for high status, influence, or celebrity."
         },
         {
           "source": "vocab",
-          "id": "T0052",
-          "label": "Student",
-          "path": "Thing",
-          "score": 0.8,
-          "comment": "A person who is studying at a school or university."
+          "id": "T0035",
+          "label": "Photographer",
+          "path": "Thing > Person",
+          "score": 0.81,
+          "comment": "An individual who takes photographs."
         },
         {
           "source": "schema.org",
           "label": "IndividualProduct",
           "path": "Thing > Product",
-          "score": 0.797,
+          "score": 0.81,
           "comment": "An IndividualProduct is a single, identifiable instance of a product. Also called specific product unit, unique item, serialized product. Examples: a laptop with a specific serial number, a particular copy of a book, a unique piece of art. Distinct from ProductModel, which describes a class of products, and ProductGroup, which is a collection of products."
         }
       ]
     },
     {
+      "oie_type": "Official",
+      "embedding_query_text": "Official: A person holding an office or engaged in public service. Also called Dignitary, Administrator, Executive, Representative. Examples: Tedros Adhanom Ghebreyesus, Dr Samuel Roger Kamba, WHO chief Tedros Adhanom Ghebreyesus, Tedros.",
+      "chosen_type": {
+        "label": "GovernmentOfficial",
+        "source": "vocab",
+        "vocab_id": "T0003",
+        "is_new_to_vocab": false,
+        "definition": "A person holding an office or position in a government.",
+        "parent": "Person",
+        "path": "Thing > Person",
+        "justification": "The OIE type 'Official' and its mentions are best described by vocab/GovernmentOfficial."
+      },
+      "llm_proposed": {
+        "source": "vocab",
+        "label": "GovernmentOfficial",
+        "is_new": false
+      },
+      "mentions": [
+        "Tedros Adhanom Ghebreyesus",
+        "Dr Samuel Roger Kamba"
+      ],
+      "candidates": [
+        {
+          "source": "vocab",
+          "id": "T0003",
+          "label": "GovernmentOfficial",
+          "path": "Thing > Person",
+          "score": 0.856,
+          "comment": "A person holding an office or position in a government."
+        },
+        {
+          "source": "vocab",
+          "id": "T0036",
+          "label": "ImportantPerson",
+          "path": "Thing > Person",
+          "score": 0.821,
+          "comment": "An individual recognized for high status, influence, or celebrity."
+        },
+        {
+          "source": "vocab",
+          "id": "T0026",
+          "label": "Representative",
+          "path": "Thing > Person",
+          "score": 0.814,
+          "comment": "An individual or group authorized to act on behalf of another person or entity."
+        },
+        {
+          "source": "vocab",
+          "id": "T0033",
+          "label": "MediaProfessional",
+          "path": "Thing > Person",
+          "score": 0.796,
+          "comment": "An individual working in the field of media, such as journalism or broadcasting."
+        },
+        {
+          "source": "schema.org",
+          "label": "City",
+          "path": "Thing > Place > AdministrativeArea",
+          "score": 0.796,
+          "comment": "A large and permanent human settlement, typically an administrative area with a defined government. Also called town, municipality, urban area, metropolis. Examples: New York City, London, Tokyo, Paris. Distinct from AdministrativeArea, which is a broader category including states, provinces, etc."
+        }
+      ]
+    },
+    {
       "oie_type": "DayOfWeek",
-      "embedding_query_text": "DayOfWeek: A specific day within a week. Also called Weekday, Weekend day. Examples: Thursday.",
+      "embedding_query_text": "DayOfWeek: A specific day within a calendar week. Also called Weekday, Weekend day, Calendar day. Examples: Thursday.",
       "chosen_type": {
         "label": "DayOfWeek",
         "source": "schema.org",
@@ -215,7 +330,7 @@
         "definition": null,
         "parent": null,
         "path": "Thing > Intangible > Enumeration",
-        "justification": "The OIE_TYPE 'DayOfWeek' and its mention perfectly match schema.org/DayOfWeek."
+        "justification": "The OIE type 'DayOfWeek' and its mention perfectly align with schema.org/DayOfWeek."
       },
       "llm_proposed": {
         "source": "schema.org",
@@ -230,45 +345,120 @@
           "source": "schema.org",
           "label": "DayOfWeek",
           "path": "Thing > Intangible > Enumeration",
-          "score": 0.895,
+          "score": 0.904,
           "comment": "An enumeration representing a specific day of the week, used for scheduling or recurring events. Also called Weekday, calendar day, day name. Examples: Monday, Tuesday, Saturday, Sunday. Distinct from Date, which specifies a particular calendar date."
         },
         {
           "source": "vocab",
-          "id": "T0040",
-          "label": "TimeOfDay",
-          "path": "Thing",
-          "score": 0.867,
-          "comment": "A general period within a day."
+          "id": "T0027",
+          "label": "CalendarDayOrPeriod",
+          "path": "Thing > Intangible",
+          "score": 0.85,
+          "comment": "A specific day of the week or a defined period of days on a calendar."
         },
         {
           "source": "vocab",
-          "id": "T0006",
+          "id": "T0009",
           "label": "HolidayWeekend",
-          "path": "Thing > Intangible > DateRange",
-          "score": 0.83,
+          "path": "Thing > Intangible",
+          "score": 0.831,
           "comment": "A weekend extended by a public holiday."
         },
         {
-          "source": "schema.org",
-          "label": "Schedule",
+          "source": "vocab",
+          "id": "T0028",
+          "label": "DayPeriod",
           "path": "Thing > Intangible",
-          "score": 0.792,
-          "comment": "A definition of a repeating time period used to describe a regularly occurring event, specifying frequency, days, and start/end times. Also called timetable, recurring event plan, calendar entry, routine. Examples: a weekly yoga class schedule, a bus route timetable, a daily meeting schedule, a concert series calendar."
+          "score": 0.821,
+          "comment": "A general period within a day, such as morning, afternoon, or night."
         },
         {
-          "source": "vocab",
-          "id": "T0022",
-          "label": "HottestDayEvent",
-          "path": "Thing > Event > WeatherEvent",
-          "score": 0.791,
-          "comment": "An event marking the occurrence of the hottest day on record or in a specific period."
+          "source": "schema.org",
+          "label": "Date",
+          "path": "",
+          "score": 0.803,
+          "comment": "Date is a data type representing a specific calendar date, typically formatted according to ISO 8601. Also called calendar date, specific day. Examples: \"2023-10-27\", \"1999-12-31\", \"0001-01-01\"."
         }
       ]
     },
     {
-      "oie_type": "VirusSpecies",
-      "embedding_query_text": "VirusSpecies: A specific type or classification of a virus. Also called Viral strain, Virus type. Examples: Bundibugyo virus, Ebola.",
+      "oie_type": "Quantity",
+      "embedding_query_text": "Quantity: A measurable amount or number of something. Also called Amount, Number, Count, Volume. Examples: 1,400 cases, 438 deaths, 1,460 confirmed cases, 150 suspected cases.",
+      "chosen_type": {
+        "label": "Quantity",
+        "source": "schema.org",
+        "vocab_id": null,
+        "is_new_to_vocab": false,
+        "definition": null,
+        "parent": null,
+        "path": "",
+        "justification": "The OIE type 'Quantity' and its mentions perfectly align with schema.org/Quantity."
+      },
+      "llm_proposed": {
+        "source": "schema.org",
+        "label": "Quantity",
+        "is_new": false
+      },
+      "mentions": [
+        "1,400 cases",
+        "438 deaths",
+        "1,460 confirmed cases",
+        "150 suspected cases",
+        "452 deaths",
+        "213 people have recovered",
+        "20 confirmed cases",
+        "two deaths",
+        "one confirmed case",
+        "1.5 million people",
+        "four laboratories",
+        "10 laboratories",
+        "six species of Ebola",
+        "three species cause outbreaks"
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "Quantity",
+          "path": "",
+          "score": 0.859,
+          "comment": "Quantity is a data type representing measurable amounts such as distance, time, mass, or weight. Also called amount, measure, magnitude. Examples: '3 kg', '4 milligrams', '10 meters', '2 hours'."
+        },
+        {
+          "source": "schema.org",
+          "label": "Mass",
+          "path": "Quantity",
+          "score": 0.834,
+          "comment": "A quantity representing the amount of matter in an object, typically expressed with a unit of measure. Also called weight, bulk, quantity of matter. Examples: \"5 kg\", \"10 pounds\", \"200 grams\", \"1 ton\". Distinct from Quantity, which is a broader concept for any measurable amount."
+        },
+        {
+          "source": "vocab",
+          "id": "T0005",
+          "label": "Temperature",
+          "path": "Quantity",
+          "score": 0.824,
+          "comment": "A measurable amount of warmth or coldness, typically expressed with a unit of measure."
+        },
+        {
+          "source": "vocab",
+          "id": "T0030",
+          "label": "Age",
+          "path": "Quantity",
+          "score": 0.822,
+          "comment": "The number of years a person has lived."
+        },
+        {
+          "source": "vocab",
+          "id": "T0022",
+          "label": "ExcessDeathsEvent",
+          "path": "Thing > Event",
+          "score": 0.821,
+          "comment": "An event characterized by a number of deaths higher than expected for a given period."
+        }
+      ]
+    },
+    {
+      "oie_type": "Virus Species",
+      "embedding_query_text": "Virus Species: A specific classification of a virus, often characterized by genetic and phenotypic properties. Also called Viral type, Virus strain, Pathogen species. Examples: Bundibugyo virus species.",
       "chosen_type": {
         "label": "Taxon",
         "source": "schema.org",
@@ -277,7 +467,7 @@
         "definition": null,
         "parent": null,
         "path": "Thing",
-        "justification": "schema.org/Taxon is the best fit for specific virus species like 'Bundibugyo virus' and 'Ebola'."
+        "justification": "schema.org/Taxon is the most appropriate type for a 'Virus Species' as it represents a biological classification unit."
       },
       "llm_proposed": {
         "source": "schema.org",
@@ -285,50 +475,292 @@
         "is_new": false
       },
       "mentions": [
-        "Bundibugyo virus",
-        "Ebola"
+        "Bundibugyo virus species"
       ],
       "candidates": [
         {
           "source": "schema.org",
           "label": "InfectiousAgentClass",
           "path": "Thing > Intangible > Enumeration > MedicalEnumeration",
-          "score": 0.816,
+          "score": 0.811,
+          "comment": "InfectiousAgentClass is a medical enumeration of classes of agents or pathogens that transmit infectious diseases. Also called pathogen type, disease agent category, microbial class. Examples: 'Bacteria', 'Virus', 'Fungus', 'Parasite'."
+        },
+        {
+          "source": "vocab",
+          "id": "T0037",
+          "label": "VehicleType",
+          "path": "Thing > Intangible > Enumeration",
+          "score": 0.801,
+          "comment": "A classification for a kind of vehicle."
+        },
+        {
+          "source": "schema.org",
+          "label": "Taxon",
+          "path": "Thing",
+          "score": 0.797,
+          "comment": "A cohesive biological unit representing a group of organisms, such as a species, genus, or family. Also called biological classification, taxonomic group, species, genus. Examples: Homo sapiens, Canis familiaris, Felidae (cat family), Plantae (plant kingdom)."
+        },
+        {
+          "source": "vocab",
+          "id": "T0052",
+          "label": "EventType",
+          "path": "Thing > Intangible > Enumeration",
+          "score": 0.793,
+          "comment": "A classification or category for a kind of event."
+        },
+        {
+          "source": "schema.org",
+          "label": "Gene",
+          "path": "Thing > BioChemEntity",
+          "score": 0.793,
+          "comment": "A Gene is a BioChemEntity representing a discrete unit of inheritance that affects one or more biological traits. Also called genetic unit, hereditary factor. Examples: FOXP2, SCARNA21, the gene for eye color, a specific allele."
+        }
+      ]
+    },
+    {
+      "oie_type": "Medical Product",
+      "embedding_query_text": "Medical Product: Any substance or device used for medical purposes, such as diagnosis, treatment, or prevention of disease. Also called Pharmaceutical, Drug, Therapeutic, Medicine. Examples: vaccines, treatments, antiviral drugs, therapeutics.",
+      "chosen_type": {
+        "label": "Drug",
+        "source": "schema.org",
+        "vocab_id": null,
+        "is_new_to_vocab": false,
+        "definition": null,
+        "parent": null,
+        "path": "Thing > Product",
+        "justification": "schema.org/Drug is the most specific and appropriate type for 'Medical Product' mentions like vaccines and antiviral drugs."
+      },
+      "llm_proposed": {
+        "source": "schema.org",
+        "label": "Drug",
+        "is_new": false
+      },
+      "mentions": [
+        "vaccines",
+        "treatments",
+        "antiviral drugs"
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "Drug",
+          "path": "Thing > Product",
+          "score": 0.891,
+          "comment": "A Drug is a Product that is a chemical or biological substance used as a medical therapy, having a physiological effect on an organism. Also called medicine, pharmaceutical, medication. Examples: Aspirin, Insulin, Penicillin, Ibuprofen."
+        },
+        {
+          "source": "schema.org",
+          "label": "Product",
+          "path": "Thing",
+          "score": 0.873,
+          "comment": "A Product is any offered good or service. Also called item, merchandise, offering. Examples: a pair of shoes, a concert ticket, a car rental service, an episode of a TV show."
+        },
+        {
+          "source": "vocab",
+          "id": "T0039",
+          "label": "Equipment",
+          "path": "Thing > Product",
+          "score": 0.85,
+          "comment": "The necessary items for a particular purpose."
+        },
+        {
+          "source": "schema.org",
+          "label": "MedicalTherapy",
+          "path": "Thing > MedicalEntity > MedicalProcedure > TherapeuticProcedure",
+          "score": 0.847,
+          "comment": "A therapeutic medical procedure designed to prevent, treat, and cure human diseases and medical conditions. Also called medical treatment, healthcare intervention, therapy regimen. Examples: \"pharmacotherapy\", \"behavioral therapy\", \"supportive therapy\", \"dialysis\". Distinct from MedicalProcedure, which is a broader category including diagnostic procedures."
+        },
+        {
+          "source": "schema.org",
+          "label": "TherapeuticProcedure",
+          "path": "Thing > MedicalEntity > MedicalProcedure",
+          "score": 0.838,
+          "comment": "A medical procedure specifically intended to treat a health condition or improve a patient's well-being. Also called medical treatment, therapy, healing procedure. Examples: chemotherapy, physical therapy, surgical removal of a tumor."
+        }
+      ]
+    },
+    {
+      "oie_type": "Virus",
+      "embedding_query_text": "Virus: A small infectious agent that replicates only inside the living cells of an organism. Also called Microbe, Pathogen, Germ. Examples: Ebola virus.",
+      "chosen_type": {
+        "label": "InfectiousAgentClass",
+        "source": "schema.org",
+        "vocab_id": null,
+        "is_new_to_vocab": false,
+        "definition": null,
+        "parent": null,
+        "path": "Thing > Intangible > Enumeration > MedicalEnumeration",
+        "justification": "schema.org/InfectiousAgentClass explicitly lists 'Virus' as an example, making it the best fit for the OIE type 'Virus'."
+      },
+      "llm_proposed": {
+        "source": "schema.org",
+        "label": "InfectiousAgentClass",
+        "is_new": false
+      },
+      "mentions": [
+        "Ebola virus"
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "InfectiousAgentClass",
+          "path": "Thing > Intangible > Enumeration > MedicalEnumeration",
+          "score": 0.817,
           "comment": "InfectiousAgentClass is a medical enumeration of classes of agents or pathogens that transmit infectious diseases. Also called pathogen type, disease agent category, microbial class. Examples: 'Bacteria', 'Virus', 'Fungus', 'Parasite'."
         },
         {
           "source": "schema.org",
           "label": "InfectiousDisease",
           "path": "Thing > MedicalEntity > MedicalCondition",
-          "score": 0.794,
+          "score": 0.799,
           "comment": "An InfectiousDisease is a medical condition resulting from the presence of pathogenic microbial agents like viruses, bacteria, or fungi. Also called communicable disease, contagious illness, infection. Examples: influenza, COVID-19, malaria, tuberculosis. Distinct from MedicalCondition, which is a broader category for any health problem."
         },
         {
           "source": "schema.org",
-          "label": "Taxon",
-          "path": "Thing",
+          "label": "VideoObject",
+          "path": "Thing > CreativeWork > MediaObject",
+          "score": 0.78,
+          "comment": "A media object representing a video file. Also called video file, digital video, movie clip. Examples: an MP4 video, a YouTube video, a short film."
+        },
+        {
+          "source": "schema.org",
+          "label": "ImageObject",
+          "path": "Thing > CreativeWork > MediaObject",
+          "score": 0.776,
+          "comment": "An ImageObject is a media object creative work representing an image file. Also called picture, photo, graphic, visual. Examples: a JPEG photograph, a PNG illustration, a GIF animation. Distinct from VideoObject, which is a video file, and AudioObject, which is an audio file."
+        },
+        {
+          "source": "schema.org",
+          "label": "Substance",
+          "path": "Thing > MedicalEntity",
+          "score": 0.774,
+          "comment": "Any matter of defined composition with discrete existence, which can be biological, mineral, or chemical. Also called material, chemical compound, element, matter. Examples: water, oxygen, penicillin, granite."
+        }
+      ]
+    },
+    {
+      "oie_type": "Research Institute",
+      "embedding_query_text": "Research Institute: An establishment endowed for fundamental or applied research. Also called Research center, Laboratory, Scientific institution. Examples: Institut National de Recherche Biomédicale, Institute of Tropical Medicine.",
+      "chosen_type": {
+        "label": "ResearchOrganization",
+        "source": "schema.org",
+        "vocab_id": null,
+        "is_new_to_vocab": false,
+        "definition": null,
+        "parent": null,
+        "path": "Thing > Organization",
+        "justification": "The OIE type 'Research Institute' and its mentions perfectly align with schema.org/ResearchOrganization."
+      },
+      "llm_proposed": {
+        "source": "schema.org",
+        "label": "ResearchOrganization",
+        "is_new": false
+      },
+      "mentions": [
+        "Institut National de Recherche Biomédicale",
+        "Institute of Tropical Medicine"
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "ResearchOrganization",
+          "path": "Thing > Organization",
+          "score": 0.823,
+          "comment": "A ResearchOrganization is an Organization dedicated to conducting research. Also called scientific institute, research company, academic research center. Examples: Max Planck Society, Bell Labs, a university research department, a pharmaceutical research firm."
+        },
+        {
+          "source": "schema.org",
+          "label": "ResearchProject",
+          "path": "Thing > Organization > Project",
+          "score": 0.807,
+          "comment": "A ResearchProject is a Project representing a planned enterprise aimed at scientific or academic inquiry. Also called research initiative, study, academic project. Examples: a clinical trial, a grant-funded scientific study, a historical research project, a university-led exploration."
+        },
+        {
+          "source": "schema.org",
+          "label": "DiagnosticLab",
+          "path": "Thing > Organization > MedicalOrganization",
+          "score": 0.788,
+          "comment": "A medical organization that provides on-site or off-site diagnostic services, such as testing and analysis. Also called Medical laboratory, pathology lab, clinical lab, testing facility. Examples: Quest Diagnostics, LabCorp, a hospital's pathology department. Distinct from MedicalClinic, which provides direct patient care and consultations."
+        },
+        {
+          "source": "schema.org",
+          "label": "MedicalClinic",
+          "path": "Thing > Organization > LocalBusiness > MedicalBusiness",
+          "score": 0.776,
+          "comment": "A medical business facility, often associated with a hospital, dedicated to specific diagnosis and/or healthcare, typically for outpatients but sometimes inpatients. Also called clinic, healthcare center, medical facility. Examples: a dermatology clinic, a walk-in clinic, a university health clinic, a family practice. Distinct from Hospital, which is a larger institution providing comprehensive medical care."
+        },
+        {
+          "source": "vocab",
+          "id": "T0039",
+          "label": "Equipment",
+          "path": "Thing > Product",
+          "score": 0.772,
+          "comment": "The necessary items for a particular purpose."
+        }
+      ]
+    },
+    {
+      "oie_type": "University",
+      "embedding_query_text": "University: An institution of higher education and research, which grants academic degrees in various subjects. Also called College, Academy, Higher education institution. Examples: University of Oxford.",
+      "chosen_type": {
+        "label": "CollegeOrUniversity",
+        "source": "schema.org",
+        "vocab_id": null,
+        "is_new_to_vocab": false,
+        "definition": null,
+        "parent": null,
+        "path": "Thing > Place > CivicStructure > EducationalOrganization",
+        "justification": "The OIE type 'University' and its mention perfectly align with schema.org/CollegeOrUniversity."
+      },
+      "llm_proposed": {
+        "source": "schema.org",
+        "label": "CollegeOrUniversity",
+        "is_new": false
+      },
+      "mentions": [
+        "University of Oxford"
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "CollegeOrUniversity",
+          "path": "Thing > Place > CivicStructure > EducationalOrganization",
+          "score": 0.822,
+          "comment": "A third-level educational institution providing higher education. Also called university, college, higher education institution. Examples: Harvard University, Oxford College, Massachusetts Institute of Technology, Sorbonne University. Distinct from EducationalOrganization, which is a broader category for any educational body."
+        },
+        {
+          "source": "schema.org",
+          "label": "School",
+          "path": "Thing > Place > CivicStructure > EducationalOrganization",
+          "score": 0.806,
+          "comment": "An educational organization providing instruction to students, typically for primary or secondary education. Also called educational institution, academy, learning center, college. Examples: a public elementary school, a private high school, a vocational school, a university."
+        },
+        {
+          "source": "schema.org",
+          "label": "EducationalOrganization",
+          "path": "Thing > Place > CivicStructure",
           "score": 0.791,
-          "comment": "A cohesive biological unit representing a group of organisms, such as a species, genus, or family. Also called biological classification, taxonomic group, species, genus. Examples: Homo sapiens, Canis familiaris, Felidae (cat family), Plantae (plant kingdom)."
+          "comment": "An EducationalOrganization is a CivicStructure that provides education. Also called learning institution, academic body, school. Examples: A university, a high school, a vocational college, a research institute."
         },
         {
           "source": "schema.org",
-          "label": "USNonprofitType",
-          "path": "Thing > Intangible > Enumeration > NonprofitType",
-          "score": 0.783,
-          "comment": "An enumeration of specific non-profit organization types recognized within the United States. Also called US charity type, American non-profit category, US voluntary sector classification. Examples: a 501(c)(3) organization, a public charity, a private foundation."
+          "label": "ResearchOrganization",
+          "path": "Thing > Organization",
+          "score": 0.79,
+          "comment": "A ResearchOrganization is an Organization dedicated to conducting research. Also called scientific institute, research company, academic research center. Examples: Max Planck Society, Bell Labs, a university research department, a pharmaceutical research firm."
         },
         {
           "source": "schema.org",
-          "label": "RsvpResponseType",
-          "path": "Thing > Intangible > Enumeration",
-          "score": 0.782,
-          "comment": "An enumeration type representing the possible responses to an RSVP request. Also called RSVP status, attendance response, invitation reply type. Examples: RsvpResponseType.Yes, RsvpResponseType.No, RsvpResponseType.MayBe."
+          "label": "HighSchool",
+          "path": "Thing > Place > CivicStructure > EducationalOrganization",
+          "score": 0.779,
+          "comment": "A HighSchool is an educational organization and civic structure providing secondary education. Also called secondary school, senior high, academy. Examples: Springfield High School, Northwood Academy, a local public high school."
         }
       ]
     },
     {
       "oie_type": "City",
-      "embedding_query_text": "City: A large and densely populated urban area. Also called Metropolis, Town, Urban center. Examples: Geneva, Kisangani, Kinshsasa, Ceuta.",
+      "embedding_query_text": "City: A large and densely populated urban area. Also called Metropolis, Town, Urban center. Examples: Geneva, Kisangani, Kinshasa, Kinshsasa.",
       "chosen_type": {
         "label": "City",
         "source": "schema.org",
@@ -337,7 +769,7 @@
         "definition": null,
         "parent": null,
         "path": "Thing > Place > AdministrativeArea",
-        "justification": "The OIE_TYPE 'City' and its mentions perfectly match schema.org/City."
+        "justification": "The OIE type 'City' and its mentions perfectly align with schema.org/City."
       },
       "llm_proposed": {
         "source": "schema.org",
@@ -347,61 +779,181 @@
       "mentions": [
         "Geneva",
         "Kisangani",
-        "Kinshsasa",
-        "Ceuta"
+        "Kinshasa"
       ],
       "candidates": [
         {
           "source": "schema.org",
           "label": "City",
           "path": "Thing > Place > AdministrativeArea",
-          "score": 0.839,
+          "score": 0.838,
           "comment": "A large and permanent human settlement, typically an administrative area with a defined government. Also called town, municipality, urban area, metropolis. Examples: New York City, London, Tokyo, Paris. Distinct from AdministrativeArea, which is a broader category including states, provinces, etc."
         },
         {
           "source": "vocab",
-          "id": "T0005",
+          "id": "T0008",
           "label": "Archipelago",
           "path": "Thing > Place > Landform",
-          "score": 0.786,
+          "score": 0.787,
           "comment": "A group or chain of islands."
         },
         {
           "source": "vocab",
-          "id": "T0044",
-          "label": "Mayor",
+          "id": "T0034",
+          "label": "GroupOfPeople",
           "path": "Thing",
-          "score": 0.782,
-          "comment": "The elected head of a city, town, or other municipality."
+          "score": 0.779,
+          "comment": "A collection of individuals."
         },
         {
-          "source": "schema.org",
-          "label": "StadiumOrArena",
-          "path": "Thing > Place > CivicStructure",
-          "score": 0.777,
-          "comment": "A large civic structure designed for sporting events, concerts, or other large-scale public gatherings. Also called stadium, arena, coliseum, sports complex. Examples: Wembley Stadium, Madison Square Garden, the Roman Colosseum."
+          "source": "vocab",
+          "id": "T0047",
+          "label": "BuildingPart",
+          "path": "Thing",
+          "score": 0.779,
+          "comment": "A component or section of a building."
         },
         {
           "source": "schema.org",
           "label": "Zoo",
           "path": "Thing > Place > CivicStructure",
-          "score": 0.776,
+          "score": 0.777,
           "comment": "A civic structure and facility where wild animals are housed, exhibited, and often bred for conservation and public education. Also called zoological garden, animal park, wildlife park. Examples: San Diego Zoo, London Zoo, Bronx Zoo."
         }
       ]
     },
     {
+      "oie_type": "Building",
+      "embedding_query_text": "Building Examples: WHO headquarters.",
+      "chosen_type": {
+        "label": "GovernmentBuilding",
+        "source": "schema.org",
+        "vocab_id": null,
+        "is_new_to_vocab": false,
+        "definition": null,
+        "parent": null,
+        "path": "Thing > Place > CivicStructure",
+        "justification": "WHO headquarters functions as a government-like building for an intergovernmental organization, making GovernmentBuilding the closest fit among candidates."
+      },
+      "llm_proposed": {
+        "source": "schema.org",
+        "label": "GovernmentBuilding",
+        "is_new": false
+      },
+      "mentions": [
+        "WHO headquarters"
+      ],
+      "candidates": [
+        {
+          "source": "vocab",
+          "id": "T0047",
+          "label": "BuildingPart",
+          "path": "Thing",
+          "score": 0.8,
+          "comment": "A component or section of a building."
+        },
+        {
+          "source": "schema.org",
+          "label": "CityHall",
+          "path": "Thing > Place > CivicStructure > GovernmentBuilding",
+          "score": 0.796,
+          "comment": "A government building serving as the administrative headquarters for a city or town. Also called town hall, municipal building, civic center. Examples: New York City Hall, London City Hall, a local town's municipal office. Distinct from GovernmentBuilding, which is a broader category for any government facility."
+        },
+        {
+          "source": "schema.org",
+          "label": "DefenceEstablishment",
+          "path": "Thing > Place > CivicStructure > GovernmentBuilding",
+          "score": 0.796,
+          "comment": "A government building or civic structure primarily used for military or national defense purposes. Also called Military base, army base, naval base, air force station. Examples: The Pentagon, Fort Bragg, Pearl Harbor Naval Shipyard, Royal Air Force Lakenheath. Distinct from GovernmentBuilding, which is a broader category for any government facility."
+        },
+        {
+          "source": "schema.org",
+          "label": "LegislativeBuilding",
+          "path": "Thing > Place > CivicStructure > GovernmentBuilding",
+          "score": 0.794,
+          "comment": "A LegislativeBuilding is a government building civic structure where legislative bodies meet and conduct their work. Also called capitol building, parliament house, assembly hall. Examples: the U.S. Capitol, a state capitol building, the Houses of Parliament. Distinct from GovernmentBuilding, which is a broader category for any government facility."
+        },
+        {
+          "source": "schema.org",
+          "label": "GovernmentBuilding",
+          "path": "Thing > Place > CivicStructure",
+          "score": 0.794,
+          "comment": "A GovernmentBuilding is a civic structure that houses government operations or services. Also called public building, state edifice, official premises. Examples: city hall, parliament building, courthouse, post office. Distinct from GovernmentOffice, which is a specific type of organization within a government building."
+        }
+      ]
+    },
+    {
+      "oie_type": "Government Role",
+      "embedding_query_text": "Government Role: A specific position or function within a government or public administration. Also called Public office, Official capacity, State position. Examples: Health Minister.",
+      "chosen_type": {
+        "label": "Role",
+        "source": "schema.org",
+        "vocab_id": null,
+        "is_new_to_vocab": false,
+        "definition": null,
+        "parent": null,
+        "path": "Thing > Intangible",
+        "justification": "schema.org/Role is the most appropriate type for 'Government Role' as it describes a function or position."
+      },
+      "llm_proposed": {
+        "source": "schema.org",
+        "label": "Role",
+        "is_new": false
+      },
+      "mentions": [
+        "Health Minister"
+      ],
+      "candidates": [
+        {
+          "source": "vocab",
+          "id": "T0003",
+          "label": "GovernmentOfficial",
+          "path": "Thing > Person",
+          "score": 0.854,
+          "comment": "A person holding an office or position in a government."
+        },
+        {
+          "source": "schema.org",
+          "label": "Role",
+          "path": "Thing > Intangible",
+          "score": 0.818,
+          "comment": "Additional information describing a relationship or property, such as a person's function in an organization or a character played in a movie. Also called function, capacity, position, part. Examples: 'actor' role for a person in a film, 'member' role for a player on a sports team, 'author' role for a person on a book."
+        },
+        {
+          "source": "schema.org",
+          "label": "GovernmentOrganization",
+          "path": "Thing > Organization",
+          "score": 0.815,
+          "comment": "A GovernmentOrganization is an organization or agency that is part of a governmental body. Also called public sector entity, state agency, governmental body. Examples: Department of Defense, Environmental Protection Agency, National Institutes of Health, local city council."
+        },
+        {
+          "source": "schema.org",
+          "label": "GovernmentOffice",
+          "path": "Thing > Organization > LocalBusiness",
+          "score": 0.812,
+          "comment": "A GovernmentOffice is a local business representing a specific governmental agency or department. Also called public agency office, state department branch, municipal service center. Examples: IRS office, DMV office, local planning department, social security office. Distinct from GovernmentBuilding, which is the physical structure that may contain multiple offices."
+        },
+        {
+          "source": "schema.org",
+          "label": "State",
+          "path": "Thing > Place > AdministrativeArea",
+          "score": 0.812,
+          "comment": "A major administrative division of a country, such as a state or province. Also called province, region, territory, commonwealth. Examples: California, Ontario, Bavaria, Texas."
+        }
+      ]
+    },
+    {
       "oie_type": "Month",
-      "embedding_query_text": "Month: A unit of time, typically one twelfth of a year. Also called Calendar month. Examples: May.",
+      "embedding_query_text": "Month: One of the twelve divisions of the year. Also called Calendar month, Lunar month, Period. Examples: May.",
       "chosen_type": {
         "label": "Month",
         "source": "vocab",
-        "vocab_id": "T0001",
+        "vocab_id": "T0002",
         "is_new_to_vocab": false,
-        "definition": "A unit of time, typically one of the twelve divisions of the year.",
+        "definition": "One of the twelve divisions of a calendar year.",
         "parent": "Intangible",
         "path": "Thing > Intangible",
-        "justification": "The OIE_TYPE 'Month' and its mention perfectly match vocab/Month."
+        "justification": "The OIE type 'Month' and its mention perfectly align with vocab/Month."
       },
       "llm_proposed": {
         "source": "vocab",
@@ -414,47 +966,47 @@
       "candidates": [
         {
           "source": "vocab",
-          "id": "T0001",
+          "id": "T0002",
           "label": "Month",
           "path": "Thing > Intangible",
-          "score": 0.884,
-          "comment": "A unit of time, typically one of the twelve divisions of the year."
+          "score": 0.891,
+          "comment": "One of the twelve divisions of a calendar year."
         },
         {
           "source": "vocab",
-          "id": "T0056",
+          "id": "T0055",
           "label": "Year",
-          "path": "Thing",
-          "score": 0.833,
-          "comment": "A period of 365 or 366 days, divided into 12 months, starting from January 1st."
+          "path": "Thing > Intangible",
+          "score": 0.807,
+          "comment": "A specific calendar year."
         },
         {
           "source": "vocab",
-          "id": "T0040",
-          "label": "TimeOfDay",
-          "path": "Thing",
-          "score": 0.818,
-          "comment": "A general period within a day."
+          "id": "T0027",
+          "label": "CalendarDayOrPeriod",
+          "path": "Thing > Intangible",
+          "score": 0.804,
+          "comment": "A specific day of the week or a defined period of days on a calendar."
         },
         {
           "source": "schema.org",
           "label": "Schedule",
           "path": "Thing > Intangible",
-          "score": 0.803,
+          "score": 0.796,
           "comment": "A definition of a repeating time period used to describe a regularly occurring event, specifying frequency, days, and start/end times. Also called timetable, recurring event plan, calendar entry, routine. Examples: a weekly yoga class schedule, a bus route timetable, a daily meeting schedule, a concert series calendar."
         },
         {
           "source": "schema.org",
-          "label": "Duration",
-          "path": "Quantity",
-          "score": 0.79,
-          "comment": "As a Quantity, Duration represents a period of time, typically expressed in ISO 8601 format. Also called time span, period, length of time. Examples: \"PT1H30M\" (1 hour 30 minutes), \"P3D\" (3 days), \"PT2H\" (2 hours)."
+          "label": "Season",
+          "path": "Thing > CreativeWork",
+          "score": 0.788,
+          "comment": "A distinct period within a media series, such as a television show, radio program, or video game. Also called media season, series installment, broadcast season. Examples: 'Season 1 of Game of Thrones', 'The Fall 2023 radio season', 'Chapter 3 of a video game series'. Distinct from TVSeason, which is specifically for television broadcasts."
         }
       ]
     },
     {
       "oie_type": "Date",
-      "embedding_query_text": "Date: A specific point in time, usually a day, month, and year. Also called Calendar date, Day. Examples: 1 July, Earlier this week, last week, 03/07/2026.",
+      "embedding_query_text": "Date: A particular day of the month or year, as specified by a number and usually a name. Also called Calendar day, Specific day, Point in time. Examples: 1 July.",
       "chosen_type": {
         "label": "Date",
         "source": "schema.org",
@@ -463,7 +1015,7 @@
         "definition": null,
         "parent": null,
         "path": "",
-        "justification": "The OIE_TYPE 'Date' and its mentions perfectly match schema.org/Date as a specific calendar date."
+        "justification": "The OIE type 'Date' and its mention perfectly align with schema.org/Date."
       },
       "llm_proposed": {
         "source": "schema.org",
@@ -471,55 +1023,417 @@
         "is_new": false
       },
       "mentions": [
-        "1 July",
-        "Earlier this week",
-        "last week",
-        "03/07/2026"
+        "1 July"
       ],
       "candidates": [
         {
           "source": "schema.org",
           "label": "Date",
           "path": "",
-          "score": 0.859,
+          "score": 0.868,
           "comment": "Date is a data type representing a specific calendar date, typically formatted according to ISO 8601. Also called calendar date, specific day. Examples: \"2023-10-27\", \"1999-12-31\", \"0001-01-01\"."
         },
         {
           "source": "vocab",
-          "id": "T0040",
-          "label": "TimeOfDay",
-          "path": "Thing",
-          "score": 0.846,
-          "comment": "A general period within a day."
+          "id": "T0055",
+          "label": "Year",
+          "path": "Thing > Intangible",
+          "score": 0.839,
+          "comment": "A specific calendar year."
         },
         {
           "source": "vocab",
-          "id": "T0002",
-          "label": "DateRange",
+          "id": "T0027",
+          "label": "CalendarDayOrPeriod",
           "path": "Thing > Intangible",
-          "score": 0.824,
-          "comment": "A specified period of time between two dates."
+          "score": 0.828,
+          "comment": "A specific day of the week or a defined period of days on a calendar."
+        },
+        {
+          "source": "vocab",
+          "id": "T0028",
+          "label": "DayPeriod",
+          "path": "Thing > Intangible",
+          "score": 0.814,
+          "comment": "A general period within a day, such as morning, afternoon, or night."
         },
         {
           "source": "schema.org",
-          "label": "DayOfWeek",
-          "path": "Thing > Intangible > Enumeration",
-          "score": 0.822,
-          "comment": "An enumeration representing a specific day of the week, used for scheduling or recurring events. Also called Weekday, calendar day, day name. Examples: Monday, Tuesday, Saturday, Sunday. Distinct from Date, which specifies a particular calendar date."
+          "label": "DateTime",
+          "path": "",
+          "score": 0.814,
+          "comment": "A data type representing a specific point in time, combining both date and time components according to ISO 8601. Also called Timestamp, date and time string, ISO 8601 datetime. Examples: \"2023-10-27T10:30:00Z\", \"1999-12-31T23:59:59-05:00\", \"2024-01-15T14:00:00\". Distinct from Date, which only specifies a calendar date without time."
+        }
+      ]
+    },
+    {
+      "oie_type": "Biological System",
+      "embedding_query_text": "Biological System: A complex network of biologically functioning entities. Also called Organ system, Body system, Physiological system. Examples: immune system, organs.",
+      "chosen_type": {
+        "label": "AnatomicalSystem",
+        "source": "schema.org",
+        "vocab_id": null,
+        "is_new_to_vocab": false,
+        "definition": null,
+        "parent": null,
+        "path": "Thing > MedicalEntity",
+        "justification": "The OIE type 'Biological System' and its mentions perfectly align with schema.org/AnatomicalSystem."
+      },
+      "llm_proposed": {
+        "source": "schema.org",
+        "label": "AnatomicalSystem",
+        "is_new": false
+      },
+      "mentions": [
+        "immune system",
+        "organs"
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "AnatomicalSystem",
+          "path": "Thing > MedicalEntity",
+          "score": 0.838,
+          "comment": "An AnatomicalSystem is a MedicalEntity comprising a group of anatomical structures that function together to perform a specific task. Also called organ system, biological system, body system. Examples: The circulatory system, the digestive system, the nervous system, the skeletal system. Distinct from AnatomicalStructure, which is an individual part of the body."
+        },
+        {
+          "source": "schema.org",
+          "label": "BioChemEntity",
+          "path": "Thing",
+          "score": 0.835,
+          "comment": "A fundamental Thing representing any biological, chemical, or biochemical substance or entity. Also called biochemical, chemical compound, biological entity, molecule. Examples: \"A protein molecule\", \"A specific gene sequence\", \"A synthetic chemical compound\", \"DNA\"."
+        },
+        {
+          "source": "schema.org",
+          "label": "Gene",
+          "path": "Thing > BioChemEntity",
+          "score": 0.821,
+          "comment": "A Gene is a BioChemEntity representing a discrete unit of inheritance that affects one or more biological traits. Also called genetic unit, hereditary factor. Examples: FOXP2, SCARNA21, the gene for eye color, a specific allele."
+        },
+        {
+          "source": "schema.org",
+          "label": "AnatomicalStructure",
+          "path": "Thing > MedicalEntity",
+          "score": 0.82,
+          "comment": "An AnatomicalStructure is a MedicalEntity representing any part of the human body, such as organs, tissues, or cells. Also called body part, biological structure, anatomical component. Examples: The heart, a bone, a muscle, a neuron, the liver. Distinct from AnatomicalSystem, which is a group of structures working together."
         },
         {
           "source": "vocab",
-          "id": "T0006",
-          "label": "HolidayWeekend",
-          "path": "Thing > Intangible > DateRange",
-          "score": 0.818,
-          "comment": "A weekend extended by a public holiday."
+          "id": "T0038",
+          "label": "Structure",
+          "path": "Thing",
+          "score": 0.819,
+          "comment": "A building or other object constructed from several parts."
+        }
+      ]
+    },
+    {
+      "oie_type": "Animal Group",
+      "embedding_query_text": "Animal Group: A classification of animals sharing common characteristics. Also called Fauna, Animal kingdom, Wildlife. Examples: animals.",
+      "chosen_type": {
+        "label": "Taxon",
+        "source": "schema.org",
+        "vocab_id": null,
+        "is_new_to_vocab": false,
+        "definition": null,
+        "parent": null,
+        "path": "Thing",
+        "justification": "schema.org/Taxon is the best fit for 'Animal Group' as it represents a classification of organisms."
+      },
+      "llm_proposed": {
+        "source": "schema.org",
+        "label": "Taxon",
+        "is_new": false
+      },
+      "mentions": [
+        "animals"
+      ],
+      "candidates": [
+        {
+          "source": "vocab",
+          "id": "T0034",
+          "label": "GroupOfPeople",
+          "path": "Thing",
+          "score": 0.825,
+          "comment": "A collection of individuals."
+        },
+        {
+          "source": "schema.org",
+          "label": "Taxon",
+          "path": "Thing",
+          "score": 0.824,
+          "comment": "A cohesive biological unit representing a group of organisms, such as a species, genus, or family. Also called biological classification, taxonomic group, species, genus. Examples: Homo sapiens, Canis familiaris, Felidae (cat family), Plantae (plant kingdom)."
+        },
+        {
+          "source": "schema.org",
+          "label": "PerformingGroup",
+          "path": "Thing > Organization",
+          "score": 0.805,
+          "comment": "A PerformingGroup is an organization of performers, such as a band, orchestra, or circus. Also called performance ensemble, troupe, artistic group. Examples: Cirque du Soleil, a local theatre company, a dance troupe. Distinct from MusicGroup, which is specifically for musical performers."
+        },
+        {
+          "source": "schema.org",
+          "label": "AnimalShelter",
+          "path": "Thing > Organization > LocalBusiness",
+          "score": 0.804,
+          "comment": "An AnimalShelter is a LocalBusiness that provides temporary housing and care for animals, often facilitating adoption. Also called animal rescue, humane society, pet shelter. Examples: The ASPCA, a local humane society, a dog rescue organization."
+        },
+        {
+          "source": "vocab",
+          "id": "T0008",
+          "label": "Archipelago",
+          "path": "Thing > Place > Landform",
+          "score": 0.803,
+          "comment": "A group or chain of islands."
+        }
+      ]
+    },
+    {
+      "oie_type": "Animal Species",
+      "embedding_query_text": "Animal Species: A specific type of animal capable of interbreeding and producing fertile offspring. Also called Animal kind, Biological species, Faunal type. Examples: fruit bats.",
+      "chosen_type": {
+        "label": "Taxon",
+        "source": "schema.org",
+        "vocab_id": null,
+        "is_new_to_vocab": false,
+        "definition": null,
+        "parent": null,
+        "path": "Thing",
+        "justification": "schema.org/Taxon is the most appropriate type for 'Animal Species' as it represents a biological classification unit."
+      },
+      "llm_proposed": {
+        "source": "schema.org",
+        "label": "Taxon",
+        "is_new": false
+      },
+      "mentions": [
+        "fruit bats"
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "Taxon",
+          "path": "Thing",
+          "score": 0.82,
+          "comment": "A cohesive biological unit representing a group of organisms, such as a species, genus, or family. Also called biological classification, taxonomic group, species, genus. Examples: Homo sapiens, Canis familiaris, Felidae (cat family), Plantae (plant kingdom)."
+        },
+        {
+          "source": "schema.org",
+          "label": "StatisticalPopulation",
+          "path": "Thing > Intangible",
+          "score": 0.794,
+          "comment": "A set of instances of a given type that satisfy specific constraints, used for statistical analysis. Also called statistical group, data population, sample group, target demographic. Examples: all persons with a home location in a specific city, all events occurring in a particular year, all news articles mentioning a certain keyword. Distinct from StatisticalVariable, which represents a measurable metric within a population."
+        },
+        {
+          "source": "vocab",
+          "id": "T0037",
+          "label": "VehicleType",
+          "path": "Thing > Intangible > Enumeration",
+          "score": 0.794,
+          "comment": "A classification for a kind of vehicle."
+        },
+        {
+          "source": "schema.org",
+          "label": "Zoo",
+          "path": "Thing > Place > CivicStructure",
+          "score": 0.792,
+          "comment": "A civic structure and facility where wild animals are housed, exhibited, and often bred for conservation and public education. Also called zoological garden, animal park, wildlife park. Examples: San Diego Zoo, London Zoo, Bronx Zoo."
+        },
+        {
+          "source": "schema.org",
+          "label": "AnimalShelter",
+          "path": "Thing > Organization > LocalBusiness",
+          "score": 0.791,
+          "comment": "An AnimalShelter is a LocalBusiness that provides temporary housing and care for animals, often facilitating adoption. Also called animal rescue, humane society, pet shelter. Examples: The ASPCA, a local humane society, a dog rescue organization."
+        }
+      ]
+    },
+    {
+      "oie_type": "Species",
+      "embedding_query_text": "Species: A group of living organisms consisting of similar individuals capable of exchanging genes or interbreeding. Also called Kind, Type, Variety. Examples: humans, people.",
+      "chosen_type": {
+        "label": "Taxon",
+        "source": "schema.org",
+        "vocab_id": null,
+        "is_new_to_vocab": false,
+        "definition": null,
+        "parent": null,
+        "path": "Thing",
+        "justification": "The OIE type 'Species' and its mention perfectly align with schema.org/Taxon."
+      },
+      "llm_proposed": {
+        "source": "schema.org",
+        "label": "Taxon",
+        "is_new": false
+      },
+      "mentions": [
+        "humans"
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "Taxon",
+          "path": "Thing",
+          "score": 0.841,
+          "comment": "A cohesive biological unit representing a group of organisms, such as a species, genus, or family. Also called biological classification, taxonomic group, species, genus. Examples: Homo sapiens, Canis familiaris, Felidae (cat family), Plantae (plant kingdom)."
+        },
+        {
+          "source": "vocab",
+          "id": "T0034",
+          "label": "GroupOfPeople",
+          "path": "Thing",
+          "score": 0.831,
+          "comment": "A collection of individuals."
+        },
+        {
+          "source": "schema.org",
+          "label": "Gene",
+          "path": "Thing > BioChemEntity",
+          "score": 0.812,
+          "comment": "A Gene is a BioChemEntity representing a discrete unit of inheritance that affects one or more biological traits. Also called genetic unit, hereditary factor. Examples: FOXP2, SCARNA21, the gene for eye color, a specific allele."
+        },
+        {
+          "source": "schema.org",
+          "label": "StatisticalPopulation",
+          "path": "Thing > Intangible",
+          "score": 0.811,
+          "comment": "A set of instances of a given type that satisfy specific constraints, used for statistical analysis. Also called statistical group, data population, sample group, target demographic. Examples: all persons with a home location in a specific city, all events occurring in a particular year, all news articles mentioning a certain keyword. Distinct from StatisticalVariable, which represents a measurable metric within a population."
+        },
+        {
+          "source": "schema.org",
+          "label": "BioChemEntity",
+          "path": "Thing",
+          "score": 0.811,
+          "comment": "A fundamental Thing representing any biological, chemical, or biochemical substance or entity. Also called biochemical, chemical compound, biological entity, molecule. Examples: \"A protein molecule\", \"A specific gene sequence\", \"A synthetic chemical compound\", \"DNA\"."
+        }
+      ]
+    },
+    {
+      "oie_type": "Biological Substance",
+      "embedding_query_text": "Biological Substance: Any substance produced by a living organism. Also called Biomaterial, Organic matter, Bodily fluid. Examples: bodily fluids, blood.",
+      "chosen_type": {
+        "label": "BioChemEntity",
+        "source": "schema.org",
+        "vocab_id": null,
+        "is_new_to_vocab": false,
+        "definition": null,
+        "parent": null,
+        "path": "Thing",
+        "justification": "schema.org/BioChemEntity explicitly covers 'biological substance' and is more specific than Substance for this context."
+      },
+      "llm_proposed": {
+        "source": "schema.org",
+        "label": "BioChemEntity",
+        "is_new": false
+      },
+      "mentions": [
+        "bodily fluids",
+        "blood"
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "Substance",
+          "path": "Thing > MedicalEntity",
+          "score": 0.876,
+          "comment": "Any matter of defined composition with discrete existence, which can be biological, mineral, or chemical. Also called material, chemical compound, element, matter. Examples: water, oxygen, penicillin, granite."
+        },
+        {
+          "source": "schema.org",
+          "label": "BioChemEntity",
+          "path": "Thing",
+          "score": 0.845,
+          "comment": "A fundamental Thing representing any biological, chemical, or biochemical substance or entity. Also called biochemical, chemical compound, biological entity, molecule. Examples: \"A protein molecule\", \"A specific gene sequence\", \"A synthetic chemical compound\", \"DNA\"."
+        },
+        {
+          "source": "schema.org",
+          "label": "ChemicalSubstance",
+          "path": "Thing > BioChemEntity",
+          "score": 0.839,
+          "comment": "A portion of matter with constant composition, composed of molecular entities of the same or different types. Also called chemical compound, chemical, substance, molecule. Examples: Water (H2O), Sodium Chloride (NaCl), Ethanol, Oxygen."
+        },
+        {
+          "source": "schema.org",
+          "label": "Drug",
+          "path": "Thing > Product",
+          "score": 0.835,
+          "comment": "A Drug is a Product that is a chemical or biological substance used as a medical therapy, having a physiological effect on an organism. Also called medicine, pharmaceutical, medication. Examples: Aspirin, Insulin, Penicillin, Ibuprofen."
+        },
+        {
+          "source": "schema.org",
+          "label": "MolecularEntity",
+          "path": "Thing > BioChemEntity",
+          "score": 0.825,
+          "comment": "A biochemical entity representing any constitutionally or isotopically distinct atom, molecule, ion, or complex identifiable as a separate entity. Also called chemical entity, molecule, ion, compound. Examples: \"water (H2O)\", \"glucose\", \"sodium ion (Na+)\", \"DNA\". Distinct from BioChemEntity, which is a broader category for biological and chemical entities."
+        }
+      ]
+    },
+    {
+      "oie_type": "Government Agency",
+      "embedding_query_text": "Government Agency: A permanent or semi-permanent organization in the machinery of government responsible for the oversight and administration of specific functions. Also called Public body, State department, Bureau. Examples: Congolese health authorities, DR Congo's health ministry, Africa CDC, US public health authorities.",
+      "chosen_type": {
+        "label": "GovernmentOrganization",
+        "source": "schema.org",
+        "vocab_id": null,
+        "is_new_to_vocab": false,
+        "definition": null,
+        "parent": null,
+        "path": "Thing > Organization",
+        "justification": "The OIE type 'Government Agency' and its mentions perfectly align with schema.org/GovernmentOrganization."
+      },
+      "llm_proposed": {
+        "source": "schema.org",
+        "label": "GovernmentOrganization",
+        "is_new": false
+      },
+      "mentions": [
+        "Congolese health authorities",
+        "DR Congo's health ministry",
+        "Africa CDC",
+        "US public health authorities"
+      ],
+      "candidates": [
+        {
+          "source": "vocab",
+          "id": "T0003",
+          "label": "GovernmentOfficial",
+          "path": "Thing > Person",
+          "score": 0.838,
+          "comment": "A person holding an office or position in a government."
+        },
+        {
+          "source": "schema.org",
+          "label": "GovernmentOrganization",
+          "path": "Thing > Organization",
+          "score": 0.835,
+          "comment": "A GovernmentOrganization is an organization or agency that is part of a governmental body. Also called public sector entity, state agency, governmental body. Examples: Department of Defense, Environmental Protection Agency, National Institutes of Health, local city council."
+        },
+        {
+          "source": "schema.org",
+          "label": "GovernmentOffice",
+          "path": "Thing > Organization > LocalBusiness",
+          "score": 0.817,
+          "comment": "A GovernmentOffice is a local business representing a specific governmental agency or department. Also called public agency office, state department branch, municipal service center. Examples: IRS office, DMV office, local planning department, social security office. Distinct from GovernmentBuilding, which is the physical structure that may contain multiple offices."
+        },
+        {
+          "source": "schema.org",
+          "label": "State",
+          "path": "Thing > Place > AdministrativeArea",
+          "score": 0.815,
+          "comment": "A major administrative division of a country, such as a state or province. Also called province, region, territory, commonwealth. Examples: California, Ontario, Bavaria, Texas."
+        },
+        {
+          "source": "schema.org",
+          "label": "Country",
+          "path": "Thing > Place > AdministrativeArea",
+          "score": 0.805,
+          "comment": "A Country is a sovereign state or nation, representing a primary administrative division of the Earth's surface. Also called nation, state, sovereign state, realm. Examples: United States, Canada, France, Japan, Brazil."
         }
       ]
     },
     {
       "oie_type": "Province",
-      "embedding_query_text": "Province: A principal administrative division of certain countries or empires. Also called Region, State, Territory. Examples: South Kivu, North Kivu, Ituri, Tshopo province.",
+      "embedding_query_text": "Province: A principal administrative division of certain countries or empires. Also called Region, State, Territory, Department. Examples: South Kivu, North Kivu, Ituri, Tshopo province.",
       "chosen_type": {
         "label": "State",
         "source": "schema.org",
@@ -528,7 +1442,7 @@
         "definition": null,
         "parent": null,
         "path": "Thing > Place > AdministrativeArea",
-        "justification": "schema.org/State explicitly includes 'province' in its definition, making it a perfect fit for the OIE_TYPE 'Province'."
+        "justification": "schema.org/State is defined to include provinces, making it a perfect match for the OIE type 'Province'."
       },
       "llm_proposed": {
         "source": "schema.org",
@@ -555,26 +1469,26 @@
           "source": "schema.org",
           "label": "Country",
           "path": "Thing > Place > AdministrativeArea",
-          "score": 0.801,
+          "score": 0.8,
           "comment": "A Country is a sovereign state or nation, representing a primary administrative division of the Earth's surface. Also called nation, state, sovereign state, realm. Examples: United States, Canada, France, Japan, Brazil."
         },
         {
           "source": "schema.org",
           "label": "AdministrativeArea",
           "path": "Thing > Place",
-          "score": 0.792,
+          "score": 0.791,
           "comment": "An AdministrativeArea is a geographical region, typically governed by a specific authority. Also called political division, jurisdiction, governmental region, territory. Examples: A country, a state, a province, a city, a county."
         },
         {
           "source": "schema.org",
           "label": "DefinedRegion",
           "path": "Thing > Place",
-          "score": 0.785,
+          "score": 0.782,
           "comment": "A geographic area defined by specific, potentially non-administrative criteria, such as a set of postal codes or states. Also called Custom region, service area, delivery zone, sales territory. Examples: \"All US states except Alaska and Hawaii\", \"Postal codes 90210-90215\", \"The greater London area for delivery\". Distinct from AdministrativeArea, which is a politically defined region like a state or county."
         },
         {
           "source": "vocab",
-          "id": "T0005",
+          "id": "T0008",
           "label": "Archipelago",
           "path": "Thing > Place > Landform",
           "score": 0.781,
@@ -583,8 +1497,8 @@
       ]
     },
     {
-      "oie_type": "NewsAgency",
-      "embedding_query_text": "NewsAgency: An organization that gathers news reports and sells them to subscribing newspapers, periodicals, and broadcasters. Also called Press agency, Wire service. Examples: Reuters, AFP.",
+      "oie_type": "News Agency",
+      "embedding_query_text": "News Agency: An organization that gathers news reports and sells them to subscribing news organizations. Also called Press agency, Wire service, News bureau. Examples: Reuters, AFP.",
       "chosen_type": {
         "label": "NewsMediaOrganization",
         "source": "schema.org",
@@ -593,7 +1507,7 @@
         "definition": null,
         "parent": null,
         "path": "Thing > Organization",
-        "justification": "schema.org/NewsMediaOrganization explicitly includes 'news agency' in its definition and fits the mentions."
+        "justification": "schema.org/NewsMediaOrganization explicitly includes 'news agency' in its definition, making it a perfect match."
       },
       "llm_proposed": {
         "source": "schema.org",
@@ -609,533 +1523,523 @@
           "source": "schema.org",
           "label": "NewsMediaOrganization",
           "path": "Thing > Organization",
-          "score": 0.841,
+          "score": 0.838,
           "comment": "A NewsMediaOrganization is an organization that produces and disseminates news, such as a newspaper or TV station. Also called news agency, media outlet, journalistic organization. Examples: The New York Times, BBC News, CNN. Distinct from Organization, which is a broader category for any type of organization."
         },
         {
-          "source": "vocab",
-          "id": "T0071",
-          "label": "MediaMonitoringEvent",
-          "path": "Thing > Event",
-          "score": 0.815,
-          "comment": "An event where media outlets observe and report on a situation."
+          "source": "schema.org",
+          "label": "NewsArticle",
+          "path": "Thing > CreativeWork > Article",
+          "score": 0.793,
+          "comment": "A NewsArticle, as an Article, is a creative work whose content reports news or provides background context for understanding news. Also called news report, news story, journalistic article. Examples: a breaking news report, an investigative journalism piece, an opinion column in a newspaper. Distinct from BlogPosting, which is typically less formal and often personal."
         },
         {
           "source": "vocab",
-          "id": "T0063",
-          "label": "MediaCoverageEvent",
-          "path": "Thing > Event",
-          "score": 0.812,
-          "comment": "An event involving media organizations reporting on or observing a situation."
+          "id": "T0033",
+          "label": "MediaProfessional",
+          "path": "Thing > Person",
+          "score": 0.792,
+          "comment": "An individual working in the field of media, such as journalism or broadcasting."
         },
         {
           "source": "schema.org",
-          "label": "TravelAgency",
+          "label": "BackgroundNewsArticle",
+          "path": "Thing > CreativeWork > Article > NewsArticle",
+          "score": 0.79,
+          "comment": "A NewsArticle that provides historical context, definitions, or detailed explanations on a specific topic. Also called explainer article, backgrounder, FAQ document. Examples: \"An explainer on climate change\", \"A detailed history of the European Union\", \"FAQ about blockchain technology\". Distinct from NewsArticle, which reports on current events."
+        },
+        {
+          "source": "schema.org",
+          "label": "TelevisionStation",
           "path": "Thing > Organization > LocalBusiness",
-          "score": 0.808,
-          "comment": "A local business that assists individuals and groups in planning and booking travel arrangements. Also called travel agent, tour operator, booking agency. Examples: Expedia, a local independent travel agency, a corporate travel management company."
-        },
-        {
-          "source": "schema.org",
-          "label": "InsuranceAgency",
-          "path": "Thing > Organization > LocalBusiness > FinancialService",
-          "score": 0.801,
-          "comment": "An InsuranceAgency is a financial service local business that provides insurance-related services. Also called insurance broker, insurance provider, insurance firm. Examples: State Farm, Geico, a local independent insurance agent."
+          "score": 0.787,
+          "comment": "A local business or organization that broadcasts television programs. Also called TV broadcaster, broadcast station, local TV channel. Examples: 'WNBC (New York)', 'BBC Television Centre', a local news station."
         }
       ]
     },
     {
-      "oie_type": "Quantity",
-      "embedding_query_text": "Quantity: A measurable amount or number. Also called Amount, Number, Value. Examples: 1.5 million people, four laboratories, 10, six.",
+      "oie_type": "Medical Facility",
+      "embedding_query_text": "Medical Facility: A place where medical care is provided, such as a hospital or clinic. Also called Healthcare center, Clinic, Hospital, Infirmary. Examples: isolation unit.",
       "chosen_type": {
-        "label": "Quantity",
+        "label": "MedicalClinic",
         "source": "schema.org",
         "vocab_id": null,
         "is_new_to_vocab": false,
         "definition": null,
         "parent": null,
-        "path": "",
-        "justification": "The OIE_TYPE 'Quantity' and its mentions perfectly match schema.org/Quantity."
+        "path": "Thing > Organization > LocalBusiness > MedicalBusiness",
+        "justification": "An 'isolation unit' is a specialized medical facility, which fits well under the broader category of schema.org/MedicalClinic."
       },
       "llm_proposed": {
         "source": "schema.org",
-        "label": "Quantity",
+        "label": "MedicalClinic",
         "is_new": false
       },
       "mentions": [
-        "1.5 million people",
-        "four laboratories",
-        "10",
-        "six",
-        "three",
-        "70,000",
-        "72,000 people",
-        "tens of thousands"
+        "isolation unit"
       ],
       "candidates": [
         {
           "source": "schema.org",
-          "label": "Quantity",
-          "path": "",
-          "score": 0.871,
-          "comment": "Quantity is a data type representing measurable amounts such as distance, time, mass, or weight. Also called amount, measure, magnitude. Examples: '3 kg', '4 milligrams', '10 meters', '2 hours'."
+          "label": "MedicalClinic",
+          "path": "Thing > Organization > LocalBusiness > MedicalBusiness",
+          "score": 0.856,
+          "comment": "A medical business facility, often associated with a hospital, dedicated to specific diagnosis and/or healthcare, typically for outpatients but sometimes inpatients. Also called clinic, healthcare center, medical facility. Examples: a dermatology clinic, a walk-in clinic, a university health clinic, a family practice. Distinct from Hospital, which is a larger institution providing comprehensive medical care."
         },
         {
           "source": "schema.org",
-          "label": "Mass",
-          "path": "Quantity",
+          "label": "Hospital",
+          "path": "Thing > Place > CivicStructure",
           "score": 0.848,
-          "comment": "A quantity representing the amount of matter in an object, typically expressed with a unit of measure. Also called weight, bulk, quantity of matter. Examples: \"5 kg\", \"10 pounds\", \"200 grams\", \"1 ton\". Distinct from Quantity, which is a broader concept for any measurable amount."
+          "comment": "A Hospital is a civic structure and medical institution providing patient treatment with specialized medical and nursing staff and equipment. Also called medical center, clinic, healthcare facility. Examples: Mayo Clinic, Massachusetts General Hospital, a local emergency room."
+        },
+        {
+          "source": "schema.org",
+          "label": "DiagnosticLab",
+          "path": "Thing > Organization > MedicalOrganization",
+          "score": 0.834,
+          "comment": "A medical organization that provides on-site or off-site diagnostic services, such as testing and analysis. Also called Medical laboratory, pathology lab, clinical lab, testing facility. Examples: Quest Diagnostics, LabCorp, a hospital's pathology department. Distinct from MedicalClinic, which provides direct patient care and consultations."
+        },
+        {
+          "source": "schema.org",
+          "label": "MedicalOrganization",
+          "path": "Thing > Organization",
+          "score": 0.823,
+          "comment": "An organization, physical or virtual, operating in the medical domain, such as a hospital or clinic. Also called healthcare organization, medical institution, health system. Examples: \"Mayo Clinic\", \"World Health Organization\", \"Doctors Without Borders\". Distinct from Organization, which is a broader category for any group."
         },
         {
           "source": "vocab",
-          "id": "T0003",
-          "label": "Temperature",
-          "path": "Quantity",
-          "score": 0.831,
-          "comment": "A measure of the warmth or coldness of an object or substance."
-        },
-        {
-          "source": "schema.org",
-          "label": "Number",
-          "path": "",
-          "score": 0.828,
-          "comment": "Number is a data type representing numerical values. Also called numeric value, quantity, digit. Examples: 10, 3.14, -5, 1000000. Distinct from Text, which represents character strings."
-        },
-        {
-          "source": "schema.org",
-          "label": "Distance",
-          "path": "Quantity",
-          "score": 0.809,
-          "comment": "As a Quantity, Distance represents a numerical value combined with a unit of length. Also called length, extent, span, separation. Examples: \"10 km\", \"5 miles\", \"300 meters\", \"2 feet\"."
+          "id": "T0038",
+          "label": "Structure",
+          "path": "Thing",
+          "score": 0.821,
+          "comment": "A building or other object constructed from several parts."
         }
       ]
     },
     {
-      "oie_type": "Duration",
-      "embedding_query_text": "Duration: The length of time that something continues or exists. Also called Period, Time span, Interval. Examples: two to 21 days, two months.",
+      "oie_type": "DateRange",
+      "embedding_query_text": "DateRange: A period of time spanning multiple days, weeks, or months. Also called Timeframe, Period, Interval. Examples: Earlier this week.",
       "chosen_type": {
-        "label": "Duration",
-        "source": "schema.org",
-        "vocab_id": null,
+        "label": "DateRange",
+        "source": "vocab",
+        "vocab_id": "T0001",
         "is_new_to_vocab": false,
-        "definition": null,
-        "parent": null,
-        "path": "Quantity",
-        "justification": "The OIE_TYPE 'Duration' and its mentions perfectly match schema.org/Duration."
+        "definition": "A period of time defined by a start and end date.",
+        "parent": "StructuredValue",
+        "path": "Thing > Intangible > StructuredValue",
+        "justification": "The OIE type 'DateRange' and its mention perfectly align with vocab/DateRange."
       },
       "llm_proposed": {
-        "source": "schema.org",
-        "label": "Duration",
+        "source": "vocab",
+        "label": "DateRange",
         "is_new": false
       },
       "mentions": [
-        "two to 21 days",
-        "two months"
+        "Earlier this week"
       ],
       "candidates": [
-        {
-          "source": "schema.org",
-          "label": "Duration",
-          "path": "Quantity",
-          "score": 0.851,
-          "comment": "As a Quantity, Duration represents a period of time, typically expressed in ISO 8601 format. Also called time span, period, length of time. Examples: \"PT1H30M\" (1 hour 30 minutes), \"P3D\" (3 days), \"PT2H\" (2 hours)."
-        },
-        {
-          "source": "vocab",
-          "id": "T0040",
-          "label": "TimeOfDay",
-          "path": "Thing",
-          "score": 0.842,
-          "comment": "A general period within a day."
-        },
-        {
-          "source": "vocab",
-          "id": "T0056",
-          "label": "Year",
-          "path": "Thing",
-          "score": 0.835,
-          "comment": "A period of 365 or 366 days, divided into 12 months, starting from January 1st."
-        },
-        {
-          "source": "vocab",
-          "id": "T0002",
-          "label": "DateRange",
-          "path": "Thing > Intangible",
-          "score": 0.811,
-          "comment": "A specified period of time between two dates."
-        },
         {
           "source": "vocab",
           "id": "T0001",
-          "label": "Month",
+          "label": "DateRange",
+          "path": "Thing > Intangible > StructuredValue",
+          "score": 0.906,
+          "comment": "A period of time defined by a start and end date."
+        },
+        {
+          "source": "vocab",
+          "id": "T0027",
+          "label": "CalendarDayOrPeriod",
           "path": "Thing > Intangible",
+          "score": 0.822,
+          "comment": "A specific day of the week or a defined period of days on a calendar."
+        },
+        {
+          "source": "schema.org",
+          "label": "Schedule",
+          "path": "Thing > Intangible",
+          "score": 0.822,
+          "comment": "A definition of a repeating time period used to describe a regularly occurring event, specifying frequency, days, and start/end times. Also called timetable, recurring event plan, calendar entry, routine. Examples: a weekly yoga class schedule, a bus route timetable, a daily meeting schedule, a concert series calendar."
+        },
+        {
+          "source": "schema.org",
+          "label": "DateTime",
+          "path": "",
           "score": 0.811,
-          "comment": "A unit of time, typically one of the twelve divisions of the year."
+          "comment": "A data type representing a specific point in time, combining both date and time components according to ISO 8601. Also called Timestamp, date and time string, ISO 8601 datetime. Examples: \"2023-10-27T10:30:00Z\", \"1999-12-31T23:59:59-05:00\", \"2024-01-15T14:00:00\". Distinct from Date, which only specifies a calendar date without time."
+        },
+        {
+          "source": "vocab",
+          "id": "T0009",
+          "label": "HolidayWeekend",
+          "path": "Thing > Intangible",
+          "score": 0.809,
+          "comment": "A weekend extended by a public holiday."
+        }
+      ]
+    },
+    {
+      "oie_type": "Social Event",
+      "embedding_query_text": "Social Event: An organized occasion for people to gather and interact. Also called Gathering, Assembly, Public meeting. Examples: public gatherings.",
+      "chosen_type": {
+        "label": "SocialEvent",
+        "source": "schema.org",
+        "vocab_id": null,
+        "is_new_to_vocab": false,
+        "definition": null,
+        "parent": null,
+        "path": "Thing > Event",
+        "justification": "schema.org/SocialEvent explicitly includes 'gathering' in its definition, making it a perfect match for 'public gatherings'."
+      },
+      "llm_proposed": {
+        "source": "schema.org",
+        "label": "SocialEvent",
+        "is_new": false
+      },
+      "mentions": [
+        "public gatherings"
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "SocialEvent",
+          "path": "Thing > Event",
+          "score": 0.898,
+          "comment": "An event primarily focused on social interaction and entertainment. Also called party, gathering, social function, get-together. Examples: a birthday party, a wedding reception, a community picnic, a networking mixer."
+        },
+        {
+          "source": "schema.org",
+          "label": "Event",
+          "path": "Thing",
+          "score": 0.865,
+          "comment": "An Event is a Thing happening at a specific time and location, such as a concert, lecture, or festival. Also called happening, occurrence, occasion. Examples: A rock concert, a public lecture, a sports match, a community festival."
+        },
+        {
+          "source": "schema.org",
+          "label": "DanceEvent",
+          "path": "Thing > Event",
+          "score": 0.855,
+          "comment": "A DanceEvent is a social gathering or organized occasion primarily focused on dancing. Also called dance party, ball, disco, social dance. Examples: A salsa night, a wedding reception with dancing, a school prom, a folk dance festival."
+        },
+        {
+          "source": "schema.org",
+          "label": "ConferenceEvent",
+          "path": "Thing > Event",
+          "score": 0.851,
+          "comment": "An event specifically organized as a conference, typically involving presentations, discussions, and networking. Also called conference, convention, symposium, summit. Examples: A tech conference, an academic symposium, a business summit, a medical convention. Distinct from Event, which is a general occurrence."
+        },
+        {
+          "source": "schema.org",
+          "label": "Festival",
+          "path": "Thing > Event",
+          "score": 0.84,
+          "comment": "A Festival is an Event that is a public celebration or series of special events. Also called celebration, gala, fete. Examples: A music festival, a film festival, a cultural heritage festival, a food and wine festival."
         }
       ]
     },
     {
       "oie_type": "Disease",
-      "embedding_query_text": "Disease: A disorder of structure or function in a human, animal, or plant, especially one that produces specific symptoms or that affects a specific location and is not simply a direct result of physical injury. Also called Illness, Sickness, Ailment. Examples: Ebola.",
+      "embedding_query_text": "Disease: A disorder of structure or function in a human, animal, or plant, especially one that produces specific symptoms or that affects a specific location and is not simply a direct result of physical injury. Also called Illness, Sickness, Ailment. Examples: flu, malaria.",
       "chosen_type": {
-        "label": "MedicalCondition",
+        "label": "InfectiousDisease",
         "source": "schema.org",
         "vocab_id": null,
         "is_new_to_vocab": false,
         "definition": null,
         "parent": null,
-        "path": "Thing > MedicalEntity",
-        "justification": "schema.org/MedicalCondition is the most general and direct fit for the OIE_TYPE 'Disease', as it includes diseases."
+        "path": "Thing > MedicalEntity > MedicalCondition",
+        "justification": "The mentions 'flu' and 'malaria' are specific examples of infectious diseases, making schema.org/InfectiousDisease the best fit."
       },
       "llm_proposed": {
         "source": "schema.org",
-        "label": "MedicalCondition",
+        "label": "InfectiousDisease",
         "is_new": false
       },
       "mentions": [
-        "Ebola"
+        "flu",
+        "malaria"
       ],
       "candidates": [
         {
-          "source": "schema.org",
-          "label": "MedicalCondition",
-          "path": "Thing > MedicalEntity",
-          "score": 0.812,
-          "comment": "A medical entity representing any condition of the human body that affects normal functioning, including diseases, injuries, disabilities, and disorders. Also called disease, illness, health disorder, ailment. Examples: \"influenza\", \"diabetes\", \"a broken arm\", \"depression\", \"asthma\"."
+          "source": "vocab",
+          "id": "T0038",
+          "label": "Structure",
+          "path": "Thing",
+          "score": 0.814,
+          "comment": "A building or other object constructed from several parts."
         },
         {
           "source": "schema.org",
           "label": "InfectiousDisease",
           "path": "Thing > MedicalEntity > MedicalCondition",
-          "score": 0.81,
+          "score": 0.809,
           "comment": "An InfectiousDisease is a medical condition resulting from the presence of pathogenic microbial agents like viruses, bacteria, or fungi. Also called communicable disease, contagious illness, infection. Examples: influenza, COVID-19, malaria, tuberculosis. Distinct from MedicalCondition, which is a broader category for any health problem."
         },
         {
           "source": "schema.org",
-          "label": "Substance",
+          "label": "MedicalCondition",
           "path": "Thing > MedicalEntity",
-          "score": 0.802,
-          "comment": "Any matter of defined composition with discrete existence, which can be biological, mineral, or chemical. Also called material, chemical compound, element, matter. Examples: water, oxygen, penicillin, granite."
+          "score": 0.808,
+          "comment": "A medical entity representing any condition of the human body that affects normal functioning, including diseases, injuries, disabilities, and disorders. Also called disease, illness, health disorder, ailment. Examples: \"influenza\", \"diabetes\", \"a broken arm\", \"depression\", \"asthma\"."
         },
         {
           "source": "schema.org",
           "label": "Drug",
           "path": "Thing > Product",
-          "score": 0.802,
+          "score": 0.805,
           "comment": "A Drug is a Product that is a chemical or biological substance used as a medical therapy, having a physiological effect on an organism. Also called medicine, pharmaceutical, medication. Examples: Aspirin, Insulin, Penicillin, Ibuprofen."
         },
         {
           "source": "vocab",
-          "id": "T0010",
-          "label": "Disaster",
-          "path": "Thing > Event",
-          "score": 0.799,
-          "comment": "A sudden event, such as an accident or a natural catastrophe, that causes great damage or loss of life."
+          "id": "T0016",
+          "label": "Impact",
+          "path": "Thing",
+          "score": 0.804,
+          "comment": "The effect or influence of one thing on another."
         }
       ]
     },
     {
-      "oie_type": "DiseaseOutbreak",
-      "embedding_query_text": "DiseaseOutbreak: A sudden increase in occurrences of a disease in a particular time and place. Also called Epidemic, Infection surge, Disease flare-up. Examples: Ebola outbreak in the Democratic Republic of Congo, current deadly Ebola outbreak, current outbreak of Ebola in DR Congo, the outbreak.",
+      "oie_type": "Symptom",
+      "embedding_query_text": "Symptom: A physical or mental feature that is regarded as indicating a condition of disease, particularly such a feature that is apparent to the patient. Also called Sign, Indicator, Manifestation. Examples: fever, headache, tiredness.",
       "chosen_type": {
-        "label": "DiseaseOutbreakEvent",
-        "source": "vocab",
-        "vocab_id": "T0086",
-        "is_new_to_vocab": true,
-        "definition": "A sudden increase in occurrences of a disease in a particular time and place.",
-        "parent": "Disaster",
-        "path": "Thing > Event > Disaster",
-        "justification": "No existing candidate accurately represents a 'DiseaseOutbreak', so a new type is minted as an event and a type of disaster."
+        "label": "MedicalSymptom",
+        "source": "schema.org",
+        "vocab_id": null,
+        "is_new_to_vocab": false,
+        "definition": null,
+        "parent": null,
+        "path": "Thing > MedicalEntity > MedicalCondition > MedicalSignOrSymptom",
+        "justification": "The OIE type 'Symptom' and its mentions are best described by schema.org/MedicalSymptom, which focuses on subjective patient complaints."
       },
       "llm_proposed": {
-        "source": "new",
-        "label": "DiseaseOutbreakEvent",
-        "is_new": true
+        "source": "schema.org",
+        "label": "MedicalSymptom",
+        "is_new": false
       },
       "mentions": [
-        "Ebola outbreak in the Democratic Republic of Congo"
+        "fever",
+        "headache",
+        "tiredness"
       ],
       "candidates": [
         {
-          "source": "vocab",
-          "id": "T0021",
-          "label": "Heatwave",
-          "path": "Thing > Event > WeatherEvent",
-          "score": 0.828,
-          "comment": "A period of unusually hot weather."
+          "source": "schema.org",
+          "label": "MedicalSymptom",
+          "path": "Thing > MedicalEntity > MedicalCondition > MedicalSignOrSymptom",
+          "score": 0.873,
+          "comment": "A medical sign or symptom that is a subjective complaint sensed and expressed by the patient. Also called subjective symptom, patient complaint, reported feeling. Examples: \"stomachache\", \"lower-back pain\", \"fatigue\", \"headache\", \"nausea\". Distinct from MedicalSign, which is an objective finding."
         },
         {
-          "source": "vocab",
-          "id": "T0026",
-          "label": "IncreasedHeatwavesEvent",
-          "path": "Thing > Event > WeatherEvent",
-          "score": 0.816,
-          "comment": "An event indicating an increase in the frequency or intensity of heatwaves."
+          "source": "schema.org",
+          "label": "MedicalSignOrSymptom",
+          "path": "Thing > MedicalEntity > MedicalCondition",
+          "score": 0.853,
+          "comment": "A medical condition representing any feature, objective or subjective, associated with a medical condition. Also called clinical manifestation, health indicator, disease feature. Examples: \"pain\", \"fever\", \"fatigue\", \"rash\", \"nausea\". Distinct from MedicalCondition, which is the underlying state itself."
         },
         {
-          "source": "vocab",
-          "id": "T0028",
-          "label": "IntenseWildfiresEvent",
-          "path": "Thing > Event > Disaster",
-          "score": 0.814,
-          "comment": "An event characterized by wildfires of increased intensity."
+          "source": "schema.org",
+          "label": "MedicalSign",
+          "path": "Thing > MedicalEntity > MedicalCondition > MedicalSignOrSymptom",
+          "score": 0.852,
+          "comment": "A medical sign or symptom that is an objective physical manifestation of a medical condition, discoverable by diagnostic tests or physical examination. Also called objective symptom, clinical sign, diagnostic finding. Examples: \"fever\", \"rash\", \"high blood pressure\", \"swelling\". Distinct from MedicalSymptom, which is subjective and reported by the patient."
+        },
+        {
+          "source": "schema.org",
+          "label": "DDxElement",
+          "path": "Thing > MedicalEntity > MedicalIntangible",
+          "score": 0.808,
+          "comment": "A DDxElement is an alternative, closely-related medical condition considered during differential diagnosis, along with the distinguishing signs. Also called differential diagnosis item, alternative diagnosis, rule-out condition. Examples: Considering \"strep throat\" as a DDxElement for a patient presenting with a sore throat and fever, alongside \"common cold.\""
+        },
+        {
+          "source": "schema.org",
+          "label": "MedicalCondition",
+          "path": "Thing > MedicalEntity",
+          "score": 0.803,
+          "comment": "A medical entity representing any condition of the human body that affects normal functioning, including diseases, injuries, disabilities, and disorders. Also called disease, illness, health disorder, ailment. Examples: \"influenza\", \"diabetes\", \"a broken arm\", \"depression\", \"asthma\"."
+        }
+      ]
+    },
+    {
+      "oie_type": "Organization Group",
+      "embedding_query_text": "Organization Group: A collection of multiple organizations or entities. Also called Consortium, Alliance, Network. Examples: International organisations.",
+      "chosen_type": {
+        "label": "Consortium",
+        "source": "schema.org",
+        "vocab_id": null,
+        "is_new_to_vocab": false,
+        "definition": null,
+        "parent": null,
+        "path": "Thing > Organization",
+        "justification": "schema.org/Consortium is the best fit for 'Organization Group' as it represents a group of collaborating organizations."
+      },
+      "llm_proposed": {
+        "source": "schema.org",
+        "label": "Consortium",
+        "is_new": false
+      },
+      "mentions": [
+        "International organisations"
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "Consortium",
+          "path": "Thing > Organization",
+          "score": 0.878,
+          "comment": "A membership organization typically composed of other organizations collaborating on a shared project or goal. Also called alliance, syndicate, federation, partnership. Examples: World Wide Web Consortium (W3C), a research consortium, a banking consortium, a joint venture. Distinct from Organization, which is a general grouping of people or entities."
+        },
+        {
+          "source": "schema.org",
+          "label": "Organization",
+          "path": "Thing",
+          "score": 0.857,
+          "comment": "An Organization is a group of people with a particular purpose, such as a school, NGO, corporation, or club. Also called entity, institution, association. Examples: Google, Harvard University, Red Cross, a local sports club. Distinct from Person, which is an individual."
         },
         {
           "source": "vocab",
           "id": "T0034",
-          "label": "FlamesSpreadEvent",
-          "path": "Thing > Event > Disaster",
-          "score": 0.813,
-          "comment": "An event where flames expand across an area, typically in a fire."
-        },
-        {
-          "source": "vocab",
-          "id": "T0023",
-          "label": "AlertIssuedEvent",
-          "path": "Thing > Event",
-          "score": 0.812,
-          "comment": "An event where an alert is officially issued."
-        }
-      ]
-    },
-    {
-      "oie_type": "ClinicalTrial",
-      "embedding_query_text": "ClinicalTrial: A research study conducted to evaluate a medical, surgical, or behavioral intervention. Also called Medical trial, Drug trial, Research study. Examples: Ebola treatments trial, trial of potential treatments, current trial.",
-      "chosen_type": {
-        "label": "MedicalTrial",
-        "source": "schema.org",
-        "vocab_id": null,
-        "is_new_to_vocab": false,
-        "definition": null,
-        "parent": null,
-        "path": "Thing > MedicalEntity > MedicalStudy",
-        "justification": "schema.org/MedicalTrial explicitly includes 'clinical trial' in its definition and fits the mention."
-      },
-      "llm_proposed": {
-        "source": "schema.org",
-        "label": "MedicalTrial",
-        "is_new": false
-      },
-      "mentions": [
-        "Ebola treatments trial"
-      ],
-      "candidates": [
-        {
-          "source": "schema.org",
-          "label": "MedicalTrial",
-          "path": "Thing > MedicalEntity > MedicalStudy",
-          "score": 0.897,
-          "comment": "A medical study that uses a scientific process to compare the safety and efficacy of medical therapies or procedures, typically with random allocation to groups. Also called clinical trial, randomized controlled trial, interventional study. Examples: a Phase 3 drug trial, a study comparing two surgical techniques, a vaccine efficacy trial. Distinct from MedicalObservationalStudy, where treatment assignment is not controlled by the investigator."
-        },
-        {
-          "source": "schema.org",
-          "label": "MedicalObservationalStudy",
-          "path": "Thing > MedicalEntity > MedicalStudy",
-          "score": 0.819,
-          "comment": "A medical study that infers the effect of a treatment by observing a cohort of subjects over time, without investigator control over treatment assignment. Also called observational research, cohort study, epidemiological study. Examples: a study tracking health outcomes in smokers vs. non-smokers, a study on diet and disease incidence. Distinct from MedicalTrial, where subjects are randomly assigned to treatment groups."
-        },
-        {
-          "source": "schema.org",
-          "label": "MedicalTrialDesign",
-          "path": "Thing > Intangible > Enumeration > MedicalEnumeration",
-          "score": 0.818,
-          "comment": "An enumeration of design models for medical trials. Also called clinical trial design, trial methodology, study architecture. Examples: \"RandomizedControlledTrial\", \"SingleBlindTrial\", \"DoubleBlindTrial\", \"CrossoverTrial\"."
-        },
-        {
-          "source": "schema.org",
-          "label": "TherapeuticProcedure",
-          "path": "Thing > MedicalEntity > MedicalProcedure",
-          "score": 0.815,
-          "comment": "A medical procedure specifically intended to treat a health condition or improve a patient's well-being. Also called medical treatment, therapy, healing procedure. Examples: chemotherapy, physical therapy, surgical removal of a tumor."
-        },
-        {
-          "source": "schema.org",
-          "label": "MedicalTherapy",
-          "path": "Thing > MedicalEntity > MedicalProcedure > TherapeuticProcedure",
-          "score": 0.813,
-          "comment": "A therapeutic medical procedure designed to prevent, treat, and cure human diseases and medical conditions. Also called medical treatment, healthcare intervention, therapy regimen. Examples: \"pharmacotherapy\", \"behavioral therapy\", \"supportive therapy\", \"dialysis\". Distinct from MedicalProcedure, which is a broader category including diagnostic procedures."
-        }
-      ]
-    },
-    {
-      "oie_type": "GovernmentPosition",
-      "embedding_query_text": "GovernmentPosition: An official role or office within a government. Also called Public office, Ministerial role, Official capacity. Examples: DR Congo's Health Minister, Cameroon's president.",
-      "chosen_type": {
-        "label": "GovernmentPosition",
-        "source": "vocab",
-        "vocab_id": "T0087",
-        "is_new_to_vocab": true,
-        "definition": "An official role or office within a government.",
-        "parent": "Intangible",
-        "path": "Thing > Intangible",
-        "justification": "No existing candidate represents an intangible 'GovernmentPosition' itself, only the person holding it or related organizations."
-      },
-      "llm_proposed": {
-        "source": "new",
-        "label": "GovernmentPosition",
-        "is_new": true
-      },
-      "mentions": [
-        "DR Congo's Health Minister",
-        "Cameroon's president"
-      ],
-      "candidates": [
-        {
-          "source": "vocab",
-          "id": "T0041",
-          "label": "PublicOfficial",
+          "label": "GroupOfPeople",
           "path": "Thing",
-          "score": 0.84,
-          "comment": "A person holding a public office or position of authority in government."
-        },
-        {
-          "source": "vocab",
-          "id": "T0054",
-          "label": "SecretaryOfState",
-          "path": "Thing",
-          "score": 0.828,
-          "comment": "A senior official in the government, typically responsible for foreign affairs."
+          "score": 0.855,
+          "comment": "A collection of individuals."
         },
         {
           "source": "schema.org",
-          "label": "GovernmentOffice",
-          "path": "Thing > Organization > LocalBusiness",
-          "score": 0.802,
-          "comment": "A GovernmentOffice is a local business representing a specific governmental agency or department. Also called public agency office, state department branch, municipal service center. Examples: IRS office, DMV office, local planning department, social security office. Distinct from GovernmentBuilding, which is the physical structure that may contain multiple offices."
-        },
-        {
-          "source": "schema.org",
-          "label": "GovernmentOrganization",
+          "label": "PerformingGroup",
           "path": "Thing > Organization",
-          "score": 0.796,
-          "comment": "A GovernmentOrganization is an organization or agency that is part of a governmental body. Also called public sector entity, state agency, governmental body. Examples: Department of Defense, Environmental Protection Agency, National Institutes of Health, local city council."
+          "score": 0.841,
+          "comment": "A PerformingGroup is an organization of performers, such as a band, orchestra, or circus. Also called performance ensemble, troupe, artistic group. Examples: Cirque du Soleil, a local theatre company, a dance troupe. Distinct from MusicGroup, which is specifically for musical performers."
         },
         {
           "source": "schema.org",
-          "label": "State",
-          "path": "Thing > Place > AdministrativeArea",
-          "score": 0.793,
-          "comment": "A major administrative division of a country, such as a state or province. Also called province, region, territory, commonwealth. Examples: California, Ontario, Bavaria, Texas."
+          "label": "DanceGroup",
+          "path": "Thing > Organization > PerformingGroup",
+          "score": 0.834,
+          "comment": "A DanceGroup is a performing organization specializing in dance, often presenting choreographed performances. Also called dance company, ballet troupe, dance ensemble, dance collective. Examples: Alvin Ailey American Dance Theater, Riverdance, New York City Ballet, Bolshoi Ballet."
         }
       ]
     },
     {
-      "oie_type": "Virus",
-      "embedding_query_text": "Virus: An infectious agent that replicates only inside the living cells of other organisms. Also called Pathogen, Microbe. Examples: Ebola virus, a virus.",
+      "oie_type": "Conflict",
+      "embedding_query_text": "Conflict: A serious disagreement or argument, typically a protracted one, often involving armed struggle. Also called Dispute, Strife, Warfare, Hostilities. Examples: conflict in eastern DR Congo.",
       "chosen_type": {
-        "label": "Taxon",
-        "source": "schema.org",
-        "vocab_id": null,
-        "is_new_to_vocab": false,
-        "definition": null,
-        "parent": null,
-        "path": "Thing",
-        "justification": "schema.org/Taxon is the best fit for specific virus types like 'Ebola virus' as a biological classification."
-      },
-      "llm_proposed": {
-        "source": "schema.org",
-        "label": "Taxon",
-        "is_new": false
-      },
-      "mentions": [
-        "Ebola virus"
-      ],
-      "candidates": [
-        {
-          "source": "schema.org",
-          "label": "InfectiousAgentClass",
-          "path": "Thing > Intangible > Enumeration > MedicalEnumeration",
-          "score": 0.825,
-          "comment": "InfectiousAgentClass is a medical enumeration of classes of agents or pathogens that transmit infectious diseases. Also called pathogen type, disease agent category, microbial class. Examples: 'Bacteria', 'Virus', 'Fungus', 'Parasite'."
-        },
-        {
-          "source": "schema.org",
-          "label": "InfectiousDisease",
-          "path": "Thing > MedicalEntity > MedicalCondition",
-          "score": 0.801,
-          "comment": "An InfectiousDisease is a medical condition resulting from the presence of pathogenic microbial agents like viruses, bacteria, or fungi. Also called communicable disease, contagious illness, infection. Examples: influenza, COVID-19, malaria, tuberculosis. Distinct from MedicalCondition, which is a broader category for any health problem."
-        },
-        {
-          "source": "schema.org",
-          "label": "VideoObject",
-          "path": "Thing > CreativeWork > MediaObject",
-          "score": 0.777,
-          "comment": "A media object representing a video file. Also called video file, digital video, movie clip. Examples: an MP4 video, a YouTube video, a short film."
-        },
-        {
-          "source": "schema.org",
-          "label": "Taxon",
-          "path": "Thing",
-          "score": 0.775,
-          "comment": "A cohesive biological unit representing a group of organisms, such as a species, genus, or family. Also called biological classification, taxonomic group, species, genus. Examples: Homo sapiens, Canis familiaris, Felidae (cat family), Plantae (plant kingdom)."
-        },
-        {
-          "source": "vocab",
-          "id": "T0071",
-          "label": "MediaMonitoringEvent",
-          "path": "Thing > Event",
-          "score": 0.775,
-          "comment": "An event where media outlets observe and report on a situation."
-        }
-      ]
-    },
-    {
-      "oie_type": "DisputedTerritory",
-      "embedding_query_text": "DisputedTerritory: A geographical area over which two or more states or entities claim sovereignty. Also called Contested region, Disputed area. Examples: Western Sahara.",
-      "chosen_type": {
-        "label": "DisputedTerritory",
+        "label": "ConflictSituation",
         "source": "vocab",
-        "vocab_id": "T0088",
+        "vocab_id": "T0065",
         "is_new_to_vocab": true,
-        "definition": "A geographical area over which two or more states or entities claim sovereignty.",
-        "parent": "AdministrativeArea",
-        "path": "Thing > Place > AdministrativeArea",
-        "justification": "No existing candidate fully captures the 'disputed' aspect of a territory, though it is a type of administrative area."
+        "definition": "A state of serious disagreement or armed struggle between parties.",
+        "parent": "Thing",
+        "path": "Thing",
+        "justification": "No existing candidate accurately represents 'Conflict' as an entity describing a state of affairs; Thing is the most general parent."
       },
       "llm_proposed": {
         "source": "new",
-        "label": "DisputedTerritory",
+        "label": "ConflictSituation",
         "is_new": true
       },
       "mentions": [
-        "Western Sahara"
+        "conflict in eastern DR Congo"
       ],
       "candidates": [
         {
           "source": "schema.org",
-          "label": "AdministrativeArea",
-          "path": "Thing > Place",
-          "score": 0.81,
-          "comment": "An AdministrativeArea is a geographical region, typically governed by a specific authority. Also called political division, jurisdiction, governmental region, territory. Examples: A country, a state, a province, a city, a county."
+          "label": "Conversation",
+          "path": "Thing > CreativeWork",
+          "score": 0.776,
+          "comment": "A series of one or more messages exchanged between individuals or organizations on a specific topic. Also called discussion, dialogue, chat, discourse. Examples: An email thread, a text message exchange, a forum discussion, a spoken dialogue. Distinct from Comment, which is a single remark on an item."
         },
         {
           "source": "schema.org",
-          "label": "State",
-          "path": "Thing > Place > AdministrativeArea",
-          "score": 0.805,
-          "comment": "A major administrative division of a country, such as a state or province. Also called province, region, territory, commonwealth. Examples: California, Ontario, Bavaria, Texas."
+          "label": "DisagreeAction",
+          "path": "Thing > Action > AssessAction > ReactAction",
+          "score": 0.772,
+          "comment": "A react action expressing a negative opinion or difference of opinion regarding an object, proposition, or theme. Also called Express disagreement, object to, dispute, dissent. Examples: Disagreeing with a political statement, objecting to a proposed plan, disputing a fact. Distinct from AgreeAction, which expresses positive sentiment or agreement."
         },
         {
-          "source": "schema.org",
-          "label": "Country",
-          "path": "Thing > Place > AdministrativeArea",
+          "source": "vocab",
+          "id": "T0022",
+          "label": "ExcessDeathsEvent",
+          "path": "Thing > Event",
+          "score": 0.77,
+          "comment": "An event characterized by a number of deaths higher than expected for a given period."
+        },
+        {
+          "source": "vocab",
+          "id": "T0050",
+          "label": "Topic",
+          "path": "Thing > Intangible",
+          "score": 0.764,
+          "comment": "The subject of a discourse, discussion, or artistic composition."
+        },
+        {
+          "source": "vocab",
+          "id": "T0016",
+          "label": "Impact",
+          "path": "Thing",
+          "score": 0.762,
+          "comment": "The effect or influence of one thing on another."
+        }
+      ]
+    },
+    {
+      "oie_type": "Rebel Group",
+      "embedding_query_text": "Rebel Group: An organized group that resists the government or ruling power, often through armed rebellion. Also called Insurgent group, Militia, Guerrilla force. Examples: M23 rebel group.",
+      "chosen_type": {
+        "label": "RebelGroup",
+        "source": "vocab",
+        "vocab_id": "T0066",
+        "is_new_to_vocab": true,
+        "definition": "An organized group that resists a government or ruling power, often through armed rebellion.",
+        "parent": "Organization",
+        "path": "Thing > Organization",
+        "justification": "No existing candidate accurately represents a 'Rebel Group'; Organization is a suitable parent."
+      },
+      "llm_proposed": {
+        "source": "new",
+        "label": "RebelGroup",
+        "is_new": true
+      },
+      "mentions": [
+        "M23 rebel group"
+      ],
+      "candidates": [
+        {
+          "source": "vocab",
+          "id": "T0034",
+          "label": "GroupOfPeople",
+          "path": "Thing",
           "score": 0.8,
-          "comment": "A Country is a sovereign state or nation, representing a primary administrative division of the Earth's surface. Also called nation, state, sovereign state, realm. Examples: United States, Canada, France, Japan, Brazil."
+          "comment": "A collection of individuals."
         },
         {
           "source": "schema.org",
-          "label": "TouristDestination",
-          "path": "Thing > Place",
-          "score": 0.785,
-          "comment": "A place, region, or area that is a primary focus for tourism, often containing multiple tourist attractions. Also called travel destination, vacation spot, tourist region. Examples: Paris, the Grand Canyon, the Caribbean islands, a specific resort town. Distinct from TouristAttraction, which is a specific point of interest within a destination."
+          "label": "PerformingGroup",
+          "path": "Thing > Organization",
+          "score": 0.783,
+          "comment": "A PerformingGroup is an organization of performers, such as a band, orchestra, or circus. Also called performance ensemble, troupe, artistic group. Examples: Cirque du Soleil, a local theatre company, a dance troupe. Distinct from MusicGroup, which is specifically for musical performers."
         },
         {
           "source": "schema.org",
-          "label": "DefinedRegion",
-          "path": "Thing > Place",
-          "score": 0.774,
-          "comment": "A geographic area defined by specific, potentially non-administrative criteria, such as a set of postal codes or states. Also called Custom region, service area, delivery zone, sales territory. Examples: \"All US states except Alaska and Hawaii\", \"Postal codes 90210-90215\", \"The greater London area for delivery\". Distinct from AdministrativeArea, which is a politically defined region like a state or county."
+          "label": "MusicGroup",
+          "path": "Thing > Organization > PerformingGroup",
+          "score": 0.781,
+          "comment": "A MusicGroup, as a PerformingGroup, is an organization of musicians, such as a band or orchestra, or a solo musician. Also called band, musical ensemble, orchestra, solo artist. Examples: The Beatles, New York Philharmonic, Taylor Swift. Distinct from PerformingGroup, which is a broader category for any performance group."
+        },
+        {
+          "source": "schema.org",
+          "label": "SearchRescueOrganization",
+          "path": "Thing > Organization",
+          "score": 0.776,
+          "comment": "An organization dedicated to finding and providing aid to people who are lost or in imminent danger. Also called SAR team, rescue service, emergency search unit. Examples: a mountain rescue team, a coast guard search and rescue unit, a volunteer SAR group."
+        },
+        {
+          "source": "schema.org",
+          "label": "PoliticalParty",
+          "path": "Thing > Organization",
+          "score": 0.775,
+          "comment": "A PoliticalParty is an Organization formed to contest elections and hold power in government. Also called political movement, party. Examples: Democratic Party, Republican Party, Labour Party, Conservative Party."
         }
       ]
     }
