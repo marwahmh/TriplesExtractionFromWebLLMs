@@ -46,6 +46,21 @@ config cell plus a final **batch** cell. nb4 and nb7 each end with an **optional
 re-consolidation** block that cleans the grown vocabulary into `*_consolidated.*` files, leaving the
 raw incremental outputs untouched.
 
+### Parallel batches
+
+Where a step's articles are **independent**, its batch cell runs several at once through
+`notebooks/nb_parallel.py` — set `WORKERS` in the config cell (`WORKERS = 1` restores the plain
+sequential loop). That covers **6c** (extraction), **9 / 9b** (grounding) and **10** (MINE-1); each
+article's prints are buffered and shown as one block when it finishes, and a failed article is
+reported and skipped instead of ending the run. Since the time goes almost entirely on waiting for
+the API, WORKERS≈4 turns a 100-article grounding run into a ~4× shorter one. Ceiling: Gemini paid
+tier is comfortable at 4–8, the free tier (10 RPM) wants 1–2, and a vLLM server batches internally
+so 4–8 there too.
+
+The canonicalization notebooks (**4, 7, 7b, 6d, 6e**) stay sequential *by design*: they grow one
+shared vocabulary article by article, and what article *k* mints depends on what *k−1* added — running
+them in parallel would change the output, not just the speed.
+
 The **e2e/experiments/** notebooks (6f–6k) are archived variants of the 6e relation-canonicalization
 step, each changing one thing about how candidate properties are retrieved (full-schema, hybrid
 type-signature, dual-embedding, quota, schema-only + reconsolidation) to cut avoidable minting. They
@@ -58,6 +73,8 @@ and findings.
 ```
 Phase2_LLM_Extraction/
 ├── notebooks/
+│   ├── llm_backend.py                     # swaps gemini_json for a vLLM server (open-weight models)
+│   ├── nb_parallel.py                     # thread pool + per-article output capture for the batch cells
 │   ├── 0_shared/
 │   │   ├── 1_schema_enrichment.ipynb      # once:  parse + Gemini-enrich schema.org CLASSES
 │   │   ├── 5_property_enrichment.ipynb    # once:  parse + Gemini-enrich schema.org PROPERTIES
@@ -137,6 +154,12 @@ Notebooks 1, 2, 5 and 6 call Gemini (`gemini-2.5-flash`) and need the key; so do
 and consolidation stages of nb4 and nb7. The retrieval in nb3/nb4/nb7 is a local sentence-transformer
 (`intfloat/e5-base-v2`, downloaded on first run) doing cosine retrieval — no API key required for the
 embedding step itself.
+
+### Running on open-weight models instead of Gemini
+
+Any notebook can be pointed at an open-weight model (Qwen3, Gemma 3, Llama 3.x, …) served by vLLM on
+the Lab-IA GPU cluster, by adding **one cell** that swaps `gemini_json` for `notebooks/llm_backend.py`.
+Full setup, per-session runbook, how to switch models, and troubleshooting: **[`cluster/README.md`](cluster/README.md)**.
 
 ## Type matching details (nb3 / nb4)
 
