@@ -61,6 +61,30 @@ The canonicalization notebooks (**4, 7, 7b, 6d, 6e**) stay sequential *by design
 shared vocabulary article by article, and what article *k* mints depends on what *k−1* added — running
 them in parallel would change the output, not just the speed.
 
+### Token & time accounting
+
+Every notebook that calls an LLM ends its batch cell with the same report, from the shared ledger in
+`nb_parallel.py` — each call's prompt / output / **thinking** tokens and its latency, broken down per
+article:
+
+```
+LLM USAGE — nb4 · type extension
+               calls     prompt     output  thinking      total    llm_s
+art1               1      7,577      3,722     3,331     14,630     12.4
+art2               1      6,550      4,331     3,516     14,397     12.3
+------------------------------------------------------------------------
+TOTAL              2     14,127      8,053     6,847     29,027     24.7
+wall clock: 25.1s   (summed LLM time 24.7s)
+```
+
+**Thinking tokens are reported separately because they are billed as output but excluded from the
+API's output count** — on a reasoning model they are routinely the larger half, so a total that
+folds them in silently, or drops them, misstates the cost. A backend that does no reasoning reports
+zero and says so. Each report is also written to `results/<model>/_global/token_usage_<nb>.json`
+(the enrichment notebooks write theirs next to the schema cache), so a run's cost survives the
+kernel. `wall clock` is the batch's real elapsed time; for a parallel batch the summed LLM time is
+larger, and the ratio is the overlap the thread pool actually bought.
+
 The **e2e/experiments/** notebooks (6f–6k) are archived variants of the 6e relation-canonicalization
 step, each changing one thing about how candidate properties are retrieved (full-schema, hybrid
 type-signature, dual-embedding, quota, schema-only + reconsolidation) to cut avoidable minting. They

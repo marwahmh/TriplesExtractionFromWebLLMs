@@ -208,8 +208,9 @@ def llm_json(system_prompt, user_message, model=None, temperature=0):
     __main__.LAST_USAGE = LAST_USAGE
     # …and a per-thread copy, because those globals hold whichever call finished LAST. A batch cell
     # running articles in parallel must read its own call's counts: nb_parallel.last_usage().
+    # The same record feeds the ledger behind nb_parallel.usage_report().
     if nb_parallel is not None:
-        nb_parallel.record_usage(LAST_USAGE)
+        nb_parallel.record_usage(LAST_USAGE, seconds=elapsed)
 
     return _loads_lenient(answer, choice.finish_reason)
 
