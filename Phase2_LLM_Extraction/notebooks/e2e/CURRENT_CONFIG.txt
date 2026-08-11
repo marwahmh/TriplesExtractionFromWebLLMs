@@ -1,0 +1,228 @@
+e2e TRACK — CURRENT CONFIG AND RUN LOG
+snapshot of 6c / 6d / 6e as configured on 2026-08-11 · VARIANT="dedup"
+(hand-maintained: re-read the config cells if a knob has moved since)
+
+>>> MISMATCH RIGHT NOW: 6c is pointed at results/qwen3-32b-think/ while 6d and 6e read and write
+>>> results/gemini-2.5-flash/.  Re-running 6c as configured produces a graph 6d will NOT see.
+>>> Set 6c RESULTS_MODEL = "gemini-2.5-flash" to extend the gemini tree.
+
+
+===============================================================================
+1. THE PIPELINE
+===============================================================================
+6c  raw article text --(1 extraction call + 1 review call)-> nary_graph_dedup.json
+6d  entity types -> schema.org classes u minted types -> ..._typed.json
+                                        + consolidation  ..._typed_consolidated.json   <- 6e READS THIS
+6e  relation phrases -> schema.org properties u minted  -> ..._extended.json
+                                        + consolidation  ..._extended_consolidated.json
+
+Each notebook has TWO retrieval stages, both optional and independently switched:
+  INLINE (Hook A)      per type / per phrase: e5 fetches TOP_K_MATCH candidates for the LLM.
+                       With RERANK on, it fetches RERANK_FROM and a cross-encoder cuts to TOP_K_MATCH.
+  CONSOLIDATION        once at the end: each minted term is shortlisted against its neighbours and
+                       ONE LLM call merges synonyms / re-parents specifics.
+                       With RERANK_CONSOLIDATE on, fetch RERANK_CONSOLIDATE_FROM, cut to CONSOLIDATE_TOP_K.
+
+Two knobs decide WHICH POOL each stage sees (named from opposite directions):
+  INLINE_VOCAB_CANDIDATES     False = schema.org only        True = schema.org + grown vocabulary
+  CONSOLIDATE_INCLUDE_SCHEMA  False = vocabulary only        True = vocabulary + schema.org
+
+
+===============================================================================
+2. FILE NAMING — RUN_TAG / INPUT_TAG
+===============================================================================
+_sfx   = "_" + VARIANT                     identifies the variant, used to READ the previous stage
+_osfx  = _sfx + "_" + RUN_TAG              everything a notebook WRITES
+_isfx  = _sfx + "_" + INPUT_TAG   (6e)     which 6d run 6e READS
+
+  6d RUN_TAG  ==  6e INPUT_TAG      <- MUST match, or 6e cannot find its input
+  6e RUN_TAG                        <- names 6e's own outputs; differ it from INPUT_TAG to vary
+                                       something in 6e alone (a prompt, a rerank setting) on top of
+                                       an existing 6d run.
+
+A tag must name a run that EXISTS: check results/<model>/art*/e2e/*_typed_consolidated.json
+
+
+===============================================================================
+3. CURRENT SETTINGS
+===============================================================================
+
+--- 6c  EXTRACTION (raw text -> reified graph)  -----------------------------
+Recovered from the outputs themselves, NOT from the notebook's current state (which points at
+qwen3-32b-think).  Sources: results/gemini-2.5-flash/art*/e2e/nary_graph_dedup.json and
+_global/e2e/token_usage_extraction_dedup.json.
+
+  produced                   art1 art2 art4 art5 / e2e/nary_graph_dedup.json   (2026-08-06 21:31)
+  RESULTS_MODEL              "gemini-2.5-flash"     (files live in that tree)
+  GEMINI_MODEL               "gemini-2.5-flash"     (recorded: token_usage "model")
+  THINKING_BUDGET            -1                     (recorded)  dynamic thinking ON
+  REVIEW                     True                   (every graph carries token_usage.review
+                                                     and a review_notes line)
+  OUTPUT_NAME                "e2e/nary_graph_dedup.json"
+  method                     "single_call_e2e"      (recorded)
+  MAX_OUTPUT_TOKENS          None                   (inferred: art1 emitted 32.6k output tokens
+                                                     in one call, so no cap was in force)
+  SELECTED_ARTICLES          art1 art2 art4 art5    (exactly these four exist)
+  cost                       319,223 tokens total across the 4 articles
+                             (106,679 prompt / 119,937 output / 92,607 thinking)
+  per article                art1 108 entities · 21 n-ary nodes · 156 relations
+                             art2 140 · 18 · 198     art4 51 · 9 · 77     art5 72 · 30 · 163
+
+
+  To reproduce: set 6c RESULTS_MODEL="gemini-2.5-flash", THINKING_BUDGET=-1, REVIEW=True,
+  MAX_OUTPUT_TOKENS=None, OUTPUT_NAME="e2e/nary_graph_dedup.json", run cell 7 last among the
+  prompt cells, then the batch cell.  Expect a DIFFERENT graph anyway — see section 7.
+
+--- 6d / 6e  CANONICALIZATION -------------------------------------------------
+                             6d (types)        6e (relations)
+  RESULTS_MODEL / BACKEND    gemini-2.5-flash  gemini-2.5-flash
+  VARIANT                    dedup             dedup
+  RUN_TAG                    "rr"              "rr_orig2_mixedCons"
+  INPUT_TAG                  -                 "schemainline_rr"
+  SELECTED_ARTICLES          art1 art2 art4 art5   (same)
+  FRESH                      True              True        <- build cell WIPES the vocab; never run
+                                                              it when you only want consolidation
+
+  MATCH_MODEL                e5-base-v2        e5-base-v2
+  ANCHOR_MODE                -                 "original"   (A/B/C are diagnostics only)
+  TOP_K_MATCH                5                 10
+  EXPAND_MODE                True              True
+
+  INLINE_VOCAB_CANDIDATES    False             False        schema.org-only inline
+  RERANK  (inline)           False             True         reranker helps relations, hurts types
+  RERANK_FROM                50                50
+  PARALLEL_LLM / WORKERS     -                 True / 4     valid ONLY while inline pool is
+                                                            schema.org-only (calls independent);
+                                                            ignored with a warning otherwise
+  RERANK_MODEL               cross-encoder/ms-marco-MiniLM-L-6-v2  (both)
+
+  CONSOLIDATE_INCLUDE_SCHEMA False             True
+  CONSOLIDATE_TOP_K          5                 10
+  RERANK_CONSOLIDATE         True              True
+  RERANK_CONSOLIDATE_FROM    25                50
+  SUBTYPE_/SUBPROP_MODE      subclass          subproperty
+
+  ALIGN_QUERY_STYLE          True              True    append "Also called <syn>" to the query
+  6e prompt                  -                 PROPERTY_SELECT_PROMPT (cell 15, edited — section 6)
+                                               CONCISE variant in cell 16 is switched OFF
+
+  fixed, rarely touched (consolidation cells: 6d c20 / 6e c28, hierarchy: 6d c25 / 6e c33)
+  SCHEMA_ID_PREFIX           "schema:"         "schema:"
+  CANDIDATE_DEF_CHARS        200               200     per-candidate definition budget
+  SCHEMA_EXCLUDE_LABELS      Property, Class,  domainIncludes, rangeIncludes,
+                             Enumeration,      supersededBy, inverseOf
+                             DataType          (metamodel terms, never merge targets)
+  INCLUDE_ALL_SCHEMA         False             False   hierarchy: print only USED schema.org terms
+  NEW_ARTICLES               []                []      used only when FRESH=False
+  EVENT_ROOT                 "Event"           -       root for Event-hub types
+
+  environment
+  GEMINI_API_KEY             from env: GEMINI_API_KEY or GOOGLE_API_KEY (all three notebooks)
+  a vLLM backend additionally needs a tunnel — see cluster/README.md
+
+
+===============================================================================
+4. KNOWN MISMATCHES  (fix before the next full run)
+===============================================================================
+  a) 6d RUN_TAG "rr"  !=  6e INPUT_TAG "schemainline_rr".  Re-running 6d as-is writes files 6e
+     will not read.  Set them equal.
+  b) 6d still has CONSOLIDATE_INCLUDE_SCHEMA=False — the setting that measured clearly worse on
+     the relation side (3 merges / 0 folded into schema.org, vs 24 / 18 with the mixed pool).
+  c) Drift between the halves: TOP_K_MATCH 5 vs 10, CONSOLIDATE_TOP_K 5 vs 10,
+     RERANK_CONSOLIDATE_FROM 25 vs 50.  Only the RERANK difference is deliberate.
+  d) 6c RESULTS_MODEL="qwen3-32b-think" vs "gemini-2.5-flash" in 6d/6e (see the header).
+
+
+===============================================================================
+5. RUN LOG  (relations, after global consolidation, same 4 articles)
+===============================================================================
+run                 |triples|schema|mint|schema%|raw|final|object-baked|merges|->schema|cons. pool  |tokens
+--------------------+-------+------+----+-------+---+-----+------------+------+--------+------------+-------
+baseline            |  593  | 299  |294 | 50.4  |126| 123 |  35   28%  |   3  |    0   |vocab+schema|362,007
+rr                  |  593  | 416  |177 | 70.2  | 81|  76 |  29   38%  |   4  |    3   |vocab+schema|383,395
+schemainline_rr     |  593  | 381  |212 | 64.2  | 93|  92 |  24   26%  |   1  |    0   |vocab       |365,289
+rr_concise          |  593  | 371  |222 | 62.6  | 99|  95 |  28   29%  |   4  |    0   |vocab       |407,114
+rr_concise2         |  593  | 331  |262 | 55.8  |117| 113 |  17   15%  |   4  |    0   |vocab       |416,442
+rr_orig2            |  594  | 399  |195 | 67.2  | 69|  65 |  25   38%  |   3  |    0   |vocab       |405,938
+rr_orig2_mixedCons  |  593  | 435  |158 | 73.4  | 91|  67 |  23   34%  |  24  |   18   |vocab+schema|435,159   <- BEST
+
+  raw / final = minted properties before / after global consolidation.
+  BEST = highest schema.org reuse (73.4%) at near-smallest vocabulary (67).
+
+WHAT THE LOG SUPPORTS
+  * MIXED consolidation is the single clearest win.  Folding a mint into a schema.org property both
+    shrinks the vocabulary and lifts reuse, and vocab-only consolidation structurally cannot do it:
+    24 merges / 18 into schema.org, vs 3 / 0.  Far larger than run-to-run noise.
+  * Schema.org-ONLY inline (schemainline_rr) is NOT a win: inline vocabulary candidates let the LLM
+    reuse its own earlier mints directly, which beats deferring that to consolidation
+    (81 raw mints with the vocab inline vs 93 without).
+  * The reranker helps relations, hurts types (see section 4b of the earlier analysis).
+
+WHAT IT DOES NOT SUPPORT  (see section 7)
+  * Any single-run prompt comparison.  rr_concise / rr_concise2 / rr_orig2 differ by less than the
+    measured run-to-run variance.
+
+
+===============================================================================
+6. 6e PROMPT — WHAT WAS CHANGED AND WHY
+===============================================================================
+Relative to the prompt used for the "rr" run:
+  1. removed "(their subject-type -> object-type signatures)" from the minting/naming bullet —
+     it pointed at the signatures as naming MATERIAL, against the next bullet's "does not embed a
+     subject or object".  Evidence: of 30 object-baked mints in "rr", 20 ended in a type appearing
+     as the OBJECT in that group's OBSERVED_SIGNATURES (Event->Date became recordDate).
+  2. split that bullet into IDENTIFY (the only step that looks at the instances) and NAME (the
+     relation alone), stating that nothing from the instances is naming material, plus a generality
+     test: the label must still make sense for arguments of completely different types.
+  3. INSTANCE TEST tightened 1160 -> 697 chars: kept the orientation procedure, the leniency
+     rationale and the accept/reject rule; dropped two restatements.
+  4. orientation clause rewritten in the prompt's own arrow notation
+     ("match subject -> object against domain -> range for as_is, or range -> domain for inverse").
+  5. ALL-CAPS reduced 55 -> 26 tokens: kept only section headers, literal input field names, and the
+     MUST/EXACTLY ONE invariant.
+  6. OUTPUT prose replaced by 4 value-rule bullets (the JSON skeleton already gives the shape).
+
+RESULT: object-baking did NOT move (38% -> 38%).  21 baked names disappeared and 17 new ones
+appeared (teamHomeCity -> hasTeamHomeCity, burnedArea -> hasBurnedArea).  Four prompt attempts have
+not shifted this rate; it looks like a job for a deterministic post-hoc check on minted labels
+(reject a label whose suffix matches an observed object type, ask for a rename) rather than wording.
+
+
+===============================================================================
+7. RUN-TO-RUN VARIANCE  (read before comparing anything)
+===============================================================================
+temperature=0 is greedy sampling, NOT determinism.  Hosted inference is batched, so float reduction
+order shifts logits slightly and near-ties flip; a sampled reasoning trace amplifies it.  Thinking is
+ON deliberately (thinking_budget=-1, ~120k thinking tokens per build) because it gives better
+decisions.
+
+MEASURED on this corpus — two runs, identical prompt / input / settings:
+    raw minted properties        69   vs   91
+    after consolidation          65   vs   67
+    property decisions identical            45%
+    same source (schema.org vs mint)        72%
+
+So:
+  * a single run is not evidence.  Repeat an arm ~3x under separate RUN_TAGs and report mean+range.
+  * report POST-consolidation numbers — consolidation is deterministic given its input and absorbs
+    most of the sampling noise (69/91 -> 65/67).  That robustness is itself a result worth reporting.
+
+
+===============================================================================
+8. RECOMMENDED NEXT RUN
+===============================================================================
+  6c:  only if you want to re-extract.  Set RESULTS_MODEL="gemini-2.5-flash" first, keep
+       OUTPUT_NAME="e2e/nary_graph_dedup.json" so VARIANT="dedup" downstream still resolves.
+       Existing graphs are fine — 6d/6e do not require a fresh extraction.
+
+  6d:  RUN_TAG="best"            CONSOLIDATE_INCLUDE_SCHEMA=True   TOP_K_MATCH=10   RERANK=False
+  6e:  INPUT_TAG="best"          RUN_TAG="best_r1"                 (then _r2, _r3)
+       CONSOLIDATE_INCLUDE_SCHEMA=True (already)   TOP_K_MATCH=10   RERANK=True
+       INLINE_VOCAB_CANDIDATES: try True — "rr" (81 raw mints) beat "schemainline_rr" (93).
+       NOTE: with it True, PARALLEL_LLM is ignored (the calls stop being independent).
+
+  Cells to run for CONSOLIDATION ONLY (no build, one LLM call):
+       1, 2, 4, 5, 6, 7, 8, 9, 10   then   28, 29, 31, 33
+       NEVER cell 23 — FRESH=True wipes the vocabulary.
+       Copy the raw vocab + per-article *_extended.json to the new tag first if you want to keep
+       both consolidations of the same build.
