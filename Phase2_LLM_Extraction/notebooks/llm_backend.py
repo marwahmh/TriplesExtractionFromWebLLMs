@@ -24,6 +24,7 @@ import os
 import re
 import time
 
+import httpx
 from openai import OpenAI
 
 try:
@@ -40,6 +41,11 @@ except Exception as _exc:                         # only bites a parallel batch,
 
 
 BASE_URL = os.environ.get("VLLM_BASE_URL", "http://localhost:8000/v1")
+# Read timeout for ONE completion. The openai client defaults to 600s, which is far too short
+# here: a thinking-arm extraction emits a 30k-token graph plus 10-17k reasoning tokens, and a
+# contended single-GPU server QUEUES the parallel article calls, so one request's wall time is
+# several times its own generation time. Connect stays short so a dead tunnel still fails fast.
+TIMEOUT_S = float(os.environ.get("VLLM_TIMEOUT_S", 3600))
 MODEL = "qwen3-14b"                               # matches --served-model-name in the sbatch script
 THINKING = True                                   # Qwen3: on/off only, no token budget
 STRUCTURED = True                                 # grammar-constrained JSON (see note)
@@ -68,13 +74,17 @@ TOP_P = None                                      # Qwen3 recommends 0.95 whenev
 last_latency_s = None
 LAST_USAGE = None
 
-_client = OpenAI(base_url=BASE_URL, api_key="EMPTY")
+def _timeout():
+    return httpx.Timeout(TIMEOUT_S, connect=10.0)
+
+_client = OpenAI(base_url=BASE_URL, api_key="EMPTY", timeout=_timeout())
 
 
 def configure(model=None, thinking=None, structured=None, max_output_tokens=None,
-              temperature=None, top_p=None, base_url=None):
+              temperature=None, top_p=None, base_url=None, timeout=None):
     """Set the backend globals. Call once per notebook before any extraction cell."""
     global MODEL, THINKING, STRUCTURED, MAX_OUTPUT_TOKENS, TEMPERATURE, TOP_P, BASE_URL, _client
+    global TIMEOUT_S
     if model is not None:
         MODEL = model
     if thinking is not None:
@@ -87,9 +97,12 @@ def configure(model=None, thinking=None, structured=None, max_output_tokens=None
         TEMPERATURE = temperature
     if top_p is not None:
         TOP_P = top_p
+    if timeout is not None:
+        TIMEOUT_S = float(timeout)
     if base_url is not None:
         BASE_URL = base_url
-        _client = OpenAI(base_url=BASE_URL, api_key="EMPTY")
+    if base_url is not None or timeout is not None:
+        _client = OpenAI(base_url=BASE_URL, api_key="EMPTY", timeout=_timeout())
     if STRUCTURED and THINKING:
         print("  [llm_backend] STRUCTURED=True suppresses reasoning on vLLM 0.8.5 — "
               "set structured=False to actually get <think> blocks")
@@ -279,7 +292,8 @@ def activate(name, root, ns, results=None, **overrides):
     ns["MAX_OUTPUT_TOKENS"] = MAX_OUTPUT_TOKENS
     ns["THINKING_BUDGET"] = -1 if THINKING else 0     # Qwen3 is on/off; no token budget exists
     print(f"backend: vLLM {BASE_URL} model={model} "
-          f"thinking={THINKING} structured={STRUCTURED} max_tokens={MAX_OUTPUT_TOKENS}"
+          f"thinking={THINKING} structured={STRUCTURED} max_tokens={MAX_OUTPUT_TOKENS} "
+          f"timeout={TIMEOUT_S:.0f}s"
           f"  ->  results/{results}/{note}")
     return {"backend": name, "kind": kind, "model": model, "thinking": THINKING,
             "structured": STRUCTURED, "results_dir": ns["RESULTS_DIR"]}
