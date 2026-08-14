@@ -98,12 +98,36 @@ echo "=================================================="
 nvidia-smi --query-gpu=name,memory.total --format=csv,noheader
 
 # --host 0.0.0.0 is required so the login node can relay to this port
-# Eager mode skips torch.compile + CUDA graph capture. Costs some throughput, but this corpus is
-# 18 short articles, so it is irrelevant here — and it removes a whole class of build failures.
-# Set EAGER=0 to re-enable compilation once the server is known good.
-if [ "${EAGER:-1}" = "1" ]; then EAGER_FLAG="--enforce-eager"; else EAGER_FLAG=""; fi
+# Eager mode skips torch.compile + CUDA graph capture. It removes a whole class of build failures,
+# which is why it was the default while the server was being brought up — but it costs 1.3-1.8x on
+# SINGLE-request decode, because a 64-layer forward pass at batch 1 is kernel-launch-bound, and it
+# also disables async output processing (vLLM warns about this at startup). Now that the server is
+# known good, compile by default. EAGER=1 puts the safe path back.
+if [ "${EAGER:-0}" = "1" ]; then EAGER_FLAG="--enforce-eager"; else EAGER_FLAG=""; fi
 
-# $REASONING and $EAGER_FLAG are intentionally unquoted so empty values expand to nothing (bash 4.2)
+# N-gram speculative decoding. The model drafts the next few tokens by looking for a repeat of the
+# last few in its own context, then verifies them all in ONE forward pass. It is a large win here
+# and a small one in general, because this pipeline's output is unusually self-similar:
+#   * "evidence" spans are verbatim sentences copied out of the prompt
+#   * the JSON keys (id/type/confidence/evidence/relation_phrase) repeat thousands of times
+# Drafting is free at batch 1 — the GPU is bandwidth-bound, not compute-bound, so the verify pass
+# costs the same as the single-token pass it replaces. With greedy decoding (temperature 0, which
+# is what llm_backend sends) the accepted tokens are the ones argmax would have produced anyway,
+# so this does NOT change the extraction — it is not a quality/speed trade.
+# SPEC=0 disables it if a build turns out not to accept the flag.
+SPEC=${SPEC:-1}
+SPEC_FLAG=""
+if [ "$SPEC" = "1" ]; then
+    if vllm serve --help 2>&1 | grep -q -- "--speculative-config"; then
+        SPEC_FLAG='--speculative-config {"method":"ngram","num_speculative_tokens":5,"prompt_lookup_max":4,"prompt_lookup_min":2}'
+    else
+        echo "WARNING: this build has no --speculative-config; running without speculation"
+    fi
+fi
+echo "eager: ${EAGER_FLAG:-<off, cuda graphs on>}   spec: ${SPEC_FLAG:-<none>}"
+
+# $REASONING, $EAGER_FLAG and $SPEC_FLAG are intentionally unquoted so empty values expand to
+# nothing (bash 4.2). The SPEC JSON deliberately contains no spaces so it survives word-splitting.
 vllm serve "$MODEL" \
   --served-model-name "$SERVED" \
   --max-model-len "$MAXLEN" \
@@ -112,5 +136,6 @@ vllm serve "$MODEL" \
   $ROPE \
   $REASONING \
   $EAGER_FLAG \
+  $SPEC_FLAG \
   --host 0.0.0.0 \
   --port 8000

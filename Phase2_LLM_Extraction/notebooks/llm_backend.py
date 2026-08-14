@@ -52,6 +52,18 @@ STRUCTURED = True                                 # grammar-constrained JSON (se
 MAX_OUTPUT_TOKENS = None                          # no cap — see sizing note below
 TEMPERATURE = None                                # if set, overrides the caller's temperature
 TOP_P = None                                      # Qwen3 recommends 0.95 whenever temperature > 0
+SEED = None                                       # sampling RNG seed; only meaningful when temperature > 0
+
+# SEED pins the sampler's RNG, which matters only for the THINKING arm — that one runs at
+# temperature 0.6 (greedy sends Qwen3 into repetition loops), so without a seed no run is
+# re-runnable. The structured arm is greedy and has no RNG to pin, so a seed there does nothing.
+#
+# What a seed does NOT buy is a deterministic run. vLLM batches requests continuously, batch shape
+# decides the reduction order inside the matmuls, and that moves logits in the low bits — enough to
+# flip argmax wherever the top two tokens are near-tied, after which a 20k-token graph diverges.
+# So the same seed reproduces a run only against the SAME server config: same vLLM build, model
+# revision, tensor-parallel size, eager-vs-CUDA-graphs, speculative decoding on/off, and the same
+# concurrency. Treat it as "this run can be repeated", not "this output is determined".
 
 # SIZING — None matches the notebooks' own Gemini setting and lets vLLM use everything left of
 # --max-model-len after the prompt. The real cap is therefore the server's context window, which
@@ -81,9 +93,9 @@ _client = OpenAI(base_url=BASE_URL, api_key="EMPTY", timeout=_timeout())
 
 
 def configure(model=None, thinking=None, structured=None, max_output_tokens=None,
-              temperature=None, top_p=None, base_url=None, timeout=None):
+              temperature=None, top_p=None, seed=None, base_url=None, timeout=None):
     """Set the backend globals. Call once per notebook before any extraction cell."""
-    global MODEL, THINKING, STRUCTURED, MAX_OUTPUT_TOKENS, TEMPERATURE, TOP_P, BASE_URL, _client
+    global MODEL, THINKING, STRUCTURED, MAX_OUTPUT_TOKENS, TEMPERATURE, TOP_P, SEED, BASE_URL, _client
     global TIMEOUT_S
     if model is not None:
         MODEL = model
@@ -97,6 +109,8 @@ def configure(model=None, thinking=None, structured=None, max_output_tokens=None
         TEMPERATURE = temperature
     if top_p is not None:
         TOP_P = top_p
+    if seed is not None:
+        SEED = seed
     if timeout is not None:
         TIMEOUT_S = float(timeout)
     if base_url is not None:
@@ -108,7 +122,7 @@ def configure(model=None, thinking=None, structured=None, max_output_tokens=None
               "set structured=False to actually get <think> blocks")
     return {"model": MODEL, "thinking": THINKING, "structured": STRUCTURED,
             "max_output_tokens": MAX_OUTPUT_TOKENS, "temperature": TEMPERATURE,
-            "base_url": BASE_URL}
+            "top_p": TOP_P, "seed": SEED, "base_url": BASE_URL}
 
 
 def _loads_lenient(text, finish_reason=None):
@@ -185,6 +199,8 @@ def llm_json(system_prompt, user_message, model=None, temperature=0):
     )
     if TOP_P is not None:
         kwargs["top_p"] = TOP_P
+    if SEED is not None:
+        kwargs["seed"] = SEED
     if STRUCTURED:
         kwargs["response_format"] = {"type": "json_object"}
     if MAX_OUTPUT_TOKENS is not None:
@@ -291,9 +307,12 @@ def activate(name, root, ns, results=None, **overrides):
     ns["gemini_json"] = llm_json
     ns["MAX_OUTPUT_TOKENS"] = MAX_OUTPUT_TOKENS
     ns["THINKING_BUDGET"] = -1 if THINKING else 0     # Qwen3 is on/off; no token budget exists
+    # Print the sampling params too: a thinking run left greedy silently produces repetition loops
+    # that look like "the model is slow", so the arm's temperature belongs where it can be seen.
     print(f"backend: vLLM {BASE_URL} model={model} "
           f"thinking={THINKING} structured={STRUCTURED} max_tokens={MAX_OUTPUT_TOKENS} "
-          f"timeout={TIMEOUT_S:.0f}s"
+          f"temperature={'caller' if TEMPERATURE is None else TEMPERATURE} "
+          f"top_p={TOP_P} seed={SEED} timeout={TIMEOUT_S:.0f}s"
           f"  ->  results/{results}/{note}")
     return {"backend": name, "kind": kind, "model": model, "thinking": THINKING,
             "structured": STRUCTURED, "results_dir": ns["RESULTS_DIR"]}

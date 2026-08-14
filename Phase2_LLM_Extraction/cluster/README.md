@@ -521,7 +521,8 @@ compute nodes can reach HuggingFace and PyPI through it.
 | `TP` | `1` | tensor parallelism; must equal the GPU count requested |
 | `THINK` | `0` | server-side reasoning parser. Leave off — `llm_backend` strips `<think>` tags itself, and the parser only adds failure modes. Whether the model *reasons* is a client-side setting in `BACKENDS` |
 | `YARN` | `0` | `1` enables YaRN rope scaling so `MAXLEN` can exceed a model's native context. Needed for the **thinking arm** on Qwen3 (native 32768) — see below |
-| `EAGER` | `1` | `0` re-enables `torch.compile` + CUDA graphs (faster, slower startup, more failure modes) |
+| `EAGER` | `0` | `1` forces `--enforce-eager` (skips `torch.compile` + CUDA graphs). Eager costs 1.3-1.8x on single-request decode and disables async output processing; it was the default only while the server was being brought up |
+| `SPEC` | `1` | n-gram speculative decoding. Big win on this workload — `evidence` spans are verbatim prompt text and the JSON keys repeat endlessly, so the drafter hits often. Exact under greedy decoding, so it does not change the extraction. `0` disables |
 
 Example: `MODEL=Qwen/Qwen3-8B SERVED=qwen3-8b EAGER=0 sbatch serve_vllm.sbatch`
 
