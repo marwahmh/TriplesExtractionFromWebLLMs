@@ -1,11 +1,22 @@
-e2e TRACK — CURRENT CONFIG AND RUN LOG
-snapshot of 6c / 6d / 6e as configured on 2026-08-11 · VARIANT="dedup"
-(hand-maintained: re-read the config cells if a knob has moved since)
+e2e TRACK — HISTORICAL RUN LOG  (superseded as a config source)
+snapshot of 6c / 6d / 6e as they were configured on 2026-08-11 · VARIANT="dedup"
 
->>> MISMATCH RIGHT NOW: 6c is pointed at results/qwen3-32b-think/ while 6d and 6e read and write
->>> results/gemini-2.5-flash/.  Re-running 6c as configured produces a graph 6d will NOT see.
->>> Set 6c RESULTS_MODEL = "gemini-2.5-flash" to extend the gemini tree.
-
+>>> THIS FILE IS NO LONGER THE CONFIGURATION.  The notebooks now read configs/<EXPERIMENT>.json
+>>> through notebooks/experiment_config.py, so the settings of a run are a file the run itself
+>>> reads — which is what this hand-maintained snapshot could never be (it drifted, and the
+>>> mismatch warning it used to carry was the symptom).  For current settings:
+>>>     cd notebooks && python -m experiment_config show main
+>>> and see configs/README.md for what every key means.
+>>>
+>>> The RUNS it describes were made on the 4 development articles and now live in
+>>> results_archive/2026-08-15_exploration/ — results/ holds only runs made under the manifest
+>>> scheme (results/<model>/_runs/<run_id>.json), so none of the tags in section 5 resolve to a
+>>> file in the live tree any more.  Section 7 (run-to-run variance) is why a reported arm is run
+>>> three times: REPEAT=1,2,3 ./run_e2e.sh.
+>>>
+>>> What is still worth keeping here is section 4 onward: the MEASURED RESULTS of the runs that
+>>> were done under those settings, and the reasoning behind the choices. Sections 1-3 describe
+>>> the pipeline and the knobs, which is still accurate as background.
 
 ===============================================================================
 1. THE PIPELINE

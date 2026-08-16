@@ -1,0 +1,130 @@
+[NbConvertApp] Converting notebook /Users/marwah/Documents/Thesis/TriplesExtractionFromWebLLMs/Phase2_LLM_Extraction/notebooks/e2e/6d_e2e_type_canonicalization.ipynb to notebook
+/opt/anaconda3/lib/python3.12/site-packages/nbformat/__init__.py:93: MissingIDFieldWarning: Code cell is missing an id field, this will become a hard error in future nbformat versions. You may want to use `normalize()` on your notebooks before validations (available since nbformat 5.1.4). Previous versions of nbformat are fixing this issue transparently, and will stop doing so in the future.
+  validate(nb)
+Traceback (most recent call last):
+  File "/opt/anaconda3/bin/jupyter-nbconvert", line 11, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "/opt/anaconda3/lib/python3.12/site-packages/jupyter_core/application.py", line 283, in launch_instance
+    super().launch_instance(argv=argv, **kwargs)
+  File "/opt/anaconda3/lib/python3.12/site-packages/traitlets/config/application.py", line 1075, in launch_instance
+    app.start()
+  File "/opt/anaconda3/lib/python3.12/site-packages/nbconvert/nbconvertapp.py", line 412, in start
+    self.convert_notebooks()
+  File "/opt/anaconda3/lib/python3.12/site-packages/nbconvert/nbconvertapp.py", line 590, in convert_notebooks
+    self.convert_single_notebook(notebook_filename)
+  File "/opt/anaconda3/lib/python3.12/site-packages/nbconvert/nbconvertapp.py", line 556, in convert_single_notebook
+    output, resources = self.export_single_notebook(
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.12/site-packages/nbconvert/nbconvertapp.py", line 479, in export_single_notebook
+    output, resources = self.exporter.from_filename(
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.12/site-packages/nbconvert/exporters/exporter.py", line 203, in from_filename
+    return self.from_file(f, resources=resources, **kw)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.12/site-packages/nbconvert/exporters/exporter.py", line 222, in from_file
+    return self.from_notebook_node(
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.12/site-packages/nbconvert/exporters/notebook.py", line 36, in from_notebook_node
+    nb_copy, resources = super().from_notebook_node(nb, resources, **kw)
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.12/site-packages/nbconvert/exporters/exporter.py", line 156, in from_notebook_node
+    nb_copy, resources = self._preprocess(nb_copy, resources)
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.12/site-packages/nbconvert/exporters/exporter.py", line 354, in _preprocess
+    nbc, resc = preprocessor(nbc, resc)  # type:ignore[operator]
+                ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.12/site-packages/nbconvert/preprocessors/base.py", line 48, in __call__
+    return self.preprocess(nb, resources)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.12/site-packages/nbconvert/preprocessors/execute.py", line 102, in preprocess
+    self.preprocess_cell(cell, resources, index)
+  File "/opt/anaconda3/lib/python3.12/site-packages/nbconvert/preprocessors/execute.py", line 123, in preprocess_cell
+    cell = self.execute_cell(cell, index, store_history=True)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.12/site-packages/jupyter_core/utils/__init__.py", line 165, in wrapped
+    return loop.run_until_complete(inner)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.12/asyncio/base_events.py", line 687, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.12/site-packages/nbclient/client.py", line 1058, in async_execute_cell
+    await self._check_raise_for_error(cell, cell_index, exec_reply)
+  File "/opt/anaconda3/lib/python3.12/site-packages/nbclient/client.py", line 914, in _check_raise_for_error
+    raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
+nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
+------------------
+# Incremental build — ONE LLM call per article canonicalizes BOTH entity types AND Event-hub types.
+# Sequential BY DESIGN: the vocabulary grows article by article and what article k mints depends on
+# what k-1 added, so running the articles in parallel would change the output, not just the speed.
+#
+# FRESH comes from the config. True: start from an EMPTY vocabulary and process ALL of
+# ARTICLE_ORDER (what a reported run does — reproducible from the config alone).
+# False: keep the existing type_vocabulary<_osfx>.json and extend it with NEW_ARTICLES only
+# (or, if that is empty, with every article that has no typed graph yet).
+NEW_ARTICLES = []          # used only when FRESH is False
+
+if FRESH:
+    vocab = {"types": [], "next_id": 1}; save_vocab(vocab); todo = ARTICLE_ORDER
+else:
+    vocab = load_vocab()
+    todo  = NEW_ARTICLES or [a for a in ARTICLE_ORDER
+                             if not (RESULTS_DIR / a / f"e2e/nary_graph{_osfx}_typed.json").exists()]
+
+print(f"building e2e type vocabulary over {len(todo)} article(s): {todo}\n")
+nb_parallel.reset_usage()          # the report below covers only the calls THIS run makes
+_t0 = time.perf_counter()
+
+for aid in todo:
+    with nb_parallel.usage_scope(aid):      # tag this article's calls so the report breaks down per article
+        canonicalize_article_types(aid, vocab, write=True, save=True, verbose=True)
+    time.sleep(5)                           # gentle on the API's per-minute limit
+print(f"\ndone — {len(vocab['types'])} canonical types in {VOCAB_PATH}")
+
+# --- what this run cost: calls, prompt / output / THINKING tokens, and elapsed time ------------
+# Written to a tagged file so each experiment keeps its own cost record (run_metrics reads it).
+nb_parallel.usage_report(f"6d · e2e type canonicalization · {EXPERIMENT}",
+                         wall_seconds=time.perf_counter() - _t0,
+                         write=RESULTS_DIR / "_global" / "e2e" / f"token_usage_types{_osfx}.json",
+                         experiment=EXPERIMENT, run_tag=RUN_TAG)
+------------------
+
+----- stdout -----
+building e2e type vocabulary over 20 article(s): ['art1', 'art2', 'art3', 'art4', 'art5', 'art8', 'art12', 'art15', 'art17', 'art23', 'art44', 'art46', 'art52', 'art55', 'art57', 'art58', 'art59', 'art72', 'art73', 'art74']
+------------------
+
+[0;31m---------------------------------------------------------------------------[0m
+[0;31mAttributeError[0m                            Traceback (most recent call last)
+Cell [0;32mIn[12], line 24[0m
+[1;32m     22[0m [38;5;28;01mfor[39;00m aid [38;5;129;01min[39;00m todo:
+[1;32m     23[0m     [38;5;28;01mwith[39;00m nb_parallel[38;5;241m.[39musage_scope(aid):      [38;5;66;03m# tag this article's calls so the report breaks down per article[39;00m
+[0;32m---> 24[0m         canonicalize_article_types(aid, vocab, write[38;5;241m=[39m[38;5;28;01mTrue[39;00m, save[38;5;241m=[39m[38;5;28;01mTrue[39;00m, verbose[38;5;241m=[39m[38;5;28;01mTrue[39;00m)
+[1;32m     25[0m     time[38;5;241m.[39msleep([38;5;241m5[39m)                           [38;5;66;03m# gentle on the API's per-minute limit[39;00m
+[1;32m     26[0m [38;5;28mprint[39m([38;5;124mf[39m[38;5;124m"[39m[38;5;130;01m\n[39;00m[38;5;124mdone — [39m[38;5;132;01m{[39;00m[38;5;28mlen[39m(vocab[[38;5;124m'[39m[38;5;124mtypes[39m[38;5;124m'[39m])[38;5;132;01m}[39;00m[38;5;124m canonical types in [39m[38;5;132;01m{[39;00mVOCAB_PATH[38;5;132;01m}[39;00m[38;5;124m"[39m)
+
+Cell [0;32mIn[11], line 199[0m, in [0;36mcanonicalize_article_types[0;34m(aid, vocab, write, save, verbose)[0m
+[1;32m    193[0m items  [38;5;241m=[39m [{[38;5;124m"[39m[38;5;124mgid[39m[38;5;124m"[39m: [38;5;124mf[39m[38;5;124m"[39m[38;5;124mE[39m[38;5;132;01m{[39;00mi[38;5;241m+[39m[38;5;241m1[39m[38;5;132;01m}[39;00m[38;5;124m"[39m, [38;5;124m"[39m[38;5;124mkind[39m[38;5;124m"[39m: [38;5;124m"[39m[38;5;124mentity[39m[38;5;124m"[39m, [38;5;124m"[39m[38;5;124moie_type[39m[38;5;124m"[39m: t, [38;5;124m"[39m[38;5;124mdefinition[39m[38;5;124m"[39m: tinfo[38;5;241m.[39mget(t, {})[38;5;241m.[39mget([38;5;124m"[39m[38;5;124mdefinition[39m[38;5;124m"[39m),
+[1;32m    194[0m            [38;5;124m"[39m[38;5;124mexamples[39m[38;5;124m"[39m: [e[[38;5;124m"[39m[38;5;124mtext[39m[38;5;124m"[39m] [38;5;28;01mfor[39;00m e [38;5;129;01min[39;00m ent_groups[t]], [38;5;124m"[39m[38;5;124mcandidates[39m[38;5;124m"[39m: ent_cands[i]}
+[1;32m    195[0m           [38;5;28;01mfor[39;00m i, t [38;5;129;01min[39;00m [38;5;28menumerate[39m(ent_types)]
+[1;32m    196[0m items [38;5;241m+[39m[38;5;241m=[39m [{[38;5;124m"[39m[38;5;124mgid[39m[38;5;124m"[39m: [38;5;124mf[39m[38;5;124m"[39m[38;5;124mV[39m[38;5;132;01m{[39;00mi[38;5;241m+[39m[38;5;241m1[39m[38;5;132;01m}[39;00m[38;5;124m"[39m, [38;5;124m"[39m[38;5;124mkind[39m[38;5;124m"[39m: [38;5;124m"[39m[38;5;124mevent[39m[38;5;124m"[39m, [38;5;124m"[39m[38;5;124moie_type[39m[38;5;124m"[39m: t, [38;5;124m"[39m[38;5;124mdefinition[39m[38;5;124m"[39m: [38;5;28;01mNone[39;00m,
+[1;32m    197[0m            [38;5;124m"[39m[38;5;124mexamples[39m[38;5;124m"[39m: ev_examples[t], [38;5;124m"[39m[38;5;124mcandidates[39m[38;5;124m"[39m: ev_cands[i]}
+[1;32m    198[0m           [38;5;28;01mfor[39;00m i, t [38;5;129;01min[39;00m [38;5;28menumerate[39m(ev_types)]
+[0;32m--> 199[0m report [38;5;241m=[39m llm_select_types(items) [38;5;28;01mif[39;00m items [38;5;28;01melse[39;00m {}
+[1;32m    201[0m [38;5;66;03m# Resolve ENTITY types (mint parents anywhere; Thing fallback) -------------------------------[39;00m
+[1;32m    202[0m ent_res, n_mint_e [38;5;241m=[39m {}, [38;5;241m0[39m
+
+Cell [0;32mIn[11], line 147[0m, in [0;36mllm_select_types[0;34m(items)[0m
+[1;32m    145[0m     blocks[38;5;241m.[39mappend([38;5;124m"[39m[38;5;130;01m\n[39;00m[38;5;124m"[39m[38;5;241m.[39mjoin(b))
+[1;32m    146[0m user [38;5;241m=[39m [38;5;124mf[39m[38;5;124m"[39m[38;5;124mYou are given [39m[38;5;132;01m{[39;00m[38;5;28mlen[39m(items)[38;5;132;01m}[39;00m[38;5;124m GROUPS from one document.[39m[38;5;130;01m\n[39;00m[38;5;130;01m\n[39;00m[38;5;124m"[39m [38;5;241m+[39m [38;5;124m"[39m[38;5;130;01m\n[39;00m[38;5;130;01m\n[39;00m[38;5;124m"[39m[38;5;241m.[39mjoin(blocks)
+[0;32m--> 147[0m parsed  [38;5;241m=[39m parse_json(gemini_json(active_select_prompt(), user))
+[1;32m    148[0m results [38;5;241m=[39m parsed[38;5;241m.[39mget([38;5;124m"[39m[38;5;124mresults[39m[38;5;124m"[39m, parsed) [38;5;28;01mif[39;00m [38;5;28misinstance[39m(parsed, [38;5;28mdict[39m) [38;5;28;01melse[39;00m parsed
+[1;32m    149[0m out [38;5;241m=[39m {r[38;5;241m.[39mget([38;5;124m"[39m[38;5;124mid[39m[38;5;124m"[39m): (r[38;5;241m.[39mget([38;5;124m"[39m[38;5;124mchosen_type[39m[38;5;124m"[39m) [38;5;129;01mor[39;00m {}) [38;5;28;01mfor[39;00m r [38;5;129;01min[39;00m (results [38;5;129;01mor[39;00m []) [38;5;28;01mif[39;00m r[38;5;241m.[39mget([38;5;124m"[39m[38;5;124mid[39m[38;5;124m"[39m)}
+
+Cell [0;32mIn[9], line 20[0m, in [0;36mparse_json[0;34m(text)[0m
+[1;32m     19[0m [38;5;28;01mdef[39;00m [38;5;21mparse_json[39m(text):
+[0;32m---> 20[0m     s [38;5;241m=[39m (text [38;5;129;01mor[39;00m [38;5;124m"[39m[38;5;124m"[39m)[38;5;241m.[39mstrip()
+[1;32m     21[0m     [38;5;28;01mif[39;00m s[38;5;241m.[39mstartswith([38;5;124m"[39m[38;5;124m```[39m[38;5;124m"[39m):
+[1;32m     22[0m         s [38;5;241m=[39m re[38;5;241m.[39msub([38;5;124mr[39m[38;5;124m"[39m[38;5;124m^```[a-zA-Z]*[39m[38;5;124m\[39m[38;5;124ms*[39m[38;5;124m"[39m, [38;5;124m"[39m[38;5;124m"[39m, s); s [38;5;241m=[39m re[38;5;241m.[39msub([38;5;124mr[39m[38;5;124m"[39m[38;5;124m\[39m[38;5;124ms*```$[39m[38;5;124m"[39m, [38;5;124m"[39m[38;5;124m"[39m, s)
+
+[0;31mAttributeError[0m: 'dict' object has no attribute 'strip'
+

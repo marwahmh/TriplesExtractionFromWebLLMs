@@ -1,0 +1,168 @@
+[NbConvertApp] Converting notebook /Users/marwah/Documents/Thesis/TriplesExtractionFromWebLLMs/Phase2_LLM_Extraction/notebooks/e2e/6d_e2e_type_canonicalization.ipynb to notebook
+/opt/anaconda3/lib/python3.12/site-packages/nbformat/__init__.py:93: MissingIDFieldWarning: Code cell is missing an id field, this will become a hard error in future nbformat versions. You may want to use `normalize()` on your notebooks before validations (available since nbformat 5.1.4). Previous versions of nbformat are fixing this issue transparently, and will stop doing so in the future.
+  validate(nb)
+Traceback (most recent call last):
+  File "/opt/anaconda3/bin/jupyter-nbconvert", line 11, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "/opt/anaconda3/lib/python3.12/site-packages/jupyter_core/application.py", line 283, in launch_instance
+    super().launch_instance(argv=argv, **kwargs)
+  File "/opt/anaconda3/lib/python3.12/site-packages/traitlets/config/application.py", line 1075, in launch_instance
+    app.start()
+  File "/opt/anaconda3/lib/python3.12/site-packages/nbconvert/nbconvertapp.py", line 412, in start
+    self.convert_notebooks()
+  File "/opt/anaconda3/lib/python3.12/site-packages/nbconvert/nbconvertapp.py", line 590, in convert_notebooks
+    self.convert_single_notebook(notebook_filename)
+  File "/opt/anaconda3/lib/python3.12/site-packages/nbconvert/nbconvertapp.py", line 556, in convert_single_notebook
+    output, resources = self.export_single_notebook(
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.12/site-packages/nbconvert/nbconvertapp.py", line 479, in export_single_notebook
+    output, resources = self.exporter.from_filename(
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.12/site-packages/nbconvert/exporters/exporter.py", line 203, in from_filename
+    return self.from_file(f, resources=resources, **kw)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.12/site-packages/nbconvert/exporters/exporter.py", line 222, in from_file
+    return self.from_notebook_node(
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.12/site-packages/nbconvert/exporters/notebook.py", line 36, in from_notebook_node
+    nb_copy, resources = super().from_notebook_node(nb, resources, **kw)
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.12/site-packages/nbconvert/exporters/exporter.py", line 156, in from_notebook_node
+    nb_copy, resources = self._preprocess(nb_copy, resources)
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.12/site-packages/nbconvert/exporters/exporter.py", line 354, in _preprocess
+    nbc, resc = preprocessor(nbc, resc)  # type:ignore[operator]
+                ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.12/site-packages/nbconvert/preprocessors/base.py", line 48, in __call__
+    return self.preprocess(nb, resources)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.12/site-packages/nbconvert/preprocessors/execute.py", line 102, in preprocess
+    self.preprocess_cell(cell, resources, index)
+  File "/opt/anaconda3/lib/python3.12/site-packages/nbconvert/preprocessors/execute.py", line 123, in preprocess_cell
+    cell = self.execute_cell(cell, index, store_history=True)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.12/site-packages/jupyter_core/utils/__init__.py", line 165, in wrapped
+    return loop.run_until_complete(inner)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.12/asyncio/base_events.py", line 687, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.12/site-packages/nbclient/client.py", line 1058, in async_execute_cell
+    await self._check_raise_for_error(cell, cell_index, exec_reply)
+  File "/opt/anaconda3/lib/python3.12/site-packages/nbclient/client.py", line 914, in _check_raise_for_error
+    raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
+nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
+------------------
+# Collect + persist this stage's numbers. Pure reading — no LLM call, safe to re-run, and it works
+# on a run that finished days ago.
+import importlib, run_metrics
+importlib.reload(run_metrics)
+
+_m = run_metrics.types(RESULTS_DIR, ARTICLE_ORDER, isfx=_sfx, osfx=_osfx,
+                       track="e2e", experiment=EXPERIMENT)
+run_metrics.show(_m)
+
+# save() also CLOSES this stage in the run manifest — the record of WHICH run these numbers
+# came from: the resolved config, the git commit, the article order, every output file and
+# the token spend.  results/<model>/_runs/<run_id>.json  ·  python -m run_manifest list
+print("\nsaved ->", run_metrics.save(_m, RESULTS_DIR, _osfx, "e2e",
+                                     section="6d", articles=ARTICLE_ORDER))
+
+# Side by side with other experiments that have already been run and saved (missing ones are
+# skipped, so this is safe before the ablations exist):
+# print(run_metrics.compare(RESULTS_DIR, "types",
+#                           ["_dedup_main", "_dedup_no_rerank", "_dedup_inline_vocab"], "e2e"))
+------------------
+
+----- stdout -----
+TYPES  ·  e2e  ·  experiment 'main'
+==========================================================================
+article    distinct_oie_       entities         minted     schema_org     cum_minted
+art1                  11             27              5              6              5
+art2                  17             43              4             13              9
+art3                  10             23              3              7             12
+art4                   4             26              0              4             12
+art5                   7             30              0              7             12
+art8                  10             36              2              7             14
+art12                  7             22              1              6             15
+art15                 14             30              2             11             17
+art17                  9             18              3              6             20
+art23                  8             30              1              7             21
+art44                  9             22              2              6             23
+art46                  7             18              0              6             23
+art52                 14             46              2             12             25
+art55                 11             25              5              6             30
+art57                  6             37              0              6             30
+art58                  6             19              1              5             31
+art59                 11             28              2              9             33
+art72                 13             30              2             10             35
+art73                  9             17              0              8             35
+art74                  9             22              1              8             36
+--------------------------------------------------------------------------
+  articles                           20
+  review_files                       20
+  typed_files                        20
+  distinct_oie_types                 192
+  type_decisions                     {'schema.org': 150, 'mint': 36, 'vocab': 6}
+  schema_org_reuse_pct               78.1
+  mint_pct                           18.8
+  entities_typed                     549
+  entity_type_sources                {'schema.org': 464, 'mint': 75, 'vocab': 10}
+  entity_schema_org_pct              84.5
+  chosen_in_candidates_pct           77.6
+  mean_rank_of_chosen                1.51
+  chosen_at_rank1_pct                77.9
+  rr_reranked                        False
+  vocab_raw                          59
+  vocab_consolidated                 58
+  vocab_reduction_pct                1.7
+  consolidated                       True
+  cons_calls                         1
+  cons_pool                          vocab
+  cons_reranked                      True
+  cons_vocab_before                  24
+  cons_vocab_after                   58
+  cons_merge_groups                  6
+  cons_removed                       22
+  cons_merged_into_schema            20
+  cons_reparented                    8
+  cons_reparented_under_schema       0
+  cons_generalize_groups             None
+  cons_generalized                   None
+  cons_blocked_degrounding           None
+  cons_parent_conflicts              None
+  cons_keep_overrides                None
+  cons_offkind_dropped               None
+  cons_self_parent_fixed             0
+  cons_in_shortlist_pct              33.3
+  calls                              5
+  prompt_tokens                      31857
+  output_tokens                      9830
+  thoughts_tokens                    6204
+  total_tokens                       41687
+  llm_seconds                        783.1
+  found                              1
+------------------
+
+[0;31m---------------------------------------------------------------------------[0m
+[0;31mTypeError[0m                                 Traceback (most recent call last)
+Cell [0;32mIn[19], line 13[0m
+[1;32m      8[0m run_metrics[38;5;241m.[39mshow(_m)
+[1;32m     10[0m [38;5;66;03m# save() also CLOSES this stage in the run manifest — the record of WHICH run these numbers[39;00m
+[1;32m     11[0m [38;5;66;03m# came from: the resolved config, the git commit, the article order, every output file and[39;00m
+[1;32m     12[0m [38;5;66;03m# the token spend.  results/<model>/_runs/<run_id>.json  ·  python -m run_manifest list[39;00m
+[0;32m---> 13[0m [38;5;28mprint[39m([38;5;124m"[39m[38;5;130;01m\n[39;00m[38;5;124msaved ->[39m[38;5;124m"[39m, run_metrics[38;5;241m.[39msave(_m, RESULTS_DIR, _osfx, [38;5;124m"[39m[38;5;124me2e[39m[38;5;124m"[39m,
+[1;32m     14[0m                                      section[38;5;241m=[39m[38;5;124m"[39m[38;5;124m6d[39m[38;5;124m"[39m, articles[38;5;241m=[39mARTICLE_ORDER))
+
+File [0;32m~/Documents/Thesis/TriplesExtractionFromWebLLMs/Phase2_LLM_Extraction/notebooks/run_metrics.py:604[0m, in [0;36msave[0;34m(metrics, results_dir, osfx, track, section, articles, manifest)[0m
+[1;32m    601[0m     [38;5;28;01mimport[39;00m [38;5;21;01mrun_manifest[39;00m
+[1;32m    602[0m     [38;5;66;03m# osfx + track scope the manifest's output scan to THIS run's files, so a second run[39;00m
+[1;32m    603[0m     [38;5;66;03m# on another GPU sharing this model tree cannot be credited with them.[39;00m
+[0;32m--> 604[0m     run_manifest[38;5;241m.[39mfinish(metrics[38;5;241m=[39mmetrics, section[38;5;241m=[39msection, results_dir[38;5;241m=[39mresults_dir,
+[1;32m    605[0m                         articles[38;5;241m=[39marticles, osfx[38;5;241m=[39mosfx, track[38;5;241m=[39mtrack)
+[1;32m    606[0m [38;5;28;01mexcept[39;00m [38;5;167;01mImportError[39;00m:
+[1;32m    607[0m     [38;5;28;01mpass[39;00m
+
+[0;31mTypeError[0m: finish() got an unexpected keyword argument 'osfx'
+

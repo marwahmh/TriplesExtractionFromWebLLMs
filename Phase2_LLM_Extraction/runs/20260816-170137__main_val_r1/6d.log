@@ -1,0 +1,155 @@
+[NbConvertApp] Converting notebook /Users/marwah/Documents/Thesis/TriplesExtractionFromWebLLMs/Phase2_LLM_Extraction/notebooks/e2e/6d_e2e_type_canonicalization.ipynb to notebook
+/opt/anaconda3/lib/python3.12/site-packages/nbformat/__init__.py:93: MissingIDFieldWarning: Code cell is missing an id field, this will become a hard error in future nbformat versions. You may want to use `normalize()` on your notebooks before validations (available since nbformat 5.1.4). Previous versions of nbformat are fixing this issue transparently, and will stop doing so in the future.
+  validate(nb)
+Traceback (most recent call last):
+  File "/opt/anaconda3/bin/jupyter-nbconvert", line 11, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "/opt/anaconda3/lib/python3.12/site-packages/jupyter_core/application.py", line 283, in launch_instance
+    super().launch_instance(argv=argv, **kwargs)
+  File "/opt/anaconda3/lib/python3.12/site-packages/traitlets/config/application.py", line 1075, in launch_instance
+    app.start()
+  File "/opt/anaconda3/lib/python3.12/site-packages/nbconvert/nbconvertapp.py", line 412, in start
+    self.convert_notebooks()
+  File "/opt/anaconda3/lib/python3.12/site-packages/nbconvert/nbconvertapp.py", line 590, in convert_notebooks
+    self.convert_single_notebook(notebook_filename)
+  File "/opt/anaconda3/lib/python3.12/site-packages/nbconvert/nbconvertapp.py", line 556, in convert_single_notebook
+    output, resources = self.export_single_notebook(
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.12/site-packages/nbconvert/nbconvertapp.py", line 479, in export_single_notebook
+    output, resources = self.exporter.from_filename(
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.12/site-packages/nbconvert/exporters/exporter.py", line 203, in from_filename
+    return self.from_file(f, resources=resources, **kw)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.12/site-packages/nbconvert/exporters/exporter.py", line 222, in from_file
+    return self.from_notebook_node(
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.12/site-packages/nbconvert/exporters/notebook.py", line 36, in from_notebook_node
+    nb_copy, resources = super().from_notebook_node(nb, resources, **kw)
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.12/site-packages/nbconvert/exporters/exporter.py", line 156, in from_notebook_node
+    nb_copy, resources = self._preprocess(nb_copy, resources)
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.12/site-packages/nbconvert/exporters/exporter.py", line 354, in _preprocess
+    nbc, resc = preprocessor(nbc, resc)  # type:ignore[operator]
+                ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.12/site-packages/nbconvert/preprocessors/base.py", line 48, in __call__
+    return self.preprocess(nb, resources)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.12/site-packages/nbconvert/preprocessors/execute.py", line 102, in preprocess
+    self.preprocess_cell(cell, resources, index)
+  File "/opt/anaconda3/lib/python3.12/site-packages/nbconvert/preprocessors/execute.py", line 123, in preprocess_cell
+    cell = self.execute_cell(cell, index, store_history=True)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.12/site-packages/jupyter_core/utils/__init__.py", line 165, in wrapped
+    return loop.run_until_complete(inner)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.12/asyncio/base_events.py", line 687, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.12/site-packages/nbclient/client.py", line 1058, in async_execute_cell
+    await self._check_raise_for_error(cell, cell_index, exec_reply)
+  File "/opt/anaconda3/lib/python3.12/site-packages/nbclient/client.py", line 914, in _check_raise_for_error
+    raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
+nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
+------------------
+# Incremental build — ONE LLM call per article canonicalizes BOTH entity types AND Event-hub types.
+# Sequential BY DESIGN: the vocabulary grows article by article and what article k mints depends on
+# what k-1 added, so running the articles in parallel would change the output, not just the speed.
+#
+# FRESH comes from the config. True: start from an EMPTY vocabulary and process ALL of
+# ARTICLE_ORDER (what a reported run does — reproducible from the config alone).
+# False: keep the existing type_vocabulary<_osfx>.json and extend it with NEW_ARTICLES only
+# (or, if that is empty, with every article that has no typed graph yet).
+NEW_ARTICLES = []          # used only when FRESH is False
+
+if FRESH:
+    vocab = {"types": [], "next_id": 1}; save_vocab(vocab); todo = ARTICLE_ORDER
+else:
+    vocab = load_vocab()
+    todo  = NEW_ARTICLES or [a for a in ARTICLE_ORDER
+                             if not (RESULTS_DIR / a / f"e2e/nary_graph{_osfx}_typed.json").exists()]
+
+# CONSOLIDATE_EVERY (config, 0 = off) re-consolidates the vocabulary every N articles instead of
+# once at the end. This cell then builds only the FIRST chunk: consolidate_vocab and
+# refresh_ext_after_consolidation are defined further down, so the remaining chunks are driven by
+# the periodic cell BELOW them. With the knob at 0 this is exactly the old behaviour.
+TODO_ALL = list(todo)
+if CONSOLIDATE_EVERY:
+    todo = TODO_ALL[:CONSOLIDATE_EVERY]
+
+print(f"building e2e type vocabulary over {len(todo)} article(s): {todo}\n")
+nb_parallel.reset_usage()          # the report below covers only the calls THIS run makes
+_t0 = time.perf_counter()
+
+# PARALLEL_LLM overlaps the per-article calls (phase 1) and then applies them in ARTICLE_ORDER
+# (phase 2). Valid ONLY while the inline pool is schema.org-only: with the vocabulary offered inline
+# each article's candidates depend on the previous articles' mints, so the calls stop being
+# independent and the run would differ, not just go faster.
+_pre = {}
+if PARALLEL_LLM and INLINE_VOCAB_CANDIDATES:
+    print("PARALLEL_LLM ignored: INLINE_VOCAB_CANDIDATES is True, so each article's candidates\n"
+          "depend on the vocabulary the earlier articles built — the calls are NOT independent.\n")
+elif PARALLEL_LLM and len(todo) > 1:
+    print(f"phase 1 — {len(todo)} LLM calls on {WORKERS} threads (inline pool is schema.org only)")
+    _pre = {r.item: r.value for r in
+            nb_parallel.pmap(lambda a: prefetch_types(a, vocab), todo, workers=WORKERS)
+            if r.ok}
+    print("\nphase 2 — applying to the vocabulary in ARTICLE_ORDER (no LLM calls)")
+
+for aid in todo:
+    with nb_parallel.usage_scope(aid):      # tag this article's calls so the report breaks down per article
+        canonicalize_article_types(aid, vocab, write=True, save=True, verbose=True, pre=_pre.get(aid))
+    if aid not in _pre:                     # nothing to pace when the call already happened
+        time.sleep(5)                       # gentle on the API's per-minute limit
+print(f"\ndone — {len(vocab['types'])} canonical types in {VOCAB_PATH}")
+
+# --- what this run cost: calls, prompt / output / THINKING tokens, and elapsed time ------------
+# Written to a tagged file so each experiment keeps its own cost record (run_metrics reads it).
+nb_parallel.usage_report(f"6d · e2e type canonicalization · {EXPERIMENT}",
+                         wall_seconds=time.perf_counter() - _t0,
+                         write=RESULTS_DIR / "_global" / "e2e" / f"token_usage_types{_osfx}.json",
+                         experiment=EXPERIMENT, run_tag=RUN_TAG)
+------------------
+
+----- stdout -----
+building e2e type vocabulary over 5 article(s): ['art1', 'art2', 'art3', 'art4', 'art5']
+
+phase 1 — 5 LLM calls on 5 threads (inline pool is schema.org only)
+5 item(s), running on 5 threads
+----- stdout -----
+[1/5] art4  (104.6s)
+----- stdout -----
+[2/5] art5  (172.1s)
+----- stdout -----
+[3/5] art3  (185.6s)
+----- stdout -----
+[4/5] art2  (185.9s)
+----- stdout -----
+[5/5] art1  (196.5s)
+       [json_repair] salvaged a malformed response (4354 chars)
+
+done — 5/5 ok in 196.5s
+
+phase 2 — applying to the vocabulary in ARTICLE_ORDER (no LLM calls)
+------------------
+
+[0;31m---------------------------------------------------------------------------[0m
+[0;31mAttributeError[0m                            Traceback (most recent call last)
+Cell [0;32mIn[12], line 47[0m
+[1;32m     45[0m [38;5;28;01mfor[39;00m aid [38;5;129;01min[39;00m todo:
+[1;32m     46[0m     [38;5;28;01mwith[39;00m nb_parallel[38;5;241m.[39musage_scope(aid):      [38;5;66;03m# tag this article's calls so the report breaks down per article[39;00m
+[0;32m---> 47[0m         canonicalize_article_types(aid, vocab, write[38;5;241m=[39m[38;5;28;01mTrue[39;00m, save[38;5;241m=[39m[38;5;28;01mTrue[39;00m, verbose[38;5;241m=[39m[38;5;28;01mTrue[39;00m, pre[38;5;241m=[39m_pre[38;5;241m.[39mget(aid))
+[1;32m     48[0m     [38;5;28;01mif[39;00m aid [38;5;129;01mnot[39;00m [38;5;129;01min[39;00m _pre:                     [38;5;66;03m# nothing to pace when the call already happened[39;00m
+[1;32m     49[0m         time[38;5;241m.[39msleep([38;5;241m5[39m)                       [38;5;66;03m# gentle on the API's per-minute limit[39;00m
+
+Cell [0;32mIn[11], line 235[0m, in [0;36mcanonicalize_article_types[0;34m(aid, vocab, write, save, verbose, pre)[0m
+[1;32m    233[0m [38;5;28;01mfor[39;00m i, t [38;5;129;01min[39;00m [38;5;28menumerate[39m(ent_types):
+[1;32m    234[0m     ch [38;5;241m=[39m report[38;5;241m.[39mget([38;5;124mf[39m[38;5;124m"[39m[38;5;124mE[39m[38;5;132;01m{[39;00mi[38;5;241m+[39m[38;5;241m1[39m[38;5;132;01m}[39;00m[38;5;124m"[39m, {})
+[0;32m--> 235[0m     [38;5;28;01mif[39;00m ch[38;5;241m.[39mget([38;5;124m"[39m[38;5;124mis_new[39m[38;5;124m"[39m) [38;5;129;01mor[39;00m ch[38;5;241m.[39mget([38;5;124m"[39m[38;5;124msource[39m[38;5;124m"[39m) [38;5;241m==[39m [38;5;124m"[39m[38;5;124mnew[39m[38;5;124m"[39m:
+[1;32m    236[0m         before [38;5;241m=[39m [38;5;28mlen[39m(vocab[[38;5;124m"[39m[38;5;124mtypes[39m[38;5;124m"[39m]); tref [38;5;241m=[39m _apply_mint(aid, t, ch, ent_groups[t], vocab)
+[1;32m    237[0m         n_mint_e [38;5;241m+[39m[38;5;241m=[39m ([38;5;28mlen[39m(vocab[[38;5;124m"[39m[38;5;124mtypes[39m[38;5;124m"[39m]) [38;5;241m>[39m before)
+
+[0;31mAttributeError[0m: 'str' object has no attribute 'get'
+

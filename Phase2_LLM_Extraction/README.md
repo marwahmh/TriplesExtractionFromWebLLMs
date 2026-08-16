@@ -8,6 +8,100 @@ growing a persistent vocabulary) only when nothing in schema.org fits.
 The pipeline has two symmetric halves — an **entity/type** side (nb1–4) and a **relation/property**
 side (nb5–7) — that share the same *define → embed → retrieve → reuse-best-match-else-mint* recipe:
 
+## Configuring a run — one name, one file
+
+Every notebook's config cell is now a single line:
+
+```python
+EXPERIMENT = "main"          # -> configs/main.json
+```
+
+Everything else — which `results/<model>/` tree, which articles and in what order, retrieval / rerank
+/ consolidation settings, the output tag — comes from `configs/<EXPERIMENT>.json`, read through
+`notebooks/experiment_config.py`. Both tracks read the **same** file, so the staged and e2e chains can
+be run under one experiment and compared without hand-matching two sets of settings, and the stages
+of a chain can no longer disagree about the results tree or the run tags.
+
+```bash
+cd notebooks
+python -m experiment_config list           # every experiment, one line each
+python -m experiment_config show main      # the fully-resolved config (paste into an appendix)
+python -m experiment_config check main     # consistency, before spending API/GPU time
+```
+
+Headless, without touching a notebook:
+
+```bash
+EXPERIMENT=no-rerank ./run_e2e.sh          # 6c -> 6d -> 6e
+EXPERIMENT=no-rerank ./run_staged.sh       # 2 -> 4 -> 6 -> 7   (or: ./run_staged.sh 2 4 6b 7b)
+SPLIT=val ./run_e2e.sh                     # the validation articles (SPLIT=test for the reported set)
+MODEL=qwen3-32b-think ./run_e2e.sh         # another model's tree + backend, same experiment
+REPEAT=2 ./run_e2e.sh 6d 6e                # the same arm again, under its own tag (main -> main_r2)
+```
+
+Each override becomes part of the tag, so a run stays identifiable from its filenames alone:
+`MODEL=llama33-70b SPLIT=val REPEAT=2 EXPERIMENT=no-rerank` writes
+`results/llama33-70b/…_dedup_no_rerank_val_r2…`.
+
+`run_tag` is what keeps runs from overwriting each other: everything a stage writes is suffixed with
+it, and the next stage reads it back as its `input_tag`. It **defaults to the experiment name**, so
+an experiment cannot inherit another one's tag by forgetting to set it. See
+**[`configs/README.md`](configs/README.md)** for the full key reference and the list of ablations.
+
+## Provenance — which run produced a file
+
+Every stage writes a **run manifest** at `results/<model>/_runs/<run_id>.json`
+([`notebooks/run_manifest.py`](notebooks/run_manifest.py)), opened by the config cell and closed by
+the metrics cell at the bottom of the same notebook. Per stage it holds the fully resolved config,
+the git commit and dirty flag, the article order, every output file, the token spend, and the stage
+metrics — so a number in the write-up resolves to a run, and a run resolves to a commit and a config
+file. Nothing to remember to do: it is a side effect of the cells the notebook already has.
+
+```bash
+cd notebooks
+python -m run_manifest list                      # every run on disk, one line each
+python -m run_manifest show e2e__dedup__main     # one run in full
+python -m run_manifest diff main_r1 main_r2         # which config keys differ between two runs
+python -m run_manifest index                     # regenerate results/RUNS.md
+```
+
+A stage **refuses to start** when its manifest says it already finished under the same tag — the
+guard against a re-run quietly replacing outputs that are already reported. `REPEAT=<n>` for another
+sample of the same arm, a new experiment file for a different configuration, `PHASE2_OVERWRITE=1` to
+redo one in place.
+
+Repeats matter here: temperature 0 is greedy, not deterministic, and two identical runs of this
+corpus produced 69 vs 91 raw minted properties (65 vs 67 after consolidation). Report an arm as
+mean + range over three repeats, and report POST-consolidation numbers — see
+[`notebooks/e2e/CURRENT_CONFIG.txt`](notebooks/e2e/CURRENT_CONFIG.txt) §7.
+
+Results written before 2026-08-15 were exploratory (four development articles, hand-invented tags)
+and now live in [`results_archive/`](results_archive/); `results/` holds only runs made under this
+scheme.
+
+## Which runs, and which number answers which question
+
+The corpus is split once, reproducibly, into **validation (20 articles, including all 10 manually
+grounded ones)** and **test (59)** by `python dataset/select_splits.py` → `dataset/splits.json`.
+Component effects are measured on validation, reported end-to-end numbers come from test, and the
+split is part of the run tag so the two can never overwrite each other.
+
+**[`REPORTING_PLAN.md`](REPORTING_PLAN.md)** is the matrix: the three models × two tracks × two
+splits under `main`, the ten ablations and what each isolates, the repeat protocol (temperature 0 is
+not deterministic — 69 vs 91 raw mints on identical settings), the token budget, and the measurement
+gaps that the current metrics do *not* close.
+
+## Reporting — every number a run produced
+
+Each stage ends with a metrics cell (`notebooks/run_metrics.py`) that re-reads the files the stage
+just wrote and saves `results/<model>/_global[/e2e]/metrics_<stage><tag>.json`: graph size and
+**fragmentation** for extraction; the reuse-vs-mint split, the retrieval quality it depends on (was
+the chosen label in the shortlist, and at which rank) and the vocabulary size before/after
+consolidation for the canonicalization stages; plus consolidation's own counts and the token cost.
+The cells are pure reading — no LLM call — so they can be re-run at any time, including on a run that
+finished days ago. `run_metrics.compare(...)` puts several experiments side by side, which is the
+table the ablations exist to fill.
+
 Notebooks now live under `notebooks/<track>/` (`0_shared`, `two_staged`, `e2e`). Per-article outputs
 under `results/<id>/` are split into `two_staged/` (staged pipeline) and `e2e/` (single-call baseline);
 cross-article vocabularies/reports live in `results/_global/`.
@@ -32,6 +126,7 @@ cross-article vocabularies/reports live in `results/_global/`.
 | 6e | `e2e/6e_e2e_relation_canonicalization.ipynb` | per article, incremental | `<id>/e2e/nary_graph_typed.json` (6d) | `_global/e2e/nary_relation_vocabulary.json`, `<id>/e2e/nary_graph_extended.json` |
 | **E2E retrieval experiments** (archived) ||||
 | 6f–6k | `e2e/experiments/*.ipynb` | per article (**offline study**) | `<id>/e2e/nary_graph_typed.json` (6d) | `_global/e2e/experiments/*_dedup_<variant>.json` |
+
 | **Visualization** ||||
 | 8 | `0_shared/8_kg_visualization.ipynb` | per article | any graph file above | `<id>/two_staged/viz/kg_{binary,reified}.{png,html}`, `<id>/e2e/viz/kg.{png,html}` |
 
@@ -42,9 +137,16 @@ against SEPARATE `_global/e2e/` vocabularies). 6d and 6e each end with the same 
 re-consolidation + hierarchy** tail as nb4/nb7 (writes `*_consolidated.*` + `*_hierarchy*.txt` under
 `_global/e2e/`, leaving the raw incremental outputs untouched). nb3 is an optional schema.org-only baseline;
 nb4 and nb7 are self-contained. Each per-article notebook has an `ARTICLE_ID` / `SELECTED_ARTICLES`
-config cell plus a final **batch** cell. nb4 and nb7 each end with an **optional global
-re-consolidation** block that cleans the grown vocabulary into `*_consolidated.*` files, leaving the
+config cell plus a final **batch** cell. nb4 and nb7 each end with the same **global
+re-consolidation** block, cleaning the grown vocabulary into `*_consolidated.*` files and leaving the
 raw incremental outputs untouched.
+
+The staged and e2e notebooks are deliberately kept in **step with each other**: nb4 is 6d's twin,
+nb7b is 6e's, nb7 is the binary twin of both, and nb6b runs the same review/repair pass as 6c. They
+take the same knobs from the same config section names and write the same metrics files, so a
+difference between the two tracks' results is a difference between the *pipelines* — not between two
+implementations that drifted apart. The one deliberate asymmetry is nb4's within-group deduplication:
+nb2 emits every mention, whereas the single 6c call has already merged coreferent ones.
 
 ### Parallel batches
 
@@ -96,7 +198,15 @@ and findings.
 
 ```
 Phase2_LLM_Extraction/
+├── configs/                               # ONE FILE PER EXPERIMENT — see configs/README.md
+│   ├── _base.json                         # every default; experiments extend it
+│   ├── main.json                          # the reported configuration
+│   └── no-rerank.json, inline-vocab.json, ...   # ablations + open-weight model arms
+├── run_e2e.sh / run_staged.sh             # run a whole track headlessly under one experiment
 ├── notebooks/
+│   ├── experiment_config.py               # loads configs/<name>.json into a notebook's globals
+│   ├── run_manifest.py                    # one record per run: config + commit + outputs + tokens
+│   ├── run_metrics.py                     # collects every stage's numbers from the files it wrote
 │   ├── llm_backend.py                     # swaps gemini_json for a vLLM server (open-weight models)
 │   ├── nb_parallel.py                     # thread pool + per-article output capture for the batch cells
 │   ├── 0_shared/
@@ -130,8 +240,11 @@ Phase2_LLM_Extraction/
 │   ├── enriched_defs_cache.json         # resumable class-enrichment cache
 │   ├── enriched_prop_defs_cache.json    # resumable property-enrichment cache
 │   └── reference/                       # human-readable type/property trees
-└── results/
-    ├── _global/                       # cross-article vocabularies & consolidation reports
+├── results_archive/                  # frozen pre-2026-08-15 exploration; read by nothing
+└── results/<model>/                  # ONLY runs made under the manifest scheme (see above);
+    │                                 # one tree per `results_model`, indexed by ../RUNS.md
+    ├── _runs/<run_id>.json           # THE RUN MANIFEST: config + commit + outputs + tokens, per stage
+    ├── _global/                      # cross-article vocabularies & consolidation reports
     │   ├── type_vocabulary.json           # grown minted-type vocab (nb4)      (+ _consolidated)
     │   ├── relation_vocabulary.json       # grown minted-property vocab (nb7)  (+ _consolidated)
     │   ├── hub_type_vocabulary.json       # n-ary node ('hub') type vocab (nb6b/7b), parented into the type tree

@@ -1,0 +1,1775 @@
+{
+  "article_id": "art72",
+  "match_model": "intfloat/e5-base-v2",
+  "expand_mode": true,
+  "relations": [
+    {
+      "relation_phrase": "killed",
+      "definition": "The act of causing the death of someone.",
+      "embedding_query_text": "killed: The act of causing the death of someone.",
+      "observed_signatures": [
+        "Event → Number",
+        "NaturalDisaster → Number"
+      ],
+      "n_assignments": 1,
+      "assignments": [
+        {
+          "instances": [
+            "Colombian earthquake -> 169",
+            "Venezuela's twin earthquakes -> 6,300"
+          ],
+          "chosen_property": {
+            "label": "numOfVictims",
+            "source": "vocab",
+            "direction": "as_is",
+            "vocab_id": "P0042",
+            "is_new_to_vocab": true,
+            "definition": "The number of victims caused by an event or natural disaster.",
+            "parent": null,
+            "domain": [
+              "Event",
+              "NaturalDisaster"
+            ],
+            "range": [
+              "Number"
+            ],
+            "path": "",
+            "justification": "No existing schema.org property fits the Event/NaturalDisaster → Number relation."
+          },
+          "llm_proposed": {
+            "source": "new",
+            "label": "numOfVictims",
+            "is_new": true,
+            "direction": "as_is"
+          }
+        }
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "deathPlace",
+          "signature": "Person → Place",
+          "parent": null,
+          "inverse_of": null,
+          "score": -5.1005,
+          "matched_anchor": null,
+          "comment": "A geographical event relation between a person and the place where they died. Also called: place of demise, passing location, decease location. Examples: \"Historical Figure\" death place \"Dallas, Texas\", \"Family Member\" death place \"London, UK\". Distinct from birthPlace, which is the place of birth.",
+          "embed_score": 0.814,
+          "embed_rank": 1
+        },
+        {
+          "source": "schema.org",
+          "label": "deathDate",
+          "signature": "Person → Date",
+          "parent": null,
+          "inverse_of": null,
+          "score": -6.1334,
+          "matched_anchor": null,
+          "comment": "A temporal event relation between a person and their date of death. Also called: date of demise, passing date, decease date. Examples: \"Historical Figure\" death date \"1963-11-22\", \"Family Member\" death date \"2020-05-10\". Distinct from birthDate, which is the date of birth.",
+          "embed_score": 0.809,
+          "embed_rank": 2
+        },
+        {
+          "source": "schema.org",
+          "label": "seriousAdverseOutcome",
+          "signature": "MedicalDevice/MedicalTherapy → MedicalEntity",
+          "parent": null,
+          "inverse_of": null,
+          "score": -7.7447,
+          "matched_anchor": null,
+          "comment": "A severe complication or side effect, such as death, disability, or life-threatening conditions, that may result from a medical device or therapy. Also called severe side effect, major complication, critical adverse event. Examples: `Chemotherapy` seriousAdverseOutcome `Severe Immunosuppression`, `Surgical Procedure` seriousAdverseOutcome `Infection`, `Medical Device Implant` seriousAdverseOutcome `Device Malfunction Leading to Injury`. Distinct from `adverseOutcome`, which is a more general adverse event.",
+          "embed_score": 0.775,
+          "embed_rank": 11
+        },
+        {
+          "source": "schema.org",
+          "label": "cvdNumC19Died",
+          "signature": "CDCPMDRecord → Number",
+          "parent": null,
+          "inverse_of": null,
+          "score": -9.1206,
+          "matched_anchor": null,
+          "comment": "A mortality count relation between a CDCPMD record and the number of patients with suspected or confirmed COVID-19 who died in the hospital, ED, or overflow location. Also called: COVID-19 deaths, C19 fatalities, pandemic deaths. Examples: \"Hospital A Data\" cvd num c19 died \"10\", \"Facility B Report\" cvd num c19 died \"3\", \"Medical Center C\" cvd num c19 died \"25\".",
+          "embed_score": 0.775,
+          "embed_rank": 14
+        },
+        {
+          "source": "schema.org",
+          "label": "source",
+          "signature": "InstantaneousEvent → Thing",
+          "parent": null,
+          "inverse_of": null,
+          "score": -9.332,
+          "matched_anchor": null,
+          "comment": "A causal relation between an instantaneous event and the thing that initiated or caused it. Also called \"originates from\", \"caused by\", \"event trigger\", \"event origin\". Examples: \"The explosion's source was a gas leak\", \"The alarm's source was a smoke detector\", \"The data breach's source was a phishing attack.\"",
+          "embed_score": 0.787,
+          "embed_rank": 3
+        },
+        {
+          "source": "schema.org",
+          "label": "cause",
+          "signature": "MedicalCondition → MedicalCause",
+          "parent": null,
+          "inverse_of": "causeOf",
+          "score": -9.5556,
+          "matched_anchor": null,
+          "comment": "A causal relation between a medical condition and its medical cause. Also called \"etiology\", \"origin\", \"caused by\". Examples: \"Flu medical condition cause Influenza virus\", \"Heart attack medical condition cause Coronary artery disease\". Distinct from causeOf, which describes what a medical cause leads to, whereas cause describes what leads to a condition.",
+          "embed_score": 0.784,
+          "embed_rank": 6
+        },
+        {
+          "source": "schema.org",
+          "label": "error",
+          "signature": "Action → Thing",
+          "parent": null,
+          "inverse_of": null,
+          "score": -9.558,
+          "matched_anchor": null,
+          "comment": "An error relation between a failed action and the thing providing more information on the cause of the failure. Also called \"failure cause\", \"problem details\", \"issue description\". Examples: \"Action 'Payment' error 'Insufficient Funds'\", \"Action 'Login' error 'Invalid Credentials'\", \"Action 'File Upload' error 'File Too Large'\". Distinct from errorCode, which is a specific code for the error.",
+          "embed_score": 0.765,
+          "embed_rank": 46
+        },
+        {
+          "source": "schema.org",
+          "label": "causeOf",
+          "signature": "MedicalCause → MedicalEntity",
+          "parent": null,
+          "inverse_of": "cause",
+          "score": -9.6057,
+          "matched_anchor": null,
+          "comment": "A causal relation between a medical cause and the medical entity (condition, complication, symptom) it produces. Also called \"results in\", \"leads to\", \"produces\". Examples: \"Influenza virus medical causeOf Flu\", \"Smoking medical causeOf Lung cancer\". Distinct from cause, which describes what leads to a condition, whereas causeOf describes what a medical cause leads to.",
+          "embed_score": 0.786,
+          "embed_rank": 4
+        },
+        {
+          "source": "schema.org",
+          "label": "loser",
+          "signature": "WinAction → Person",
+          "parent": "participant",
+          "inverse_of": null,
+          "score": -10.3631,
+          "matched_anchor": null,
+          "comment": "A losing participant relation between a win action and the person who lost. Also called: defeated participant, vanquished, runner-up. Examples: \"Chess Match WinAction loser Opponent B\", \"Race WinAction loser Second Place Runner\", \"Debate WinAction loser Team B\".",
+          "embed_score": 0.768,
+          "embed_rank": 33
+        },
+        {
+          "source": "schema.org",
+          "label": "winner",
+          "signature": "LoseAction → Person",
+          "parent": "participant",
+          "inverse_of": null,
+          "score": -10.6043,
+          "matched_anchor": null,
+          "comment": "A winner relation between a losing action and the person who won it. Also called victor, triumphant participant, successful party. Examples: ChessMatchLoseAction winner Alice, RaceLoseAction winner Bob, CompetitionLoseAction winner Charlie.",
+          "embed_score": 0.767,
+          "embed_rank": 38
+        }
+      ]
+    },
+    {
+      "relation_phrase": "occurredOn",
+      "definition": "The date when an event happened.",
+      "embedding_query_text": "occurredOn: The date when an event happened.",
+      "observed_signatures": [
+        "Event → Date"
+      ],
+      "n_assignments": 1,
+      "assignments": [
+        {
+          "instances": [
+            "Colombian earthquake -> 2026-08-11"
+          ],
+          "chosen_property": {
+            "label": "eventDate",
+            "source": "vocab",
+            "direction": "as_is",
+            "vocab_id": "P0043",
+            "is_new_to_vocab": true,
+            "definition": "The date when an event occurred.",
+            "parent": null,
+            "domain": [
+              "Event"
+            ],
+            "range": [
+              "Date"
+            ],
+            "path": "",
+            "justification": "No existing schema.org property fits the Event → Date relation."
+          },
+          "llm_proposed": {
+            "source": "new",
+            "label": "eventDate",
+            "is_new": true,
+            "direction": "as_is"
+          }
+        }
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "timestamp",
+          "signature": "InstantaneousEvent → DateTime",
+          "parent": null,
+          "inverse_of": null,
+          "score": 3.3607,
+          "matched_anchor": null,
+          "comment": "A timestamp relation between an instantaneous event and the specific date and time it occurred. Also called event time, occurrence time, moment of event. Examples: \"Concert timestamp 2023-10-27T20:00:00\", \"Login timestamp 2023-11-01T09:30:15Z\", \"Photo timestamp 2023-05-15T14:22:00\".",
+          "embed_score": 0.836,
+          "embed_rank": 4
+        },
+        {
+          "source": "schema.org",
+          "label": "previousStartDate",
+          "signature": "Event → Date/DateTime",
+          "parent": null,
+          "inverse_of": null,
+          "score": 0.9567,
+          "matched_anchor": null,
+          "comment": "A temporal attribute indicating the previously scheduled start date for an event that has been rescheduled or cancelled. Also called original start date, former start date, initial event date. Examples: A rescheduled event has a previous start date of '2023-03-15'. The cancelled concert had a previous start date of '2023-07-01T19:00:00'. The postponed meeting's previous start date was 'last Monday'. Distinct from startDate, which is the current or newly scheduled start date.",
+          "embed_score": 0.821,
+          "embed_rank": 22
+        },
+        {
+          "source": "schema.org",
+          "label": "scheduledTime",
+          "signature": "PlanAction → Date/DateTime",
+          "parent": null,
+          "inverse_of": null,
+          "score": -0.5255,
+          "matched_anchor": null,
+          "comment": "The specific date or date and time when an action is planned to occur. Also called planned time, scheduled date, appointment time. Examples: `Meeting Action` scheduledTime `2023-10-26T10:00:00`, `Delivery Action` scheduledTime `2023-11-01`, `Maintenance Action` scheduledTime `2023-12-05T14:30:00`.",
+          "embed_score": 0.811,
+          "embed_rank": 50
+        },
+        {
+          "source": "schema.org",
+          "label": "deathDate",
+          "signature": "Person → Date",
+          "parent": null,
+          "inverse_of": null,
+          "score": -0.8465,
+          "matched_anchor": null,
+          "comment": "A temporal event relation between a person and their date of death. Also called: date of demise, passing date, decease date. Examples: \"Historical Figure\" death date \"1963-11-22\", \"Family Member\" death date \"2020-05-10\". Distinct from birthDate, which is the date of birth.",
+          "embed_score": 0.825,
+          "embed_rank": 17
+        },
+        {
+          "source": "schema.org",
+          "label": "startDate",
+          "signature": "CreativeWorkSeason/CreativeWorkSeries/DatedMoneySpecification/EducationalOccupationalProgram/Event/MerchantReturnPolicySeasonalOverride/Role/Schedule → Date/DateTime",
+          "parent": null,
+          "inverse_of": null,
+          "score": -1.239,
+          "matched_anchor": null,
+          "comment": "A temporal marker indicating the beginning date and time of an item, such as an event, program, or season. Also called \"beginning date\", \"commencement date\", \"start time\", \"effective date\". Examples: \"The event has startDate 2023-10-26\", \"The program's startDate is September 1st\", \"This role's startDate was last Monday.\". Distinct from dateCreated, which indicates when a creative work was first made.",
+          "embed_score": 0.832,
+          "embed_rank": 6
+        },
+        {
+          "source": "schema.org",
+          "label": "observationDate",
+          "signature": "Observation → Date/DateTime",
+          "parent": null,
+          "inverse_of": null,
+          "score": -3.4314,
+          "matched_anchor": null,
+          "comment": "The date or date and time when an observation was made. Also called date of observation, observation timestamp, recorded date. Examples: \"Weather Observation observationDate '2023-10-27'\", \"Medical Observation observationDate '2023-10-26T14:30:00'\", \"Astronomical Observation observationDate '2023-09-15'\". Distinct from observationPeriod, which is the duration of the observation.",
+          "embed_score": 0.829,
+          "embed_rank": 11
+        },
+        {
+          "source": "schema.org",
+          "label": "byMonthDay",
+          "signature": "Schedule → Integer",
+          "parent": null,
+          "inverse_of": null,
+          "score": -3.7316,
+          "matched_anchor": null,
+          "comment": "A temporal specification for a schedule, indicating the day(s) of the month on which a recurring event occurs. Also called \"day of month\", \"monthly day recurrence\", \"on day of month\". Examples: \"Rent payment schedule byMonthDay 1\", \"Board meeting schedule byMonthDay 15\".",
+          "embed_score": 0.816,
+          "embed_rank": 37
+        },
+        {
+          "source": "schema.org",
+          "label": "byDay",
+          "signature": "Schedule → DayOfWeek/Text",
+          "parent": null,
+          "inverse_of": null,
+          "score": -3.9066,
+          "matched_anchor": null,
+          "comment": "A temporal specification for a schedule, indicating the day(s) of the week on which a recurring event occurs. Also called \"days of week\", \"weekly recurrence\", \"on day\". Examples: \"Weekly meeting schedule byDay Monday\", \"Class schedule byDay 'MO,WE,FR'\".",
+          "embed_score": 0.811,
+          "embed_rank": 48
+        },
+        {
+          "source": "schema.org",
+          "label": "contentReferenceTime",
+          "signature": "CreativeWork → DateTime",
+          "parent": null,
+          "inverse_of": null,
+          "score": -4.1006,
+          "matched_anchor": null,
+          "comment": "A temporal reference relation for a creative work, indicating the specific date and time described or emphasized within its content. Also called \"event time\", \"depicted time\", \"time of content\". Examples: \"News article contentReferenceTime '2023-10-26T14:00:00Z'\", \"Historical documentary contentReferenceTime '1945-09-02'\".",
+          "embed_score": 0.826,
+          "embed_rank": 14
+        },
+        {
+          "source": "schema.org",
+          "label": "dateSent",
+          "signature": "Message → DateTime",
+          "parent": null,
+          "inverse_of": null,
+          "score": -4.8572,
+          "matched_anchor": null,
+          "comment": "A temporal dispatch relation between a message and the date/time it was sent. Also called: sending date, message dispatch time, transmission time. Examples: \"Email\" date sent \"2023-10-26T10:20:00Z\", \"SMS Message\" date sent \"2023-10-26T10:30:00Z\". Distinct from dateReceived, which is when the message arrived.",
+          "embed_score": 0.829,
+          "embed_rank": 10
+        }
+      ]
+    },
+    {
+      "relation_phrase": "occurredAt",
+      "definition": "The time when an event happened.",
+      "embedding_query_text": "occurredAt: The time when an event happened.",
+      "observed_signatures": [
+        "Event → Time"
+      ],
+      "n_assignments": 1,
+      "assignments": [
+        {
+          "instances": [
+            "Colombian earthquake -> 07:34"
+          ],
+          "chosen_property": {
+            "label": "doorTime",
+            "source": "schema.org",
+            "direction": "as_is",
+            "vocab_id": null,
+            "is_new_to_vocab": false,
+            "definition": null,
+            "parent": null,
+            "domain": null,
+            "range": null,
+            "path": "",
+            "justification": "doorTime fits Event → Time with examples like '19:00'."
+          },
+          "llm_proposed": {
+            "source": "schema.org",
+            "label": "doorTime",
+            "is_new": false,
+            "direction": "as_is"
+          }
+        }
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "timestamp",
+          "signature": "InstantaneousEvent → DateTime",
+          "parent": null,
+          "inverse_of": null,
+          "score": 5.0993,
+          "matched_anchor": null,
+          "comment": "A timestamp relation between an instantaneous event and the specific date and time it occurred. Also called event time, occurrence time, moment of event. Examples: \"Concert timestamp 2023-10-27T20:00:00\", \"Login timestamp 2023-11-01T09:30:15Z\", \"Photo timestamp 2023-05-15T14:22:00\".",
+          "embed_score": 0.856,
+          "embed_rank": 2
+        },
+        {
+          "source": "schema.org",
+          "label": "scheduledTime",
+          "signature": "PlanAction → Date/DateTime",
+          "parent": null,
+          "inverse_of": null,
+          "score": 0.2225,
+          "matched_anchor": null,
+          "comment": "The specific date or date and time when an action is planned to occur. Also called planned time, scheduled date, appointment time. Examples: `Meeting Action` scheduledTime `2023-10-26T10:00:00`, `Delivery Action` scheduledTime `2023-11-01`, `Maintenance Action` scheduledTime `2023-12-05T14:30:00`.",
+          "embed_score": 0.827,
+          "embed_rank": 23
+        },
+        {
+          "source": "schema.org",
+          "label": "contentReferenceTime",
+          "signature": "CreativeWork → DateTime",
+          "parent": null,
+          "inverse_of": null,
+          "score": 0.1197,
+          "matched_anchor": null,
+          "comment": "A temporal reference relation for a creative work, indicating the specific date and time described or emphasized within its content. Also called \"event time\", \"depicted time\", \"time of content\". Examples: \"News article contentReferenceTime '2023-10-26T14:00:00Z'\", \"Historical documentary contentReferenceTime '1945-09-02'\".",
+          "embed_score": 0.833,
+          "embed_rank": 13
+        },
+        {
+          "source": "schema.org",
+          "label": "doorTime",
+          "signature": "Event → DateTime/Time",
+          "parent": null,
+          "inverse_of": null,
+          "score": -1.2472,
+          "matched_anchor": null,
+          "comment": "A door time relation between an event and the date or time when admission will commence. Also called \"admission time\", \"entry time\", \"gate opening time\". Examples: \"Concert event doorTime '19:00'\", \"Theater show doorTime '2023-11-01T18:30'\", \"Festival doorTime '10:00'\".",
+          "embed_score": 0.818,
+          "embed_rank": 43
+        },
+        {
+          "source": "schema.org",
+          "label": "sportsEvent",
+          "signature": "ExerciseAction → SportsEvent",
+          "parent": "location",
+          "inverse_of": null,
+          "score": -1.6502,
+          "matched_anchor": null,
+          "comment": "A specific event relation between an exercise action and the sports event during which it occurred. Also called \"event of exercise\", \"competition event\", \"athletic event\". Examples: \"The sprint occurred during the sportsEvent Olympics\", \"The goal was scored in the sportsEvent World Cup match\", \"This action took place at a sportsEvent marathon.\". Distinct from event, which is a more general event property.",
+          "embed_score": 0.835,
+          "embed_rank": 10
+        },
+        {
+          "source": "schema.org",
+          "label": "repeatCount",
+          "signature": "Schedule → Integer",
+          "parent": null,
+          "inverse_of": null,
+          "score": -2.2241,
+          "matched_anchor": null,
+          "comment": "A repeat count relation between a schedule and the total number of times a recurring event will occur. Also called number of repetitions, event occurrences. Examples: \"A weekly meeting schedule has a repeat count of 10.\", \"A training course schedule has a repeat count of 5.\", \"A daily alarm schedule has a repeat count of 365.\"",
+          "embed_score": 0.817,
+          "embed_rank": 44
+        },
+        {
+          "source": "schema.org",
+          "label": "coverageEndTime",
+          "signature": "LiveBlogPosting → DateTime",
+          "parent": null,
+          "inverse_of": null,
+          "score": -2.7923,
+          "matched_anchor": null,
+          "comment": "A temporal boundary relation between a live blog posting and the time when its event coverage concludes. Also called: coverage end, reporting end time, live blog conclusion. Examples: \"Election Night Live Blog\" coverage end time \"2024-11-06T04:00:00Z\", \"Sports Event Live Update\" coverage end time \"2023-07-15T19:30:00Z\", \"Conference Live Blog\" coverage end time \"2023-10-27T17:00:00Z\". Distinct from coverageStartTime, which indicates when coverage begins.",
+          "embed_score": 0.824,
+          "embed_rank": 30
+        },
+        {
+          "source": "schema.org",
+          "label": "previousStartDate",
+          "signature": "Event → Date/DateTime",
+          "parent": null,
+          "inverse_of": null,
+          "score": -2.8097,
+          "matched_anchor": null,
+          "comment": "A temporal attribute indicating the previously scheduled start date for an event that has been rescheduled or cancelled. Also called original start date, former start date, initial event date. Examples: A rescheduled event has a previous start date of '2023-03-15'. The cancelled concert had a previous start date of '2023-07-01T19:00:00'. The postponed meeting's previous start date was 'last Monday'. Distinct from startDate, which is the current or newly scheduled start date.",
+          "embed_score": 0.829,
+          "embed_rank": 17
+        },
+        {
+          "source": "schema.org",
+          "label": "startDate",
+          "signature": "CreativeWorkSeason/CreativeWorkSeries/DatedMoneySpecification/EducationalOccupationalProgram/Event/MerchantReturnPolicySeasonalOverride/Role/Schedule → Date/DateTime",
+          "parent": null,
+          "inverse_of": null,
+          "score": -2.9693,
+          "matched_anchor": null,
+          "comment": "A temporal marker indicating the beginning date and time of an item, such as an event, program, or season. Also called \"beginning date\", \"commencement date\", \"start time\", \"effective date\". Examples: \"The event has startDate 2023-10-26\", \"The program's startDate is September 1st\", \"This role's startDate was last Monday.\". Distinct from dateCreated, which indicates when a creative work was first made.",
+          "embed_score": 0.832,
+          "embed_rank": 14
+        },
+        {
+          "source": "schema.org",
+          "label": "eventSchedule",
+          "signature": "Event → Schedule",
+          "parent": null,
+          "inverse_of": null,
+          "score": -3.4062,
+          "matched_anchor": null,
+          "comment": "An event schedule relation between an event and a schedule that defines a series of repeating occurrences for it. Also called \"recurring schedule\", \"event timetable\", \"series schedule\". Examples: \"Gym class eventSchedule 'Weekly schedule for Yoga'\", \"Concert series eventSchedule 'Schedule for monthly performances'\", \"Webinar series eventSchedule 'Schedule for bi-weekly sessions'\". Distinct from schedule, which is a more general property for any schedule.",
+          "embed_score": 0.818,
+          "embed_rank": 42
+        }
+      ]
+    },
+    {
+      "relation_phrase": "epicenterLocatedIn",
+      "definition": "The location where the epicenter of an earthquake is situated.",
+      "embedding_query_text": "epicenterLocatedIn: The location where the epicenter of an earthquake is situated.",
+      "observed_signatures": [
+        "Event → AdministrativeArea",
+        "Event → Village"
+      ],
+      "n_assignments": 1,
+      "assignments": [
+        {
+          "instances": [
+            "Colombian earthquake -> Chocó province",
+            "Colombian earthquake -> San José del Palmar"
+          ],
+          "chosen_property": {
+            "label": "location",
+            "source": "schema.org",
+            "direction": "as_is",
+            "vocab_id": null,
+            "is_new_to_vocab": false,
+            "definition": null,
+            "parent": null,
+            "domain": null,
+            "range": null,
+            "path": "",
+            "justification": "location fits Event → AdministrativeArea/Village with examples like 'City Hall' or 'Building X'."
+          },
+          "llm_proposed": {
+            "source": "schema.org",
+            "label": "location",
+            "is_new": false,
+            "direction": "as_is"
+          }
+        }
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "isLocatedInSubcellularLocation",
+          "signature": "BioChemEntity → DefinedTerm/PropertyValue/URL",
+          "parent": null,
+          "inverse_of": null,
+          "score": -7.9671,
+          "matched_anchor": null,
+          "comment": "A subcellular localization relation between a biochemical entity and its specific location within a cell. Also called found in subcellular location, localized to, present in subcellular compartment. Examples: A protein is isLocatedInSubcellularLocation 'cytoplasm'. DNA is isLocatedInSubcellularLocation 'nucleus'. Mitochondrial enzymes are isLocatedInSubcellularLocation 'mitochondrion'.",
+          "embed_score": 0.796,
+          "embed_rank": 11
+        },
+        {
+          "source": "schema.org",
+          "label": "toLocation",
+          "signature": "ExerciseAction/InsertAction/MoveAction/TransferAction → Place",
+          "parent": "location",
+          "inverse_of": null,
+          "score": -9.0317,
+          "matched_anchor": null,
+          "comment": "A destination location relation between an action (like exercise, insert, move, or transfer) and the final place of the object or agent after the action. Also called destination, final location, arrival place. Examples: \"MoveAction toLocation 'New York'\", \"TransferAction toLocation 'Warehouse B'\", \"ExerciseAction toLocation 'gym'\". Distinct from location, which is the general place where something is or occurs.",
+          "embed_score": 0.789,
+          "embed_rank": 24
+        },
+        {
+          "source": "schema.org",
+          "label": "foundingLocation",
+          "signature": "Organization → Place",
+          "parent": null,
+          "inverse_of": null,
+          "score": -9.5299,
+          "matched_anchor": null,
+          "comment": "A founding location relation between an organization and the place where it was established. Also called: place of origin, establishment location, birthplace. Examples: \"Microsoft\" founding location \"Albuquerque, New Mexico\", \"Apple Inc.\" founding location \"Los Altos, California\", \"Google\" founding location \"Menlo Park, California\".",
+          "embed_score": 0.806,
+          "embed_rank": 5
+        },
+        {
+          "source": "schema.org",
+          "label": "containedIn",
+          "signature": "Place → Place",
+          "parent": null,
+          "inverse_of": null,
+          "score": -9.5688,
+          "matched_anchor": null,
+          "comment": "A spatial containment relation between a place and the larger place that contains it. Also called \"located in\", \"part of\", \"within\". Examples: \"City 'Paris' containedIn 'France'\", \"Building 'Eiffel Tower' containedIn 'Paris'\". Distinct from containedInPlace, which is a synonym, and containsPlace, which is the inverse.",
+          "embed_score": 0.82,
+          "embed_rank": 1
+        },
+        {
+          "source": "schema.org",
+          "label": "containedInPlace",
+          "signature": "Place → Place",
+          "parent": null,
+          "inverse_of": "containsPlace",
+          "score": -9.6668,
+          "matched_anchor": null,
+          "comment": "A spatial containment relation between a place and the larger place that contains it. Also called \"located in\", \"part of\", \"within\". Examples: \"City 'Paris' containedInPlace 'France'\", \"Building 'Eiffel Tower' containedInPlace 'Paris'\". Distinct from containedIn, which is a synonym, and containsPlace, which is the inverse.",
+          "embed_score": 0.816,
+          "embed_rank": 2
+        },
+        {
+          "source": "schema.org",
+          "label": "bodyLocation",
+          "signature": "AnatomicalStructure/MedicalProcedure → Text",
+          "parent": null,
+          "inverse_of": null,
+          "score": -9.8887,
+          "matched_anchor": null,
+          "comment": "A textual description of the location in the body of an anatomical structure or for a medical procedure. Also called: anatomical site, body region, procedure location. Examples: \"AnatomicalStructure 'Heart' bodyLocation 'Chest'\", \"MedicalProcedure 'Appendectomy' bodyLocation 'Abdomen'.\"",
+          "embed_score": 0.788,
+          "embed_rank": 26
+        },
+        {
+          "source": "schema.org",
+          "label": "serviceLocation",
+          "signature": "ServiceChannel → Place",
+          "parent": null,
+          "inverse_of": null,
+          "score": -10.0135,
+          "matched_anchor": null,
+          "comment": "The physical place where a service can be accessed or obtained. Also called service access point, physical service location, service venue. Examples: `Bank Service Channel` serviceLocation `Bank Branch`, `Government Service Channel` serviceLocation `City Hall`, `Repair Service Channel` serviceLocation `Repair Shop`. Distinct from `serviceArea`, which is the broader geographic region.",
+          "embed_score": 0.804,
+          "embed_rank": 6
+        },
+        {
+          "source": "schema.org",
+          "label": "displayLocation",
+          "signature": "CreativeWork/Product → Place",
+          "parent": null,
+          "inverse_of": null,
+          "score": -10.0242,
+          "matched_anchor": null,
+          "comment": "A display location relation between a creative work or product and the place where it can be viewed or experienced in-person. Also called \"viewing location\", \"exhibition place\", \"experience venue\". Examples: \"Painting 'Mona Lisa' displayLocation 'Louvre Museum'\", \"Product 'New Car Model' displayLocation 'Dealership Showroom'\", \"Sculpture displayLocation 'Art Gallery'\".",
+          "embed_score": 0.785,
+          "embed_rank": 36
+        },
+        {
+          "source": "schema.org",
+          "label": "sportsActivityLocation",
+          "signature": "ExerciseAction → SportsActivityLocation",
+          "parent": "location",
+          "inverse_of": null,
+          "score": -10.1614,
+          "matched_anchor": null,
+          "comment": "A specific location relation between an exercise action and the sports activity venue where it took place. Also called \"exercise location\", \"training venue\", \"athletic facility\", \"gym location\". Examples: \"The run had sportsActivityLocation Central Park\", \"The workout's sportsActivityLocation was the local gym\", \"This exercise action took place at a sportsActivityLocation stadium.\". Distinct from location, which is a more general location property.",
+          "embed_score": 0.798,
+          "embed_rank": 9
+        },
+        {
+          "source": "schema.org",
+          "label": "location",
+          "signature": "Action/Event/InteractionCounter/Organization → Place/PostalAddress/Text/VirtualLocation",
+          "parent": null,
+          "inverse_of": null,
+          "score": -10.2252,
+          "matched_anchor": null,
+          "comment": "A location relation between an action, event, interaction counter, or organization and its physical or virtual place. Also called: situated at, takes place at, found at. Examples: \"Conference Event location New York Hilton\", \"Company Organization location 123 Main St\", \"Online Meeting location Virtual Conference Room\".",
+          "embed_score": 0.791,
+          "embed_rank": 14
+        }
+      ]
+    },
+    {
+      "relation_phrase": "affected",
+      "definition": "A location or entity that experienced impact from an event.",
+      "embedding_query_text": "affected: A location or entity that experienced impact from an event.",
+      "observed_signatures": [
+        "Event → City"
+      ],
+      "n_assignments": 1,
+      "assignments": [
+        {
+          "instances": [
+            "Colombian earthquake -> Cali",
+            "Colombian earthquake -> Pereira",
+            "Colombian earthquake -> Manizales"
+          ],
+          "chosen_property": {
+            "label": "location",
+            "source": "schema.org",
+            "direction": "as_is",
+            "vocab_id": null,
+            "is_new_to_vocab": false,
+            "definition": null,
+            "parent": null,
+            "domain": null,
+            "range": null,
+            "path": "",
+            "justification": "location fits Event → City with examples like 'New York Hilton'."
+          },
+          "llm_proposed": {
+            "source": "schema.org",
+            "label": "location",
+            "is_new": false,
+            "direction": "as_is"
+          }
+        }
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "affectedBy",
+          "signature": "MedicalTest → Drug",
+          "parent": null,
+          "inverse_of": null,
+          "score": -3.3519,
+          "matched_anchor": null,
+          "comment": "An affected by relation between a medical test and the drugs that can influence its results. Also called influenced by, impacted by, drug interaction. Examples: \"A blood test's results are affected by 'anticoagulants'.\", \"The diagnostic test is affected by 'caffeine'.\"",
+          "embed_score": 0.847,
+          "embed_rank": 1
+        },
+        {
+          "source": "schema.org",
+          "label": "location",
+          "signature": "Action/Event/InteractionCounter/Organization → Place/PostalAddress/Text/VirtualLocation",
+          "parent": null,
+          "inverse_of": null,
+          "score": -5.2628,
+          "matched_anchor": null,
+          "comment": "A location relation between an action, event, interaction counter, or organization and its physical or virtual place. Also called: situated at, takes place at, found at. Examples: \"Conference Event location New York Hilton\", \"Company Organization location 123 Main St\", \"Online Meeting location Virtual Conference Room\".",
+          "embed_score": 0.806,
+          "embed_rank": 6
+        },
+        {
+          "source": "schema.org",
+          "label": "deathPlace",
+          "signature": "Person → Place",
+          "parent": null,
+          "inverse_of": null,
+          "score": -6.6711,
+          "matched_anchor": null,
+          "comment": "A geographical event relation between a person and the place where they died. Also called: place of demise, passing location, decease location. Examples: \"Historical Figure\" death place \"Dallas, Texas\", \"Family Member\" death place \"London, UK\". Distinct from birthPlace, which is the place of birth.",
+          "embed_score": 0.801,
+          "embed_rank": 7
+        },
+        {
+          "source": "schema.org",
+          "label": "source",
+          "signature": "InstantaneousEvent → Thing",
+          "parent": null,
+          "inverse_of": null,
+          "score": -7.5108,
+          "matched_anchor": null,
+          "comment": "A causal relation between an instantaneous event and the thing that initiated or caused it. Also called \"originates from\", \"caused by\", \"event trigger\", \"event origin\". Examples: \"The explosion's source was a gas leak\", \"The alarm's source was a smoke detector\", \"The data breach's source was a phishing attack.\"",
+          "embed_score": 0.811,
+          "embed_rank": 3
+        },
+        {
+          "source": "schema.org",
+          "label": "event",
+          "signature": "InformAction/InviteAction/JoinAction/LeaveAction/Organization/Place/PlayAction → Event",
+          "parent": null,
+          "inverse_of": null,
+          "score": -7.6303,
+          "matched_anchor": null,
+          "comment": "An event association relation between an action, organization, or place and an event connected to it. Also called \"associated event\", \"related event\", \"features event\". Examples: \"Organization 'Museum' event 'Art Exhibition'\", \"Place 'Park' event 'Summer Festival'\", \"Inform action event 'Meeting Reminder'\". Distinct from events, which is the plural form.",
+          "embed_score": 0.822,
+          "embed_rank": 2
+        },
+        {
+          "source": "schema.org",
+          "label": "events",
+          "signature": "Organization/Place → Event",
+          "parent": null,
+          "inverse_of": null,
+          "score": -7.8665,
+          "matched_anchor": null,
+          "comment": "An events association relation between an organization or place and the events connected to it. Also called \"associated events\", \"related events\", \"features events\". Examples: \"Organization 'Museum' events 'Art Exhibition, Lecture Series'\", \"Place 'Park' events 'Summer Festival, Winter Fair'\", \"Company 'Tech Solutions' events 'Annual Conference, Product Launch'\". Distinct from event, which is the singular form.",
+          "embed_score": 0.81,
+          "embed_rank": 4
+        },
+        {
+          "source": "schema.org",
+          "label": "observationAbout",
+          "signature": "Observation → Place/Thing",
+          "parent": null,
+          "inverse_of": null,
+          "score": -7.8705,
+          "matched_anchor": null,
+          "comment": "An entity, often a place, that an observation is about or associated with. Also called observed entity, subject of observation, related to observation. Examples: \"Weather Observation observationAbout 'London'\", \"Patient Vitals Observation observationAbout 'John Doe'\", \"Traffic Count Observation observationAbout 'Main Street'\".",
+          "embed_score": 0.787,
+          "embed_rank": 17
+        },
+        {
+          "source": "schema.org",
+          "label": "about",
+          "signature": "Certification/CommunicateAction/CreativeWork/DefinedTerm/DefinedTermSet/Event → Thing",
+          "parent": null,
+          "inverse_of": "subjectOf",
+          "score": -8.372,
+          "matched_anchor": null,
+          "comment": "A subject matter relation between an entity (e.g., a creative work, event, or communication) and the topic it concerns. Also called concerning, regarding, on the topic of, related to. Examples: \"A book about quantum physics.\", \"A lecture about climate change.\", \"A certification about data privacy.\"",
+          "embed_score": 0.787,
+          "embed_rank": 16
+        },
+        {
+          "source": "schema.org",
+          "label": "attendee",
+          "signature": "Event → Organization/Person",
+          "parent": null,
+          "inverse_of": null,
+          "score": -9.0943,
+          "matched_anchor": null,
+          "comment": "A person or organization present at an event. Also called: participant, guest, visitor. Examples: \"Event 'Concert' attendee 'John Doe'\", \"Event 'Conference' attendee 'Acme Corp'\", \"Event 'Meeting' attendee 'Jane Smith'\". Distinct from attendees, which is the plural form.",
+          "embed_score": 0.781,
+          "embed_rank": 28
+        },
+        {
+          "source": "schema.org",
+          "label": "recordedAt",
+          "signature": "CreativeWork → Event",
+          "parent": null,
+          "inverse_of": "recordedIn",
+          "score": -9.104,
+          "matched_anchor": null,
+          "comment": "A recording location relation between a creative work and the event where it was recorded. Also called recorded during, captured at event. Examples: \"A live album was recorded at 'Wembley Stadium Concert'.\", \"A documentary film was recorded at 'the Amazon Rainforest Expedition'.\", \"A podcast episode was recorded at 'a conference panel discussion'.\". Distinct from recordedIn, which is the inverse relation.",
+          "embed_score": 0.788,
+          "embed_rank": 14
+        }
+      ]
+    },
+    {
+      "relation_phrase": "causedBy",
+      "definition": "The causal relationship between an event and its origin.",
+      "embedding_query_text": "causedBy: The causal relationship between an event and its origin.",
+      "observed_signatures": [
+        "Event → Country"
+      ],
+      "n_assignments": 1,
+      "assignments": [
+        {
+          "instances": [
+            "Colombian earthquake -> Colombia"
+          ],
+          "chosen_property": {
+            "label": "originCountry",
+            "source": "vocab",
+            "direction": "as_is",
+            "vocab_id": "P0044",
+            "is_new_to_vocab": true,
+            "definition": "The country from which an event originated.",
+            "parent": null,
+            "domain": [
+              "Event"
+            ],
+            "range": [
+              "Country"
+            ],
+            "path": "",
+            "justification": "No existing schema.org property fits the Event → Country relation."
+          },
+          "llm_proposed": {
+            "source": "new",
+            "label": "originCountry",
+            "is_new": true,
+            "direction": "as_is"
+          }
+        }
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "source",
+          "signature": "InstantaneousEvent → Thing",
+          "parent": null,
+          "inverse_of": null,
+          "score": 6.8763,
+          "matched_anchor": null,
+          "comment": "A causal relation between an instantaneous event and the thing that initiated or caused it. Also called \"originates from\", \"caused by\", \"event trigger\", \"event origin\". Examples: \"The explosion's source was a gas leak\", \"The alarm's source was a smoke detector\", \"The data breach's source was a phishing attack.\"",
+          "embed_score": 0.891,
+          "embed_rank": 1
+        },
+        {
+          "source": "schema.org",
+          "label": "cause",
+          "signature": "MedicalCondition → MedicalCause",
+          "parent": null,
+          "inverse_of": "causeOf",
+          "score": 4.7072,
+          "matched_anchor": null,
+          "comment": "A causal relation between a medical condition and its medical cause. Also called \"etiology\", \"origin\", \"caused by\". Examples: \"Flu medical condition cause Influenza virus\", \"Heart attack medical condition cause Coronary artery disease\". Distinct from causeOf, which describes what a medical cause leads to, whereas cause describes what leads to a condition.",
+          "embed_score": 0.867,
+          "embed_rank": 2
+        },
+        {
+          "source": "schema.org",
+          "label": "causeOf",
+          "signature": "MedicalCause → MedicalEntity",
+          "parent": null,
+          "inverse_of": "cause",
+          "score": 3.1182,
+          "matched_anchor": null,
+          "comment": "A causal relation between a medical cause and the medical entity (condition, complication, symptom) it produces. Also called \"results in\", \"leads to\", \"produces\". Examples: \"Influenza virus medical causeOf Flu\", \"Smoking medical causeOf Lung cancer\". Distinct from cause, which describes what leads to a condition, whereas causeOf describes what a medical cause leads to.",
+          "embed_score": 0.862,
+          "embed_rank": 3
+        },
+        {
+          "source": "schema.org",
+          "label": "publishedBy",
+          "signature": "PublicationEvent → Organization/Person",
+          "parent": null,
+          "inverse_of": null,
+          "score": -4.241,
+          "matched_anchor": null,
+          "comment": "A publisher relation between a publication event and the organization or person responsible for it. Also called published by, issued by, released by. Examples: \"A book's publication event was published by 'Penguin Random House'.\", \"A journal article's publication event was published by 'Elsevier'.\", \"A blog post's publication event was published by 'Jane Doe'.\". Distinct from publisher, which refers to the publisher of the creative work itself.",
+          "embed_score": 0.843,
+          "embed_rank": 4
+        },
+        {
+          "source": "schema.org",
+          "label": "affectedBy",
+          "signature": "MedicalTest → Drug",
+          "parent": null,
+          "inverse_of": null,
+          "score": -4.5053,
+          "matched_anchor": null,
+          "comment": "An affected by relation between a medical test and the drugs that can influence its results. Also called influenced by, impacted by, drug interaction. Examples: \"A blood test's results are affected by 'anticoagulants'.\", \"The diagnostic test is affected by 'caffeine'.\"",
+          "embed_score": 0.826,
+          "embed_rank": 5
+        },
+        {
+          "source": "schema.org",
+          "label": "timestamp",
+          "signature": "InstantaneousEvent → DateTime",
+          "parent": null,
+          "inverse_of": null,
+          "score": -4.9451,
+          "matched_anchor": null,
+          "comment": "A timestamp relation between an instantaneous event and the specific date and time it occurred. Also called event time, occurrence time, moment of event. Examples: \"Concert timestamp 2023-10-27T20:00:00\", \"Login timestamp 2023-11-01T09:30:15Z\", \"Photo timestamp 2023-05-15T14:22:00\".",
+          "embed_score": 0.799,
+          "embed_rank": 35
+        },
+        {
+          "source": "schema.org",
+          "label": "sourcedFrom",
+          "signature": "Nerve → BrainStructure",
+          "parent": null,
+          "inverse_of": null,
+          "score": -5.0457,
+          "matched_anchor": null,
+          "comment": "An anatomical origin relation between a nerve and the brain structure from which its neurons originate. Also called \"originates from\", \"nerve pathway source\", \"derived from brain structure\". Examples: \"The optic nerve is sourcedFrom the diencephalon\", \"Cranial nerve V is sourcedFrom the brainstem\", \"This nerve's neurons are sourcedFrom the spinal cord.\"",
+          "embed_score": 0.805,
+          "embed_rank": 22
+        },
+        {
+          "source": "schema.org",
+          "label": "event",
+          "signature": "InformAction/InviteAction/JoinAction/LeaveAction/Organization/Place/PlayAction → Event",
+          "parent": null,
+          "inverse_of": null,
+          "score": -5.3668,
+          "matched_anchor": null,
+          "comment": "An event association relation between an action, organization, or place and an event connected to it. Also called \"associated event\", \"related event\", \"features event\". Examples: \"Organization 'Museum' event 'Art Exhibition'\", \"Place 'Park' event 'Summer Festival'\", \"Inform action event 'Meeting Reminder'\". Distinct from events, which is the plural form.",
+          "embed_score": 0.826,
+          "embed_rank": 6
+        },
+        {
+          "source": "schema.org",
+          "label": "events",
+          "signature": "Organization/Place → Event",
+          "parent": null,
+          "inverse_of": null,
+          "score": -5.4414,
+          "matched_anchor": null,
+          "comment": "An events association relation between an organization or place and the events connected to it. Also called \"associated events\", \"related events\", \"features events\". Examples: \"Organization 'Museum' events 'Art Exhibition, Lecture Series'\", \"Place 'Park' events 'Summer Festival, Winter Fair'\", \"Company 'Tech Solutions' events 'Annual Conference, Product Launch'\". Distinct from event, which is the singular form.",
+          "embed_score": 0.816,
+          "embed_rank": 7
+        },
+        {
+          "source": "schema.org",
+          "label": "data",
+          "signature": "InstantaneousEvent → Thing",
+          "parent": null,
+          "inverse_of": null,
+          "score": -5.8098,
+          "matched_anchor": null,
+          "comment": "An association relation between an instantaneous event and the data linked to it. Also called: event data, associated data, event information. Examples: \"Sensor Reading Event\" data \"temperature: 25C, humidity: 60%\", \"Log Entry Event\" data \"User 'admin' logged in from IP 192.168.1.1\", \"System Alert Event\" data \"Error code 500: Database connection failed\".",
+          "embed_score": 0.805,
+          "embed_rank": 21
+        }
+      ]
+    },
+    {
+      "relation_phrase": "expressed",
+      "definition": null,
+      "embedding_query_text": "expressed:",
+      "observed_signatures": [
+        "Person → InternationalSupport"
+      ],
+      "n_assignments": 1,
+      "assignments": [
+        {
+          "instances": [
+            "Pope Leo XIV -> World leaders offer assistance",
+            "Marco Rubio -> World leaders offer assistance",
+            "Ursula von der Leyen -> World leaders offer assistance",
+            "Nayib Bukele -> World leaders offer assistance"
+          ],
+          "chosen_property": {
+            "label": "expressedSupport",
+            "source": "vocab",
+            "direction": "as_is",
+            "vocab_id": "P0045",
+            "is_new_to_vocab": true,
+            "definition": "Support expressed by a person for a given subject.",
+            "parent": null,
+            "domain": [
+              "Person"
+            ],
+            "range": [
+              "InternationalSupport"
+            ],
+            "path": "",
+            "justification": "No existing schema.org property fits the Person → InternationalSupport relation."
+          },
+          "llm_proposed": {
+            "source": "new",
+            "label": "expressedSupport",
+            "is_new": true,
+            "direction": "as_is"
+          }
+        }
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "expressedIn",
+          "signature": "Gene → AnatomicalStructure/AnatomicalSystem/BioChemEntity/DefinedTerm",
+          "parent": null,
+          "inverse_of": null,
+          "score": 7.2596,
+          "matched_anchor": null,
+          "comment": "An expressed in relation between a gene and the anatomical structure, system, or biological entity where its activity has been experimentally observed. Also called: gene activity location, observed in, found in. Examples: \"Gene A\" expressed in \"Brain\", \"Gene B\" expressed in \"Liver\", \"Gene C\" expressed in \"Digestive System\".",
+          "embed_score": 0.825,
+          "embed_rank": 1
+        },
+        {
+          "source": "schema.org",
+          "label": "mathExpression",
+          "signature": "MathSolver → SolveMathAction/Text",
+          "parent": null,
+          "inverse_of": null,
+          "score": -1.0238,
+          "matched_anchor": null,
+          "comment": "A mathematical expression relation between a math solver and the expression it can solve, simplify, or transform. Also called: mathematical formula, equation, algebraic expression. Examples: \"Equation Solver mathExpression 'x^2 - 3x = 0'\", \"Symbolic Calculator mathExpression 'sin(x) + cos(x)'\", \"Algebra Tool mathExpression '2y + 5 = 11'\".",
+          "embed_score": 0.775,
+          "embed_rank": 17
+        },
+        {
+          "source": "schema.org",
+          "label": "seeks",
+          "signature": "Organization/Person → Demand",
+          "parent": null,
+          "inverse_of": null,
+          "score": -2.1986,
+          "matched_anchor": null,
+          "comment": "A demand for specific products or services expressed by an organization or person. Also called desires, looks for, requests, requires. Examples: `Company X` seeks `Demand for Software Developers`, `Person Y` seeks `Demand for Used Car`, `Organization Z` seeks `Demand for Consulting Services`. Distinct from `offers`, which is about what is provided.",
+          "embed_score": 0.77,
+          "embed_rank": 43
+        },
+        {
+          "source": "schema.org",
+          "label": "encoding",
+          "signature": "CreativeWork → MediaObject",
+          "parent": null,
+          "inverse_of": "encodesCreativeWork",
+          "score": -4.3711,
+          "matched_anchor": null,
+          "comment": "An encoding relation between a creative work and a media object that represents or contains it. Also called \"represented by media\", \"media representation\", \"has media object\". Examples: \"Movie 'The Matrix' encoding 'Matrix.mp4'\", \"Song 'Bohemian Rhapsody' encoding 'BohemianRhapsody.mp3'\", \"Book '1984' encoding '1984.epub'\". Distinct from encodesCreativeWork, which is the inverse relation (MediaObject -> CreativeWork).",
+          "embed_score": 0.773,
+          "embed_rank": 26
+        },
+        {
+          "source": "schema.org",
+          "label": "phoneticText",
+          "signature": "PronounceableText → Text",
+          "parent": null,
+          "inverse_of": null,
+          "score": -5.1719,
+          "matched_anchor": null,
+          "comment": "A linguistic attribute providing a phonetic representation of pronounceable text using a specified markup. Also called pronunciation, phonetic transcription, IPA representation. Examples: The word 'hello' has a phonetic text of '/həˈloʊ/'. The city 'Houston' has a phonetic text of '/ˈhjuːstən/'. A name has a phonetic text for its pronunciation.",
+          "embed_score": 0.774,
+          "embed_rank": 20
+        },
+        {
+          "source": "schema.org",
+          "label": "contentLocation",
+          "signature": "CreativeWork → Place",
+          "parent": null,
+          "inverse_of": null,
+          "score": -5.1857,
+          "matched_anchor": null,
+          "comment": "A descriptive relation for a creative work, indicating the place depicted or described within its content. Also called \"depicted location\", \"setting\", \"place of content\". Examples: \"Photograph contentLocation 'Eiffel Tower'\", \"Novel contentLocation 'London'\".",
+          "embed_score": 0.771,
+          "embed_rank": 32
+        },
+        {
+          "source": "schema.org",
+          "label": "color",
+          "signature": "Product → Text",
+          "parent": null,
+          "inverse_of": null,
+          "score": -5.4356,
+          "matched_anchor": null,
+          "comment": "A descriptive relation for a product, indicating its color. Also called \"product color\", \"hue\", \"shade\". Examples: \"Car product color 'Red'\", \"Shirt product color 'Blue'\". Distinct from colorSwatch, which provides an image of the color.",
+          "embed_score": 0.771,
+          "embed_rank": 35
+        },
+        {
+          "source": "schema.org",
+          "label": "result",
+          "signature": "Action → Thing",
+          "parent": null,
+          "inverse_of": null,
+          "score": -5.8533,
+          "matched_anchor": null,
+          "comment": "The outcome or product generated by an action. Also called outcome, product, output, consequence. Examples: `WriteAction` result `Book`, `CookAction` result `Meal`, `CreateAction` result `Artwork`. Distinct from `resultComment` and `resultReview` which are specific types of results.",
+          "embed_score": 0.773,
+          "embed_rank": 24
+        },
+        {
+          "source": "schema.org",
+          "label": "containedIn",
+          "signature": "Place → Place",
+          "parent": null,
+          "inverse_of": null,
+          "score": -5.8848,
+          "matched_anchor": null,
+          "comment": "A spatial containment relation between a place and the larger place that contains it. Also called \"located in\", \"part of\", \"within\". Examples: \"City 'Paris' containedIn 'France'\", \"Building 'Eiffel Tower' containedIn 'Paris'\". Distinct from containedInPlace, which is a synonym, and containsPlace, which is the inverse.",
+          "embed_score": 0.782,
+          "embed_rank": 6
+        },
+        {
+          "source": "schema.org",
+          "label": "displayLocation",
+          "signature": "CreativeWork/Product → Place",
+          "parent": null,
+          "inverse_of": null,
+          "score": -5.8967,
+          "matched_anchor": null,
+          "comment": "A display location relation between a creative work or product and the place where it can be viewed or experienced in-person. Also called \"viewing location\", \"exhibition place\", \"experience venue\". Examples: \"Painting 'Mona Lisa' displayLocation 'Louvre Museum'\", \"Product 'New Car Model' displayLocation 'Dealership Showroom'\", \"Sculpture displayLocation 'Art Gallery'\".",
+          "embed_score": 0.777,
+          "embed_rank": 16
+        }
+      ]
+    },
+    {
+      "relation_phrase": "analyzed",
+      "definition": null,
+      "embedding_query_text": "analyzed:",
+      "observed_signatures": [
+        "GovernmentOrganization → ScientificAnalysis"
+      ],
+      "n_assignments": 1,
+      "assignments": [
+        {
+          "instances": [
+            "US Geological Survey -> USGS explains quake characteristics"
+          ],
+          "chosen_property": {
+            "label": "analyzedBy",
+            "source": "vocab",
+            "direction": "as_is",
+            "vocab_id": "P0046",
+            "is_new_to_vocab": true,
+            "definition": "A scientific analysis performed by an organization.",
+            "parent": null,
+            "domain": [
+              "GovernmentOrganization"
+            ],
+            "range": [
+              "ScientificAnalysis"
+            ],
+            "path": "",
+            "justification": "No existing schema.org property fits the GovernmentOrganization → ScientificAnalysis relation."
+          },
+          "llm_proposed": {
+            "source": "new",
+            "label": "analyzedBy",
+            "is_new": true,
+            "direction": "as_is"
+          }
+        }
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "study",
+          "signature": "MedicalEntity → MedicalStudy",
+          "parent": null,
+          "inverse_of": null,
+          "score": 0.577,
+          "matched_anchor": null,
+          "comment": "A relation between a medical entity and a medical study or trial that investigates it. Also called \"related study\", \"investigated by study\", \"medical trial\". Examples: \"The drug has study a clinical trial\", \"The medical condition is part of a study\", \"This therapy is being evaluated in a study.\"",
+          "embed_score": 0.791,
+          "embed_rank": 5
+        },
+        {
+          "source": "schema.org",
+          "label": "studySubject",
+          "signature": "MedicalStudy → MedicalEntity",
+          "parent": null,
+          "inverse_of": null,
+          "score": -1.3978,
+          "matched_anchor": null,
+          "comment": "An investigative relation between a medical study and the medical entity (condition, therapy, drug, etc.) that is being investigated. Also called \"subject of investigation\", \"research focus\", \"entity studied\", \"trial subject\". Examples: \"The medical study has studySubject a new drug\", \"The clinical trial's studySubject is a specific medical condition\", \"This study investigates a studySubject therapy.\"",
+          "embed_score": 0.785,
+          "embed_rank": 10
+        },
+        {
+          "source": "schema.org",
+          "label": "review",
+          "signature": "Brand/CreativeWork/Event/Offer/Organization/Place/Product/Service → Review",
+          "parent": null,
+          "inverse_of": null,
+          "score": -1.599,
+          "matched_anchor": null,
+          "comment": "A critical assessment or evaluation of an item, such as a product, service, or creative work. Also called item review, evaluation, critique, assessment. Examples: `Product: Smartphone` review `Customer Review`, `Movie: Inception` review `Film Critic's Review`, `Restaurant: The Fancy Bistro` review `Food Blogger's Review`. Distinct from `reviews`, which is a plural form and often implies a collection.",
+          "embed_score": 0.792,
+          "embed_rank": 4
+        },
+        {
+          "source": "schema.org",
+          "label": "itemReviewed",
+          "signature": "AggregateRating/Review → Thing",
+          "parent": null,
+          "inverse_of": null,
+          "score": -2.7025,
+          "matched_anchor": null,
+          "comment": "A review subject relation between an aggregate rating or review and the entity that is being evaluated or rated. Also called reviewed item, rated item, subject of review, evaluated entity. Examples: A review has an itemReviewed of 'Restaurant X'. An aggregate rating has an itemReviewed of 'Movie Y'. A product review has an itemReviewed of 'Smartphone Z'. Distinct from itemOffered, which is the subject of an offer or demand.",
+          "embed_score": 0.797,
+          "embed_rank": 2
+        },
+        {
+          "source": "schema.org",
+          "label": "variableMeasured",
+          "signature": "Dataset/Observation → Property/PropertyValue/StatisticalVariable/Text",
+          "parent": null,
+          "inverse_of": null,
+          "score": -4.2346,
+          "matched_anchor": null,
+          "comment": "A variable measured relation between a dataset or observation and the variables that are measured within it. Also called measured variable, data variable, observation parameter. Examples: \"Dataset variableMeasured 'Temperature'\", \"Observation variableMeasured 'Humidity'\", \"Dataset variableMeasured 'Patient Age'\".",
+          "embed_score": 0.769,
+          "embed_rank": 30
+        },
+        {
+          "source": "schema.org",
+          "label": "reviews",
+          "signature": "CreativeWork/Offer/Organization/Place/Product → Review",
+          "parent": null,
+          "inverse_of": null,
+          "score": -4.6594,
+          "matched_anchor": null,
+          "comment": "A collection of critical assessments or evaluations pertaining to an item, such as a product, service, or creative work. Also called item reviews, evaluations, critiques, assessments. Examples: `Product: Laptop` reviews `[Review 1, Review 2, ...]`, `Movie: Dune` reviews `[Critic Review, User Review]`, `Restaurant: Pizzeria` reviews `[Google Reviews, Yelp Reviews]`. Distinct from `review`, which typically refers to a single review.",
+          "embed_score": 0.773,
+          "embed_rank": 25
+        },
+        {
+          "source": "schema.org",
+          "label": "aggregateRating",
+          "signature": "Brand/CreativeWork/Event/Offer/Organization/Place/Product/Service → AggregateRating",
+          "parent": null,
+          "inverse_of": null,
+          "score": -4.8179,
+          "matched_anchor": null,
+          "comment": "An aggregate rating relation between an item (e.g., product, service, creative work) and its overall rating derived from multiple reviews. Also called overall score, collective rating, average review. Examples: \"A product's aggregate rating is '4.5 stars'.\", \"A movie's aggregate rating is '8.2/10'.\"",
+          "embed_score": 0.784,
+          "embed_rank": 14
+        },
+        {
+          "source": "schema.org",
+          "label": "associatedReview",
+          "signature": "Review → Review",
+          "parent": null,
+          "inverse_of": null,
+          "score": -5.3239,
+          "matched_anchor": null,
+          "comment": "A review related to another review. Also called: linked review, related assessment. Examples: \"Review 'Product Review A' associatedReview 'Product Review B'\", \"Review 'Movie Review' associatedReview 'Critic Review'.\"",
+          "embed_score": 0.81,
+          "embed_rank": 1
+        },
+        {
+          "source": "schema.org",
+          "label": "ratingValue",
+          "signature": "Rating → Number/Text",
+          "parent": null,
+          "inverse_of": null,
+          "score": -5.5761,
+          "matched_anchor": null,
+          "comment": "A rating value relation between a rating and its numerical or textual score. Also called score, rating score, value of rating. Examples: \"A movie review has a rating value of 4.5.\", \"A product has a rating value of 'Excellent'.\", \"A restaurant has a rating value of 3 stars.\"",
+          "embed_score": 0.766,
+          "embed_rank": 38
+        },
+        {
+          "source": "schema.org",
+          "label": "associatedClaimReview",
+          "signature": "Review → Review",
+          "parent": "associatedReview",
+          "inverse_of": null,
+          "score": -5.6925,
+          "matched_anchor": null,
+          "comment": "A claim review related to another review by common content, topic, or claim. Also called: related claim review, linked claim assessment. Examples: \"Review 'MediaReview of Article' associatedClaimReview 'ClaimReview of Statement'\", \"Review 'FactCheck' associatedClaimReview 'Another FactCheck'\". Distinct from associatedMediaReview, which links to a media review.",
+          "embed_score": 0.784,
+          "embed_rank": 13
+        }
+      ]
+    },
+    {
+      "relation_phrase": "feltIn",
+      "definition": "The geographic extent where an event's effects were perceptible.",
+      "embedding_query_text": "feltIn: The geographic extent where an event's effects were perceptible.",
+      "observed_signatures": [
+        "Event → City",
+        "Event → Country"
+      ],
+      "n_assignments": 1,
+      "assignments": [
+        {
+          "instances": [
+            "Colombian earthquake -> Bogotá",
+            "Colombian earthquake -> Colombia"
+          ],
+          "chosen_property": {
+            "label": "spatialCoverage",
+            "source": "schema.org",
+            "direction": "as_is",
+            "vocab_id": null,
+            "is_new_to_vocab": false,
+            "definition": null,
+            "parent": null,
+            "domain": null,
+            "range": null,
+            "path": "contentLocation",
+            "justification": "spatialCoverage fits Event → City/Country with examples like 'New York State'."
+          },
+          "llm_proposed": {
+            "source": "schema.org",
+            "label": "spatialCoverage",
+            "is_new": false,
+            "direction": "as_is"
+          }
+        }
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "deathPlace",
+          "signature": "Person → Place",
+          "parent": null,
+          "inverse_of": null,
+          "score": -8.6769,
+          "matched_anchor": null,
+          "comment": "A geographical event relation between a person and the place where they died. Also called: place of demise, passing location, decease location. Examples: \"Historical Figure\" death place \"Dallas, Texas\", \"Family Member\" death place \"London, UK\". Distinct from birthPlace, which is the place of birth.",
+          "embed_score": 0.77,
+          "embed_rank": 15
+        },
+        {
+          "source": "schema.org",
+          "label": "source",
+          "signature": "InstantaneousEvent → Thing",
+          "parent": null,
+          "inverse_of": null,
+          "score": -9.6297,
+          "matched_anchor": null,
+          "comment": "A causal relation between an instantaneous event and the thing that initiated or caused it. Also called \"originates from\", \"caused by\", \"event trigger\", \"event origin\". Examples: \"The explosion's source was a gas leak\", \"The alarm's source was a smoke detector\", \"The data breach's source was a phishing attack.\"",
+          "embed_score": 0.784,
+          "embed_rank": 4
+        },
+        {
+          "source": "schema.org",
+          "label": "eventStatus",
+          "signature": "Event → EventStatusType",
+          "parent": null,
+          "inverse_of": null,
+          "score": -10.3446,
+          "matched_anchor": null,
+          "comment": "An event status relation between an event and its current status type. Also called \"event condition\", \"status of event\", \"event state\". Examples: \"Event 'Concert' eventStatus 'EventCancelled'\", \"Event 'Meeting' eventStatus 'EventScheduled'\", \"Event 'Festival' eventStatus 'EventRescheduled'\".",
+          "embed_score": 0.757,
+          "embed_rank": 48
+        },
+        {
+          "source": "schema.org",
+          "label": "recordedAt",
+          "signature": "CreativeWork → Event",
+          "parent": null,
+          "inverse_of": "recordedIn",
+          "score": -10.7053,
+          "matched_anchor": null,
+          "comment": "A recording location relation between a creative work and the event where it was recorded. Also called recorded during, captured at event. Examples: \"A live album was recorded at 'Wembley Stadium Concert'.\", \"A documentary film was recorded at 'the Amazon Rainforest Expedition'.\", \"A podcast episode was recorded at 'a conference panel discussion'.\". Distinct from recordedIn, which is the inverse relation.",
+          "embed_score": 0.785,
+          "embed_rank": 3
+        },
+        {
+          "source": "schema.org",
+          "label": "validIn",
+          "signature": "Certification/Credential/Permit → AdministrativeArea",
+          "parent": null,
+          "inverse_of": null,
+          "score": -10.7255,
+          "matched_anchor": null,
+          "comment": "A valid in relation between a certification, credential, or permit and the geographic area where it is valid. Also called valid region, applicable area, geographic validity. Examples: \"Permit validIn 'California'\", \"Certification validIn 'European Union'\", \"Credential validIn 'United States'\".",
+          "embed_score": 0.783,
+          "embed_rank": 5
+        },
+        {
+          "source": "schema.org",
+          "label": "spatialCoverage",
+          "signature": "CreativeWork → Place",
+          "parent": "contentLocation",
+          "inverse_of": null,
+          "score": -10.7323,
+          "matched_anchor": null,
+          "comment": "A geographic focus relation between a creative work and the place(s) that are the primary subject or focus of its content. Also called \"geographic scope\", \"covered area\", \"location focus\", \"content location\". Examples: \"A weather dataset has spatialCoverage New York State\", \"The historical map's spatialCoverage is ancient Rome\", \"This research paper's spatialCoverage is the Arctic region.\". Distinct from spatial, which is a more general spatial association when the specific focus is not known.",
+          "embed_score": 0.779,
+          "embed_rank": 6
+        },
+        {
+          "source": "schema.org",
+          "label": "event",
+          "signature": "InformAction/InviteAction/JoinAction/LeaveAction/Organization/Place/PlayAction → Event",
+          "parent": null,
+          "inverse_of": null,
+          "score": -10.7449,
+          "matched_anchor": null,
+          "comment": "An event association relation between an action, organization, or place and an event connected to it. Also called \"associated event\", \"related event\", \"features event\". Examples: \"Organization 'Museum' event 'Art Exhibition'\", \"Place 'Park' event 'Summer Festival'\", \"Inform action event 'Meeting Reminder'\". Distinct from events, which is the plural form.",
+          "embed_score": 0.763,
+          "embed_rank": 26
+        },
+        {
+          "source": "schema.org",
+          "label": "containedIn",
+          "signature": "Place → Place",
+          "parent": null,
+          "inverse_of": null,
+          "score": -10.7621,
+          "matched_anchor": null,
+          "comment": "A spatial containment relation between a place and the larger place that contains it. Also called \"located in\", \"part of\", \"within\". Examples: \"City 'Paris' containedIn 'France'\", \"Building 'Eiffel Tower' containedIn 'Paris'\". Distinct from containedInPlace, which is a synonym, and containsPlace, which is the inverse.",
+          "embed_score": 0.788,
+          "embed_rank": 2
+        },
+        {
+          "source": "schema.org",
+          "label": "recordedIn",
+          "signature": "Event → CreativeWork",
+          "parent": null,
+          "inverse_of": "recordedAt",
+          "score": -10.7772,
+          "matched_anchor": null,
+          "comment": "A recording capture relation between an event and the creative work that captured all or part of it. Also called captured by, documented in, featured in. Examples: \"A concert event was recorded in 'a live album'.\", \"A historical event was recorded in 'a documentary film'.\", \"A speech event was recorded in 'a news broadcast'.\". Distinct from recordedAt, which is the inverse relation.",
+          "embed_score": 0.79,
+          "embed_rank": 1
+        },
+        {
+          "source": "schema.org",
+          "label": "superEvent",
+          "signature": "Event → Event",
+          "parent": null,
+          "inverse_of": "subEvent",
+          "score": -10.7964,
+          "matched_anchor": null,
+          "comment": "A hierarchical relation between a smaller event and the larger event of which it is a part. Also called \"part of larger event\", \"parent event\", \"contained within event\", \"main event\". Examples: \"The concert has superEvent the music festival\", \"The presentation's superEvent is the conference\", \"This workshop is part of a superEvent summit.\". Distinct from subEvent, which points from the larger event to the smaller one.",
+          "embed_score": 0.762,
+          "embed_rank": 30
+        }
+      ]
+    },
+    {
+      "relation_phrase": "about",
+      "definition": "The subject or focus of a claim or statement.",
+      "embedding_query_text": "about: The subject or focus of a claim or statement.",
+      "observed_signatures": [
+        "CasualtyReport → Event",
+        "OfficialStatement → Event",
+        "InternationalSupport → Event",
+        "ScientificAnalysis → Event"
+      ],
+      "n_assignments": 1,
+      "assignments": [
+        {
+          "instances": [
+            "169 confirmed deaths -> Colombian earthquake",
+            "85 deaths in Cali -> Colombian earthquake",
+            "66 deaths in Pereira -> Colombian earthquake",
+            "5 deaths in Manizales -> Colombian earthquake",
+            "President declares national disaster -> Colombian earthquake",
+            "World leaders offer assistance -> Colombian earthquake",
+            "USGS explains quake characteristics -> Colombian earthquake"
+          ],
+          "chosen_property": {
+            "label": "about",
+            "source": "schema.org",
+            "direction": "as_is",
+            "vocab_id": null,
+            "is_new_to_vocab": false,
+            "definition": null,
+            "parent": null,
+            "domain": null,
+            "range": null,
+            "path": "",
+            "justification": "about fits all instances (CasualtyReport, OfficialStatement, etc.) → Event as per schema.org definition."
+          },
+          "llm_proposed": {
+            "source": "schema.org",
+            "label": "about",
+            "is_new": false,
+            "direction": "as_is"
+          }
+        }
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "claimReviewed",
+          "signature": "ClaimReview → Text",
+          "parent": null,
+          "inverse_of": null,
+          "score": 0.597,
+          "matched_anchor": null,
+          "comment": "A summary relation for a claim review, providing a short text of the specific claims being reviewed. Also called \"reviewed claim\", \"claim summary\", \"subject of review\". Examples: \"Fact-check review claimReviewed 'Eating apples cures cancer'\", \"Product claim review claimReviewed 'This product doubles battery life'\".",
+          "embed_score": 0.827,
+          "embed_rank": 3
+        },
+        {
+          "source": "schema.org",
+          "label": "associatedClaimReview",
+          "signature": "Review → Review",
+          "parent": "associatedReview",
+          "inverse_of": null,
+          "score": -0.2261,
+          "matched_anchor": null,
+          "comment": "A claim review related to another review by common content, topic, or claim. Also called: related claim review, linked claim assessment. Examples: \"Review 'MediaReview of Article' associatedClaimReview 'ClaimReview of Statement'\", \"Review 'FactCheck' associatedClaimReview 'Another FactCheck'\". Distinct from associatedMediaReview, which links to a media review.",
+          "embed_score": 0.814,
+          "embed_rank": 8
+        },
+        {
+          "source": "schema.org",
+          "label": "interpretedAsClaim",
+          "signature": "CreativeWork/MediaObject → Claim",
+          "parent": "description",
+          "inverse_of": null,
+          "score": -2.3079,
+          "matched_anchor": null,
+          "comment": "A claim extraction relation between a creative work or media object and a specific assertion or statement derived from its content. Also called contains claim, implies claim, claim extracted from, claim derived from. Examples: A news article is interpretedAsClaim 'The sky is blue'. A scientific paper is interpretedAsClaim 'Drug X cures Y'. A video is interpretedAsClaim 'Candidate Z made promise A'.",
+          "embed_score": 0.818,
+          "embed_rank": 5
+        },
+        {
+          "source": "schema.org",
+          "label": "subjectOf",
+          "signature": "Thing → CreativeWork/Event",
+          "parent": null,
+          "inverse_of": "about",
+          "score": -2.7952,
+          "matched_anchor": null,
+          "comment": "A thematic relation between a thing and a creative work or event that is about it. Also called \"topic of\", \"depicted in\", \"featured in\", \"covered by\". Examples: \"The person is subjectOf a biography\", \"The historical event is subjectOf a documentary\", \"This concept is subjectOf a research paper.\"",
+          "embed_score": 0.849,
+          "embed_rank": 1
+        },
+        {
+          "source": "schema.org",
+          "label": "studySubject",
+          "signature": "MedicalStudy → MedicalEntity",
+          "parent": null,
+          "inverse_of": null,
+          "score": -3.053,
+          "matched_anchor": null,
+          "comment": "An investigative relation between a medical study and the medical entity (condition, therapy, drug, etc.) that is being investigated. Also called \"subject of investigation\", \"research focus\", \"entity studied\", \"trial subject\". Examples: \"The medical study has studySubject a new drug\", \"The clinical trial's studySubject is a specific medical condition\", \"This study investigates a studySubject therapy.\"",
+          "embed_score": 0.782,
+          "embed_rank": 36
+        },
+        {
+          "source": "schema.org",
+          "label": "claimInterpreter",
+          "signature": "Claim → Organization/Person",
+          "parent": null,
+          "inverse_of": null,
+          "score": -3.2322,
+          "matched_anchor": null,
+          "comment": "An interpretation relation between a claim and the organization or person who interpreted it from media content. Also called \"interpreted by\", \"claim analyst\", \"fact-checker\". Examples: \"News claim claimInterpreter FactCheck.org\", \"Social media claim claimInterpreter Jane Doe\".",
+          "embed_score": 0.818,
+          "embed_rank": 6
+        },
+        {
+          "source": "schema.org",
+          "label": "about",
+          "signature": "Certification/CommunicateAction/CreativeWork/DefinedTerm/DefinedTermSet/Event → Thing",
+          "parent": null,
+          "inverse_of": "subjectOf",
+          "score": -3.4901,
+          "matched_anchor": null,
+          "comment": "A subject matter relation between an entity (e.g., a creative work, event, or communication) and the topic it concerns. Also called concerning, regarding, on the topic of, related to. Examples: \"A book about quantum physics.\", \"A lecture about climate change.\", \"A certification about data privacy.\"",
+          "embed_score": 0.848,
+          "embed_rank": 2
+        },
+        {
+          "source": "schema.org",
+          "label": "spatialCoverage",
+          "signature": "CreativeWork → Place",
+          "parent": "contentLocation",
+          "inverse_of": null,
+          "score": -3.5191,
+          "matched_anchor": null,
+          "comment": "A geographic focus relation between a creative work and the place(s) that are the primary subject or focus of its content. Also called \"geographic scope\", \"covered area\", \"location focus\", \"content location\". Examples: \"A weather dataset has spatialCoverage New York State\", \"The historical map's spatialCoverage is ancient Rome\", \"This research paper's spatialCoverage is the Arctic region.\". Distinct from spatial, which is a more general spatial association when the specific focus is not known.",
+          "embed_score": 0.786,
+          "embed_rank": 23
+        },
+        {
+          "source": "schema.org",
+          "label": "guidelineSubject",
+          "signature": "MedicalGuideline → MedicalEntity",
+          "parent": null,
+          "inverse_of": null,
+          "score": -3.5195,
+          "matched_anchor": null,
+          "comment": "A guideline subject relation between a medical guideline and the medical conditions, treatments, or other entities it addresses. Also called: guideline topic, subject matter, focus. Examples: \"AHA Guideline for Hypertension\" guideline subject \"Hypertension\", \"NICE Guideline for Diabetes\" guideline subject \"Type 2 Diabetes\", \"WHO COVID-19 Guidelines\" guideline subject \"COVID-19\". Distinct from guideline, which is the guideline itself.",
+          "embed_score": 0.804,
+          "embed_rank": 9
+        },
+        {
+          "source": "schema.org",
+          "label": "appearance",
+          "signature": "Claim → CreativeWork",
+          "parent": "workExample",
+          "inverse_of": null,
+          "score": -3.5884,
+          "matched_anchor": null,
+          "comment": "An appearance relation between a claim and a creative work where that claim is found or occurs. Also called occurrence in, mentioned in, found in. Examples: \"A claim's appearance is in 'News Article X'.\", \"The factual claim's appearance is in 'Research Paper Y'.\"",
+          "embed_score": 0.792,
+          "embed_rank": 16
+        }
+      ]
+    },
+    {
+      "relation_phrase": "declared",
+      "definition": null,
+      "embedding_query_text": "declared:",
+      "observed_signatures": [
+        "Person → GovernmentBenefitsType"
+      ],
+      "n_assignments": 1,
+      "assignments": [
+        {
+          "instances": [
+            "Abelardo de la Espriella -> National Disaster Declaration"
+          ],
+          "chosen_property": {
+            "label": "owns",
+            "source": "schema.org",
+            "direction": "as_is",
+            "vocab_id": null,
+            "is_new_to_vocab": false,
+            "definition": null,
+            "parent": null,
+            "domain": null,
+            "range": null,
+            "path": "",
+            "justification": "owns fits Person → GovernmentBenefitsType with examples like 'John owns a car'."
+          },
+          "llm_proposed": {
+            "source": "schema.org",
+            "label": "owns",
+            "is_new": false,
+            "direction": "as_is"
+          }
+        }
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "copyrightNotice",
+          "signature": "CreativeWork → Text",
+          "parent": null,
+          "inverse_of": null,
+          "score": -0.1096,
+          "matched_anchor": null,
+          "comment": "A textual declaration relation between a creative work and the statement describing its copyright aspects. Also called: copyright statement, copyright declaration, copyright text. Examples: \"My Novel\" copyright notice \"© 2023 John Doe\", \"Company Website\" copyright notice \"Copyright 2023 Example Corp. All Rights Reserved.\", \"Academic Paper\" copyright notice \"Published under CC BY 4.0 license\". Distinct from copyrightHolder, which identifies the entity owning the copyright.",
+          "embed_score": 0.773,
+          "embed_rank": 3
+        },
+        {
+          "source": "schema.org",
+          "label": "interpretedAsClaim",
+          "signature": "CreativeWork/MediaObject → Claim",
+          "parent": "description",
+          "inverse_of": null,
+          "score": -4.1241,
+          "matched_anchor": null,
+          "comment": "A claim extraction relation between a creative work or media object and a specific assertion or statement derived from its content. Also called contains claim, implies claim, claim extracted from, claim derived from. Examples: A news article is interpretedAsClaim 'The sky is blue'. A scientific paper is interpretedAsClaim 'Drug X cures Y'. A video is interpretedAsClaim 'Candidate Z made promise A'.",
+          "embed_score": 0.769,
+          "embed_rank": 7
+        },
+        {
+          "source": "schema.org",
+          "label": "reservationStatus",
+          "signature": "Reservation → ReservationStatusType",
+          "parent": null,
+          "inverse_of": null,
+          "score": -5.9025,
+          "matched_anchor": null,
+          "comment": "A reservation status relation between a reservation and its current state, such as confirmed or cancelled. Also called booking status, status of reservation. Examples: \"A flight reservation has a reservation status 'Confirmed'.\", \"A hotel booking has a reservation status 'Pending'.\", \"A restaurant reservation has a reservation status 'Cancelled'.\"",
+          "embed_score": 0.76,
+          "embed_rank": 24
+        },
+        {
+          "source": "schema.org",
+          "label": "nonprofitStatus",
+          "signature": "Organization → NonprofitType",
+          "parent": null,
+          "inverse_of": null,
+          "score": -6.0982,
+          "matched_anchor": null,
+          "comment": "The legal nonprofit status of an organization in its primary place of business. Also called charitable status, tax-exempt status, non-profit classification. Examples: \"Charity A nonprofitStatus 'Nonprofit501c3'\", \"Foundation B nonprofitStatus 'NonprofitType.Nonprofit501c4'\", \"Association C nonprofitStatus 'NonprofitType.Nonprofit501c6'\".",
+          "embed_score": 0.762,
+          "embed_rank": 16
+        },
+        {
+          "source": "schema.org",
+          "label": "certificationStatus",
+          "signature": "Certification → CertificationStatusEnumeration",
+          "parent": null,
+          "inverse_of": null,
+          "score": -6.1115,
+          "matched_anchor": null,
+          "comment": "A status relation for a certification, indicating whether it is active or inactive. Also called \"certificate status\", \"certification validity\", \"status of certification\". Examples: \"Product certification certificationStatus Active\", \"Company certification certificationStatus Inactive\".",
+          "embed_score": 0.762,
+          "embed_rank": 15
+        },
+        {
+          "source": "schema.org",
+          "label": "status",
+          "signature": "MedicalCondition/MedicalProcedure/MedicalStudy → EventStatusType/MedicalStudyStatus/Text",
+          "parent": null,
+          "inverse_of": null,
+          "score": -6.2117,
+          "matched_anchor": null,
+          "comment": "An indication of the current state or status of a medical condition, procedure, or study. Also called \"current state\", \"condition status\", \"study progress\", \"procedure status\". Examples: \"The medical study has status Recruiting\", \"The patient's condition status is stable\", \"The procedure's status is completed.\"",
+          "embed_score": 0.756,
+          "embed_rank": 41
+        },
+        {
+          "source": "schema.org",
+          "label": "isAvailableGenerically",
+          "signature": "Drug → Boolean",
+          "parent": null,
+          "inverse_of": null,
+          "score": -6.2929,
+          "matched_anchor": null,
+          "comment": "A drug availability relation indicating whether a drug is available in a generic formulation. Also called generic form available, generic equivalent, generic option. Examples: A drug has isAvailableGenerically set to 'true'. A brand-name medication has isAvailableGenerically set to 'false'. A common painkiller has isAvailableGenerically set to 'true'. Distinct from isProprietary, which indicates if the *name* is proprietary.",
+          "embed_score": 0.757,
+          "embed_rank": 35
+        },
+        {
+          "source": "schema.org",
+          "label": "owns",
+          "signature": "Organization/Person → Thing",
+          "parent": null,
+          "inverse_of": "owner",
+          "score": -6.3238,
+          "matched_anchor": null,
+          "comment": "A thing that is owned by an organization or person. Also called possesses, holds title to, has ownership of. Examples: \"John Doe owns 'a car'\", \"Acme Corp owns 'a patent'\", \"Sarah owns 'her house'\". Distinct from memberOf, which describes membership in a group.",
+          "embed_score": 0.774,
+          "embed_rank": 2
+        },
+        {
+          "source": "schema.org",
+          "label": "legislationJurisdiction",
+          "signature": "Legislation → AdministrativeArea/Text",
+          "parent": "jurisdiction",
+          "inverse_of": null,
+          "score": -6.3647,
+          "matched_anchor": null,
+          "comment": "A jurisdiction relation between a piece of legislation and the administrative area from which it originates. Also called: originating jurisdiction, legal territory, governing region. Examples: \"Federal Law legislationJurisdiction United States\", \"State Statute legislationJurisdiction California\", \"EU Directive legislationJurisdiction European Union\".",
+          "embed_score": 0.764,
+          "embed_rank": 11
+        },
+        {
+          "source": "schema.org",
+          "label": "name",
+          "signature": "Thing → Text",
+          "parent": null,
+          "inverse_of": null,
+          "score": -6.3718,
+          "matched_anchor": null,
+          "comment": "A name or title identifying a thing. Also called title, designation, appellation, label. Examples: \"Book name 'The Hitchhiker's Guide to the Galaxy'\", \"Person name 'Alice Smith'\", \"Company name 'Acme Corp'\". Distinct from alternateName, which is an alias or alternative name.",
+          "embed_score": 0.772,
+          "embed_rank": 5
+        }
+      ]
+    }
+  ]
+}

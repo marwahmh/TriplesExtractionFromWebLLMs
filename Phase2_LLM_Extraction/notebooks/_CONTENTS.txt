@@ -9,6 +9,9 @@ Subfolders:
   two_staged/                        Staged pipeline notebooks: entities -> relations -> n-ary reification (nb2,3,4,6,6b,7,7b).
 
 Files:
+  experiment_config.py               Loads configs/<EXPERIMENT>.json into a notebook's globals; the single source of a run's settings.
+  run_metrics.py                     Collects every stage's numbers from the files it wrote -> _global[/e2e]/metrics_<stage><tag>.json.
+  run_manifest.py                    One record per run: config + commit + outputs + tokens per stage -> results/<model>/_runs/<run_id>.json.
   llm_backend.py                     Backend selection/activation (Gemini, vLLM open-weight models) shared by every notebook.
   nb_parallel.py                     Thread-aware stdout so a parallel per-article batch prints one clean block per article.
   kg_viz.py                          Interactive KG viewer used by nb8: builds one self-contained HTML (vis-network inlined).

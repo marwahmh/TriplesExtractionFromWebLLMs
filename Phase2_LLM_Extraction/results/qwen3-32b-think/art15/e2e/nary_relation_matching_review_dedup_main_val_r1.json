@@ -1,0 +1,2404 @@
+{
+  "article_id": "art15",
+  "match_model": "intfloat/e5-base-v2",
+  "expand_mode": true,
+  "relations": [
+    {
+      "relation_phrase": "location",
+      "definition": "The physical place where an event or entity is situated.",
+      "embedding_query_text": "location: The physical place where an event or entity is situated.",
+      "observed_signatures": [
+        "Event → Museum",
+        "Museum → TouristAttraction"
+      ],
+      "n_assignments": 1,
+      "assignments": [
+        {
+          "instances": [
+            "Jewelry theft at Lalique museum -> Lalique museum",
+            "Louvre museum heist -> Louvre museum",
+            "Lalique museum -> Wingen-sur-Moder",
+            "Louvre museum -> Wingen-sur-Moder"
+          ],
+          "chosen_property": {
+            "label": "location",
+            "source": "schema.org",
+            "direction": "as_is",
+            "vocab_id": null,
+            "is_new_to_vocab": false,
+            "definition": null,
+            "parent": null,
+            "domain": null,
+            "range": null,
+            "path": "",
+            "justification": "Schema.org's location property fits all instances (Event→Museum and Museum→TouristAttraction) as it represents physical/virtual location relations."
+          },
+          "llm_proposed": {
+            "source": "schema.org",
+            "label": "location",
+            "is_new": false,
+            "direction": "as_is"
+          }
+        }
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "location",
+          "signature": "Action/Event/InteractionCounter/Organization → Place/PostalAddress/Text/VirtualLocation",
+          "parent": null,
+          "inverse_of": null,
+          "score": 7.0092,
+          "matched_anchor": null,
+          "comment": "A location relation between an action, event, interaction counter, or organization and its physical or virtual place. Also called: situated at, takes place at, found at. Examples: \"Conference Event location New York Hilton\", \"Company Organization location 123 Main St\", \"Online Meeting location Virtual Conference Room\".",
+          "embed_score": 0.919,
+          "embed_rank": 1
+        },
+        {
+          "source": "schema.org",
+          "label": "address",
+          "signature": "GeoCoordinates/GeoShape/Organization/Person/Place → PostalAddress/Text",
+          "parent": null,
+          "inverse_of": null,
+          "score": 1.198,
+          "matched_anchor": null,
+          "comment": "An address relation between an entity (e.g., organization, person, place) and its physical postal address. Also called physical location, mailing address, street address. Examples: \"A company's address is '123 Main St, Anytown'.\", \"A person's address is 'PO Box 123'.\", \"The restaurant's address is '456 Oak Ave'.\"",
+          "embed_score": 0.871,
+          "embed_rank": 3
+        },
+        {
+          "source": "schema.org",
+          "label": "locationCreated",
+          "signature": "CreativeWork → Place",
+          "parent": null,
+          "inverse_of": null,
+          "score": 0.7791,
+          "matched_anchor": null,
+          "comment": "A creation location relation between a creative work and the place where it was created. Also called: place of creation, origin location, created in. Examples: \"Painting locationCreated Paris\", \"Novel locationCreated London\", \"Film locationCreated Hollywood\". Distinct from location, which refers to the current or general location of an entity.",
+          "embed_score": 0.847,
+          "embed_rank": 18
+        },
+        {
+          "source": "schema.org",
+          "label": "deathPlace",
+          "signature": "Person → Place",
+          "parent": null,
+          "inverse_of": null,
+          "score": -0.4473,
+          "matched_anchor": null,
+          "comment": "A geographical event relation between a person and the place where they died. Also called: place of demise, passing location, decease location. Examples: \"Historical Figure\" death place \"Dallas, Texas\", \"Family Member\" death place \"London, UK\". Distinct from birthPlace, which is the place of birth.",
+          "embed_score": 0.851,
+          "embed_rank": 14
+        },
+        {
+          "source": "schema.org",
+          "label": "serviceLocation",
+          "signature": "ServiceChannel → Place",
+          "parent": null,
+          "inverse_of": null,
+          "score": -1.3286,
+          "matched_anchor": null,
+          "comment": "The physical place where a service can be accessed or obtained. Also called service access point, physical service location, service venue. Examples: `Bank Service Channel` serviceLocation `Bank Branch`, `Government Service Channel` serviceLocation `City Hall`, `Repair Service Channel` serviceLocation `Repair Shop`. Distinct from `serviceArea`, which is the broader geographic region.",
+          "embed_score": 0.871,
+          "embed_rank": 2
+        },
+        {
+          "source": "schema.org",
+          "label": "toLocation",
+          "signature": "ExerciseAction/InsertAction/MoveAction/TransferAction → Place",
+          "parent": "location",
+          "inverse_of": null,
+          "score": -2.682,
+          "matched_anchor": null,
+          "comment": "A destination location relation between an action (like exercise, insert, move, or transfer) and the final place of the object or agent after the action. Also called destination, final location, arrival place. Examples: \"MoveAction toLocation 'New York'\", \"TransferAction toLocation 'Warehouse B'\", \"ExerciseAction toLocation 'gym'\". Distinct from location, which is the general place where something is or occurs.",
+          "embed_score": 0.857,
+          "embed_rank": 9
+        },
+        {
+          "source": "schema.org",
+          "label": "itemLocation",
+          "signature": "ArchiveComponent → Place/PostalAddress/Text",
+          "parent": "location",
+          "inverse_of": null,
+          "score": -2.9058,
+          "matched_anchor": null,
+          "comment": "A physical location relation between an archive component and its current place, postal address, or textual description of location. Also called current location, item whereabouts, storage location, physical location. Examples: An archive component has an itemLocation of 'Shelf 3, Box 12'. An archive component has an itemLocation of 'Library Basement'. An archive component has an itemLocation of '123 Main St, Anytown'.",
+          "embed_score": 0.862,
+          "embed_rank": 7
+        },
+        {
+          "source": "schema.org",
+          "label": "event",
+          "signature": "InformAction/InviteAction/JoinAction/LeaveAction/Organization/Place/PlayAction → Event",
+          "parent": null,
+          "inverse_of": null,
+          "score": -2.9749,
+          "matched_anchor": null,
+          "comment": "An event association relation between an action, organization, or place and an event connected to it. Also called \"associated event\", \"related event\", \"features event\". Examples: \"Organization 'Museum' event 'Art Exhibition'\", \"Place 'Park' event 'Summer Festival'\", \"Inform action event 'Meeting Reminder'\". Distinct from events, which is the plural form.",
+          "embed_score": 0.857,
+          "embed_rank": 8
+        },
+        {
+          "source": "schema.org",
+          "label": "events",
+          "signature": "Organization/Place → Event",
+          "parent": null,
+          "inverse_of": null,
+          "score": -3.5047,
+          "matched_anchor": null,
+          "comment": "An events association relation between an organization or place and the events connected to it. Also called \"associated events\", \"related events\", \"features events\". Examples: \"Organization 'Museum' events 'Art Exhibition, Lecture Series'\", \"Place 'Park' events 'Summer Festival, Winter Fair'\", \"Company 'Tech Solutions' events 'Annual Conference, Product Launch'\". Distinct from event, which is the singular form.",
+          "embed_score": 0.85,
+          "embed_rank": 16
+        },
+        {
+          "source": "schema.org",
+          "label": "geo",
+          "signature": "Place → GeoCoordinates/GeoShape",
+          "parent": null,
+          "inverse_of": null,
+          "score": -3.6746,
+          "matched_anchor": null,
+          "comment": "A geo relation between a place and its geographical coordinates or shape. Also called: geographic location, coordinates, spatial data. Examples: \"Eiffel Tower\" geo \"Latitude: 48.8584, Longitude: 2.2945\", \"Central Park\" geo \"Polygon GeoShape\", \"Mount Everest\" geo \"Point GeoCoordinates\".",
+          "embed_score": 0.837,
+          "embed_rank": 23
+        }
+      ]
+    },
+    {
+      "relation_phrase": "time",
+      "definition": "The temporal context or duration of an event.",
+      "embedding_query_text": "time: The temporal context or duration of an event.",
+      "observed_signatures": [
+        "Event → Date",
+        "Event → Time"
+      ],
+      "n_assignments": 1,
+      "assignments": [
+        {
+          "instances": [
+            "Jewelry theft at Lalique museum -> Sunday",
+            "Jewelry theft at Lalique museum -> 5:30 am",
+            "Louvre museum heist -> October last year"
+          ],
+          "chosen_property": {
+            "label": "temporal",
+            "source": "schema.org",
+            "direction": "as_is",
+            "vocab_id": null,
+            "is_new_to_vocab": false,
+            "definition": null,
+            "parent": null,
+            "domain": null,
+            "range": null,
+            "path": "",
+            "justification": "Schema.org's temporal property accommodates Event→Date/Time as a general temporal relation."
+          },
+          "llm_proposed": {
+            "source": "schema.org",
+            "label": "temporal",
+            "is_new": false,
+            "direction": "as_is"
+          }
+        }
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "temporal",
+          "signature": "CreativeWork → DateTime/Text",
+          "parent": null,
+          "inverse_of": null,
+          "score": 5.6784,
+          "matched_anchor": null,
+          "comment": "A general temporal relation between a creative work and a date or time, used when more specific temporal properties are not applicable. Also called \"related to time\", \"time context\", \"associated temporal period\", \"timeframe\". Examples: \"The novel has temporal the 19th century\", \"The painting's temporal is the Renaissance era\", \"This document's temporal is the year 2020.\". Distinct from temporalCoverage, which indicates the specific time period the content applies to.",
+          "embed_score": 0.896,
+          "embed_rank": 1
+        },
+        {
+          "source": "schema.org",
+          "label": "contentReferenceTime",
+          "signature": "CreativeWork → DateTime",
+          "parent": null,
+          "inverse_of": null,
+          "score": 5.4998,
+          "matched_anchor": null,
+          "comment": "A temporal reference relation for a creative work, indicating the specific date and time described or emphasized within its content. Also called \"event time\", \"depicted time\", \"time of content\". Examples: \"News article contentReferenceTime '2023-10-26T14:00:00Z'\", \"Historical documentary contentReferenceTime '1945-09-02'\".",
+          "embed_score": 0.862,
+          "embed_rank": 6
+        },
+        {
+          "source": "schema.org",
+          "label": "duration",
+          "signature": "Audiobook/Episode/Event/MediaObject/Movie/MusicRecording/MusicRelease/QuantitativeValueDistribution/Schedule/ServicePeriod → Duration/QuantitativeValue",
+          "parent": null,
+          "inverse_of": null,
+          "score": 4.0706,
+          "matched_anchor": null,
+          "comment": "A duration relation between an item (such as an event, media object, or schedule) and its length of time. Also called \"length\", \"time span\", \"period\". Examples: \"Movie 'Avatar' duration 'PT2H42M'\", \"Event 'Concert' duration 'PT3H'\", \"Audio recording duration 'PT5M30S'\". Distinct from durationOfWarranty, which is specifically about warranty length.",
+          "embed_score": 0.886,
+          "embed_rank": 2
+        },
+        {
+          "source": "schema.org",
+          "label": "departureTime",
+          "signature": "Trip → DateTime/Time",
+          "parent": null,
+          "inverse_of": null,
+          "score": 3.6492,
+          "matched_anchor": null,
+          "comment": "A temporal event relation between a trip and its expected departure time. Also called: scheduled departure, leaving time, takeoff time. Examples: \"Flight\" departure time \"2023-11-01T08:00:00Z\", \"Bus Trip\" departure time \"14:30:00\", \"Train Journey\" departure time \"2023-12-25T10:00:00\". Distinct from arrivalTime, which is the expected arrival time.",
+          "embed_score": 0.863,
+          "embed_rank": 5
+        },
+        {
+          "source": "schema.org",
+          "label": "deliveryTime",
+          "signature": "DeliveryTimeSettings/OfferShippingDetails → ShippingDeliveryTime",
+          "parent": null,
+          "inverse_of": null,
+          "score": 2.678,
+          "matched_anchor": null,
+          "comment": "A temporal duration relation between delivery time settings or offer shipping details and the total delay from order receipt to goods reaching the final customer. Also called: total delivery time, shipping duration, estimated delivery. Examples: \"Standard Shipping\" delivery time \"5-7 business days\", \"Express Delivery\" delivery time \"1-2 days\", \"International Shipment\" delivery time \"2-3 weeks\". Distinct from deliveryLeadTime, which is the time until dispatch or pickup readiness.",
+          "embed_score": 0.845,
+          "embed_rank": 14
+        },
+        {
+          "source": "schema.org",
+          "label": "temporalCoverage",
+          "signature": "CreativeWork → DateTime/Text/URL",
+          "parent": null,
+          "inverse_of": null,
+          "score": 2.0512,
+          "matched_anchor": null,
+          "comment": "A temporal scope relation between a creative work and the specific time period that its content describes or applies to. Also called \"time period covered\", \"content timeframe\", \"temporal scope\", \"date range of content\". Examples: \"A census dataset has temporalCoverage 2011/2012\", \"The historical novel's temporalCoverage is 1939/1945\", \"This research paper's temporalCoverage is 2015-11/..\". Distinct from temporal, which is a more general temporal association when the specific scope is not known.",
+          "embed_score": 0.844,
+          "embed_rank": 16
+        },
+        {
+          "source": "schema.org",
+          "label": "coverageEndTime",
+          "signature": "LiveBlogPosting → DateTime",
+          "parent": null,
+          "inverse_of": null,
+          "score": 1.8771,
+          "matched_anchor": null,
+          "comment": "A temporal boundary relation between a live blog posting and the time when its event coverage concludes. Also called: coverage end, reporting end time, live blog conclusion. Examples: \"Election Night Live Blog\" coverage end time \"2024-11-06T04:00:00Z\", \"Sports Event Live Update\" coverage end time \"2023-07-15T19:30:00Z\", \"Conference Live Blog\" coverage end time \"2023-10-27T17:00:00Z\". Distinct from coverageStartTime, which indicates when coverage begins.",
+          "embed_score": 0.828,
+          "embed_rank": 27
+        },
+        {
+          "source": "schema.org",
+          "label": "cookTime",
+          "signature": "Recipe → Duration",
+          "parent": "performTime",
+          "inverse_of": null,
+          "score": 1.7575,
+          "matched_anchor": null,
+          "comment": "A temporal measurement for a recipe, indicating the duration required to cook the dish. Also called \"cooking duration\", \"preparation time\", \"time to cook\". Examples: \"Recipe 'Chicken Curry' cookTime 'PT30M'\", \"Recipe 'Cake' cookTime 'PT45M'\". Distinct from prepTime, which is the time for preparation before cooking, and totalTime, which is the sum of all time.",
+          "embed_score": 0.855,
+          "embed_rank": 9
+        },
+        {
+          "source": "schema.org",
+          "label": "performTime",
+          "signature": "HowTo/HowToDirection → Duration",
+          "parent": null,
+          "inverse_of": null,
+          "score": 1.7086,
+          "matched_anchor": null,
+          "comment": "A temporal attribute indicating the duration required to execute instructions or a direction, excluding preparation time. Also called execution time, active time, task duration. Examples: A recipe's instructions have a perform time of 'PT30M'. A DIY project direction has a perform time of 'PT2H'. A workout routine has a perform time of 'PT45M'. Distinct from prepTime, which is the time to prepare supplies.",
+          "embed_score": 0.858,
+          "embed_rank": 7
+        },
+        {
+          "source": "schema.org",
+          "label": "startDate",
+          "signature": "CreativeWorkSeason/CreativeWorkSeries/DatedMoneySpecification/EducationalOccupationalProgram/Event/MerchantReturnPolicySeasonalOverride/Role/Schedule → Date/DateTime",
+          "parent": null,
+          "inverse_of": null,
+          "score": 1.5881,
+          "matched_anchor": null,
+          "comment": "A temporal marker indicating the beginning date and time of an item, such as an event, program, or season. Also called \"beginning date\", \"commencement date\", \"start time\", \"effective date\". Examples: \"The event has startDate 2023-10-26\", \"The program's startDate is September 1st\", \"This role's startDate was last Monday.\". Distinct from dateCreated, which indicates when a creative work was first made.",
+          "embed_score": 0.851,
+          "embed_rank": 11
+        }
+      ]
+    },
+    {
+      "relation_phrase": "agent",
+      "definition": "The entity responsible for performing an action in an event.",
+      "embedding_query_text": "agent: The entity responsible for performing an action in an event.",
+      "observed_signatures": [
+        "Event → Corporation"
+      ],
+      "n_assignments": 1,
+      "assignments": [
+        {
+          "instances": [
+            "Jewelry theft at Lalique museum -> security company"
+          ],
+          "chosen_property": {
+            "label": "agent",
+            "source": "schema.org",
+            "direction": "as_is",
+            "vocab_id": null,
+            "is_new_to_vocab": false,
+            "definition": null,
+            "parent": null,
+            "domain": null,
+            "range": null,
+            "path": "",
+            "justification": "Schema.org's agent property matches Event→Corporation as it defines the performing organization/person for an action."
+          },
+          "llm_proposed": {
+            "source": "schema.org",
+            "label": "agent",
+            "is_new": false,
+            "direction": "as_is"
+          }
+        }
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "agent",
+          "signature": "Action → Organization/Person",
+          "parent": null,
+          "inverse_of": null,
+          "score": 6.1486,
+          "matched_anchor": null,
+          "comment": "An agent relation between an action and the organization or person who directly performs or drives it. Also called performer, doer, initiator, actor. Examples: \"A 'write book' action's agent is 'John Doe'.\", \"A 'deliver package' action's agent is 'Delivery Service Inc'.\"",
+          "embed_score": 0.89,
+          "embed_rank": 1
+        },
+        {
+          "source": "schema.org",
+          "label": "participant",
+          "signature": "Action → Organization/Person",
+          "parent": null,
+          "inverse_of": null,
+          "score": 2.0328,
+          "matched_anchor": null,
+          "comment": "A collaborative relation between an action and an organization or person who indirectly participated in it. Also called collaborated with, involved, assisted by, co-agent. Examples: A writing action has a participant co-author. A research project has a participant researcher. A meeting has a participant attendee. Distinct from agent, which is the primary actor of an action.",
+          "embed_score": 0.822,
+          "embed_rank": 6
+        },
+        {
+          "source": "schema.org",
+          "label": "instrument",
+          "signature": "Action → Thing",
+          "parent": null,
+          "inverse_of": null,
+          "score": 1.3221,
+          "matched_anchor": null,
+          "comment": "A tool or means relation between an action and the object used by an agent to perform that action. Also called tool, means, device, implement, apparatus. Examples: A writing action uses a 'pen' as its instrument. A cooking action uses a 'knife' as its instrument. A painting action uses a 'brush' as its instrument. Distinct from object, which is the primary entity acted upon, not the tool used.",
+          "embed_score": 0.791,
+          "embed_rank": 22
+        },
+        {
+          "source": "schema.org",
+          "label": "realEstateAgent",
+          "signature": "RentAction → RealEstateAgent",
+          "parent": "participant",
+          "inverse_of": null,
+          "score": 0.2106,
+          "matched_anchor": null,
+          "comment": "A real estate agent relation between a rent action and the real estate agent participating in it. Also called agent for rent, involved agent. Examples: \"A rent action involves real estate agent 'John Doe Realty'.\", \"A property rental was facilitated by real estate agent 'ABC Properties'.\", \"The lease agreement was handled by real estate agent 'Smith & Co'.\"",
+          "embed_score": 0.823,
+          "embed_rank": 4
+        },
+        {
+          "source": "schema.org",
+          "label": "organizer",
+          "signature": "Event → Organization/Person",
+          "parent": null,
+          "inverse_of": null,
+          "score": -0.9732,
+          "matched_anchor": null,
+          "comment": "An organization or person responsible for organizing an event. Also called event planner, host, coordinator, promoter. Examples: \"Conference X organizer 'Acme Events Inc.'\", \"Concert Y organizer 'Live Nation'\", \"Workshop Z organizer 'Jane Doe'\". Distinct from performer, who participates in the event.",
+          "embed_score": 0.804,
+          "embed_rank": 11
+        },
+        {
+          "source": "schema.org",
+          "label": "agentInteractionStatistic",
+          "signature": "Organization/Person → InteractionCounter",
+          "parent": null,
+          "inverse_of": null,
+          "score": -2.5662,
+          "matched_anchor": null,
+          "comment": "An agent interaction statistic relation between an organization or person and a counter representing their completed interactions in a specific agent role and context. Also called interaction count, activity metric, engagement statistic. Examples: \"A customer service agent's interaction statistic shows '150 calls handled'.\", \"A company's agent interaction statistic indicates '1000 sales completed'.\"",
+          "embed_score": 0.81,
+          "embed_rank": 9
+        },
+        {
+          "source": "schema.org",
+          "label": "event",
+          "signature": "InformAction/InviteAction/JoinAction/LeaveAction/Organization/Place/PlayAction → Event",
+          "parent": null,
+          "inverse_of": null,
+          "score": -3.1533,
+          "matched_anchor": null,
+          "comment": "An event association relation between an action, organization, or place and an event connected to it. Also called \"associated event\", \"related event\", \"features event\". Examples: \"Organization 'Museum' event 'Art Exhibition'\", \"Place 'Park' event 'Summer Festival'\", \"Inform action event 'Meeting Reminder'\". Distinct from events, which is the plural form.",
+          "embed_score": 0.823,
+          "embed_rank": 5
+        },
+        {
+          "source": "schema.org",
+          "label": "object",
+          "signature": "Action → Thing",
+          "parent": null,
+          "inverse_of": null,
+          "score": -3.3446,
+          "matched_anchor": null,
+          "comment": "A thing upon which an action is carried out, potentially changing its state. Also called target, item acted upon, recipient of action. Examples: \"Read Action object 'a book'\", \"Buy Action object 'a product'\", \"Edit Action object 'a document'\". Distinct from instrument, which is the tool used to perform the action.",
+          "embed_score": 0.801,
+          "embed_rank": 13
+        },
+        {
+          "source": "schema.org",
+          "label": "sender",
+          "signature": "Message/ReceiveAction → Audience/Organization/Person",
+          "parent": "participant",
+          "inverse_of": null,
+          "score": -3.6568,
+          "matched_anchor": null,
+          "comment": "The audience, organization, or person initiating and transmitting a message or action. Also called originator, dispatcher, message source, sender of message. Examples: `Email Message` sender `John Doe`, `ReceiveAction` sender `Customer Service`, `Broadcast Message` sender `News Organization`. Distinct from `recipient`, which is the receiving party.",
+          "embed_score": 0.792,
+          "embed_rank": 20
+        },
+        {
+          "source": "schema.org",
+          "label": "broker",
+          "signature": "Invoice/Order/Reservation/Service → Organization/Person",
+          "parent": null,
+          "inverse_of": null,
+          "score": -3.7236,
+          "matched_anchor": null,
+          "comment": "An intermediary relation between an invoice, order, reservation, or service and the organization or person who arranges the exchange. Also called \"arranged by\", \"intermediary\", \"agent\". Examples: \"Flight reservation broker Expedia\", \"Real estate service broker John Doe\", \"Stock order broker Fidelity\". Distinct from seller or buyer, which indicate direct parties in an exchange, whereas broker facilitates it without taking ownership.",
+          "embed_score": 0.797,
+          "embed_rank": 15
+        }
+      ]
+    },
+    {
+      "relation_phrase": "participant",
+      "definition": "An entity involved in an event, either as actor or observer.",
+      "embedding_query_text": "participant: An entity involved in an event, either as actor or observer.",
+      "observed_signatures": [
+        "Event → Person",
+        "Event → BroadcastEvent"
+      ],
+      "n_assignments": 1,
+      "assignments": [
+        {
+          "instances": [
+            "Jewelry theft at Lalique museum -> Christian Dorschner",
+            "Jewelry theft at Lalique museum -> Les Dernieres nouvelles d'Alsace (DNA)"
+          ],
+          "chosen_property": {
+            "label": "participant",
+            "source": "schema.org",
+            "direction": "as_is",
+            "vocab_id": null,
+            "is_new_to_vocab": false,
+            "definition": null,
+            "parent": null,
+            "domain": null,
+            "range": null,
+            "path": "",
+            "justification": "Schema.org's participant property fits Event→Person/BroadcastEvent as it represents indirect participation in actions/events."
+          },
+          "llm_proposed": {
+            "source": "schema.org",
+            "label": "participant",
+            "is_new": false,
+            "direction": "as_is"
+          }
+        }
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "participant",
+          "signature": "Action → Organization/Person",
+          "parent": null,
+          "inverse_of": null,
+          "score": 4.2835,
+          "matched_anchor": null,
+          "comment": "A collaborative relation between an action and an organization or person who indirectly participated in it. Also called collaborated with, involved, assisted by, co-agent. Examples: A writing action has a participant co-author. A research project has a participant researcher. A meeting has a participant attendee. Distinct from agent, which is the primary actor of an action.",
+          "embed_score": 0.899,
+          "embed_rank": 1
+        },
+        {
+          "source": "schema.org",
+          "label": "performer",
+          "signature": "Event → Organization/Person",
+          "parent": null,
+          "inverse_of": null,
+          "score": 1.4387,
+          "matched_anchor": null,
+          "comment": "A participation role relation between an event and an organization or person who performs at it. Also called artist, entertainer, presenter, actor. Examples: A concert has a performer 'Taylor Swift'. A play has a performer 'Meryl Streep'. A conference has a performer 'Dr. Jane Doe'. Distinct from performerIn, which points from a person to an event.",
+          "embed_score": 0.864,
+          "embed_rank": 3
+        },
+        {
+          "source": "schema.org",
+          "label": "performerIn",
+          "signature": "Person → Event",
+          "parent": null,
+          "inverse_of": null,
+          "score": 1.219,
+          "matched_anchor": null,
+          "comment": "A participation role relation between a person and an event in which they perform or participate. Also called performs in, participates in, acts in, presents at. Examples: John Doe is a performer in 'The Annual Gala'. Jane Smith is a performer in 'The City Marathon'. An actor is a performer in 'The New Play'. Distinct from performer, which points from an event to a person.",
+          "embed_score": 0.835,
+          "embed_rank": 8
+        },
+        {
+          "source": "schema.org",
+          "label": "performers",
+          "signature": "Event → Organization/Person",
+          "parent": null,
+          "inverse_of": null,
+          "score": 0.3659,
+          "matched_anchor": null,
+          "comment": "A participation role relation between an event and its primary performers, who can be organizations or persons. Also called main artists, headliners, principal actors, featured performers. Examples: A concert has performers 'Coldplay'. A play has performers 'The Royal Shakespeare Company'. A festival has performers 'Various Artists'. Distinct from performer, which can be any performer, not necessarily the main one.",
+          "embed_score": 0.851,
+          "embed_rank": 6
+        },
+        {
+          "source": "schema.org",
+          "label": "attendee",
+          "signature": "Event → Organization/Person",
+          "parent": null,
+          "inverse_of": null,
+          "score": -0.1972,
+          "matched_anchor": null,
+          "comment": "A person or organization present at an event. Also called: participant, guest, visitor. Examples: \"Event 'Concert' attendee 'John Doe'\", \"Event 'Conference' attendee 'Acme Corp'\", \"Event 'Meeting' attendee 'Jane Smith'\". Distinct from attendees, which is the plural form.",
+          "embed_score": 0.881,
+          "embed_rank": 2
+        },
+        {
+          "source": "schema.org",
+          "label": "attendees",
+          "signature": "Event → Organization/Person",
+          "parent": null,
+          "inverse_of": null,
+          "score": -0.7834,
+          "matched_anchor": null,
+          "comment": "A person present at an event. Also called: participants, guests, visitors. Examples: \"Event 'Concert' attendees 'John Doe'\", \"Event 'Conference' attendees 'Acme Corp'\", \"Event 'Meeting' attendees 'Jane Smith'\". Distinct from attendee, which is the singular form.",
+          "embed_score": 0.854,
+          "embed_rank": 5
+        },
+        {
+          "source": "schema.org",
+          "label": "competitor",
+          "signature": "SportsEvent → Person/SportsTeam",
+          "parent": null,
+          "inverse_of": null,
+          "score": -1.2051,
+          "matched_anchor": null,
+          "comment": "A participation relation in a sports event, indicating a person or sports team that is competing. Also called \"participant\", \"opponent\", \"rival\". Examples: \"Olympic race sports event competitor Usain Bolt\", \"Football match sports event competitor Manchester United\".",
+          "embed_score": 0.863,
+          "embed_rank": 4
+        },
+        {
+          "source": "schema.org",
+          "label": "actor",
+          "signature": "Clip/CreativeWorkSeason/Episode/Event/Movie/MovieSeries/PodcastSeries/RadioSeries/TVSeries/VideoGame/VideoGameSeries/VideoObject → PerformingGroup/Person",
+          "parent": null,
+          "inverse_of": null,
+          "score": -1.7489,
+          "matched_anchor": null,
+          "comment": "An actor relation between a creative work (e.g., movie, episode, video game) or event and a person or performing group who performs in it. Also called performer, cast member, player. Examples: \"A movie's actor is 'Tom Hanks'.\", \"A play's actor is 'The Ensemble Theatre'.\", \"An episode's actor is 'Jane Doe'.\" Distinct from actors, which is a deprecated property for the same concept.",
+          "embed_score": 0.823,
+          "embed_rank": 14
+        },
+        {
+          "source": "schema.org",
+          "label": "sportsTeam",
+          "signature": "ExerciseAction → SportsTeam",
+          "parent": "participant",
+          "inverse_of": null,
+          "score": -2.1758,
+          "matched_anchor": null,
+          "comment": "A participation relation between an exercise action and the sports team involved in it. Also called \"team participated\", \"team involved\", \"athletic team\". Examples: \"The goal was scored by the sportsTeam Real Madrid\", \"The race involved sportsTeam Team USA\", \"This action was performed by a sportsTeam.\". Distinct from participant, which is a more general participant property.",
+          "embed_score": 0.786,
+          "embed_rank": 46
+        },
+        {
+          "source": "schema.org",
+          "label": "contributor",
+          "signature": "CreativeWork/Event → Organization/Person",
+          "parent": null,
+          "inverse_of": null,
+          "score": -2.5449,
+          "matched_anchor": null,
+          "comment": "A secondary participation relation for a creative work or event, indicating an organization or person who contributed to it. Also called \"additional contributor\", \"supporting role\", \"collaborator\". Examples: \"Book creative work contributor 'Editor Jane Doe'\", \"Conference event contributor 'Sponsor Acme Corp'\". Distinct from author or creator, which typically denote primary responsibility.",
+          "embed_score": 0.842,
+          "embed_rank": 7
+        }
+      ]
+    },
+    {
+      "relation_phrase": "related_event",
+      "definition": "A connection between events that share contextual or chronological significance.",
+      "embedding_query_text": "related_event: A connection between events that share contextual or chronological significance.",
+      "observed_signatures": [
+        "Event → Event",
+        "Event → Museum"
+      ],
+      "n_assignments": 1,
+      "assignments": [
+        {
+          "instances": [
+            "Jewelry theft at Lalique museum -> Louvre museum heist",
+            "Jewelry theft at Lalique museum -> museum in Saone-et-Loire"
+          ],
+          "chosen_property": {
+            "label": "event",
+            "source": "schema.org",
+            "direction": "as_is",
+            "vocab_id": null,
+            "is_new_to_vocab": false,
+            "definition": null,
+            "parent": null,
+            "domain": null,
+            "range": null,
+            "path": "",
+            "justification": "Schema.org's event property aligns with Event→Event/Museum as it links actions/organizations to associated events."
+          },
+          "llm_proposed": {
+            "source": "schema.org",
+            "label": "event",
+            "is_new": false,
+            "direction": "as_is"
+          }
+        }
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "event",
+          "signature": "InformAction/InviteAction/JoinAction/LeaveAction/Organization/Place/PlayAction → Event",
+          "parent": null,
+          "inverse_of": null,
+          "score": 4.8106,
+          "matched_anchor": null,
+          "comment": "An event association relation between an action, organization, or place and an event connected to it. Also called \"associated event\", \"related event\", \"features event\". Examples: \"Organization 'Museum' event 'Art Exhibition'\", \"Place 'Park' event 'Summer Festival'\", \"Inform action event 'Meeting Reminder'\". Distinct from events, which is the plural form.",
+          "embed_score": 0.881,
+          "embed_rank": 1
+        },
+        {
+          "source": "schema.org",
+          "label": "events",
+          "signature": "Organization/Place → Event",
+          "parent": null,
+          "inverse_of": null,
+          "score": 4.8061,
+          "matched_anchor": null,
+          "comment": "An events association relation between an organization or place and the events connected to it. Also called \"associated events\", \"related events\", \"features events\". Examples: \"Organization 'Museum' events 'Art Exhibition, Lecture Series'\", \"Place 'Park' events 'Summer Festival, Winter Fair'\", \"Company 'Tech Solutions' events 'Annual Conference, Product Launch'\". Distinct from event, which is the singular form.",
+          "embed_score": 0.875,
+          "embed_rank": 2
+        },
+        {
+          "source": "schema.org",
+          "label": "lifeEvent",
+          "signature": "Person → Event",
+          "parent": null,
+          "inverse_of": null,
+          "score": 2.6716,
+          "matched_anchor": null,
+          "comment": "A life event relation between a person and a significant event in their life. Also called: significant event, personal milestone, biographical event. Examples: \"John Doe lifeEvent Baptism\", \"Jane Smith lifeEvent Graduation Ceremony\", \"Family lifeEvent Wedding\".",
+          "embed_score": 0.834,
+          "embed_rank": 7
+        },
+        {
+          "source": "schema.org",
+          "label": "eventStatus",
+          "signature": "Event → EventStatusType",
+          "parent": null,
+          "inverse_of": null,
+          "score": 1.6645,
+          "matched_anchor": null,
+          "comment": "An event status relation between an event and its current status type. Also called \"event condition\", \"status of event\", \"event state\". Examples: \"Event 'Concert' eventStatus 'EventCancelled'\", \"Event 'Meeting' eventStatus 'EventScheduled'\", \"Event 'Festival' eventStatus 'EventRescheduled'\".",
+          "embed_score": 0.822,
+          "embed_rank": 16
+        },
+        {
+          "source": "schema.org",
+          "label": "data",
+          "signature": "InstantaneousEvent → Thing",
+          "parent": null,
+          "inverse_of": null,
+          "score": 0.9517,
+          "matched_anchor": null,
+          "comment": "An association relation between an instantaneous event and the data linked to it. Also called: event data, associated data, event information. Examples: \"Sensor Reading Event\" data \"temperature: 25C, humidity: 60%\", \"Log Entry Event\" data \"User 'admin' logged in from IP 192.168.1.1\", \"System Alert Event\" data \"Error code 500: Database connection failed\".",
+          "embed_score": 0.826,
+          "embed_rank": 13
+        },
+        {
+          "source": "schema.org",
+          "label": "timestamp",
+          "signature": "InstantaneousEvent → DateTime",
+          "parent": null,
+          "inverse_of": null,
+          "score": 0.6895,
+          "matched_anchor": null,
+          "comment": "A timestamp relation between an instantaneous event and the specific date and time it occurred. Also called event time, occurrence time, moment of event. Examples: \"Concert timestamp 2023-10-27T20:00:00\", \"Login timestamp 2023-11-01T09:30:15Z\", \"Photo timestamp 2023-05-15T14:22:00\".",
+          "embed_score": 0.829,
+          "embed_rank": 12
+        },
+        {
+          "source": "schema.org",
+          "label": "sportsEvent",
+          "signature": "ExerciseAction → SportsEvent",
+          "parent": "location",
+          "inverse_of": null,
+          "score": -0.1516,
+          "matched_anchor": null,
+          "comment": "A specific event relation between an exercise action and the sports event during which it occurred. Also called \"event of exercise\", \"competition event\", \"athletic event\". Examples: \"The sprint occurred during the sportsEvent Olympics\", \"The goal was scored in the sportsEvent World Cup match\", \"This action took place at a sportsEvent marathon.\". Distinct from event, which is a more general event property.",
+          "embed_score": 0.82,
+          "embed_rank": 18
+        },
+        {
+          "source": "schema.org",
+          "label": "eventSchedule",
+          "signature": "Event → Schedule",
+          "parent": null,
+          "inverse_of": null,
+          "score": -0.3035,
+          "matched_anchor": null,
+          "comment": "An event schedule relation between an event and a schedule that defines a series of repeating occurrences for it. Also called \"recurring schedule\", \"event timetable\", \"series schedule\". Examples: \"Gym class eventSchedule 'Weekly schedule for Yoga'\", \"Concert series eventSchedule 'Schedule for monthly performances'\", \"Webinar series eventSchedule 'Schedule for bi-weekly sessions'\". Distinct from schedule, which is a more general property for any schedule.",
+          "embed_score": 0.823,
+          "embed_rank": 15
+        },
+        {
+          "source": "schema.org",
+          "label": "subEvent",
+          "signature": "Event → Event",
+          "parent": null,
+          "inverse_of": "superEvent",
+          "score": -0.8222,
+          "matched_anchor": null,
+          "comment": "A hierarchical relation between a larger event and a smaller event that is a component or part of it. Also called \"part of event\", \"component event\", \"nested event\", \"event within event\". Examples: \"The conference has subEvent a keynote speech\", \"The festival's subEvent is a specific concert\", \"This event includes a subEvent workshop.\". Distinct from superEvent, which points from the smaller event to the larger one.",
+          "embed_score": 0.834,
+          "embed_rank": 6
+        },
+        {
+          "source": "schema.org",
+          "label": "foodEvent",
+          "signature": "CookAction → FoodEvent",
+          "parent": "location",
+          "inverse_of": null,
+          "score": -0.8316,
+          "matched_anchor": null,
+          "comment": "A food event relation between a cook action and the specific food-related event where the cooking took place. Also called: culinary event, cooking event, gastronomic occasion. Examples: \"Chef prepares meal\" food event \"Annual Food Festival\", \"Home Cook makes dinner\" food event \"Family Dinner Party\", \"Baker bakes bread\" food event \"Charity Bake Sale\". Distinct from foodEstablishment, which is a specific place.",
+          "embed_score": 0.802,
+          "embed_rank": 39
+        }
+      ]
+    },
+    {
+      "relation_phrase": "about",
+      "definition": "Connects a claim or event to its primary subject.",
+      "embedding_query_text": "about: Connects a claim or event to its primary subject.",
+      "observed_signatures": [
+        "TheftAssessment → Event",
+        "SecurityFailure → Event",
+        "SecurityAudit → Event",
+        "InsuranceInfo → Event",
+        "Arrest → Event",
+        "SecurityImprovement → Event"
+      ],
+      "n_assignments": 1,
+      "assignments": [
+        {
+          "instances": [
+            "Stolen jewelry valued at several million euros -> Jewelry theft at Lalique museum",
+            "Security company failed to respond promptly -> Jewelry theft at Lalique museum",
+            "35% of Louvre rooms not monitored -> Louvre museum heist",
+            "Gems not privately insured per French law -> Louvre museum heist",
+            "Suspected Louvre thieves arrested -> Louvre museum heist",
+            "Museum will be closed for several days -> Jewelry theft at Lalique museum"
+          ],
+          "chosen_property": {
+            "label": "about",
+            "source": "schema.org",
+            "direction": "inverse",
+            "vocab_id": null,
+            "is_new_to_vocab": false,
+            "definition": null,
+            "parent": null,
+            "domain": null,
+            "range": null,
+            "path": "",
+            "justification": "Schema.org's about property is reused in inverse direction (Event→Thing) to express that the event is the subject of the claim/action."
+          },
+          "llm_proposed": {
+            "source": "schema.org",
+            "label": "about",
+            "is_new": false,
+            "direction": "inverse"
+          }
+        }
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "mainEntity",
+          "signature": "CreativeWork → Thing",
+          "parent": "about",
+          "inverse_of": "mainEntityOfPage",
+          "score": -0.8183,
+          "matched_anchor": null,
+          "comment": "A main entity relation between a creative work and the primary entity it describes. Also called: primary subject, about entity, central topic. Examples: \"Wikipedia Article mainEntity Albert Einstein\", \"News Report mainEntity The Election\", \"Research Paper mainEntity Quantum Physics\". Distinct from mainEntityOfPage, which indicates the page for which this thing is the main entity.",
+          "embed_score": 0.821,
+          "embed_rank": 2
+        },
+        {
+          "source": "schema.org",
+          "label": "mainContentOfPage",
+          "signature": "WebPage → WebPageElement",
+          "parent": null,
+          "inverse_of": null,
+          "score": -1.119,
+          "matched_anchor": null,
+          "comment": "A main content relation between a web page and the web page element that constitutes its primary subject. Also called: primary content, central element, core content. Examples: \"Article Page mainContentOfPage ArticleBody\", \"Product Page mainContentOfPage ProductDescription\", \"Blog Post mainContentOfPage PostContent\".",
+          "embed_score": 0.8,
+          "embed_rank": 12
+        },
+        {
+          "source": "schema.org",
+          "label": "subjectOf",
+          "signature": "Thing → CreativeWork/Event",
+          "parent": null,
+          "inverse_of": "about",
+          "score": -2.6766,
+          "matched_anchor": null,
+          "comment": "A thematic relation between a thing and a creative work or event that is about it. Also called \"topic of\", \"depicted in\", \"featured in\", \"covered by\". Examples: \"The person is subjectOf a biography\", \"The historical event is subjectOf a documentary\", \"This concept is subjectOf a research paper.\"",
+          "embed_score": 0.809,
+          "embed_rank": 7
+        },
+        {
+          "source": "schema.org",
+          "label": "about",
+          "signature": "Certification/CommunicateAction/CreativeWork/DefinedTerm/DefinedTermSet/Event → Thing",
+          "parent": null,
+          "inverse_of": "subjectOf",
+          "score": -2.7057,
+          "matched_anchor": null,
+          "comment": "A subject matter relation between an entity (e.g., a creative work, event, or communication) and the topic it concerns. Also called concerning, regarding, on the topic of, related to. Examples: \"A book about quantum physics.\", \"A lecture about climate change.\", \"A certification about data privacy.\"",
+          "embed_score": 0.814,
+          "embed_rank": 4
+        },
+        {
+          "source": "schema.org",
+          "label": "event",
+          "signature": "InformAction/InviteAction/JoinAction/LeaveAction/Organization/Place/PlayAction → Event",
+          "parent": null,
+          "inverse_of": null,
+          "score": -2.9606,
+          "matched_anchor": null,
+          "comment": "An event association relation between an action, organization, or place and an event connected to it. Also called \"associated event\", \"related event\", \"features event\". Examples: \"Organization 'Museum' event 'Art Exhibition'\", \"Place 'Park' event 'Summer Festival'\", \"Inform action event 'Meeting Reminder'\". Distinct from events, which is the plural form.",
+          "embed_score": 0.815,
+          "embed_rank": 3
+        },
+        {
+          "source": "schema.org",
+          "label": "events",
+          "signature": "Organization/Place → Event",
+          "parent": null,
+          "inverse_of": null,
+          "score": -3.0225,
+          "matched_anchor": null,
+          "comment": "An events association relation between an organization or place and the events connected to it. Also called \"associated events\", \"related events\", \"features events\". Examples: \"Organization 'Museum' events 'Art Exhibition, Lecture Series'\", \"Place 'Park' events 'Summer Festival, Winter Fair'\", \"Company 'Tech Solutions' events 'Annual Conference, Product Launch'\". Distinct from event, which is the singular form.",
+          "embed_score": 0.814,
+          "embed_rank": 5
+        },
+        {
+          "source": "schema.org",
+          "label": "primaryImageOfPage",
+          "signature": "WebPage → ImageObject",
+          "parent": null,
+          "inverse_of": null,
+          "score": -3.7032,
+          "matched_anchor": null,
+          "comment": "A visual attribute linking a web page to its main or most prominent image. Also called main image, featured image, hero image. Examples: A web page has a primary image of page 'logo.png'. The article page has a primary image of page 'main_illustration.jpg'. The product page's primary image of page is the 'product_hero.webp'.",
+          "embed_score": 0.782,
+          "embed_rank": 39
+        },
+        {
+          "source": "schema.org",
+          "label": "associatedClaimReview",
+          "signature": "Review → Review",
+          "parent": "associatedReview",
+          "inverse_of": null,
+          "score": -3.9072,
+          "matched_anchor": null,
+          "comment": "A claim review related to another review by common content, topic, or claim. Also called: related claim review, linked claim assessment. Examples: \"Review 'MediaReview of Article' associatedClaimReview 'ClaimReview of Statement'\", \"Review 'FactCheck' associatedClaimReview 'Another FactCheck'\". Distinct from associatedMediaReview, which links to a media review.",
+          "embed_score": 0.823,
+          "embed_rank": 1
+        },
+        {
+          "source": "schema.org",
+          "label": "mentions",
+          "signature": "CreativeWork → Thing",
+          "parent": null,
+          "inverse_of": null,
+          "score": -4.0483,
+          "matched_anchor": null,
+          "comment": "A mention relation between a creative work and a thing it references without necessarily being about. Also called: references, alludes to, cites. Examples: \"News Article mentions 'Climate Change'\", \"Book mentions 'Historical Event'\", \"Speech mentions 'Famous Person'\". Distinct from about, which indicates the primary topic of the creative work.",
+          "embed_score": 0.796,
+          "embed_rank": 16
+        },
+        {
+          "source": "schema.org",
+          "label": "performers",
+          "signature": "Event → Organization/Person",
+          "parent": null,
+          "inverse_of": null,
+          "score": -4.5745,
+          "matched_anchor": null,
+          "comment": "A participation role relation between an event and its primary performers, who can be organizations or persons. Also called main artists, headliners, principal actors, featured performers. Examples: A concert has performers 'Coldplay'. A play has performers 'The Royal Shakespeare Company'. A festival has performers 'Various Artists'. Distinct from performer, which can be any performer, not necessarily the main one.",
+          "embed_score": 0.79,
+          "embed_rank": 20
+        }
+      ]
+    },
+    {
+      "relation_phrase": "dedicated_to",
+      "definition": "Describes the thematic focus or subject of an entity.",
+      "embedding_query_text": "dedicated_to: Describes the thematic focus or subject of an entity.",
+      "observed_signatures": [
+        "Museum → Person"
+      ],
+      "n_assignments": 1,
+      "assignments": [
+        {
+          "instances": [
+            "Lalique museum -> Rene Lalique"
+          ],
+          "chosen_property": {
+            "label": "subjectOf",
+            "source": "schema.org",
+            "direction": "inverse",
+            "vocab_id": null,
+            "is_new_to_vocab": false,
+            "definition": null,
+            "parent": null,
+            "domain": null,
+            "range": null,
+            "path": "",
+            "justification": "Schema.org's subjectOf property is reused in inverse direction (Museum→Person) to indicate the person is the subject the museum is dedicated to."
+          },
+          "llm_proposed": {
+            "source": "schema.org",
+            "label": "subjectOf",
+            "is_new": false,
+            "direction": "inverse"
+          }
+        }
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "subjectOf",
+          "signature": "Thing → CreativeWork/Event",
+          "parent": null,
+          "inverse_of": "about",
+          "score": 0.161,
+          "matched_anchor": null,
+          "comment": "A thematic relation between a thing and a creative work or event that is about it. Also called \"topic of\", \"depicted in\", \"featured in\", \"covered by\". Examples: \"The person is subjectOf a biography\", \"The historical event is subjectOf a documentary\", \"This concept is subjectOf a research paper.\"",
+          "embed_score": 0.853,
+          "embed_rank": 1
+        },
+        {
+          "source": "schema.org",
+          "label": "mainEntity",
+          "signature": "CreativeWork → Thing",
+          "parent": "about",
+          "inverse_of": "mainEntityOfPage",
+          "score": -1.2092,
+          "matched_anchor": null,
+          "comment": "A main entity relation between a creative work and the primary entity it describes. Also called: primary subject, about entity, central topic. Examples: \"Wikipedia Article mainEntity Albert Einstein\", \"News Report mainEntity The Election\", \"Research Paper mainEntity Quantum Physics\". Distinct from mainEntityOfPage, which indicates the page for which this thing is the main entity.",
+          "embed_score": 0.793,
+          "embed_rank": 12
+        },
+        {
+          "source": "schema.org",
+          "label": "studySubject",
+          "signature": "MedicalStudy → MedicalEntity",
+          "parent": null,
+          "inverse_of": null,
+          "score": -2.1247,
+          "matched_anchor": null,
+          "comment": "An investigative relation between a medical study and the medical entity (condition, therapy, drug, etc.) that is being investigated. Also called \"subject of investigation\", \"research focus\", \"entity studied\", \"trial subject\". Examples: \"The medical study has studySubject a new drug\", \"The clinical trial's studySubject is a specific medical condition\", \"This study investigates a studySubject therapy.\"",
+          "embed_score": 0.795,
+          "embed_rank": 7
+        },
+        {
+          "source": "schema.org",
+          "label": "about",
+          "signature": "Certification/CommunicateAction/CreativeWork/DefinedTerm/DefinedTermSet/Event → Thing",
+          "parent": null,
+          "inverse_of": "subjectOf",
+          "score": -3.9848,
+          "matched_anchor": null,
+          "comment": "A subject matter relation between an entity (e.g., a creative work, event, or communication) and the topic it concerns. Also called concerning, regarding, on the topic of, related to. Examples: \"A book about quantum physics.\", \"A lecture about climate change.\", \"A certification about data privacy.\"",
+          "embed_score": 0.826,
+          "embed_rank": 2
+        },
+        {
+          "source": "schema.org",
+          "label": "guidelineSubject",
+          "signature": "MedicalGuideline → MedicalEntity",
+          "parent": null,
+          "inverse_of": null,
+          "score": -4.1588,
+          "matched_anchor": null,
+          "comment": "A guideline subject relation between a medical guideline and the medical conditions, treatments, or other entities it addresses. Also called: guideline topic, subject matter, focus. Examples: \"AHA Guideline for Hypertension\" guideline subject \"Hypertension\", \"NICE Guideline for Diabetes\" guideline subject \"Type 2 Diabetes\", \"WHO COVID-19 Guidelines\" guideline subject \"COVID-19\". Distinct from guideline, which is the guideline itself.",
+          "embed_score": 0.794,
+          "embed_rank": 10
+        },
+        {
+          "source": "schema.org",
+          "label": "spatialCoverage",
+          "signature": "CreativeWork → Place",
+          "parent": "contentLocation",
+          "inverse_of": null,
+          "score": -4.6545,
+          "matched_anchor": null,
+          "comment": "A geographic focus relation between a creative work and the place(s) that are the primary subject or focus of its content. Also called \"geographic scope\", \"covered area\", \"location focus\", \"content location\". Examples: \"A weather dataset has spatialCoverage New York State\", \"The historical map's spatialCoverage is ancient Rome\", \"This research paper's spatialCoverage is the Arctic region.\". Distinct from spatial, which is a more general spatial association when the specific focus is not known.",
+          "embed_score": 0.795,
+          "embed_rank": 8
+        },
+        {
+          "source": "schema.org",
+          "label": "observationAbout",
+          "signature": "Observation → Place/Thing",
+          "parent": null,
+          "inverse_of": null,
+          "score": -5.0536,
+          "matched_anchor": null,
+          "comment": "An entity, often a place, that an observation is about or associated with. Also called observed entity, subject of observation, related to observation. Examples: \"Weather Observation observationAbout 'London'\", \"Patient Vitals Observation observationAbout 'John Doe'\", \"Traffic Count Observation observationAbout 'Main Street'\".",
+          "embed_score": 0.785,
+          "embed_rank": 23
+        },
+        {
+          "source": "schema.org",
+          "label": "mainEntityOfPage",
+          "signature": "Thing → CreativeWork/URL",
+          "parent": null,
+          "inverse_of": "mainEntity",
+          "score": -6.3603,
+          "matched_anchor": null,
+          "comment": "A main entity of page relation between a thing and the creative work or URL for which it is the primary described entity. Also called: primary page, described on page, featured on page. Examples: \"Albert Einstein mainEntityOfPage Wikipedia Article\", \"The Election mainEntityOfPage News Report\", \"Quantum Physics mainEntityOfPage Research Paper\". Distinct from mainEntity, which indicates the primary entity described in a creative work.",
+          "embed_score": 0.787,
+          "embed_rank": 22
+        },
+        {
+          "source": "schema.org",
+          "label": "itemReviewed",
+          "signature": "AggregateRating/Review → Thing",
+          "parent": null,
+          "inverse_of": null,
+          "score": -6.6903,
+          "matched_anchor": null,
+          "comment": "A review subject relation between an aggregate rating or review and the entity that is being evaluated or rated. Also called reviewed item, rated item, subject of review, evaluated entity. Examples: A review has an itemReviewed of 'Restaurant X'. An aggregate rating has an itemReviewed of 'Movie Y'. A product review has an itemReviewed of 'Smartphone Z'. Distinct from itemOffered, which is the subject of an offer or demand.",
+          "embed_score": 0.777,
+          "embed_rank": 44
+        },
+        {
+          "source": "schema.org",
+          "label": "aspect",
+          "signature": "MedicalWebPage → Text",
+          "parent": null,
+          "inverse_of": null,
+          "score": -7.6067,
+          "matched_anchor": null,
+          "comment": "A specific area or topic of medical practice considered on a medical webpage. Also called: medical topic, health aspect, clinical focus. Examples: \"MedicalWebPage 'Diabetes' aspect 'diagnosis'\", \"MedicalWebPage 'Flu' aspect 'treatment'\", \"MedicalWebPage 'Cancer' aspect 'prognosis'.\"",
+          "embed_score": 0.784,
+          "embed_rank": 25
+        }
+      ]
+    },
+    {
+      "relation_phrase": "art_style",
+      "definition": null,
+      "embedding_query_text": "art_style:",
+      "observed_signatures": [
+        "Museum → ArtStyle"
+      ],
+      "n_assignments": 1,
+      "assignments": [
+        {
+          "instances": [
+            "Lalique museum -> Art Nouveau",
+            "Lalique museum -> Art Deco"
+          ],
+          "chosen_property": {
+            "label": "hasArtStyle",
+            "source": "vocab",
+            "direction": "as_is",
+            "vocab_id": "P0016",
+            "is_new_to_vocab": true,
+            "definition": "A relation between a museum and the art style it is associated with.",
+            "parent": "artform",
+            "domain": [
+              "Museum"
+            ],
+            "range": [
+              "ArtStyle"
+            ],
+            "path": "artform",
+            "justification": "No schema.org property directly links museums to art styles; minting 'hasArtStyle' as a new property."
+          },
+          "llm_proposed": {
+            "source": "new",
+            "label": "hasArtStyle",
+            "is_new": true,
+            "direction": "as_is"
+          }
+        }
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "artform",
+          "signature": "VisualArtwork → Text/URL",
+          "parent": null,
+          "inverse_of": null,
+          "score": 5.1895,
+          "matched_anchor": null,
+          "comment": "A category or style of visual artwork. Also called: art type, artistic style, genre of art. Examples: \"VisualArtwork 'Mona Lisa' artform 'Painting'\", \"VisualArtwork 'David' artform 'Sculpture'\", \"VisualArtwork 'Ansel Adams Photo' artform 'Photograph'\". Distinct from artMedium, which describes the specific materials or techniques used.",
+          "embed_score": 0.836,
+          "embed_rank": 1
+        },
+        {
+          "source": "schema.org",
+          "label": "pattern",
+          "signature": "CreativeWork/Product → DefinedTerm/Text",
+          "parent": null,
+          "inverse_of": null,
+          "score": -0.0649,
+          "matched_anchor": null,
+          "comment": "A descriptive attribute indicating the visual or design pattern of a creative work or product. Also called design, motif, print, style. Examples: A dress has a pattern of 'polka dot'. A fabric has a pattern of 'striped'. A flag has a pattern of 'Canadian flag'.",
+          "embed_score": 0.796,
+          "embed_rank": 6
+        },
+        {
+          "source": "schema.org",
+          "label": "artMedium",
+          "signature": "VisualArtwork → Text/URL",
+          "parent": "material",
+          "inverse_of": null,
+          "score": -0.4426,
+          "matched_anchor": null,
+          "comment": "A material or technique used in the creation of a visual artwork. Also called: artistic medium, material used, technique. Examples: \"VisualArtwork 'Portrait' artMedium 'Oil on canvas'\", \"VisualArtwork 'Sketch' artMedium 'Pencil'\", \"VisualArtwork 'Digital Art' artMedium 'Digital'\". Distinct from artform, which describes the general category of art.",
+          "embed_score": 0.808,
+          "embed_rank": 3
+        },
+        {
+          "source": "schema.org",
+          "label": "artworkSurface",
+          "signature": "VisualArtwork → Text/URL",
+          "parent": null,
+          "inverse_of": null,
+          "score": -1.6935,
+          "matched_anchor": null,
+          "comment": "A supporting material or substrate for a visual artwork. Also called: art substrate, painting surface, canvas type. Examples: \"VisualArtwork 'Landscape' artworkSurface 'Canvas'\", \"VisualArtwork 'Sketch' artworkSurface 'Paper'\", \"VisualArtwork 'Mural' artworkSurface 'Wall'.\"",
+          "embed_score": 0.805,
+          "embed_rank": 4
+        },
+        {
+          "source": "schema.org",
+          "label": "surface",
+          "signature": "VisualArtwork → Text/URL",
+          "parent": "material",
+          "inverse_of": null,
+          "score": -2.9796,
+          "matched_anchor": null,
+          "comment": "An identification of the material used as the surface for a visual artwork. Also called \"artwork medium\", \"painting surface\", \"material base\", \"substrate\". Examples: \"The painting has surface canvas\", \"The drawing's surface is paper\", \"This artwork uses a wood surface.\"",
+          "embed_score": 0.794,
+          "embed_rank": 7
+        },
+        {
+          "source": "schema.org",
+          "label": "artist",
+          "signature": "ComicIssue/ComicStory/VisualArtwork → Person",
+          "parent": null,
+          "inverse_of": null,
+          "score": -3.1681,
+          "matched_anchor": null,
+          "comment": "A person who is the primary creator of a comic issue, comic story, or visual artwork, especially in non-line art mediums. Also called: creator, illustrator, visual creator. Examples: \"VisualArtwork 'Starry Night' artist 'Vincent van Gogh'\", \"ComicIssue 'Issue #1' artist 'Frank Miller'\", \"ComicStory 'Origin Story' artist 'Alex Ross'\". Distinct from author, which is a more general term for the creator of content, often textual.",
+          "embed_score": 0.811,
+          "embed_rank": 2
+        },
+        {
+          "source": "schema.org",
+          "label": "penciler",
+          "signature": "ComicIssue/ComicStory/VisualArtwork → Person",
+          "parent": null,
+          "inverse_of": null,
+          "score": -3.4509,
+          "matched_anchor": null,
+          "comment": "A creative role relation between a comic issue, story, or visual artwork and the person who draws its primary narrative artwork. Also called artist, illustrator, sketch artist, line artist. Examples: A comic issue has a penciler named 'Jim Lee'. A comic story has a penciler 'Jack Kirby'. A visual artwork has a penciler 'Frank Miller'.",
+          "embed_score": 0.794,
+          "embed_rank": 8
+        },
+        {
+          "source": "schema.org",
+          "label": "interactivityType",
+          "signature": "CreativeWork → Text",
+          "parent": null,
+          "inverse_of": null,
+          "score": -3.6413,
+          "matched_anchor": null,
+          "comment": "A learning mode relation between a creative work and the predominant way it supports learning. Also called learning style, engagement mode, pedagogical approach. Examples: A textbook has an interactivityType of 'expositive'. An online quiz has an interactivityType of 'active'. A workshop has an interactivityType of 'mixed'.",
+          "embed_score": 0.772,
+          "embed_rank": 30
+        },
+        {
+          "source": "schema.org",
+          "label": "genre",
+          "signature": "BroadcastChannel/CreativeWork/MusicGroup → DefinedTerm/Text/URL",
+          "parent": null,
+          "inverse_of": null,
+          "score": -3.7504,
+          "matched_anchor": null,
+          "comment": "A genre relation between a broadcast channel, creative work, or music group and its category or style. Also called: category, style, type. Examples: \"Novel '1984'\" genre \"Dystopian Fiction\", \"BBC News\" genre \"News\", \"Rock Band 'Queen'\" genre \"Rock\".",
+          "embed_score": 0.775,
+          "embed_rank": 25
+        },
+        {
+          "source": "schema.org",
+          "label": "illustrator",
+          "signature": "Book → Person",
+          "parent": null,
+          "inverse_of": null,
+          "score": -4.1091,
+          "matched_anchor": null,
+          "comment": "An illustrator relation between a book and the person who created its illustrations. Also called artist, graphic artist, book artist. Examples: \"A book has an illustrator named 'Jane Doe'.\", \"The children's book features a famous illustrator.\", \"This book's illustrator is a renowned artist.\"",
+          "embed_score": 0.789,
+          "embed_rank": 12
+        }
+      ]
+    },
+    {
+      "relation_phrase": "opened",
+      "definition": null,
+      "embedding_query_text": "opened:",
+      "observed_signatures": [
+        "Museum → Date"
+      ],
+      "n_assignments": 1,
+      "assignments": [
+        {
+          "instances": [
+            "Lalique museum -> 2011"
+          ],
+          "chosen_property": {
+            "label": "openingDate",
+            "source": "vocab",
+            "direction": "as_is",
+            "vocab_id": "P0017",
+            "is_new_to_vocab": true,
+            "definition": "The date when a museum was opened.",
+            "parent": null,
+            "domain": [
+              "Museum"
+            ],
+            "range": [
+              "Date"
+            ],
+            "path": "",
+            "justification": "Schema.org's temporal/duration properties don't fit Museum→Date; minting 'openingDate' for this specific context."
+          },
+          "llm_proposed": {
+            "source": "new",
+            "label": "openingDate",
+            "is_new": true,
+            "direction": "as_is"
+          }
+        }
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "opens",
+          "signature": "OpeningHoursSpecification → Time",
+          "parent": null,
+          "inverse_of": null,
+          "score": 7.016,
+          "matched_anchor": null,
+          "comment": "The specific time a place or service opens on a given day or days of the week. Also called opening time, start of business, daily opening hour. Examples: \"Monday OpeningHoursSpecification opens '09:00'\", \"Weekend OpeningHoursSpecification opens '10:00'\", \"Weekday OpeningHoursSpecification opens '08:30'\". Distinct from closes, which specifies the closing time.",
+          "embed_score": 0.817,
+          "embed_rank": 1
+        },
+        {
+          "source": "schema.org",
+          "label": "openingHours",
+          "signature": "CivicStructure/LocalBusiness → Text",
+          "parent": null,
+          "inverse_of": null,
+          "score": 4.2085,
+          "matched_anchor": null,
+          "comment": "A textual representation of the general opening hours for a civic structure or local business. Also called business hours, hours of operation, store hours. Examples: \"Restaurant X openingHours 'Mo-Fr 09:00-17:00'\", \"Library Y openingHours 'Sa-Su 10:00-18:00'\", \"Shop Z openingHours 'Mo-Su'\". Distinct from openingHoursSpecification, which uses a structured object.",
+          "embed_score": 0.791,
+          "embed_rank": 2
+        },
+        {
+          "source": "schema.org",
+          "label": "openingHoursSpecification",
+          "signature": "Place → OpeningHoursSpecification",
+          "parent": null,
+          "inverse_of": null,
+          "score": 3.4282,
+          "matched_anchor": null,
+          "comment": "A structured specification of the opening hours for a place. Also called hours specification, detailed opening times, business hours details. Examples: \"Museum A openingHoursSpecification 'OpeningHoursSpecification for Tuesday'\", \"Store B openingHoursSpecification 'OpeningHoursSpecification for weekends'\", \"Clinic C openingHoursSpecification 'OpeningHoursSpecification for holidays'\". Distinct from openingHours, which is a simple text string.",
+          "embed_score": 0.782,
+          "embed_rank": 3
+        },
+        {
+          "source": "schema.org",
+          "label": "closes",
+          "signature": "OpeningHoursSpecification → Time",
+          "parent": null,
+          "inverse_of": null,
+          "score": 2.98,
+          "matched_anchor": null,
+          "comment": "A temporal specification for opening hours, indicating the closing time for a place or service on a given day. Also called \"closing time\", \"end of hours\", \"closes at\". Examples: \"Store opening hours closes '18:00'\", \"Service opening hours closes '22:30'\". Distinct from opens, which specifies the opening time.",
+          "embed_score": 0.777,
+          "embed_rank": 5
+        },
+        {
+          "source": "schema.org",
+          "label": "publicAccess",
+          "signature": "Place → Boolean",
+          "parent": null,
+          "inverse_of": null,
+          "score": 2.1048,
+          "matched_anchor": null,
+          "comment": "A public access relation indicating whether a place is open to public visitors. Also called open to public, publicly accessible. Examples: \"A park has public access 'true'.\", \"A private residence has public access 'false'.\", \"A museum has public access 'true'.\"",
+          "embed_score": 0.77,
+          "embed_rank": 7
+        },
+        {
+          "source": "schema.org",
+          "label": "specialOpeningHoursSpecification",
+          "signature": "Place → OpeningHoursSpecification",
+          "parent": null,
+          "inverse_of": null,
+          "score": 0.7157,
+          "matched_anchor": null,
+          "comment": "A specification of unique or exceptional opening hours for a place, overriding its general schedule. Also called \"holiday hours\", \"temporary hours\", \"exceptional opening times\", \"override opening hours\". Examples: \"The store has specialOpeningHoursSpecification for Christmas Eve\", \"The museum's specialOpeningHoursSpecification indicates extended hours on weekends\", \"Due to renovation, the library has specialOpeningHoursSpecification this month.\". Distinct from openingHoursSpecification, which describes the regular, general opening hours.",
+          "embed_score": 0.773,
+          "embed_rank": 6
+        },
+        {
+          "source": "schema.org",
+          "label": "totalJobOpenings",
+          "signature": "JobPosting → Integer",
+          "parent": null,
+          "inverse_of": null,
+          "score": 0.3264,
+          "matched_anchor": null,
+          "comment": "A total job openings relation between a job posting and the number of available positions. Also called number of vacancies, open positions, available roles. Examples: \"JobPosting totalJobOpenings '3'\", \"JobPosting totalJobOpenings '1'\", \"JobPosting totalJobOpenings '5'\".",
+          "embed_score": 0.756,
+          "embed_rank": 28
+        },
+        {
+          "source": "schema.org",
+          "label": "doorTime",
+          "signature": "Event → DateTime/Time",
+          "parent": null,
+          "inverse_of": null,
+          "score": -1.6169,
+          "matched_anchor": null,
+          "comment": "A door time relation between an event and the date or time when admission will commence. Also called \"admission time\", \"entry time\", \"gate opening time\". Examples: \"Concert event doorTime '19:00'\", \"Theater show doorTime '2023-11-01T18:30'\", \"Festival doorTime '10:00'\".",
+          "embed_score": 0.768,
+          "embed_rank": 10
+        },
+        {
+          "source": "schema.org",
+          "label": "isAccessibleForFree",
+          "signature": "CreativeWork/Event/Place → Boolean",
+          "parent": null,
+          "inverse_of": null,
+          "score": -8.4734,
+          "matched_anchor": null,
+          "comment": "An access cost relation indicating whether a creative work, event, or place can be accessed without charge. Also called free access, no charge, complimentary access, free of cost. Examples: A public park has isAccessibleForFree set to 'true'. An online article has isAccessibleForFree set to 'true'. A concert has isAccessibleForFree set to 'false'.",
+          "embed_score": 0.751,
+          "embed_rank": 50
+        },
+        {
+          "source": "schema.org",
+          "label": "availableAtOrFrom",
+          "signature": "Demand/Offer → Place",
+          "parent": "areaServed",
+          "inverse_of": null,
+          "score": -8.7512,
+          "matched_anchor": null,
+          "comment": "A place from which an offer can be obtained. Also called: pickup location, sales point, distribution point. Examples: \"Offer 'Groceries' availableAtOrFrom 'Supermarket A'\", \"Offer 'Concert Tickets' availableAtOrFrom 'Venue Box Office'.\"",
+          "embed_score": 0.766,
+          "embed_rank": 13
+        }
+      ]
+    },
+    {
+      "relation_phrase": "capacity",
+      "definition": null,
+      "embedding_query_text": "capacity:",
+      "observed_signatures": [
+        "Museum → Quantity"
+      ],
+      "n_assignments": 1,
+      "assignments": [
+        {
+          "instances": [
+            "Lalique museum -> 650"
+          ],
+          "chosen_property": {
+            "label": "maximumAttendeeCapacity",
+            "source": "schema.org",
+            "direction": "as_is",
+            "vocab_id": null,
+            "is_new_to_vocab": false,
+            "definition": null,
+            "parent": null,
+            "domain": null,
+            "range": null,
+            "path": "",
+            "justification": "Schema.org's maximumAttendeeCapacity (Place→Integer) fits Museum→Quantity as a capacity measure."
+          },
+          "llm_proposed": {
+            "source": "schema.org",
+            "label": "maximumAttendeeCapacity",
+            "is_new": false,
+            "direction": "as_is"
+          }
+        }
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "fuelCapacity",
+          "signature": "Vehicle → QuantitativeValue",
+          "parent": null,
+          "inverse_of": null,
+          "score": 3.6698,
+          "matched_anchor": null,
+          "comment": "A fuel capacity relation between a vehicle and the total storage capacity of its fuel tank or battery. Also called: tank capacity, battery capacity, fuel volume. Examples: \"Sedan Car\" fuel capacity \"60 liters\", \"Electric Vehicle\" fuel capacity \"75 kWh\", \"Motorcycle\" fuel capacity \"15 gallons\".",
+          "embed_score": 0.798,
+          "embed_rank": 23
+        },
+        {
+          "source": "schema.org",
+          "label": "maximumPhysicalAttendeeCapacity",
+          "signature": "Event → Integer",
+          "parent": null,
+          "inverse_of": null,
+          "score": 2.7998,
+          "matched_anchor": null,
+          "comment": "A physical attendee capacity relation between an event and the maximum number of individuals who can physically attend. Also called: in-person capacity, venue limit, on-site capacity. Examples: \"Hybrid Conference maximumPhysicalAttendeeCapacity 500\", \"Live Concert maximumPhysicalAttendeeCapacity 10000\", \"Workshop maximumPhysicalAttendeeCapacity 30\". Distinct from maximumVirtualAttendeeCapacity, which refers to online attendees.",
+          "embed_score": 0.822,
+          "embed_rank": 4
+        },
+        {
+          "source": "schema.org",
+          "label": "maximumAttendeeCapacity",
+          "signature": "Event/Place → Integer",
+          "parent": null,
+          "inverse_of": null,
+          "score": 2.468,
+          "matched_anchor": null,
+          "comment": "An attendee capacity relation between an event or place and the total number of individuals it can accommodate. Also called: maximum occupancy, total capacity, attendee limit. Examples: \"Concert Venue maximumAttendeeCapacity 5000\", \"Conference Room maximumAttendeeCapacity 100\", \"Public Park maximumAttendeeCapacity 10000\".",
+          "embed_score": 0.826,
+          "embed_rank": 3
+        },
+        {
+          "source": "schema.org",
+          "label": "vehicleSeatingCapacity",
+          "signature": "Vehicle → Number/QuantitativeValue",
+          "parent": null,
+          "inverse_of": null,
+          "score": 2.3912,
+          "matched_anchor": null,
+          "comment": "A vehicle seating capacity relation between a vehicle and the number of passengers it can seat. Also called seating capacity, passenger capacity, number of seats. Examples: \"Vehicle vehicleSeatingCapacity '5'\", \"Vehicle vehicleSeatingCapacity '7 persons'\", \"Vehicle vehicleSeatingCapacity '2'\".",
+          "embed_score": 0.813,
+          "embed_rank": 10
+        },
+        {
+          "source": "schema.org",
+          "label": "maximumVirtualAttendeeCapacity",
+          "signature": "Event → Integer",
+          "parent": null,
+          "inverse_of": null,
+          "score": 2.2867,
+          "matched_anchor": null,
+          "comment": "A virtual attendee capacity relation between an event and the maximum number of individuals who can attend online. Also called: online capacity, virtual participant limit, streaming capacity. Examples: \"Hybrid Conference maximumVirtualAttendeeCapacity 2000\", \"Webinar maximumVirtualAttendeeCapacity 500\", \"Online Class maximumVirtualAttendeeCapacity 100\". Distinct from maximumPhysicalAttendeeCapacity, which refers to in-person attendees.",
+          "embed_score": 0.821,
+          "embed_rank": 5
+        },
+        {
+          "source": "schema.org",
+          "label": "remainingAttendeeCapacity",
+          "signature": "Event → Integer",
+          "parent": null,
+          "inverse_of": null,
+          "score": 2.1311,
+          "matched_anchor": null,
+          "comment": "A remaining attendee capacity relation between an event and the number of available spots for attendees. Also called available seats, remaining tickets, open spots. Examples: \"A concert has a remaining attendee capacity of 100.\", \"A workshop has a remaining attendee capacity of 5.\", \"A conference has a remaining attendee capacity of 500.\"",
+          "embed_score": 0.815,
+          "embed_rank": 8
+        },
+        {
+          "source": "schema.org",
+          "label": "maximumEnrollment",
+          "signature": "EducationalOccupationalProgram → Integer",
+          "parent": null,
+          "inverse_of": null,
+          "score": 1.3787,
+          "matched_anchor": null,
+          "comment": "An enrollment capacity relation between an educational or occupational program and the maximum number of students who can be enrolled. Also called: enrollment limit, student capacity, maximum participants. Examples: \"Master's Program maximumEnrollment 50\", \"Workshop maximumEnrollment 20\", \"Online Course maximumEnrollment 500\".",
+          "embed_score": 0.807,
+          "embed_rank": 15
+        },
+        {
+          "source": "schema.org",
+          "label": "seatingCapacity",
+          "signature": "Vehicle → Number/QuantitativeValue",
+          "parent": null,
+          "inverse_of": null,
+          "score": 1.3424,
+          "matched_anchor": null,
+          "comment": "The maximum number of individuals that can be accommodated with seating in a vehicle, considering both physical space and legal limits. Also called passenger capacity, seat count, number of seats. Examples: `Car Model X` seatingCapacity `5`, `Bus Model Y` seatingCapacity `50`, `Airplane Model Z` seatingCapacity `200`.",
+          "embed_score": 0.83,
+          "embed_rank": 2
+        },
+        {
+          "source": "schema.org",
+          "label": "payload",
+          "signature": "Vehicle → QuantitativeValue",
+          "parent": null,
+          "inverse_of": null,
+          "score": 1.1972,
+          "matched_anchor": null,
+          "comment": "A descriptive attribute indicating the maximum permitted weight of passengers and cargo a vehicle can carry, excluding the vehicle's own weight. Also called carrying capacity, load capacity, cargo weight limit. Examples: A truck has a payload of 1000 kg. A car has a payload of 500 kg. An aircraft has a payload of 20,000 lbs. Distinct from weight, which refers to the weight of the empty vehicle itself.",
+          "embed_score": 0.798,
+          "embed_rank": 21
+        },
+        {
+          "source": "schema.org",
+          "label": "roofLoad",
+          "signature": "BusOrCoach/Car → QuantitativeValue",
+          "parent": null,
+          "inverse_of": null,
+          "score": 0.6352,
+          "matched_anchor": null,
+          "comment": "The maximum permissible weight that can be carried on the roof of a vehicle, including cargo and any installations. Also called roof capacity, maximum roof weight, roof rack load limit. Examples: `SUV Model X` roofLoad `75 kg`, `Sedan Model Y` roofLoad `50 kg`, `Van Model Z` roofLoad `100 kg`. Distinct from `cargoVolume`, which refers to the internal cargo space.",
+          "embed_score": 0.798,
+          "embed_rank": 20
+        }
+      ]
+    },
+    {
+      "relation_phrase": "population",
+      "definition": null,
+      "embedding_query_text": "population:",
+      "observed_signatures": [
+        "TouristAttraction → StatisticalPopulation"
+      ],
+      "n_assignments": 1,
+      "assignments": [
+        {
+          "instances": [
+            "Wingen-sur-Moder -> 1,500 inhabitants"
+          ],
+          "chosen_property": {
+            "label": "hasPopulation",
+            "source": "vocab",
+            "direction": "as_is",
+            "vocab_id": "P0018",
+            "is_new_to_vocab": true,
+            "definition": "A relation between a tourist attraction and the statistical population it serves or represents.",
+            "parent": null,
+            "domain": [
+              "TouristAttraction"
+            ],
+            "range": [
+              "StatisticalPopulation"
+            ],
+            "path": "",
+            "justification": "No schema.org property directly links TouristAttraction to StatisticalPopulation; minting 'hasPopulation' for this relation."
+          },
+          "llm_proposed": {
+            "source": "new",
+            "label": "hasPopulation",
+            "is_new": true,
+            "direction": "as_is"
+          }
+        }
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "populationType",
+          "signature": "StatisticalPopulation/StatisticalVariable → Class",
+          "parent": null,
+          "inverse_of": null,
+          "score": 5.1457,
+          "matched_anchor": null,
+          "comment": "A categorical attribute indicating the common type of individuals or cases within a statistical population or variable. Also called demographic group, target group, study population. Examples: A statistical population has a population type of 'Adults'. A statistical variable has a population type of 'Children aged 5-12'. The study focuses on a population type of 'Patients with Condition X'.",
+          "embed_score": 0.757,
+          "embed_rank": 10
+        },
+        {
+          "source": "schema.org",
+          "label": "targetPopulation",
+          "signature": "DietarySupplement/DoseSchedule → Text",
+          "parent": null,
+          "inverse_of": null,
+          "score": -3.1296,
+          "matched_anchor": null,
+          "comment": "A textual description of the characteristics of the intended or typical population for a dietary supplement or dose schedule. Also called \"intended users\", \"demographic target\", \"user group\", \"audience characteristics\". Examples: \"The supplement has targetPopulation 'adults'\", \"The dose schedule's targetPopulation is 'children aged 6-12'\", \"This product is designed for a targetPopulation of athletes.\"",
+          "embed_score": 0.77,
+          "embed_rank": 3
+        },
+        {
+          "source": "schema.org",
+          "label": "childMinAge",
+          "signature": "ParentAudience → Number",
+          "parent": null,
+          "inverse_of": null,
+          "score": -7.7673,
+          "matched_anchor": null,
+          "comment": "A demographic specification for a parent audience, indicating the minimal age of a child. Also called \"minimum child age\", \"lower age limit for child\", \"child age floor\". Examples: \"Parent audience for infants childMinAge 0\", \"Parent audience for school-age children childMinAge 5\". Distinct from childMaxAge, which specifies the maximal age.",
+          "embed_score": 0.749,
+          "embed_rank": 23
+        },
+        {
+          "source": "schema.org",
+          "label": "childMaxAge",
+          "signature": "ParentAudience → Number",
+          "parent": null,
+          "inverse_of": null,
+          "score": -7.8538,
+          "matched_anchor": null,
+          "comment": "A demographic specification for a parent audience, indicating the maximal age of a child. Also called \"maximum child age\", \"upper age limit for child\", \"child age cap\". Examples: \"Parent audience for toddlers childMaxAge 3\", \"Parent audience for teens childMaxAge 17\". Distinct from childMinAge, which specifies the minimal age.",
+          "embed_score": 0.746,
+          "embed_rank": 32
+        },
+        {
+          "source": "schema.org",
+          "label": "numAdults",
+          "signature": "LodgingReservation → Integer/QuantitativeValue",
+          "parent": null,
+          "inverse_of": null,
+          "score": -9.3903,
+          "matched_anchor": null,
+          "comment": "The number of adults included in a lodging reservation. Also called adult count, number of grown-ups, adult guests. Examples: \"Hotel Reservation numAdults 2\", \"Vacation Rental numAdults 4\", \"Single Room Reservation numAdults 1\". Distinct from numChildren, which specifies the number of children.",
+          "embed_score": 0.765,
+          "embed_rank": 5
+        },
+        {
+          "source": "schema.org",
+          "label": "occupancy",
+          "signature": "Accommodation/Apartment/HotelRoom/SingleFamilyResidence/Suite → QuantitativeValue",
+          "parent": null,
+          "inverse_of": null,
+          "score": -9.6966,
+          "matched_anchor": null,
+          "comment": "The allowed total occupancy in persons for an accommodation unit. Also called maximum occupancy, guest capacity, permitted persons. Examples: \"Hotel Room occupancy 2\", \"Apartment occupancy 4\", \"Suite occupancy 6\".",
+          "embed_score": 0.747,
+          "embed_rank": 27
+        },
+        {
+          "source": "schema.org",
+          "label": "numberOfPlayers",
+          "signature": "Game/VideoGameSeries → QuantitativeValue",
+          "parent": null,
+          "inverse_of": null,
+          "score": -9.7738,
+          "matched_anchor": null,
+          "comment": "The number of people who can play a game or video game series, often expressed as a minimum, maximum, or range. Also called player count, game capacity, participant number. Examples: \"Board Game X numberOfPlayers '2-4'\", \"Video Game Y numberOfPlayers '1 (single-player)'\", \"Online Game Z numberOfPlayers '100 (max)'\".",
+          "embed_score": 0.758,
+          "embed_rank": 9
+        },
+        {
+          "source": "schema.org",
+          "label": "seatingCapacity",
+          "signature": "Vehicle → Number/QuantitativeValue",
+          "parent": null,
+          "inverse_of": null,
+          "score": -9.8023,
+          "matched_anchor": null,
+          "comment": "The maximum number of individuals that can be accommodated with seating in a vehicle, considering both physical space and legal limits. Also called passenger capacity, seat count, number of seats. Examples: `Car Model X` seatingCapacity `5`, `Bus Model Y` seatingCapacity `50`, `Airplane Model Z` seatingCapacity `200`.",
+          "embed_score": 0.746,
+          "embed_rank": 29
+        },
+        {
+          "source": "schema.org",
+          "label": "numberOfEmployees",
+          "signature": "BusinessAudience/Organization → QuantitativeValue",
+          "parent": null,
+          "inverse_of": null,
+          "score": -9.845,
+          "matched_anchor": null,
+          "comment": "The number of employees working for an organization or targeted by a business audience. Also called employee count, workforce size, staff number. Examples: \"Company A numberOfEmployees 500\", \"Small Business B numberOfEmployees 15\", \"Target Audience C numberOfEmployees '100-500'\".",
+          "embed_score": 0.754,
+          "embed_rank": 11
+        },
+        {
+          "source": "schema.org",
+          "label": "numChildren",
+          "signature": "LodgingReservation → Integer/QuantitativeValue",
+          "parent": null,
+          "inverse_of": null,
+          "score": -9.8509,
+          "matched_anchor": null,
+          "comment": "The number of children included in a lodging reservation. Also called child count, number of kids, child guests. Examples: \"Hotel Reservation numChildren 1\", \"Vacation Rental numChildren 3\", \"Family Suite Reservation numChildren 2\". Distinct from numAdults, which specifies the number of adults.",
+          "embed_score": 0.778,
+          "embed_rank": 1
+        }
+      ]
+    },
+    {
+      "relation_phrase": "distance",
+      "definition": null,
+      "embedding_query_text": "distance:",
+      "observed_signatures": [
+        "TouristAttraction → Distance"
+      ],
+      "n_assignments": 1,
+      "assignments": [
+        {
+          "instances": [
+            "Wingen-sur-Moder -> 37 miles"
+          ],
+          "chosen_property": {
+            "label": "distanceFromMuseum",
+            "source": "vocab",
+            "direction": "as_is",
+            "vocab_id": "P0019",
+            "is_new_to_vocab": true,
+            "definition": "The distance between a tourist attraction and a museum.",
+            "parent": null,
+            "domain": [
+              "TouristAttraction"
+            ],
+            "range": [
+              "Distance"
+            ],
+            "path": "",
+            "justification": "Schema.org's distance properties don't fit TouristAttraction→Distance directly; minting 'distanceFromMuseum' for this specific spatial relation."
+          },
+          "llm_proposed": {
+            "source": "new",
+            "label": "distanceFromMuseum",
+            "is_new": true,
+            "direction": "as_is"
+          }
+        }
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "distance",
+          "signature": "ExerciseAction/TravelAction → Distance",
+          "parent": null,
+          "inverse_of": null,
+          "score": 7.8439,
+          "matched_anchor": null,
+          "comment": "A distance relation between an exercise action or travel action and the length travelled. Also called \"travelled distance\", \"route length\", \"journey distance\". Examples: \"Exercise action 'Running' distance '10 km'\", \"Travel action 'Road Trip' distance '500 miles'\", \"Cycling activity distance '25 mi'\".",
+          "embed_score": 0.855,
+          "embed_rank": 1
+        },
+        {
+          "source": "schema.org",
+          "label": "flightDistance",
+          "signature": "Flight → Distance/Text",
+          "parent": null,
+          "inverse_of": null,
+          "score": 1.413,
+          "matched_anchor": null,
+          "comment": "A flight distance relation between a flight and the total distance covered during its journey. Also called: journey distance, air travel distance, flight length. Examples: \"Flight UA123\" flight distance \"1500 miles\", \"Flight BA456\" flight distance \"2400 km\", \"Flight LH789\" flight distance \"Long-haul\".",
+          "embed_score": 0.824,
+          "embed_rank": 2
+        },
+        {
+          "source": "schema.org",
+          "label": "wheelbase",
+          "signature": "Vehicle → QuantitativeValue",
+          "parent": null,
+          "inverse_of": null,
+          "score": 0.4146,
+          "matched_anchor": null,
+          "comment": "A wheelbase dimension relation between a vehicle and a quantitative value, specifying the distance between its front and rear wheel centers. Also called wheel distance, axle distance, inter-axle distance. Examples: Sedan wheelbase 2.7 meters, Motorcycle wheelbase 1.5 meters, SUV wheelbase 3.0 meters.",
+          "embed_score": 0.793,
+          "embed_rank": 9
+        },
+        {
+          "source": "schema.org",
+          "label": "mileageFromOdometer",
+          "signature": "Vehicle → QuantitativeValue",
+          "parent": null,
+          "inverse_of": null,
+          "score": -0.2437,
+          "matched_anchor": null,
+          "comment": "An odometer mileage relation between a vehicle and the total distance traveled as read from its odometer. Also called: odometer reading, total mileage, distance traveled. Examples: \"Car mileageFromOdometer '50000 KMT'\", \"Truck mileageFromOdometer '120000 SMI'\", \"Motorcycle mileageFromOdometer '15000 km'\".",
+          "embed_score": 0.8,
+          "embed_rank": 6
+        },
+        {
+          "source": "schema.org",
+          "label": "width",
+          "signature": "MediaObject/OfferShippingDetails/Product/ShippingConditions/VisualArtwork → Distance/QuantitativeValue",
+          "parent": null,
+          "inverse_of": null,
+          "score": -0.6138,
+          "matched_anchor": null,
+          "comment": "A width dimension relation between an item (such as a media object, product, or artwork) and a distance or quantitative value. Also called breadth, extent across, lateral dimension. Examples: Product width 10 cm, VisualArtwork width 50 inches, MediaObject width 1920 pixels.",
+          "embed_score": 0.78,
+          "embed_rank": 28
+        },
+        {
+          "source": "schema.org",
+          "label": "geoRadius",
+          "signature": "GeoCircle → Distance/Number/Text",
+          "parent": null,
+          "inverse_of": null,
+          "score": -1.7637,
+          "matched_anchor": null,
+          "comment": "A geo radius relation between a geo circle and its approximate radial distance from the center. Also called: circle radius, geographic radius, extent. Examples: \"Search Area GeoCircle\" geo radius \"5000 meters\", \"Weather Alert Zone\" geo radius \"10 miles\", \"GPS Accuracy Circle\" geo radius \"10 feet\".",
+          "embed_score": 0.783,
+          "embed_rank": 20
+        },
+        {
+          "source": "schema.org",
+          "label": "fuelEfficiency",
+          "signature": "Vehicle → QuantitativeValue",
+          "parent": null,
+          "inverse_of": null,
+          "score": -3.2682,
+          "matched_anchor": null,
+          "comment": "A fuel efficiency relation between a vehicle and the distance it travels per unit of fuel consumed. Also called: miles per gallon, kilometers per liter, fuel economy. Examples: \"Compact Car\" fuel efficiency \"40 mpg\", \"Hybrid Vehicle\" fuel efficiency \"55 mpg\", \"Motorcycle\" fuel efficiency \"60 km/L\". Distinct from fuelConsumption, which is a reciprocal measure (fuel per unit distance).",
+          "embed_score": 0.776,
+          "embed_rank": 45
+        },
+        {
+          "source": "schema.org",
+          "label": "longitude",
+          "signature": "GeoCoordinates/Place → Number/Text",
+          "parent": null,
+          "inverse_of": null,
+          "score": -5.1865,
+          "matched_anchor": null,
+          "comment": "A longitude relation between geographic coordinates or a place and its longitudinal value. Also called: geographic longitude, east-west coordinate, meridian position. Examples: \"Eiffel Tower longitude 2.2945\", \"Statue of Liberty longitude -74.0445\", \"Mount Everest longitude 86.9250\".",
+          "embed_score": 0.789,
+          "embed_rank": 10
+        },
+        {
+          "source": "schema.org",
+          "label": "latitude",
+          "signature": "GeoCoordinates/Place → Number/Text",
+          "parent": null,
+          "inverse_of": null,
+          "score": -5.2,
+          "matched_anchor": null,
+          "comment": "A geographical coordinate relation between geo-coordinates or a place and its north-south position on the Earth's surface. Also called lat, north-south coordinate, parallel. Examples: GeoCoordinates have a latitude of '34.0522'. A place has a latitude of '-33.8688'. The city's latitude is '40.7128'. Distinct from longitude, which is the east-west position.",
+          "embed_score": 0.788,
+          "embed_rank": 11
+        },
+        {
+          "source": "schema.org",
+          "label": "geo",
+          "signature": "Place → GeoCoordinates/GeoShape",
+          "parent": null,
+          "inverse_of": null,
+          "score": -6.1304,
+          "matched_anchor": null,
+          "comment": "A geo relation between a place and its geographical coordinates or shape. Also called: geographic location, coordinates, spatial data. Examples: \"Eiffel Tower\" geo \"Latitude: 48.8584, Longitude: 2.2945\", \"Central Park\" geo \"Polygon GeoShape\", \"Mount Everest\" geo \"Point GeoCoordinates\".",
+          "embed_score": 0.781,
+          "embed_rank": 25
+        }
+      ]
+    },
+    {
+      "relation_phrase": "located_in",
+      "definition": "The geographic location relationship between entities.",
+      "embedding_query_text": "located_in: The geographic location relationship between entities.",
+      "observed_signatures": [
+        "TouristAttraction → Museum"
+      ],
+      "n_assignments": 1,
+      "assignments": [
+        {
+          "instances": [
+            "Wingen-sur-Moder -> Louvre museum"
+          ],
+          "chosen_property": {
+            "label": "location",
+            "source": "schema.org",
+            "direction": "as_is",
+            "vocab_id": null,
+            "is_new_to_vocab": false,
+            "definition": null,
+            "parent": null,
+            "domain": null,
+            "range": null,
+            "path": "",
+            "justification": "Schema.org's location property (Action/Event/Place→Place) fits TouristAttraction→Museum as a location relation."
+          },
+          "llm_proposed": {
+            "source": "schema.org",
+            "label": "location",
+            "is_new": false,
+            "direction": "as_is"
+          }
+        }
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "locationCreated",
+          "signature": "CreativeWork → Place",
+          "parent": null,
+          "inverse_of": null,
+          "score": 3.3304,
+          "matched_anchor": null,
+          "comment": "A creation location relation between a creative work and the place where it was created. Also called: place of creation, origin location, created in. Examples: \"Painting locationCreated Paris\", \"Novel locationCreated London\", \"Film locationCreated Hollywood\". Distinct from location, which refers to the current or general location of an entity.",
+          "embed_score": 0.839,
+          "embed_rank": 16
+        },
+        {
+          "source": "schema.org",
+          "label": "geo",
+          "signature": "Place → GeoCoordinates/GeoShape",
+          "parent": null,
+          "inverse_of": null,
+          "score": 3.0521,
+          "matched_anchor": null,
+          "comment": "A geo relation between a place and its geographical coordinates or shape. Also called: geographic location, coordinates, spatial data. Examples: \"Eiffel Tower\" geo \"Latitude: 48.8584, Longitude: 2.2945\", \"Central Park\" geo \"Polygon GeoShape\", \"Mount Everest\" geo \"Point GeoCoordinates\".",
+          "embed_score": 0.858,
+          "embed_rank": 3
+        },
+        {
+          "source": "schema.org",
+          "label": "location",
+          "signature": "Action/Event/InteractionCounter/Organization → Place/PostalAddress/Text/VirtualLocation",
+          "parent": null,
+          "inverse_of": null,
+          "score": 1.6564,
+          "matched_anchor": null,
+          "comment": "A location relation between an action, event, interaction counter, or organization and its physical or virtual place. Also called: situated at, takes place at, found at. Examples: \"Conference Event location New York Hilton\", \"Company Organization location 123 Main St\", \"Online Meeting location Virtual Conference Room\".",
+          "embed_score": 0.872,
+          "embed_rank": 1
+        },
+        {
+          "source": "schema.org",
+          "label": "address",
+          "signature": "GeoCoordinates/GeoShape/Organization/Person/Place → PostalAddress/Text",
+          "parent": null,
+          "inverse_of": null,
+          "score": 1.3272,
+          "matched_anchor": null,
+          "comment": "An address relation between an entity (e.g., organization, person, place) and its physical postal address. Also called physical location, mailing address, street address. Examples: \"A company's address is '123 Main St, Anytown'.\", \"A person's address is 'PO Box 123'.\", \"The restaurant's address is '456 Oak Ave'.\"",
+          "embed_score": 0.855,
+          "embed_rank": 4
+        },
+        {
+          "source": "schema.org",
+          "label": "longitude",
+          "signature": "GeoCoordinates/Place → Number/Text",
+          "parent": null,
+          "inverse_of": null,
+          "score": 1.252,
+          "matched_anchor": null,
+          "comment": "A longitude relation between geographic coordinates or a place and its longitudinal value. Also called: geographic longitude, east-west coordinate, meridian position. Examples: \"Eiffel Tower longitude 2.2945\", \"Statue of Liberty longitude -74.0445\", \"Mount Everest longitude 86.9250\".",
+          "embed_score": 0.844,
+          "embed_rank": 10
+        },
+        {
+          "source": "schema.org",
+          "label": "geographicArea",
+          "signature": "Audience → AdministrativeArea",
+          "parent": null,
+          "inverse_of": null,
+          "score": 1.2202,
+          "matched_anchor": null,
+          "comment": "A geographic area relation between an audience and the administrative area it is associated with. Also called: target region, audience location, demographic area. Examples: \"Local News Audience\" geographic area \"Springfield County\", \"National Election Voters\" geographic area \"United States\", \"European Market Audience\" geographic area \"European Union\".",
+          "embed_score": 0.834,
+          "embed_rank": 23
+        },
+        {
+          "source": "schema.org",
+          "label": "hasMap",
+          "signature": "Place → Map/URL",
+          "parent": null,
+          "inverse_of": null,
+          "score": 0.4585,
+          "matched_anchor": null,
+          "comment": "A map relation between a place and its associated map or map URL. Also called map of, location map, geographical map. Examples: \"A restaurant has a map of its location.\", \"The park has a map showing its trails.\", \"This place has a map URL.\"",
+          "embed_score": 0.833,
+          "embed_rank": 24
+        },
+        {
+          "source": "schema.org",
+          "label": "spatialCoverage",
+          "signature": "CreativeWork → Place",
+          "parent": "contentLocation",
+          "inverse_of": null,
+          "score": 0.4284,
+          "matched_anchor": null,
+          "comment": "A geographic focus relation between a creative work and the place(s) that are the primary subject or focus of its content. Also called \"geographic scope\", \"covered area\", \"location focus\", \"content location\". Examples: \"A weather dataset has spatialCoverage New York State\", \"The historical map's spatialCoverage is ancient Rome\", \"This research paper's spatialCoverage is the Arctic region.\". Distinct from spatial, which is a more general spatial association when the specific focus is not known.",
+          "embed_score": 0.819,
+          "embed_rank": 45
+        },
+        {
+          "source": "schema.org",
+          "label": "geoWithin",
+          "signature": "GeospatialGeometry/Place → GeospatialGeometry/Place",
+          "parent": null,
+          "inverse_of": null,
+          "score": 0.4033,
+          "matched_anchor": null,
+          "comment": "A geo within relation representing a spatial relationship where a geometry or place is located entirely inside the interior of another containing geometry or place. Also called: is inside, contained in, located within. Examples: \"City 'Paris'\" geo within \"Country 'France'\", \"Office 'Suite 100'\" geo within \"Building 'Empire State'\", \"State 'California'\" geo within \"Country 'USA'\". Distinct from geoContains, which is the inverse relation.",
+          "embed_score": 0.84,
+          "embed_rank": 14
+        },
+        {
+          "source": "schema.org",
+          "label": "geoMidpoint",
+          "signature": "GeoCircle → GeoCoordinates",
+          "parent": null,
+          "inverse_of": null,
+          "score": 0.2401,
+          "matched_anchor": null,
+          "comment": "A geo midpoint relation between a geo circle and the geographical coordinates representing its center. Also called: center coordinates, geographic center, central point. Examples: \"Circular Search Area\" geo midpoint \"Latitude: 34.0, Longitude: -118.0\", \"GeoCircle around City\" geo midpoint \"City Center Coordinates\", \"Radar Range\" geo midpoint \"Radar Station Location\".",
+          "embed_score": 0.826,
+          "embed_rank": 39
+        }
+      ]
+    },
+    {
+      "relation_phrase": "position",
+      "definition": "The official role or title held by a person in relation to a location.",
+      "embedding_query_text": "position: The official role or title held by a person in relation to a location.",
+      "observed_signatures": [
+        "Person → TouristAttraction"
+      ],
+      "n_assignments": 1,
+      "assignments": [
+        {
+          "instances": [
+            "Christian Dorschner -> Wingen-sur-Moder"
+          ],
+          "chosen_property": {
+            "label": "workLocation",
+            "source": "schema.org",
+            "direction": "as_is",
+            "vocab_id": null,
+            "is_new_to_vocab": false,
+            "definition": null,
+            "parent": null,
+            "domain": null,
+            "range": null,
+            "path": "location",
+            "justification": "Schema.org's workLocation property (Person→Place) fits Person→TouristAttraction as a professional location."
+          },
+          "llm_proposed": {
+            "source": "schema.org",
+            "label": "workLocation",
+            "is_new": false,
+            "direction": "as_is"
+          }
+        }
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "jobTitle",
+          "signature": "Person → DefinedTerm/Text",
+          "parent": null,
+          "inverse_of": null,
+          "score": 3.951,
+          "matched_anchor": null,
+          "comment": "An occupational role relation between a person and their formal designation within an organization. Also called position, role, occupation, professional title. Examples: A person has a jobTitle of 'Software Engineer'. A person has a jobTitle of 'Chief Executive Officer'. A person has a jobTitle of 'Marketing Manager'.",
+          "embed_score": 0.844,
+          "embed_rank": 5
+        },
+        {
+          "source": "schema.org",
+          "label": "namedPosition",
+          "signature": "Role → Text/URL",
+          "parent": null,
+          "inverse_of": null,
+          "score": 2.8637,
+          "matched_anchor": null,
+          "comment": "A specific named position or role played by a person or organization within a larger organization. Also called role name, position title, job title. Examples: \"Athlete Role namedPosition 'Quarterback'\", \"Employee Role namedPosition 'Senior Software Engineer'\", \"Board Member Role namedPosition 'Treasurer'\". Distinct from roleName, which is a more general description of a role.",
+          "embed_score": 0.867,
+          "embed_rank": 1
+        },
+        {
+          "source": "schema.org",
+          "label": "roleName",
+          "signature": "Role → Text/URL",
+          "parent": null,
+          "inverse_of": null,
+          "score": 2.7483,
+          "matched_anchor": null,
+          "comment": "The specific designation or title of a role performed by a person or organization. Also called role title, position name, function name. Examples: `Person in Movie` roleName `\"Actor\"`, `Team Member` roleName `\"Quarterback\"`, `Project Contributor` roleName `\"Lead Developer\"`.",
+          "embed_score": 0.845,
+          "embed_rank": 4
+        },
+        {
+          "source": "schema.org",
+          "label": "title",
+          "signature": "JobPosting → Text",
+          "parent": null,
+          "inverse_of": null,
+          "score": 2.0758,
+          "matched_anchor": null,
+          "comment": "A title relation between a job posting and the descriptive name of the job. Also called job name, position title, role title. Examples: \"Job posting title 'Software Engineer'\", \"Job posting title 'Marketing Manager'\", \"Job posting title 'Data Scientist'\".",
+          "embed_score": 0.855,
+          "embed_rank": 2
+        },
+        {
+          "source": "schema.org",
+          "label": "workLocation",
+          "signature": "Person → ContactPoint/Place",
+          "parent": "location",
+          "inverse_of": null,
+          "score": 1.6673,
+          "matched_anchor": null,
+          "comment": "A work location relation between a person and a contact point or place, identifying where the person performs their professional duties. Also called employment location, office address, workplace. Examples: John workLocation MainOffice, Jane workLocation RemoteHome, CompanyEmployee workLocation BranchOffice. Distinct from homeLocation, which is a person's residential address.",
+          "embed_score": 0.821,
+          "embed_rank": 10
+        },
+        {
+          "source": "schema.org",
+          "label": "legalAddress",
+          "signature": "Organization → PostalAddress",
+          "parent": null,
+          "inverse_of": null,
+          "score": 0.146,
+          "matched_anchor": null,
+          "comment": "An official location relation between an organization and its legally registered postal address for administrative and tax purposes. Also called registered address, official address, corporate address, statutory address. Examples: An organization has a legalAddress of '100 Main St, Anytown, USA'. A company's legalAddress is 'Suite 200, Business Park, City'. The corporation's legalAddress is its registered office. Distinct from address, which is a general contact address, and branchOf, which is about organizational hierarchy.",
+          "embed_score": 0.794,
+          "embed_rank": 39
+        },
+        {
+          "source": "schema.org",
+          "label": "homeLocation",
+          "signature": "Person → ContactPoint/Place",
+          "parent": "location",
+          "inverse_of": null,
+          "score": -1.7238,
+          "matched_anchor": null,
+          "comment": "A home location relation between a person and their residential contact point or place. Also called residence, dwelling, home address. Examples: \"A person has a home location in London.\", \"Her home location is a specific address.\", \"The individual's home location is a contact point.\"",
+          "embed_score": 0.801,
+          "embed_rank": 25
+        },
+        {
+          "source": "schema.org",
+          "label": "jobLocation",
+          "signature": "JobPosting → Place",
+          "parent": null,
+          "inverse_of": null,
+          "score": -2.5284,
+          "matched_anchor": null,
+          "comment": "An employment location relation between a job posting and the primary geographic place where the work is performed. Also called work location, employment site, job site, place of work. Examples: A job posting has a jobLocation of 'New York City'. A job posting has a jobLocation of 'San Francisco Bay Area'. A job posting has a jobLocation of 'Remote'. Distinct from jobLocationType, which describes the *type* of location (e.g., 'TELECOMMUTE').",
+          "embed_score": 0.84,
+          "embed_rank": 6
+        },
+        {
+          "source": "schema.org",
+          "label": "location",
+          "signature": "Action/Event/InteractionCounter/Organization → Place/PostalAddress/Text/VirtualLocation",
+          "parent": null,
+          "inverse_of": null,
+          "score": -2.7575,
+          "matched_anchor": null,
+          "comment": "A location relation between an action, event, interaction counter, or organization and its physical or virtual place. Also called: situated at, takes place at, found at. Examples: \"Conference Event location New York Hilton\", \"Company Organization location 123 Main St\", \"Online Meeting location Virtual Conference Room\".",
+          "embed_score": 0.827,
+          "embed_rank": 8
+        },
+        {
+          "source": "schema.org",
+          "label": "deathPlace",
+          "signature": "Person → Place",
+          "parent": null,
+          "inverse_of": null,
+          "score": -3.1346,
+          "matched_anchor": null,
+          "comment": "A geographical event relation between a person and the place where they died. Also called: place of demise, passing location, decease location. Examples: \"Historical Figure\" death place \"Dallas, Texas\", \"Family Member\" death place \"London, UK\". Distinct from birthPlace, which is the place of birth.",
+          "embed_score": 0.792,
+          "embed_rank": 45
+        }
+      ]
+    },
+    {
+      "relation_phrase": "wing",
+      "definition": null,
+      "embedding_query_text": "wing:",
+      "observed_signatures": [
+        "Museum → BuildingPart"
+      ],
+      "n_assignments": 1,
+      "assignments": [
+        {
+          "instances": [
+            "Louvre museum -> Denon Wing"
+          ],
+          "chosen_property": {
+            "label": "hasWing",
+            "source": "vocab",
+            "direction": "as_is",
+            "vocab_id": "P0020",
+            "is_new_to_vocab": true,
+            "definition": "A relation between a museum and a specific wing or building part it contains.",
+            "parent": null,
+            "domain": [
+              "Museum"
+            ],
+            "range": [
+              "BuildingPart"
+            ],
+            "path": "",
+            "justification": "Schema.org's aircraft/flight properties don't fit Museum→BuildingPart; minting 'hasWing' for this architectural relation."
+          },
+          "llm_proposed": {
+            "source": "new",
+            "label": "hasWing",
+            "is_new": true,
+            "direction": "as_is"
+          }
+        }
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "aircraft",
+          "signature": "Flight → Text/Vehicle",
+          "parent": null,
+          "inverse_of": null,
+          "score": -6.3868,
+          "matched_anchor": null,
+          "comment": "An aircraft relation between a flight and the specific type of vehicle used for air travel. Also called airplane type, plane model, flight vehicle. Examples: \"A flight's aircraft is 'Boeing 747'.\", \"The flight uses an 'Airbus A320'.\"",
+          "embed_score": 0.804,
+          "embed_rank": 1
+        },
+        {
+          "source": "schema.org",
+          "label": "flightDistance",
+          "signature": "Flight → Distance/Text",
+          "parent": null,
+          "inverse_of": null,
+          "score": -7.1285,
+          "matched_anchor": null,
+          "comment": "A flight distance relation between a flight and the total distance covered during its journey. Also called: journey distance, air travel distance, flight length. Examples: \"Flight UA123\" flight distance \"1500 miles\", \"Flight BA456\" flight distance \"2400 km\", \"Flight LH789\" flight distance \"Long-haul\".",
+          "embed_score": 0.777,
+          "embed_rank": 5
+        },
+        {
+          "source": "schema.org",
+          "label": "estimatedFlightDuration",
+          "signature": "Flight → Duration/Text",
+          "parent": null,
+          "inverse_of": null,
+          "score": -7.9603,
+          "matched_anchor": null,
+          "comment": "An estimated flight duration relation between a flight and the duration or text representing its approximate travel time. Also called \"approximate flight time\", \"expected flight length\", \"scheduled flight duration\". Examples: \"Flight 'UA123' estimatedFlightDuration 'PT5H30M'\", \"Flight 'DL456' estimatedFlightDuration '6 hours'\", \"Flight 'LH789' estimatedFlightDuration 'PT10H'\".",
+          "embed_score": 0.787,
+          "embed_rank": 3
+        },
+        {
+          "source": "schema.org",
+          "label": "flightNumber",
+          "signature": "Flight → Text",
+          "parent": "identifier",
+          "inverse_of": null,
+          "score": -8.1467,
+          "matched_anchor": null,
+          "comment": "A flight number relation between a flight and its unique identifier, typically including the airline IATA code. Also called: flight ID, airline code, flight identifier. Examples: \"Flight from London to New York\" flight number \"BA177\", \"Flight from Tokyo to San Francisco\" flight number \"UA838\", \"Flight from Sydney to Dubai\" flight number \"EK413\".",
+          "embed_score": 0.788,
+          "embed_rank": 2
+        },
+        {
+          "source": "schema.org",
+          "label": "departureTerminal",
+          "signature": "Flight → Text",
+          "parent": null,
+          "inverse_of": null,
+          "score": -8.2781,
+          "matched_anchor": null,
+          "comment": "An identification relation between a flight and its departure terminal identifier. Also called: terminal number, flight terminal, departure building. Examples: \"Flight BA249\" departure terminal \"Terminal 5\", \"Flight UA123\" departure terminal \"Terminal 3\". Distinct from arrivalTerminal, which is the arrival terminal.",
+          "embed_score": 0.777,
+          "embed_rank": 6
+        },
+        {
+          "source": "schema.org",
+          "label": "departureGate",
+          "signature": "Flight → Text",
+          "parent": null,
+          "inverse_of": null,
+          "score": -8.5063,
+          "matched_anchor": null,
+          "comment": "An identification relation between a flight and its departure gate identifier. Also called: gate number, boarding gate, flight gate. Examples: \"Flight BA249\" departure gate \"Gate A12\", \"Flight UA123\" departure gate \"Gate 34B\". Distinct from arrivalGate, which is the arrival gate.",
+          "embed_score": 0.763,
+          "embed_rank": 37
+        },
+        {
+          "source": "schema.org",
+          "label": "mealService",
+          "signature": "Flight → Text",
+          "parent": null,
+          "inverse_of": null,
+          "score": -8.5509,
+          "matched_anchor": null,
+          "comment": "A meal service relation between a flight and the description of meals provided or available for purchase. Also called: in-flight meals, catering options, food service. Examples: \"Flight BA249 mealService 'Complimentary hot meal and beverages'\", \"Flight AA123 mealService 'Snacks and drinks available for purchase'\", \"Flight LH456 mealService 'Vegetarian option available upon request'\".",
+          "embed_score": 0.772,
+          "embed_rank": 12
+        },
+        {
+          "source": "schema.org",
+          "label": "arrivalTerminal",
+          "signature": "Flight → Text",
+          "parent": null,
+          "inverse_of": null,
+          "score": -8.5822,
+          "matched_anchor": null,
+          "comment": "A terminal identifier for a flight's arrival location. Also called: flight destination terminal, terminal of arrival. Examples: \"Flight BA286 arrivalTerminal 'Terminal 5'\", \"Flight from Tokyo arrivalTerminal 'North Terminal'\", \"Flight to JFK arrivalTerminal 'Terminal 4'\". Distinct from arrivalStation, which is for train trips.",
+          "embed_score": 0.768,
+          "embed_rank": 18
+        },
+        {
+          "source": "schema.org",
+          "label": "boardingGroup",
+          "signature": "FlightReservation → Text",
+          "parent": null,
+          "inverse_of": null,
+          "score": -8.7578,
+          "matched_anchor": null,
+          "comment": "An airline-specific indicator of boarding order or preference for a flight reservation. Also called: boarding zone, priority boarding. Examples: \"FlightReservation 'Flight 123' boardingGroup 'Group A'\", \"FlightReservation 'Flight 456' boardingGroup 'Zone 3'.\"",
+          "embed_score": 0.765,
+          "embed_rank": 22
+        },
+        {
+          "source": "schema.org",
+          "label": "departureAirport",
+          "signature": "Flight → Airport",
+          "parent": null,
+          "inverse_of": null,
+          "score": -8.8705,
+          "matched_anchor": null,
+          "comment": "A geographical origin relation between a flight and the airport from which it originates. Also called: origin airport, departure airfield, flight departure point. Examples: \"Flight BA249\" departure airport \"London Heathrow Airport\", \"Flight UA123\" departure airport \"San Francisco International Airport\". Distinct from arrivalAirport, which is the destination airport.",
+          "embed_score": 0.763,
+          "embed_rank": 36
+        }
+      ]
+    }
+  ]
+}

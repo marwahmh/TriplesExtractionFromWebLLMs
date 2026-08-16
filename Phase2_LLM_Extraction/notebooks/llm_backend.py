@@ -283,6 +283,14 @@ def activate(name, root, ns, results=None, **overrides):
         activate("gemini-2.5-flash", ROOT, globals(), results="qwen3-14b")
 
     `overrides` go to configure() for vllm backends (e.g. temperature=0.6, max_output_tokens=8192).
+
+    A THINKING backend gets Qwen3's own recommended sampling (temperature 0.6, top_p 0.95, seed
+    1234) unless the caller overrides it. This is not a preference: greedy decoding is what sends
+    Qwen3 into repetition loops in thinking mode, and the symptom — a call that runs out of context
+    having emitted far MORE tokens than the sizing note predicts — reads as "the model is slow", so
+    it can burn a whole run before anyone notices. The default lives here rather than in each
+    notebook because it is a property of the BACKEND, and a notebook that forgot to repeat it was
+    silently running the arm wrong. The structured arm stays greedy, matching the Gemini baseline.
     """
     if name not in BACKENDS:
         raise KeyError(f"unknown BACKEND {name!r}; choose one of: {', '.join(BACKENDS)}")
@@ -302,6 +310,10 @@ def activate(name, root, ns, results=None, **overrides):
         # were just (re)defined above in this same cell.
         print(f"backend: GEMINI {model}  ->  results/{results}/{note}")
         return {"backend": name, "kind": kind, "model": model, "results_dir": ns["RESULTS_DIR"]}
+
+    if spec.get("thinking"):                          # see the docstring: greedy + thinking loops
+        for k, v in (("temperature", 0.6), ("top_p", 0.95), ("seed", 1234)):
+            overrides.setdefault(k, v)                # an explicit override still wins
 
     configure(model=model, **spec, **overrides)
     ns["gemini_json"] = llm_json
