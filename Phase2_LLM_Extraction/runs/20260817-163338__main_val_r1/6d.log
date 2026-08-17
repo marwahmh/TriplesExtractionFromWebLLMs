@@ -1,0 +1,192 @@
+[NbConvertApp] Converting notebook /Users/marwah/Documents/Thesis/TriplesExtractionFromWebLLMs/Phase2_LLM_Extraction/notebooks/e2e/6d_e2e_type_canonicalization.ipynb to notebook
+/opt/anaconda3/lib/python3.12/site-packages/nbformat/__init__.py:93: MissingIDFieldWarning: Code cell is missing an id field, this will become a hard error in future nbformat versions. You may want to use `normalize()` on your notebooks before validations (available since nbformat 5.1.4). Previous versions of nbformat are fixing this issue transparently, and will stop doing so in the future.
+  validate(nb)
+Traceback (most recent call last):
+  File "/opt/anaconda3/bin/jupyter-nbconvert", line 11, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "/opt/anaconda3/lib/python3.12/site-packages/jupyter_core/application.py", line 283, in launch_instance
+    super().launch_instance(argv=argv, **kwargs)
+  File "/opt/anaconda3/lib/python3.12/site-packages/traitlets/config/application.py", line 1075, in launch_instance
+    app.start()
+  File "/opt/anaconda3/lib/python3.12/site-packages/nbconvert/nbconvertapp.py", line 412, in start
+    self.convert_notebooks()
+  File "/opt/anaconda3/lib/python3.12/site-packages/nbconvert/nbconvertapp.py", line 590, in convert_notebooks
+    self.convert_single_notebook(notebook_filename)
+  File "/opt/anaconda3/lib/python3.12/site-packages/nbconvert/nbconvertapp.py", line 556, in convert_single_notebook
+    output, resources = self.export_single_notebook(
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.12/site-packages/nbconvert/nbconvertapp.py", line 479, in export_single_notebook
+    output, resources = self.exporter.from_filename(
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.12/site-packages/nbconvert/exporters/exporter.py", line 203, in from_filename
+    return self.from_file(f, resources=resources, **kw)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.12/site-packages/nbconvert/exporters/exporter.py", line 222, in from_file
+    return self.from_notebook_node(
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.12/site-packages/nbconvert/exporters/notebook.py", line 36, in from_notebook_node
+    nb_copy, resources = super().from_notebook_node(nb, resources, **kw)
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.12/site-packages/nbconvert/exporters/exporter.py", line 156, in from_notebook_node
+    nb_copy, resources = self._preprocess(nb_copy, resources)
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.12/site-packages/nbconvert/exporters/exporter.py", line 354, in _preprocess
+    nbc, resc = preprocessor(nbc, resc)  # type:ignore[operator]
+                ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.12/site-packages/nbconvert/preprocessors/base.py", line 48, in __call__
+    return self.preprocess(nb, resources)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.12/site-packages/nbconvert/preprocessors/execute.py", line 102, in preprocess
+    self.preprocess_cell(cell, resources, index)
+  File "/opt/anaconda3/lib/python3.12/site-packages/nbconvert/preprocessors/execute.py", line 123, in preprocess_cell
+    cell = self.execute_cell(cell, index, store_history=True)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.12/site-packages/jupyter_core/utils/__init__.py", line 165, in wrapped
+    return loop.run_until_complete(inner)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.12/asyncio/base_events.py", line 687, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.12/site-packages/nbclient/client.py", line 1058, in async_execute_cell
+    await self._check_raise_for_error(cell, cell_index, exec_reply)
+  File "/opt/anaconda3/lib/python3.12/site-packages/nbclient/client.py", line 914, in _check_raise_for_error
+    raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
+nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
+------------------
+# ---- WHICH EXPERIMENT ---------------------------------------------------------------------
+# ONE name decides the whole run. Every knob below comes from configs/<EXPERIMENT>.json — the SAME
+# file 6c and 6e read, which is what keeps the three stages of a chain consistent.
+#   list what exists :  python -m experiment_config list          (run from notebooks/)
+#   see one resolved :  python -m experiment_config show main
+# $PHASE2_EXPERIMENT wins when it is set, so a headless batch of ablations (run_e2e.sh) can sweep
+# experiments without editing a single notebook.
+import os
+EXPERIMENT = os.environ.get("PHASE2_EXPERIMENT") or "main"
+
+import sys, pathlib, importlib
+for _p in (pathlib.Path.cwd(), *pathlib.Path.cwd().parents):
+    if (_p / "experiment_config.py").exists():
+        sys.path.insert(0, str(_p)); break
+import experiment_config as xcfg; importlib.reload(xcfg)
+
+# Sets the shared keys (RESULTS_MODEL, BACKEND, GEMINI_MODEL, MATCH_MODEL, VARIANT, RUN_TAG,
+# SELECTED_ARTICLES) and this section's own:
+#   FRESH / EXPAND_MODE / TOP_K_MATCH / ALIGN_QUERY_STYLE
+#   INLINE_VOCAB_CANDIDATES            which pool the per-article selection call sees
+#   RERANK / RERANK_FROM / RERANK_MODEL              inline cross-encoder stage
+#   CONSOLIDATE / CONSOLIDATE_TOP_K / CONSOLIDATE_INCLUDE_SCHEMA / SUBTYPE_MODE
+#   RERANK_CONSOLIDATE / RERANK_CONSOLIDATE_FROM     consolidation cross-encoder stage
+#   INCLUDE_ALL_SCHEMA                 how much of schema.org the printed hierarchy shows
+CFG = xcfg.load(EXPERIMENT, globals(), "6d")
+# A one-off try goes RIGHT HERE, below the load, where it wins over the file.
+
+# --- imports + derived paths ---------------------------------------------------------------
+import json, re, os, copy, time
+from pathlib import Path
+from collections import Counter
+import numpy as np
+
+SCHEMA_DIR  = ROOT / "schema_org_files"          # schema.org CLASS pool from nb1
+RESULTS_DIR = ROOT / "results" / RESULTS_MODEL   # reads e2e/nary_graph<_sfx>.json (6c)
+
+# TWO suffixes, and the difference matters:
+#   _sfx   = "_" + VARIANT             identifies the 6c extraction arm — used to READ its graphs.
+#   _osfx  = _sfx + "_" + RUN_TAG      everything THIS notebook WRITES, so a new configuration
+#                                      never overwrites an older run's outputs.
+# 6e reads 6d's output, so 6e's INPUT_TAG must equal this RUN_TAG — which it does automatically,
+# because both come from the one config file.
+_sfx  = f"_{VARIANT}" if VARIANT else ""
+_osfx = _sfx + (f"_{RUN_TAG}" if RUN_TAG else "")
+
+VOCAB_PATH = RESULTS_DIR / f"_global/e2e/type_vocabulary{_osfx}.json"   # SEPARATE per run
+
+# ---- RETRIEVAL / RERANK — what the config's knobs mean here --------------------------------
+# INLINE_VOCAB_CANDIDATES = False: the TOP_K_MATCH candidates shown to the selection LLM are ALWAYS
+# schema.org — the grown vocabulary is never offered inline. The LLM therefore cannot reuse an
+# earlier mint, so it re-mints synonyms of terms it already created; collapsing those is deferred to
+# the GLOBAL re-consolidation at the bottom. This is 6k's schema-only design with the fix 6k
+# concluded it needed: consolidation at GLOBAL scope, not per-article new-vs-prior.
+# NOTE the consequence for metrics: the INLINE mint count goes UP by design. Judge this
+# configuration on the POST-CONSOLIDATION vocabulary size, not on the raw mint rate.
+#
+# RERANK and RERANK_CONSOLIDATE are two INDEPENDENT cross-encoder stages, each with its own depth.
+# Each depth is that stage's ceiling — the cross-encoder can only promote what e5 already fetched.
+# They differ because the pools differ: the inline stage ranks against ~1.5k schema.org classes,
+# while consolidation ranks against the vocabulary itself (order 100 entries), so it reaches the
+# same coverage far shallower. Cost is linear in the depth on both sides.
+# RERANK_MODEL default is 22M params, English, CPU-friendly. Stronger but much slower on CPU:
+# "BAAI/bge-reranker-base" (278M) or "BAAI/bge-reranker-v2-m3" (568M, multilingual).
+
+# Which articles to run on — and the ORDER the vocabulary grows along. Order is part of the run:
+# this stage is incremental, so what article k mints depends on what k-1 added.
+_available = sorted((p.parent.parent.name for p in RESULTS_DIR.glob(f"*/e2e/nary_graph{_sfx}.json")),
+                    key=xcfg.article_key)
+if SELECTED_ARTICLES is None:
+    ARTICLE_ORDER = _available
+else:
+    missing = [a for a in SELECTED_ARTICLES if a not in _available]
+    if missing:
+        print(f"WARNING: skipping (no e2e/nary_graph{_sfx}.json):", missing)
+    ARTICLE_ORDER = [a for a in SELECTED_ARTICLES if a in _available]
+assert ARTICLE_ORDER, (
+    f"No runnable articles. Looked for */e2e/nary_graph{_sfx}.json — 6c's output for VARIANT="
+    f"{VARIANT!r}. Run 6c under experiment {EXPERIMENT!r} first.")
+print(f"\nreads 6c variant {VARIANT!r} -> nary_graph{_sfx}.json")
+print(f"writes run       {RUN_TAG!r} -> *{_osfx}*   |  vocab: {VOCAB_PATH.name}")
+print(f"{len(ARTICLE_ORDER)} article(s), in this order: {ARTICLE_ORDER}")
+------------------
+
+----- stdout -----
+experiment 'main'  ·  section 6d (e2e · type canonicalization)
+--------------------------------------------------------------
+  The reported configuration: schema-only inline retrieval + global re-consolidation, cross-encoder rerank on the relation side, two-call consolidation with generalize. Every ablation is measured against it.
+--------------------------------------------------------------
+  RESULTS_MODEL                'llama33-70b'
+  BACKEND                      'llama33-70b'
+  VARIANT                      'dedup'
+  RUN_TAG                      'main_val_r1'
+  INPUT_TAG                    'main_val_r1'
+  REPEAT                       1
+  SPLIT                        'validation'
+  SELECTED_ARTICLES            '[20 articles: art1 … art74]'
+  MATCH_MODEL                  'intfloat/e5-base-v2'
+  GEMINI_MODEL                 'gemini-2.5-flash'
+  ····························
+  FRESH                        True
+  EXPAND_MODE                  True
+  TOP_K_MATCH                  5
+  ALIGN_QUERY_STYLE            True
+  CONSOLIDATE                  True
+  CONSOLIDATE_EVERY            5
+  INLINE_VOCAB_CANDIDATES      False
+  PARALLEL_LLM                 True
+  WORKERS                      5
+  RERANK                       False
+  RERANK_FROM                  50
+  RERANK_MODEL                 'cross-encoder/ms-marco-MiniLM-L-6-v2'
+  RERANK_CONSOLIDATE           True
+  RERANK_CONSOLIDATE_FROM      25
+  CONSOLIDATE_TOP_K            5
+  CONSOLIDATE_INCLUDE_SCHEMA   False
+  SUBTYPE_MODE                 'subclass'
+  INCLUDE_ALL_SCHEMA           False
+  run id  e2e__dedup__main_val_r1   stage 6d   commit aed8fd73 (dirty)
+  manifest /Users/marwah/Documents/Thesis/TriplesExtractionFromWebLLMs/Phase2_LLM_Extraction/results/llama33-70b/_runs/e2e__dedup__main_val_r1.json
+----- stdout -----
+WARNING: skipping (no e2e/nary_graph_dedup.json): ['art1', 'art2', 'art3', 'art4', 'art5', 'art8', 'art12', 'art15', 'art17', 'art23', 'art44', 'art46', 'art52', 'art55', 'art57', 'art58', 'art59', 'art72', 'art73', 'art74']
+------------------
+
+[0;31m---------------------------------------------------------------------------[0m
+[0;31mAssertionError[0m                            Traceback (most recent call last)
+Cell [0;32mIn[2], line 76[0m
+[1;32m     74[0m         [38;5;28mprint[39m([38;5;124mf[39m[38;5;124m"[39m[38;5;124mWARNING: skipping (no e2e/nary_graph[39m[38;5;132;01m{[39;00m_sfx[38;5;132;01m}[39;00m[38;5;124m.json):[39m[38;5;124m"[39m, missing)
+[1;32m     75[0m     ARTICLE_ORDER [38;5;241m=[39m [a [38;5;28;01mfor[39;00m a [38;5;129;01min[39;00m SELECTED_ARTICLES [38;5;28;01mif[39;00m a [38;5;129;01min[39;00m _available]
+[0;32m---> 76[0m [38;5;28;01massert[39;00m ARTICLE_ORDER, (
+[1;32m     77[0m     [38;5;124mf[39m[38;5;124m"[39m[38;5;124mNo runnable articles. Looked for */e2e/nary_graph[39m[38;5;132;01m{[39;00m_sfx[38;5;132;01m}[39;00m[38;5;124m.json — 6c[39m[38;5;124m'[39m[38;5;124ms output for VARIANT=[39m[38;5;124m"[39m
+[1;32m     78[0m     [38;5;124mf[39m[38;5;124m"[39m[38;5;132;01m{[39;00mVARIANT[38;5;132;01m!r}[39;00m[38;5;124m. Run 6c under experiment [39m[38;5;132;01m{[39;00mEXPERIMENT[38;5;132;01m!r}[39;00m[38;5;124m first.[39m[38;5;124m"[39m)
+[1;32m     79[0m [38;5;28mprint[39m([38;5;124mf[39m[38;5;124m"[39m[38;5;130;01m\n[39;00m[38;5;124mreads 6c variant [39m[38;5;132;01m{[39;00mVARIANT[38;5;132;01m!r}[39;00m[38;5;124m -> nary_graph[39m[38;5;132;01m{[39;00m_sfx[38;5;132;01m}[39;00m[38;5;124m.json[39m[38;5;124m"[39m)
+[1;32m     80[0m [38;5;28mprint[39m([38;5;124mf[39m[38;5;124m"[39m[38;5;124mwrites run       [39m[38;5;132;01m{[39;00mRUN_TAG[38;5;132;01m!r}[39;00m[38;5;124m -> *[39m[38;5;132;01m{[39;00m_osfx[38;5;132;01m}[39;00m[38;5;124m*   |  vocab: [39m[38;5;132;01m{[39;00mVOCAB_PATH[38;5;241m.[39mname[38;5;132;01m}[39;00m[38;5;124m"[39m)
+
+[0;31mAssertionError[0m: No runnable articles. Looked for */e2e/nary_graph_dedup.json — 6c's output for VARIANT='dedup'. Run 6c under experiment 'main' first.
+

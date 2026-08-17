@@ -219,6 +219,16 @@ def resolve(name: str | None = None) -> dict:
             merged["run_tag"] = f'{merged["run_tag"]}_{SPLITS[split]}'
     merged["split"] = split
 
+    # $PHASE2_ARTICLES repairs ONE article inside an existing run: it replaces the article list but
+    # leaves the TAG alone, so the stage writes the same *_<variant>_<run_tag>* filenames the rest of
+    # the run already uses. Without it, redoing a single failed article means either a new tag (wrong
+    # filenames) or reusing another experiment's tag (a collision the check rejects) — both of which
+    # came up when art52 died in gemini's 6c and art12 in qwen's nb6b.
+    only = os.environ.get("PHASE2_ARTICLES")
+    if only:
+        merged["selected_articles"] = [a.strip() for a in only.split(",") if a.strip()]
+        merged["articles_overridden"] = True
+
     # A repeat is the same arm run again, so it takes the same config and its own tag: main -> main_r2.
     rep = merged.get("repeat")
     if rep in (None, ""):
@@ -410,6 +420,9 @@ def _main(argv):
               + (f" | repeat {cfg['repeat']}" if cfg.get("repeat") else ""))
         arts = cfg.get("selected_articles")
         print(f"  writes  *{sfx}*  under results/{cfg['results_model']}/")
+        if cfg.get("articles_overridden"):
+            print("  ARTICLES OVERRIDDEN by $PHASE2_ARTICLES — repairing part of an existing run; the"
+                  "\n  tag is unchanged, so this writes alongside the articles already done.")
         print(f"  articles {len(arts) if arts else 'ALL in the tree'}"
               + (f"   split {cfg['split']}" if cfg.get("split") else "   (no split — set SPLIT=val|test)")
               + (f"   {arts[0]} … {arts[-1]}" if arts else ""))

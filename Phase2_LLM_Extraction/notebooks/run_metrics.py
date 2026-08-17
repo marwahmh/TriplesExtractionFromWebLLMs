@@ -611,6 +611,20 @@ def save(metrics: dict, results_dir, osfx="", track="e2e", section=None, article
     """
     p = _global_dir(Path(results_dir), track) / f'metrics_{metrics["stage"]}{osfx}.json'
     p.parent.mkdir(parents=True, exist_ok=True)
+
+    # A SUBSET run must not replace a fuller one. Repairing a single failed article
+    # ($PHASE2_ARTICLES) re-runs the stage's metrics cell over that one article, and writing it to
+    # the same tagged file silently reduced a 20-article record to a 1-article one — which is how the
+    # staged arm briefly reported 21 relations instead of 533. Keep the fuller file and say so; the
+    # correct fix after a repair is to recompute over the whole article list, which is a pure re-read.
+    prev = _read(p)
+    if prev and (prev.get("summary", {}).get("articles") or 0) > (metrics.get("summary", {}).get("articles") or 0):
+        print(f'  NOT overwriting {p.name}: it covers '
+              f'{prev["summary"]["articles"]} article(s), this run only '
+              f'{metrics["summary"].get("articles")}.\n'
+              f'  Recompute over the full list to refresh it '
+              f'(run_metrics.{metrics["stage"]}(...) with every article, then save).')
+        return p
     p.write_text(json.dumps(metrics, indent=2, ensure_ascii=False))
     if manifest:
         try:
