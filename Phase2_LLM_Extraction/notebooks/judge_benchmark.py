@@ -102,9 +102,25 @@ def load_json(path):
     return json.loads(Path(path).read_text())
 
 
+CONTEXT_MARKER = "(Judge only the arrow above."
+
+
 def assertion_of(item):
-    """The verbaliser to hand nb9b's `run_judge`: the assertion text is already baked into the item."""
-    return item["assertion"]
+    """The verbaliser to hand nb9b's `run_judge`: assertion + its n-ary context, recombined.
+
+    The two are stored as separate columns so the sheet is readable, but the judge must receive them
+    joined exactly as `make_relation_verbaliser` emitted them — the context line is what lets it
+    resolve what a bare `hasMagnitude "62%"` hanging off a hub actually refers to, and dropping it
+    would make this benchmark measure a judge nb9b does not run.
+    """
+    ctx = (item.get("context") or "").strip()
+    return item["assertion"] + ("\n" + ctx if ctx else "")
+
+
+def split_context(text):
+    """-> (bare assertion, context line). The context is everything from CONTEXT_MARKER on."""
+    i = text.find(CONTEXT_MARKER)
+    return (text, "") if i < 0 else (text[:i].rstrip("\n"), text[i:])
 
 
 # --- normalisation --------------------------------------------------------------------------
@@ -531,8 +547,11 @@ def build(graphs, articles, out_dir, verbalise_node, make_relation_verbaliser, n
     items, key = [], {}
     for i, e in enumerate(entries):
         r = e["row"]
+        bare, ctx = split_context(e["assertion"])
         items.append({"index": i, "article_id": r["article_id"], "kind": r["kind"],
-                      "assertion": e["assertion"], "cited_evidence": e["evidence"],
+                      "origin": "graph" if e["origin"] == "clean" else "corrupted",
+                      "corruption": f'{e["op"]}: {e["note"]}' if e["op"] else "",
+                      "assertion": bare, "context": ctx, "cited_evidence": e["evidence"],
                       "human": "", "label_source": "", "evidence": "", "human_note": ""})
         key[str(i)] = {"origin": e["origin"], "op": e["op"], "edit": e["note"],
                        "gold": None if e["origin"] == "clean" else "n",
@@ -568,8 +587,12 @@ def build(graphs, articles, out_dir, verbalise_node, make_relation_verbaliser, n
 # against a human, and that distinction has to survive into whatever the thesis reports. Anything
 # non-empty means NOT yet reviewed by a person — `score()` counts those separately and says so.
 # `evidence` is the sentence the labeller grounded the decision on, verbatim from the article.
-SHEET_COLS = ["index", "article_id", "kind", "human", "label_source", "evidence", "human_note",
-              "assertion"]
+# `origin`/`corruption` state whether a row came from the graph or was deliberately edited, and
+# what the edit was. They are the gold answer sitting in the sheet: useful for REVIEWING labels,
+# fatal for creating them. Anyone labelling from scratch should hide or delete both columns first,
+# or they are copying the key rather than reading the article.
+SHEET_COLS = ["index", "article_id", "kind", "origin", "corruption", "human", "label_source",
+              "evidence", "human_note", "assertion", "context"]
 LABEL_FIELDS = ("human", "label_source", "evidence", "human_note")
 
 

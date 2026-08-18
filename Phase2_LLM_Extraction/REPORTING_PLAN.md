@@ -262,6 +262,89 @@ One sentence preempts the question.
 
 ---
 
+## 6b. Known defects in the validation runs — read before quoting a number
+
+The six validation arms are comparable for every **structural** number (nodes, triples, reuse,
+merges, reparents, isolation, component share). Two things about them are *not* clean, both found on
+2026-08-18 while closing out the gemini staged arm. Both are fixed in code; the fixes take effect on
+the next run, so the numbers below stay as they are for the validation set.
+
+**(i) Token ledgers are floors for the periodic stages, not totals.** The periodic-consolidation
+cells (`CONSOLIDATE_EVERY=5`) tagged each chunk's LLM calls, but the cost file had already been
+written by the build cell after chunk 1, and the periodic cell never re-wrote it. So `nb4`, `nb7b`
+and `6d` recorded five articles' spend for a twenty-article stage. `6e` was written correctly and is
+complete; `nb2` and `6c` have no periodic stage and are complete; qwen's staged arm is complete
+because it predates the periodic rework.
+
+* Affected files carry a `coverage` block naming the articles they actually cover, and
+  `results/RUNS.md` marks such runs with `*` on the `tokens` column.
+* `nb6b`'s ledger is a pure sum over the per-article graphs, so gemini's and qwen's were **rebuilt
+  exactly** (they had been clobbered by the art2 and art12 repair runs). Those are real totals.
+* `nb7b`/`nb4`/`6d` chunk 2+ counts are **unrecoverable** — they were printed nowhere and those
+  notebooks store no usage in their outputs. gemini staged `nb7b` is reconstructed to 6 of 20
+  articles from the executed notebook in `runs/20260818-000445__staged__main_val_r1/`.
+* Consequence for §7 and for (f) above: **do not build the cost table from the validation runs.**
+  Take it from the test-split runs, which record the whole stage. If a validation cost number is
+  needed sooner, `6e` and `6c` are quotable today.
+
+**(ii) art2 in the gemini staged arm was produced by a repair run, not the main run.** It failed
+reification four times at the default thinking budget, so it was re-run under
+`configs/art2-fix.json` (thinking budget 8192, `max_output_tokens` 65536) and its canonicalization
+used inline vocabulary candidates with the global re-consolidation skipped — the other 19 keep their
+4-pass consolidation. Its 44 new properties were grafted into the consolidated vocabulary and every
+reference resolves (0 dangling across all 20). Two knock-on facts worth knowing:
+
+* Inline candidates are drawn from the **raw** vocabulary, which still holds terms the final
+  consolidation pass retired. art2 duly chose `P0001 occurredDuring` — a merge *survivor* that had
+  absorbed 15 labels in pass 2 and then vanished in pass 4 with no merge record (the same
+  vanishing-term bug the periodic feed-back repairs mid-run, but the last pass has no pass after it
+  to repair it). P0001 was restored to the consolidated vocabulary, so it is 400 properties, not 399.
+* This makes art2 a mild outlier inside that one arm. It is 1 of 20 articles and does not move the
+  arm-level comparisons, but do not use gemini staged art2 in a per-article case study.
+
+**(iii) The staged type consolidation never reached the per-article data — now repaired.** `nb4`'s
+`refresh_ext_after_consolidation` read the *e2e* field names (`type_vocab_id` / `type`) on entity
+records that store `vocab_id` / `chosen_type`, so its loop skipped every entity and the stage
+reported `n_nodes_changed: 0` in all three models. The vocabulary was consolidated; the entities and
+the n-ary graphs built from them kept pre-consolidation type ids and labels. 6d's e2e twin is
+identical code on correctly-named fields, which is why only the staged arms were affected.
+
+The refresh was replayed over the files on disk on 2026-08-18 — type fields only, with the relation
+consolidation in `*_extended_consolidated.json` asserted byte-identical, and `.bak-typerefresh`
+backups next to every edited file. All three staged arms now resolve every type id against their
+consolidated vocabulary with no label mismatch. What moved:
+
+| model | type ids remapped | labels changed | `distinct_entity_types` (sum over articles) |
+|---|---|---|---|
+| gemini-2.5-flash | 325 | 75 | 826 → 825 |
+| qwen3-32b-think | 60 | 30 | 278 → 277 |
+| llama33-70b | 215 | 135 | 252 → 238 |
+
+Two things this made visible, both worth reporting rather than smoothing over:
+
+* Most merges read as sound (`FacilityType`→`InstitutionType`, `Politician`→`GovernmentOfficial`,
+  `President`→`HeadOfState`, `CalendarYear`→`Year`).
+* **llama collapses distinct measurement types into one another**: `Temperature`→`DeathToll`,
+  `FireCount`→`DeathToll`, `StatisticalValue`→`DeathToll`. That is a wrong-sense merge, and it is
+  exactly the failure §6(b) says `schema_org_reuse_pct` cannot see. It is direct evidence for the
+  judged-sample measurement, and a caution against reading llama's small vocabulary as tidy
+  consolidation — some of it is collapse.
+
+**Fixed in code, for runs from here on:** `nb4`'s refresh resolves both field namings through a
+`_FIELD_ALIAS` table; the periodic cells in `nb4`, `nb7`, `nb7b` and `6d` now re-emit the cost file
+once every chunk is built; `run_manifest.begin()` archives a superseded finished stage under
+`attempts` instead of dropping it (a repair run reusing a `run_tag` had wiped 6b's and 7b's records,
+which is how the ledger gap surfaced); and `_token_usage()` propagates a ledger's
+`coverage.complete` into the manifest so a partial total can never be quoted unmarked.
+
+**Worth adding to the invariant cells:** the dangling-reference assertion catches an id that no
+longer exists, but not an id that resolves to the *wrong* entry. Two checks caught real problems here
+and cost nothing: **duplicate ids** in a vocabulary (a repair run re-issued `P0558`–`P0563`, already
+held by six consolidation-generalize terms, so six of art2's relations silently resolved to another
+property) and **label agreement** between each reference and the entry it points at.
+
+---
+
 ## 7. Budget
 
 Measured on the archived 4-article Gemini run: ≈**225k tokens per article** for a full e2e chain

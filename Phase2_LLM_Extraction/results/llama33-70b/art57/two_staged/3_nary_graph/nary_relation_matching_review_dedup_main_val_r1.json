@@ -1,0 +1,2416 @@
+{
+  "article_id": "art57",
+  "match_model": "intfloat/e5-base-v2",
+  "expand_mode": true,
+  "relations": [
+    {
+      "relation_phrase": "released with",
+      "definition": "The movie was released with a certain box office figure.",
+      "embedding_query_text": "released with: The movie was released with a certain box office figure.",
+      "observed_signatures": [
+        "Movie → BoxOfficeFigure"
+      ],
+      "n_assignments": 1,
+      "assignments": [
+        {
+          "instances": [
+            "Spider-Man: Brand New Day -> Spider-Man: Brand New Day Opening Weekend"
+          ],
+          "chosen_property": {
+            "label": "releasedWith",
+            "source": "vocab",
+            "direction": "as_is",
+            "vocab_id": "P0106",
+            "is_new_to_vocab": true,
+            "definition": "The movie was released with a certain box office figure.",
+            "parent": null,
+            "domain": [
+              "Movie"
+            ],
+            "range": [
+              "BoxOfficeFigure"
+            ],
+            "path": "",
+            "justification": "No existing schema.org property fits this relation."
+          },
+          "llm_proposed": {
+            "source": "new",
+            "label": "releasedWith",
+            "is_new": true,
+            "direction": "as_is"
+          }
+        }
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "releasedEvent",
+          "signature": "CreativeWork → PublicationEvent",
+          "parent": null,
+          "inverse_of": null,
+          "score": -5.9847,
+          "matched_anchor": null,
+          "comment": "A released event relation between a creative work and the publication event marking its release. Also called release event, launch event. Examples: \"A movie has a released event 'Premiere at Cannes Film Festival'.\", \"A book has a released event 'Book Launch Party'.\", \"A video game has a released event 'E3 Announcement'.\"",
+          "embed_score": 0.762,
+          "embed_rank": 4
+        },
+        {
+          "source": "schema.org",
+          "label": "releaseDate",
+          "signature": "Product → Date",
+          "parent": null,
+          "inverse_of": null,
+          "score": -9.3935,
+          "matched_anchor": null,
+          "comment": "A release date relation between a product and the date it was made available to the public. Also called launch date, availability date, publication date. Examples: \"A new smartphone model has a release date of 2024-03-01.\", \"A software update has a release date of 2023-11-15.\", \"A new car model has a release date of 2025-01-01.\". Distinct from productionDate, which is when the item was manufactured.",
+          "embed_score": 0.775,
+          "embed_rank": 1
+        },
+        {
+          "source": "schema.org",
+          "label": "productionCompany",
+          "signature": "CreativeWorkSeason/Episode/MediaObject/Movie/MovieSeries/RadioSeries/TVSeries/VideoGameSeries → Organization",
+          "parent": null,
+          "inverse_of": null,
+          "score": -9.6431,
+          "matched_anchor": null,
+          "comment": "A production relation between a creative work (like a movie or series) and the organization responsible for its creation. Also called produced by, studio, made by, created by. Examples: \"The movie 'Dune' was produced by Legendary Pictures.\", \"The TV series 'The Crown' was produced by Left Bank Pictures.\", \"The video game 'Cyberpunk 2077' was produced by CD Projekt Red.\"",
+          "embed_score": 0.717,
+          "embed_rank": 33
+        },
+        {
+          "source": "schema.org",
+          "label": "gameEdition",
+          "signature": "VideoGame → Text",
+          "parent": null,
+          "inverse_of": null,
+          "score": -9.9416,
+          "matched_anchor": null,
+          "comment": "A game edition relation between a video game and its specific version or release edition. Also called: game version, release edition, special edition. Examples: \"Cyberpunk 2077\" game edition \"Ultimate Edition\", \"The Witcher 3\" game edition \"Game of the Year Edition\", \"Minecraft\" game edition \"Java Edition\".",
+          "embed_score": 0.726,
+          "embed_rank": 17
+        },
+        {
+          "source": "schema.org",
+          "label": "releaseOf",
+          "signature": "MusicRelease → MusicAlbum",
+          "parent": null,
+          "inverse_of": "albumRelease",
+          "score": -10.0916,
+          "matched_anchor": null,
+          "comment": "A release of relation between a music release and the music album it originates from. Also called part of album, from album. Examples: \"A music release 'Single A' is a release of 'Album X'.\", \"A digital track is a release of 'The Greatest Hits Album'.\", \"A vinyl edition is a release of 'Classic Rock Album'.\"",
+          "embed_score": 0.771,
+          "embed_rank": 2
+        },
+        {
+          "source": "schema.org",
+          "label": "catalogNumber",
+          "signature": "MusicRelease → Text",
+          "parent": null,
+          "inverse_of": null,
+          "score": -10.2195,
+          "matched_anchor": null,
+          "comment": "An identification relation between a music release and its unique catalog number. Also called \"release ID\", \"record label number\", \"product number\". Examples: \"Album release catalogNumber 'ABC-123'\", \"Single release catalogNumber 'XYZ-456'\".",
+          "embed_score": 0.739,
+          "embed_rank": 10
+        },
+        {
+          "source": "schema.org",
+          "label": "modelDate",
+          "signature": "Vehicle → Date",
+          "parent": null,
+          "inverse_of": null,
+          "score": -10.5228,
+          "matched_anchor": null,
+          "comment": "A model date relation between a vehicle and the release date of its model. Also called: model year, release date, version date. Examples: \"Car modelDate 2023-09-01\", \"Motorcycle modelDate 2024-01-15\", \"Truck modelDate 2022-07-01\".",
+          "embed_score": 0.726,
+          "embed_rank": 18
+        },
+        {
+          "source": "schema.org",
+          "label": "workPresented",
+          "signature": "ScreeningEvent → Movie",
+          "parent": "workFeatured",
+          "inverse_of": null,
+          "score": -10.523,
+          "matched_anchor": null,
+          "comment": "A presented work relation between a screening event and a movie, identifying the film shown during that event. Also called screened movie, film shown, featured film. Examples: ScreeningEvent workPresented \"The Matrix\", FilmFestivalEvent workPresented \"Parasite\", DriveInMovie workPresented \"Jaws\". Distinct from workFeatured, which is a general showcasing, and workPerformed, which is for live enactments.",
+          "embed_score": 0.744,
+          "embed_rank": 8
+        },
+        {
+          "source": "schema.org",
+          "label": "datePublished",
+          "signature": "Certification/CreativeWork → Date/DateTime",
+          "parent": null,
+          "inverse_of": null,
+          "score": -10.5593,
+          "matched_anchor": null,
+          "comment": "A temporal release relation between a certification or creative work and its date of first publication or broadcast. Also called: publication date, broadcast date, release date. Examples: \"Book\" date published \"1984-06-08\", \"TV Show Episode\" date published \"2023-01-01\", \"Certification\" date published \"2022-12-01\". Distinct from dateCreated, which is the date of creation, and datePosted, which is for online listings.",
+          "embed_score": 0.757,
+          "embed_rank": 5
+        },
+        {
+          "source": "schema.org",
+          "label": "vehicleModelDate",
+          "signature": "Vehicle → Date",
+          "parent": null,
+          "inverse_of": null,
+          "score": -10.592,
+          "matched_anchor": null,
+          "comment": "A vehicle model date relation between a vehicle and the release date of its model. Also called model year, release date, version date. Examples: \"Vehicle vehicleModelDate '2023-01-01'\", \"Car vehicleModelDate '2024'\", \"Vehicle vehicleModelDate '2022-09-15'\".",
+          "embed_score": 0.722,
+          "embed_rank": 23
+        }
+      ]
+    },
+    {
+      "relation_phrase": "produced by",
+      "definition": "The movie was produced by a certain film studio.",
+      "embedding_query_text": "produced by: The movie was produced by a certain film studio.",
+      "observed_signatures": [
+        "Movie → FilmStudio"
+      ],
+      "n_assignments": 1,
+      "assignments": [
+        {
+          "instances": [
+            "Spider-Man: Brand New Day -> Sony Pictures",
+            "Spider-Man: Brand New Day -> Marvel Studios",
+            "Spider-Man: Brand New Day -> Columbia Pictures",
+            "Spider-Man: Brand New Day -> Pascal Pictures"
+          ],
+          "chosen_property": {
+            "label": "productionCompany",
+            "source": "schema.org",
+            "direction": "as_is",
+            "vocab_id": null,
+            "is_new_to_vocab": false,
+            "definition": null,
+            "parent": null,
+            "domain": null,
+            "range": null,
+            "path": "",
+            "justification": "The top-ranked candidate matches the relation."
+          },
+          "llm_proposed": {
+            "source": "schema.org",
+            "label": "productionCompany",
+            "is_new": false,
+            "direction": "as_is"
+          }
+        }
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "productionCompany",
+          "signature": "CreativeWorkSeason/Episode/MediaObject/Movie/MovieSeries/RadioSeries/TVSeries/VideoGameSeries → Organization",
+          "parent": null,
+          "inverse_of": null,
+          "score": 7.3017,
+          "matched_anchor": null,
+          "comment": "A production relation between a creative work (like a movie or series) and the organization responsible for its creation. Also called produced by, studio, made by, created by. Examples: \"The movie 'Dune' was produced by Legendary Pictures.\", \"The TV series 'The Crown' was produced by Left Bank Pictures.\", \"The video game 'Cyberpunk 2077' was produced by CD Projekt Red.\"",
+          "embed_score": 0.811,
+          "embed_rank": 1
+        },
+        {
+          "source": "schema.org",
+          "label": "producer",
+          "signature": "CreativeWork → Organization/Person",
+          "parent": null,
+          "inverse_of": null,
+          "score": -1.2645,
+          "matched_anchor": null,
+          "comment": "A creative role relation between a creative work and the person or organization responsible for its production. Also called production company, executive producer, creator, maker. Examples: A movie has a producer 'Steven Spielberg'. A music album has a producer 'Universal Music Group'. A TV series has a producer 'Shonda Rhimes'. Distinct from director, who is responsible for the creative vision.",
+          "embed_score": 0.791,
+          "embed_rank": 2
+        },
+        {
+          "source": "schema.org",
+          "label": "directors",
+          "signature": "Clip/Episode/Movie/MovieSeries/RadioSeries/TVSeries/VideoGame/VideoGameSeries/VideoObject → Person",
+          "parent": null,
+          "inverse_of": null,
+          "score": -5.4728,
+          "matched_anchor": null,
+          "comment": "A creative leadership relation between a clip, episode, movie, or video game and the persons who directed it. Also called: directed by, filmmakers, showrunners. Examples: \"Movie\" directors \"Joel Coen, Ethan Coen\", \"TV Episode\" directors \"Various Directors\", \"Video Game\" directors \"Hideo Kojima, Yoji Shinkawa\". Distinct from director, which is a singular property for a single director.",
+          "embed_score": 0.742,
+          "embed_rank": 22
+        },
+        {
+          "source": "schema.org",
+          "label": "manufacturer",
+          "signature": "Product → Organization",
+          "parent": null,
+          "inverse_of": null,
+          "score": -5.8903,
+          "matched_anchor": null,
+          "comment": "A manufacturing relation between a product and the organization that produced it. Also called: produced by, made by, fabricated by. Examples: \"Smartphone manufacturer Apple\", \"Automobile manufacturer Toyota\", \"Furniture manufacturer IKEA\".",
+          "embed_score": 0.774,
+          "embed_rank": 3
+        },
+        {
+          "source": "schema.org",
+          "label": "countryOfOrigin",
+          "signature": "CreativeWork/Movie/Product/TVEpisode/TVSeason/TVSeries → Country",
+          "parent": null,
+          "inverse_of": null,
+          "score": -6.4988,
+          "matched_anchor": null,
+          "comment": "A provenance relation between a creative work or product and its country of origin. Also called: origin country, produced in, made in. Examples: \"French Wine\" country of origin \"France\", \"Japanese Anime\" country of origin \"Japan\", \"German Car\" country of origin \"Germany\", \"Hollywood Movie\" country of origin \"United States\". Distinct from countryOfAssembly, which specifies where the product was put together.",
+          "embed_score": 0.752,
+          "embed_rank": 10
+        },
+        {
+          "source": "schema.org",
+          "label": "workPresented",
+          "signature": "ScreeningEvent → Movie",
+          "parent": "workFeatured",
+          "inverse_of": null,
+          "score": -8.1908,
+          "matched_anchor": null,
+          "comment": "A presented work relation between a screening event and a movie, identifying the film shown during that event. Also called screened movie, film shown, featured film. Examples: ScreeningEvent workPresented \"The Matrix\", FilmFestivalEvent workPresented \"Parasite\", DriveInMovie workPresented \"Jaws\". Distinct from workFeatured, which is a general showcasing, and workPerformed, which is for live enactments.",
+          "embed_score": 0.764,
+          "embed_rank": 4
+        },
+        {
+          "source": "schema.org",
+          "label": "locationCreated",
+          "signature": "CreativeWork → Place",
+          "parent": null,
+          "inverse_of": null,
+          "score": -8.6637,
+          "matched_anchor": null,
+          "comment": "A creation location relation between a creative work and the place where it was created. Also called: place of creation, origin location, created in. Examples: \"Painting locationCreated Paris\", \"Novel locationCreated London\", \"Film locationCreated Hollywood\". Distinct from location, which refers to the current or general location of an entity.",
+          "embed_score": 0.737,
+          "embed_rank": 29
+        },
+        {
+          "source": "schema.org",
+          "label": "musicBy",
+          "signature": "Clip/Episode/Movie/MovieSeries/RadioSeries/TVSeries/VideoGame/VideoGameSeries/VideoObject → MusicGroup/Person",
+          "parent": null,
+          "inverse_of": null,
+          "score": -8.7052,
+          "matched_anchor": null,
+          "comment": "A composer or music group responsible for the soundtrack of a creative work. Also called soundtrack by, composer of, musical score by. Examples: \"Movie X musicBy 'John Williams'\", \"TV Series Y musicBy 'Ramin Djawadi'\", \"Video Game Z musicBy 'Koji Kondo'\". Distinct from composer, which is for the composer of a MusicComposition.",
+          "embed_score": 0.755,
+          "embed_rank": 7
+        },
+        {
+          "source": "schema.org",
+          "label": "recordedIn",
+          "signature": "Event → CreativeWork",
+          "parent": null,
+          "inverse_of": "recordedAt",
+          "score": -9.0185,
+          "matched_anchor": null,
+          "comment": "A recording capture relation between an event and the creative work that captured all or part of it. Also called captured by, documented in, featured in. Examples: \"A concert event was recorded in 'a live album'.\", \"A historical event was recorded in 'a documentary film'.\", \"A speech event was recorded in 'a news broadcast'.\". Distinct from recordedAt, which is the inverse relation.",
+          "embed_score": 0.744,
+          "embed_rank": 18
+        },
+        {
+          "source": "schema.org",
+          "label": "creator",
+          "signature": "CreativeWork/UserComments → Organization/Person",
+          "parent": null,
+          "inverse_of": null,
+          "score": -9.0293,
+          "matched_anchor": null,
+          "comment": "An authorship relation between a creative work or user comment and the person or organization responsible for its creation. Also called: author, originator, producer, made by. Examples: \"Novel\" creator \"Jane Doe\", \"Software\" creator \"Acme Corp.\", \"Blog Post\" creator \"John Smith\", \"User Review\" creator \"Anonymous User\". Distinct from copyrightHolder, which is about legal ownership.",
+          "embed_score": 0.747,
+          "embed_rank": 13
+        }
+      ]
+    },
+    {
+      "relation_phrase": "stars",
+      "definition": "The movie stars a certain actor or actress.",
+      "embedding_query_text": "stars: The movie stars a certain actor or actress.",
+      "observed_signatures": [
+        "Movie → Actor",
+        "Movie → Actress"
+      ],
+      "n_assignments": 1,
+      "assignments": [
+        {
+          "instances": [
+            "Spider-Man: Brand New Day -> Tom Holland",
+            "Spider-Man: Brand New Day -> Zendaya"
+          ],
+          "chosen_property": {
+            "label": "actor",
+            "source": "schema.org",
+            "direction": "as_is",
+            "vocab_id": null,
+            "is_new_to_vocab": false,
+            "definition": null,
+            "parent": null,
+            "domain": null,
+            "range": null,
+            "path": "",
+            "justification": "The top-ranked candidate matches the relation."
+          },
+          "llm_proposed": {
+            "source": "schema.org",
+            "label": "actor",
+            "is_new": false,
+            "direction": "as_is"
+          }
+        }
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "actors",
+          "signature": "Clip/Episode/Movie/MovieSeries/RadioSeries/TVSeries/VideoGame/VideoGameSeries/VideoObject → Person",
+          "parent": null,
+          "inverse_of": null,
+          "score": 1.0757,
+          "matched_anchor": null,
+          "comment": "An actor relation between a creative work (e.g., movie, episode, video game) and a person who performs in it. Also called performer, cast member, player. Examples: \"A movie's actors include 'Brad Pitt'.\", \"An episode's actors include 'Jennifer Aniston'.\" Distinct from actor, which is the preferred and more general property that also allows PerformingGroup.",
+          "embed_score": 0.801,
+          "embed_rank": 1
+        },
+        {
+          "source": "schema.org",
+          "label": "actor",
+          "signature": "Clip/CreativeWorkSeason/Episode/Event/Movie/MovieSeries/PodcastSeries/RadioSeries/TVSeries/VideoGame/VideoGameSeries/VideoObject → PerformingGroup/Person",
+          "parent": null,
+          "inverse_of": null,
+          "score": -0.6576,
+          "matched_anchor": null,
+          "comment": "An actor relation between a creative work (e.g., movie, episode, video game) or event and a person or performing group who performs in it. Also called performer, cast member, player. Examples: \"A movie's actor is 'Tom Hanks'.\", \"A play's actor is 'The Ensemble Theatre'.\", \"An episode's actor is 'Jane Doe'.\" Distinct from actors, which is a deprecated property for the same concept.",
+          "embed_score": 0.789,
+          "embed_rank": 2
+        },
+        {
+          "source": "schema.org",
+          "label": "character",
+          "signature": "CreativeWork → Person",
+          "parent": null,
+          "inverse_of": null,
+          "score": -6.9789,
+          "matched_anchor": null,
+          "comment": "A fictional role relation between a creative work and a person who is a character within it. Also called \"fictional person\", \"role played by\", \"depicted character\". Examples: \"Novel 'Pride and Prejudice' character Elizabeth Bennet\", \"Movie 'Star Wars' character Luke Skywalker\".",
+          "embed_score": 0.755,
+          "embed_rank": 5
+        },
+        {
+          "source": "schema.org",
+          "label": "characterName",
+          "signature": "PerformanceRole → Text",
+          "parent": null,
+          "inverse_of": null,
+          "score": -7.2051,
+          "matched_anchor": null,
+          "comment": "A naming relation for a performance role, indicating the name of the character being played. Also called \"role name\", \"played character\", \"fictional name\". Examples: \"Actor's performance role characterName 'Hamlet'\", \"Actress's performance role characterName 'Juliet'\". Distinct from character, which refers to the fictional person itself, whereas characterName is the name of the character in a specific performance.",
+          "embed_score": 0.762,
+          "embed_rank": 4
+        },
+        {
+          "source": "schema.org",
+          "label": "performerIn",
+          "signature": "Person → Event",
+          "parent": null,
+          "inverse_of": null,
+          "score": -9.569,
+          "matched_anchor": null,
+          "comment": "A participation role relation between a person and an event in which they perform or participate. Also called performs in, participates in, acts in, presents at. Examples: John Doe is a performer in 'The Annual Gala'. Jane Smith is a performer in 'The City Marathon'. An actor is a performer in 'The New Play'. Distinct from performer, which points from an event to a person.",
+          "embed_score": 0.726,
+          "embed_rank": 23
+        },
+        {
+          "source": "schema.org",
+          "label": "performer",
+          "signature": "Event → Organization/Person",
+          "parent": null,
+          "inverse_of": null,
+          "score": -9.8148,
+          "matched_anchor": null,
+          "comment": "A participation role relation between an event and an organization or person who performs at it. Also called artist, entertainer, presenter, actor. Examples: A concert has a performer 'Taylor Swift'. A play has a performer 'Meryl Streep'. A conference has a performer 'Dr. Jane Doe'. Distinct from performerIn, which points from a person to an event.",
+          "embed_score": 0.739,
+          "embed_rank": 12
+        },
+        {
+          "source": "schema.org",
+          "label": "performers",
+          "signature": "Event → Organization/Person",
+          "parent": null,
+          "inverse_of": null,
+          "score": -10.2891,
+          "matched_anchor": null,
+          "comment": "A participation role relation between an event and its primary performers, who can be organizations or persons. Also called main artists, headliners, principal actors, featured performers. Examples: A concert has performers 'Coldplay'. A play has performers 'The Royal Shakespeare Company'. A festival has performers 'Various Artists'. Distinct from performer, which can be any performer, not necessarily the main one.",
+          "embed_score": 0.762,
+          "embed_rank": 3
+        },
+        {
+          "source": "schema.org",
+          "label": "agent",
+          "signature": "Action → Organization/Person",
+          "parent": null,
+          "inverse_of": null,
+          "score": -10.4423,
+          "matched_anchor": null,
+          "comment": "An agent relation between an action and the organization or person who directly performs or drives it. Also called performer, doer, initiator, actor. Examples: \"A 'write book' action's agent is 'John Doe'.\", \"A 'deliver package' action's agent is 'Delivery Service Inc'.\"",
+          "embed_score": 0.719,
+          "embed_rank": 50
+        },
+        {
+          "source": "schema.org",
+          "label": "producer",
+          "signature": "CreativeWork → Organization/Person",
+          "parent": null,
+          "inverse_of": null,
+          "score": -10.5509,
+          "matched_anchor": null,
+          "comment": "A creative role relation between a creative work and the person or organization responsible for its production. Also called production company, executive producer, creator, maker. Examples: A movie has a producer 'Steven Spielberg'. A music album has a producer 'Universal Music Group'. A TV series has a producer 'Shonda Rhimes'. Distinct from director, who is responsible for the creative vision.",
+          "embed_score": 0.724,
+          "embed_rank": 28
+        },
+        {
+          "source": "schema.org",
+          "label": "reviewAspect",
+          "signature": "Guide/Rating/Review → StructuredValue/Text",
+          "parent": null,
+          "inverse_of": null,
+          "score": -10.5759,
+          "matched_anchor": null,
+          "comment": "The specific part, feature, or facet of an item that a review or rating pertains to. Also called review focus, aspect reviewed, rating dimension. Examples: `Restaurant Review` reviewAspect `\"Service Quality\"`, `Product Rating` reviewAspect `\"Battery Life\"`, `Movie Review` reviewAspect `\"Acting Performance\"`.",
+          "embed_score": 0.719,
+          "embed_rank": 45
+        }
+      ]
+    },
+    {
+      "relation_phrase": "has production budget",
+      "definition": "The movie has a certain production budget.",
+      "embedding_query_text": "has production budget: The movie has a certain production budget.",
+      "observed_signatures": [
+        "Movie → ProductionBudget"
+      ],
+      "n_assignments": 1,
+      "assignments": [
+        {
+          "instances": [
+            "Spider-Man: Brand New Day -> $225 million"
+          ],
+          "chosen_property": {
+            "label": "hasProductionBudget",
+            "source": "vocab",
+            "direction": "as_is",
+            "vocab_id": "P0107",
+            "is_new_to_vocab": true,
+            "definition": "The movie has a certain production budget.",
+            "parent": null,
+            "domain": [
+              "Movie"
+            ],
+            "range": [
+              "ProductionBudget"
+            ],
+            "path": "",
+            "justification": "No existing schema.org property fits this relation."
+          },
+          "llm_proposed": {
+            "source": "new",
+            "label": "hasProductionBudget",
+            "is_new": true,
+            "direction": "as_is"
+          }
+        }
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "productionCompany",
+          "signature": "CreativeWorkSeason/Episode/MediaObject/Movie/MovieSeries/RadioSeries/TVSeries/VideoGameSeries → Organization",
+          "parent": null,
+          "inverse_of": null,
+          "score": -4.5063,
+          "matched_anchor": null,
+          "comment": "A production relation between a creative work (like a movie or series) and the organization responsible for its creation. Also called produced by, studio, made by, created by. Examples: \"The movie 'Dune' was produced by Legendary Pictures.\", \"The TV series 'The Crown' was produced by Left Bank Pictures.\", \"The video game 'Cyberpunk 2077' was produced by CD Projekt Red.\"",
+          "embed_score": 0.805,
+          "embed_rank": 1
+        },
+        {
+          "source": "schema.org",
+          "label": "producer",
+          "signature": "CreativeWork → Organization/Person",
+          "parent": null,
+          "inverse_of": null,
+          "score": -6.4255,
+          "matched_anchor": null,
+          "comment": "A creative role relation between a creative work and the person or organization responsible for its production. Also called production company, executive producer, creator, maker. Examples: A movie has a producer 'Steven Spielberg'. A music album has a producer 'Universal Music Group'. A TV series has a producer 'Shonda Rhimes'. Distinct from director, who is responsible for the creative vision.",
+          "embed_score": 0.783,
+          "embed_rank": 2
+        },
+        {
+          "source": "schema.org",
+          "label": "productionDate",
+          "signature": "Product/Vehicle → Date",
+          "parent": null,
+          "inverse_of": null,
+          "score": -7.3096,
+          "matched_anchor": null,
+          "comment": "A production date relation between a product or vehicle and the specific date it was manufactured. Also called manufactured on, made on, creation date. Examples: \"A 2023 Toyota Camry has a production date of 2022-11-15.\", \"A vintage car has a production date of 1965-03-01.\", \"A smartphone has a production date of 2024-01-20.\"",
+          "embed_score": 0.777,
+          "embed_rank": 4
+        },
+        {
+          "source": "schema.org",
+          "label": "workPresented",
+          "signature": "ScreeningEvent → Movie",
+          "parent": "workFeatured",
+          "inverse_of": null,
+          "score": -10.8884,
+          "matched_anchor": null,
+          "comment": "A presented work relation between a screening event and a movie, identifying the film shown during that event. Also called screened movie, film shown, featured film. Examples: ScreeningEvent workPresented \"The Matrix\", FilmFestivalEvent workPresented \"Parasite\", DriveInMovie workPresented \"Jaws\". Distinct from workFeatured, which is a general showcasing, and workPerformed, which is for live enactments.",
+          "embed_score": 0.764,
+          "embed_rank": 6
+        },
+        {
+          "source": "schema.org",
+          "label": "albumProductionType",
+          "signature": "MusicAlbum → MusicAlbumProductionType",
+          "parent": null,
+          "inverse_of": null,
+          "score": -10.9717,
+          "matched_anchor": null,
+          "comment": "An album production type relation between a music album and its classification based on content type (e.g., studio, live, soundtrack). Also called album category, production style, content type. Examples: \"A music album's production type is 'StudioAlbum'.\", \"The album's production type is 'LiveAlbum'.\"",
+          "embed_score": 0.783,
+          "embed_rank": 3
+        },
+        {
+          "source": "schema.org",
+          "label": "directors",
+          "signature": "Clip/Episode/Movie/MovieSeries/RadioSeries/TVSeries/VideoGame/VideoGameSeries/VideoObject → Person",
+          "parent": null,
+          "inverse_of": null,
+          "score": -10.9802,
+          "matched_anchor": null,
+          "comment": "A creative leadership relation between a clip, episode, movie, or video game and the persons who directed it. Also called: directed by, filmmakers, showrunners. Examples: \"Movie\" directors \"Joel Coen, Ethan Coen\", \"TV Episode\" directors \"Various Directors\", \"Video Game\" directors \"Hideo Kojima, Yoji Shinkawa\". Distinct from director, which is a singular property for a single director.",
+          "embed_score": 0.747,
+          "embed_rank": 37
+        },
+        {
+          "source": "schema.org",
+          "label": "funding",
+          "signature": "BioChemEntity/CreativeWork/Event/MedicalEntity/Organization/Person/Product → Grant",
+          "parent": null,
+          "inverse_of": "fundedItem",
+          "score": -10.9953,
+          "matched_anchor": null,
+          "comment": "A funding relation between a biochemical entity, creative work, event, medical entity, organization, person, or product and the grant that provides its direct or indirect financial support. Also called: grant received, sponsorship, financial support. Examples: \"Cancer Research Project\" funding \"NIH Grant R01\", \"Local Theater Production\" funding \"Arts Council Grant\", \"Student Scholarship Program\" funding \"University Endowment Grant\". Distinct from funder, which is the entity providing the funding.",
+          "embed_score": 0.767,
+          "embed_rank": 5
+        },
+        {
+          "source": "schema.org",
+          "label": "director",
+          "signature": "Clip/CreativeWorkSeason/Episode/Event/Movie/MovieSeries/RadioSeries/TVSeries/VideoGame/VideoGameSeries/VideoObject → Person",
+          "parent": null,
+          "inverse_of": null,
+          "score": -11.0226,
+          "matched_anchor": null,
+          "comment": "A creative leadership relation between a clip, creative work season, episode, event, movie, or video game and a person who directed it. Also called: directed by, filmmaker, showrunner. Examples: \"Movie\" director \"Steven Spielberg\", \"TV Episode\" director \"Ava DuVernay\", \"Video Game\" director \"Hideo Kojima\". Distinct from directors, which is a plural property for multiple directors.",
+          "embed_score": 0.749,
+          "embed_rank": 27
+        },
+        {
+          "source": "schema.org",
+          "label": "countryOfOrigin",
+          "signature": "CreativeWork/Movie/Product/TVEpisode/TVSeason/TVSeries → Country",
+          "parent": null,
+          "inverse_of": null,
+          "score": -11.0235,
+          "matched_anchor": null,
+          "comment": "A provenance relation between a creative work or product and its country of origin. Also called: origin country, produced in, made in. Examples: \"French Wine\" country of origin \"France\", \"Japanese Anime\" country of origin \"Japan\", \"German Car\" country of origin \"Germany\", \"Hollywood Movie\" country of origin \"United States\". Distinct from countryOfAssembly, which specifies where the product was put together.",
+          "embed_score": 0.751,
+          "embed_rank": 20
+        },
+        {
+          "source": "schema.org",
+          "label": "typicalAgeRange",
+          "signature": "CreativeWork/Event → Text",
+          "parent": null,
+          "inverse_of": null,
+          "score": -11.0976,
+          "matched_anchor": null,
+          "comment": "A typical age range relation between a creative work or event and the expected age group of its audience. Also called age suitability, target age, recommended age. Examples: \"Book typicalAgeRange '7-9'\", \"Movie typicalAgeRange '13+'\", \"Event typicalAgeRange 'all ages'\".",
+          "embed_score": 0.751,
+          "embed_rank": 21
+        }
+      ]
+    },
+    {
+      "relation_phrase": "made by",
+      "definition": "The claim was made by a certain person.",
+      "embedding_query_text": "made by: The claim was made by a certain person.",
+      "observed_signatures": [
+        "ProducerStatement → FilmProducer",
+        "ProducerStatement → FilmExecutive"
+      ],
+      "n_assignments": 1,
+      "assignments": [
+        {
+          "instances": [
+            "Kevin Feige on Spider-Man: Brand New Day -> Kevin Feige",
+            "Tom Rothman on Spider-Man: Brand New Day -> Tom Rothman"
+          ],
+          "chosen_property": {
+            "label": "creator",
+            "source": "schema.org",
+            "direction": "as_is",
+            "vocab_id": null,
+            "is_new_to_vocab": false,
+            "definition": null,
+            "parent": null,
+            "domain": null,
+            "range": null,
+            "path": "",
+            "justification": "The top-ranked candidate matches the relation."
+          },
+          "llm_proposed": {
+            "source": "schema.org",
+            "label": "creator",
+            "is_new": false,
+            "direction": "as_is"
+          }
+        }
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "legislationPassedBy",
+          "signature": "Legislation → Organization/Person",
+          "parent": "creator",
+          "inverse_of": null,
+          "score": -2.1536,
+          "matched_anchor": null,
+          "comment": "A passing authority relation between a piece of legislation and the organization or person that originally enacted it. Also called: enacted by, made by, legislated by. Examples: \"Primary Legislation legislationPassedBy Parliament\", \"Secondary Legislation legislationPassedBy Government\", \"Local Bylaw legislationPassedBy City Council\". Distinct from legislationResponsible, which refers to the ministry or individual in charge of elaborating or addressing questions about the legislation.",
+          "embed_score": 0.746,
+          "embed_rank": 37
+        },
+        {
+          "source": "schema.org",
+          "label": "claimInterpreter",
+          "signature": "Claim → Organization/Person",
+          "parent": null,
+          "inverse_of": null,
+          "score": -3.0575,
+          "matched_anchor": null,
+          "comment": "An interpretation relation between a claim and the organization or person who interpreted it from media content. Also called \"interpreted by\", \"claim analyst\", \"fact-checker\". Examples: \"News claim claimInterpreter FactCheck.org\", \"Social media claim claimInterpreter Jane Doe\".",
+          "embed_score": 0.779,
+          "embed_rank": 3
+        },
+        {
+          "source": "schema.org",
+          "label": "manufacturer",
+          "signature": "Product → Organization",
+          "parent": null,
+          "inverse_of": null,
+          "score": -4.1429,
+          "matched_anchor": null,
+          "comment": "A manufacturing relation between a product and the organization that produced it. Also called: produced by, made by, fabricated by. Examples: \"Smartphone manufacturer Apple\", \"Automobile manufacturer Toyota\", \"Furniture manufacturer IKEA\".",
+          "embed_score": 0.767,
+          "embed_rank": 8
+        },
+        {
+          "source": "schema.org",
+          "label": "interpretedAsClaim",
+          "signature": "CreativeWork/MediaObject → Claim",
+          "parent": "description",
+          "inverse_of": null,
+          "score": -4.2718,
+          "matched_anchor": null,
+          "comment": "A claim extraction relation between a creative work or media object and a specific assertion or statement derived from its content. Also called contains claim, implies claim, claim extracted from, claim derived from. Examples: A news article is interpretedAsClaim 'The sky is blue'. A scientific paper is interpretedAsClaim 'Drug X cures Y'. A video is interpretedAsClaim 'Candidate Z made promise A'.",
+          "embed_score": 0.777,
+          "embed_rank": 4
+        },
+        {
+          "source": "schema.org",
+          "label": "creator",
+          "signature": "CreativeWork/UserComments → Organization/Person",
+          "parent": null,
+          "inverse_of": null,
+          "score": -5.0091,
+          "matched_anchor": null,
+          "comment": "An authorship relation between a creative work or user comment and the person or organization responsible for its creation. Also called: author, originator, producer, made by. Examples: \"Novel\" creator \"Jane Doe\", \"Software\" creator \"Acme Corp.\", \"Blog Post\" creator \"John Smith\", \"User Review\" creator \"Anonymous User\". Distinct from copyrightHolder, which is about legal ownership.",
+          "embed_score": 0.787,
+          "embed_rank": 1
+        },
+        {
+          "source": "schema.org",
+          "label": "firstAppearance",
+          "signature": "Claim → CreativeWork",
+          "parent": "workExample",
+          "inverse_of": null,
+          "score": -6.3854,
+          "matched_anchor": null,
+          "comment": "A first appearance relation between a claim and the creative work where it was initially known to occur. Also called: initial publication, original mention, debut in. Examples: \"Claim: Earth is flat\" first appearance \"Ancient Greek Texts\", \"Claim: COVID-19 is a hoax\" first appearance \"Social Media Post\", \"Claim: New drug cures cancer\" first appearance \"Unverified Online Article\".",
+          "embed_score": 0.748,
+          "embed_rank": 30
+        },
+        {
+          "source": "schema.org",
+          "label": "legislationCountersignedBy",
+          "signature": "Legislation → Organization/Person",
+          "parent": null,
+          "inverse_of": null,
+          "score": -7.2582,
+          "matched_anchor": null,
+          "comment": "A countersignature relation between a piece of legislation and the person or organization that countersigned it. Also called: countersigned by, officially endorsed by, co-signed by. Examples: \"The Bill of Rights legislationCountersignedBy President Washington\", \"EU Directive 2023/45 legislationCountersignedBy European Commission\", \"Local Ordinance legislationCountersignedBy City Clerk\".",
+          "embed_score": 0.746,
+          "embed_rank": 38
+        },
+        {
+          "source": "schema.org",
+          "label": "owner",
+          "signature": "Thing → Organization/Person",
+          "parent": null,
+          "inverse_of": "owns",
+          "score": -7.9856,
+          "matched_anchor": null,
+          "comment": "A person or organization that owns a thing. Also called proprietor, possessor, title holder. Examples: \"Car owner 'John Doe'\", \"Company owner 'Acme Corp'\", \"House owner 'Smith Family Trust'\". Distinct from creator, who made the thing.",
+          "embed_score": 0.758,
+          "embed_rank": 15
+        },
+        {
+          "source": "schema.org",
+          "label": "founder",
+          "signature": "Organization → Organization/Person",
+          "parent": null,
+          "inverse_of": null,
+          "score": -8.1079,
+          "matched_anchor": null,
+          "comment": "A founder relation between an organization and the person or organization that established it. Also called: established by, created by, initiated by. Examples: \"Microsoft\" founder \"Bill Gates\", \"Apple Inc.\" founder \"Steve Jobs\", \"Google\" founder \"Larry Page\". Distinct from founders, which is specifically for multiple people.",
+          "embed_score": 0.754,
+          "embed_rank": 20
+        },
+        {
+          "source": "schema.org",
+          "label": "claimReviewed",
+          "signature": "ClaimReview → Text",
+          "parent": null,
+          "inverse_of": null,
+          "score": -8.1807,
+          "matched_anchor": null,
+          "comment": "A summary relation for a claim review, providing a short text of the specific claims being reviewed. Also called \"reviewed claim\", \"claim summary\", \"subject of review\". Examples: \"Fact-check review claimReviewed 'Eating apples cures cancer'\", \"Product claim review claimReviewed 'This product doubles battery life'\".",
+          "embed_score": 0.776,
+          "embed_rank": 6
+        }
+      ]
+    },
+    {
+      "relation_phrase": "competed with",
+      "definition": "The movie competed with another movie at the box office.",
+      "embedding_query_text": "competed with: The movie competed with another movie at the box office.",
+      "observed_signatures": [
+        "Movie → Movie"
+      ],
+      "n_assignments": 1,
+      "assignments": [
+        {
+          "instances": [
+            "Spider-Man: Brand New Day -> The Odyssey"
+          ],
+          "chosen_property": {
+            "label": "competedWith",
+            "source": "vocab",
+            "direction": "as_is",
+            "vocab_id": "P0108",
+            "is_new_to_vocab": true,
+            "definition": "The movie competed with another movie at the box office.",
+            "parent": null,
+            "domain": [
+              "Movie"
+            ],
+            "range": [
+              "Movie"
+            ],
+            "path": "",
+            "justification": "No existing schema.org property fits this relation."
+          },
+          "llm_proposed": {
+            "source": "new",
+            "label": "competedWith",
+            "is_new": true,
+            "direction": "as_is"
+          }
+        }
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "workPresented",
+          "signature": "ScreeningEvent → Movie",
+          "parent": "workFeatured",
+          "inverse_of": null,
+          "score": -9.474,
+          "matched_anchor": null,
+          "comment": "A presented work relation between a screening event and a movie, identifying the film shown during that event. Also called screened movie, film shown, featured film. Examples: ScreeningEvent workPresented \"The Matrix\", FilmFestivalEvent workPresented \"Parasite\", DriveInMovie workPresented \"Jaws\". Distinct from workFeatured, which is a general showcasing, and workPerformed, which is for live enactments.",
+          "embed_score": 0.743,
+          "embed_rank": 2
+        },
+        {
+          "source": "schema.org",
+          "label": "releasedEvent",
+          "signature": "CreativeWork → PublicationEvent",
+          "parent": null,
+          "inverse_of": null,
+          "score": -10.455,
+          "matched_anchor": null,
+          "comment": "A released event relation between a creative work and the publication event marking its release. Also called release event, launch event. Examples: \"A movie has a released event 'Premiere at Cannes Film Festival'.\", \"A book has a released event 'Book Launch Party'.\", \"A video game has a released event 'E3 Announcement'.\"",
+          "embed_score": 0.714,
+          "embed_rank": 33
+        },
+        {
+          "source": "schema.org",
+          "label": "screenCount",
+          "signature": "MovieTheater → Number",
+          "parent": null,
+          "inverse_of": null,
+          "score": -10.4551,
+          "matched_anchor": null,
+          "comment": "The total number of projection screens available within a movie theater. Also called number of screens, theater screens, cinema screens. Examples: `Multiplex Cinema` screenCount `12`, `Local Movie House` screenCount `3`, `IMAX Theater` screenCount `1`.",
+          "embed_score": 0.727,
+          "embed_rank": 7
+        },
+        {
+          "source": "schema.org",
+          "label": "associatedReview",
+          "signature": "Review → Review",
+          "parent": null,
+          "inverse_of": null,
+          "score": -10.4669,
+          "matched_anchor": null,
+          "comment": "A review related to another review. Also called: linked review, related assessment. Examples: \"Review 'Product Review A' associatedReview 'Product Review B'\", \"Review 'Movie Review' associatedReview 'Critic Review'.\"",
+          "embed_score": 0.719,
+          "embed_rank": 21
+        },
+        {
+          "source": "schema.org",
+          "label": "productionCompany",
+          "signature": "CreativeWorkSeason/Episode/MediaObject/Movie/MovieSeries/RadioSeries/TVSeries/VideoGameSeries → Organization",
+          "parent": null,
+          "inverse_of": null,
+          "score": -10.566,
+          "matched_anchor": null,
+          "comment": "A production relation between a creative work (like a movie or series) and the organization responsible for its creation. Also called produced by, studio, made by, created by. Examples: \"The movie 'Dune' was produced by Legendary Pictures.\", \"The TV series 'The Crown' was produced by Left Bank Pictures.\", \"The video game 'Cyberpunk 2077' was produced by CD Projekt Red.\"",
+          "embed_score": 0.712,
+          "embed_rank": 44
+        },
+        {
+          "source": "schema.org",
+          "label": "award",
+          "signature": "CreativeWork/Organization/Person/Product/Service → Text",
+          "parent": null,
+          "inverse_of": null,
+          "score": -10.6003,
+          "matched_anchor": null,
+          "comment": "An award won by or for a creative work, organization, person, product, or service. Also called: honor, prize, recognition. Examples: \"CreativeWork 'Movie' award 'Oscar'\", \"Organization 'Company X' award 'Best Employer'\", \"Person 'Scientist' award 'Nobel Prize'\". Distinct from awards, which is the plural form.",
+          "embed_score": 0.714,
+          "embed_rank": 30
+        },
+        {
+          "source": "schema.org",
+          "label": "awards",
+          "signature": "CreativeWork/Organization/Person/Product → Text",
+          "parent": null,
+          "inverse_of": null,
+          "score": -10.7254,
+          "matched_anchor": null,
+          "comment": "Awards won by or for a creative work, organization, person, or product. Also called: honors, prizes, recognitions. Examples: \"CreativeWork 'Movie' awards 'Oscar'\", \"Organization 'Company X' awards 'Best Employer'\", \"Person 'Scientist' awards 'Nobel Prize'\". Distinct from award, which is the singular form.",
+          "embed_score": 0.716,
+          "embed_rank": 26
+        },
+        {
+          "source": "schema.org",
+          "label": "aggregateRating",
+          "signature": "Brand/CreativeWork/Event/Offer/Organization/Place/Product/Service → AggregateRating",
+          "parent": null,
+          "inverse_of": null,
+          "score": -10.7342,
+          "matched_anchor": null,
+          "comment": "An aggregate rating relation between an item (e.g., product, service, creative work) and its overall rating derived from multiple reviews. Also called overall score, collective rating, average review. Examples: \"A product's aggregate rating is '4.5 stars'.\", \"A movie's aggregate rating is '8.2/10'.\"",
+          "embed_score": 0.71,
+          "embed_rank": 50
+        },
+        {
+          "source": "schema.org",
+          "label": "competitor",
+          "signature": "SportsEvent → Person/SportsTeam",
+          "parent": null,
+          "inverse_of": null,
+          "score": -10.7375,
+          "matched_anchor": null,
+          "comment": "A participation relation in a sports event, indicating a person or sports team that is competing. Also called \"participant\", \"opponent\", \"rival\". Examples: \"Olympic race sports event competitor Usain Bolt\", \"Football match sports event competitor Manchester United\".",
+          "embed_score": 0.755,
+          "embed_rank": 1
+        },
+        {
+          "source": "schema.org",
+          "label": "actors",
+          "signature": "Clip/Episode/Movie/MovieSeries/RadioSeries/TVSeries/VideoGame/VideoGameSeries/VideoObject → Person",
+          "parent": null,
+          "inverse_of": null,
+          "score": -10.9647,
+          "matched_anchor": null,
+          "comment": "An actor relation between a creative work (e.g., movie, episode, video game) and a person who performs in it. Also called performer, cast member, player. Examples: \"A movie's actors include 'Brad Pitt'.\", \"An episode's actors include 'Jennifer Aniston'.\" Distinct from actor, which is the preferred and more general property that also allows PerformingGroup.",
+          "embed_score": 0.716,
+          "embed_rank": 27
+        }
+      ]
+    },
+    {
+      "relation_phrase": "has domestic box office",
+      "definition": "The movie has a certain domestic box office figure.",
+      "embedding_query_text": "has domestic box office: The movie has a certain domestic box office figure.",
+      "observed_signatures": [
+        "Movie → BoxOfficeFigure"
+      ],
+      "n_assignments": 1,
+      "assignments": [
+        {
+          "instances": [
+            "The Odyssey -> The Odyssey Domestic Box Office",
+            "Spider-Man: No Way Home -> $260 million",
+            "Minions & Monsters -> $5.8 million",
+            "Moana -> $911.4 million"
+          ],
+          "chosen_property": {
+            "label": "hasDomesticBoxOffice",
+            "source": "vocab",
+            "direction": "as_is",
+            "vocab_id": "P0109",
+            "is_new_to_vocab": true,
+            "definition": "The movie has a certain domestic box office figure.",
+            "parent": null,
+            "domain": [
+              "Movie"
+            ],
+            "range": [
+              "BoxOfficeFigure"
+            ],
+            "path": "",
+            "justification": "No existing schema.org property fits this relation."
+          },
+          "llm_proposed": {
+            "source": "new",
+            "label": "hasDomesticBoxOffice",
+            "is_new": true,
+            "direction": "as_is"
+          }
+        }
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "ratingCount",
+          "signature": "AggregateRating → Integer",
+          "parent": null,
+          "inverse_of": null,
+          "score": -10.7404,
+          "matched_anchor": null,
+          "comment": "A rating count relation between an aggregate rating and the total number of individual ratings contributing to it. Also called number of ratings, total ratings. Examples: \"An aggregate rating has a rating count of 150.\", \"A product review summary has a rating count of 500.\", \"A movie's average rating has a rating count of 10,000.\"",
+          "embed_score": 0.733,
+          "embed_rank": 9
+        },
+        {
+          "source": "schema.org",
+          "label": "screenCount",
+          "signature": "MovieTheater → Number",
+          "parent": null,
+          "inverse_of": null,
+          "score": -11.0661,
+          "matched_anchor": null,
+          "comment": "The total number of projection screens available within a movie theater. Also called number of screens, theater screens, cinema screens. Examples: `Multiplex Cinema` screenCount `12`, `Local Movie House` screenCount `3`, `IMAX Theater` screenCount `1`.",
+          "embed_score": 0.749,
+          "embed_rank": 1
+        },
+        {
+          "source": "schema.org",
+          "label": "ratingValue",
+          "signature": "Rating → Number/Text",
+          "parent": null,
+          "inverse_of": null,
+          "score": -11.1476,
+          "matched_anchor": null,
+          "comment": "A rating value relation between a rating and its numerical or textual score. Also called score, rating score, value of rating. Examples: \"A movie review has a rating value of 4.5.\", \"A product has a rating value of 'Excellent'.\", \"A restaurant has a rating value of 3 stars.\"",
+          "embed_score": 0.721,
+          "embed_rank": 46
+        },
+        {
+          "source": "schema.org",
+          "label": "workPresented",
+          "signature": "ScreeningEvent → Movie",
+          "parent": "workFeatured",
+          "inverse_of": null,
+          "score": -11.2585,
+          "matched_anchor": null,
+          "comment": "A presented work relation between a screening event and a movie, identifying the film shown during that event. Also called screened movie, film shown, featured film. Examples: ScreeningEvent workPresented \"The Matrix\", FilmFestivalEvent workPresented \"Parasite\", DriveInMovie workPresented \"Jaws\". Distinct from workFeatured, which is a general showcasing, and workPerformed, which is for live enactments.",
+          "embed_score": 0.74,
+          "embed_rank": 4
+        },
+        {
+          "source": "schema.org",
+          "label": "reviewCount",
+          "signature": "AggregateRating → Integer",
+          "parent": null,
+          "inverse_of": null,
+          "score": -11.2916,
+          "matched_anchor": null,
+          "comment": "The total number of individual reviews contributing to an aggregate rating. Also called total reviews, number of reviews, review tally. Examples: `Product Aggregate Rating` reviewCount `150`, `Movie Aggregate Rating` reviewCount `5000`, `Service Aggregate Rating` reviewCount `75`.",
+          "embed_score": 0.725,
+          "embed_rank": 29
+        },
+        {
+          "source": "schema.org",
+          "label": "yearlyRevenue",
+          "signature": "BusinessAudience → QuantitativeValue",
+          "parent": null,
+          "inverse_of": null,
+          "score": -11.3362,
+          "matched_anchor": null,
+          "comment": "A yearly revenue relation between a business audience and a quantitative value, representing the annual income generated by the business. Also called annual revenue, annual income, gross annual earnings. Examples: TargetAudience yearlyRevenue \"$1M - $5M\", BusinessAudience yearlyRevenue \"over $10M\", StartupAudience yearlyRevenue \"under $500K\".",
+          "embed_score": 0.743,
+          "embed_rank": 2
+        },
+        {
+          "source": "schema.org",
+          "label": "typicalAgeRange",
+          "signature": "CreativeWork/Event → Text",
+          "parent": null,
+          "inverse_of": null,
+          "score": -11.3567,
+          "matched_anchor": null,
+          "comment": "A typical age range relation between a creative work or event and the expected age group of its audience. Also called age suitability, target age, recommended age. Examples: \"Book typicalAgeRange '7-9'\", \"Movie typicalAgeRange '13+'\", \"Event typicalAgeRange 'all ages'\".",
+          "embed_score": 0.722,
+          "embed_rank": 37
+        },
+        {
+          "source": "schema.org",
+          "label": "hasRepresentation",
+          "signature": "BioChemEntity → PropertyValue/Text/URL",
+          "parent": null,
+          "inverse_of": null,
+          "score": -11.3606,
+          "matched_anchor": null,
+          "comment": "A representation relation between a biochemical entity and its common symbolic or structural representation. Also called represented by, symbolic form, structural representation. Examples: \"A BioChemEntity has a representation as a chemical structure.\", \"The entity has a representation as a text sequence.\", \"This biochemical entity has a URL representation.\"",
+          "embed_score": 0.727,
+          "embed_rank": 22
+        },
+        {
+          "source": "schema.org",
+          "label": "downvoteCount",
+          "signature": "Comment → Integer",
+          "parent": null,
+          "inverse_of": null,
+          "score": -11.3688,
+          "matched_anchor": null,
+          "comment": "A downvote count relation between a comment and the integer representing the number of downvotes it has received. Also called \"dislike count\", \"negative votes\". Examples: \"Comment 'This is wrong' downvoteCount '5'\", \"Answer downvoteCount '2'\", \"Review downvoteCount '10'\".",
+          "embed_score": 0.722,
+          "embed_rank": 40
+        },
+        {
+          "source": "schema.org",
+          "label": "isRelatedTo",
+          "signature": "Product/Service → Product/Service",
+          "parent": null,
+          "inverse_of": null,
+          "score": -11.3765,
+          "matched_anchor": null,
+          "comment": "A general association relation between two products or services that have some unspecified connection. Also called associated with, connected to, linked to, relevant to. Examples: A smartphone isRelatedTo 'a smart watch'. A car service isRelatedTo 'car insurance'. A book isRelatedTo 'a movie adaptation'. Distinct from isSimilarTo, which implies functional similarity, and isAccessoryOrSparePartFor or isConsumableFor, which imply specific functional dependencies. This is a very general relation.",
+          "embed_score": 0.721,
+          "embed_rank": 50
+        }
+      ]
+    },
+    {
+      "relation_phrase": "released in",
+      "definition": "The movie was released in a certain year or time period.",
+      "embedding_query_text": "released in: The movie was released in a certain year or time period.",
+      "observed_signatures": [
+        "Movie → Date",
+        "Movie → Year"
+      ],
+      "n_assignments": 1,
+      "assignments": [
+        {
+          "instances": [
+            "The Super Mario Galaxy Movie -> 2026-08-02",
+            "Michael -> 2026-08-02",
+            "Spider-Man: Brand New Day -> 2026-08-02",
+            "Avengers: Endgame -> 2019",
+            "Spider-Man: No Way Home -> 2021"
+          ],
+          "chosen_property": {
+            "label": "releaseDate",
+            "source": "schema.org",
+            "direction": "as_is",
+            "vocab_id": null,
+            "is_new_to_vocab": false,
+            "definition": null,
+            "parent": null,
+            "domain": null,
+            "range": null,
+            "path": "",
+            "justification": "The top-ranked candidate matches the relation."
+          },
+          "llm_proposed": {
+            "source": "schema.org",
+            "label": "releaseDate",
+            "is_new": false,
+            "direction": "as_is"
+          }
+        }
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "releasedEvent",
+          "signature": "CreativeWork → PublicationEvent",
+          "parent": null,
+          "inverse_of": null,
+          "score": -3.3255,
+          "matched_anchor": null,
+          "comment": "A released event relation between a creative work and the publication event marking its release. Also called release event, launch event. Examples: \"A movie has a released event 'Premiere at Cannes Film Festival'.\", \"A book has a released event 'Book Launch Party'.\", \"A video game has a released event 'E3 Announcement'.\"",
+          "embed_score": 0.775,
+          "embed_rank": 5
+        },
+        {
+          "source": "schema.org",
+          "label": "releaseDate",
+          "signature": "Product → Date",
+          "parent": null,
+          "inverse_of": null,
+          "score": -4.8633,
+          "matched_anchor": null,
+          "comment": "A release date relation between a product and the date it was made available to the public. Also called launch date, availability date, publication date. Examples: \"A new smartphone model has a release date of 2024-03-01.\", \"A software update has a release date of 2023-11-15.\", \"A new car model has a release date of 2025-01-01.\". Distinct from productionDate, which is when the item was manufactured.",
+          "embed_score": 0.796,
+          "embed_rank": 1
+        },
+        {
+          "source": "schema.org",
+          "label": "temporal",
+          "signature": "CreativeWork → DateTime/Text",
+          "parent": null,
+          "inverse_of": null,
+          "score": -5.4006,
+          "matched_anchor": null,
+          "comment": "A general temporal relation between a creative work and a date or time, used when more specific temporal properties are not applicable. Also called \"related to time\", \"time context\", \"associated temporal period\", \"timeframe\". Examples: \"The novel has temporal the 19th century\", \"The painting's temporal is the Renaissance era\", \"This document's temporal is the year 2020.\". Distinct from temporalCoverage, which indicates the specific time period the content applies to.",
+          "embed_score": 0.758,
+          "embed_rank": 12
+        },
+        {
+          "source": "schema.org",
+          "label": "duration",
+          "signature": "Audiobook/Episode/Event/MediaObject/Movie/MusicRecording/MusicRelease/QuantitativeValueDistribution/Schedule/ServicePeriod → Duration/QuantitativeValue",
+          "parent": null,
+          "inverse_of": null,
+          "score": -5.6096,
+          "matched_anchor": null,
+          "comment": "A duration relation between an item (such as an event, media object, or schedule) and its length of time. Also called \"length\", \"time span\", \"period\". Examples: \"Movie 'Avatar' duration 'PT2H42M'\", \"Event 'Concert' duration 'PT3H'\", \"Audio recording duration 'PT5M30S'\". Distinct from durationOfWarranty, which is specifically about warranty length.",
+          "embed_score": 0.748,
+          "embed_rank": 21
+        },
+        {
+          "source": "schema.org",
+          "label": "modelDate",
+          "signature": "Vehicle → Date",
+          "parent": null,
+          "inverse_of": null,
+          "score": -5.9173,
+          "matched_anchor": null,
+          "comment": "A model date relation between a vehicle and the release date of its model. Also called: model year, release date, version date. Examples: \"Car modelDate 2023-09-01\", \"Motorcycle modelDate 2024-01-15\", \"Truck modelDate 2022-07-01\".",
+          "embed_score": 0.774,
+          "embed_rank": 6
+        },
+        {
+          "source": "schema.org",
+          "label": "datePublished",
+          "signature": "Certification/CreativeWork → Date/DateTime",
+          "parent": null,
+          "inverse_of": null,
+          "score": -6.1139,
+          "matched_anchor": null,
+          "comment": "A temporal release relation between a certification or creative work and its date of first publication or broadcast. Also called: publication date, broadcast date, release date. Examples: \"Book\" date published \"1984-06-08\", \"TV Show Episode\" date published \"2023-01-01\", \"Certification\" date published \"2022-12-01\". Distinct from dateCreated, which is the date of creation, and datePosted, which is for online listings.",
+          "embed_score": 0.785,
+          "embed_rank": 3
+        },
+        {
+          "source": "schema.org",
+          "label": "temporalCoverage",
+          "signature": "CreativeWork → DateTime/Text/URL",
+          "parent": null,
+          "inverse_of": null,
+          "score": -6.2704,
+          "matched_anchor": null,
+          "comment": "A temporal scope relation between a creative work and the specific time period that its content describes or applies to. Also called \"time period covered\", \"content timeframe\", \"temporal scope\", \"date range of content\". Examples: \"A census dataset has temporalCoverage 2011/2012\", \"The historical novel's temporalCoverage is 1939/1945\", \"This research paper's temporalCoverage is 2015-11/..\". Distinct from temporal, which is a more general temporal association when the specific scope is not known.",
+          "embed_score": 0.755,
+          "embed_rank": 14
+        },
+        {
+          "source": "schema.org",
+          "label": "vehicleModelDate",
+          "signature": "Vehicle → Date",
+          "parent": null,
+          "inverse_of": null,
+          "score": -6.4413,
+          "matched_anchor": null,
+          "comment": "A vehicle model date relation between a vehicle and the release date of its model. Also called model year, release date, version date. Examples: \"Vehicle vehicleModelDate '2023-01-01'\", \"Car vehicleModelDate '2024'\", \"Vehicle vehicleModelDate '2022-09-15'\".",
+          "embed_score": 0.765,
+          "embed_rank": 9
+        },
+        {
+          "source": "schema.org",
+          "label": "gameEdition",
+          "signature": "VideoGame → Text",
+          "parent": null,
+          "inverse_of": null,
+          "score": -6.8069,
+          "matched_anchor": null,
+          "comment": "A game edition relation between a video game and its specific version or release edition. Also called: game version, release edition, special edition. Examples: \"Cyberpunk 2077\" game edition \"Ultimate Edition\", \"The Witcher 3\" game edition \"Game of the Year Edition\", \"Minecraft\" game edition \"Java Edition\".",
+          "embed_score": 0.738,
+          "embed_rank": 44
+        },
+        {
+          "source": "schema.org",
+          "label": "copyrightYear",
+          "signature": "CreativeWork → Number",
+          "parent": null,
+          "inverse_of": null,
+          "score": -7.2406,
+          "matched_anchor": null,
+          "comment": "A temporal relation between a creative work and the year its copyright was first asserted. Also called: year of copyright, copyright date, first copyright year. Examples: \"Classic Album\" copyright year \"1970\", \"Software Version 1.0\" copyright year \"2005\", \"Research Paper\" copyright year \"2022\". Distinct from datePublished, which is the date of first publication or broadcast.",
+          "embed_score": 0.777,
+          "embed_rank": 4
+        }
+      ]
+    },
+    {
+      "relation_phrase": "has international box office",
+      "definition": null,
+      "embedding_query_text": "has international box office:",
+      "observed_signatures": [
+        "Movie → BoxOfficeFigure"
+      ],
+      "n_assignments": 1,
+      "assignments": [
+        {
+          "instances": [
+            "Spider-Man: Brand New Day -> $572 million"
+          ],
+          "chosen_property": {
+            "label": "hasInternationalBoxOffice",
+            "source": "vocab",
+            "direction": "as_is",
+            "vocab_id": "P0110",
+            "is_new_to_vocab": true,
+            "definition": "The movie has a certain international box office figure.",
+            "parent": null,
+            "domain": [
+              "Movie"
+            ],
+            "range": [
+              "BoxOfficeFigure"
+            ],
+            "path": "",
+            "justification": "No existing schema.org property fits this relation."
+          },
+          "llm_proposed": {
+            "source": "new",
+            "label": "hasInternationalBoxOffice",
+            "is_new": true,
+            "direction": "as_is"
+          }
+        }
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "hasShippingService",
+          "signature": "OfferShippingDetails/Organization → ShippingService",
+          "parent": null,
+          "inverse_of": null,
+          "score": -7.5955,
+          "matched_anchor": null,
+          "comment": "A shipping service relation between offer shipping details or an organization and a shipping service it provides. Also called offers shipping, shipping option, delivery service. Examples: \"An organization has a shipping service for international delivery.\", \"Offer shipping details include a shipping service for express mail.\", \"The company provides a shipping service.\"",
+          "embed_score": 0.716,
+          "embed_rank": 30
+        },
+        {
+          "source": "schema.org",
+          "label": "globalLocationNumber",
+          "signature": "Organization/Person/Place → Text",
+          "parent": "identifier",
+          "inverse_of": null,
+          "score": -8.9318,
+          "matched_anchor": null,
+          "comment": "A global location number relation between an organization, person, or place and its unique 13-digit GLN identifier. Also called: GLN, International Location Number, ILN. Examples: \"Acme Corp Warehouse\" global location number \"1234567890123\", \"Hospital Main Campus\" global location number \"9876543210987\", \"Distribution Center X\" global location number \"1122334455667\".",
+          "embed_score": 0.739,
+          "embed_rank": 2
+        },
+        {
+          "source": "schema.org",
+          "label": "isbn",
+          "signature": "Book → Text",
+          "parent": "identifier",
+          "inverse_of": null,
+          "score": -10.556,
+          "matched_anchor": null,
+          "comment": "A book identification relation between a book and its International Standard Book Number. Also called book identifier, ISBN number, publication code. Examples: A book has an isbn of '978-0321765723'. A novel has an isbn of '978-1234567890'. A textbook has an isbn of '0-13-110362-8'.",
+          "embed_score": 0.713,
+          "embed_rank": 40
+        },
+        {
+          "source": "schema.org",
+          "label": "hasOfferCatalog",
+          "signature": "Organization/Person/Service → OfferCatalog",
+          "parent": null,
+          "inverse_of": null,
+          "score": -10.6854,
+          "matched_anchor": null,
+          "comment": "An offer catalog relation between an organization, person, or service and an associated offer catalog. Also called offers catalog, catalog of offers, product catalog. Examples: \"An organization has an offer catalog of its products.\", \"A service has an offer catalog of its packages.\", \"The person maintains an offer catalog.\"",
+          "embed_score": 0.712,
+          "embed_rank": 48
+        },
+        {
+          "source": "schema.org",
+          "label": "hasDriveThroughService",
+          "signature": "Place → Boolean",
+          "parent": null,
+          "inverse_of": null,
+          "score": -10.9327,
+          "matched_anchor": null,
+          "comment": "A drive-through service availability relation for a place, indicating whether it offers services accessible by driving through. Also called offers drive-through, drive-through available, drive-in service. Examples: \"A restaurant has drive-through service.\", \"A testing facility has drive-through service.\", \"The bank has drive-through service for transactions.\"",
+          "embed_score": 0.713,
+          "embed_rank": 42
+        },
+        {
+          "source": "schema.org",
+          "label": "isicV4",
+          "signature": "Organization/Person/Place → Text",
+          "parent": null,
+          "inverse_of": null,
+          "score": -10.9893,
+          "matched_anchor": null,
+          "comment": "An industry classification relation between an organization, person, or place and its International Standard Industrial Classification of All Economic Activities (ISIC) Revision 4 code. Also called ISIC code, industry classification code, economic activity code. Examples: An organization has an isicV4 of '6201' (Computer programming activities). A person has an isicV4 of '8620' (Medical and dental practice activities). A place has an isicV4 of '5510' (Hotels and similar accommodation).",
+          "embed_score": 0.713,
+          "embed_rank": 45
+        },
+        {
+          "source": "schema.org",
+          "label": "gtin13",
+          "signature": "Demand/Offer/Product → Text",
+          "parent": "gtin",
+          "inverse_of": null,
+          "score": -11.0737,
+          "matched_anchor": null,
+          "comment": "A GTIN-13 relation identifying a demand, offer, or product with its 13-digit Global Trade Item Number, equivalent to EAN-13 or ISBN. Also called: EAN-13, ISBN-13, GTIN-13 identifier. Examples: \"Book Product\" gtin13 \"9781234567890\", \"European Retail Item\" gtin13 \"5012345678901\", \"Offer for Book\" gtin13 \"9780123456789\". Distinct from gtin, which is the general GTIN.",
+          "embed_score": 0.719,
+          "embed_rank": 22
+        },
+        {
+          "source": "schema.org",
+          "label": "hasDeliveryMethod",
+          "signature": "DeliveryEvent/ParcelDelivery → DeliveryMethod",
+          "parent": null,
+          "inverse_of": null,
+          "score": -11.1434,
+          "matched_anchor": null,
+          "comment": "A delivery method relation between a delivery event or parcel delivery and the method used for its delivery. Also called delivery via, shipping method, method of delivery. Examples: \"A parcel delivery has a delivery method of 'express shipping'.\", \"The delivery event has a delivery method of 'pickup'.\", \"The order uses a delivery method of 'standard mail'.\"",
+          "embed_score": 0.717,
+          "embed_rank": 24
+        },
+        {
+          "source": "schema.org",
+          "label": "hasAdultConsideration",
+          "signature": "Offer/Product → AdultOrientedEnumeration",
+          "parent": null,
+          "inverse_of": null,
+          "score": -11.157,
+          "matched_anchor": null,
+          "comment": "An adult suitability relation between an offer or product and its intended audience or content rating. Also called adult-oriented, age-restricted, mature content, for adults only. Examples: \"An offer has adult consideration for explicit content.\", \"A product is tagged with adult consideration.\", \"This item has adult consideration due to its theme.\"",
+          "embed_score": 0.721,
+          "embed_rank": 14
+        },
+        {
+          "source": "schema.org",
+          "label": "gtin14",
+          "signature": "Demand/Offer/Product → Text",
+          "parent": "gtin",
+          "inverse_of": null,
+          "score": -11.1596,
+          "matched_anchor": null,
+          "comment": "A GTIN-14 relation identifying a demand, offer, or product with its 14-digit Global Trade Item Number, often used for trade items at different packaging levels. Also called: ITF-14, GTIN-14 identifier, shipping container code. Examples: \"Case of Cans\" gtin14 \"10012345678905\", \"Pallet of Goods\" gtin14 \"00000012345678\", \"Wholesale Product\" gtin14 \"40123456789012\". Distinct from gtin, which is the general GTIN.",
+          "embed_score": 0.715,
+          "embed_rank": 35
+        }
+      ]
+    },
+    {
+      "relation_phrase": "has worldwide box office",
+      "definition": null,
+      "embedding_query_text": "has worldwide box office:",
+      "observed_signatures": [
+        "Movie → BoxOfficeFigure"
+      ],
+      "n_assignments": 1,
+      "assignments": [
+        {
+          "instances": [
+            "Spider-Man: Brand New Day -> $927 million",
+            "Toy Story 5 -> $1.06 billion"
+          ],
+          "chosen_property": {
+            "label": "hasWorldwideBoxOffice",
+            "source": "vocab",
+            "direction": "as_is",
+            "vocab_id": "P0111",
+            "is_new_to_vocab": true,
+            "definition": "The movie has a certain worldwide box office figure.",
+            "parent": null,
+            "domain": [
+              "Movie"
+            ],
+            "range": [
+              "BoxOfficeFigure"
+            ],
+            "path": "",
+            "justification": "No existing schema.org property fits this relation."
+          },
+          "llm_proposed": {
+            "source": "new",
+            "label": "hasWorldwideBoxOffice",
+            "is_new": true,
+            "direction": "as_is"
+          }
+        }
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "globalLocationNumber",
+          "signature": "Organization/Person/Place → Text",
+          "parent": "identifier",
+          "inverse_of": null,
+          "score": -9.0216,
+          "matched_anchor": null,
+          "comment": "A global location number relation between an organization, person, or place and its unique 13-digit GLN identifier. Also called: GLN, International Location Number, ILN. Examples: \"Acme Corp Warehouse\" global location number \"1234567890123\", \"Hospital Main Campus\" global location number \"9876543210987\", \"Distribution Center X\" global location number \"1122334455667\".",
+          "embed_score": 0.743,
+          "embed_rank": 2
+        },
+        {
+          "source": "schema.org",
+          "label": "hasShippingService",
+          "signature": "OfferShippingDetails/Organization → ShippingService",
+          "parent": null,
+          "inverse_of": null,
+          "score": -9.7869,
+          "matched_anchor": null,
+          "comment": "A shipping service relation between offer shipping details or an organization and a shipping service it provides. Also called offers shipping, shipping option, delivery service. Examples: \"An organization has a shipping service for international delivery.\", \"Offer shipping details include a shipping service for express mail.\", \"The company provides a shipping service.\"",
+          "embed_score": 0.722,
+          "embed_rank": 26
+        },
+        {
+          "source": "schema.org",
+          "label": "gtin13",
+          "signature": "Demand/Offer/Product → Text",
+          "parent": "gtin",
+          "inverse_of": null,
+          "score": -10.6845,
+          "matched_anchor": null,
+          "comment": "A GTIN-13 relation identifying a demand, offer, or product with its 13-digit Global Trade Item Number, equivalent to EAN-13 or ISBN. Also called: EAN-13, ISBN-13, GTIN-13 identifier. Examples: \"Book Product\" gtin13 \"9781234567890\", \"European Retail Item\" gtin13 \"5012345678901\", \"Offer for Book\" gtin13 \"9780123456789\". Distinct from gtin, which is the general GTIN.",
+          "embed_score": 0.718,
+          "embed_rank": 43
+        },
+        {
+          "source": "schema.org",
+          "label": "hasDriveThroughService",
+          "signature": "Place → Boolean",
+          "parent": null,
+          "inverse_of": null,
+          "score": -10.6875,
+          "matched_anchor": null,
+          "comment": "A drive-through service availability relation for a place, indicating whether it offers services accessible by driving through. Also called offers drive-through, drive-through available, drive-in service. Examples: \"A restaurant has drive-through service.\", \"A testing facility has drive-through service.\", \"The bank has drive-through service for transactions.\"",
+          "embed_score": 0.728,
+          "embed_rank": 10
+        },
+        {
+          "source": "schema.org",
+          "label": "hasGS1DigitalLink",
+          "signature": "Offer/Organization/Place/Product → URL",
+          "parent": "identifier",
+          "inverse_of": null,
+          "score": -10.7099,
+          "matched_anchor": null,
+          "comment": "A GS1 digital link relation between an offer, organization, place, or product and its associated GS1 digital link URL. Also called GS1 link, digital link, product link. Examples: \"A product has a GS1 digital link for traceability.\", \"An organization has a GS1 digital link for its profile.\", \"The offer includes a GS1 digital link.\"",
+          "embed_score": 0.719,
+          "embed_rank": 36
+        },
+        {
+          "source": "schema.org",
+          "label": "hasAdultConsideration",
+          "signature": "Offer/Product → AdultOrientedEnumeration",
+          "parent": null,
+          "inverse_of": null,
+          "score": -10.8154,
+          "matched_anchor": null,
+          "comment": "An adult suitability relation between an offer or product and its intended audience or content rating. Also called adult-oriented, age-restricted, mature content, for adults only. Examples: \"An offer has adult consideration for explicit content.\", \"A product is tagged with adult consideration.\", \"This item has adult consideration due to its theme.\"",
+          "embed_score": 0.724,
+          "embed_rank": 18
+        },
+        {
+          "source": "schema.org",
+          "label": "hasDeliveryMethod",
+          "signature": "DeliveryEvent/ParcelDelivery → DeliveryMethod",
+          "parent": null,
+          "inverse_of": null,
+          "score": -11.0621,
+          "matched_anchor": null,
+          "comment": "A delivery method relation between a delivery event or parcel delivery and the method used for its delivery. Also called delivery via, shipping method, method of delivery. Examples: \"A parcel delivery has a delivery method of 'express shipping'.\", \"The delivery event has a delivery method of 'pickup'.\", \"The order uses a delivery method of 'standard mail'.\"",
+          "embed_score": 0.725,
+          "embed_rank": 16
+        },
+        {
+          "source": "schema.org",
+          "label": "hasMerchantReturnPolicy",
+          "signature": "Offer/Organization/Product → MerchantReturnPolicy",
+          "parent": null,
+          "inverse_of": null,
+          "score": -11.1537,
+          "matched_anchor": null,
+          "comment": "A merchant return policy relation between an offer, organization, or product and its applicable return policy. Also called return policy, refund policy, returns information. Examples: \"A product has a merchant return policy of 30 days.\", \"An organization has a merchant return policy for all sales.\", \"The offer includes a merchant return policy.\"",
+          "embed_score": 0.728,
+          "embed_rank": 9
+        },
+        {
+          "source": "schema.org",
+          "label": "workPresented",
+          "signature": "ScreeningEvent → Movie",
+          "parent": "workFeatured",
+          "inverse_of": null,
+          "score": -11.1768,
+          "matched_anchor": null,
+          "comment": "A presented work relation between a screening event and a movie, identifying the film shown during that event. Also called screened movie, film shown, featured film. Examples: ScreeningEvent workPresented \"The Matrix\", FilmFestivalEvent workPresented \"Parasite\", DriveInMovie workPresented \"Jaws\". Distinct from workFeatured, which is a general showcasing, and workPerformed, which is for live enactments.",
+          "embed_score": 0.725,
+          "embed_rank": 15
+        },
+        {
+          "source": "schema.org",
+          "label": "titleEIDR",
+          "signature": "Movie/TVEpisode/TVSeason/TVSeries → Text/URL",
+          "parent": "identifier",
+          "inverse_of": null,
+          "score": -11.1891,
+          "matched_anchor": null,
+          "comment": "An EIDR title relation between a movie, TV episode, season, or series and its Entertainment Identifier Registry (EIDR) identifier at the work level. Also called EIDR work ID, entertainment ID, film/TV EIDR. Examples: \"Movie titleEIDR '10.5240/7EC7-228A-510A-053E-CBB8-J'\", \"TV series titleEIDR '10.5240/B123-C456-D789-E012-F345-G'\", \"TVEpisode titleEIDR '10.5240/A1B2-C3D4-E5F6-G7H8-I9J0-K'\". Distinct from editEIDR, which identifies a specific variant or expression of a work.",
+          "embed_score": 0.725,
+          "embed_rank": 13
+        }
+      ]
+    },
+    {
+      "relation_phrase": "has global box office",
+      "definition": null,
+      "embedding_query_text": "has global box office:",
+      "observed_signatures": [
+        "FilmStudio → BoxOfficeFigure"
+      ],
+      "n_assignments": 1,
+      "assignments": [
+        {
+          "instances": [
+            "Universal Pictures -> $4-billion"
+          ],
+          "chosen_property": {
+            "label": "hasGlobalBoxOffice",
+            "source": "vocab",
+            "direction": "as_is",
+            "vocab_id": "P0112",
+            "is_new_to_vocab": true,
+            "definition": "The film studio has a certain global box office figure.",
+            "parent": null,
+            "domain": [
+              "FilmStudio"
+            ],
+            "range": [
+              "BoxOfficeFigure"
+            ],
+            "path": "",
+            "justification": "No existing schema.org property fits this relation."
+          },
+          "llm_proposed": {
+            "source": "new",
+            "label": "hasGlobalBoxOffice",
+            "is_new": true,
+            "direction": "as_is"
+          }
+        }
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "globalLocationNumber",
+          "signature": "Organization/Person/Place → Text",
+          "parent": "identifier",
+          "inverse_of": null,
+          "score": -6.7341,
+          "matched_anchor": null,
+          "comment": "A global location number relation between an organization, person, or place and its unique 13-digit GLN identifier. Also called: GLN, International Location Number, ILN. Examples: \"Acme Corp Warehouse\" global location number \"1234567890123\", \"Hospital Main Campus\" global location number \"9876543210987\", \"Distribution Center X\" global location number \"1122334455667\".",
+          "embed_score": 0.758,
+          "embed_rank": 1
+        },
+        {
+          "source": "schema.org",
+          "label": "gtin",
+          "signature": "Demand/Offer/Product → Text/URL",
+          "parent": "identifier",
+          "inverse_of": null,
+          "score": -10.0787,
+          "matched_anchor": null,
+          "comment": "A Global Trade Item Number (GTIN) relation identifying a demand, offer, or product with its unique numeric identification code. Also called: product identifier, trade item number, barcode number. Examples: \"Product X\" gtin \"01234567890128\", \"Offer for Item Y\" gtin \"9876543210987\", \"Demand for Service Z\" gtin \"https://id.gs1.org/01/12345678901231\". Distinct from gtin8, gtin12, gtin13, gtin14, which are more specific GTIN types.",
+          "embed_score": 0.719,
+          "embed_rank": 38
+        },
+        {
+          "source": "schema.org",
+          "label": "gtin8",
+          "signature": "Demand/Offer/Product → Text",
+          "parent": "gtin",
+          "inverse_of": null,
+          "score": -10.2154,
+          "matched_anchor": null,
+          "comment": "A GTIN-8 relation identifying a demand, offer, or product with its 8-digit Global Trade Item Number, also known as EAN-8. Also called: EAN-8, GTIN-8 identifier, 8-digit barcode. Examples: \"Small Retail Item\" gtin8 \"12345670\", \"Confectionery Product\" gtin8 \"98765432\", \"Offer for Small Product\" gtin8 \"00000001\". Distinct from gtin, which is the general GTIN.",
+          "embed_score": 0.722,
+          "embed_rank": 24
+        },
+        {
+          "source": "schema.org",
+          "label": "gtin12",
+          "signature": "Demand/Offer/Product → Text",
+          "parent": "gtin",
+          "inverse_of": null,
+          "score": -10.2314,
+          "matched_anchor": null,
+          "comment": "A GTIN-12 relation identifying a demand, offer, or product with its 12-digit Global Trade Item Number. Also called: UPC code, GTIN-12 identifier, 12-digit barcode. Examples: \"Grocery Item\" gtin12 \"012345678901\", \"Consumer Product\" gtin12 \"789012345678\", \"Retail Offer\" gtin12 \"000001111111\". Distinct from gtin, which is the general GTIN.",
+          "embed_score": 0.718,
+          "embed_rank": 46
+        },
+        {
+          "source": "schema.org",
+          "label": "gtin13",
+          "signature": "Demand/Offer/Product → Text",
+          "parent": "gtin",
+          "inverse_of": null,
+          "score": -10.3093,
+          "matched_anchor": null,
+          "comment": "A GTIN-13 relation identifying a demand, offer, or product with its 13-digit Global Trade Item Number, equivalent to EAN-13 or ISBN. Also called: EAN-13, ISBN-13, GTIN-13 identifier. Examples: \"Book Product\" gtin13 \"9781234567890\", \"European Retail Item\" gtin13 \"5012345678901\", \"Offer for Book\" gtin13 \"9780123456789\". Distinct from gtin, which is the general GTIN.",
+          "embed_score": 0.729,
+          "embed_rank": 9
+        },
+        {
+          "source": "schema.org",
+          "label": "gtin14",
+          "signature": "Demand/Offer/Product → Text",
+          "parent": "gtin",
+          "inverse_of": null,
+          "score": -10.3662,
+          "matched_anchor": null,
+          "comment": "A GTIN-14 relation identifying a demand, offer, or product with its 14-digit Global Trade Item Number, often used for trade items at different packaging levels. Also called: ITF-14, GTIN-14 identifier, shipping container code. Examples: \"Case of Cans\" gtin14 \"10012345678905\", \"Pallet of Goods\" gtin14 \"00000012345678\", \"Wholesale Product\" gtin14 \"40123456789012\". Distinct from gtin, which is the general GTIN.",
+          "embed_score": 0.723,
+          "embed_rank": 21
+        },
+        {
+          "source": "schema.org",
+          "label": "hasGS1DigitalLink",
+          "signature": "Offer/Organization/Place/Product → URL",
+          "parent": "identifier",
+          "inverse_of": null,
+          "score": -10.9411,
+          "matched_anchor": null,
+          "comment": "A GS1 digital link relation between an offer, organization, place, or product and its associated GS1 digital link URL. Also called GS1 link, digital link, product link. Examples: \"A product has a GS1 digital link for traceability.\", \"An organization has a GS1 digital link for its profile.\", \"The offer includes a GS1 digital link.\"",
+          "embed_score": 0.725,
+          "embed_rank": 19
+        },
+        {
+          "source": "schema.org",
+          "label": "hasDriveThroughService",
+          "signature": "Place → Boolean",
+          "parent": null,
+          "inverse_of": null,
+          "score": -11.0031,
+          "matched_anchor": null,
+          "comment": "A drive-through service availability relation for a place, indicating whether it offers services accessible by driving through. Also called offers drive-through, drive-through available, drive-in service. Examples: \"A restaurant has drive-through service.\", \"A testing facility has drive-through service.\", \"The bank has drive-through service for transactions.\"",
+          "embed_score": 0.72,
+          "embed_rank": 33
+        },
+        {
+          "source": "schema.org",
+          "label": "hasAdultConsideration",
+          "signature": "Offer/Product → AdultOrientedEnumeration",
+          "parent": null,
+          "inverse_of": null,
+          "score": -11.1237,
+          "matched_anchor": null,
+          "comment": "An adult suitability relation between an offer or product and its intended audience or content rating. Also called adult-oriented, age-restricted, mature content, for adults only. Examples: \"An offer has adult consideration for explicit content.\", \"A product is tagged with adult consideration.\", \"This item has adult consideration due to its theme.\"",
+          "embed_score": 0.721,
+          "embed_rank": 29
+        },
+        {
+          "source": "schema.org",
+          "label": "hasDeliveryMethod",
+          "signature": "DeliveryEvent/ParcelDelivery → DeliveryMethod",
+          "parent": null,
+          "inverse_of": null,
+          "score": -11.1932,
+          "matched_anchor": null,
+          "comment": "A delivery method relation between a delivery event or parcel delivery and the method used for its delivery. Also called delivery via, shipping method, method of delivery. Examples: \"A parcel delivery has a delivery method of 'express shipping'.\", \"The delivery event has a delivery method of 'pickup'.\", \"The order uses a delivery method of 'standard mail'.\"",
+          "embed_score": 0.72,
+          "embed_rank": 34
+        }
+      ]
+    },
+    {
+      "relation_phrase": "stars in",
+      "definition": null,
+      "embedding_query_text": "stars in:",
+      "observed_signatures": [
+        "Actor → Movie"
+      ],
+      "n_assignments": 1,
+      "assignments": [
+        {
+          "instances": [
+            "Tom Holland -> Spider-Man: No Way Home",
+            "Tobey Maguire -> Spider-Man: No Way Home",
+            "Andrew Garfield -> Spider-Man: No Way Home"
+          ],
+          "chosen_property": {
+            "label": "actor",
+            "source": "schema.org",
+            "direction": "inverse",
+            "vocab_id": null,
+            "is_new_to_vocab": false,
+            "definition": null,
+            "parent": null,
+            "domain": null,
+            "range": null,
+            "path": "",
+            "justification": "The top-ranked candidate matches the inverse relation."
+          },
+          "llm_proposed": {
+            "source": "schema.org",
+            "label": "actor",
+            "is_new": false,
+            "direction": "inverse"
+          }
+        }
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "starRating",
+          "signature": "FoodEstablishment/LodgingBusiness → Rating",
+          "parent": null,
+          "inverse_of": null,
+          "score": -0.9044,
+          "matched_anchor": null,
+          "comment": "An official quality rating for a food establishment or lodging business, typically from a standards body. Also called \"official rating\", \"quality rating\", \"hotel stars\", \"restaurant rating\". Examples: \"The hotel has starRating 5 stars\", \"The restaurant's starRating is 3 Michelin stars\", \"This lodging business received a 4-star rating.\". Distinct from aggregateRating, which is a summary of user-generated reviews.",
+          "embed_score": 0.766,
+          "embed_rank": 2
+        },
+        {
+          "source": "schema.org",
+          "label": "actors",
+          "signature": "Clip/Episode/Movie/MovieSeries/RadioSeries/TVSeries/VideoGame/VideoGameSeries/VideoObject → Person",
+          "parent": null,
+          "inverse_of": null,
+          "score": -3.8978,
+          "matched_anchor": null,
+          "comment": "An actor relation between a creative work (e.g., movie, episode, video game) and a person who performs in it. Also called performer, cast member, player. Examples: \"A movie's actors include 'Brad Pitt'.\", \"An episode's actors include 'Jennifer Aniston'.\" Distinct from actor, which is the preferred and more general property that also allows PerformingGroup.",
+          "embed_score": 0.776,
+          "embed_rank": 1
+        },
+        {
+          "source": "schema.org",
+          "label": "character",
+          "signature": "CreativeWork → Person",
+          "parent": null,
+          "inverse_of": null,
+          "score": -4.9769,
+          "matched_anchor": null,
+          "comment": "A fictional role relation between a creative work and a person who is a character within it. Also called \"fictional person\", \"role played by\", \"depicted character\". Examples: \"Novel 'Pride and Prejudice' character Elizabeth Bennet\", \"Movie 'Star Wars' character Luke Skywalker\".",
+          "embed_score": 0.731,
+          "embed_rank": 15
+        },
+        {
+          "source": "schema.org",
+          "label": "actor",
+          "signature": "Clip/CreativeWorkSeason/Episode/Event/Movie/MovieSeries/PodcastSeries/RadioSeries/TVSeries/VideoGame/VideoGameSeries/VideoObject → PerformingGroup/Person",
+          "parent": null,
+          "inverse_of": null,
+          "score": -5.7299,
+          "matched_anchor": null,
+          "comment": "An actor relation between a creative work (e.g., movie, episode, video game) or event and a person or performing group who performs in it. Also called performer, cast member, player. Examples: \"A movie's actor is 'Tom Hanks'.\", \"A play's actor is 'The Ensemble Theatre'.\", \"An episode's actor is 'Jane Doe'.\" Distinct from actors, which is a deprecated property for the same concept.",
+          "embed_score": 0.762,
+          "embed_rank": 3
+        },
+        {
+          "source": "schema.org",
+          "label": "athlete",
+          "signature": "SportsTeam → Person",
+          "parent": null,
+          "inverse_of": null,
+          "score": -7.4109,
+          "matched_anchor": null,
+          "comment": "A person who is a performing member of a sports team. Also called: player, team member, sportsman/sportswoman. Examples: \"SportsTeam 'Lakers' athlete 'LeBron James'\", \"SportsTeam 'Red Sox' athlete 'Mookie Betts'\", \"SportsTeam 'National Team' athlete 'Megan Rapinoe'\". Distinct from coach, which is a non-playing role.",
+          "embed_score": 0.725,
+          "embed_rank": 21
+        },
+        {
+          "source": "schema.org",
+          "label": "performerIn",
+          "signature": "Person → Event",
+          "parent": null,
+          "inverse_of": null,
+          "score": -7.6755,
+          "matched_anchor": null,
+          "comment": "A participation role relation between a person and an event in which they perform or participate. Also called performs in, participates in, acts in, presents at. Examples: John Doe is a performer in 'The Annual Gala'. Jane Smith is a performer in 'The City Marathon'. An actor is a performer in 'The New Play'. Distinct from performer, which points from an event to a person.",
+          "embed_score": 0.738,
+          "embed_rank": 9
+        },
+        {
+          "source": "schema.org",
+          "label": "performers",
+          "signature": "Event → Organization/Person",
+          "parent": null,
+          "inverse_of": null,
+          "score": -7.7477,
+          "matched_anchor": null,
+          "comment": "A participation role relation between an event and its primary performers, who can be organizations or persons. Also called main artists, headliners, principal actors, featured performers. Examples: A concert has performers 'Coldplay'. A play has performers 'The Royal Shakespeare Company'. A festival has performers 'Various Artists'. Distinct from performer, which can be any performer, not necessarily the main one.",
+          "embed_score": 0.747,
+          "embed_rank": 5
+        },
+        {
+          "source": "schema.org",
+          "label": "performer",
+          "signature": "Event → Organization/Person",
+          "parent": null,
+          "inverse_of": null,
+          "score": -7.7672,
+          "matched_anchor": null,
+          "comment": "A participation role relation between an event and an organization or person who performs at it. Also called artist, entertainer, presenter, actor. Examples: A concert has a performer 'Taylor Swift'. A play has a performer 'Meryl Streep'. A conference has a performer 'Dr. Jane Doe'. Distinct from performerIn, which points from a person to an event.",
+          "embed_score": 0.73,
+          "embed_rank": 17
+        },
+        {
+          "source": "schema.org",
+          "label": "characterName",
+          "signature": "PerformanceRole → Text",
+          "parent": null,
+          "inverse_of": null,
+          "score": -7.9067,
+          "matched_anchor": null,
+          "comment": "A naming relation for a performance role, indicating the name of the character being played. Also called \"role name\", \"played character\", \"fictional name\". Examples: \"Actor's performance role characterName 'Hamlet'\", \"Actress's performance role characterName 'Juliet'\". Distinct from character, which refers to the fictional person itself, whereas characterName is the name of the character in a specific performance.",
+          "embed_score": 0.748,
+          "embed_rank": 4
+        },
+        {
+          "source": "schema.org",
+          "label": "directors",
+          "signature": "Clip/Episode/Movie/MovieSeries/RadioSeries/TVSeries/VideoGame/VideoGameSeries/VideoObject → Person",
+          "parent": null,
+          "inverse_of": null,
+          "score": -8.3785,
+          "matched_anchor": null,
+          "comment": "A creative leadership relation between a clip, episode, movie, or video game and the persons who directed it. Also called: directed by, filmmakers, showrunners. Examples: \"Movie\" directors \"Joel Coen, Ethan Coen\", \"TV Episode\" directors \"Various Directors\", \"Video Game\" directors \"Hideo Kojima, Yoji Shinkawa\". Distinct from director, which is a singular property for a single director.",
+          "embed_score": 0.725,
+          "embed_rank": 22
+        }
+      ]
+    },
+    {
+      "relation_phrase": "president of",
+      "definition": null,
+      "embedding_query_text": "president of:",
+      "observed_signatures": [
+        "FilmProducer → FilmStudio"
+      ],
+      "n_assignments": 1,
+      "assignments": [
+        {
+          "instances": [
+            "Kevin Feige -> Marvel Studios"
+          ],
+          "chosen_property": {
+            "label": "presidentOf",
+            "source": "vocab",
+            "direction": "as_is",
+            "vocab_id": "P0113",
+            "is_new_to_vocab": true,
+            "definition": "The film producer is the president of a film studio.",
+            "parent": null,
+            "domain": [
+              "FilmProducer"
+            ],
+            "range": [
+              "FilmStudio"
+            ],
+            "path": "",
+            "justification": "No existing schema.org property fits this relation."
+          },
+          "llm_proposed": {
+            "source": "new",
+            "label": "presidentOf",
+            "is_new": true,
+            "direction": "as_is"
+          }
+        }
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "alumniOf",
+          "signature": "Person → EducationalOrganization/Organization",
+          "parent": null,
+          "inverse_of": "alumni",
+          "score": -9.1894,
+          "matched_anchor": null,
+          "comment": "An alumni of relation between a person and an educational organization or organization they are a former student or member of. Also called graduated from, formerly attended, past affiliation. Examples: \"A person is alumni of 'MIT'.\", \"John Doe is alumni of 'Boy Scouts of America'.\" Distinct from alumni, which describes the inverse relationship (organization to person).",
+          "embed_score": 0.778,
+          "embed_rank": 4
+        },
+        {
+          "source": "schema.org",
+          "label": "founders",
+          "signature": "Organization → Person",
+          "parent": null,
+          "inverse_of": null,
+          "score": -9.2873,
+          "matched_anchor": null,
+          "comment": "A founders relation between an organization and the people who established it. Also called: co-founders, creators, originators. Examples: \"Google\" founders \"Larry Page, Sergey Brin\", \"Apple Inc.\" founders \"Steve Jobs, Steve Wozniak, Ronald Wayne\", \"Microsoft\" founders \"Bill Gates, Paul Allen\". Distinct from founder, which can be a single person or organization.",
+          "embed_score": 0.755,
+          "embed_rank": 30
+        },
+        {
+          "source": "schema.org",
+          "label": "alumni",
+          "signature": "EducationalOrganization/Organization → Person",
+          "parent": null,
+          "inverse_of": "alumniOf",
+          "score": -9.6376,
+          "matched_anchor": null,
+          "comment": "An alumni relation between an educational organization or organization and a person who is a former student or member. Also called former student, graduate, past member. Examples: \"A university's alumni include 'Jane Doe'.\", \"The club's alumni include 'John Smith'.\" Distinct from alumniOf, which describes the inverse relationship (person to organization).",
+          "embed_score": 0.773,
+          "embed_rank": 6
+        },
+        {
+          "source": "schema.org",
+          "label": "founder",
+          "signature": "Organization → Organization/Person",
+          "parent": null,
+          "inverse_of": null,
+          "score": -9.649,
+          "matched_anchor": null,
+          "comment": "A founder relation between an organization and the person or organization that established it. Also called: established by, created by, initiated by. Examples: \"Microsoft\" founder \"Bill Gates\", \"Apple Inc.\" founder \"Steve Jobs\", \"Google\" founder \"Larry Page\". Distinct from founders, which is specifically for multiple people.",
+          "embed_score": 0.768,
+          "embed_rank": 13
+        },
+        {
+          "source": "schema.org",
+          "label": "memberOf",
+          "signature": "Organization/Person → MemberProgramTier/Organization/ProgramMembership",
+          "parent": null,
+          "inverse_of": "member",
+          "score": -9.8571,
+          "matched_anchor": null,
+          "comment": "A membership relation between an organization or person and the organization or program membership they belong to. Also called: belongs to, is a member of, affiliated with. Examples: \"John Doe memberOf 'Local Sports Club'\", \"Acme Corp memberOf 'Industry Association'\", \"Jane Smith memberOf 'Premium Membership Tier'\". Distinct from member, which expresses the inverse relationship.",
+          "embed_score": 0.782,
+          "embed_rank": 1
+        },
+        {
+          "source": "schema.org",
+          "label": "members",
+          "signature": "Organization/ProgramMembership → Organization/Person",
+          "parent": null,
+          "inverse_of": null,
+          "score": -10.2371,
+          "matched_anchor": null,
+          "comment": "A member relation between an organization or program membership and an organization or person belonging to it. Also called: includes members, comprises, consists of. Examples: \"Club Organization members John Doe\", \"Team ProgramMembership members Jane Smith\", \"Alliance Organization members Partner Company\". Distinct from member, which is a singular form and essentially the same concept.",
+          "embed_score": 0.769,
+          "embed_rank": 10
+        },
+        {
+          "source": "schema.org",
+          "label": "member",
+          "signature": "Organization/ProgramMembership → Organization/Person",
+          "parent": null,
+          "inverse_of": "memberOf",
+          "score": -10.2435,
+          "matched_anchor": null,
+          "comment": "A member relation between an organization or program membership and an organization or person belonging to it. Also called: belongs to, is a part of, participant in. Examples: \"Club Organization member John Doe\", \"Team ProgramMembership member Jane Smith\", \"Alliance Organization member Partner Company\". Distinct from memberOf, which expresses the inverse relationship.",
+          "embed_score": 0.78,
+          "embed_rank": 3
+        },
+        {
+          "source": "schema.org",
+          "label": "musicGroupMember",
+          "signature": "MusicGroup → Person",
+          "parent": null,
+          "inverse_of": null,
+          "score": -10.3123,
+          "matched_anchor": null,
+          "comment": "A person who is a member of a music group. Also called band member, group member, musician in group. Examples: \"The Beatles musicGroupMember 'John Lennon'\", \"Queen musicGroupMember 'Freddie Mercury'\", \"Fleetwood Mac musicGroupMember 'Stevie Nicks'\". Distinct from member, which is a general property for any organization.",
+          "embed_score": 0.766,
+          "embed_rank": 15
+        },
+        {
+          "source": "schema.org",
+          "label": "athlete",
+          "signature": "SportsTeam → Person",
+          "parent": null,
+          "inverse_of": null,
+          "score": -10.3261,
+          "matched_anchor": null,
+          "comment": "A person who is a performing member of a sports team. Also called: player, team member, sportsman/sportswoman. Examples: \"SportsTeam 'Lakers' athlete 'LeBron James'\", \"SportsTeam 'Red Sox' athlete 'Mookie Betts'\", \"SportsTeam 'National Team' athlete 'Megan Rapinoe'\". Distinct from coach, which is a non-playing role.",
+          "embed_score": 0.756,
+          "embed_rank": 26
+        },
+        {
+          "source": "schema.org",
+          "label": "owns",
+          "signature": "Organization/Person → Thing",
+          "parent": null,
+          "inverse_of": "owner",
+          "score": -10.3382,
+          "matched_anchor": null,
+          "comment": "A thing that is owned by an organization or person. Also called possesses, holds title to, has ownership of. Examples: \"John Doe owns 'a car'\", \"Acme Corp owns 'a patent'\", \"Sarah owns 'her house'\". Distinct from memberOf, which describes membership in a group.",
+          "embed_score": 0.762,
+          "embed_rank": 19
+        }
+      ]
+    },
+    {
+      "relation_phrase": "producer of",
+      "definition": null,
+      "embedding_query_text": "producer of:",
+      "observed_signatures": [
+        "FilmProducer → Movie"
+      ],
+      "n_assignments": 1,
+      "assignments": [
+        {
+          "instances": [
+            "Amy Pascal -> Spider-Man: Brand New Day"
+          ],
+          "chosen_property": {
+            "label": "producer",
+            "source": "schema.org",
+            "direction": "inverse",
+            "vocab_id": null,
+            "is_new_to_vocab": false,
+            "definition": null,
+            "parent": null,
+            "domain": null,
+            "range": null,
+            "path": "",
+            "justification": "The top-ranked candidate matches the inverse relation."
+          },
+          "llm_proposed": {
+            "source": "schema.org",
+            "label": "producer",
+            "is_new": false,
+            "direction": "inverse"
+          }
+        }
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "producer",
+          "signature": "CreativeWork → Organization/Person",
+          "parent": null,
+          "inverse_of": null,
+          "score": 6.7134,
+          "matched_anchor": null,
+          "comment": "A creative role relation between a creative work and the person or organization responsible for its production. Also called production company, executive producer, creator, maker. Examples: A movie has a producer 'Steven Spielberg'. A music album has a producer 'Universal Music Group'. A TV series has a producer 'Shonda Rhimes'. Distinct from director, who is responsible for the creative vision.",
+          "embed_score": 0.851,
+          "embed_rank": 1
+        },
+        {
+          "source": "schema.org",
+          "label": "productionCompany",
+          "signature": "CreativeWorkSeason/Episode/MediaObject/Movie/MovieSeries/RadioSeries/TVSeries/VideoGameSeries → Organization",
+          "parent": null,
+          "inverse_of": null,
+          "score": 3.2923,
+          "matched_anchor": null,
+          "comment": "A production relation between a creative work (like a movie or series) and the organization responsible for its creation. Also called produced by, studio, made by, created by. Examples: \"The movie 'Dune' was produced by Legendary Pictures.\", \"The TV series 'The Crown' was produced by Left Bank Pictures.\", \"The video game 'Cyberpunk 2077' was produced by CD Projekt Red.\"",
+          "embed_score": 0.823,
+          "embed_rank": 2
+        },
+        {
+          "source": "schema.org",
+          "label": "produces",
+          "signature": "Service → Thing",
+          "parent": null,
+          "inverse_of": null,
+          "score": 1.8623,
+          "matched_anchor": null,
+          "comment": "An outcome relation between a service and the tangible thing it generates or provides. Also called generates, yields, creates, provides. Examples: A government service produces a 'passport'. A licensing service produces a 'permit'. A printing service produces 'documents'.",
+          "embed_score": 0.811,
+          "embed_rank": 5
+        },
+        {
+          "source": "schema.org",
+          "label": "manufacturer",
+          "signature": "Product → Organization",
+          "parent": null,
+          "inverse_of": null,
+          "score": 0.5193,
+          "matched_anchor": null,
+          "comment": "A manufacturing relation between a product and the organization that produced it. Also called: produced by, made by, fabricated by. Examples: \"Smartphone manufacturer Apple\", \"Automobile manufacturer Toyota\", \"Furniture manufacturer IKEA\".",
+          "embed_score": 0.816,
+          "embed_rank": 3
+        },
+        {
+          "source": "schema.org",
+          "label": "productionDate",
+          "signature": "Product/Vehicle → Date",
+          "parent": null,
+          "inverse_of": null,
+          "score": -0.632,
+          "matched_anchor": null,
+          "comment": "A production date relation between a product or vehicle and the specific date it was manufactured. Also called manufactured on, made on, creation date. Examples: \"A 2023 Toyota Camry has a production date of 2022-11-15.\", \"A vintage car has a production date of 1965-03-01.\", \"A smartphone has a production date of 2024-01-20.\"",
+          "embed_score": 0.804,
+          "embed_rank": 6
+        },
+        {
+          "source": "schema.org",
+          "label": "creator",
+          "signature": "CreativeWork/UserComments → Organization/Person",
+          "parent": null,
+          "inverse_of": null,
+          "score": -1.3169,
+          "matched_anchor": null,
+          "comment": "An authorship relation between a creative work or user comment and the person or organization responsible for its creation. Also called: author, originator, producer, made by. Examples: \"Novel\" creator \"Jane Doe\", \"Software\" creator \"Acme Corp.\", \"Blog Post\" creator \"John Smith\", \"User Review\" creator \"Anonymous User\". Distinct from copyrightHolder, which is about legal ownership.",
+          "embed_score": 0.814,
+          "embed_rank": 4
+        },
+        {
+          "source": "schema.org",
+          "label": "albumProductionType",
+          "signature": "MusicAlbum → MusicAlbumProductionType",
+          "parent": null,
+          "inverse_of": null,
+          "score": -2.5462,
+          "matched_anchor": null,
+          "comment": "An album production type relation between a music album and its classification based on content type (e.g., studio, live, soundtrack). Also called album category, production style, content type. Examples: \"A music album's production type is 'StudioAlbum'.\", \"The album's production type is 'LiveAlbum'.\"",
+          "embed_score": 0.791,
+          "embed_rank": 15
+        },
+        {
+          "source": "schema.org",
+          "label": "yield",
+          "signature": "HowTo → QuantitativeValue/Text",
+          "parent": null,
+          "inverse_of": null,
+          "score": -3.8681,
+          "matched_anchor": null,
+          "comment": "A yield relation between a how-to guide and a quantitative value or text, specifying the quantity or type of output produced by following the instructions. Also called output quantity, resulting amount, production yield. Examples: HowToRecipe yield \"12 cookies\", HowToCraft yield \"1 paper airplane\", HowToGuide yield \"5 liters of jam\".",
+          "embed_score": 0.777,
+          "embed_rank": 36
+        },
+        {
+          "source": "schema.org",
+          "label": "countryOfOrigin",
+          "signature": "CreativeWork/Movie/Product/TVEpisode/TVSeason/TVSeries → Country",
+          "parent": null,
+          "inverse_of": null,
+          "score": -4.1722,
+          "matched_anchor": null,
+          "comment": "A provenance relation between a creative work or product and its country of origin. Also called: origin country, produced in, made in. Examples: \"French Wine\" country of origin \"France\", \"Japanese Anime\" country of origin \"Japan\", \"German Car\" country of origin \"Germany\", \"Hollywood Movie\" country of origin \"United States\". Distinct from countryOfAssembly, which specifies where the product was put together.",
+          "embed_score": 0.798,
+          "embed_rank": 9
+        },
+        {
+          "source": "schema.org",
+          "label": "sourceOrganization",
+          "signature": "CreativeWork → Organization",
+          "parent": null,
+          "inverse_of": null,
+          "score": -4.4165,
+          "matched_anchor": null,
+          "comment": "An affiliation relation between a creative work and the organization on whose behalf its creator was working. Also called \"commissioning organization\", \"producing organization\", \"organization behind\", \"publisher organization\". Examples: \"The research paper's sourceOrganization was MIT\", \"The documentary's sourceOrganization was BBC\", \"This report's sourceOrganization is the World Health Organization.\"",
+          "embed_score": 0.784,
+          "embed_rank": 21
+        }
+      ]
+    },
+    {
+      "relation_phrase": "chairman of",
+      "definition": null,
+      "embedding_query_text": "chairman of:",
+      "observed_signatures": [
+        "FilmExecutive → FilmStudio"
+      ],
+      "n_assignments": 1,
+      "assignments": [
+        {
+          "instances": [
+            "Tom Rothman -> Sony Pictures"
+          ],
+          "chosen_property": {
+            "label": "chairmanOf",
+            "source": "vocab",
+            "direction": "as_is",
+            "vocab_id": "P0114",
+            "is_new_to_vocab": true,
+            "definition": "The film executive is the chairman of a film studio.",
+            "parent": null,
+            "domain": [
+              "FilmExecutive"
+            ],
+            "range": [
+              "FilmStudio"
+            ],
+            "path": "",
+            "justification": "No existing schema.org property fits this relation."
+          },
+          "llm_proposed": {
+            "source": "new",
+            "label": "chairmanOf",
+            "is_new": true,
+            "direction": "as_is"
+          }
+        }
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "directors",
+          "signature": "Clip/Episode/Movie/MovieSeries/RadioSeries/TVSeries/VideoGame/VideoGameSeries/VideoObject → Person",
+          "parent": null,
+          "inverse_of": null,
+          "score": -9.2913,
+          "matched_anchor": null,
+          "comment": "A creative leadership relation between a clip, episode, movie, or video game and the persons who directed it. Also called: directed by, filmmakers, showrunners. Examples: \"Movie\" directors \"Joel Coen, Ethan Coen\", \"TV Episode\" directors \"Various Directors\", \"Video Game\" directors \"Hideo Kojima, Yoji Shinkawa\". Distinct from director, which is a singular property for a single director.",
+          "embed_score": 0.753,
+          "embed_rank": 32
+        },
+        {
+          "source": "schema.org",
+          "label": "founders",
+          "signature": "Organization → Person",
+          "parent": null,
+          "inverse_of": null,
+          "score": -9.6261,
+          "matched_anchor": null,
+          "comment": "A founders relation between an organization and the people who established it. Also called: co-founders, creators, originators. Examples: \"Google\" founders \"Larry Page, Sergey Brin\", \"Apple Inc.\" founders \"Steve Jobs, Steve Wozniak, Ronald Wayne\", \"Microsoft\" founders \"Bill Gates, Paul Allen\". Distinct from founder, which can be a single person or organization.",
+          "embed_score": 0.751,
+          "embed_rank": 40
+        },
+        {
+          "source": "schema.org",
+          "label": "memberOf",
+          "signature": "Organization/Person → MemberProgramTier/Organization/ProgramMembership",
+          "parent": null,
+          "inverse_of": "member",
+          "score": -9.6802,
+          "matched_anchor": null,
+          "comment": "A membership relation between an organization or person and the organization or program membership they belong to. Also called: belongs to, is a member of, affiliated with. Examples: \"John Doe memberOf 'Local Sports Club'\", \"Acme Corp memberOf 'Industry Association'\", \"Jane Smith memberOf 'Premium Membership Tier'\". Distinct from member, which expresses the inverse relationship.",
+          "embed_score": 0.778,
+          "embed_rank": 1
+        },
+        {
+          "source": "schema.org",
+          "label": "alumniOf",
+          "signature": "Person → EducationalOrganization/Organization",
+          "parent": null,
+          "inverse_of": "alumni",
+          "score": -9.6914,
+          "matched_anchor": null,
+          "comment": "An alumni of relation between a person and an educational organization or organization they are a former student or member of. Also called graduated from, formerly attended, past affiliation. Examples: \"A person is alumni of 'MIT'.\", \"John Doe is alumni of 'Boy Scouts of America'.\" Distinct from alumni, which describes the inverse relationship (organization to person).",
+          "embed_score": 0.749,
+          "embed_rank": 46
+        },
+        {
+          "source": "schema.org",
+          "label": "founder",
+          "signature": "Organization → Organization/Person",
+          "parent": null,
+          "inverse_of": null,
+          "score": -9.7191,
+          "matched_anchor": null,
+          "comment": "A founder relation between an organization and the person or organization that established it. Also called: established by, created by, initiated by. Examples: \"Microsoft\" founder \"Bill Gates\", \"Apple Inc.\" founder \"Steve Jobs\", \"Google\" founder \"Larry Page\". Distinct from founders, which is specifically for multiple people.",
+          "embed_score": 0.768,
+          "embed_rank": 5
+        },
+        {
+          "source": "schema.org",
+          "label": "producer",
+          "signature": "CreativeWork → Organization/Person",
+          "parent": null,
+          "inverse_of": null,
+          "score": -9.8914,
+          "matched_anchor": null,
+          "comment": "A creative role relation between a creative work and the person or organization responsible for its production. Also called production company, executive producer, creator, maker. Examples: A movie has a producer 'Steven Spielberg'. A music album has a producer 'Universal Music Group'. A TV series has a producer 'Shonda Rhimes'. Distinct from director, who is responsible for the creative vision.",
+          "embed_score": 0.75,
+          "embed_rank": 43
+        },
+        {
+          "source": "schema.org",
+          "label": "members",
+          "signature": "Organization/ProgramMembership → Organization/Person",
+          "parent": null,
+          "inverse_of": null,
+          "score": -9.9918,
+          "matched_anchor": null,
+          "comment": "A member relation between an organization or program membership and an organization or person belonging to it. Also called: includes members, comprises, consists of. Examples: \"Club Organization members John Doe\", \"Team ProgramMembership members Jane Smith\", \"Alliance Organization members Partner Company\". Distinct from member, which is a singular form and essentially the same concept.",
+          "embed_score": 0.757,
+          "embed_rank": 19
+        },
+        {
+          "source": "schema.org",
+          "label": "member",
+          "signature": "Organization/ProgramMembership → Organization/Person",
+          "parent": null,
+          "inverse_of": "memberOf",
+          "score": -10.0876,
+          "matched_anchor": null,
+          "comment": "A member relation between an organization or program membership and an organization or person belonging to it. Also called: belongs to, is a part of, participant in. Examples: \"Club Organization member John Doe\", \"Team ProgramMembership member Jane Smith\", \"Alliance Organization member Partner Company\". Distinct from memberOf, which expresses the inverse relationship.",
+          "embed_score": 0.773,
+          "embed_rank": 3
+        },
+        {
+          "source": "schema.org",
+          "label": "organizer",
+          "signature": "Event → Organization/Person",
+          "parent": null,
+          "inverse_of": null,
+          "score": -10.2512,
+          "matched_anchor": null,
+          "comment": "An organization or person responsible for organizing an event. Also called event planner, host, coordinator, promoter. Examples: \"Conference X organizer 'Acme Events Inc.'\", \"Concert Y organizer 'Live Nation'\", \"Workshop Z organizer 'Jane Doe'\". Distinct from performer, who participates in the event.",
+          "embed_score": 0.763,
+          "embed_rank": 7
+        },
+        {
+          "source": "schema.org",
+          "label": "owner",
+          "signature": "Thing → Organization/Person",
+          "parent": null,
+          "inverse_of": "owns",
+          "score": -10.2697,
+          "matched_anchor": null,
+          "comment": "A person or organization that owns a thing. Also called proprietor, possessor, title holder. Examples: \"Car owner 'John Doe'\", \"Company owner 'Acme Corp'\", \"House owner 'Smith Family Trust'\". Distinct from creator, who made the thing.",
+          "embed_score": 0.777,
+          "embed_rank": 2
+        }
+      ]
+    }
+  ]
+}

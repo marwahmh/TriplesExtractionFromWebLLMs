@@ -1,0 +1,182 @@
+[NbConvertApp] Converting notebook /Users/marwah/Documents/Thesis/TriplesExtractionFromWebLLMs/Phase2_LLM_Extraction/notebooks/e2e/6c_e2e_reification.ipynb to notebook
+/opt/anaconda3/lib/python3.12/site-packages/nbformat/__init__.py:93: MissingIDFieldWarning: Code cell is missing an id field, this will become a hard error in future nbformat versions. You may want to use `normalize()` on your notebooks before validations (available since nbformat 5.1.4). Previous versions of nbformat are fixing this issue transparently, and will stop doing so in the future.
+  validate(nb)
+Traceback (most recent call last):
+  File "/opt/anaconda3/bin/jupyter-nbconvert", line 11, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "/opt/anaconda3/lib/python3.12/site-packages/jupyter_core/application.py", line 283, in launch_instance
+    super().launch_instance(argv=argv, **kwargs)
+  File "/opt/anaconda3/lib/python3.12/site-packages/traitlets/config/application.py", line 1075, in launch_instance
+    app.start()
+  File "/opt/anaconda3/lib/python3.12/site-packages/nbconvert/nbconvertapp.py", line 412, in start
+    self.convert_notebooks()
+  File "/opt/anaconda3/lib/python3.12/site-packages/nbconvert/nbconvertapp.py", line 590, in convert_notebooks
+    self.convert_single_notebook(notebook_filename)
+  File "/opt/anaconda3/lib/python3.12/site-packages/nbconvert/nbconvertapp.py", line 556, in convert_single_notebook
+    output, resources = self.export_single_notebook(
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.12/site-packages/nbconvert/nbconvertapp.py", line 479, in export_single_notebook
+    output, resources = self.exporter.from_filename(
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.12/site-packages/nbconvert/exporters/exporter.py", line 203, in from_filename
+    return self.from_file(f, resources=resources, **kw)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.12/site-packages/nbconvert/exporters/exporter.py", line 222, in from_file
+    return self.from_notebook_node(
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.12/site-packages/nbconvert/exporters/notebook.py", line 36, in from_notebook_node
+    nb_copy, resources = super().from_notebook_node(nb, resources, **kw)
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.12/site-packages/nbconvert/exporters/exporter.py", line 156, in from_notebook_node
+    nb_copy, resources = self._preprocess(nb_copy, resources)
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.12/site-packages/nbconvert/exporters/exporter.py", line 354, in _preprocess
+    nbc, resc = preprocessor(nbc, resc)  # type:ignore[operator]
+                ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.12/site-packages/nbconvert/preprocessors/base.py", line 48, in __call__
+    return self.preprocess(nb, resources)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.12/site-packages/nbconvert/preprocessors/execute.py", line 102, in preprocess
+    self.preprocess_cell(cell, resources, index)
+  File "/opt/anaconda3/lib/python3.12/site-packages/nbconvert/preprocessors/execute.py", line 123, in preprocess_cell
+    cell = self.execute_cell(cell, index, store_history=True)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.12/site-packages/jupyter_core/utils/__init__.py", line 165, in wrapped
+    return loop.run_until_complete(inner)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.12/asyncio/base_events.py", line 687, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.12/site-packages/nbclient/client.py", line 1058, in async_execute_cell
+    await self._check_raise_for_error(cell, cell_index, exec_reply)
+  File "/opt/anaconda3/lib/python3.12/site-packages/nbclient/client.py", line 914, in _check_raise_for_error
+    raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
+nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
+------------------
+# ---- WHICH EXPERIMENT ---------------------------------------------------------------------
+# ONE name decides the whole run. Every knob below comes from configs/<EXPERIMENT>.json, so a
+# finished run is reproducible from a file rather than from whatever the notebook happens to say
+# today — and 6c / 6d / 6e cannot drift apart, because all three read the SAME file.
+#   list what exists :  python -m experiment_config list          (run from notebooks/)
+#   see one resolved :  python -m experiment_config show main
+#   sanity-check one :  python -m experiment_config check main
+# $PHASE2_EXPERIMENT wins when it is set, so a headless batch of ablations (run_e2e.sh) can sweep
+# experiments without editing a single notebook.
+import os
+EXPERIMENT = os.environ.get("PHASE2_EXPERIMENT") or "main"
+
+import sys, pathlib, importlib
+for _p in (pathlib.Path.cwd(), *pathlib.Path.cwd().parents):
+    if (_p / "experiment_config.py").exists():
+        sys.path.insert(0, str(_p)); break
+import experiment_config as xcfg; importlib.reload(xcfg)
+
+# Sets RESULTS_MODEL, BACKEND, GEMINI_MODEL, VARIANT, RUN_TAG, SELECTED_ARTICLES and this
+# section's own knobs: PROMPT, REVIEW, WORKERS, THINKING_BUDGET, MAX_OUTPUT_TOKENS.
+CFG = xcfg.load(EXPERIMENT, globals(), "6c")
+# A one-off try goes RIGHT HERE, below the load, where it wins over the file. Anything you want to
+# keep belongs in a config file instead — an override here is lost the moment the name changes.
+
+# --- derived paths -------------------------------------------------------------------------
+from pathlib import Path
+import json, time, re
+
+RESULTS_DIR = ROOT / "results" / RESULTS_MODEL
+DATASET_DIR = ROOT / "dataset/articles"    # reads <id>.txt (raw text — NO pre-extracted entities)
+
+# VARIANT names the extraction ARM and is what every later stage reads: 6d canonicalizes
+# nary_graph<_sfx>.json. A new prompt therefore needs a new VARIANT, or it silently overwrites the
+# graphs of the arm it was meant to be compared against.
+_sfx        = f"_{VARIANT}" if VARIANT else ""
+OUTPUT_NAME = f"e2e/nary_graph{_sfx}.json"          # written to <RESULTS_DIR>/<id>/
+
+# Articles this run processes: those with a raw <id>.txt. `selected_articles: null` in the config
+# means the whole corpus. Numeric order (art2 before art10) — see xcfg.article_key.
+_available = sorted((p.stem for p in DATASET_DIR.glob("*.txt")), key=xcfg.article_key)
+if SELECTED_ARTICLES is None:
+    ARTICLE_IDS = _available
+else:
+    missing = [a for a in SELECTED_ARTICLES if a not in _available]
+    assert not missing, f"no article text for: {missing}"
+    ARTICLE_IDS = list(SELECTED_ARTICLES)
+ARTICLE_ID = ARTICLE_IDS[0]                # the single article the demo cell below inspects
+
+# Articles are extracted independently — nothing is carried from one to the next — so the batch cell
+# runs WORKERS of them at once. Each article costs 2 LLM calls (extract + review), so WORKERS is the
+# concurrency the API sees. 1 = the plain sequential loop; use it when debugging.
+print(f"\n{len(_available)} article texts available; this run processes {len(ARTICLE_IDS)}"
+      f" -> results/{RESULTS_MODEL}/<id>/{OUTPUT_NAME}")
+------------------
+
+----- stdout -----
+experiment 'main'  ·  section 6c (e2e · single-call extraction)
+---------------------------------------------------------------
+  The reported configuration: schema-only inline retrieval + global re-consolidation, cross-encoder rerank on the relation side, two-call consolidation with generalize. Every ablation is measured against it.
+---------------------------------------------------------------
+  RESULTS_MODEL                'llama33-70b'
+  BACKEND                      'llama33-70b'
+  VARIANT                      'dedup'
+  RUN_TAG                      'main_val_r1'
+  INPUT_TAG                    'main_val_r1'
+  REPEAT                       1
+  SPLIT                        'validation'
+  SELECTED_ARTICLES            ['art4']
+  MATCH_MODEL                  'intfloat/e5-base-v2'
+  GEMINI_MODEL                 'gemini-2.5-flash'
+  ····························
+  PROMPT                       'dedup'
+  REVIEW                       True
+  WORKERS                      4
+  THINKING_BUDGET              -1
+  MAX_OUTPUT_TOKENS            None
+------------------
+
+[0;31m---------------------------------------------------------------------------[0m
+[0;31mRuntimeError[0m                              Traceback (most recent call last)
+Cell [0;32mIn[2], line 21[0m
+[1;32m     17[0m [38;5;28;01mimport[39;00m [38;5;21;01mexperiment_config[39;00m [38;5;28;01mas[39;00m [38;5;21;01mxcfg[39;00m; importlib[38;5;241m.[39mreload(xcfg)
+[1;32m     19[0m [38;5;66;03m# Sets RESULTS_MODEL, BACKEND, GEMINI_MODEL, VARIANT, RUN_TAG, SELECTED_ARTICLES and this[39;00m
+[1;32m     20[0m [38;5;66;03m# section's own knobs: PROMPT, REVIEW, WORKERS, THINKING_BUDGET, MAX_OUTPUT_TOKENS.[39;00m
+[0;32m---> 21[0m CFG [38;5;241m=[39m xcfg[38;5;241m.[39mload(EXPERIMENT, [38;5;28mglobals[39m(), [38;5;124m"[39m[38;5;124m6c[39m[38;5;124m"[39m)
+[1;32m     22[0m [38;5;66;03m# A one-off try goes RIGHT HERE, below the load, where it wins over the file. Anything you want to[39;00m
+[1;32m     23[0m [38;5;66;03m# keep belongs in a config file instead — an override here is lost the moment the name changes.[39;00m
+[1;32m     24[0m 
+[1;32m     25[0m [38;5;66;03m# --- derived paths -------------------------------------------------------------------------[39;00m
+[1;32m     26[0m [38;5;28;01mfrom[39;00m [38;5;21;01mpathlib[39;00m [38;5;28;01mimport[39;00m Path
+
+File [0;32m~/Documents/Thesis/TriplesExtractionFromWebLLMs/Phase2_LLM_Extraction/notebooks/experiment_config.py:293[0m, in [0;36mload[0;34m(name, ns, section, verbose, manifest)[0m
+[1;32m    291[0m     _sys[38;5;241m.[39mpath[38;5;241m.[39minsert([38;5;241m0[39m, [38;5;28mstr[39m(Path([38;5;18m__file__[39m)[38;5;241m.[39mresolve()[38;5;241m.[39mparent))
+[1;32m    292[0m [38;5;28;01mimport[39;00m [38;5;21;01mrun_manifest[39;00m
+[0;32m--> 293[0m rec [38;5;241m=[39m run_manifest[38;5;241m.[39mbegin(cfg, section, results_dir(cfg), root[38;5;241m=[39mproject_root(),
+[1;32m    294[0m                          verbose[38;5;241m=[39mverbose)
+[1;32m    295[0m [38;5;28;01mif[39;00m rec [38;5;129;01mis[39;00m [38;5;129;01mnot[39;00m [38;5;28;01mNone[39;00m:
+[1;32m    296[0m     ns[[38;5;124m"[39m[38;5;124mRUN_ID[39m[38;5;124m"[39m] [38;5;241m=[39m rec[[38;5;124m"[39m[38;5;124mrun_id[39m[38;5;124m"[39m]
+
+File [0;32m~/Documents/Thesis/TriplesExtractionFromWebLLMs/Phase2_LLM_Extraction/notebooks/run_manifest.py:166[0m, in [0;36mbegin[0;34m(cfg, section, results_dir, root, overwrite, verbose)[0m
+[1;32m    164[0m done [38;5;241m=[39m rec[[38;5;124m"[39m[38;5;124mstages[39m[38;5;124m"[39m][38;5;241m.[39mget(section, {})[38;5;241m.[39mget([38;5;124m"[39m[38;5;124mfinished[39m[38;5;124m"[39m)
+[1;32m    165[0m [38;5;28;01mif[39;00m done [38;5;129;01mand[39;00m [38;5;129;01mnot[39;00m overwrite:
+[0;32m--> 166[0m     [38;5;28;01mraise[39;00m [38;5;167;01mRuntimeError[39;00m(
+[1;32m    167[0m         [38;5;124mf[39m[38;5;124m"[39m[38;5;130;01m\n[39;00m[38;5;124m  stage [39m[38;5;132;01m{[39;00msection[38;5;132;01m!r}[39;00m[38;5;124m already finished under run id [39m[38;5;132;01m{[39;00mrid[38;5;132;01m!r}[39;00m[38;5;124m on [39m[38;5;132;01m{[39;00mdone[38;5;132;01m}[39;00m[38;5;124m.[39m[38;5;130;01m\n[39;00m[38;5;124m"[39m
+[1;32m    168[0m         [38;5;124mf[39m[38;5;124m"[39m[38;5;124m  Its outputs are on disk and may already be reported; starting now would overwrite[39m[38;5;130;01m\n[39;00m[38;5;124m"[39m
+[1;32m    169[0m         [38;5;124mf[39m[38;5;124m"[39m[38;5;124m  them in place, leaving the manifest describing one run and the files another.[39m[38;5;130;01m\n[39;00m[38;5;124m"[39m
+[1;32m    170[0m         [38;5;124mf[39m[38;5;124m"[39m[38;5;124m    manifest : [39m[38;5;132;01m{[39;00mp[38;5;132;01m}[39;00m[38;5;130;01m\n[39;00m[38;5;124m"[39m
+[1;32m    171[0m         [38;5;124mf[39m[38;5;124m"[39m[38;5;124m  Pick ONE:[39m[38;5;130;01m\n[39;00m[38;5;124m"[39m
+[1;32m    172[0m         [38;5;124mf[39m[38;5;124m"[39m[38;5;124m    * a repeat of the same arm   ->  REPEAT=2 (or 3) in the environment, or[39m[38;5;130;01m\n[39;00m[38;5;124m"[39m
+[1;32m    173[0m         [38;5;124mf[39m[38;5;124m"[39m[38;5;124m                                     [39m[38;5;130;01m\"[39;00m[38;5;124mrepeat[39m[38;5;130;01m\"[39;00m[38;5;124m: 2 in configs/[39m[38;5;132;01m{[39;00mcfg[38;5;241m.[39mget([38;5;124m'[39m[38;5;124mexperiment[39m[38;5;124m'[39m)[38;5;132;01m}[39;00m[38;5;124m.json[39m[38;5;130;01m\n[39;00m[38;5;124m"[39m
+[1;32m    174[0m         [38;5;124mf[39m[38;5;124m"[39m[38;5;124m    * a different configuration  ->  a new experiment file with its own run_tag[39m[38;5;130;01m\n[39;00m[38;5;124m"[39m
+[1;32m    175[0m         [38;5;124mf[39m[38;5;124m"[39m[38;5;124m    * really redo this one       ->  [39m[38;5;132;01m{[39;00mOVERWRITE_ENV[38;5;132;01m}[39;00m[38;5;124m=1 in the environment[39m[38;5;124m"[39m)
+[1;32m    177[0m _guard_extraction(rec, section, cfg, results_dir, rid, overwrite)
+[1;32m    178[0m _guard_concurrent(rec, section, rid, p, overwrite)
+
+[0;31mRuntimeError[0m: 
+  stage '6c' already finished under run id 'e2e__dedup__main_val_r1' on 2026-08-17T16:34:24+02:00.
+  Its outputs are on disk and may already be reported; starting now would overwrite
+  them in place, leaving the manifest describing one run and the files another.
+    manifest : /Users/marwah/Documents/Thesis/TriplesExtractionFromWebLLMs/Phase2_LLM_Extraction/results/llama33-70b/_runs/e2e__dedup__main_val_r1.json
+  Pick ONE:
+    * a repeat of the same arm   ->  REPEAT=2 (or 3) in the environment, or
+                                     "repeat": 2 in configs/main.json
+    * a different configuration  ->  a new experiment file with its own run_tag
+    * really redo this one       ->  PHASE2_OVERWRITE=1 in the environment
+

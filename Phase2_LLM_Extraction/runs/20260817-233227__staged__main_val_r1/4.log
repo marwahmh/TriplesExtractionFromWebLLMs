@@ -1,0 +1,257 @@
+[NbConvertApp] Converting notebook /Users/marwah/Documents/Thesis/TriplesExtractionFromWebLLMs/Phase2_LLM_Extraction/notebooks/two_staged/4_type_extension.ipynb to notebook
+/opt/anaconda3/lib/python3.12/site-packages/nbformat/__init__.py:93: MissingIDFieldWarning: Code cell is missing an id field, this will become a hard error in future nbformat versions. You may want to use `normalize()` on your notebooks before validations (available since nbformat 5.1.4). Previous versions of nbformat are fixing this issue transparently, and will stop doing so in the future.
+  validate(nb)
+/opt/anaconda3/lib/python3.12/site-packages/nbformat/__init__.py:93: DuplicateCellId: Non-unique cell id 'c1' detected. Corrected to '733a2ef5'.
+  validate(nb)
+Traceback (most recent call last):
+  File "/opt/anaconda3/bin/jupyter-nbconvert", line 11, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "/opt/anaconda3/lib/python3.12/site-packages/jupyter_core/application.py", line 283, in launch_instance
+    super().launch_instance(argv=argv, **kwargs)
+  File "/opt/anaconda3/lib/python3.12/site-packages/traitlets/config/application.py", line 1075, in launch_instance
+    app.start()
+  File "/opt/anaconda3/lib/python3.12/site-packages/nbconvert/nbconvertapp.py", line 412, in start
+    self.convert_notebooks()
+  File "/opt/anaconda3/lib/python3.12/site-packages/nbconvert/nbconvertapp.py", line 590, in convert_notebooks
+    self.convert_single_notebook(notebook_filename)
+  File "/opt/anaconda3/lib/python3.12/site-packages/nbconvert/nbconvertapp.py", line 556, in convert_single_notebook
+    output, resources = self.export_single_notebook(
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.12/site-packages/nbconvert/nbconvertapp.py", line 479, in export_single_notebook
+    output, resources = self.exporter.from_filename(
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.12/site-packages/nbconvert/exporters/exporter.py", line 203, in from_filename
+    return self.from_file(f, resources=resources, **kw)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.12/site-packages/nbconvert/exporters/exporter.py", line 222, in from_file
+    return self.from_notebook_node(
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.12/site-packages/nbconvert/exporters/notebook.py", line 36, in from_notebook_node
+    nb_copy, resources = super().from_notebook_node(nb, resources, **kw)
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.12/site-packages/nbconvert/exporters/exporter.py", line 156, in from_notebook_node
+    nb_copy, resources = self._preprocess(nb_copy, resources)
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.12/site-packages/nbconvert/exporters/exporter.py", line 354, in _preprocess
+    nbc, resc = preprocessor(nbc, resc)  # type:ignore[operator]
+                ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.12/site-packages/nbconvert/preprocessors/base.py", line 48, in __call__
+    return self.preprocess(nb, resources)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.12/site-packages/nbconvert/preprocessors/execute.py", line 102, in preprocess
+    self.preprocess_cell(cell, resources, index)
+  File "/opt/anaconda3/lib/python3.12/site-packages/nbconvert/preprocessors/execute.py", line 123, in preprocess_cell
+    cell = self.execute_cell(cell, index, store_history=True)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.12/site-packages/jupyter_core/utils/__init__.py", line 165, in wrapped
+    return loop.run_until_complete(inner)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.12/asyncio/base_events.py", line 687, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.12/site-packages/nbclient/client.py", line 1058, in async_execute_cell
+    await self._check_raise_for_error(cell, cell_index, exec_reply)
+  File "/opt/anaconda3/lib/python3.12/site-packages/nbclient/client.py", line 914, in _check_raise_for_error
+    raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
+nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
+------------------
+# Incremental build. Sequential BY DESIGN: the vocabulary grows article by article and what article
+# k mints depends on what k-1 added, so running the articles in parallel would change the output.
+#
+# FRESH comes from the config. True: start from an EMPTY vocabulary and process ALL of
+# ARTICLE_ORDER — what a reported run does. False: keep the existing type_vocabulary<_osfx>.json and
+# extend it with NEW_ARTICLES only (or, if that is empty, every article not yet typed).
+NEW_ARTICLES = []          # used only when FRESH is False
+
+if FRESH:
+    vocab = {"types": [], "next_id": 1}; save_vocab(vocab); todo = ARTICLE_ORDER
+else:
+    vocab = load_vocab()
+    todo  = NEW_ARTICLES or [a for a in ARTICLE_ORDER
+                             if not (RESULTS_DIR / a / f"two_staged/1_entities/entities_typed{_osfx}.json").exists()]
+
+# CONSOLIDATE_EVERY (config, 0 = off) re-consolidates every N articles instead of once at the end.
+# This cell then builds only the FIRST chunk — consolidate_vocab / refresh_ext_after_consolidation are
+# defined further down, so the remaining chunks are driven by the periodic cell BELOW them.
+TODO_ALL = list(todo)
+if CONSOLIDATE_EVERY:
+    todo = TODO_ALL[:CONSOLIDATE_EVERY]
+
+print(f"building type vocabulary over {len(todo)} article(s): {todo}\n")
+nb_parallel.reset_usage()          # the report below covers only the calls THIS run makes
+_t0 = time.perf_counter()
+
+for aid in todo:
+    with nb_parallel.usage_scope(aid):      # tag this article's calls so the report breaks down per article
+        process_article(aid, vocab, write=True, save=True, verbose=True)
+    time.sleep(5)                           # gentle on the API's per-minute limit
+print(f"\ndone — {len(vocab['types'])} canonical types in {VOCAB_PATH}")
+
+# --- what this run cost: calls, prompt / output / THINKING tokens, and elapsed time ------------
+nb_parallel.usage_report(f"nb4 · type extension · {EXPERIMENT}",
+                         wall_seconds=time.perf_counter() - _t0,
+                         write=RESULTS_DIR / "_global" / f"token_usage_types{_osfx}.json",
+                         experiment=EXPERIMENT, run_tag=RUN_TAG)
+------------------
+
+----- stdout -----
+building type vocabulary over 5 article(s): ['art1', 'art2', 'art3', 'art4', 'art5']
+----- stdout -----
+  art1: 51 types, 126 nodes (2 deduped) | +19 minted | vocab now 19
+----- stdout -----
+  art2: 53 types, 135 nodes (6 deduped) | +22 minted | vocab now 41
+------------------
+
+[0;31m---------------------------------------------------------------------------[0m
+[0;31mServerError[0m                               Traceback (most recent call last)
+Cell [0;32mIn[14], line 29[0m
+[1;32m     27[0m [38;5;28;01mfor[39;00m aid [38;5;129;01min[39;00m todo:
+[1;32m     28[0m     [38;5;28;01mwith[39;00m nb_parallel[38;5;241m.[39musage_scope(aid):      [38;5;66;03m# tag this article's calls so the report breaks down per article[39;00m
+[0;32m---> 29[0m         process_article(aid, vocab, write[38;5;241m=[39m[38;5;28;01mTrue[39;00m, save[38;5;241m=[39m[38;5;28;01mTrue[39;00m, verbose[38;5;241m=[39m[38;5;28;01mTrue[39;00m)
+[1;32m     30[0m     time[38;5;241m.[39msleep([38;5;241m5[39m)                           [38;5;66;03m# gentle on the API's per-minute limit[39;00m
+[1;32m     31[0m [38;5;28mprint[39m([38;5;124mf[39m[38;5;124m"[39m[38;5;130;01m\n[39;00m[38;5;124mdone — [39m[38;5;132;01m{[39;00m[38;5;28mlen[39m(vocab[[38;5;124m'[39m[38;5;124mtypes[39m[38;5;124m'[39m])[38;5;132;01m}[39;00m[38;5;124m canonical types in [39m[38;5;132;01m{[39;00mVOCAB_PATH[38;5;132;01m}[39;00m[38;5;124m"[39m)
+
+Cell [0;32mIn[12], line 10[0m, in [0;36mprocess_article[0;34m(aid, vocab, write, save, verbose)[0m
+[1;32m      8[0m oie, tinfo, types, qtexts, groups [38;5;241m=[39m load_article(aid)
+[1;32m      9[0m cands  [38;5;241m=[39m retrieve_candidates(qtexts, vocab)
+[0;32m---> 10[0m report [38;5;241m=[39m llm_select_and_dedup(types, tinfo, groups, cands)
+[1;32m     12[0m resolved, n_mint [38;5;241m=[39m {}, [38;5;241m0[39m
+[1;32m     13[0m [38;5;28;01mfor[39;00m t [38;5;129;01min[39;00m types:
+
+Cell [0;32mIn[11], line 20[0m, in [0;36mllm_select_and_dedup[0;34m(types, tinfo, groups, cands)[0m
+[1;32m     18[0m     blocks[38;5;241m.[39mappend([38;5;124m"[39m[38;5;130;01m\n[39;00m[38;5;124m"[39m[38;5;241m.[39mjoin(b))
+[1;32m     19[0m user [38;5;241m=[39m [38;5;124mf[39m[38;5;124m"[39m[38;5;124mYou are given [39m[38;5;132;01m{[39;00m[38;5;28mlen[39m(types)[38;5;132;01m}[39;00m[38;5;124m GROUPS from one document.[39m[38;5;130;01m\n[39;00m[38;5;130;01m\n[39;00m[38;5;124m"[39m [38;5;241m+[39m [38;5;124m"[39m[38;5;130;01m\n[39;00m[38;5;130;01m\n[39;00m[38;5;124m"[39m[38;5;241m.[39mjoin(blocks)
+[0;32m---> 20[0m parsed  [38;5;241m=[39m parse_json(gemini_json(active_select_prompt(), user))
+[1;32m     21[0m results [38;5;241m=[39m parsed[38;5;241m.[39mget([38;5;124m"[39m[38;5;124mresults[39m[38;5;124m"[39m, parsed) [38;5;28;01mif[39;00m [38;5;28misinstance[39m(parsed, [38;5;28mdict[39m) [38;5;28;01melse[39;00m parsed
+[1;32m     22[0m out [38;5;241m=[39m {r[38;5;241m.[39mget([38;5;124m"[39m[38;5;124moie_type[39m[38;5;124m"[39m): {[38;5;124m"[39m[38;5;124mchosen_type[39m[38;5;124m"[39m: r[38;5;241m.[39mget([38;5;124m"[39m[38;5;124mchosen_type[39m[38;5;124m"[39m) [38;5;129;01mor[39;00m {},
+[1;32m     23[0m                            [38;5;124m"[39m[38;5;124mclusters[39m[38;5;124m"[39m: r[38;5;241m.[39mget([38;5;124m"[39m[38;5;124mduplicate_clusters[39m[38;5;124m"[39m) [38;5;129;01mor[39;00m []}
+[1;32m     24[0m        [38;5;28;01mfor[39;00m r [38;5;129;01min[39;00m (results [38;5;129;01mor[39;00m []) [38;5;28;01mif[39;00m r[38;5;241m.[39mget([38;5;124m"[39m[38;5;124moie_type[39m[38;5;124m"[39m) [38;5;129;01min[39;00m [38;5;28mset[39m(types)}
+
+Cell [0;32mIn[9], line 26[0m, in [0;36mgemini_json[0;34m(system, user)[0m
+[1;32m     24[0m [38;5;28;01mimport[39;00m [38;5;21;01mtime[39;00m
+[1;32m     25[0m t0 [38;5;241m=[39m time[38;5;241m.[39mperf_counter()
+[0;32m---> 26[0m r [38;5;241m=[39m client[38;5;241m.[39mmodels[38;5;241m.[39mgenerate_content(
+[1;32m     27[0m     model[38;5;241m=[39mGEMINI_MODEL, contents[38;5;241m=[39muser,
+[1;32m     28[0m     config[38;5;241m=[39mgenai_types[38;5;241m.[39mGenerateContentConfig(
+[1;32m     29[0m         system_instruction[38;5;241m=[39msystem, temperature[38;5;241m=[39m[38;5;241m0[39m, response_mime_type[38;5;241m=[39m[38;5;124m"[39m[38;5;124mapplication/json[39m[38;5;124m"[39m))
+[1;32m     30[0m [38;5;28;01mglobal[39;00m LAST_USAGE
+[1;32m     31[0m LAST_USAGE [38;5;241m=[39m nb_parallel[38;5;241m.[39mrecord_gemini_usage(r, time[38;5;241m.[39mperf_counter() [38;5;241m-[39m t0)   [38;5;66;03m# prompt/output/THINKING tokens + latency[39;00m
+
+File [0;32m~/.local/lib/python3.12/site-packages/google/genai/models.py:6526[0m, in [0;36mModels.generate_content[0;34m(self, model, contents, config)[0m
+[1;32m   6522[0m   parsed_config_to_call [38;5;241m=[39m _extra_utils[38;5;241m.[39mget_usage_header(
+[1;32m   6523[0m       parsed_config_to_call
+[1;32m   6524[0m   )
+[1;32m   6525[0m i [38;5;241m+[39m[38;5;241m=[39m [38;5;241m1[39m
+[0;32m-> 6526[0m response [38;5;241m=[39m [38;5;28mself[39m[38;5;241m.[39m_generate_content(
+[1;32m   6527[0m     model[38;5;241m=[39mmodel, contents[38;5;241m=[39mcontents, config[38;5;241m=[39mparsed_config_to_call
+[1;32m   6528[0m )
+[1;32m   6530[0m [38;5;28;01mif[39;00m [38;5;129;01mnot[39;00m function_map:
+[1;32m   6531[0m   [38;5;28;01mbreak[39;00m
+
+File [0;32m~/.local/lib/python3.12/site-packages/google/genai/models.py:4954[0m, in [0;36mModels._generate_content[0;34m(self, model, contents, config)[0m
+[1;32m   4951[0m request_dict [38;5;241m=[39m _common[38;5;241m.[39mconvert_to_dict(request_dict)
+[1;32m   4952[0m request_dict [38;5;241m=[39m _common[38;5;241m.[39mencode_unserializable_types(request_dict)
+[0;32m-> 4954[0m response [38;5;241m=[39m [38;5;28mself[39m[38;5;241m.[39m_api_client[38;5;241m.[39mrequest(
+[1;32m   4955[0m     [38;5;124m'[39m[38;5;124mpost[39m[38;5;124m'[39m, path, request_dict, http_options
+[1;32m   4956[0m )
+[1;32m   4958[0m [38;5;28;01mif[39;00m config [38;5;129;01mis[39;00m [38;5;129;01mnot[39;00m [38;5;28;01mNone[39;00m [38;5;129;01mand[39;00m [38;5;28mgetattr[39m(
+[1;32m   4959[0m     config, [38;5;124m'[39m[38;5;124mshould_return_http_response[39m[38;5;124m'[39m, [38;5;28;01mNone[39;00m
+[1;32m   4960[0m ):
+[1;32m   4961[0m   return_value [38;5;241m=[39m types[38;5;241m.[39mGenerateContentResponse(sdk_http_response[38;5;241m=[39mresponse)
+
+File [0;32m~/.local/lib/python3.12/site-packages/google/genai/_api_client.py:1618[0m, in [0;36mBaseApiClient.request[0;34m(self, http_method, path, request_dict, http_options)[0m
+[1;32m   1608[0m [38;5;28;01mdef[39;00m [38;5;21mrequest[39m(
+[1;32m   1609[0m     [38;5;28mself[39m,
+[1;32m   1610[0m     http_method: [38;5;28mstr[39m,
+[0;32m   (...)[0m
+[1;32m   1613[0m     http_options: Optional[HttpOptionsOrDict] [38;5;241m=[39m [38;5;28;01mNone[39;00m,
+[1;32m   1614[0m ) [38;5;241m-[39m[38;5;241m>[39m SdkHttpResponse:
+[1;32m   1615[0m   http_request [38;5;241m=[39m [38;5;28mself[39m[38;5;241m.[39m_build_request(
+[1;32m   1616[0m       http_method, path, request_dict, http_options
+[1;32m   1617[0m   )
+[0;32m-> 1618[0m   response [38;5;241m=[39m [38;5;28mself[39m[38;5;241m.[39m_request(http_request, http_options, stream[38;5;241m=[39m[38;5;28;01mFalse[39;00m)
+[1;32m   1619[0m   response_body [38;5;241m=[39m (
+[1;32m   1620[0m       response[38;5;241m.[39mresponse_stream[[38;5;241m0[39m] [38;5;28;01mif[39;00m response[38;5;241m.[39mresponse_stream [38;5;28;01melse[39;00m [38;5;124m'[39m[38;5;124m'[39m
+[1;32m   1621[0m   )
+[1;32m   1622[0m   [38;5;28;01mreturn[39;00m SdkHttpResponse(headers[38;5;241m=[39mresponse[38;5;241m.[39mheaders, body[38;5;241m=[39mresponse_body)
+
+File [0;32m~/.local/lib/python3.12/site-packages/google/genai/_api_client.py:1411[0m, in [0;36mBaseApiClient._request[0;34m(self, http_request, http_options, stream)[0m
+[1;32m   1408[0m     retry [38;5;241m=[39m tenacity[38;5;241m.[39mRetrying([38;5;241m*[39m[38;5;241m*[39mretry_kwargs)
+[1;32m   1409[0m     [38;5;28;01mreturn[39;00m retry([38;5;28mself[39m[38;5;241m.[39m_request_once, http_request, stream)  [38;5;66;03m# type: ignore[no-any-return][39;00m
+[0;32m-> 1411[0m [38;5;28;01mreturn[39;00m [38;5;28mself[39m[38;5;241m.[39m_retry([38;5;28mself[39m[38;5;241m.[39m_request_once, http_request, stream)
+
+File [0;32m~/.local/lib/python3.12/site-packages/tenacity/__init__.py:470[0m, in [0;36mRetrying.__call__[0;34m(self, fn, *args, **kwargs)[0m
+[1;32m    468[0m retry_state [38;5;241m=[39m RetryCallState(retry_object[38;5;241m=[39m[38;5;28mself[39m, fn[38;5;241m=[39mfn, args[38;5;241m=[39margs, kwargs[38;5;241m=[39mkwargs)
+[1;32m    469[0m [38;5;28;01mwhile[39;00m [38;5;28;01mTrue[39;00m:
+[0;32m--> 470[0m     do [38;5;241m=[39m [38;5;28mself[39m[38;5;241m.[39miter(retry_state[38;5;241m=[39mretry_state)
+[1;32m    471[0m     [38;5;28;01mif[39;00m [38;5;28misinstance[39m(do, DoAttempt):
+[1;32m    472[0m         [38;5;28;01mtry[39;00m:
+
+File [0;32m~/.local/lib/python3.12/site-packages/tenacity/__init__.py:371[0m, in [0;36mBaseRetrying.iter[0;34m(self, retry_state)[0m
+[1;32m    369[0m result [38;5;241m=[39m [38;5;28;01mNone[39;00m
+[1;32m    370[0m [38;5;28;01mfor[39;00m action [38;5;129;01min[39;00m [38;5;28mself[39m[38;5;241m.[39miter_state[38;5;241m.[39mactions:
+[0;32m--> 371[0m     result [38;5;241m=[39m action(retry_state)
+[1;32m    372[0m [38;5;28;01mreturn[39;00m result
+
+File [0;32m~/.local/lib/python3.12/site-packages/tenacity/__init__.py:413[0m, in [0;36mBaseRetrying._post_stop_check_actions.<locals>.exc_check[0;34m(rs)[0m
+[1;32m    411[0m retry_exc [38;5;241m=[39m [38;5;28mself[39m[38;5;241m.[39mretry_error_cls(fut)
+[1;32m    412[0m [38;5;28;01mif[39;00m [38;5;28mself[39m[38;5;241m.[39mreraise:
+[0;32m--> 413[0m     [38;5;28;01mraise[39;00m retry_exc[38;5;241m.[39mreraise()
+[1;32m    414[0m [38;5;28;01mraise[39;00m retry_exc [38;5;28;01mfrom[39;00m [38;5;21;01mfut[39;00m[38;5;21;01m.[39;00m[38;5;21;01mexception[39;00m()
+
+File [0;32m~/.local/lib/python3.12/site-packages/tenacity/__init__.py:184[0m, in [0;36mRetryError.reraise[0;34m(self)[0m
+[1;32m    182[0m [38;5;28;01mdef[39;00m [38;5;21mreraise[39m([38;5;28mself[39m) [38;5;241m-[39m[38;5;241m>[39m t[38;5;241m.[39mNoReturn:
+[1;32m    183[0m     [38;5;28;01mif[39;00m [38;5;28mself[39m[38;5;241m.[39mlast_attempt[38;5;241m.[39mfailed:
+[0;32m--> 184[0m         [38;5;28;01mraise[39;00m [38;5;28mself[39m[38;5;241m.[39mlast_attempt[38;5;241m.[39mresult()
+[1;32m    185[0m     [38;5;28;01mraise[39;00m [38;5;28mself[39m
+
+File [0;32m/opt/anaconda3/lib/python3.12/concurrent/futures/_base.py:449[0m, in [0;36mFuture.result[0;34m(self, timeout)[0m
+[1;32m    447[0m     [38;5;28;01mraise[39;00m CancelledError()
+[1;32m    448[0m [38;5;28;01melif[39;00m [38;5;28mself[39m[38;5;241m.[39m_state [38;5;241m==[39m FINISHED:
+[0;32m--> 449[0m     [38;5;28;01mreturn[39;00m [38;5;28mself[39m[38;5;241m.[39m__get_result()
+[1;32m    451[0m [38;5;28mself[39m[38;5;241m.[39m_condition[38;5;241m.[39mwait(timeout)
+[1;32m    453[0m [38;5;28;01mif[39;00m [38;5;28mself[39m[38;5;241m.[39m_state [38;5;129;01min[39;00m [CANCELLED, CANCELLED_AND_NOTIFIED]:
+
+File [0;32m/opt/anaconda3/lib/python3.12/concurrent/futures/_base.py:401[0m, in [0;36mFuture.__get_result[0;34m(self)[0m
+[1;32m    399[0m [38;5;28;01mif[39;00m [38;5;28mself[39m[38;5;241m.[39m_exception:
+[1;32m    400[0m     [38;5;28;01mtry[39;00m:
+[0;32m--> 401[0m         [38;5;28;01mraise[39;00m [38;5;28mself[39m[38;5;241m.[39m_exception
+[1;32m    402[0m     [38;5;28;01mfinally[39;00m:
+[1;32m    403[0m         [38;5;66;03m# Break a reference cycle with the exception in self._exception[39;00m
+[1;32m    404[0m         [38;5;28mself[39m [38;5;241m=[39m [38;5;28;01mNone[39;00m
+
+File [0;32m~/.local/lib/python3.12/site-packages/tenacity/__init__.py:473[0m, in [0;36mRetrying.__call__[0;34m(self, fn, *args, **kwargs)[0m
+[1;32m    471[0m [38;5;28;01mif[39;00m [38;5;28misinstance[39m(do, DoAttempt):
+[1;32m    472[0m     [38;5;28;01mtry[39;00m:
+[0;32m--> 473[0m         result [38;5;241m=[39m fn([38;5;241m*[39margs, [38;5;241m*[39m[38;5;241m*[39mkwargs)
+[1;32m    474[0m     [38;5;28;01mexcept[39;00m [38;5;167;01mBaseException[39;00m:  [38;5;66;03m# noqa: B902[39;00m
+[1;32m    475[0m         retry_state[38;5;241m.[39mset_exception(sys[38;5;241m.[39mexc_info())  [38;5;66;03m# type: ignore[arg-type][39;00m
+
+File [0;32m~/.local/lib/python3.12/site-packages/google/genai/_api_client.py:1388[0m, in [0;36mBaseApiClient._request_once[0;34m(self, http_request, stream)[0m
+[1;32m   1380[0m   httpx_request [38;5;241m=[39m [38;5;28mself[39m[38;5;241m.[39m_httpx_client[38;5;241m.[39mbuild_request(  [38;5;66;03m# type: ignore[union-attr][39;00m
+[1;32m   1381[0m       method[38;5;241m=[39mhttp_request[38;5;241m.[39mmethod,
+[1;32m   1382[0m       url[38;5;241m=[39mhttp_request[38;5;241m.[39murl,
+[0;32m   (...)[0m
+[1;32m   1385[0m       timeout[38;5;241m=[39mhttp_request[38;5;241m.[39mtimeout,
+[1;32m   1386[0m   )
+[1;32m   1387[0m   response [38;5;241m=[39m [38;5;28mself[39m[38;5;241m.[39m_httpx_client[38;5;241m.[39msend(httpx_request, stream[38;5;241m=[39mstream)  [38;5;66;03m# type: ignore[union-attr][39;00m
+[0;32m-> 1388[0m errors[38;5;241m.[39mAPIError[38;5;241m.[39mraise_for_response(response)
+[1;32m   1389[0m [38;5;28;01mreturn[39;00m HttpResponse(
+[1;32m   1390[0m     response[38;5;241m.[39mheaders, response [38;5;28;01mif[39;00m stream [38;5;28;01melse[39;00m [response[38;5;241m.[39mtext]
+[1;32m   1391[0m )
+
+File [0;32m~/.local/lib/python3.12/site-packages/google/genai/errors.py:155[0m, in [0;36mAPIError.raise_for_response[0;34m(cls, response)[0m
+[1;32m    152[0m [38;5;28;01melse[39;00m:
+[1;32m    153[0m   response_json [38;5;241m=[39m response[38;5;241m.[39mbody_segments[[38;5;241m0[39m][38;5;241m.[39mget([38;5;124m'[39m[38;5;124merror[39m[38;5;124m'[39m, {})
+[0;32m--> 155[0m [38;5;28mcls[39m[38;5;241m.[39mraise_error(response[38;5;241m.[39mstatus_code, response_json, response)
+
+File [0;32m~/.local/lib/python3.12/site-packages/google/genai/errors.py:186[0m, in [0;36mAPIError.raise_error[0;34m(cls, status_code, response_json, response)[0m
+[1;32m    184[0m   [38;5;28;01mraise[39;00m ClientError(status_code, response_json, response)
+[1;32m    185[0m [38;5;28;01melif[39;00m [38;5;241m500[39m [38;5;241m<[39m[38;5;241m=[39m status_code [38;5;241m<[39m [38;5;241m600[39m:
+[0;32m--> 186[0m   [38;5;28;01mraise[39;00m ServerError(status_code, response_json, response)
+[1;32m    187[0m [38;5;28;01melse[39;00m:
+[1;32m    188[0m   [38;5;28;01mraise[39;00m [38;5;28mcls[39m(status_code, response_json, response)
+
+[0;31mServerError[0m: 503 UNAVAILABLE. {'error': {'code': 503, 'message': 'This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.', 'status': 'UNAVAILABLE'}}
+

@@ -161,7 +161,19 @@ def begin(cfg: dict, section: str, results_dir, root: Path | None = None,
 
     if overwrite is None:
         overwrite = os.environ.get(OVERWRITE_ENV) == "1" or bool(cfg.get("overwrite"))
-    done = rec["stages"].get(section, {}).get("finished")
+    prev = rec["stages"].get(section, {})
+    done = prev.get("finished")
+
+    # A stage that finished having processed NOTHING is not a result to protect. When every article
+    # failed — the llama server returning 500 on all four requests, say — nb_parallel swallows the
+    # per-article errors, the metrics cell still runs, and the stage closes with articles=0. The
+    # guard would then block every legitimate retry of a run that never happened. Protecting real
+    # numbers is the point; there are none here, so take it over and say so.
+    if done and not overwrite and (prev.get("metrics") or {}).get("summary", {}).get("articles") == 0:
+        print(f"  note  stage {section!r} is recorded as finished on {done} but processed 0 "
+              f"article(s) — an empty run, so it is not protected. Taking it over.")
+        done = None
+
     if done and not overwrite:
         raise RuntimeError(
             f"\n  stage {section!r} already finished under run id {rid!r} on {done}.\n"
@@ -177,6 +189,20 @@ def begin(cfg: dict, section: str, results_dir, root: Path | None = None,
     _guard_extraction(rec, section, cfg, results_dir, rid, overwrite)
     _guard_concurrent(rec, section, rid, p, overwrite)
 
+    # An overwrite may replace a stage, but it must not ERASE the record of what it replaced. The
+    # write below overwrites `prev` wholesale, and when `prev` finished, that record is the only
+    # account of a run whose files are still on disk — its outputs, token spend and metrics. This
+    # bit was learned from a one-article repair run that reused an existing run_tag: it took over
+    # 6b/7b and left the manifest claiming those stages covered a single article, with the real
+    # 20-article spend gone. Keep the superseded record instead, oldest first.
+    attempts = list(prev.get("attempts") or [])
+    if prev.get("finished"):
+        attempts.append({k: v for k, v in prev.items() if k != "attempts"})
+        print(f"  note  the finished record for stage {section!r} is kept as attempt "
+              f"#{len(attempts)} (started {prev.get('started', '?')[:19]}, "
+              f"{len(prev.get('outputs') or [])} output file(s)) — "
+              f"python -m run_manifest show {rid}")
+
     rec["stages"][section] = {
         "started": _now(),
         "owner": {"pid": os.getpid(), "host": socket.gethostname(), "at": _now()},
@@ -188,6 +214,7 @@ def begin(cfg: dict, section: str, results_dir, root: Path | None = None,
         "outputs": [],
         "token_usage": None,
         "metrics": None,
+        **({"attempts": attempts} if attempts else {}),
     }
     rec["updated"] = _now()
     _write(p, rec)
@@ -498,6 +525,7 @@ def _token_usage(results_dir: Path, outputs: list[dict]) -> dict | None:
     """Summed totals of every `token_usage*.json` this stage wrote — the run's cost, in one number."""
     tot: dict = {}
     files = []
+    complete = True
     for o in outputs:
         name = Path(o["path"]).name
         if not (name.startswith("token_usage") and name.endswith(".json")):
@@ -510,12 +538,18 @@ def _token_usage(results_dir: Path, outputs: list[dict]) -> dict | None:
         if not isinstance(t, dict):
             continue
         files.append(o["path"])
+        # A ledger that says it covers only some of the articles makes this total a floor. Record
+        # that here so nothing downstream has to re-open the ledger to find out.
+        if (d.get("coverage") or {}).get("complete") is False:
+            complete = False
         for k, v in t.items():
             if isinstance(v, (int, float)):
                 tot[k] = round(tot.get(k, 0) + v, 2)
     if not files:
         return None
     tot["files"] = files
+    if not complete:
+        tot["complete"] = False
     return tot
 
 
@@ -553,6 +587,11 @@ def _summary_row(rec: dict) -> dict:
     done = [s for s, v in stages.items() if v.get("finished")]
     open_ = [s for s, v in stages.items() if not v.get("finished")]
     toks = sum((v.get("token_usage") or {}).get("total_tokens", 0) or 0 for v in stages.values())
+    # A ledger that a stage only partly recorded must not be summed into a run total silently: the
+    # periodic-consolidation cells used to write their cost file after the first chunk, so some
+    # validation runs hold five articles' spend for a twenty-article stage. Carry the fact out.
+    partial = sorted(s for s, v in stages.items()
+                     if (v.get("token_usage") or {}).get("complete") is False)
     git = next((v.get("git", {}) for v in stages.values() if v.get("git")), {})
     arts = next((v.get("articles") for v in reversed(list(stages.values())) if v.get("articles")),
                 None)
@@ -565,7 +604,7 @@ def _summary_row(rec: dict) -> dict:
             "stages": ",".join(sorted(done)) or "-",
             "open": ",".join(sorted(open_)),
             "articles": len(arts) if arts else s.get("articles") or t.get("articles"),
-            "tokens": toks or None,
+            "tokens": toks or None, "tokens_partial": partial,
             "commit": git.get("short"), "dirty": git.get("dirty"),
             "types": t.get("vocab_consolidated"), "props": s.get("vocab_consolidated"),
             "schema_pct": s.get("triple_schema_org_pct")}
@@ -584,7 +623,10 @@ def index(results_root: Path | None = None, write: bool = True) -> str:
            "Generated by `python -m run_manifest index` from the manifests in "
            "`results/<model>/_runs/`. One row per run; `types` / `props` are the "
            "POST-consolidation vocabulary sizes, `schema %` the share of triples on a schema.org "
-           "property. A row with something in `open` did not finish that stage.",
+           "property. A row with something in `open` did not finish that stage. A `*` on `tokens` "
+           "means at least one stage recorded only part of its spend — the stage's ledger in "
+           "`results/<model>/_global/` says which articles it covers, and the total is a floor, "
+           "not the run's cost.",
            ""]
     if not rows:
         out += ["_No runs yet._", ""]
@@ -598,7 +640,7 @@ def index(results_root: Path | None = None, write: bool = True) -> str:
                 if k == "commit" and v:
                     v = f'`{v}`' + ("+dirty" if r.get("dirty") else "")
                 if k == "tokens" and v:
-                    v = f"{int(v):,}"
+                    v = f"{int(v):,}" + ("*" if r.get("tokens_partial") else "")
                 cells.append("" if v in (None, "") else str(v))
             out.append("| " + " | ".join(cells) + " |")
         out.append("")
@@ -619,7 +661,8 @@ def _main(argv):
         print(f'  {"run id":<34} {"model":<18} {"stages":<10} {"arts":>4} {"types":>5} '
               f'{"props":>5} {"tokens":>10}  {"commit":<10} updated')
         for r in rows:
-            toks = format(int(r["tokens"]), ",") if r["tokens"] else ""
+            toks = (format(int(r["tokens"]), ",") + ("*" if r.get("tokens_partial") else "")
+                    if r["tokens"] else "")
             commit = (r["commit"] or "") + ("+d" if r["dirty"] else "")
             print(f'  {str(r["run_id"]):<34} {str(r["model"]):<18} {r["stages"]:<10} '
                   f'{r["articles"] or "":>4} {r["types"] or "":>5} {r["props"] or "":>5} '

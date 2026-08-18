@@ -1,0 +1,20 @@
+{
+  "extends": "main",
+  "experiment": "art2-fix",
+  "description": "REPAIR of art2 in the gemini staged arm. It truncated twice: first with thinking uncapped (62,912 thinking / 2,610 answer, stopped at the model's 65,536 ceiling), then at a 24,576 cap (8,189 / 16,371). art2 is the biggest article in the set — 135 entities feed its reification — so it needs the model's full output budget WITH thinking capped, or reasoning eats the answer. nb7b then grafts it onto the finished 20-article vocabulary: fresh=false so the vocabulary survives, inline vocab so it reuses existing terms, consolidate=false because a fresh pass would overwrite the cumulative merge report and strand the other 19 articles.",
+  "run_tag": "main_val_r1",
+  "selected_articles": [
+    "art2"
+  ],
+  "6b": {
+    "thinking_budget": 8192,
+    "max_output_tokens": 65536
+  },
+  "7b": {
+    "fresh": false,
+    "inline_vocab_candidates": true,
+    "consolidate": false,
+    "parallel_llm": false,
+    "consolidate_every": 0
+  }
+}

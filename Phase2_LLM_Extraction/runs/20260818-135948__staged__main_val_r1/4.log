@@ -1,0 +1,184 @@
+[NbConvertApp] Converting notebook /Users/marwah/Documents/Thesis/TriplesExtractionFromWebLLMs/Phase2_LLM_Extraction/notebooks/two_staged/4_type_extension.ipynb to notebook
+/opt/anaconda3/lib/python3.12/site-packages/nbformat/__init__.py:93: MissingIDFieldWarning: Code cell is missing an id field, this will become a hard error in future nbformat versions. You may want to use `normalize()` on your notebooks before validations (available since nbformat 5.1.4). Previous versions of nbformat are fixing this issue transparently, and will stop doing so in the future.
+  validate(nb)
+/opt/anaconda3/lib/python3.12/site-packages/nbformat/__init__.py:93: DuplicateCellId: Non-unique cell id 'c1' detected. Corrected to '6b94d5e5'.
+  validate(nb)
+Traceback (most recent call last):
+  File "/opt/anaconda3/bin/jupyter-nbconvert", line 11, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "/opt/anaconda3/lib/python3.12/site-packages/jupyter_core/application.py", line 283, in launch_instance
+    super().launch_instance(argv=argv, **kwargs)
+  File "/opt/anaconda3/lib/python3.12/site-packages/traitlets/config/application.py", line 1075, in launch_instance
+    app.start()
+  File "/opt/anaconda3/lib/python3.12/site-packages/nbconvert/nbconvertapp.py", line 412, in start
+    self.convert_notebooks()
+  File "/opt/anaconda3/lib/python3.12/site-packages/nbconvert/nbconvertapp.py", line 590, in convert_notebooks
+    self.convert_single_notebook(notebook_filename)
+  File "/opt/anaconda3/lib/python3.12/site-packages/nbconvert/nbconvertapp.py", line 556, in convert_single_notebook
+    output, resources = self.export_single_notebook(
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.12/site-packages/nbconvert/nbconvertapp.py", line 479, in export_single_notebook
+    output, resources = self.exporter.from_filename(
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.12/site-packages/nbconvert/exporters/exporter.py", line 203, in from_filename
+    return self.from_file(f, resources=resources, **kw)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.12/site-packages/nbconvert/exporters/exporter.py", line 222, in from_file
+    return self.from_notebook_node(
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.12/site-packages/nbconvert/exporters/notebook.py", line 36, in from_notebook_node
+    nb_copy, resources = super().from_notebook_node(nb, resources, **kw)
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.12/site-packages/nbconvert/exporters/exporter.py", line 156, in from_notebook_node
+    nb_copy, resources = self._preprocess(nb_copy, resources)
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.12/site-packages/nbconvert/exporters/exporter.py", line 354, in _preprocess
+    nbc, resc = preprocessor(nbc, resc)  # type:ignore[operator]
+                ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.12/site-packages/nbconvert/preprocessors/base.py", line 48, in __call__
+    return self.preprocess(nb, resources)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.12/site-packages/nbconvert/preprocessors/execute.py", line 102, in preprocess
+    self.preprocess_cell(cell, resources, index)
+  File "/opt/anaconda3/lib/python3.12/site-packages/nbconvert/preprocessors/execute.py", line 123, in preprocess_cell
+    cell = self.execute_cell(cell, index, store_history=True)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.12/site-packages/jupyter_core/utils/__init__.py", line 165, in wrapped
+    return loop.run_until_complete(inner)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.12/asyncio/base_events.py", line 687, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.12/site-packages/nbclient/client.py", line 1058, in async_execute_cell
+    await self._check_raise_for_error(cell, cell_index, exec_reply)
+  File "/opt/anaconda3/lib/python3.12/site-packages/nbclient/client.py", line 914, in _check_raise_for_error
+    raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
+nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
+------------------
+# ---- PERIODIC RE-CONSOLIDATION (CONSOLIDATE_EVERY) -------------------------------------------
+# The staged twin of 6d/6e's periodic cell. Off when CONSOLIDATE_EVERY is 0.
+#
+# With it set, the vocabulary is re-consolidated every N articles and the merged result fed BACK as
+# the working vocabulary, so article N+1 builds on the collapsed term set. Three things this has to
+# get right, all learned the hard way on the e2e side:
+#
+#   ids     the consolidated vocabulary keeps `next_id`, so feeding it back never re-issues a
+#           retired id.
+#   remap   refresh_ext_after_consolidation builds its map from ONE report and follows merge chains
+#           inside it. Each pass overwrites the report, so refreshing per pass would drop the earlier
+#           passes and strand article 1 on a term retired in pass 1. The passes are therefore
+#           ACCUMULATED and the graphs refreshed once, at the end.
+#   loss    a pass must only remove what it RECORDED as merged; anything else that vanishes is
+#           restored (measured on 6e: 21 of 320 removals had no merge record).
+if CONSOLIDATE_EVERY and len(TODO_ALL) > len(todo):
+    _reports = [json.loads(CONSOLIDATION_REPORT_PATH.read_text())] if CONSOLIDATION_REPORT_PATH.exists() else []
+    _rest = TODO_ALL[len(todo):]
+    _chunks = [_rest[i:i + CONSOLIDATE_EVERY] for i in range(0, len(_rest), CONSOLIDATE_EVERY)]
+    print(f"periodic consolidation: {len(_chunks)} further chunk(s) of <= {CONSOLIDATE_EVERY} article(s)\n")
+
+    for _ci, _chunk in enumerate(_chunks, start=2):
+        _prev = {t["id"]: t for t in load_vocab()["types"]}
+        _con = load_consolidated()
+        _merged = {m["id"] for g in (_reports[-1].get("merges") or []) for m in (g.get("merged") or [])}
+        _lost = [i for i in _prev if i not in {t["id"] for t in _con["types"]} and i not in _merged]
+        if _lost:
+            print(f"  [repair] {len(_lost)} type(s) left the vocabulary with no merge record "
+                  f"-- restoring: {_lost}")
+            _con["types"] = _con["types"] + [_prev[i] for i in _lost]
+        save_vocab(_con)
+        vocab = load_vocab()
+        print(f"── chunk {_ci}: {len(vocab['types'])} type(s) carried forward | {_chunk}")
+        for aid in _chunk:
+            with nb_parallel.usage_scope(aid):
+                process_article(aid, vocab, write=True, save=True, verbose=True)
+            time.sleep(5)
+        if CONSOLIDATE:
+            _reports.append(consolidate_vocab(load_vocab()))
+        else:
+            _consolidation_disabled()
+
+    if _reports:
+        _cum = dict(_reports[-1])
+        _cum["merges"] = [g for r in _reports for g in (r.get("merges") or [])]
+        _cum["reparents"] = [g for r in _reports for g in (r.get("reparents") or [])]
+        _cum["consolidation_passes"] = len(_reports)
+        _cum["n_merges"] = len(_cum["merges"])
+        _cum["n_reparented"] = sum(len(g.get("children") or []) for g in _cum["reparents"])
+        _cum["n_types_removed"] = sum(len(g.get("merged") or []) for g in _cum["merges"])
+        _cum["n_merged_into_schema"] = sum(len(g.get("merged") or []) for g in _cum["merges"]
+                                           if g.get("survivor_source") == "schema.org")
+        # the counterfactual pair: what the vocabulary would be uncollapsed, vs what it is
+        _cum["vocab_size_after"] = _reports[-1].get("vocab_size_after")
+        _cum["vocab_size_before"] = (_cum["vocab_size_after"] or 0) + _cum["n_types_removed"]
+        _cum["per_pass"] = [{"before": r.get("vocab_size_before"), "after": r.get("vocab_size_after")}
+                            for r in _reports]
+        CONSOLIDATION_REPORT_PATH.write_text(json.dumps(_cum, indent=2, ensure_ascii=False))
+        print(f"\ncumulative report over {len(_reports)} pass(es) -> {CONSOLIDATION_REPORT_PATH.name}"
+              f"   {_cum['n_merges']} merge group(s), {_cum['n_types_removed']} removed")
+
+    refresh_ext_after_consolidation()          # once, with the composed mapping
+
+# ---- INVARIANT: no consolidated graph may reference a term the vocabulary no longer holds -------
+import glob as _glob
+_live = {t["id"] for t in load_consolidated()["types"]}
+_dangling = []
+for _f in sorted(_glob.glob(str(RESULTS_DIR / "art*" / "two_staged/1_entities" / "*_consolidated.json"))):
+    _g = json.loads(Path(_f).read_text())
+    for _coll in ("entities",):
+        for _n in _g.get(_coll, []):
+            _v = _n.get("type_vocab_id")
+            if _v and _v not in _live:
+                _dangling.append((Path(_f).parts[-4], _v, _n.get("type")))
+if _dangling:
+    print(f"\n  *** {len(_dangling)} reference(s) to {len({d[1] for d in _dangling})} vanished type(s):")
+    for _d in _dangling[:10]:
+        print(f"      {_d[0]}  {_d[1]}  {_d[2]}")
+    raise AssertionError(
+        f"{len(_dangling)} graph reference(s) point at a type missing from the consolidated "
+        f"vocabulary — these graphs are NOT safe to report. Fix before using this run.")
+print("  invariant OK — every vocabulary reference in the consolidated graphs resolves")
+
+------------------
+
+----- stdout -----
+periodic consolidation: 3 further chunk(s) of <= 5 article(s)
+
+── chunk 2: 18 type(s) carried forward | ['art8', 'art12', 'art15', 'art17', 'art23']
+----- stdout -----
+  art8: 11 types, 36 nodes (1 deduped) | +1 minted | vocab now 19
+----- stdout -----
+  art12: 11 types, 23 nodes (0 deduped) | +4 minted | vocab now 23
+----- stdout -----
+  art15: 17 types, 29 nodes (1 deduped) | +6 minted | vocab now 29
+----- stdout -----
+  art17: 9 types, 19 nodes (0 deduped) | +2 minted | vocab now 31
+------------------
+
+[0;31m---------------------------------------------------------------------------[0m
+[0;31mAttributeError[0m                            Traceback (most recent call last)
+Cell [0;32mIn[19], line 36[0m
+[1;32m     34[0m [38;5;28;01mfor[39;00m aid [38;5;129;01min[39;00m _chunk:
+[1;32m     35[0m     [38;5;28;01mwith[39;00m nb_parallel[38;5;241m.[39musage_scope(aid):
+[0;32m---> 36[0m         process_article(aid, vocab, write[38;5;241m=[39m[38;5;28;01mTrue[39;00m, save[38;5;241m=[39m[38;5;28;01mTrue[39;00m, verbose[38;5;241m=[39m[38;5;28;01mTrue[39;00m)
+[1;32m     37[0m     time[38;5;241m.[39msleep([38;5;241m5[39m)
+[1;32m     38[0m [38;5;28;01mif[39;00m CONSOLIDATE:
+
+Cell [0;32mIn[12], line 10[0m, in [0;36mprocess_article[0;34m(aid, vocab, write, save, verbose)[0m
+[1;32m      8[0m oie, tinfo, types, qtexts, groups [38;5;241m=[39m load_article(aid)
+[1;32m      9[0m cands  [38;5;241m=[39m retrieve_candidates(qtexts, vocab)
+[0;32m---> 10[0m report [38;5;241m=[39m llm_select_and_dedup(types, tinfo, groups, cands)
+[1;32m     12[0m resolved, n_mint [38;5;241m=[39m {}, [38;5;241m0[39m
+[1;32m     13[0m [38;5;28;01mfor[39;00m t [38;5;129;01min[39;00m types:
+
+Cell [0;32mIn[11], line 24[0m, in [0;36mllm_select_and_dedup[0;34m(types, tinfo, groups, cands)[0m
+[1;32m     20[0m parsed  [38;5;241m=[39m parse_json(gemini_json(active_select_prompt(), user))
+[1;32m     21[0m results [38;5;241m=[39m parsed[38;5;241m.[39mget([38;5;124m"[39m[38;5;124mresults[39m[38;5;124m"[39m, parsed) [38;5;28;01mif[39;00m [38;5;28misinstance[39m(parsed, [38;5;28mdict[39m) [38;5;28;01melse[39;00m parsed
+[1;32m     22[0m out [38;5;241m=[39m {r[38;5;241m.[39mget([38;5;124m"[39m[38;5;124moie_type[39m[38;5;124m"[39m): {[38;5;124m"[39m[38;5;124mchosen_type[39m[38;5;124m"[39m: r[38;5;241m.[39mget([38;5;124m"[39m[38;5;124mchosen_type[39m[38;5;124m"[39m) [38;5;129;01mor[39;00m {},
+[1;32m     23[0m                            [38;5;124m"[39m[38;5;124mclusters[39m[38;5;124m"[39m: r[38;5;241m.[39mget([38;5;124m"[39m[38;5;124mduplicate_clusters[39m[38;5;124m"[39m) [38;5;129;01mor[39;00m []}
+[0;32m---> 24[0m        [38;5;28;01mfor[39;00m r [38;5;129;01min[39;00m (results [38;5;129;01mor[39;00m []) [38;5;28;01mif[39;00m r[38;5;241m.[39mget([38;5;124m"[39m[38;5;124moie_type[39m[38;5;124m"[39m) [38;5;129;01min[39;00m [38;5;28mset[39m(types)}
+[1;32m     25[0m [38;5;28;01mfor[39;00m i, t [38;5;129;01min[39;00m [38;5;28menumerate[39m(types):                    [38;5;66;03m# fallback: omitted group -> top candidate, no dedup[39;00m
+[1;32m     26[0m     [38;5;28;01mif[39;00m t [38;5;129;01mnot[39;00m [38;5;129;01min[39;00m out:
+
+[0;31mAttributeError[0m: 'str' object has no attribute 'get'
+

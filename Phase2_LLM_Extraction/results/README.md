@@ -33,10 +33,20 @@ manifest per `(track, variant, run_tag)`, holding for each stage:
 - start / finish timestamps, host, python version, backend and model ids
 - the **article order** (the vocabulary stages are incremental — order is part of the run)
 - every **output file** the stage wrote, with size and mtime
-- **token usage**, summed from the `token_usage*` files the stage produced
+- **token usage**, summed from the `token_usage*` files the stage produced. `"complete": false` means
+  a ledger it read covers only part of the run, so the total is a floor — the ledger's `coverage`
+  block names the articles. `RUNS.md` marks these with `*`.
 - the **stage metrics** dict, the same one `metrics_<stage><tag>.json` holds
+- **`attempts`**, when a later run superseded a finished stage under the same `run_id` (a repair run
+  reusing a `run_tag`, typically): the previous finished record is kept here rather than dropped,
+  oldest first, so the run it describes is still accountable.
 
 So a number in the thesis resolves to a manifest, and a manifest resolves to a commit and a config.
+
+Two known defects in the **validation** runs — partial token ledgers on the periodic stages, and
+gemini staged `art2` coming from a repair run — are written up in
+[`../REPORTING_PLAN.md`](../REPORTING_PLAN.md) §6b. Structural numbers are unaffected; cost numbers
+should come from the test-split runs.
 
 ```bash
 cd notebooks
