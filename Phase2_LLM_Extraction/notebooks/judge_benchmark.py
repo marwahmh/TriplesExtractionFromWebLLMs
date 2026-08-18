@@ -551,8 +551,9 @@ def build(graphs, articles, out_dir, verbalise_node, make_relation_verbaliser, n
         items.append({"index": i, "article_id": r["article_id"], "kind": r["kind"],
                       "origin": "graph" if e["origin"] == "clean" else "corrupted",
                       "corruption": f'{e["op"]}: {e["note"]}' if e["op"] else "",
-                      "assertion": bare, "context": ctx, "cited_evidence": e["evidence"],
-                      "human": "", "label_source": "", "evidence": "", "human_note": ""})
+                      "assertion": bare, "context": ctx,
+                      "evidence": e["evidence"] if e["origin"] == "clean" else None,
+                      "human": "", "label_source": "", "human_evidence": "", "human_note": ""})
         key[str(i)] = {"origin": e["origin"], "op": e["op"], "edit": e["note"],
                        "gold": None if e["origin"] == "clean" else "n",
                        "designed_failure": DESIGNED_FAILURE.get(e["op"]),
@@ -592,8 +593,15 @@ def build(graphs, articles, out_dir, verbalise_node, make_relation_verbaliser, n
 # fatal for creating them. Anyone labelling from scratch should hide or delete both columns first,
 # or they are copying the key rather than reading the article.
 SHEET_COLS = ["index", "article_id", "kind", "origin", "corruption", "human", "label_source",
-              "evidence", "human_note", "assertion", "context"]
-LABEL_FIELDS = ("human", "label_source", "evidence", "human_note")
+              "human_evidence", "human_note", "assertion", "context"]
+LABEL_FIELDS = ("human", "label_source", "human_evidence", "human_note")
+
+# `human_evidence` is the LABELLER's sentence; `evidence` is the EXTRACTOR's own citation, and it
+# has to keep that name because nb9b's `judge_batch` reads `it["evidence"]` to compute
+# `citation_match`. Feeding it anything else silently turns citation precision into a comparison
+# between the judge and the labeller — which scores near-100% and means nothing. Corrupted rows
+# carry `evidence: None`: their citation belongs to the pre-edit assertion, so the only honest
+# value for citation_match there is "not applicable".
 
 
 def write_sheet(items, out_dir):
