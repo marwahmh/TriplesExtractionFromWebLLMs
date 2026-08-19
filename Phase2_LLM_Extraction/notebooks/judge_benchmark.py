@@ -91,6 +91,13 @@ TARGET_MIX = {
 # error correctly: "intrinsic" = the article contradicts it, "extrinsic" = the article never says it.
 # Scored as a secondary diagnostic — a judge that catches the item but calls a contradiction
 # "extrinsic" is not reading the article, it is failing to find a match.
+# Operators whose corruption is no longer a grounding error. Grounding rules on the TRIPLE — subject,
+# relation, object — and leaves type quality to a separate evaluation after the canonicalisation
+# notebooks, so a judge that passes a type_change item is right to. They stay in the sheet (the human
+# labels are real and the items may serve a future type-quality benchmark) but `gold_labels` drops
+# them, and `score` says how many it dropped rather than counting them as misses.
+OUT_OF_SCOPE_OPS = {"type_change"}
+
 DESIGNED_FAILURE = {
     "object_swap": "extrinsic", "subject_swap": "extrinsic", "property_swap": "extrinsic",
     "type_change": "extrinsic", "number_edit": "intrinsic", "hedge_flip": "intrinsic",
@@ -690,11 +697,13 @@ def gold_labels(out_dir, items=None):
     out_dir = Path(out_dir)
     items = items if items is not None else load_items(out_dir)
     key = load_json(out_dir / KEY_FILE)
-    gold, unlabelled, failed = {}, [], []
+    gold, unlabelled, failed, out_of_scope = {}, [], [], []
     for x in items:
         k = key[str(x["index"])]
         h = (x.get("human") or "").strip().lower()
-        if k["origin"] == "corrupt":
+        if k.get("op") in OUT_OF_SCOPE_OPS:
+            out_of_scope.append(x["index"])
+        elif k["origin"] == "corrupt":
             if h == "y":
                 failed.append(x["index"])
             else:
@@ -703,6 +712,7 @@ def gold_labels(out_dir, items=None):
             gold[x["index"]] = (h == "y")
         else:
             unlabelled.append(x["index"])
+    gold_labels.out_of_scope = out_of_scope        # read by score() for its note
     return gold, unlabelled, failed, key, items
 
 
@@ -761,6 +771,10 @@ def score(out_dir, tag=None, verbose=True, examples=5):
                   f"(indices {failed[:12]}{'…' if len(failed) > 12 else ''})")
         if unjudged:
             print(f"  {unjudged} item(s) have no verdict (judge batch failed) — excluded")
+        _oos = getattr(gold_labels, "out_of_scope", [])
+        if _oos:
+            print(f"  {len(_oos)} item(s) excluded as out of scope for grounding "
+                  f"({', '.join(sorted(OUT_OF_SCOPE_OPS))}) — type quality is evaluated separately")
 
         print(f"\n  RECALL on unsupported   {tp}/{n_bad} = {rec:.1%} {_ci(tp, n_bad)}"
               if n_bad else "\n  no gold-unsupported items")

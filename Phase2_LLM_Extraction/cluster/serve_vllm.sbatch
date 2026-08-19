@@ -114,7 +114,15 @@ if [ "${EAGER:-0}" = "1" ]; then EAGER_FLAG="--enforce-eager"; else EAGER_FLAG="
 # costs the same as the single-token pass it replaces. With greedy decoding (temperature 0, which
 # is what llm_backend sends) the accepted tokens are the ones argmax would have produced anyway,
 # so this does NOT change the extraction — it is not a quality/speed trade.
-# SPEC=0 disables it if a build turns out not to accept the flag.
+#
+# INCOMPATIBLE WITH GRAMMAR-CONSTRAINED JSON (2026-08-19, vLLM 0.8.5). Speculation scores draft
+# tokens by batch expansion, which pushes tokens through xgrammar's logits processor that were never
+# actually accepted. Its matcher desynchronises and trips an assert, and that kills the ENGINE, not
+# just the request — the job exits and the node looks like it died on its own:
+#     xgrammar_decoding.py:374  assert self.matchers[i].accept_token(sampled_token)
+# So every STRUCTURED arm (llm_backend structured=True -> response_format json_object) must run with
+# SPEC=0: qwen3-14b, qwen3-32b, gemma3-*, llama33-70b. The THINKING arms send no grammar and are
+# unaffected. SPEC=0 also disables it if a build does not accept the flag.
 SPEC=${SPEC:-1}
 SPEC_FLAG=""
 if [ "$SPEC" = "1" ]; then

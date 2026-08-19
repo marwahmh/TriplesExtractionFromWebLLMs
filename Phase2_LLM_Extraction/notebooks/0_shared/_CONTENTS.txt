@@ -1,10 +1,18 @@
 notebooks/0_shared/
 
-Stages used by both tracks: schema.org enrichment (nb1, nb5) and visualization (nb8).
+Stages used by both tracks: schema.org enrichment (nb1, nb5), visualization (nb8), grounding (nb9*).
 
 Files:
   1_schema_enrichment.ipynb     once - parse + Gemini-enrich schema.org CLASSES (-> schema_org_files/).
   5_property_enrichment.ipynb   once - parse + Gemini-enrich schema.org PROPERTIES (-> schema_org_files/).
   8_kg_visualization.ipynb      per-article - draw binary / reified / e2e KGs -> viz/*.png + *.html.
+  9_grounding.ipynb             per-article - grounding judge fed a per-assertion EVIDENCE BUNDLE.
+  9b_grounding_fulltext.ipynb   per-split - grounding judge fed the FULL ARTICLE; writes the judged
+                                graph, the judgment log, and the PRUNED graph nb10/MINE consumes.
+  9c_nli_verification.ipynb     per-article - entailment (MiniCheck) verification, no LLM judge.
+  9d_judge_benchmark.ipynb      once per judge - scores the 9b judge against 500 gold assertions
+                                (250 real + 250 corrupted). Run after any prompt change.
+
+The judge 9b runs and 9d measures is ONE implementation: ../grounding_core.py.
 
 (auto-generated index — describes only this folder's direct contents)

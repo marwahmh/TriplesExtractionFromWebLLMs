@@ -507,6 +507,7 @@ compute nodes can reach HuggingFace and PyPI through it.
 | `content: null`, JSON in `reasoning_content` | `deepseek_r1` parser + grammar | already handled by `llm_backend` |
 | `400 ... reasoning parser could not locate think start/end tokens` | reasoning parser enabled for a model with no `<think>` tokens (Llama, Gemma) | relaunch with `THINK=0` — the sbatch now infers this from the model name |
 | `404 models/qwen3-14b is not found` (from Google) | Gemini cell ran after the backend cell and took `gemini_json` back | re-run the backend cell, then re-run the failed cell |
+| `AssertionError` in `xgrammar_decoding.py`, engine shuts down, job exits | n-gram speculation + grammar-constrained JSON (vLLM 0.8.5) | relaunch the STRUCTURED arms with `SPEC=0`; thinking arms are unaffected |
 | Endless output / repetition | `temperature=0` with thinking on | `thinking=False`, or raise temperature to 0.6 and record it |
 | Job pending for hours | A6000s saturated | `sinfo -N -n n1,n2,n3,n4,n5 -O "NodeHost:8,GresUsed:22"` |
 | Startup stalls ~30s on a proxy DNS error | flaky proxy resolution | harmless; add `export HF_HUB_OFFLINE=1` to the sbatch once weights are cached |
@@ -535,7 +536,7 @@ well short of the 32k this pipeline needs. Two cards give ~48GB of KV instead.
 # login node — pre-download ~40GB
 huggingface-cli download lambdalabs/Llama-3.3-70B-Instruct-AWQ-4bit
 
-MODEL=lambdalabs/Llama-3.3-70B-Instruct-AWQ-4bit SERVED=llama33-70b TP=2 EAGER=0 \
+MODEL=lambdalabs/Llama-3.3-70B-Instruct-AWQ-4bit SERVED=llama33-70b TP=2 EAGER=0 SPEC=0 \
   sbatch --gres=gpu:2 --cpus-per-task=16 --mem=96G serve_vllm.sbatch
 ```
 
