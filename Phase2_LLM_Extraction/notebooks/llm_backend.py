@@ -336,21 +336,39 @@ BACKENDS = {
     # gpt-oss-120b reasons unconditionally (the harmony format has no off switch); the only control
     # is reasoning_effort low|medium|high. "high" is the setting that matches what the Gemini
     # baseline was allowed to spend.
+    # reasoning_effort was "high" and it did not work: on 2026-08-21 that setting spent the whole
+    # 65,536-token Fireworks output default on chain-of-thought and failed 8/20 articles — six by
+    # truncation (finish_reason=length after ~9 min) and the rest by 504 gateway timeout at 17-20
+    # min. It was also never the comparable setting: it ran ~9.7 reasoning tokens per answer token
+    # against the Gemini baseline's 0.73.
+    # max_output_tokens lifts the 65,536 DEFAULT (Fireworks accepts up to the full 131,072 context)
+    # while staying clear of it: 80k output + a ~40k consolidation prompt still fits.
     "gpt-oss-120b": dict(kind="hosted", model="accounts/fireworks/models/gpt-oss-120b",
                          url="https://api.fireworks.ai/inference/v1",
                          key_env="FIREWORKS_API_KEY",
                          thinking=True, structured=True,
-                         params={"reasoning_effort": "high"}),
+                         max_output_tokens=80_000,
+                         params={"reasoning_effort": "medium"}),
 
-    # DeepSeek V4 Flash, served first-party (MIT weights, ~284B/13B active, 1M context). Going
-    # direct rather than through an aggregator means the manifest's model id actually pins who
-    # served it and at what precision. The legacy deepseek-chat / deepseek-reasoner ids were
-    # retired 2026-07-24; thinking mode is a SEPARATE model id — confirm the current one at
-    # api-docs.deepseek.com before adding a "-think" row here.
-    "deepseek-v4-flash": dict(kind="hosted", model="deepseek-v4-flash",
-                              url="https://api.deepseek.com/v1",
-                              key_env="DEEPSEEK_API_KEY",
-                              thinking=False, structured=True),
+    # DeepSeek V4 Flash (MIT weights, ~284B/13B active, 1M context), served by Fireworks — the SAME
+    # provider as gpt-oss above, deliberately. Two rows served by one provider share a serving stack
+    # and quantization policy, so the difference between them is the model and not the infra. The
+    # first-party endpoint (https://api.deepseek.com/v1, key DEEPSEEK_API_KEY, model
+    # "deepseek-v4-flash") is the alternative and costs the same $0.14/$0.28.
+    # The id is PINNED to the 0731 build rather than the floating "deepseek-v4-flash" alias, which
+    # follows whatever DeepSeek ships next — the alias would make this run unreproducible the day
+    # they release a new one.
+    # reasoning_effort="none" is REQUIRED, not a tuning choice. V4 Flash reasons by default on
+    # Fireworks and there is no non-thinking model id; left alone it spends its entire output
+    # budget on chain-of-thought and returns finish_reason=length with ZERO characters of content
+    # (measured: 19/20 articles failed this way on 2026-08-21). "low" does NOT help — it produced
+    # the same empty result. Only "none" (or chat_template_kwargs {"thinking": false}) stops it.
+    # With "none" the same prompt answers in 279 tokens instead of exhausting 65,536.
+    "deepseek-v4-flash": dict(kind="hosted", model="accounts/fireworks/models/deepseek-v4-flash-0731",
+                              url="https://api.fireworks.ai/inference/v1",
+                              key_env="FIREWORKS_API_KEY",
+                              thinking=False, structured=True,
+                              params={"reasoning_effort": "none"}),
 }
 
 

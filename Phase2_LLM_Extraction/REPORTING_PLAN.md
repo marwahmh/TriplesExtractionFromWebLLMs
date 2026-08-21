@@ -330,6 +330,49 @@ Two things this made visible, both worth reporting rather than smoothing over:
   judged-sample measurement, and a caution against reading llama's small vocabulary as tidy
   consolidation — some of it is collapse.
 
+**(iv) art23 was extracted under a wrong reference date — corrected by hand on 2026-08-20.**
+`dataset/articles.csv` recorded eight articles (art21, 22, 23, 28, 37, 47, 48, 49) with a 2024
+publication year that was a typo for 2026. Seven are in the test split and had not been extracted.
+**art23 is in validation**, and its `main_val_r1` graphs were built with
+`reference_date = 2024-07-06`, so every value the extraction call resolved against that anchor was
+two years out.
+
+Rather than re-extract (see below), the affected values were **edited in place** across all three
+model trees — 46 JSON files, 1 CSV, 3 viz HTML, restored-from-pristine and verified to differ from
+their originals in nothing but these substitutions:
+
+| what | before | after |
+|---|---|---|
+| `reference_date` | `2024-07-06` | `2026-07-06` |
+| `"Monday"` normalized value (gemini, both tracks) | `2024-07-01` | `2026-07-06` |
+| `"recent years"` interval end (gemini e2e) | `2024-07-06` | `2026-07-06` |
+| reference-date-as-entity (qwen, llama, both tracks) | `2024-07-06` / `06/07/2024` | `2026-07-06` / `06/07/2026` |
+| evidence spans quoting the article's `Date:` header | `06/07/2024` | `06/07/2026` |
+
+`"Monday"` was **realigned, not shifted**: 2024-07-06 was a Saturday so the model resolved "Monday"
+to the preceding 2024-07-01, whereas 2026-07-06 is itself the Monday the article was published, so
+the correct value is 2026-07-06 and not 2026-07-01.
+
+Deliberately **not** changed, because they are genuine in-article references and not anchor-derived:
+the `2024` entity (`2024-01-01`–`2024-12-31`), every evidence span and judge quote containing
+*"In 2024, Xbox culled more than 2,000 staff…"*, the node labels *"Xbox 2024 layoffs"* /
+*"Xbox 2024 Staff Reductions"*, and the MINE contexts and gold fact that mention 2024. art23's 15
+gold MINE facts do not depend on the publication year and were not touched.
+
+Two things to state when quoting art23:
+
+* **These files are hand-edited and no longer byte-match what the model emitted under the recorded
+  config**, which is the one place in this tree where the manifest's config-to-output guarantee does
+  not hold. It is a mechanical substitution of a typo, not a re-judgement, and nothing structural
+  moved: nodes, triples, reuse, merges, vocabulary and every grounding verdict are unchanged.
+* **Do not re-run 6c for art23 to "fix it properly" inside this arm.** `nary_graph_dedup.json`
+  carries the variant only and no run tag, so re-extracting overwrites the graph 6d/6e already
+  consumed, and the incremental vocabulary means the whole 20-article chain would need re-running to
+  stay coherent. Re-run the validation arm end to end under a new `REPEAT` if a clean provenance
+  trail for art23 matters more than the cost.
+* The three `viz/*.png` renders (gemini e2e, qwen e2e, qwen staged) still show the old values and
+  cannot be patched; re-run nb8 before using them in the write-up. The `.html` renders are corrected.
+
 **Fixed in code, for runs from here on:** `nb4`'s refresh resolves both field namings through a
 `_FIELD_ALIAS` table; the periodic cells in `nb4`, `nb7`, `nb7b` and `6d` now re-emit the cost file
 once every chunk is built; `run_manifest.begin()` archives a superseded finished stage under

@@ -1,0 +1,1143 @@
+{
+  "article_id": "art82",
+  "match_model": "intfloat/e5-base-v2",
+  "expand_mode": true,
+  "relations": [
+    {
+      "relation_phrase": "affects",
+      "definition": "Has an impact on or influences something.",
+      "embedding_query_text": "affects: Has an impact on or influences something.",
+      "observed_signatures": [
+        "MedicalCondition → PeopleAudience"
+      ],
+      "n_assignments": 1,
+      "assignments": [
+        {
+          "instances": [
+            "Type 2 diabetes -> Young women",
+            "Type 2 diabetes -> White women",
+            "Type 2 diabetes -> Asian women",
+            "Type 2 diabetes -> Black women"
+          ],
+          "chosen_property": {
+            "label": "affects",
+            "source": "vocab",
+            "direction": "as_is",
+            "vocab_id": "P0014",
+            "is_new_to_vocab": false,
+            "definition": "To have an influence on something.",
+            "parent": null,
+            "domain": [
+              "Event"
+            ],
+            "range": [
+              "AdministrativeArea"
+            ],
+            "path": "",
+            "justification": "No existing property fits."
+          },
+          "llm_proposed": {
+            "source": "new",
+            "label": "affects",
+            "is_new": true,
+            "direction": "as_is"
+          }
+        }
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "affectedBy",
+          "signature": "MedicalTest → Drug",
+          "parent": null,
+          "inverse_of": null,
+          "score": 5.0087,
+          "matched_anchor": null,
+          "comment": "An affected by relation between a medical test and the drugs that can influence its results. Also called influenced by, impacted by, drug interaction. Examples: \"A blood test's results are affected by 'anticoagulants'.\", \"The diagnostic test is affected by 'caffeine'.\"",
+          "embed_score": 0.856,
+          "embed_rank": 1
+        },
+        {
+          "source": "schema.org",
+          "label": "relatedCondition",
+          "signature": "AnatomicalStructure/AnatomicalSystem/SuperficialAnatomy → MedicalCondition",
+          "parent": null,
+          "inverse_of": null,
+          "score": -6.9086,
+          "matched_anchor": null,
+          "comment": "A related condition relation between an anatomical structure or system and a medical condition associated with it. Also called associated condition, condition of, affects condition. Examples: \"The knee joint has a related condition 'arthritis'.\", \"The respiratory system has a related condition 'asthma'.\", \"The skin has a related condition 'eczema'.\"",
+          "embed_score": 0.79,
+          "embed_rank": 34
+        },
+        {
+          "source": "schema.org",
+          "label": "adverseOutcome",
+          "signature": "MedicalDevice/TherapeuticProcedure → MedicalEntity",
+          "parent": null,
+          "inverse_of": null,
+          "score": -7.3785,
+          "matched_anchor": null,
+          "comment": "An adverse outcome relation between a medical device or therapeutic procedure and a possible complication or side effect. Also called side effect, complication, negative reaction. Examples: \"A surgery's adverse outcome is 'infection'.\", \"A medical device's adverse outcome is 'skin irritation'.\" Distinct from seriousAdverseOutcome, which is specifically for life-threatening or severe complications.",
+          "embed_score": 0.798,
+          "embed_rank": 19
+        },
+        {
+          "source": "schema.org",
+          "label": "interactingDrug",
+          "signature": "Drug → Drug",
+          "parent": null,
+          "inverse_of": null,
+          "score": -7.9963,
+          "matched_anchor": null,
+          "comment": "A drug interaction relation between two drugs, where one affects the action or safety of the other. Also called drug-drug interaction, co-administered drug, reactive drug. Examples: Warfarin has an interactingDrug of 'Aspirin'. Antibiotics have an interactingDrug of 'Oral contraceptives'. Statins have an interactingDrug of 'Grapefruit juice'. Distinct from contraindication, which typically refers to a disease or condition that makes a drug unsuitable.",
+          "embed_score": 0.791,
+          "embed_rank": 31
+        },
+        {
+          "source": "schema.org",
+          "label": "hasOccupation",
+          "signature": "Person → Occupation",
+          "parent": null,
+          "inverse_of": null,
+          "score": -9.4439,
+          "matched_anchor": null,
+          "comment": "An occupation relation between a person and their current occupation. Also called profession, job, employment. Examples: \"A person has an occupation as a software engineer.\", \"She has an occupation as a doctor.\", \"His occupation is a teacher.\"",
+          "embed_score": 0.792,
+          "embed_rank": 29
+        },
+        {
+          "source": "schema.org",
+          "label": "legislationCommences",
+          "signature": "Legislation → Legislation",
+          "parent": "legislationChanges",
+          "inverse_of": null,
+          "score": -9.6542,
+          "matched_anchor": null,
+          "comment": "A legislative activation relation between a piece of legislation and another legislation that it brings into legal effect. Also called brings into force, enacts, activates law, sets into effect. Examples: Legislation A legislationCommences 'Legislation B'. The enabling act legislationCommences 'the new regulations'. This decree legislationCommences 'the policy changes'.",
+          "embed_score": 0.787,
+          "embed_rank": 43
+        },
+        {
+          "source": "schema.org",
+          "label": "cause",
+          "signature": "MedicalCondition → MedicalCause",
+          "parent": null,
+          "inverse_of": "causeOf",
+          "score": -9.7378,
+          "matched_anchor": null,
+          "comment": "A causal relation between a medical condition and its medical cause. Also called \"etiology\", \"origin\", \"caused by\". Examples: \"Flu medical condition cause Influenza virus\", \"Heart attack medical condition cause Coronary artery disease\". Distinct from causeOf, which describes what a medical cause leads to, whereas cause describes what leads to a condition.",
+          "embed_score": 0.799,
+          "embed_rank": 18
+        },
+        {
+          "source": "schema.org",
+          "label": "causeOf",
+          "signature": "MedicalCause → MedicalEntity",
+          "parent": null,
+          "inverse_of": "cause",
+          "score": -9.7699,
+          "matched_anchor": null,
+          "comment": "A causal relation between a medical cause and the medical entity (condition, complication, symptom) it produces. Also called \"results in\", \"leads to\", \"produces\". Examples: \"Influenza virus medical causeOf Flu\", \"Smoking medical causeOf Lung cancer\". Distinct from cause, which describes what leads to a condition, whereas causeOf describes what a medical cause leads to.",
+          "embed_score": 0.805,
+          "embed_rank": 8
+        },
+        {
+          "source": "schema.org",
+          "label": "source",
+          "signature": "InstantaneousEvent → Thing",
+          "parent": null,
+          "inverse_of": null,
+          "score": -9.7967,
+          "matched_anchor": null,
+          "comment": "A causal relation between an instantaneous event and the thing that initiated or caused it. Also called \"originates from\", \"caused by\", \"event trigger\", \"event origin\". Examples: \"The explosion's source was a gas leak\", \"The alarm's source was a smoke detector\", \"The data breach's source was a phishing attack.\"",
+          "embed_score": 0.797,
+          "embed_rank": 22
+        },
+        {
+          "source": "schema.org",
+          "label": "about",
+          "signature": "Certification/CommunicateAction/CreativeWork/DefinedTerm/DefinedTermSet/Event → Thing",
+          "parent": null,
+          "inverse_of": "subjectOf",
+          "score": -10.2298,
+          "matched_anchor": null,
+          "comment": "A subject matter relation between an entity (e.g., a creative work, event, or communication) and the topic it concerns. Also called concerning, regarding, on the topic of, related to. Examples: \"A book about quantum physics.\", \"A lecture about climate change.\", \"A certification about data privacy.\"",
+          "embed_score": 0.822,
+          "embed_rank": 2
+        }
+      ]
+    },
+    {
+      "relation_phrase": "leads",
+      "definition": "Guides or directs something.",
+      "embedding_query_text": "leads: Guides or directs something.",
+      "observed_signatures": [
+        "Person → MedicalResearchEvent"
+      ],
+      "n_assignments": 1,
+      "assignments": [
+        {
+          "instances": [
+            "Shivani Misra -> Type 2 diabetes research"
+          ],
+          "chosen_property": {
+            "label": "leads",
+            "source": "vocab",
+            "direction": "as_is",
+            "vocab_id": "P0291",
+            "is_new_to_vocab": false,
+            "definition": "To be in charge of or to direct an organization, group, or activity.",
+            "parent": null,
+            "domain": [
+              "Person"
+            ],
+            "range": [
+              "PoliceStation"
+            ],
+            "path": "",
+            "justification": "No existing property fits."
+          },
+          "llm_proposed": {
+            "source": "new",
+            "label": "leads",
+            "is_new": true,
+            "direction": "as_is"
+          }
+        }
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "director",
+          "signature": "Clip/CreativeWorkSeason/Episode/Event/Movie/MovieSeries/RadioSeries/TVSeries/VideoGame/VideoGameSeries/VideoObject → Person",
+          "parent": null,
+          "inverse_of": null,
+          "score": -1.3412,
+          "matched_anchor": null,
+          "comment": "A creative leadership relation between a clip, creative work season, episode, event, movie, or video game and a person who directed it. Also called: directed by, filmmaker, showrunner. Examples: \"Movie\" director \"Steven Spielberg\", \"TV Episode\" director \"Ava DuVernay\", \"Video Game\" director \"Hideo Kojima\". Distinct from directors, which is a plural property for multiple directors.",
+          "embed_score": 0.807,
+          "embed_rank": 3
+        },
+        {
+          "source": "schema.org",
+          "label": "directors",
+          "signature": "Clip/Episode/Movie/MovieSeries/RadioSeries/TVSeries/VideoGame/VideoGameSeries/VideoObject → Person",
+          "parent": null,
+          "inverse_of": null,
+          "score": -1.8307,
+          "matched_anchor": null,
+          "comment": "A creative leadership relation between a clip, episode, movie, or video game and the persons who directed it. Also called: directed by, filmmakers, showrunners. Examples: \"Movie\" directors \"Joel Coen, Ethan Coen\", \"TV Episode\" directors \"Various Directors\", \"Video Game\" directors \"Hideo Kojima, Yoji Shinkawa\". Distinct from director, which is a singular property for a single director.",
+          "embed_score": 0.817,
+          "embed_rank": 1
+        },
+        {
+          "source": "schema.org",
+          "label": "guideline",
+          "signature": "MedicalEntity → MedicalGuideline",
+          "parent": null,
+          "inverse_of": null,
+          "score": -2.1374,
+          "matched_anchor": null,
+          "comment": "A guideline relation between a medical entity and a related medical guideline. Also called: related guideline, medical recommendation, clinical protocol. Examples: \"Hypertension\" guideline \"AHA Guideline for Hypertension\", \"Diabetes Treatment\" guideline \"NICE Guideline for Diabetes\", \"COVID-19 Management\" guideline \"WHO COVID-19 Guidelines\". Distinct from guidelineSubject, which is the subject of the guideline.",
+          "embed_score": 0.775,
+          "embed_rank": 25
+        },
+        {
+          "source": "schema.org",
+          "label": "supply",
+          "signature": "HowTo/HowToDirection → HowToSupply/Text",
+          "parent": "instrument",
+          "inverse_of": null,
+          "score": -2.7639,
+          "matched_anchor": null,
+          "comment": "A resource relation between a how-to guide or direction and a consumable supply required for its execution. Also called \"required supply\", \"consumable item\", \"material needed\", \"ingredient\". Examples: \"The recipe has supply flour\", \"The how-to direction requires supply glue\", \"This guide lists several supply items.\". Distinct from tool, which refers to a non-consumable instrument.",
+          "embed_score": 0.79,
+          "embed_rank": 7
+        },
+        {
+          "source": "schema.org",
+          "label": "steps",
+          "signature": "HowTo/HowToSection → CreativeWork/ItemList/Text",
+          "parent": null,
+          "inverse_of": null,
+          "score": -3.88,
+          "matched_anchor": null,
+          "comment": "A collection of individual instructions, sections, or creative works that constitute the steps of a how-to guide or section. Also called \"how-to instructions\", \"procedure steps\", \"guide sections\", \"process stages\". Examples: \"The recipe has steps an ItemList of instructions\", \"The manual's steps include text and diagrams\", \"This how-to section outlines several steps.\". Distinct from step, which refers to a single instruction or component.",
+          "embed_score": 0.782,
+          "embed_rank": 16
+        },
+        {
+          "source": "schema.org",
+          "label": "step",
+          "signature": "HowTo → CreativeWork/HowToSection/HowToStep/Text",
+          "parent": null,
+          "inverse_of": null,
+          "score": -3.9061,
+          "matched_anchor": null,
+          "comment": "A component relation between a how-to guide and a single instruction, section, or creative work that forms part of the process. Also called \"instructional step\", \"how-to instruction\", \"process step\", \"guide step\". Examples: \"The recipe has step 'Chop vegetables'\", \"The guide's step is a video tutorial\", \"This how-to includes a step for assembly.\". Distinct from steps, which refers to a collection of steps.",
+          "embed_score": 0.791,
+          "embed_rank": 6
+        },
+        {
+          "source": "schema.org",
+          "label": "guidelineSubject",
+          "signature": "MedicalGuideline → MedicalEntity",
+          "parent": null,
+          "inverse_of": null,
+          "score": -4.0736,
+          "matched_anchor": null,
+          "comment": "A guideline subject relation between a medical guideline and the medical conditions, treatments, or other entities it addresses. Also called: guideline topic, subject matter, focus. Examples: \"AHA Guideline for Hypertension\" guideline subject \"Hypertension\", \"NICE Guideline for Diabetes\" guideline subject \"Type 2 Diabetes\", \"WHO COVID-19 Guidelines\" guideline subject \"COVID-19\". Distinct from guideline, which is the guideline itself.",
+          "embed_score": 0.775,
+          "embed_rank": 26
+        },
+        {
+          "source": "schema.org",
+          "label": "recipeInstructions",
+          "signature": "Recipe → CreativeWork/ItemList/Text",
+          "parent": "step",
+          "inverse_of": null,
+          "score": -4.9747,
+          "matched_anchor": null,
+          "comment": "A recipe instructions relation between a recipe and the steps or procedures for its preparation. Also called cooking steps, preparation guide, how-to. Examples: \"A baking recipe provides recipe instructions 'Preheat oven to 350°F'.\", \"A cooking recipe details recipe instructions 'Chop vegetables, then sauté'.\", \"A cocktail recipe gives recipe instructions 'Mix ingredients, then shake with ice'.\"",
+          "embed_score": 0.769,
+          "embed_rank": 50
+        },
+        {
+          "source": "schema.org",
+          "label": "softwareHelp",
+          "signature": "SoftwareApplication → CreativeWork",
+          "parent": null,
+          "inverse_of": null,
+          "score": -5.0594,
+          "matched_anchor": null,
+          "comment": "A relation between a software application and a creative work providing assistance or guidance for its use. Also called \"application help\", \"software documentation\", \"user guide for software\". Examples: \"Microsoft Word has softwareHelp a user manual\", \"The app's softwareHelp is an online FAQ\", \"This softwareHelp explains how to use the program.\"",
+          "embed_score": 0.776,
+          "embed_rank": 24
+        },
+        {
+          "source": "schema.org",
+          "label": "gameTip",
+          "signature": "VideoGame → CreativeWork",
+          "parent": null,
+          "inverse_of": null,
+          "score": -5.3756,
+          "matched_anchor": null,
+          "comment": "A game tip relation between a video game and a creative work providing tips, tactics, or strategies for playing it. Also called: game guide, strategy guide, walkthrough. Examples: \"Elden Ring\" game tip \"Fextralife Wiki\", \"Chess\" game tip \"Opening Strategy Guide\", \"Fortnite\" game tip \"Building Tactics Video\".",
+          "embed_score": 0.773,
+          "embed_rank": 33
+        }
+      ]
+    },
+    {
+      "relation_phrase": "comments on",
+      "definition": "Provides an opinion or remark about something.",
+      "embedding_query_text": "comments on: Provides an opinion or remark about something.",
+      "observed_signatures": [
+        "Person → MedicalResearchEvent",
+        "Person → MedicalCondition"
+      ],
+      "n_assignments": 1,
+      "assignments": [
+        {
+          "instances": [
+            "Baptist Gallwitz -> Type 2 diabetes research",
+            "Baptist Gallwitz -> Type 2 diabetes"
+          ],
+          "chosen_property": {
+            "label": "commentsOn",
+            "source": "vocab",
+            "direction": "as_is",
+            "vocab_id": "P0400",
+            "is_new_to_vocab": false,
+            "definition": "To provide an opinion or remark about something",
+            "parent": null,
+            "domain": [
+              "Person"
+            ],
+            "range": [
+              "TropicalStorm"
+            ],
+            "path": "",
+            "justification": "No existing property fits."
+          },
+          "llm_proposed": {
+            "source": "new",
+            "label": "commentsOn",
+            "is_new": true,
+            "direction": "as_is"
+          }
+        }
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "discusses",
+          "signature": "UserComments → CreativeWork",
+          "parent": null,
+          "inverse_of": null,
+          "score": 1.47,
+          "matched_anchor": null,
+          "comment": "A discussion relation between a user comment and the creative work it is associated with. Also called \"comments on\", \"pertains to\", \"about\". Examples: \"User comment 'Great movie!' discusses 'The Matrix'\", \"Blog post comment discusses 'Article on AI'\", \"Review discusses 'New Album by Artist X'\". Distinct from discussionUrl, which is a link to the page containing comments about a creative work.",
+          "embed_score": 0.864,
+          "embed_rank": 1
+        },
+        {
+          "source": "schema.org",
+          "label": "parentItem",
+          "signature": "Answer/Comment/Question → Comment/CreativeWork",
+          "parent": null,
+          "inverse_of": null,
+          "score": 1.1579,
+          "matched_anchor": null,
+          "comment": "A hierarchical relation between a discussion item and its preceding item or a creative work it comments on. Also called part of, replies to, refers to, is a response to. Examples: A comment is a parent item of another comment. A question is a parent item of an answer. An answer is a parent item of a follow-up comment. Distinct from comment, which points from something to a comment about it.",
+          "embed_score": 0.805,
+          "embed_rank": 12
+        },
+        {
+          "source": "schema.org",
+          "label": "resultComment",
+          "signature": "CommentAction/ReplyAction → Comment",
+          "parent": "result",
+          "inverse_of": null,
+          "score": -0.9309,
+          "matched_anchor": null,
+          "comment": "The specific comment created or sent as the outcome of a comment or reply action. Also called generated comment, comment outcome, produced comment. Examples: `CommentAction on Article` resultComment `User's Comment Text`, `ReplyAction to Forum Post` resultComment `Reply Comment`, `ReviewAction` resultComment `Reviewer's Feedback`. Distinct from `result`, which is a general outcome of any action.",
+          "embed_score": 0.832,
+          "embed_rank": 3
+        },
+        {
+          "source": "schema.org",
+          "label": "commentText",
+          "signature": "UserComments → Text",
+          "parent": null,
+          "inverse_of": null,
+          "score": -1.1907,
+          "matched_anchor": null,
+          "comment": "A textual content relation for user comments, providing the actual text of the comment. Also called \"comment content\", \"message text\", \"user feedback text\". Examples: \"User comment commentText 'This is a very insightful article.'\", \"Review commentText 'Product arrived quickly and works great.'\". Distinct from comment, which refers to the comment object itself, whereas commentText is its textual content.",
+          "embed_score": 0.827,
+          "embed_rank": 5
+        },
+        {
+          "source": "schema.org",
+          "label": "comment",
+          "signature": "CreativeWork/RsvpAction → Comment",
+          "parent": null,
+          "inverse_of": null,
+          "score": -1.5611,
+          "matched_anchor": null,
+          "comment": "A feedback relation between a creative work or RSVP action and a user-generated comment. Also called \"user comment\", \"feedback\", \"review\". Examples: \"Article comment 'Great read!'\", \"Event RSVP comment 'Looking forward to it!'\". Distinct from commentText, which is the text content of the comment itself.",
+          "embed_score": 0.861,
+          "embed_rank": 2
+        },
+        {
+          "source": "schema.org",
+          "label": "commentCount",
+          "signature": "CreativeWork → Integer",
+          "parent": null,
+          "inverse_of": null,
+          "score": -2.4558,
+          "matched_anchor": null,
+          "comment": "A quantitative measurement for a creative work, indicating the total number of comments it has received. Also called \"number of comments\", \"comment total\", \"feedback count\". Examples: \"Blog post commentCount 15\", \"Article commentCount 200\".",
+          "embed_score": 0.828,
+          "embed_rank": 4
+        },
+        {
+          "source": "schema.org",
+          "label": "answerExplanation",
+          "signature": "Answer → Comment/WebContent",
+          "parent": null,
+          "inverse_of": null,
+          "score": -3.7741,
+          "matched_anchor": null,
+          "comment": "An answer explanation relation between an answer and a comment or web content providing a detailed clarification or step-by-step reasoning. Also called solution explanation, answer justification, detailed response. Examples: \"An answer's answer explanation details the calculation steps.\", \"The correct answer's explanation clarifies the underlying principle.\"",
+          "embed_score": 0.814,
+          "embed_rank": 9
+        },
+        {
+          "source": "schema.org",
+          "label": "downvoteCount",
+          "signature": "Comment → Integer",
+          "parent": null,
+          "inverse_of": null,
+          "score": -3.8443,
+          "matched_anchor": null,
+          "comment": "A downvote count relation between a comment and the integer representing the number of downvotes it has received. Also called \"dislike count\", \"negative votes\". Examples: \"Comment 'This is wrong' downvoteCount '5'\", \"Answer downvoteCount '2'\", \"Review downvoteCount '10'\".",
+          "embed_score": 0.79,
+          "embed_rank": 23
+        },
+        {
+          "source": "schema.org",
+          "label": "upvoteCount",
+          "signature": "Comment → Integer",
+          "parent": null,
+          "inverse_of": null,
+          "score": -4.4793,
+          "matched_anchor": null,
+          "comment": "An upvote count relation between a comment and the number of upvotes it has received. Also called positive votes, likes count, approval count. Examples: \"Comment upvoteCount '15'\", \"Answer upvoteCount '100'\", \"Question upvoteCount '5'\".",
+          "embed_score": 0.794,
+          "embed_rank": 21
+        },
+        {
+          "source": "schema.org",
+          "label": "commentTime",
+          "signature": "UserComments → Date/DateTime",
+          "parent": null,
+          "inverse_of": null,
+          "score": -4.7839,
+          "matched_anchor": null,
+          "comment": "A temporal specification for user comments, indicating the date or date and time when the comment was made. Also called \"comment date\", \"posted time\", \"submission time\". Examples: \"User comment commentTime '2023-10-26T10:30:00'\", \"Review commentTime '2023-09-15'\".",
+          "embed_score": 0.821,
+          "embed_rank": 6
+        }
+      ]
+    },
+    {
+      "relation_phrase": "warns about",
+      "definition": "Gives a warning or caution about something.",
+      "embedding_query_text": "warns about: Gives a warning or caution about something.",
+      "observed_signatures": [
+        "Person → MedicalCondition"
+      ],
+      "n_assignments": 1,
+      "assignments": [
+        {
+          "instances": [
+            "Helen Kirrane -> Type 2 diabetes"
+          ],
+          "chosen_property": {
+            "label": "warnsAbout",
+            "source": "vocab",
+            "direction": "as_is",
+            "vocab_id": "P0354",
+            "is_new_to_vocab": false,
+            "definition": "To inform or advise someone of a potential danger or risk related to a specific topic.",
+            "parent": null,
+            "domain": [
+              "Person"
+            ],
+            "range": [
+              "Heatwave"
+            ],
+            "path": "",
+            "justification": "No existing property fits."
+          },
+          "llm_proposed": {
+            "source": "new",
+            "label": "warnsAbout",
+            "is_new": true,
+            "direction": "as_is"
+          }
+        }
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "warning",
+          "signature": "Drug → Text/URL",
+          "parent": null,
+          "inverse_of": null,
+          "score": 4.0106,
+          "matched_anchor": null,
+          "comment": "A warning relation between a drug and any FDA or other safety advisories. Also called drug warning, safety advisory, health alert. Examples: \"Drug warning 'May cause drowsiness.'\", \"Drug warning 'https://fda.gov/drug-warnings/xyz'\", \"Medication warning 'Do not exceed recommended dose.'\".",
+          "embed_score": 0.856,
+          "embed_rank": 1
+        },
+        {
+          "source": "schema.org",
+          "label": "alcoholWarning",
+          "signature": "Drug → Text",
+          "parent": null,
+          "inverse_of": null,
+          "score": 3.9797,
+          "matched_anchor": null,
+          "comment": "An alcohol warning relation between a drug and any precautions or contraindications regarding alcohol consumption while using it. Also called alcohol interaction, drinking advisory, alcohol caution. Examples: \"A medication's alcohol warning states 'Do not consume alcohol'.\", \"The drug's alcohol warning advises 'Limit alcohol intake'.\"",
+          "embed_score": 0.815,
+          "embed_rank": 6
+        },
+        {
+          "source": "schema.org",
+          "label": "foodWarning",
+          "signature": "Drug → Text",
+          "parent": null,
+          "inverse_of": null,
+          "score": 3.185,
+          "matched_anchor": null,
+          "comment": "A food warning relation between a drug and any precautions, guidance, or contraindications regarding food consumption while taking it. Also called: dietary restrictions, food interactions, consumption advice. Examples: \"Warfarin\" food warning \"Avoid grapefruit, limit Vitamin K rich foods\", \"Antibiotics\" food warning \"Do not take with dairy products\", \"MAOIs\" food warning \"Avoid aged cheeses and cured meats\".",
+          "embed_score": 0.821,
+          "embed_rank": 4
+        },
+        {
+          "source": "schema.org",
+          "label": "pregnancyWarning",
+          "signature": "Drug → Text",
+          "parent": null,
+          "inverse_of": null,
+          "score": 2.1766,
+          "matched_anchor": null,
+          "comment": "A medical attribute providing precautions, guidance, or contraindications regarding a drug's use during pregnancy. Also called pregnancy precautions, drug-pregnancy risks, maternal warnings. Examples: A drug has a pregnancy warning 'Consult doctor before use'. The medication includes a pregnancy warning about 'potential fetal harm'. There is a pregnancy warning against 'use in first trimester'.",
+          "embed_score": 0.823,
+          "embed_rank": 3
+        },
+        {
+          "source": "schema.org",
+          "label": "breastfeedingWarning",
+          "signature": "Drug → Text",
+          "parent": null,
+          "inverse_of": null,
+          "score": 1.8664,
+          "matched_anchor": null,
+          "comment": "Any precaution, guidance, or contraindication related to a drug's use by breastfeeding mothers. Also called: lactation warning, nursing caution, breastfeeding safety. Examples: \"Drug 'Medication X' breastfeedingWarning 'Consult doctor before use'\", \"Drug 'Drug Y' breastfeedingWarning 'Not recommended for breastfeeding mothers'.\"",
+          "embed_score": 0.82,
+          "embed_rank": 5
+        },
+        {
+          "source": "schema.org",
+          "label": "safetyConsideration",
+          "signature": "DietarySupplement → Text",
+          "parent": null,
+          "inverse_of": null,
+          "score": -2.3521,
+          "matched_anchor": null,
+          "comment": "Any potential safety concerns, interactions, or adverse reactions associated with a dietary supplement. Also called supplement warnings, safety warnings, adverse effects. Examples: `St. John's Wort` safetyConsideration `\"May interact with antidepressants\"`, `Creatine Supplement` safetyConsideration `\"Not recommended for individuals with kidney issues\"`, `Vitamin D Supplement` safetyConsideration `\"Avoid excessive dosage\"`.",
+          "embed_score": 0.805,
+          "embed_rank": 7
+        },
+        {
+          "source": "schema.org",
+          "label": "contraindication",
+          "signature": "MedicalDevice/MedicalTherapy → MedicalContraindication/Text",
+          "parent": null,
+          "inverse_of": null,
+          "score": -2.4936,
+          "matched_anchor": null,
+          "comment": "A medical restriction relation for a medical device or therapy, indicating a contraindication. Also called \"medical warning\", \"precaution\", \"not recommended for\". Examples: \"Drug therapy contraindication 'Pregnancy'\", \"Medical device contraindication 'Pacemaker users'\".",
+          "embed_score": 0.825,
+          "embed_rank": 2
+        },
+        {
+          "source": "schema.org",
+          "label": "expertConsiderations",
+          "signature": "Diet → Text",
+          "parent": null,
+          "inverse_of": null,
+          "score": -2.6507,
+          "matched_anchor": null,
+          "comment": "An expert considerations relation between a diet and the medical expert advice pertinent to that dietary plan. Also called: medical advice, professional guidance, health warnings. Examples: \"Keto Diet\" expert considerations \"Consult a doctor if you have kidney issues\", \"Vegan Diet\" expert considerations \"Ensure adequate B12 supplementation\", \"Low-Sodium Diet\" expert considerations \"Monitor blood pressure regularly\".",
+          "embed_score": 0.786,
+          "embed_rank": 12
+        },
+        {
+          "source": "schema.org",
+          "label": "diseasePreventionInfo",
+          "signature": "SpecialAnnouncement → URL/WebContent",
+          "parent": null,
+          "inverse_of": null,
+          "score": -8.5333,
+          "matched_anchor": null,
+          "comment": "A disease prevention information relation between a special announcement and a URL or web content providing details about disease prevention. Also called \"prevention guidelines\", \"health advice\". Examples: \"Special announcement diseasePreventionInfo 'cdc.gov/prevention'\", \"Public health alert diseasePreventionInfo 'WebContent on handwashing'\", \"COVID-19 update diseasePreventionInfo 'who.int/prevention'\".",
+          "embed_score": 0.8,
+          "embed_rank": 8
+        },
+        {
+          "source": "schema.org",
+          "label": "travelBans",
+          "signature": "SpecialAnnouncement → URL/WebContent",
+          "parent": null,
+          "inverse_of": null,
+          "score": -8.5655,
+          "matched_anchor": null,
+          "comment": "A travel bans relation between a special announcement and information regarding restrictions on travel. Also called travel restrictions, ban on travel, travel advisories. Examples: \"SpecialAnnouncement travelBans 'https://example.com/travel-restrictions'\", \"SpecialAnnouncement travelBans 'All international travel is suspended.'\", \"SpecialAnnouncement travelBans 'https://who.int/travel-guidance'\".",
+          "embed_score": 0.777,
+          "embed_rank": 18
+        }
+      ]
+    },
+    {
+      "relation_phrase": "recommends",
+      "definition": "Suggests or advises something.",
+      "embedding_query_text": "recommends: Suggests or advises something.",
+      "observed_signatures": [
+        "Person → MedicalTest",
+        "Person → MedicalDiagnosisEvent"
+      ],
+      "n_assignments": 1,
+      "assignments": [
+        {
+          "instances": [
+            "Alexandra Kautzky-Willer -> Type 2 diabetes diagnosis",
+            "Alexandra Kautzky-Willer -> Glucose tolerance test",
+            "Alexandra Kautzky-Willer -> HbA1c test"
+          ],
+          "chosen_property": {
+            "label": "recommends",
+            "source": "vocab",
+            "direction": "as_is",
+            "vocab_id": "P0404",
+            "is_new_to_vocab": true,
+            "definition": "Suggests or advises something.",
+            "parent": null,
+            "domain": [
+              "Person"
+            ],
+            "range": [
+              "MedicalDiagnosisEvent",
+              "MedicalTest"
+            ],
+            "path": "",
+            "justification": "No existing property fits."
+          },
+          "llm_proposed": {
+            "source": "new",
+            "label": "recommends",
+            "is_new": true,
+            "direction": "as_is"
+          }
+        }
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "suggestedMeasurement",
+          "signature": "PeopleAudience/SizeSpecification → QuantitativeValue",
+          "parent": null,
+          "inverse_of": null,
+          "score": 2.082,
+          "matched_anchor": null,
+          "comment": "A quantitative value representing a suggested range of body measurements for an intended audience or person, often for wearable products. Also called \"size recommendation\", \"body measurement range\", \"fit guide\", \"sizing suggestion\". Examples: \"The clothing item has suggestedMeasurement inseam 32-34 inches\", \"The size specification includes suggestedMeasurement height 170-190 cm\", \"This product is designed for a suggestedMeasurement chest 40-42 inches.\"",
+          "embed_score": 0.833,
+          "embed_rank": 4
+        },
+        {
+          "source": "schema.org",
+          "label": "recommendedIntake",
+          "signature": "DietarySupplement → RecommendedDoseSchedule",
+          "parent": null,
+          "inverse_of": null,
+          "score": 1.4776,
+          "matched_anchor": null,
+          "comment": "A recommended intake relation between a dietary supplement and the suggested dosage schedule for a specific population. Also called suggested dosage, dosage instructions, intake guidelines. Examples: \"A vitamin supplement has a recommended intake '1 tablet daily for adults'.\", \"A mineral supplement has a recommended intake '2 capsules twice a day'.\", \"A protein powder has a recommended intake '30g post-workout'.\"",
+          "embed_score": 0.828,
+          "embed_rank": 6
+        },
+        {
+          "source": "schema.org",
+          "label": "suggestedGender",
+          "signature": "PeopleAudience/SizeSpecification → GenderType/Text",
+          "parent": null,
+          "inverse_of": null,
+          "score": 1.3363,
+          "matched_anchor": null,
+          "comment": "An indication of the recommended gender for an intended person or audience. Also called \"target gender\", \"audience gender\", \"gender recommendation\". Examples: \"The clothing item has suggestedGender unisex\", \"The audience specification includes suggestedGender female\", \"This product is for suggestedGender male.\"",
+          "embed_score": 0.829,
+          "embed_rank": 5
+        },
+        {
+          "source": "schema.org",
+          "label": "suggestedAge",
+          "signature": "PeopleAudience/SizeSpecification → QuantitativeValue",
+          "parent": null,
+          "inverse_of": null,
+          "score": 1.3054,
+          "matched_anchor": null,
+          "comment": "A quantitative value indicating the recommended age or age range for an intended audience or person. Also called \"recommended age\", \"age range\", \"target age\", \"suitable age\". Examples: \"The toy has suggestedAge 3-5 years\", \"The audience specification includes suggestedAge 18+\", \"This product is for suggestedAge 6-12 months.\". Distinct from suggestedMinAge and suggestedMaxAge, which specify only the minimum or maximum.",
+          "embed_score": 0.846,
+          "embed_rank": 1
+        },
+        {
+          "source": "schema.org",
+          "label": "recommendationStrength",
+          "signature": "MedicalGuidelineRecommendation → Text",
+          "parent": null,
+          "inverse_of": null,
+          "score": -0.3984,
+          "matched_anchor": null,
+          "comment": "A recommendation strength relation between a medical guideline recommendation and its categorized level of evidence or support. Also called strength of evidence, guideline strength. Examples: \"A medical guideline recommendation has a recommendation strength 'Class I'.\", \"A treatment guideline has a recommendation strength 'Strong'.\", \"A diagnostic recommendation has a recommendation strength 'Grade B'.\"",
+          "embed_score": 0.836,
+          "embed_rank": 3
+        },
+        {
+          "source": "schema.org",
+          "label": "suggestedMaxAge",
+          "signature": "PeopleAudience → Number",
+          "parent": null,
+          "inverse_of": null,
+          "score": -0.6169,
+          "matched_anchor": null,
+          "comment": "A numerical value indicating the maximum recommended age in years for an audience or user. Also called \"maximum age\", \"upper age limit\", \"age cap\". Examples: \"The game has suggestedMaxAge 12\", \"The audience specification includes suggestedMaxAge 65\", \"This content is suitable up to suggestedMaxAge 18.\". Distinct from suggestedAge, which specifies a range, and suggestedMinAge, which specifies only the minimum.",
+          "embed_score": 0.808,
+          "embed_rank": 10
+        },
+        {
+          "source": "schema.org",
+          "label": "suggestedMinAge",
+          "signature": "PeopleAudience → Number",
+          "parent": null,
+          "inverse_of": null,
+          "score": -0.7738,
+          "matched_anchor": null,
+          "comment": "A numerical value indicating the minimum recommended age in years for an audience or user. Also called \"minimum age\", \"lower age limit\", \"age floor\". Examples: \"The game has suggestedMinAge 7\", \"The audience specification includes suggestedMinAge 18\", \"This content is suitable from suggestedMinAge 3.\". Distinct from suggestedAge, which specifies a range, and suggestedMaxAge, which specifies only the maximum.",
+          "embed_score": 0.823,
+          "embed_rank": 7
+        },
+        {
+          "source": "schema.org",
+          "label": "suggestedAnswer",
+          "signature": "Question → Answer/ItemList",
+          "parent": null,
+          "inverse_of": null,
+          "score": -1.0482,
+          "matched_anchor": null,
+          "comment": "A proposed response or set of responses to a question. Also called \"possible answer\", \"proposed solution\", \"answer option\", \"response to question\". Examples: \"The question has suggestedAnswer 'Yes'\", \"The quiz question's suggestedAnswer is a multiple-choice list\", \"This question provides a suggestedAnswer for users.\"",
+          "embed_score": 0.837,
+          "embed_rank": 2
+        },
+        {
+          "source": "schema.org",
+          "label": "endorsers",
+          "signature": "Diet → Organization/Person",
+          "parent": null,
+          "inverse_of": null,
+          "score": -1.901,
+          "matched_anchor": null,
+          "comment": "An endorsers relation between a diet and the people or organizations that support or recommend it. Also called \"supporters\", \"advocates\", \"recommenders\". Examples: \"Diet 'Mediterranean Diet' endorsers 'World Health Organization'\", \"Diet 'Vegan Diet' endorsers 'PETA'\", \"Diet 'Keto Diet' endorsers 'Dr. X'\". Distinct from endorsee, which is the entity being supported.",
+          "embed_score": 0.793,
+          "embed_rank": 15
+        },
+        {
+          "source": "schema.org",
+          "label": "guidelineDate",
+          "signature": "MedicalGuideline → Date",
+          "parent": null,
+          "inverse_of": null,
+          "score": -2.8699,
+          "matched_anchor": null,
+          "comment": "A guideline date relation between a medical guideline and the date its recommendations were issued. Also called: recommendation date, issue date, publication date. Examples: \"AHA Guideline for Hypertension\" guideline date \"2017-11-13\", \"NICE Guideline for Diabetes\" guideline date \"2020-08-19\", \"WHO COVID-19 Guidelines\" guideline date \"2023-03-01\".",
+          "embed_score": 0.815,
+          "embed_rank": 8
+        }
+      ]
+    },
+    {
+      "relation_phrase": "increases in",
+      "definition": null,
+      "embedding_query_text": "increases in:",
+      "observed_signatures": [
+        "MedicalCondition → Place"
+      ],
+      "n_assignments": 1,
+      "assignments": [
+        {
+          "instances": [
+            "Type 2 diabetes -> Germany"
+          ],
+          "chosen_property": {
+            "label": "increasesIn",
+            "source": "vocab",
+            "direction": "as_is",
+            "vocab_id": "P0405",
+            "is_new_to_vocab": true,
+            "definition": "Increases in frequency or prevalence within a specific area.",
+            "parent": null,
+            "domain": [
+              "MedicalCondition"
+            ],
+            "range": [
+              "Place"
+            ],
+            "path": "",
+            "justification": "No existing property fits."
+          },
+          "llm_proposed": {
+            "source": "new",
+            "label": "increasesIn",
+            "is_new": true,
+            "direction": "as_is"
+          }
+        }
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "increasesRiskOf",
+          "signature": "MedicalRiskFactor → MedicalEntity",
+          "parent": null,
+          "inverse_of": null,
+          "score": 2.2637,
+          "matched_anchor": null,
+          "comment": "A risk amplification relation between a medical risk factor and the medical entity (condition, complication) whose likelihood it increases. Also called heightens risk of, raises risk of, predisposes to, contributes to risk of. Examples: Smoking increasesRiskOf lung cancer. High blood pressure increasesRiskOf heart attack. Obesity increasesRiskOf type 2 diabetes.",
+          "embed_score": 0.806,
+          "embed_rank": 1
+        },
+        {
+          "source": "schema.org",
+          "label": "additionalVariable",
+          "signature": "ExercisePlan → Text",
+          "parent": null,
+          "inverse_of": null,
+          "score": -5.1401,
+          "matched_anchor": null,
+          "comment": "An additional variable relation between an exercise plan and any extra components of the exercise prescription, such as exercise order or progression details. Also called exercise detail, workout parameter, prescription addendum. Examples: \"An exercise plan's additional variable is 'Perform exercises in circuit order'.\", \"The rehabilitation plan's additional variable is 'Increase repetitions by 2 each week'.\"",
+          "embed_score": 0.751,
+          "embed_rank": 13
+        },
+        {
+          "source": "schema.org",
+          "label": "greater",
+          "signature": "QualitativeValue → QualitativeValue",
+          "parent": null,
+          "inverse_of": null,
+          "score": -7.3188,
+          "matched_anchor": null,
+          "comment": "A greater relation indicating that one qualitative value is superior or larger than another. Also called: is greater than, exceeds, is more than. Examples: \"High\" greater \"Medium\", \"Excellent\" greater \"Good\", \"Large\" greater \"Small\". Distinct from greaterOrEqual, which includes equality.",
+          "embed_score": 0.754,
+          "embed_rank": 11
+        },
+        {
+          "source": "schema.org",
+          "label": "suggestedMaxAge",
+          "signature": "PeopleAudience → Number",
+          "parent": null,
+          "inverse_of": null,
+          "score": -8.7655,
+          "matched_anchor": null,
+          "comment": "A numerical value indicating the maximum recommended age in years for an audience or user. Also called \"maximum age\", \"upper age limit\", \"age cap\". Examples: \"The game has suggestedMaxAge 12\", \"The audience specification includes suggestedMaxAge 65\", \"This content is suitable up to suggestedMaxAge 18.\". Distinct from suggestedAge, which specifies a range, and suggestedMinAge, which specifies only the minimum.",
+          "embed_score": 0.746,
+          "embed_rank": 37
+        },
+        {
+          "source": "schema.org",
+          "label": "yearlyRevenue",
+          "signature": "BusinessAudience → QuantitativeValue",
+          "parent": null,
+          "inverse_of": null,
+          "score": -9.2826,
+          "matched_anchor": null,
+          "comment": "A yearly revenue relation between a business audience and a quantitative value, representing the annual income generated by the business. Also called annual revenue, annual income, gross annual earnings. Examples: TargetAudience yearlyRevenue \"$1M - $5M\", BusinessAudience yearlyRevenue \"over $10M\", StartupAudience yearlyRevenue \"under $500K\".",
+          "embed_score": 0.748,
+          "embed_rank": 27
+        },
+        {
+          "source": "schema.org",
+          "label": "strengthValue",
+          "signature": "DrugStrength → Number",
+          "parent": null,
+          "inverse_of": null,
+          "score": -9.3831,
+          "matched_anchor": null,
+          "comment": "A numerical value representing the strength of an active ingredient in a drug. Also called \"strength amount\", \"dosage value\", \"ingredient concentration\". Examples: \"The drug strength has strengthValue 325\", \"The active ingredient's strengthValue is 500\", \"This medication has a strengthValue of 10.\"",
+          "embed_score": 0.746,
+          "embed_rank": 39
+        },
+        {
+          "source": "schema.org",
+          "label": "stepValue",
+          "signature": "PropertyValueSpecification → Number",
+          "parent": null,
+          "inverse_of": null,
+          "score": -9.4429,
+          "matched_anchor": null,
+          "comment": "A numerical value indicating the required granularity or increment for a property value specification. Also called \"granularity\", \"increment value\", \"step size\", \"value interval\". Examples: \"The slider has stepValue 1\", \"The input field's stepValue is 0.5\", \"This property requires a stepValue of 10.\"",
+          "embed_score": 0.745,
+          "embed_rank": 46
+        },
+        {
+          "source": "schema.org",
+          "label": "yearBuilt",
+          "signature": "Accommodation → Number",
+          "parent": null,
+          "inverse_of": null,
+          "score": -9.5723,
+          "matched_anchor": null,
+          "comment": "A construction year relation between an accommodation and a number, indicating the year in which the accommodation was built. Also called construction year, built year, year of construction. Examples: Hotel yearBuilt 1985, ApartmentBuilding yearBuilt 2010, House yearBuilt 1950.",
+          "embed_score": 0.745,
+          "embed_rank": 48
+        },
+        {
+          "source": "schema.org",
+          "label": "additionalNumberOfGuests",
+          "signature": "RsvpAction → Number",
+          "parent": null,
+          "inverse_of": null,
+          "score": -9.66,
+          "matched_anchor": null,
+          "comment": "An additional number of guests relation between an RSVP action and the count of extra attendees beyond the invitee. Also called plus-one count, extra guests, total additional attendees. Examples: \"An RSVP action's additional number of guests is '2'.\", \"The wedding RSVP indicates an additional number of guests of '1'.\"",
+          "embed_score": 0.768,
+          "embed_rank": 2
+        },
+        {
+          "source": "schema.org",
+          "label": "eligibleDuration",
+          "signature": "Demand/Offer → QuantitativeValue",
+          "parent": null,
+          "inverse_of": null,
+          "score": -9.6795,
+          "matched_anchor": null,
+          "comment": "An eligible duration relation between a demand or offer and the quantitative value representing the period for which it is valid. Also called \"validity period\", \"offer duration\", \"term length\". Examples: \"Offer 'Limited Time Sale' eligibleDuration 'P7D'\", \"Subscription offer eligibleDuration 'P1Y'\", \"Demand 'Project Bid' eligibleDuration 'P30D'\".",
+          "embed_score": 0.747,
+          "embed_rank": 30
+        }
+      ]
+    },
+    {
+      "relation_phrase": "leads study on",
+      "definition": null,
+      "embedding_query_text": "leads study on:",
+      "observed_signatures": [
+        "Person → Organization"
+      ],
+      "n_assignments": 1,
+      "assignments": [
+        {
+          "instances": [
+            "Shivani Misra -> English National Diabetes Audit"
+          ],
+          "chosen_property": {
+            "label": "leadsStudyOn",
+            "source": "vocab",
+            "direction": "as_is",
+            "vocab_id": "P0406",
+            "is_new_to_vocab": true,
+            "definition": "Guides or directs a study or research project.",
+            "parent": null,
+            "domain": [
+              "Person"
+            ],
+            "range": [
+              "Organization"
+            ],
+            "path": "",
+            "justification": "No existing property fits."
+          },
+          "llm_proposed": {
+            "source": "new",
+            "label": "leadsStudyOn",
+            "is_new": true,
+            "direction": "as_is"
+          }
+        }
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "advanceBookingRequirement",
+          "signature": "Demand/Offer → QuantitativeValue",
+          "parent": null,
+          "inverse_of": null,
+          "score": -6.1775,
+          "matched_anchor": null,
+          "comment": "An advance booking requirement relation between a demand or offer and the minimum time needed between acceptance and actual usage. Also called lead time, booking lead time, reservation notice. Examples: \"A flight offer's advance booking requirement is '24 hours'.\", \"The concert ticket demand has an advance booking requirement of '7 days'.\"",
+          "embed_score": 0.748,
+          "embed_rank": 34
+        },
+        {
+          "source": "schema.org",
+          "label": "study",
+          "signature": "MedicalEntity → MedicalStudy",
+          "parent": null,
+          "inverse_of": null,
+          "score": -6.5561,
+          "matched_anchor": null,
+          "comment": "A relation between a medical entity and a medical study or trial that investigates it. Also called \"related study\", \"investigated by study\", \"medical trial\". Examples: \"The drug has study a clinical trial\", \"The medical condition is part of a study\", \"This therapy is being evaluated in a study.\"",
+          "embed_score": 0.818,
+          "embed_rank": 1
+        },
+        {
+          "source": "schema.org",
+          "label": "causeOf",
+          "signature": "MedicalCause → MedicalEntity",
+          "parent": null,
+          "inverse_of": "cause",
+          "score": -7.4987,
+          "matched_anchor": null,
+          "comment": "A causal relation between a medical cause and the medical entity (condition, complication, symptom) it produces. Also called \"results in\", \"leads to\", \"produces\". Examples: \"Influenza virus medical causeOf Flu\", \"Smoking medical causeOf Lung cancer\". Distinct from cause, which describes what leads to a condition, whereas causeOf describes what a medical cause leads to.",
+          "embed_score": 0.756,
+          "embed_rank": 15
+        },
+        {
+          "source": "schema.org",
+          "label": "studySubject",
+          "signature": "MedicalStudy → MedicalEntity",
+          "parent": null,
+          "inverse_of": null,
+          "score": -7.5511,
+          "matched_anchor": null,
+          "comment": "An investigative relation between a medical study and the medical entity (condition, therapy, drug, etc.) that is being investigated. Also called \"subject of investigation\", \"research focus\", \"entity studied\", \"trial subject\". Examples: \"The medical study has studySubject a new drug\", \"The clinical trial's studySubject is a specific medical condition\", \"This study investigates a studySubject therapy.\"",
+          "embed_score": 0.799,
+          "embed_rank": 2
+        },
+        {
+          "source": "schema.org",
+          "label": "studyLocation",
+          "signature": "MedicalStudy → AdministrativeArea",
+          "parent": null,
+          "inverse_of": null,
+          "score": -8.3738,
+          "matched_anchor": null,
+          "comment": "A geographic relation between a medical study and the administrative area where it is conducted or was conducted. Also called \"research location\", \"trial site\", \"study area\", \"geographic scope of study\". Examples: \"The medical study has studyLocation New York\", \"The clinical trial's studyLocation is Europe\", \"This study is taking place in a specific studyLocation.\"",
+          "embed_score": 0.789,
+          "embed_rank": 3
+        },
+        {
+          "source": "schema.org",
+          "label": "studyDesign",
+          "signature": "MedicalObservationalStudy → MedicalObservationalStudyDesign",
+          "parent": null,
+          "inverse_of": null,
+          "score": -8.5433,
+          "matched_anchor": null,
+          "comment": "A specification of the design methodology for a medical observational study. Also called \"observational study type\", \"research design\", \"study methodology\". Examples: \"The study has studyDesign CohortStudy\", \"The medical observational study's studyDesign is CrossSectionalStudy\", \"This research uses a studyDesign of CaseControlStudy.\"",
+          "embed_score": 0.786,
+          "embed_rank": 4
+        },
+        {
+          "source": "schema.org",
+          "label": "participant",
+          "signature": "Action → Organization/Person",
+          "parent": null,
+          "inverse_of": null,
+          "score": -9.5493,
+          "matched_anchor": null,
+          "comment": "A collaborative relation between an action and an organization or person who indirectly participated in it. Also called collaborated with, involved, assisted by, co-agent. Examples: A writing action has a participant co-author. A research project has a participant researcher. A meeting has a participant attendee. Distinct from agent, which is the primary actor of an action.",
+          "embed_score": 0.746,
+          "embed_rank": 50
+        },
+        {
+          "source": "schema.org",
+          "label": "follows",
+          "signature": "Person → Person",
+          "parent": null,
+          "inverse_of": null,
+          "score": -9.5723,
+          "matched_anchor": null,
+          "comment": "A follows relation representing a generic uni-directional social connection between two people. Also called: is following, subscribes to, tracks. Examples: \"Alice follows Bob\", \"Charlie follows David\", \"Eve follows Frank\". Distinct from followee, which is the object of a follow action.",
+          "embed_score": 0.758,
+          "embed_rank": 11
+        },
+        {
+          "source": "schema.org",
+          "label": "trialDesign",
+          "signature": "MedicalTrial → MedicalTrialDesign",
+          "parent": null,
+          "inverse_of": null,
+          "score": -9.6532,
+          "matched_anchor": null,
+          "comment": "A trial design relation between a medical trial and the specific methodology or structure of the trial. Also called study design, experimental design, trial methodology. Examples: \"MedicalTrial trialDesign 'RandomizedControlledTrial'\", \"MedicalTrial trialDesign 'ObservationalStudy'\", \"MedicalTrial trialDesign 'DoubleBlindTrial'\".",
+          "embed_score": 0.758,
+          "embed_rank": 9
+        },
+        {
+          "source": "schema.org",
+          "label": "termsPerYear",
+          "signature": "EducationalOccupationalProgram → Number",
+          "parent": null,
+          "inverse_of": null,
+          "score": -10.2901,
+          "matched_anchor": null,
+          "comment": "A numerical value indicating how many terms of study are offered per year within an educational or occupational program. Also called \"terms offered annually\", \"semesters per year\", \"academic terms per year\". Examples: \"The program has termsPerYear 2\", \"The educational program's termsPerYear is 4 (quarters)\", \"This institution offers termsPerYear 3 (trimesters).\"",
+          "embed_score": 0.754,
+          "embed_rank": 18
+        }
+      ]
+    }
+  ]
+}

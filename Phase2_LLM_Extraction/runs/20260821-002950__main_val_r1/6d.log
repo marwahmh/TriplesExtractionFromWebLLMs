@@ -1,0 +1,277 @@
+[NbConvertApp] Converting notebook /Users/marwah/Documents/Thesis/TriplesExtractionFromWebLLMs/Phase2_LLM_Extraction/notebooks/e2e/6d_e2e_type_canonicalization.ipynb to notebook
+/opt/anaconda3/lib/python3.12/site-packages/nbformat/__init__.py:93: MissingIDFieldWarning: Code cell is missing an id field, this will become a hard error in future nbformat versions. You may want to use `normalize()` on your notebooks before validations (available since nbformat 5.1.4). Previous versions of nbformat are fixing this issue transparently, and will stop doing so in the future.
+  validate(nb)
+Traceback (most recent call last):
+  File "/opt/anaconda3/bin/jupyter-nbconvert", line 11, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "/opt/anaconda3/lib/python3.12/site-packages/jupyter_core/application.py", line 283, in launch_instance
+    super().launch_instance(argv=argv, **kwargs)
+  File "/opt/anaconda3/lib/python3.12/site-packages/traitlets/config/application.py", line 1075, in launch_instance
+    app.start()
+  File "/opt/anaconda3/lib/python3.12/site-packages/nbconvert/nbconvertapp.py", line 412, in start
+    self.convert_notebooks()
+  File "/opt/anaconda3/lib/python3.12/site-packages/nbconvert/nbconvertapp.py", line 590, in convert_notebooks
+    self.convert_single_notebook(notebook_filename)
+  File "/opt/anaconda3/lib/python3.12/site-packages/nbconvert/nbconvertapp.py", line 556, in convert_single_notebook
+    output, resources = self.export_single_notebook(
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.12/site-packages/nbconvert/nbconvertapp.py", line 479, in export_single_notebook
+    output, resources = self.exporter.from_filename(
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.12/site-packages/nbconvert/exporters/exporter.py", line 203, in from_filename
+    return self.from_file(f, resources=resources, **kw)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.12/site-packages/nbconvert/exporters/exporter.py", line 222, in from_file
+    return self.from_notebook_node(
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.12/site-packages/nbconvert/exporters/notebook.py", line 36, in from_notebook_node
+    nb_copy, resources = super().from_notebook_node(nb, resources, **kw)
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.12/site-packages/nbconvert/exporters/exporter.py", line 156, in from_notebook_node
+    nb_copy, resources = self._preprocess(nb_copy, resources)
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.12/site-packages/nbconvert/exporters/exporter.py", line 354, in _preprocess
+    nbc, resc = preprocessor(nbc, resc)  # type:ignore[operator]
+                ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.12/site-packages/nbconvert/preprocessors/base.py", line 48, in __call__
+    return self.preprocess(nb, resources)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.12/site-packages/nbconvert/preprocessors/execute.py", line 102, in preprocess
+    self.preprocess_cell(cell, resources, index)
+  File "/opt/anaconda3/lib/python3.12/site-packages/nbconvert/preprocessors/execute.py", line 123, in preprocess_cell
+    cell = self.execute_cell(cell, index, store_history=True)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.12/site-packages/jupyter_core/utils/__init__.py", line 165, in wrapped
+    return loop.run_until_complete(inner)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.12/asyncio/base_events.py", line 687, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.12/site-packages/nbclient/client.py", line 1058, in async_execute_cell
+    await self._check_raise_for_error(cell, cell_index, exec_reply)
+  File "/opt/anaconda3/lib/python3.12/site-packages/nbclient/client.py", line 914, in _check_raise_for_error
+    raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
+nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
+------------------
+# ---- PERIODIC RE-CONSOLIDATION (CONSOLIDATE_EVERY) -------------------------------------------
+# Off by default: with CONSOLIDATE_EVERY = 0 this cell does nothing and the stage is the classic
+# "build everything, consolidate once at the end".
+#
+# With it set to N, the vocabulary is re-consolidated every N articles and the merged result is fed
+# BACK as the working vocabulary, so article N+1 builds on the collapsed term set rather than on
+# every duplicate produced so far. That is the point of the knob: it bounds both the vocabulary and
+# the consolidation prompt, which is the largest in the pipeline (~25-40k tokens) and grows with the
+# vocabulary — on a 59-article corpus the single end-of-run call is what would hit the context limit.
+#
+# Two things this has to get right, and why it is not just "call consolidate_vocab in a loop":
+#
+#   ids     the consolidated vocabulary keeps `next_id` (85 types -> 75 survivors, next_id still 86),
+#           so feeding it back never re-issues a retired id.
+#   remap   refresh_ext_after_consolidation builds its mapping from ONE report and follows merge
+#           chains inside it. Each pass overwrites the report, so refreshing after every pass would
+#           lose the earlier ones and leave article 1 pointing at a term retired in pass 1. Instead
+#           the passes are ACCUMULATED into one cumulative report and the graphs are refreshed once,
+#           at the end — the chain-following in _resolve then composes the passes for free
+#           (T0003 -> T0001 in pass 1, T0001 -> T0007 in pass 2 resolves to T0007).
+#
+# The cumulative report is also what run_metrics reads, so cons_merge_groups / cons_merged_into_schema
+# are the totals across the whole stage rather than the last pass only.
+if CONSOLIDATE_EVERY and len(TODO_ALL) > len(todo):
+    _reports = [json.loads(CONSOLIDATION_REPORT_PATH.read_text())] if CONSOLIDATION_REPORT_PATH.exists() else []
+    _rest = TODO_ALL[len(todo):]
+    _chunks = [_rest[i:i + CONSOLIDATE_EVERY] for i in range(0, len(_rest), CONSOLIDATE_EVERY)]
+    print(f"periodic consolidation: {len(_chunks)} further chunk(s) of <= {CONSOLIDATE_EVERY} article(s)\n")
+
+    for _ci, _chunk in enumerate(_chunks, start=2):
+        # feed the consolidated vocabulary back in — without this the raw vocabulary keeps every
+        # duplicate and the periodic passes are mere checkpoints.
+        # RECONCILING feed-back. A pass must only ever remove a type it RECORDED as merged;
+        # anything else that disappears is a term the per-article graphs still point at, and feeding
+        # a lossy vocabulary forward turns those references into dangling ids that no later pass can
+        # repair (it no longer knows the term existed). Measured on the first periodic 6e run: 5 of
+        # 29 removals had no merge record, orphaning 9 relations. Restore them and say so, rather
+        # than carrying the loss silently into the next chunk.
+        _prev = {t["id"]: t for t in load_vocab()["types"]}
+        _con = load_consolidated()
+        _merged = {m["id"] for g in (_reports[-1].get("merges") or []) for m in (g.get("merged") or [])}
+        _lost = [i for i in _prev if i not in {t["id"] for t in _con["types"]} and i not in _merged]
+        if _lost:
+            print(f"  [repair] {len(_lost)} type(s) left the vocabulary with no merge record "
+                  f"-- restoring: {_lost}")
+            _con["types"] = _con["types"] + [_prev[i] for i in _lost]
+        save_vocab(_con)
+        vocab = load_vocab()
+        print(f"── chunk {_ci}: {len(vocab['types'])} type(s) carried forward | {_chunk}")
+        _cpre = {}
+        if PARALLEL_LLM and not INLINE_VOCAB_CANDIDATES and len(_chunk) > 1:
+            _cpre = {r.item: r.value for r in
+                     nb_parallel.pmap(lambda a: prefetch_types(a, vocab), _chunk, workers=WORKERS)
+                     if r.ok}
+        for aid in _chunk:
+            with nb_parallel.usage_scope(aid):
+                canonicalize_article_types(aid, vocab, write=True, save=True, verbose=True,
+                                           pre=_cpre.get(aid))
+            if aid not in _cpre:
+                time.sleep(5)
+        if CONSOLIDATE:
+            _reports.append(consolidate_vocab(load_vocab()))
+        else:
+            _consolidation_disabled()
+
+    # One cumulative report: the union of every pass, so the single refresh below composes them.
+    if _reports:
+        _cum = dict(_reports[-1])
+        _cum["merges"] = [g for r in _reports for g in (r.get("merges") or [])]
+        _cum["reparents"] = [g for r in _reports for g in (r.get("reparents") or [])]
+        _cum["consolidation_passes"] = len(_reports)
+        _cum["n_merges"] = len(_cum["merges"])
+        _cum["n_reparented"] = sum(len(g.get("children") or []) for g in _cum["reparents"])
+        _cum["n_types_removed"] = sum(len(g.get("merged") or []) for g in _cum["merges"])
+        _cum["n_merged_into_schema"] = sum(len(g.get("merged") or []) for g in _cum["merges"]
+                                           if g.get("survivor_source") == "schema.org")
+        # NOT pass 1's "before" and pass 4's "after" — those describe different populations (the
+        # vocabulary after one chunk vs after twenty), and quoted as a pair they read as though
+        # consolidation GREW the vocabulary. The meaningful pair for a periodic run is the
+        # counterfactual: what the vocabulary would be had nothing been collapsed, against what it
+        # actually is. (Sanity check: before == next_id - 1, i.e. every id ever issued.)
+        _cum["vocab_size_after"] = _reports[-1].get("vocab_size_after")
+        _cum["vocab_size_before"] = (_cum["vocab_size_after"] or 0) + _cum["n_types_removed"]
+        _cum["per_pass"] = [{"before": r.get("vocab_size_before"), "after": r.get("vocab_size_after")}
+                            for r in _reports]
+        CONSOLIDATION_REPORT_PATH.write_text(json.dumps(_cum, indent=2, ensure_ascii=False))
+        print(f"\ncumulative report over {len(_reports)} pass(es) -> {CONSOLIDATION_REPORT_PATH.name}"
+              f"   {_cum['n_merges']} merge group(s), {_cum['n_types_removed']} type(s) removed")
+
+    refresh_ext_after_consolidation()          # once, with the composed mapping
+
+    # The build cell above wrote the cost file straight after chunk 1, but nb_parallel's ledger keeps
+    # accumulating for the whole notebook run (reset_usage is called once, up there). So a periodic
+    # run's token file stopped at the first CONSOLIDATE_EVERY articles and understated the run —
+    # found on the validation runs, where this said 5 calls for a 20-article run. Re-emit it here,
+    # once every chunk has been built, so the file covers the whole run.
+    nb_parallel.usage_report(f"6d · e2e type canonicalization · {EXPERIMENT} · all {len(TODO_ALL)} article(s)",
+                             wall_seconds=time.perf_counter() - _t0,
+                             write=RESULTS_DIR / "_global" / "e2e" / f"token_usage_types{_osfx}.json",
+                             experiment=EXPERIMENT, run_tag=RUN_TAG,
+                             consolidation_passes=len(_reports))
+    print(f"\ndone — {len(load_consolidated()['types'])} consolidated types over "
+          f"{len(TODO_ALL)} article(s)")
+
+# ---- INVARIANT: the consolidated graphs and the vocabulary must agree ---------------------------
+# Consolidating repeatedly can strand a graph on an id that no longer exists: a term merged in one
+# pass and merged AGAIN in a later one loses its trail. That failure is SILENT — the run finishes and
+# the counts look plausible. Three cheap checks, each of which has caught a real defect on this
+# corpus:
+#   dangling    an id the vocabulary no longer holds (the original check).
+#   duplicates  the SAME id held twice. A repair run that reused a run_tag re-issued P0558-P0563,
+#               already taken by six consolidation-generalize terms, and six relations then resolved
+#               to a different property than the one they were assigned. Ids still existed, so the
+#               dangling check saw nothing.
+#   labels      the reference's own label vs the label of the entry it points at. This is what
+#               catches a refresh that did not run: nb4's read the wrong field names, remapped
+#               nothing, and reported "0 nodes changed" while 65 references stayed on
+#               pre-consolidation terms.
+import glob as _glob
+_vocab = load_consolidated()["types"]
+_live = {t["id"]: t.get("canonical_label") for t in _vocab}
+_dups = len(_vocab) - len(_live)
+_dangling, _mismatch, _checked = [], [], 0
+for _f in sorted(_glob.glob(str(RESULTS_DIR / "art*" / "e2e" / f"*{_osfx}_typed_consolidated.json"))):
+    _g = json.loads(Path(_f).read_text())
+    _aid = Path(_f).parts[-3]
+    for _coll in ("entities", "nary_nodes"):
+        for _n in _g.get(_coll, []):
+            _v = _n.get("type_vocab_id")
+            if not _v:
+                continue
+            _checked += 1
+            _lab = _n.get("type")
+            if _v not in _live:
+                _dangling.append((_aid, _v, _lab))
+            elif _lab != _live[_v]:
+                _mismatch.append((_aid, _v, _lab, _live[_v]))
+if _dups:
+    from collections import Counter as _C
+    _seen = _C(t["id"] for t in _vocab)
+    print(f"\n  *** {_dups} duplicated id(s) in the consolidated vocabulary: "
+          f"{[i for i, n in _seen.items() if n > 1][:10]}")
+if _dangling:
+    print(f"\n  *** {len(_dangling)} reference(s) to {len({d[1] for d in _dangling})} vanished type(s):")
+    for _d in _dangling[:10]:
+        print(f"      {_d[0]}  {_d[1]}  {_d[2]}")
+if _mismatch:
+    print(f"\n  *** {len(_mismatch)} reference(s) whose label disagrees with the vocabulary "
+          f"(a refresh that did not reach this data):")
+    for _d in _mismatch[:10]:
+        print(f"      {_d[0]}  {_d[1]}  graph says {_d[2]!r}, vocabulary says {_d[3]!r}")
+if _dups or _dangling or _mismatch:
+    raise AssertionError(
+        f"{_dups} duplicated id(s), {len(_dangling)} dangling reference(s) and "
+        f"{len(_mismatch)} label disagreement(s) between the consolidated graphs and the "
+        f"type vocabulary — these graphs are NOT safe to report. Fix before using this run.")
+print(f"  invariant OK — {_checked} vocabulary reference(s) resolve, with matching labels and no "
+      f"duplicated ids")
+
+------------------
+
+----- stdout -----
+periodic consolidation: 2 further chunk(s) of <= 5 article(s)
+----- stdout -----
+── chunk 2: 58 type(s) carried forward | ['art23', 'art46', 'art52', 'art55', 'art57']
+5 item(s), running on 5 threads
+
+[1/5] art46  (0.0s)
+   FAILED: KeyError: 'type'
+----- stdout -----
+[2/5] art55  (44.1s)
+----- stdout -----
+[3/5] art23  (56.8s)
+----- stdout -----
+[4/5] art57  (71.6s)
+----- stdout -----
+[5/5] art52  (97.0s)
+
+done — 4/5 ok in 97.0s; FAILED: art46
+  art23: 10 entity + 7 event types over 26 entities | +11 minted | 11 ent via vocab | vocab now 69
+------------------
+
+[0;31m---------------------------------------------------------------------------[0m
+[0;31mKeyError[0m                                  Traceback (most recent call last)
+Cell [0;32mIn[17], line 57[0m
+[1;32m     55[0m [38;5;28;01mfor[39;00m aid [38;5;129;01min[39;00m _chunk:
+[1;32m     56[0m     [38;5;28;01mwith[39;00m nb_parallel[38;5;241m.[39musage_scope(aid):
+[0;32m---> 57[0m         canonicalize_article_types(aid, vocab, write[38;5;241m=[39m[38;5;28;01mTrue[39;00m, save[38;5;241m=[39m[38;5;28;01mTrue[39;00m, verbose[38;5;241m=[39m[38;5;28;01mTrue[39;00m,
+[1;32m     58[0m                                    pre[38;5;241m=[39m_cpre[38;5;241m.[39mget(aid))
+[1;32m     59[0m     [38;5;28;01mif[39;00m aid [38;5;129;01mnot[39;00m [38;5;129;01min[39;00m _cpre:
+[1;32m     60[0m         time[38;5;241m.[39msleep([38;5;241m5[39m)
+
+Cell [0;32mIn[11], line 236[0m, in [0;36mcanonicalize_article_types[0;34m(aid, vocab, write, save, verbose, pre)[0m
+[1;32m    225[0m [38;5;250m[39m[38;5;124;03m"""PHASE 2 — apply one article's selections to the vocabulary, in ARTICLE_ORDER.[39;00m
+[1;32m    226[0m 
+[1;32m    227[0m [38;5;124;03mRelabels entities + Event hubs BY ID (relations stay valid), grows `vocab`, and writes[39;00m
+[0;32m   (...)[0m
+[1;32m    233[0m [38;5;124;03mcan reuse depends on what k-1 added, which is the whole reason the two phases are separate.[39;00m
+[1;32m    234[0m [38;5;124;03m"""[39;00m
+[1;32m    235[0m [38;5;28;01mif[39;00m pre [38;5;129;01mis[39;00m [38;5;28;01mNone[39;00m:
+[0;32m--> 236[0m     pre [38;5;241m=[39m prefetch_types(aid, vocab)
+[1;32m    237[0m g, report, items [38;5;241m=[39m pre[[38;5;124m"[39m[38;5;124mg[39m[38;5;124m"[39m], pre[[38;5;124m"[39m[38;5;124mreport[39m[38;5;124m"[39m], pre[[38;5;124m"[39m[38;5;124mitems[39m[38;5;124m"[39m]
+[1;32m    238[0m ent_types, ent_groups, ent_cands, ent_q [38;5;241m=[39m (pre[[38;5;124m"[39m[38;5;124ment_types[39m[38;5;124m"[39m], pre[[38;5;124m"[39m[38;5;124ment_groups[39m[38;5;124m"[39m],
+[1;32m    239[0m                                            pre[[38;5;124m"[39m[38;5;124ment_cands[39m[38;5;124m"[39m], pre[[38;5;124m"[39m[38;5;124ment_q[39m[38;5;124m"[39m])
+
+Cell [0;32mIn[11], line 185[0m, in [0;36mprefetch_types[0;34m(aid, vocab)[0m
+[1;32m    182[0m tinfo [38;5;241m=[39m {d[[38;5;124m"[39m[38;5;124mtype[39m[38;5;124m"[39m]: d [38;5;28;01mfor[39;00m d [38;5;129;01min[39;00m g[38;5;241m.[39mget([38;5;124m"[39m[38;5;124mtype_definitions[39m[38;5;124m"[39m, [])}
+[1;32m    184[0m [38;5;66;03m# ENTITY groups — query text mirrors load_article's qtext ------------------------------------[39;00m
+[0;32m--> 185[0m ent_types  [38;5;241m=[39m [38;5;28mlist[39m([38;5;28mdict[39m[38;5;241m.[39mfromkeys(e[[38;5;124m"[39m[38;5;124mtype[39m[38;5;124m"[39m] [38;5;28;01mfor[39;00m e [38;5;129;01min[39;00m g[[38;5;124m"[39m[38;5;124mentities[39m[38;5;124m"[39m]))
+[1;32m    186[0m ent_groups [38;5;241m=[39m {t: [e [38;5;28;01mfor[39;00m e [38;5;129;01min[39;00m g[[38;5;124m"[39m[38;5;124mentities[39m[38;5;124m"[39m] [38;5;28;01mif[39;00m e[[38;5;124m"[39m[38;5;124mtype[39m[38;5;124m"[39m] [38;5;241m==[39m t] [38;5;28;01mfor[39;00m t [38;5;129;01min[39;00m ent_types}
+[1;32m    187[0m [38;5;28;01mdef[39;00m [38;5;21m_eq[39m(t):
+
+Cell [0;32mIn[11], line 185[0m, in [0;36m<genexpr>[0;34m(.0)[0m
+[1;32m    182[0m tinfo [38;5;241m=[39m {d[[38;5;124m"[39m[38;5;124mtype[39m[38;5;124m"[39m]: d [38;5;28;01mfor[39;00m d [38;5;129;01min[39;00m g[38;5;241m.[39mget([38;5;124m"[39m[38;5;124mtype_definitions[39m[38;5;124m"[39m, [])}
+[1;32m    184[0m [38;5;66;03m# ENTITY groups — query text mirrors load_article's qtext ------------------------------------[39;00m
+[0;32m--> 185[0m ent_types  [38;5;241m=[39m [38;5;28mlist[39m([38;5;28mdict[39m[38;5;241m.[39mfromkeys(e[[38;5;124m"[39m[38;5;124mtype[39m[38;5;124m"[39m] [38;5;28;01mfor[39;00m e [38;5;129;01min[39;00m g[[38;5;124m"[39m[38;5;124mentities[39m[38;5;124m"[39m]))
+[1;32m    186[0m ent_groups [38;5;241m=[39m {t: [e [38;5;28;01mfor[39;00m e [38;5;129;01min[39;00m g[[38;5;124m"[39m[38;5;124mentities[39m[38;5;124m"[39m] [38;5;28;01mif[39;00m e[[38;5;124m"[39m[38;5;124mtype[39m[38;5;124m"[39m] [38;5;241m==[39m t] [38;5;28;01mfor[39;00m t [38;5;129;01min[39;00m ent_types}
+[1;32m    187[0m [38;5;28;01mdef[39;00m [38;5;21m_eq[39m(t):
+
+[0;31mKeyError[0m: 'type'
+

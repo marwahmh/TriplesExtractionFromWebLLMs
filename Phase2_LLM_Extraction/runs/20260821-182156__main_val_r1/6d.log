@@ -1,0 +1,632 @@
+[NbConvertApp] Converting notebook /Users/marwah/Documents/Thesis/TriplesExtractionFromWebLLMs/Phase2_LLM_Extraction/notebooks/e2e/6d_e2e_type_canonicalization.ipynb to notebook
+/opt/anaconda3/lib/python3.12/site-packages/nbformat/__init__.py:93: MissingIDFieldWarning: Code cell is missing an id field, this will become a hard error in future nbformat versions. You may want to use `normalize()` on your notebooks before validations (available since nbformat 5.1.4). Previous versions of nbformat are fixing this issue transparently, and will stop doing so in the future.
+  validate(nb)
+Traceback (most recent call last):
+  File "/opt/anaconda3/bin/jupyter-nbconvert", line 11, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "/opt/anaconda3/lib/python3.12/site-packages/jupyter_core/application.py", line 283, in launch_instance
+    super().launch_instance(argv=argv, **kwargs)
+  File "/opt/anaconda3/lib/python3.12/site-packages/traitlets/config/application.py", line 1075, in launch_instance
+    app.start()
+  File "/opt/anaconda3/lib/python3.12/site-packages/nbconvert/nbconvertapp.py", line 412, in start
+    self.convert_notebooks()
+  File "/opt/anaconda3/lib/python3.12/site-packages/nbconvert/nbconvertapp.py", line 590, in convert_notebooks
+    self.convert_single_notebook(notebook_filename)
+  File "/opt/anaconda3/lib/python3.12/site-packages/nbconvert/nbconvertapp.py", line 556, in convert_single_notebook
+    output, resources = self.export_single_notebook(
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.12/site-packages/nbconvert/nbconvertapp.py", line 479, in export_single_notebook
+    output, resources = self.exporter.from_filename(
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.12/site-packages/nbconvert/exporters/exporter.py", line 203, in from_filename
+    return self.from_file(f, resources=resources, **kw)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.12/site-packages/nbconvert/exporters/exporter.py", line 222, in from_file
+    return self.from_notebook_node(
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.12/site-packages/nbconvert/exporters/notebook.py", line 36, in from_notebook_node
+    nb_copy, resources = super().from_notebook_node(nb, resources, **kw)
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.12/site-packages/nbconvert/exporters/exporter.py", line 156, in from_notebook_node
+    nb_copy, resources = self._preprocess(nb_copy, resources)
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.12/site-packages/nbconvert/exporters/exporter.py", line 354, in _preprocess
+    nbc, resc = preprocessor(nbc, resc)  # type:ignore[operator]
+                ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.12/site-packages/nbconvert/preprocessors/base.py", line 48, in __call__
+    return self.preprocess(nb, resources)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.12/site-packages/nbconvert/preprocessors/execute.py", line 102, in preprocess
+    self.preprocess_cell(cell, resources, index)
+  File "/opt/anaconda3/lib/python3.12/site-packages/nbconvert/preprocessors/execute.py", line 123, in preprocess_cell
+    cell = self.execute_cell(cell, index, store_history=True)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.12/site-packages/jupyter_core/utils/__init__.py", line 165, in wrapped
+    return loop.run_until_complete(inner)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.12/asyncio/base_events.py", line 687, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.12/site-packages/nbclient/client.py", line 1058, in async_execute_cell
+    await self._check_raise_for_error(cell, cell_index, exec_reply)
+  File "/opt/anaconda3/lib/python3.12/site-packages/nbclient/client.py", line 914, in _check_raise_for_error
+    raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
+nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
+------------------
+# ---- PERIODIC RE-CONSOLIDATION (CONSOLIDATE_EVERY) -------------------------------------------
+# Off by default: with CONSOLIDATE_EVERY = 0 this cell does nothing and the stage is the classic
+# "build everything, consolidate once at the end".
+#
+# With it set to N, the vocabulary is re-consolidated every N articles and the merged result is fed
+# BACK as the working vocabulary, so article N+1 builds on the collapsed term set rather than on
+# every duplicate produced so far. That is the point of the knob: it bounds both the vocabulary and
+# the consolidation prompt, which is the largest in the pipeline (~25-40k tokens) and grows with the
+# vocabulary — on a 59-article corpus the single end-of-run call is what would hit the context limit.
+#
+# Two things this has to get right, and why it is not just "call consolidate_vocab in a loop":
+#
+#   ids     the consolidated vocabulary keeps `next_id` (85 types -> 75 survivors, next_id still 86),
+#           so feeding it back never re-issues a retired id.
+#   remap   refresh_ext_after_consolidation builds its mapping from ONE report and follows merge
+#           chains inside it. Each pass overwrites the report, so refreshing after every pass would
+#           lose the earlier ones and leave article 1 pointing at a term retired in pass 1. Instead
+#           the passes are ACCUMULATED into one cumulative report and the graphs are refreshed once,
+#           at the end — the chain-following in _resolve then composes the passes for free
+#           (T0003 -> T0001 in pass 1, T0001 -> T0007 in pass 2 resolves to T0007).
+#
+# The cumulative report is also what run_metrics reads, so cons_merge_groups / cons_merged_into_schema
+# are the totals across the whole stage rather than the last pass only.
+if CONSOLIDATE_EVERY and len(TODO_ALL) > len(todo):
+    _reports = [json.loads(CONSOLIDATION_REPORT_PATH.read_text())] if CONSOLIDATION_REPORT_PATH.exists() else []
+    _rest = TODO_ALL[len(todo):]
+    _chunks = [_rest[i:i + CONSOLIDATE_EVERY] for i in range(0, len(_rest), CONSOLIDATE_EVERY)]
+    print(f"periodic consolidation: {len(_chunks)} further chunk(s) of <= {CONSOLIDATE_EVERY} article(s)\n")
+
+    for _ci, _chunk in enumerate(_chunks, start=2):
+        # feed the consolidated vocabulary back in — without this the raw vocabulary keeps every
+        # duplicate and the periodic passes are mere checkpoints.
+        # RECONCILING feed-back. A pass must only ever remove a type it RECORDED as merged;
+        # anything else that disappears is a term the per-article graphs still point at, and feeding
+        # a lossy vocabulary forward turns those references into dangling ids that no later pass can
+        # repair (it no longer knows the term existed). Measured on the first periodic 6e run: 5 of
+        # 29 removals had no merge record, orphaning 9 relations. Restore them and say so, rather
+        # than carrying the loss silently into the next chunk.
+        _prev = {t["id"]: t for t in load_vocab()["types"]}
+        _con = load_consolidated()
+        _merged = {m["id"] for g in (_reports[-1].get("merges") or []) for m in (g.get("merged") or [])}
+        _lost = [i for i in _prev if i not in {t["id"] for t in _con["types"]} and i not in _merged]
+        if _lost:
+            print(f"  [repair] {len(_lost)} type(s) left the vocabulary with no merge record "
+                  f"-- restoring: {_lost}")
+            _con["types"] = _con["types"] + [_prev[i] for i in _lost]
+        save_vocab(_con)
+        vocab = load_vocab()
+        print(f"── chunk {_ci}: {len(vocab['types'])} type(s) carried forward | {_chunk}")
+        _cpre = {}
+        if PARALLEL_LLM and not INLINE_VOCAB_CANDIDATES and len(_chunk) > 1:
+            _cpre = {r.item: r.value for r in
+                     nb_parallel.pmap(lambda a: prefetch_types(a, vocab), _chunk, workers=WORKERS)
+                     if r.ok}
+        for aid in _chunk:
+            with nb_parallel.usage_scope(aid):
+                canonicalize_article_types(aid, vocab, write=True, save=True, verbose=True,
+                                           pre=_cpre.get(aid))
+            if aid not in _cpre:
+                time.sleep(5)
+        if CONSOLIDATE:
+            _reports.append(consolidate_vocab(load_vocab()))
+        else:
+            _consolidation_disabled()
+
+    # One cumulative report: the union of every pass, so the single refresh below composes them.
+    if _reports:
+        _cum = dict(_reports[-1])
+        _cum["merges"] = [g for r in _reports for g in (r.get("merges") or [])]
+        _cum["reparents"] = [g for r in _reports for g in (r.get("reparents") or [])]
+        _cum["consolidation_passes"] = len(_reports)
+        _cum["n_merges"] = len(_cum["merges"])
+        _cum["n_reparented"] = sum(len(g.get("children") or []) for g in _cum["reparents"])
+        _cum["n_types_removed"] = sum(len(g.get("merged") or []) for g in _cum["merges"])
+        _cum["n_merged_into_schema"] = sum(len(g.get("merged") or []) for g in _cum["merges"]
+                                           if g.get("survivor_source") == "schema.org")
+        # NOT pass 1's "before" and pass 4's "after" — those describe different populations (the
+        # vocabulary after one chunk vs after twenty), and quoted as a pair they read as though
+        # consolidation GREW the vocabulary. The meaningful pair for a periodic run is the
+        # counterfactual: what the vocabulary would be had nothing been collapsed, against what it
+        # actually is. (Sanity check: before == next_id - 1, i.e. every id ever issued.)
+        _cum["vocab_size_after"] = _reports[-1].get("vocab_size_after")
+        _cum["vocab_size_before"] = (_cum["vocab_size_after"] or 0) + _cum["n_types_removed"]
+        _cum["per_pass"] = [{"before": r.get("vocab_size_before"), "after": r.get("vocab_size_after")}
+                            for r in _reports]
+        CONSOLIDATION_REPORT_PATH.write_text(json.dumps(_cum, indent=2, ensure_ascii=False))
+        print(f"\ncumulative report over {len(_reports)} pass(es) -> {CONSOLIDATION_REPORT_PATH.name}"
+              f"   {_cum['n_merges']} merge group(s), {_cum['n_types_removed']} type(s) removed")
+
+    refresh_ext_after_consolidation()          # once, with the composed mapping
+
+    # The build cell above wrote the cost file straight after chunk 1, but nb_parallel's ledger keeps
+    # accumulating for the whole notebook run (reset_usage is called once, up there). So a periodic
+    # run's token file stopped at the first CONSOLIDATE_EVERY articles and understated the run —
+    # found on the validation runs, where this said 5 calls for a 20-article run. Re-emit it here,
+    # once every chunk has been built, so the file covers the whole run.
+    nb_parallel.usage_report(f"6d · e2e type canonicalization · {EXPERIMENT} · all {len(TODO_ALL)} article(s)",
+                             wall_seconds=time.perf_counter() - _t0,
+                             write=RESULTS_DIR / "_global" / "e2e" / f"token_usage_types{_osfx}.json",
+                             experiment=EXPERIMENT, run_tag=RUN_TAG,
+                             consolidation_passes=len(_reports))
+    print(f"\ndone — {len(load_consolidated()['types'])} consolidated types over "
+          f"{len(TODO_ALL)} article(s)")
+
+# ---- INVARIANT: the consolidated graphs and the vocabulary must agree ---------------------------
+# Consolidating repeatedly can strand a graph on an id that no longer exists: a term merged in one
+# pass and merged AGAIN in a later one loses its trail. That failure is SILENT — the run finishes and
+# the counts look plausible. Three cheap checks, each of which has caught a real defect on this
+# corpus:
+#   dangling    an id the vocabulary no longer holds (the original check).
+#   duplicates  the SAME id held twice. A repair run that reused a run_tag re-issued P0558-P0563,
+#               already taken by six consolidation-generalize terms, and six relations then resolved
+#               to a different property than the one they were assigned. Ids still existed, so the
+#               dangling check saw nothing.
+#   labels      the reference's own label vs the label of the entry it points at. This is what
+#               catches a refresh that did not run: nb4's read the wrong field names, remapped
+#               nothing, and reported "0 nodes changed" while 65 references stayed on
+#               pre-consolidation terms.
+import glob as _glob
+_vocab = load_consolidated()["types"]
+_live = {t["id"]: t.get("canonical_label") for t in _vocab}
+_dups = len(_vocab) - len(_live)
+_dangling, _mismatch, _checked = [], [], 0
+for _f in sorted(_glob.glob(str(RESULTS_DIR / "art*" / "e2e" / f"*{_osfx}_typed_consolidated.json"))):
+    _g = json.loads(Path(_f).read_text())
+    _aid = Path(_f).parts[-3]
+    for _coll in ("entities", "nary_nodes"):
+        for _n in _g.get(_coll, []):
+            _v = _n.get("type_vocab_id")
+            if not _v:
+                continue
+            _checked += 1
+            _lab = _n.get("type")
+            if _v not in _live:
+                _dangling.append((_aid, _v, _lab))
+            elif _lab != _live[_v]:
+                _mismatch.append((_aid, _v, _lab, _live[_v]))
+if _dups:
+    from collections import Counter as _C
+    _seen = _C(t["id"] for t in _vocab)
+    print(f"\n  *** {_dups} duplicated id(s) in the consolidated vocabulary: "
+          f"{[i for i, n in _seen.items() if n > 1][:10]}")
+if _dangling:
+    print(f"\n  *** {len(_dangling)} reference(s) to {len({d[1] for d in _dangling})} vanished type(s):")
+    for _d in _dangling[:10]:
+        print(f"      {_d[0]}  {_d[1]}  {_d[2]}")
+if _mismatch:
+    print(f"\n  *** {len(_mismatch)} reference(s) whose label disagrees with the vocabulary "
+          f"(a refresh that did not reach this data):")
+    for _d in _mismatch[:10]:
+        print(f"      {_d[0]}  {_d[1]}  graph says {_d[2]!r}, vocabulary says {_d[3]!r}")
+if _dups or _dangling or _mismatch:
+    raise AssertionError(
+        f"{_dups} duplicated id(s), {len(_dangling)} dangling reference(s) and "
+        f"{len(_mismatch)} label disagreement(s) between the consolidated graphs and the "
+        f"type vocabulary — these graphs are NOT safe to report. Fix before using this run.")
+print(f"  invariant OK — {_checked} vocabulary reference(s) resolve, with matching labels and no "
+      f"duplicated ids")
+
+------------------
+
+----- stdout -----
+periodic consolidation: 3 further chunk(s) of <= 5 article(s)
+
+── chunk 2: 29 type(s) carried forward | ['art8', 'art15', 'art17', 'art23', 'art44']
+5 item(s), running on 5 threads
+----- stdout -----
+[1/5] art15  (19.5s)
+----- stdout -----
+[2/5] art17  (20.6s)
+----- stdout -----
+[3/5] art23  (21.6s)
+----- stdout -----
+[4/5] art44  (23.5s)
+----- stdout -----
+[5/5] art8  (29.6s)
+
+done — 5/5 ok in 29.7s
+  art8: 31 entity + 14 event types over 101 entities | +21 minted | 23 ent via vocab | vocab now 50
+  art15: 16 entity + 1 event types over 32 entities | +1 minted | 0 ent via vocab | vocab now 51
+  art17: 13 entity + 10 event types over 25 entities | +8 minted | 0 ent via vocab | vocab now 59
+  art23: 14 entity + 10 event types over 26 entities | +9 minted | 0 ent via vocab | vocab now 68
+  art44: 22 entity + 8 event types over 36 entities | +8 minted | 4 ent via vocab | vocab now 76
+----- stdout -----
+    [llm_backend] TRUNCATED at 65536 output tokens after 332s — raise the server's --max-model-len (MAXLEN=...), or if the count is far above the sizing note, it is a repetition loop (try temperature=0.6)
+    [json_repair] salvaged a malformed response (200500 chars)
+consolidation (1 call): subtype_mode='subclass' | pool=vocab | 3 merge-group(s), 3 removed (0 into schema.org), 16 re-parented (0 under schema.org) | vocab 76 -> 73
+  [merge/syno] keep T0004 'CauseOfDeath' <= ['DeathToll']
+  [merge/syno] keep T0004 'CauseOfDeath' <= ['DrowningDeaths']
+  [merge/syno] keep T0004 'CauseOfDeath' <= ['TragicDeath']
+  [subtype] ['TradeDisruption', 'InvestmentShift', 'MarketPositionChange'] <: MarketChange
+  [subtype] ['Layoff', 'Spinoff', 'ReportingChange', 'ReturnToIndependence', 'IPRetention', 'JobCut'] <: Restructuring
+  [subtype] ['InternationalDebut', 'OlympicParticipation', 'WorldCupPerformance', 'TournamentAdvancement'] <: WorldCupParticipation
+  [subtype] ['Street', 'Fountain'] <: PublicSquare
+  [subtype] ['RoyalReception'] <: RoyalFamily
+  consolidated vocab -> /Users/marwah/Documents/Thesis/TriplesExtractionFromWebLLMs/Phase2_LLM_Extraction/results/deepseek-v4-flash/_global/e2e/type_vocabulary_dedup_main_val_r1_consolidated.json  (raw type_vocabulary_dedup_main_val_r1.json untouched)
+  report -> /Users/marwah/Documents/Thesis/TriplesExtractionFromWebLLMs/Phase2_LLM_Extraction/results/deepseek-v4-flash/_global/e2e/type_consolidation_report_dedup_main_val_r1.json
+── chunk 3: 73 type(s) carried forward | ['art46', 'art52', 'art55', 'art57', 'art58']
+5 item(s), running on 5 threads
+----- stdout -----
+[1/5] art58  (18.3s)
+----- stdout -----
+[2/5] art57  (18.7s)
+----- stdout -----
+[3/5] art46  (19.1s)
+----- stdout -----
+[4/5] art52  (22.8s)
+----- stdout -----
+[5/5] art55  (28.0s)
+
+done — 5/5 ok in 28.0s
+  art46: 15 entity + 3 event types over 30 entities | +6 minted | 5 ent via vocab | vocab now 79
+  art52: 27 entity + 4 event types over 54 entities | +8 minted | 5 ent via vocab | vocab now 87
+  art55: 26 entity + 17 event types over 55 entities | +22 minted | 15 ent via vocab | vocab now 109
+  art57: 15 entity + 2 event types over 36 entities | +1 minted | 0 ent via vocab | vocab now 110
+  art58: 17 entity + 3 event types over 27 entities | +4 minted | 1 ent via vocab | vocab now 114
+----- stdout -----
+    [llm_backend] TRUNCATED at 65536 output tokens after 303s — raise the server's --max-model-len (MAXLEN=...), or if the count is far above the sizing note, it is a repetition loop (try temperature=0.6)
+    [json_repair] salvaged a malformed response (197409 chars)
+consolidation (1 call): subtype_mode='subclass' | pool=vocab | 3 merge-group(s), 3 removed (0 into schema.org), 306 re-parented (0 under schema.org) | vocab 114 -> 111
+  [merge/syno] keep T0012 'Wildfire' <= ['WildfireEvent']
+  [merge/syno] keep T0019 'TestingEvent' <= ['Testing']
+  [merge/syno] keep T0060 'Layoff' <= ['JobCut']
+  [subtype] ['WildfireEvent'] <: NaturalDisaster
+  [subtype] ['MilitaryUnit', 'MilitaryEquipment'] <: Military
+  [subtype] ['FireContainment', 'Firefighting', 'FireNaming', 'FireSpread', 'FireBan'] <: Fire
+  [subtype] ['FoodProcessingCategory', 'FoodAdditive', 'FoodIngredient'] <: FoodClassificationSystem
+  [subtype] ['ResearchStudy', 'PriorResearch'] <: ResearchEffort
+  [subtype] ['Investigation'] <: Assessment
+  [subtype] ['ProductPause'] <: ProductLaunch
+  [subtype] ['EnergySource'] <: EconomicSector
+  [subtype] ['Attack'] <: War
+  [subtype] ['EmergencyDeclaration'] <: Evacuation
+  [subtype] ['Destruction'] <: Damage
+  [subtype] ['FirefightingPersonnel', 'PolicePersonnel'] <: MilitaryPersonnel
+  [subtype] ['GroupOfWildfires'] <: WildfireComplex
+  [subtype] ['FireWeatherWarning'] <: WeatherAlert
+  [subtype] ['RegulatoryProposal'] <: PolicyChange
+  [subtype] ['CareerAchievement', 'BoxOfficeMilestone'] <: RecordAchievement
+  [subtype] ['CareerAchievement'] <: RetirementAnnouncement
+  [subtype] ['PrizeMoneyIncrease'] <: PriceHike
+  [subtype] ['AgreementSigning'] <: Negotiation
+  [subtype] ['AIInvestment'] <: InfrastructureDevelopment
+  [subtype] ['PowerRestoration'] <: Reinforcement
+  [subtype] ['FireSpread'] <: FireContainment
+  [subtype] ['Wildfire'] <: Fire
+  [subtype] ['Damage'] <: CauseOfDeath
+  [subtype] ['GovernmentOfficial'] <: EconomicActor
+  [subtype] ['EnergySource'] <: Resource
+  [subtype] ['PowerOutage'] <: EnergyTransition
+  [subtype] ['EmergencyDeclaration'] <: TrafficDecline
+  [subtype] ['Reinforcement'] <: Praise
+  [subtype] ['BoxOfficeMilestone'] <: AIInvestment
+  [subtype] ['HolidayWeekend'] <: VictoryParade
+  [subtype] ['EnergyTransition'] <: Flight
+  [subtype] ['FoodIngredient'] <: NutritionStandard
+  [subtype] ['Investigation'] <: ResearchStudy
+  [subtype] ['FirefightingPersonnel'] <: GroupOfFirefighters
+  [subtype] ['WildfireComplex'] <: GroupOfWildfires
+  [subtype] ['ContactAttempt'] <: Investigation
+  [subtype] ['TradeDisruption'] <: DroneDisruption
+  [subtype] ['MilitaryUnit'] <: MilitaryEquipment
+  [subtype] ['DevelopmentEvent'] <: ProductLaunch
+  [subtype] ['ProductLaunch'] <: ProductPause
+  [subtype] ['DateRange'] <: HolidayWeekend
+  [subtype] ['CollectionEvent'] <: Shelfmark
+  [subtype] ['TennisEventCategory'] <: TennisPlayerRole
+  [subtype] ['TournamentAdvancement'] <: PrizeMoneyAward
+  [subtype] ['ExportIncrease'] <: PrizeMoneyIncrease
+  [subtype] ['OlympicParticipation'] <: PrizeMoneyComparison
+  [subtype] ['OlympicParticipation'] <: PrizeMoneySchedule
+  [subtype] ['EconomicActor'] <: Animal
+  [subtype] ['Pipeline'] <: EconomicSector
+  [subtype] ['Restructuring'] <: Negotiation
+  [subtype] ['FoodProcessingCategory'] <: VesselType
+  [subtype] ['Heatwave'] <: DateRange
+  [subtype] ['EnergySource'] <: Pipeline
+  [subtype] ['PowerRestoration'] <: EnergySource
+  [subtype] ['ExportIncrease'] <: EconomicActor
+  [subtype] ['InvestmentShift'] <: Resource
+  [subtype] ['Military'] <: War
+  [subtype] ['RegulatoryProposal'] <: AgreementSigning
+  [subtype] ['TheftEvent'] <: Attack
+  [subtype] ['DevelopmentEvent'] <: InfrastructureDevelopment
+  [subtype] ['ReportingChange'] <: PolicyChange
+  [subtype] ['Fire'] <: EnergyTransition
+  [subtype] ['TemperatureRecord'] <: RecordAchievement
+  [subtype] ['PriceHike'] <: MarketChange
+  [subtype] ['DroneDisruption'] <: TradeDisruption
+  [subtype] ['PowerOutage'] <: TrafficDecline
+  [subtype] ['PriceHike'] <: ExportIncrease
+  [subtype] ['MarketPositionChange'] <: InvestmentShift
+  [subtype] ['TradeDisruption'] <: MarketPositionChange
+  [subtype] ['DiscoveryEvent'] <: TheftEvent
+  [subtype] ['Layoff'] <: RetirementAnnouncement
+  [subtype] ['RecordAchievement'] <: CareerAchievement
+  [subtype] ['WorldCupParticipation'] <: InternationalDebut
+  [subtype] ['InternationalDebut'] <: OlympicParticipation
+  [subtype] ['InternationalDebut'] <: WorldCupPerformance
+  [subtype] ['CareerAchievement'] <: Praise
+  [subtype] ['InternationalDebut'] <: TournamentAdvancement
+  [subtype] ['Spinoff'] <: Layoff
+  [subtype] ['Layoff'] <: Restructuring
+  [subtype] ['ReturnToIndependence'] <: Spinoff
+  [subtype] ['Restructuring'] <: ReportingChange
+  [subtype] ['Spinoff'] <: ReturnToIndependence
+  [subtype] ['ReturnToIndependence'] <: IPRetention
+  [subtype] ['DevelopmentEvent'] <: AIInvestment
+  [subtype] ['PublicSquare'] <: Street
+  [subtype] ['PublicSquare'] <: Fountain
+  [subtype] ['RoyalFamily'] <: RoyalReception
+  [subtype] ['MilitaryPersonnel'] <: GovernmentOfficial
+  [subtype] ['MilitaryPersonnel'] <: FirefightingPersonnel
+  [subtype] ['FirefightingPersonnel'] <: PolicePersonnel
+  [subtype] ['EmergencyDeclaration'] <: Evacuation
+  [subtype] ['FoodClassificationSystem'] <: FoodProcessingCategory
+  [subtype] ['FoodProcessingCategory'] <: FoodClassificationSystem
+  [subtype] ['FoodIngredient'] <: FoodAdditive
+  [subtype] ['FoodAdditive'] <: FoodIngredient
+  [subtype] ['ResearchEffort'] <: ResearchStudy
+  [subtype] ['PolicyChange'] <: RegulatoryProposal
+  [subtype] ['ResearchEffort'] <: PriorResearch
+  [subtype] ['Military'] <: MilitaryUnit
+  [subtype] ['FirefightingPersonnel'] <: GroupOfFirefighters
+  [subtype] ['MilitaryUnit'] <: Military
+  [subtype] ['Damage'] <: Destruction
+  [subtype] ['PowerRestoration'] <: PowerOutage
+  [subtype] ['Assessment'] <: Investigation
+  [subtype] ['WeatherAlert'] <: FireWeatherWarning
+  [subtype] ['FirefightingPersonnel'] <: Firefighting
+  [subtype] ['PowerOutage'] <: PowerRestoration
+  [subtype] ['Evacuation'] <: EmergencyDeclaration
+  [subtype] ['Firefighting'] <: FireNaming
+  [subtype] ['FireContainment'] <: FireSpread
+  [subtype] ['Investigation'] <: ContactAttempt
+  [subtype] ['FireContainment'] <: FireBan
+  [subtype] ['PowerRestoration'] <: Reinforcement
+  [subtype] ['TradeDisruption'] <: DroneDisruption
+  [subtype] ['CareerAchievement'] <: BoxOfficeMilestone
+  [subtype] ['Military'] <: MilitaryEquipment
+  [subtype] ['DevelopmentEvent'] <: ProductLaunch
+  [subtype] ['Heatwave'] <: WeatherSystem
+  [subtype] ['TemperatureRecord'] <: WeatherSystem
+  [subtype] ['WeatherAlert'] <: WeatherSystem
+  [subtype] ['Wildfire'] <: NaturalDisaster
+  [subtype] ['DiscoveryEvent'] <: DevelopmentEvent
+  [subtype] ['CollectionEvent'] <: DevelopmentEvent
+  [subtype] ['PrizeMoneyIncrease'] <: PrizeMoneyAward
+  [subtype] ['InternationalDebut'] <: WorldCupParticipation
+  [subtype] ['OlympicParticipation'] <: WorldCupParticipation
+  [subtype] ['TournamentAdvancement'] <: WorldCupParticipation
+  [subtype] ['Spinoff'] <: Restructuring
+  [subtype] ['ReportingChange'] <: Restructuring
+  [subtype] ['ReturnToIndependence'] <: Restructuring
+  [subtype] ['FireContainment'] <: Fire
+  [subtype] ['Firefighting'] <: Fire
+  [subtype] ['FireSpread'] <: Fire
+  [subtype] ['FoodAdditive'] <: FoodClassificationSystem
+  [subtype] ['FoodIngredient'] <: FoodClassificationSystem
+  [subtype] ['Investigation'] <: Assessment
+  [subtype] ['TradeDisruption'] <: MarketChange
+  [subtype] ['InvestmentShift'] <: MarketChange
+  [subtype] ['MarketPositionChange'] <: MarketChange
+  [subtype] ['EnergySource'] <: EconomicSector
+  [subtype] ['RegulatoryProposal'] <: PolicyChange
+  [subtype] ['CareerAchievement'] <: RecordAchievement
+  [subtype] ['BoxOfficeMilestone'] <: RecordAchievement
+  [subtype] ['EnergySource'] <: Resource
+  [subtype] ['Investigation'] <: ResearchStudy
+  [subtype] ['ReturnToIndependence'] <: Spinoff
+  [subtype] ['Spinoff'] <: ReturnToIndependence
+  [subtype] ['Wildfire'] <: Fire
+  [subtype] ['Investigation'] <: Assessment
+  [subtype] ['EnergySource'] <: EconomicSector
+  [subtype] ['EnergySource'] <: Resource
+  [subtype] ['Investigation'] <: ResearchStudy
+  [subtype] ['Investigation'] <: Assessment
+  [subtype] ['EnergySource'] <: EconomicSector
+  [subtype] ['EnergySource'] <: Resource
+  [subtype] ['Investigation'] <: ResearchStudy
+  [subtype] ['Investigation'] <: Assessment
+  [subtype] ['EnergySource'] <: EconomicSector
+  [subtype] ['EnergySource'] <: Resource
+  [subtype] ['Investigation'] <: ResearchStudy
+  [subtype] ['Investigation'] <: Assessment
+  [subtype] ['EnergySource'] <: EconomicSector
+  [subtype] ['EnergySource'] <: Resource
+  [subtype] ['Investigation'] <: ResearchStudy
+  [subtype] ['Investigation'] <: Assessment
+  [subtype] ['EnergySource'] <: EconomicSector
+  [subtype] ['EnergySource'] <: Resource
+  [subtype] ['Investigation'] <: ResearchStudy
+  [subtype] ['Investigation'] <: Assessment
+  [subtype] ['EnergySource'] <: EconomicSector
+  [subtype] ['EnergySource'] <: Resource
+  [subtype] ['Investigation'] <: ResearchStudy
+  [subtype] ['Investigation'] <: Assessment
+  [subtype] ['EnergySource'] <: EconomicSector
+  [subtype] ['EnergySource'] <: Resource
+  [subtype] ['Investigation'] <: ResearchStudy
+  [subtype] ['Investigation'] <: Assessment
+  [subtype] ['EnergySource'] <: EconomicSector
+  [subtype] ['EnergySource'] <: Resource
+  [subtype] ['Investigation'] <: ResearchStudy
+  [subtype] ['Investigation'] <: Assessment
+  [subtype] ['EnergySource'] <: EconomicSector
+  [subtype] ['EnergySource'] <: Resource
+  [subtype] ['Investigation'] <: ResearchStudy
+  [subtype] ['Investigation'] <: Assessment
+  [subtype] ['EnergySource'] <: EconomicSector
+  [subtype] ['EnergySource'] <: Resource
+  [subtype] ['Investigation'] <: ResearchStudy
+  [subtype] ['Investigation'] <: Assessment
+  [subtype] ['EnergySource'] <: EconomicSector
+  [subtype] ['EnergySource'] <: Resource
+  [subtype] ['Investigation'] <: ResearchStudy
+  [subtype] ['Investigation'] <: Assessment
+  [subtype] ['EnergySource'] <: EconomicSector
+  [subtype] ['EnergySource'] <: Resource
+  [subtype] ['Investigation'] <: ResearchStudy
+  [subtype] ['Investigation'] <: Assessment
+  [subtype] ['EnergySource'] <: EconomicSector
+  [subtype] ['EnergySource'] <: Resource
+  [subtype] ['Investigation'] <: ResearchStudy
+  [subtype] ['Investigation'] <: Assessment
+  [subtype] ['EnergySource'] <: EconomicSector
+  [subtype] ['EnergySource'] <: Resource
+  [subtype] ['Investigation'] <: ResearchStudy
+  [subtype] ['Investigation'] <: Assessment
+  [subtype] ['EnergySource'] <: EconomicSector
+  [subtype] ['EnergySource'] <: Resource
+  [subtype] ['Investigation'] <: ResearchStudy
+  [subtype] ['Investigation'] <: Assessment
+  [subtype] ['EnergySource'] <: EconomicSector
+  [subtype] ['EnergySource'] <: Resource
+  [subtype] ['Investigation'] <: ResearchStudy
+  [subtype] ['Investigation'] <: Assessment
+  [subtype] ['EnergySource'] <: EconomicSector
+  [subtype] ['EnergySource'] <: Resource
+  [subtype] ['Investigation'] <: ResearchStudy
+  [subtype] ['Investigation'] <: Assessment
+  [subtype] ['EnergySource'] <: EconomicSector
+  [subtype] ['EnergySource'] <: Resource
+  [subtype] ['Investigation'] <: ResearchStudy
+  [subtype] ['Investigation'] <: Assessment
+  [subtype] ['EnergySource'] <: EconomicSector
+  [subtype] ['EnergySource'] <: Resource
+  [subtype] ['Investigation'] <: ResearchStudy
+  [subtype] ['Investigation'] <: Assessment
+  [subtype] ['EnergySource'] <: EconomicSector
+  [subtype] ['EnergySource'] <: Resource
+  [subtype] ['Investigation'] <: ResearchStudy
+  [subtype] ['Investigation'] <: Assessment
+  [subtype] ['EnergySource'] <: EconomicSector
+  [subtype] ['EnergySource'] <: Resource
+  [subtype] ['Investigation'] <: ResearchStudy
+  [subtype] ['Investigation'] <: Assessment
+  [subtype] ['EnergySource'] <: EconomicSector
+  [subtype] ['EnergySource'] <: Resource
+  [subtype] ['Investigation'] <: ResearchStudy
+  [subtype] ['Investigation'] <: Assessment
+  [subtype] ['EnergySource'] <: EconomicSector
+  [subtype] ['EnergySource'] <: Resource
+  [subtype] ['Investigation'] <: ResearchStudy
+  [subtype] ['Investigation'] <: Assessment
+  [subtype] ['EnergySource'] <: EconomicSector
+  [subtype] ['EnergySource'] <: Resource
+  [subtype] ['Investigation'] <: ResearchStudy
+  [subtype] ['Investigation'] <: Assessment
+  [subtype] ['EnergySource'] <: EconomicSector
+  [subtype] ['EnergySource'] <: Resource
+  [subtype] ['Investigation'] <: ResearchStudy
+  [subtype] ['Investigation'] <: Assessment
+  [subtype] ['EnergySource'] <: EconomicSector
+  [subtype] ['EnergySource'] <: Resource
+  [subtype] ['Investigation'] <: ResearchStudy
+  [subtype] ['Investigation'] <: Assessment
+  [subtype] ['EnergySource'] <: EconomicSector
+  [subtype] ['EnergySource'] <: Resource
+  [subtype] ['Investigation'] <: ResearchStudy
+  [subtype] ['Investigation'] <: Assessment
+  [subtype] ['EnergySource'] <: EconomicSector
+  [subtype] ['EnergySource'] <: Resource
+  [subtype] ['Investigation'] <: ResearchStudy
+  [subtype] ['Investigation'] <: Assessment
+  [subtype] ['EnergySource'] <: EconomicSector
+  [subtype] ['EnergySource'] <: Resource
+  [subtype] ['Investigation'] <: ResearchStudy
+  [subtype] ['Investigation'] <: Assessment
+  [subtype] ['EnergySource'] <: EconomicSector
+  [subtype] ['EnergySource'] <: Resource
+  [subtype] ['Investigation'] <: ResearchStudy
+  [subtype] ['Investigation'] <: Assessment
+  [subtype] ['EnergySource'] <: EconomicSector
+  [subtype] ['EnergySource'] <: Resource
+  [subtype] ['Investigation'] <: ResearchStudy
+  [subtype] ['Investigation'] <: Assessment
+  [subtype] ['EnergySource'] <: EconomicSector
+  [subtype] ['EnergySource'] <: Resource
+  [subtype] ['Investigation'] <: ResearchStudy
+  [subtype] ['Investigation'] <: Assessment
+  [subtype] ['EnergySource'] <: EconomicSector
+  [subtype] ['EnergySource'] <: Resource
+  [subtype] ['Investigation'] <: ResearchStudy
+  [subtype] ['Investigation'] <: Assessment
+  [subtype] ['EnergySource'] <: EconomicSector
+  [subtype] ['EnergySource'] <: Resource
+  [subtype] ['Investigation'] <: ResearchStudy
+  [subtype] ['Investigation'] <: Assessment
+  [subtype] ['EnergySource'] <: EconomicSector
+  [subtype] ['EnergySource'] <: Resource
+  [subtype] ['Investigation'] <: ResearchStudy
+  [subtype] ['Investigation'] <: Assessment
+  [subtype] ['EnergySource'] <: EconomicSector
+  [subtype] ['EnergySource'] <: Resource
+  [subtype] ['Investigation'] <: ResearchStudy
+  [subtype] ['Investigation'] <: Assessment
+  [subtype] ['EnergySource'] <: EconomicSector
+  [subtype] ['EnergySource'] <: Resource
+  consolidated vocab -> /Users/marwah/Documents/Thesis/TriplesExtractionFromWebLLMs/Phase2_LLM_Extraction/results/deepseek-v4-flash/_global/e2e/type_vocabulary_dedup_main_val_r1_consolidated.json  (raw type_vocabulary_dedup_main_val_r1.json untouched)
+  report -> /Users/marwah/Documents/Thesis/TriplesExtractionFromWebLLMs/Phase2_LLM_Extraction/results/deepseek-v4-flash/_global/e2e/type_consolidation_report_dedup_main_val_r1.json
+── chunk 4: 111 type(s) carried forward | ['art59', 'art72', 'art74']
+3 item(s), running on 3 threads
+----- stdout -----
+[1/3] art72  (3.6s)
+   FAILED: ValueError: matmul: Input operand 1 has a mismatch in its core dimension 0, with gufunc signature (n?,k),(k,m?)->(n?,m?) (size 768 is different from 0)
+----- stdout -----
+[2/3] art74  (15.8s)
+----- stdout -----
+[3/3] art59  (22.9s)
+
+done — 2/3 ok in 22.9s; FAILED: art72
+  art59: 33 entity + 8 event types over 61 entities | +7 minted | 0 ent via vocab | vocab now 118
+------------------
+
+[0;31m---------------------------------------------------------------------------[0m
+[0;31mValueError[0m                                Traceback (most recent call last)
+Cell [0;32mIn[17], line 57[0m
+[1;32m     55[0m [38;5;28;01mfor[39;00m aid [38;5;129;01min[39;00m _chunk:
+[1;32m     56[0m     [38;5;28;01mwith[39;00m nb_parallel[38;5;241m.[39musage_scope(aid):
+[0;32m---> 57[0m         canonicalize_article_types(aid, vocab, write[38;5;241m=[39m[38;5;28;01mTrue[39;00m, save[38;5;241m=[39m[38;5;28;01mTrue[39;00m, verbose[38;5;241m=[39m[38;5;28;01mTrue[39;00m,
+[1;32m     58[0m                                    pre[38;5;241m=[39m_cpre[38;5;241m.[39mget(aid))
+[1;32m     59[0m     [38;5;28;01mif[39;00m aid [38;5;129;01mnot[39;00m [38;5;129;01min[39;00m _cpre:
+[1;32m     60[0m         time[38;5;241m.[39msleep([38;5;241m5[39m)
+
+Cell [0;32mIn[11], line 236[0m, in [0;36mcanonicalize_article_types[0;34m(aid, vocab, write, save, verbose, pre)[0m
+[1;32m    225[0m [38;5;250m[39m[38;5;124;03m"""PHASE 2 — apply one article's selections to the vocabulary, in ARTICLE_ORDER.[39;00m
+[1;32m    226[0m 
+[1;32m    227[0m [38;5;124;03mRelabels entities + Event hubs BY ID (relations stay valid), grows `vocab`, and writes[39;00m
+[0;32m   (...)[0m
+[1;32m    233[0m [38;5;124;03mcan reuse depends on what k-1 added, which is the whole reason the two phases are separate.[39;00m
+[1;32m    234[0m [38;5;124;03m"""[39;00m
+[1;32m    235[0m [38;5;28;01mif[39;00m pre [38;5;129;01mis[39;00m [38;5;28;01mNone[39;00m:
+[0;32m--> 236[0m     pre [38;5;241m=[39m prefetch_types(aid, vocab)
+[1;32m    237[0m g, report, items [38;5;241m=[39m pre[[38;5;124m"[39m[38;5;124mg[39m[38;5;124m"[39m], pre[[38;5;124m"[39m[38;5;124mreport[39m[38;5;124m"[39m], pre[[38;5;124m"[39m[38;5;124mitems[39m[38;5;124m"[39m]
+[1;32m    238[0m ent_types, ent_groups, ent_cands, ent_q [38;5;241m=[39m (pre[[38;5;124m"[39m[38;5;124ment_types[39m[38;5;124m"[39m], pre[[38;5;124m"[39m[38;5;124ment_groups[39m[38;5;124m"[39m],
+[1;32m    239[0m                                            pre[[38;5;124m"[39m[38;5;124ment_cands[39m[38;5;124m"[39m], pre[[38;5;124m"[39m[38;5;124ment_q[39m[38;5;124m"[39m])
+
+Cell [0;32mIn[11], line 209[0m, in [0;36mprefetch_types[0;34m(aid, vocab)[0m
+[1;32m    207[0m     ex [38;5;241m=[39m [38;5;124m"[39m[38;5;124m, [39m[38;5;124m"[39m[38;5;241m.[39mjoin(x [38;5;28;01mfor[39;00m x [38;5;129;01min[39;00m ev_examples[t][:[38;5;241m4[39m] [38;5;28;01mif[39;00m x)
+[1;32m    208[0m     ev_q[38;5;241m.[39mappend([38;5;124mf[39m[38;5;124m'[39m[38;5;132;01m{[39;00mt[38;5;132;01m}[39;00m[38;5;124m (examples: [39m[38;5;132;01m{[39;00mex[38;5;132;01m}[39;00m[38;5;124m)[39m[38;5;124m'[39m [38;5;28;01mif[39;00m ex [38;5;28;01melse[39;00m t)
+[0;32m--> 209[0m ev_cands [38;5;241m=[39m retrieve_event_candidates(ev_q, vocab)
+[1;32m    211[0m [38;5;66;03m# ONE combined LLM call ---------------------------------------------------------------------[39;00m
+[1;32m    212[0m items  [38;5;241m=[39m [{[38;5;124m"[39m[38;5;124mgid[39m[38;5;124m"[39m: [38;5;124mf[39m[38;5;124m"[39m[38;5;124mE[39m[38;5;132;01m{[39;00mi[38;5;241m+[39m[38;5;241m1[39m[38;5;132;01m}[39;00m[38;5;124m"[39m, [38;5;124m"[39m[38;5;124mkind[39m[38;5;124m"[39m: [38;5;124m"[39m[38;5;124mentity[39m[38;5;124m"[39m, [38;5;124m"[39m[38;5;124moie_type[39m[38;5;124m"[39m: t, [38;5;124m"[39m[38;5;124mdefinition[39m[38;5;124m"[39m: tinfo[38;5;241m.[39mget(t, {})[38;5;241m.[39mget([38;5;124m"[39m[38;5;124mdefinition[39m[38;5;124m"[39m),
+[1;32m    213[0m            [38;5;124m"[39m[38;5;124mexamples[39m[38;5;124m"[39m: [e[[38;5;124m"[39m[38;5;124mtext[39m[38;5;124m"[39m] [38;5;28;01mfor[39;00m e [38;5;129;01min[39;00m ent_groups[t]], [38;5;124m"[39m[38;5;124mcandidates[39m[38;5;124m"[39m: ent_cands[i]}
+[1;32m    214[0m           [38;5;28;01mfor[39;00m i, t [38;5;129;01min[39;00m [38;5;28menumerate[39m(ent_types)]
+
+Cell [0;32mIn[11], line 34[0m, in [0;36mretrieve_event_candidates[0;34m(type_texts, vocab)[0m
+[1;32m     32[0m     [38;5;28;01mreturn[39;00m [[] [38;5;28;01mfor[39;00m _ [38;5;129;01min[39;00m type_texts]
+[1;32m     33[0m d_emb [38;5;241m=[39m embed(docs, DP); q_emb [38;5;241m=[39m embed(type_texts, QP)
+[0;32m---> 34[0m sims  [38;5;241m=[39m q_emb [38;5;241m@[39m d_emb[38;5;241m.[39mT
+[1;32m     35[0m topk  [38;5;241m=[39m np[38;5;241m.[39margsort([38;5;241m-[39msims, axis[38;5;241m=[39m[38;5;241m1[39m)[:, :TOP_K_MATCH]
+[1;32m     36[0m out [38;5;241m=[39m []
+
+[0;31mValueError[0m: matmul: Input operand 1 has a mismatch in its core dimension 0, with gufunc signature (n?,k),(k,m?)->(n?,m?) (size 768 is different from 0)
+

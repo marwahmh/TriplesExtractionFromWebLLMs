@@ -1,0 +1,2128 @@
+{
+  "article_id": "art28",
+  "match_model": "intfloat/e5-base-v2",
+  "expand_mode": true,
+  "relations": [
+    {
+      "relation_phrase": "defeated",
+      "definition": "To win a competition or match against an opponent.",
+      "embedding_query_text": "defeated: To win a competition or match against an opponent.",
+      "observed_signatures": [
+        "SportsTeam → SportsTeam"
+      ],
+      "n_assignments": 1,
+      "assignments": [
+        {
+          "instances": [
+            "Argentina -> Egypt"
+          ],
+          "chosen_property": {
+            "label": "defeated",
+            "source": "vocab",
+            "direction": "as_is",
+            "vocab_id": "P0129",
+            "is_new_to_vocab": true,
+            "definition": "To win a competition or match against an opponent.",
+            "parent": null,
+            "domain": [
+              "SportsTeam"
+            ],
+            "range": [
+              "SportsTeam"
+            ],
+            "path": "",
+            "justification": "No existing schema.org property fits."
+          },
+          "llm_proposed": {
+            "source": "new",
+            "label": "defeated",
+            "is_new": true,
+            "direction": "as_is"
+          }
+        }
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "loser",
+          "signature": "WinAction → Person",
+          "parent": "participant",
+          "inverse_of": null,
+          "score": 2.7718,
+          "matched_anchor": null,
+          "comment": "A losing participant relation between a win action and the person who lost. Also called: defeated participant, vanquished, runner-up. Examples: \"Chess Match WinAction loser Opponent B\", \"Race WinAction loser Second Place Runner\", \"Debate WinAction loser Team B\".",
+          "embed_score": 0.854,
+          "embed_rank": 1
+        },
+        {
+          "source": "schema.org",
+          "label": "winner",
+          "signature": "LoseAction → Person",
+          "parent": "participant",
+          "inverse_of": null,
+          "score": 0.9645,
+          "matched_anchor": null,
+          "comment": "A winner relation between a losing action and the person who won it. Also called victor, triumphant participant, successful party. Examples: ChessMatchLoseAction winner Alice, RaceLoseAction winner Bob, CompetitionLoseAction winner Charlie.",
+          "embed_score": 0.811,
+          "embed_rank": 4
+        },
+        {
+          "source": "schema.org",
+          "label": "opponent",
+          "signature": "ExerciseAction → Person",
+          "parent": "participant",
+          "inverse_of": null,
+          "score": 0.2212,
+          "matched_anchor": null,
+          "comment": "A person who is an opponent in an exercise action. Also called adversary, competitor, rival. Examples: \"Boxing Match opponent 'Mike Tyson'\", \"Chess Game opponent 'Deep Blue'\", \"Tennis Match opponent 'Serena Williams'\". Distinct from participant, which is a general participant.",
+          "embed_score": 0.813,
+          "embed_rank": 3
+        },
+        {
+          "source": "schema.org",
+          "label": "competitor",
+          "signature": "SportsEvent → Person/SportsTeam",
+          "parent": null,
+          "inverse_of": null,
+          "score": -0.7711,
+          "matched_anchor": null,
+          "comment": "A participation relation in a sports event, indicating a person or sports team that is competing. Also called \"participant\", \"opponent\", \"rival\". Examples: \"Olympic race sports event competitor Usain Bolt\", \"Football match sports event competitor Manchester United\".",
+          "embed_score": 0.814,
+          "embed_rank": 2
+        },
+        {
+          "source": "schema.org",
+          "label": "awayTeam",
+          "signature": "SportsEvent → Person/SportsTeam",
+          "parent": "competitor",
+          "inverse_of": null,
+          "score": -5.9037,
+          "matched_anchor": null,
+          "comment": "A person or sports team designated as the away team in a sports event. Also called: visiting team, opponent. Examples: \"SportsEvent 'Football Match' awayTeam 'Team B'\", \"SportsEvent 'Basketball Game' awayTeam 'Lakers'\". Distinct from homeTeam, which is the team playing at their home venue.",
+          "embed_score": 0.754,
+          "embed_rank": 14
+        },
+        {
+          "source": "schema.org",
+          "label": "sportsEvent",
+          "signature": "ExerciseAction → SportsEvent",
+          "parent": "location",
+          "inverse_of": null,
+          "score": -8.1348,
+          "matched_anchor": null,
+          "comment": "A specific event relation between an exercise action and the sports event during which it occurred. Also called \"event of exercise\", \"competition event\", \"athletic event\". Examples: \"The sprint occurred during the sportsEvent Olympics\", \"The goal was scored in the sportsEvent World Cup match\", \"This action took place at a sportsEvent marathon.\". Distinct from event, which is a more general event property.",
+          "embed_score": 0.752,
+          "embed_rank": 17
+        },
+        {
+          "source": "schema.org",
+          "label": "sport",
+          "signature": "SportsEvent/SportsOrganization → Text/URL",
+          "parent": null,
+          "inverse_of": null,
+          "score": -8.2288,
+          "matched_anchor": null,
+          "comment": "An identification of the type of sport associated with a sports event or organization. Also called \"sport type\", \"athletic discipline\", \"game played\". Examples: \"The event's sport is Basketball\", \"The organization's sport is Soccer\", \"This competition features the sport of Gymnastics.\"",
+          "embed_score": 0.768,
+          "embed_rank": 6
+        },
+        {
+          "source": "schema.org",
+          "label": "referee",
+          "signature": "SportsEvent → Person",
+          "parent": null,
+          "inverse_of": null,
+          "score": -9.2697,
+          "matched_anchor": null,
+          "comment": "A referee relation between a sports event and the person officiating it to enforce rules. Also called officiated by, umpire, judge. Examples: \"A football match has a referee 'Pierluigi Collina'.\", \"A tennis match has a referee 'Eva Asderaki-Moore'.\", \"A basketball game has a referee 'Joey Crawford'.\"",
+          "embed_score": 0.752,
+          "embed_rank": 16
+        },
+        {
+          "source": "schema.org",
+          "label": "sportsTeam",
+          "signature": "ExerciseAction → SportsTeam",
+          "parent": "participant",
+          "inverse_of": null,
+          "score": -9.7541,
+          "matched_anchor": null,
+          "comment": "A participation relation between an exercise action and the sports team involved in it. Also called \"team participated\", \"team involved\", \"athletic team\". Examples: \"The goal was scored by the sportsTeam Real Madrid\", \"The race involved sportsTeam Team USA\", \"This action was performed by a sportsTeam.\". Distinct from participant, which is a more general participant property.",
+          "embed_score": 0.743,
+          "embed_rank": 37
+        },
+        {
+          "source": "schema.org",
+          "label": "game",
+          "signature": "GameServer → VideoGame",
+          "parent": null,
+          "inverse_of": "gameServer",
+          "score": -10.0104,
+          "matched_anchor": null,
+          "comment": "A game relation between a game server and the video game that is hosted and played on it. Also called: hosted game, server game, game played. Examples: \"Minecraft Server\" game \"Minecraft\", \"World of Warcraft Realm\" game \"World of Warcraft\", \"CS:GO Server\" game \"Counter-Strike: Global Offensive\".",
+          "embed_score": 0.755,
+          "embed_rank": 12
+        }
+      ]
+    },
+    {
+      "relation_phrase": "alleges",
+      "definition": "To make a claim or accusation against someone or something.",
+      "embedding_query_text": "alleges: To make a claim or accusation against someone or something.",
+      "observed_signatures": [
+        "SportsTeam → Allegation"
+      ],
+      "n_assignments": 1,
+      "assignments": [
+        {
+          "instances": [
+            "Egypt -> Egypt alleges bias"
+          ],
+          "chosen_property": {
+            "label": "alleges",
+            "source": "vocab",
+            "direction": "as_is",
+            "vocab_id": "P0130",
+            "is_new_to_vocab": true,
+            "definition": "To make a claim or accusation against someone or something.",
+            "parent": null,
+            "domain": [
+              "SportsTeam"
+            ],
+            "range": [
+              "Allegation"
+            ],
+            "path": "",
+            "justification": "No existing schema.org property fits."
+          },
+          "llm_proposed": {
+            "source": "new",
+            "label": "alleges",
+            "is_new": true,
+            "direction": "as_is"
+          }
+        }
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "interpretedAsClaim",
+          "signature": "CreativeWork/MediaObject → Claim",
+          "parent": "description",
+          "inverse_of": null,
+          "score": -3.2505,
+          "matched_anchor": null,
+          "comment": "A claim extraction relation between a creative work or media object and a specific assertion or statement derived from its content. Also called contains claim, implies claim, claim extracted from, claim derived from. Examples: A news article is interpretedAsClaim 'The sky is blue'. A scientific paper is interpretedAsClaim 'Drug X cures Y'. A video is interpretedAsClaim 'Candidate Z made promise A'.",
+          "embed_score": 0.81,
+          "embed_rank": 1
+        },
+        {
+          "source": "schema.org",
+          "label": "claimInterpreter",
+          "signature": "Claim → Organization/Person",
+          "parent": null,
+          "inverse_of": null,
+          "score": -3.7317,
+          "matched_anchor": null,
+          "comment": "An interpretation relation between a claim and the organization or person who interpreted it from media content. Also called \"interpreted by\", \"claim analyst\", \"fact-checker\". Examples: \"News claim claimInterpreter FactCheck.org\", \"Social media claim claimInterpreter Jane Doe\".",
+          "embed_score": 0.79,
+          "embed_rank": 4
+        },
+        {
+          "source": "schema.org",
+          "label": "appearance",
+          "signature": "Claim → CreativeWork",
+          "parent": "workExample",
+          "inverse_of": null,
+          "score": -5.3202,
+          "matched_anchor": null,
+          "comment": "An appearance relation between a claim and a creative work where that claim is found or occurs. Also called occurrence in, mentioned in, found in. Examples: \"A claim's appearance is in 'News Article X'.\", \"The factual claim's appearance is in 'Research Paper Y'.\"",
+          "embed_score": 0.777,
+          "embed_rank": 7
+        },
+        {
+          "source": "schema.org",
+          "label": "firstAppearance",
+          "signature": "Claim → CreativeWork",
+          "parent": "workExample",
+          "inverse_of": null,
+          "score": -6.278,
+          "matched_anchor": null,
+          "comment": "A first appearance relation between a claim and the creative work where it was initially known to occur. Also called: initial publication, original mention, debut in. Examples: \"Claim: Earth is flat\" first appearance \"Ancient Greek Texts\", \"Claim: COVID-19 is a hoax\" first appearance \"Social Media Post\", \"Claim: New drug cures cancer\" first appearance \"Unverified Online Article\".",
+          "embed_score": 0.778,
+          "embed_rank": 6
+        },
+        {
+          "source": "schema.org",
+          "label": "claimReviewed",
+          "signature": "ClaimReview → Text",
+          "parent": null,
+          "inverse_of": null,
+          "score": -7.2309,
+          "matched_anchor": null,
+          "comment": "A summary relation for a claim review, providing a short text of the specific claims being reviewed. Also called \"reviewed claim\", \"claim summary\", \"subject of review\". Examples: \"Fact-check review claimReviewed 'Eating apples cures cancer'\", \"Product claim review claimReviewed 'This product doubles battery life'\".",
+          "embed_score": 0.792,
+          "embed_rank": 3
+        },
+        {
+          "source": "schema.org",
+          "label": "associatedClaimReview",
+          "signature": "Review → Review",
+          "parent": "associatedReview",
+          "inverse_of": null,
+          "score": -8.2093,
+          "matched_anchor": null,
+          "comment": "A claim review related to another review by common content, topic, or claim. Also called: related claim review, linked claim assessment. Examples: \"Review 'MediaReview of Article' associatedClaimReview 'ClaimReview of Statement'\", \"Review 'FactCheck' associatedClaimReview 'Another FactCheck'\". Distinct from associatedMediaReview, which links to a media review.",
+          "embed_score": 0.794,
+          "embed_rank": 2
+        },
+        {
+          "source": "schema.org",
+          "label": "owner",
+          "signature": "Thing → Organization/Person",
+          "parent": null,
+          "inverse_of": "owns",
+          "score": -9.0568,
+          "matched_anchor": null,
+          "comment": "A person or organization that owns a thing. Also called proprietor, possessor, title holder. Examples: \"Car owner 'John Doe'\", \"Company owner 'Acme Corp'\", \"House owner 'Smith Family Trust'\". Distinct from creator, who made the thing.",
+          "embed_score": 0.771,
+          "embed_rank": 13
+        },
+        {
+          "source": "schema.org",
+          "label": "owns",
+          "signature": "Organization/Person → Thing",
+          "parent": null,
+          "inverse_of": "owner",
+          "score": -9.1098,
+          "matched_anchor": null,
+          "comment": "A thing that is owned by an organization or person. Also called possesses, holds title to, has ownership of. Examples: \"John Doe owns 'a car'\", \"Acme Corp owns 'a patent'\", \"Sarah owns 'her house'\". Distinct from memberOf, which describes membership in a group.",
+          "embed_score": 0.776,
+          "embed_rank": 9
+        },
+        {
+          "source": "schema.org",
+          "label": "opponent",
+          "signature": "ExerciseAction → Person",
+          "parent": "participant",
+          "inverse_of": null,
+          "score": -9.2991,
+          "matched_anchor": null,
+          "comment": "A person who is an opponent in an exercise action. Also called adversary, competitor, rival. Examples: \"Boxing Match opponent 'Mike Tyson'\", \"Chess Game opponent 'Deep Blue'\", \"Tennis Match opponent 'Serena Williams'\". Distinct from participant, which is a general participant.",
+          "embed_score": 0.773,
+          "embed_rank": 11
+        },
+        {
+          "source": "schema.org",
+          "label": "hasOccupation",
+          "signature": "Person → Occupation",
+          "parent": null,
+          "inverse_of": null,
+          "score": -9.5121,
+          "matched_anchor": null,
+          "comment": "An occupation relation between a person and their current occupation. Also called profession, job, employment. Examples: \"A person has an occupation as a software engineer.\", \"She has an occupation as a doctor.\", \"His occupation is a teacher.\"",
+          "embed_score": 0.765,
+          "embed_rank": 14
+        }
+      ]
+    },
+    {
+      "relation_phrase": "made statement",
+      "definition": "To express an opinion or comment on a particular issue.",
+      "embedding_query_text": "made statement: To express an opinion or comment on a particular issue.",
+      "observed_signatures": [
+        "Thing → Statement"
+      ],
+      "n_assignments": 1,
+      "assignments": [
+        {
+          "instances": [
+            "Hossam Hassan -> Hassan's statement"
+          ],
+          "chosen_property": {
+            "label": "madeStatement",
+            "source": "vocab",
+            "direction": "as_is",
+            "vocab_id": "P0064",
+            "is_new_to_vocab": false,
+            "definition": "To express or utter a thought, opinion, or intention, typically in a public or formal setting.",
+            "parent": "creator",
+            "domain": [
+              "Person"
+            ],
+            "range": [
+              "Statement"
+            ],
+            "path": "creator",
+            "justification": "No existing schema.org property fits."
+          },
+          "llm_proposed": {
+            "source": "new",
+            "label": "madeStatement",
+            "is_new": true,
+            "direction": "as_is"
+          }
+        }
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "resultComment",
+          "signature": "CommentAction/ReplyAction → Comment",
+          "parent": "result",
+          "inverse_of": null,
+          "score": -0.9729,
+          "matched_anchor": null,
+          "comment": "The specific comment created or sent as the outcome of a comment or reply action. Also called generated comment, comment outcome, produced comment. Examples: `CommentAction on Article` resultComment `User's Comment Text`, `ReplyAction to Forum Post` resultComment `Reply Comment`, `ReviewAction` resultComment `Reviewer's Feedback`. Distinct from `result`, which is a general outcome of any action.",
+          "embed_score": 0.833,
+          "embed_rank": 1
+        },
+        {
+          "source": "schema.org",
+          "label": "commentTime",
+          "signature": "UserComments → Date/DateTime",
+          "parent": null,
+          "inverse_of": null,
+          "score": -5.1595,
+          "matched_anchor": null,
+          "comment": "A temporal specification for user comments, indicating the date or date and time when the comment was made. Also called \"comment date\", \"posted time\", \"submission time\". Examples: \"User comment commentTime '2023-10-26T10:30:00'\", \"Review commentTime '2023-09-15'\".",
+          "embed_score": 0.791,
+          "embed_rank": 15
+        },
+        {
+          "source": "schema.org",
+          "label": "interpretedAsClaim",
+          "signature": "CreativeWork/MediaObject → Claim",
+          "parent": "description",
+          "inverse_of": null,
+          "score": -5.2845,
+          "matched_anchor": null,
+          "comment": "A claim extraction relation between a creative work or media object and a specific assertion or statement derived from its content. Also called contains claim, implies claim, claim extracted from, claim derived from. Examples: A news article is interpretedAsClaim 'The sky is blue'. A scientific paper is interpretedAsClaim 'Drug X cures Y'. A video is interpretedAsClaim 'Candidate Z made promise A'.",
+          "embed_score": 0.789,
+          "embed_rank": 19
+        },
+        {
+          "source": "schema.org",
+          "label": "answerExplanation",
+          "signature": "Answer → Comment/WebContent",
+          "parent": null,
+          "inverse_of": null,
+          "score": -5.329,
+          "matched_anchor": null,
+          "comment": "An answer explanation relation between an answer and a comment or web content providing a detailed clarification or step-by-step reasoning. Also called solution explanation, answer justification, detailed response. Examples: \"An answer's answer explanation details the calculation steps.\", \"The correct answer's explanation clarifies the underlying principle.\"",
+          "embed_score": 0.787,
+          "embed_rank": 24
+        },
+        {
+          "source": "schema.org",
+          "label": "comment",
+          "signature": "CreativeWork/RsvpAction → Comment",
+          "parent": null,
+          "inverse_of": null,
+          "score": -5.3814,
+          "matched_anchor": null,
+          "comment": "A feedback relation between a creative work or RSVP action and a user-generated comment. Also called \"user comment\", \"feedback\", \"review\". Examples: \"Article comment 'Great read!'\", \"Event RSVP comment 'Looking forward to it!'\". Distinct from commentText, which is the text content of the comment itself.",
+          "embed_score": 0.806,
+          "embed_rank": 3
+        },
+        {
+          "source": "schema.org",
+          "label": "discusses",
+          "signature": "UserComments → CreativeWork",
+          "parent": null,
+          "inverse_of": null,
+          "score": -5.955,
+          "matched_anchor": null,
+          "comment": "A discussion relation between a user comment and the creative work it is associated with. Also called \"comments on\", \"pertains to\", \"about\". Examples: \"User comment 'Great movie!' discusses 'The Matrix'\", \"Blog post comment discusses 'Article on AI'\", \"Review discusses 'New Album by Artist X'\". Distinct from discussionUrl, which is a link to the page containing comments about a creative work.",
+          "embed_score": 0.801,
+          "embed_rank": 6
+        },
+        {
+          "source": "schema.org",
+          "label": "commentCount",
+          "signature": "CreativeWork → Integer",
+          "parent": null,
+          "inverse_of": null,
+          "score": -6.4517,
+          "matched_anchor": null,
+          "comment": "A quantitative measurement for a creative work, indicating the total number of comments it has received. Also called \"number of comments\", \"comment total\", \"feedback count\". Examples: \"Blog post commentCount 15\", \"Article commentCount 200\".",
+          "embed_score": 0.796,
+          "embed_rank": 10
+        },
+        {
+          "source": "schema.org",
+          "label": "commentText",
+          "signature": "UserComments → Text",
+          "parent": null,
+          "inverse_of": null,
+          "score": -6.7474,
+          "matched_anchor": null,
+          "comment": "A textual content relation for user comments, providing the actual text of the comment. Also called \"comment content\", \"message text\", \"user feedback text\". Examples: \"User comment commentText 'This is a very insightful article.'\", \"Review commentText 'Product arrived quickly and works great.'\". Distinct from comment, which refers to the comment object itself, whereas commentText is its textual content.",
+          "embed_score": 0.782,
+          "embed_rank": 35
+        },
+        {
+          "source": "schema.org",
+          "label": "correction",
+          "signature": "CreativeWork → CorrectionComment/Text/URL",
+          "parent": null,
+          "inverse_of": null,
+          "score": -6.777,
+          "matched_anchor": null,
+          "comment": "A modification relation between a creative work and the comment, text, or document detailing a correction to it. Also called: erratum, amendment, revision, fix. Examples: \"News Article\" correction \"Editor's Note: A previous version of this article misstated...\", \"Software Manual\" correction \"See errata sheet for updates.\", \"Research Paper\" correction \"Correction published in Vol. 15, Issue 3.\".",
+          "embed_score": 0.779,
+          "embed_rank": 43
+        },
+        {
+          "source": "schema.org",
+          "label": "creator",
+          "signature": "CreativeWork/UserComments → Organization/Person",
+          "parent": null,
+          "inverse_of": null,
+          "score": -7.5202,
+          "matched_anchor": null,
+          "comment": "An authorship relation between a creative work or user comment and the person or organization responsible for its creation. Also called: author, originator, producer, made by. Examples: \"Novel\" creator \"Jane Doe\", \"Software\" creator \"Acme Corp.\", \"Blog Post\" creator \"John Smith\", \"User Review\" creator \"Anonymous User\". Distinct from copyrightHolder, which is about legal ownership.",
+          "embed_score": 0.79,
+          "embed_rank": 18
+        }
+      ]
+    },
+    {
+      "relation_phrase": "won against",
+      "definition": "To achieve victory in a competition or match against an opponent.",
+      "embedding_query_text": "won against: To achieve victory in a competition or match against an opponent.",
+      "observed_signatures": [
+        "SportsTeam → SportsTeam"
+      ],
+      "n_assignments": 1,
+      "assignments": [
+        {
+          "instances": [
+            "Argentina -> Switzerland",
+            "Argentina -> England"
+          ],
+          "chosen_property": {
+            "label": "wonAgainst",
+            "source": "vocab",
+            "direction": "as_is",
+            "vocab_id": "P0131",
+            "is_new_to_vocab": true,
+            "definition": "To achieve victory in a competition or match against an opponent.",
+            "parent": null,
+            "domain": [
+              "SportsTeam"
+            ],
+            "range": [
+              "SportsTeam"
+            ],
+            "path": "",
+            "justification": "No existing schema.org property fits."
+          },
+          "llm_proposed": {
+            "source": "new",
+            "label": "wonAgainst",
+            "is_new": true,
+            "direction": "as_is"
+          }
+        }
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "winner",
+          "signature": "LoseAction → Person",
+          "parent": "participant",
+          "inverse_of": null,
+          "score": 0.0844,
+          "matched_anchor": null,
+          "comment": "A winner relation between a losing action and the person who won it. Also called victor, triumphant participant, successful party. Examples: ChessMatchLoseAction winner Alice, RaceLoseAction winner Bob, CompetitionLoseAction winner Charlie.",
+          "embed_score": 0.834,
+          "embed_rank": 4
+        },
+        {
+          "source": "schema.org",
+          "label": "opponent",
+          "signature": "ExerciseAction → Person",
+          "parent": "participant",
+          "inverse_of": null,
+          "score": -1.416,
+          "matched_anchor": null,
+          "comment": "A person who is an opponent in an exercise action. Also called adversary, competitor, rival. Examples: \"Boxing Match opponent 'Mike Tyson'\", \"Chess Game opponent 'Deep Blue'\", \"Tennis Match opponent 'Serena Williams'\". Distinct from participant, which is a general participant.",
+          "embed_score": 0.844,
+          "embed_rank": 1
+        },
+        {
+          "source": "schema.org",
+          "label": "loser",
+          "signature": "WinAction → Person",
+          "parent": "participant",
+          "inverse_of": null,
+          "score": -1.5877,
+          "matched_anchor": null,
+          "comment": "A losing participant relation between a win action and the person who lost. Also called: defeated participant, vanquished, runner-up. Examples: \"Chess Match WinAction loser Opponent B\", \"Race WinAction loser Second Place Runner\", \"Debate WinAction loser Team B\".",
+          "embed_score": 0.839,
+          "embed_rank": 3
+        },
+        {
+          "source": "schema.org",
+          "label": "competitor",
+          "signature": "SportsEvent → Person/SportsTeam",
+          "parent": null,
+          "inverse_of": null,
+          "score": -3.1275,
+          "matched_anchor": null,
+          "comment": "A participation relation in a sports event, indicating a person or sports team that is competing. Also called \"participant\", \"opponent\", \"rival\". Examples: \"Olympic race sports event competitor Usain Bolt\", \"Football match sports event competitor Manchester United\".",
+          "embed_score": 0.839,
+          "embed_rank": 2
+        },
+        {
+          "source": "schema.org",
+          "label": "awayTeam",
+          "signature": "SportsEvent → Person/SportsTeam",
+          "parent": "competitor",
+          "inverse_of": null,
+          "score": -7.1422,
+          "matched_anchor": null,
+          "comment": "A person or sports team designated as the away team in a sports event. Also called: visiting team, opponent. Examples: \"SportsEvent 'Football Match' awayTeam 'Team B'\", \"SportsEvent 'Basketball Game' awayTeam 'Lakers'\". Distinct from homeTeam, which is the team playing at their home venue.",
+          "embed_score": 0.778,
+          "embed_rank": 9
+        },
+        {
+          "source": "schema.org",
+          "label": "sportsEvent",
+          "signature": "ExerciseAction → SportsEvent",
+          "parent": "location",
+          "inverse_of": null,
+          "score": -8.2835,
+          "matched_anchor": null,
+          "comment": "A specific event relation between an exercise action and the sports event during which it occurred. Also called \"event of exercise\", \"competition event\", \"athletic event\". Examples: \"The sprint occurred during the sportsEvent Olympics\", \"The goal was scored in the sportsEvent World Cup match\", \"This action took place at a sportsEvent marathon.\". Distinct from event, which is a more general event property.",
+          "embed_score": 0.777,
+          "embed_rank": 10
+        },
+        {
+          "source": "schema.org",
+          "label": "sport",
+          "signature": "SportsEvent/SportsOrganization → Text/URL",
+          "parent": null,
+          "inverse_of": null,
+          "score": -8.5918,
+          "matched_anchor": null,
+          "comment": "An identification of the type of sport associated with a sports event or organization. Also called \"sport type\", \"athletic discipline\", \"game played\". Examples: \"The event's sport is Basketball\", \"The organization's sport is Soccer\", \"This competition features the sport of Gymnastics.\"",
+          "embed_score": 0.792,
+          "embed_rank": 5
+        },
+        {
+          "source": "schema.org",
+          "label": "award",
+          "signature": "CreativeWork/Organization/Person/Product/Service → Text",
+          "parent": null,
+          "inverse_of": null,
+          "score": -9.4175,
+          "matched_anchor": null,
+          "comment": "An award won by or for a creative work, organization, person, product, or service. Also called: honor, prize, recognition. Examples: \"CreativeWork 'Movie' award 'Oscar'\", \"Organization 'Company X' award 'Best Employer'\", \"Person 'Scientist' award 'Nobel Prize'\". Distinct from awards, which is the plural form.",
+          "embed_score": 0.766,
+          "embed_rank": 20
+        },
+        {
+          "source": "schema.org",
+          "label": "sportsTeam",
+          "signature": "ExerciseAction → SportsTeam",
+          "parent": "participant",
+          "inverse_of": null,
+          "score": -9.7747,
+          "matched_anchor": null,
+          "comment": "A participation relation between an exercise action and the sports team involved in it. Also called \"team participated\", \"team involved\", \"athletic team\". Examples: \"The goal was scored by the sportsTeam Real Madrid\", \"The race involved sportsTeam Team USA\", \"This action was performed by a sportsTeam.\". Distinct from participant, which is a more general participant property.",
+          "embed_score": 0.766,
+          "embed_rank": 21
+        },
+        {
+          "source": "schema.org",
+          "label": "referee",
+          "signature": "SportsEvent → Person",
+          "parent": null,
+          "inverse_of": null,
+          "score": -9.8082,
+          "matched_anchor": null,
+          "comment": "A referee relation between a sports event and the person officiating it to enforce rules. Also called officiated by, umpire, judge. Examples: \"A football match has a referee 'Pierluigi Collina'.\", \"A tennis match has a referee 'Eva Asderaki-Moore'.\", \"A basketball game has a referee 'Joey Crawford'.\"",
+          "embed_score": 0.771,
+          "embed_rank": 15
+        }
+      ]
+    },
+    {
+      "relation_phrase": "refereed",
+      "definition": "To officiate a football match.",
+      "embedding_query_text": "refereed: To officiate a football match.",
+      "observed_signatures": [
+        "Thing → SportsEvent"
+      ],
+      "n_assignments": 1,
+      "assignments": [
+        {
+          "instances": [
+            "Joao Pedro da Silva Pinheiro -> Argentina vs Switzerland",
+            "Francois Letexier -> Argentina vs Egypt"
+          ],
+          "chosen_property": {
+            "label": "referee",
+            "source": "schema.org",
+            "direction": "inverse",
+            "vocab_id": null,
+            "is_new_to_vocab": false,
+            "definition": null,
+            "parent": null,
+            "domain": null,
+            "range": null,
+            "path": "",
+            "justification": "Flipped to inverse to match the property's direction."
+          },
+          "llm_proposed": {
+            "source": "schema.org",
+            "label": "referee",
+            "is_new": false,
+            "direction": "inverse"
+          }
+        }
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "referee",
+          "signature": "SportsEvent → Person",
+          "parent": null,
+          "inverse_of": null,
+          "score": 7.1282,
+          "matched_anchor": null,
+          "comment": "A referee relation between a sports event and the person officiating it to enforce rules. Also called officiated by, umpire, judge. Examples: \"A football match has a referee 'Pierluigi Collina'.\", \"A tennis match has a referee 'Eva Asderaki-Moore'.\", \"A basketball game has a referee 'Joey Crawford'.\"",
+          "embed_score": 0.867,
+          "embed_rank": 1
+        },
+        {
+          "source": "schema.org",
+          "label": "awayTeam",
+          "signature": "SportsEvent → Person/SportsTeam",
+          "parent": "competitor",
+          "inverse_of": null,
+          "score": -7.0588,
+          "matched_anchor": null,
+          "comment": "A person or sports team designated as the away team in a sports event. Also called: visiting team, opponent. Examples: \"SportsEvent 'Football Match' awayTeam 'Team B'\", \"SportsEvent 'Basketball Game' awayTeam 'Lakers'\". Distinct from homeTeam, which is the team playing at their home venue.",
+          "embed_score": 0.765,
+          "embed_rank": 3
+        },
+        {
+          "source": "schema.org",
+          "label": "competitor",
+          "signature": "SportsEvent → Person/SportsTeam",
+          "parent": null,
+          "inverse_of": null,
+          "score": -8.0646,
+          "matched_anchor": null,
+          "comment": "A participation relation in a sports event, indicating a person or sports team that is competing. Also called \"participant\", \"opponent\", \"rival\". Examples: \"Olympic race sports event competitor Usain Bolt\", \"Football match sports event competitor Manchester United\".",
+          "embed_score": 0.763,
+          "embed_rank": 4
+        },
+        {
+          "source": "schema.org",
+          "label": "homeTeam",
+          "signature": "SportsEvent → Person/SportsTeam",
+          "parent": "competitor",
+          "inverse_of": null,
+          "score": -9.9194,
+          "matched_anchor": null,
+          "comment": "A home team relation between a sports event and the team or person designated as the home participant. Also called host team, home side, local team. Examples: \"A sports event has a home team 'Lions'.\", \"The match features a home team.\", \"This event's home team is a specific person.\"",
+          "embed_score": 0.731,
+          "embed_rank": 26
+        },
+        {
+          "source": "schema.org",
+          "label": "coach",
+          "signature": "SportsTeam → Person",
+          "parent": null,
+          "inverse_of": null,
+          "score": -10.4282,
+          "matched_anchor": null,
+          "comment": "A leadership relation between a sports team and the person who acts as its coach. Also called \"team coach\", \"trainer\", \"manager\". Examples: \"Basketball team coach John Smith\", \"Soccer team coach Jane Doe\".",
+          "embed_score": 0.753,
+          "embed_rank": 7
+        },
+        {
+          "source": "schema.org",
+          "label": "sport",
+          "signature": "SportsEvent/SportsOrganization → Text/URL",
+          "parent": null,
+          "inverse_of": null,
+          "score": -10.5725,
+          "matched_anchor": null,
+          "comment": "An identification of the type of sport associated with a sports event or organization. Also called \"sport type\", \"athletic discipline\", \"game played\". Examples: \"The event's sport is Basketball\", \"The organization's sport is Soccer\", \"This competition features the sport of Gymnastics.\"",
+          "embed_score": 0.767,
+          "embed_rank": 2
+        },
+        {
+          "source": "schema.org",
+          "label": "opponent",
+          "signature": "ExerciseAction → Person",
+          "parent": "participant",
+          "inverse_of": null,
+          "score": -10.5951,
+          "matched_anchor": null,
+          "comment": "A person who is an opponent in an exercise action. Also called adversary, competitor, rival. Examples: \"Boxing Match opponent 'Mike Tyson'\", \"Chess Game opponent 'Deep Blue'\", \"Tennis Match opponent 'Serena Williams'\". Distinct from participant, which is a general participant.",
+          "embed_score": 0.735,
+          "embed_rank": 14
+        },
+        {
+          "source": "schema.org",
+          "label": "athlete",
+          "signature": "SportsTeam → Person",
+          "parent": null,
+          "inverse_of": null,
+          "score": -10.6932,
+          "matched_anchor": null,
+          "comment": "A person who is a performing member of a sports team. Also called: player, team member, sportsman/sportswoman. Examples: \"SportsTeam 'Lakers' athlete 'LeBron James'\", \"SportsTeam 'Red Sox' athlete 'Mookie Betts'\", \"SportsTeam 'National Team' athlete 'Megan Rapinoe'\". Distinct from coach, which is a non-playing role.",
+          "embed_score": 0.752,
+          "embed_rank": 8
+        },
+        {
+          "source": "schema.org",
+          "label": "sportsTeam",
+          "signature": "ExerciseAction → SportsTeam",
+          "parent": "participant",
+          "inverse_of": null,
+          "score": -10.7124,
+          "matched_anchor": null,
+          "comment": "A participation relation between an exercise action and the sports team involved in it. Also called \"team participated\", \"team involved\", \"athletic team\". Examples: \"The goal was scored by the sportsTeam Real Madrid\", \"The race involved sportsTeam Team USA\", \"This action was performed by a sportsTeam.\". Distinct from participant, which is a more general participant property.",
+          "embed_score": 0.741,
+          "embed_rank": 10
+        },
+        {
+          "source": "schema.org",
+          "label": "sportsEvent",
+          "signature": "ExerciseAction → SportsEvent",
+          "parent": "location",
+          "inverse_of": null,
+          "score": -10.8939,
+          "matched_anchor": null,
+          "comment": "A specific event relation between an exercise action and the sports event during which it occurred. Also called \"event of exercise\", \"competition event\", \"athletic event\". Examples: \"The sprint occurred during the sportsEvent Olympics\", \"The goal was scored in the sportsEvent World Cup match\", \"This action took place at a sportsEvent marathon.\". Distinct from event, which is a more general event property.",
+          "embed_score": 0.762,
+          "embed_rank": 5
+        }
+      ]
+    },
+    {
+      "relation_phrase": "sent off",
+      "definition": "To be given a red card and ejected from a football match.",
+      "embedding_query_text": "sent off: To be given a red card and ejected from a football match.",
+      "observed_signatures": [
+        "Person → SportsEvent",
+        "Person → SportsTeam"
+      ],
+      "n_assignments": 2,
+      "assignments": [
+        {
+          "instances": [
+            "Breel Embolo -> Argentina vs Switzerland"
+          ],
+          "chosen_property": {
+            "label": "sentOff",
+            "source": "vocab",
+            "direction": "as_is",
+            "vocab_id": "P0132",
+            "is_new_to_vocab": true,
+            "definition": "To be given a red card and ejected from a football match.",
+            "parent": null,
+            "domain": [
+              "Person"
+            ],
+            "range": [
+              "SportsEvent"
+            ],
+            "path": "",
+            "justification": "No existing schema.org property fits."
+          },
+          "llm_proposed": {
+            "source": "new",
+            "label": "sentOff",
+            "is_new": true,
+            "direction": "as_is"
+          }
+        },
+        {
+          "instances": [
+            "Folarin Balogun -> Bosnia-Herzegovina"
+          ],
+          "chosen_property": {
+            "label": "referee",
+            "source": "schema.org",
+            "direction": "as_is",
+            "vocab_id": null,
+            "is_new_to_vocab": false,
+            "definition": null,
+            "parent": null,
+            "domain": null,
+            "range": null,
+            "path": "",
+            "justification": "fallback: top candidate"
+          },
+          "llm_proposed": {
+            "source": "schema.org",
+            "label": "referee",
+            "is_new": false,
+            "direction": "as_is"
+          }
+        }
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "referee",
+          "signature": "SportsEvent → Person",
+          "parent": null,
+          "inverse_of": null,
+          "score": -5.1603,
+          "matched_anchor": null,
+          "comment": "A referee relation between a sports event and the person officiating it to enforce rules. Also called officiated by, umpire, judge. Examples: \"A football match has a referee 'Pierluigi Collina'.\", \"A tennis match has a referee 'Eva Asderaki-Moore'.\", \"A basketball game has a referee 'Joey Crawford'.\"",
+          "embed_score": 0.766,
+          "embed_rank": 1
+        },
+        {
+          "source": "schema.org",
+          "label": "awayTeam",
+          "signature": "SportsEvent → Person/SportsTeam",
+          "parent": "competitor",
+          "inverse_of": null,
+          "score": -9.8149,
+          "matched_anchor": null,
+          "comment": "A person or sports team designated as the away team in a sports event. Also called: visiting team, opponent. Examples: \"SportsEvent 'Football Match' awayTeam 'Team B'\", \"SportsEvent 'Basketball Game' awayTeam 'Lakers'\". Distinct from homeTeam, which is the team playing at their home venue.",
+          "embed_score": 0.731,
+          "embed_rank": 7
+        },
+        {
+          "source": "schema.org",
+          "label": "competitor",
+          "signature": "SportsEvent → Person/SportsTeam",
+          "parent": null,
+          "inverse_of": null,
+          "score": -9.9782,
+          "matched_anchor": null,
+          "comment": "A participation relation in a sports event, indicating a person or sports team that is competing. Also called \"participant\", \"opponent\", \"rival\". Examples: \"Olympic race sports event competitor Usain Bolt\", \"Football match sports event competitor Manchester United\".",
+          "embed_score": 0.733,
+          "embed_rank": 6
+        },
+        {
+          "source": "schema.org",
+          "label": "recipient",
+          "signature": "AuthorizeAction/CommunicateAction/DonateAction/GiveAction/Message/PayAction/ReturnAction/SendAction/TipAction → Audience/ContactPoint/Organization/Person",
+          "parent": "participant",
+          "inverse_of": null,
+          "score": -10.6368,
+          "matched_anchor": null,
+          "comment": "A recipient relation between an action (like sending or paying) and the audience, contact point, organization, or person receiving it. Also called receiver, intended for, sent to. Examples: \"A message has a recipient 'John Doe'.\", \"A donation has a recipient 'Charity Organization'.\", \"A payment has a recipient 'Vendor Inc.'.\"",
+          "embed_score": 0.703,
+          "embed_rank": 20
+        },
+        {
+          "source": "schema.org",
+          "label": "sender",
+          "signature": "Message/ReceiveAction → Audience/Organization/Person",
+          "parent": "participant",
+          "inverse_of": null,
+          "score": -10.7624,
+          "matched_anchor": null,
+          "comment": "The audience, organization, or person initiating and transmitting a message or action. Also called originator, dispatcher, message source, sender of message. Examples: `Email Message` sender `John Doe`, `ReceiveAction` sender `Customer Service`, `Broadcast Message` sender `News Organization`. Distinct from `recipient`, which is the receiving party.",
+          "embed_score": 0.709,
+          "embed_rank": 12
+        },
+        {
+          "source": "schema.org",
+          "label": "athlete",
+          "signature": "SportsTeam → Person",
+          "parent": null,
+          "inverse_of": null,
+          "score": -10.7823,
+          "matched_anchor": null,
+          "comment": "A person who is a performing member of a sports team. Also called: player, team member, sportsman/sportswoman. Examples: \"SportsTeam 'Lakers' athlete 'LeBron James'\", \"SportsTeam 'Red Sox' athlete 'Mookie Betts'\", \"SportsTeam 'National Team' athlete 'Megan Rapinoe'\". Distinct from coach, which is a non-playing role.",
+          "embed_score": 0.734,
+          "embed_rank": 5
+        },
+        {
+          "source": "schema.org",
+          "label": "coach",
+          "signature": "SportsTeam → Person",
+          "parent": null,
+          "inverse_of": null,
+          "score": -11.0586,
+          "matched_anchor": null,
+          "comment": "A leadership relation between a sports team and the person who acts as its coach. Also called \"team coach\", \"trainer\", \"manager\". Examples: \"Basketball team coach John Smith\", \"Soccer team coach Jane Doe\".",
+          "embed_score": 0.71,
+          "embed_rank": 10
+        },
+        {
+          "source": "schema.org",
+          "label": "toRecipient",
+          "signature": "Message → Audience/ContactPoint/Organization/Person",
+          "parent": "recipient",
+          "inverse_of": null,
+          "score": -11.1282,
+          "matched_anchor": null,
+          "comment": "A direct recipient relation between a message and the specific audience, contact point, organization, or person it was sent to. Also called direct addressee, message recipient, primary recipient. Examples: \"Email toRecipient 'john.doe@example.com'\", \"Message toRecipient 'Marketing Department'\", \"SMS toRecipient 'Jane Smith'\". Distinct from recipient, which is a more general property for any recipient.",
+          "embed_score": 0.699,
+          "embed_rank": 36
+        },
+        {
+          "source": "schema.org",
+          "label": "eventAttendanceMode",
+          "signature": "Event → EventAttendanceModeEnumeration",
+          "parent": null,
+          "inverse_of": null,
+          "score": -11.137,
+          "matched_anchor": null,
+          "comment": "An event attendance mode relation between an event and the enumeration indicating whether it occurs online, offline, or a mix. Also called \"attendance format\", \"event delivery mode\", \"participation mode\". Examples: \"Event 'Conference' eventAttendanceMode 'OnlineEventAttendanceMode'\", \"Event 'Workshop' eventAttendanceMode 'OfflineEventAttendanceMode'\", \"Event 'Hybrid Meeting' eventAttendanceMode 'MixedEventAttendanceMode'\".",
+          "embed_score": 0.701,
+          "embed_rank": 30
+        },
+        {
+          "source": "schema.org",
+          "label": "sport",
+          "signature": "SportsEvent/SportsOrganization → Text/URL",
+          "parent": null,
+          "inverse_of": null,
+          "score": -11.1378,
+          "matched_anchor": null,
+          "comment": "An identification of the type of sport associated with a sports event or organization. Also called \"sport type\", \"athletic discipline\", \"game played\". Examples: \"The event's sport is Basketball\", \"The organization's sport is Soccer\", \"This competition features the sport of Gymnastics.\"",
+          "embed_score": 0.745,
+          "embed_rank": 2
+        }
+      ]
+    },
+    {
+      "relation_phrase": "involved in incident",
+      "definition": "To be a participant or witness in a particular event or situation.",
+      "embedding_query_text": "involved in incident: To be a participant or witness in a particular event or situation.",
+      "observed_signatures": [
+        "Person → SportsEvent",
+        "Person → SportsTeam"
+      ],
+      "n_assignments": 1,
+      "assignments": [
+        {
+          "instances": [
+            "Leandro Paredes -> Argentina vs Switzerland",
+            "Enzo Fernandez -> Argentina vs England",
+            "Elliot Anderson -> Argentina vs England",
+            "Djed Spence -> Argentina vs England",
+            "Lionel Messi -> Argentina vs England",
+            "Marwan Attia -> Argentina vs Egypt",
+            "Lisandro Martinez -> Argentina vs Egypt",
+            "Aissa Mandi -> Algeria"
+          ],
+          "chosen_property": {
+            "label": "involvedInIncident",
+            "source": "vocab",
+            "direction": "as_is",
+            "vocab_id": "P0133",
+            "is_new_to_vocab": true,
+            "definition": "To be a participant or witness in a particular event or situation.",
+            "parent": null,
+            "domain": [
+              "Person"
+            ],
+            "range": [
+              "SportsEvent",
+              "SportsTeam"
+            ],
+            "path": "",
+            "justification": "No existing schema.org property fits."
+          },
+          "llm_proposed": {
+            "source": "new",
+            "label": "involvedInIncident",
+            "is_new": true,
+            "direction": "as_is"
+          }
+        }
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "participant",
+          "signature": "Action → Organization/Person",
+          "parent": null,
+          "inverse_of": null,
+          "score": -0.5904,
+          "matched_anchor": null,
+          "comment": "A collaborative relation between an action and an organization or person who indirectly participated in it. Also called collaborated with, involved, assisted by, co-agent. Examples: A writing action has a participant co-author. A research project has a participant researcher. A meeting has a participant attendee. Distinct from agent, which is the primary actor of an action.",
+          "embed_score": 0.874,
+          "embed_rank": 1
+        },
+        {
+          "source": "schema.org",
+          "label": "attendee",
+          "signature": "Event → Organization/Person",
+          "parent": null,
+          "inverse_of": null,
+          "score": -4.4088,
+          "matched_anchor": null,
+          "comment": "A person or organization present at an event. Also called: participant, guest, visitor. Examples: \"Event 'Concert' attendee 'John Doe'\", \"Event 'Conference' attendee 'Acme Corp'\", \"Event 'Meeting' attendee 'Jane Smith'\". Distinct from attendees, which is the plural form.",
+          "embed_score": 0.835,
+          "embed_rank": 4
+        },
+        {
+          "source": "schema.org",
+          "label": "competitor",
+          "signature": "SportsEvent → Person/SportsTeam",
+          "parent": null,
+          "inverse_of": null,
+          "score": -4.6256,
+          "matched_anchor": null,
+          "comment": "A participation relation in a sports event, indicating a person or sports team that is competing. Also called \"participant\", \"opponent\", \"rival\". Examples: \"Olympic race sports event competitor Usain Bolt\", \"Football match sports event competitor Manchester United\".",
+          "embed_score": 0.833,
+          "embed_rank": 5
+        },
+        {
+          "source": "schema.org",
+          "label": "sportsTeam",
+          "signature": "ExerciseAction → SportsTeam",
+          "parent": "participant",
+          "inverse_of": null,
+          "score": -5.0819,
+          "matched_anchor": null,
+          "comment": "A participation relation between an exercise action and the sports team involved in it. Also called \"team participated\", \"team involved\", \"athletic team\". Examples: \"The goal was scored by the sportsTeam Real Madrid\", \"The race involved sportsTeam Team USA\", \"This action was performed by a sportsTeam.\". Distinct from participant, which is a more general participant property.",
+          "embed_score": 0.803,
+          "embed_rank": 32
+        },
+        {
+          "source": "schema.org",
+          "label": "attendees",
+          "signature": "Event → Organization/Person",
+          "parent": null,
+          "inverse_of": null,
+          "score": -5.2175,
+          "matched_anchor": null,
+          "comment": "A person present at an event. Also called: participants, guests, visitors. Examples: \"Event 'Concert' attendees 'John Doe'\", \"Event 'Conference' attendees 'Acme Corp'\", \"Event 'Meeting' attendees 'Jane Smith'\". Distinct from attendee, which is the singular form.",
+          "embed_score": 0.819,
+          "embed_rank": 13
+        },
+        {
+          "source": "schema.org",
+          "label": "hasParticipationOffer",
+          "signature": "Event → Offer",
+          "parent": null,
+          "inverse_of": null,
+          "score": -5.3144,
+          "matched_anchor": null,
+          "comment": "A participation offer relation between an event and an offer to participate in it. Also called call for participation, participation opportunity, event entry offer. Examples: \"An event has a participation offer for speakers.\", \"The conference has a participation offer for proposals.\", \"This festival includes a participation offer for performers.\". Distinct from hasSponsorshipOffer, which is an offer to sponsor the event.",
+          "embed_score": 0.81,
+          "embed_rank": 22
+        },
+        {
+          "source": "schema.org",
+          "label": "performerIn",
+          "signature": "Person → Event",
+          "parent": null,
+          "inverse_of": null,
+          "score": -5.9776,
+          "matched_anchor": null,
+          "comment": "A participation role relation between a person and an event in which they perform or participate. Also called performs in, participates in, acts in, presents at. Examples: John Doe is a performer in 'The Annual Gala'. Jane Smith is a performer in 'The City Marathon'. An actor is a performer in 'The New Play'. Distinct from performer, which points from an event to a person.",
+          "embed_score": 0.812,
+          "embed_rank": 20
+        },
+        {
+          "source": "schema.org",
+          "label": "performer",
+          "signature": "Event → Organization/Person",
+          "parent": null,
+          "inverse_of": null,
+          "score": -6.183,
+          "matched_anchor": null,
+          "comment": "A participation role relation between an event and an organization or person who performs at it. Also called artist, entertainer, presenter, actor. Examples: A concert has a performer 'Taylor Swift'. A play has a performer 'Meryl Streep'. A conference has a performer 'Dr. Jane Doe'. Distinct from performerIn, which points from a person to an event.",
+          "embed_score": 0.816,
+          "embed_rank": 14
+        },
+        {
+          "source": "schema.org",
+          "label": "performers",
+          "signature": "Event → Organization/Person",
+          "parent": null,
+          "inverse_of": null,
+          "score": -6.8351,
+          "matched_anchor": null,
+          "comment": "A participation role relation between an event and its primary performers, who can be organizations or persons. Also called main artists, headliners, principal actors, featured performers. Examples: A concert has performers 'Coldplay'. A play has performers 'The Royal Shakespeare Company'. A festival has performers 'Various Artists'. Distinct from performer, which can be any performer, not necessarily the main one.",
+          "embed_score": 0.809,
+          "embed_rank": 23
+        },
+        {
+          "source": "schema.org",
+          "label": "event",
+          "signature": "InformAction/InviteAction/JoinAction/LeaveAction/Organization/Place/PlayAction → Event",
+          "parent": null,
+          "inverse_of": null,
+          "score": -6.8478,
+          "matched_anchor": null,
+          "comment": "An event association relation between an action, organization, or place and an event connected to it. Also called \"associated event\", \"related event\", \"features event\". Examples: \"Organization 'Museum' event 'Art Exhibition'\", \"Place 'Park' event 'Summer Festival'\", \"Inform action event 'Meeting Reminder'\". Distinct from events, which is the plural form.",
+          "embed_score": 0.854,
+          "embed_rank": 2
+        }
+      ]
+    },
+    {
+      "relation_phrase": "scored goal",
+      "definition": "To score a point in a football match by kicking or heading the ball into the opponent's goal.",
+      "embedding_query_text": "scored goal: To score a point in a football match by kicking or heading the ball into the opponent's goal.",
+      "observed_signatures": [
+        "Person → SportsEvent"
+      ],
+      "n_assignments": 1,
+      "assignments": [
+        {
+          "instances": [
+            "Mostafa Zico -> Argentina vs Egypt"
+          ],
+          "chosen_property": {
+            "label": "scoredGoal",
+            "source": "vocab",
+            "direction": "as_is",
+            "vocab_id": "P0134",
+            "is_new_to_vocab": true,
+            "definition": "To score a point in a football match by kicking or heading the ball into the opponent's goal.",
+            "parent": null,
+            "domain": [
+              "Person"
+            ],
+            "range": [
+              "SportsEvent"
+            ],
+            "path": "",
+            "justification": "No existing schema.org property fits."
+          },
+          "llm_proposed": {
+            "source": "new",
+            "label": "scoredGoal",
+            "is_new": true,
+            "direction": "as_is"
+          }
+        }
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "sportsTeam",
+          "signature": "ExerciseAction → SportsTeam",
+          "parent": "participant",
+          "inverse_of": null,
+          "score": -4.851,
+          "matched_anchor": null,
+          "comment": "A participation relation between an exercise action and the sports team involved in it. Also called \"team participated\", \"team involved\", \"athletic team\". Examples: \"The goal was scored by the sportsTeam Real Madrid\", \"The race involved sportsTeam Team USA\", \"This action was performed by a sportsTeam.\". Distinct from participant, which is a more general participant property.",
+          "embed_score": 0.763,
+          "embed_rank": 11
+        },
+        {
+          "source": "schema.org",
+          "label": "sportsEvent",
+          "signature": "ExerciseAction → SportsEvent",
+          "parent": "location",
+          "inverse_of": null,
+          "score": -6.321,
+          "matched_anchor": null,
+          "comment": "A specific event relation between an exercise action and the sports event during which it occurred. Also called \"event of exercise\", \"competition event\", \"athletic event\". Examples: \"The sprint occurred during the sportsEvent Olympics\", \"The goal was scored in the sportsEvent World Cup match\", \"This action took place at a sportsEvent marathon.\". Distinct from event, which is a more general event property.",
+          "embed_score": 0.767,
+          "embed_rank": 8
+        },
+        {
+          "source": "schema.org",
+          "label": "awayTeam",
+          "signature": "SportsEvent → Person/SportsTeam",
+          "parent": "competitor",
+          "inverse_of": null,
+          "score": -7.6995,
+          "matched_anchor": null,
+          "comment": "A person or sports team designated as the away team in a sports event. Also called: visiting team, opponent. Examples: \"SportsEvent 'Football Match' awayTeam 'Team B'\", \"SportsEvent 'Basketball Game' awayTeam 'Lakers'\". Distinct from homeTeam, which is the team playing at their home venue.",
+          "embed_score": 0.778,
+          "embed_rank": 4
+        },
+        {
+          "source": "schema.org",
+          "label": "competitor",
+          "signature": "SportsEvent → Person/SportsTeam",
+          "parent": null,
+          "inverse_of": null,
+          "score": -7.79,
+          "matched_anchor": null,
+          "comment": "A participation relation in a sports event, indicating a person or sports team that is competing. Also called \"participant\", \"opponent\", \"rival\". Examples: \"Olympic race sports event competitor Usain Bolt\", \"Football match sports event competitor Manchester United\".",
+          "embed_score": 0.783,
+          "embed_rank": 2
+        },
+        {
+          "source": "schema.org",
+          "label": "referee",
+          "signature": "SportsEvent → Person",
+          "parent": null,
+          "inverse_of": null,
+          "score": -8.2322,
+          "matched_anchor": null,
+          "comment": "A referee relation between a sports event and the person officiating it to enforce rules. Also called officiated by, umpire, judge. Examples: \"A football match has a referee 'Pierluigi Collina'.\", \"A tennis match has a referee 'Eva Asderaki-Moore'.\", \"A basketball game has a referee 'Joey Crawford'.\"",
+          "embed_score": 0.779,
+          "embed_rank": 3
+        },
+        {
+          "source": "schema.org",
+          "label": "opponent",
+          "signature": "ExerciseAction → Person",
+          "parent": "participant",
+          "inverse_of": null,
+          "score": -8.9496,
+          "matched_anchor": null,
+          "comment": "A person who is an opponent in an exercise action. Also called adversary, competitor, rival. Examples: \"Boxing Match opponent 'Mike Tyson'\", \"Chess Game opponent 'Deep Blue'\", \"Tennis Match opponent 'Serena Williams'\". Distinct from participant, which is a general participant.",
+          "embed_score": 0.748,
+          "embed_rank": 34
+        },
+        {
+          "source": "schema.org",
+          "label": "sport",
+          "signature": "SportsEvent/SportsOrganization → Text/URL",
+          "parent": null,
+          "inverse_of": null,
+          "score": -9.1769,
+          "matched_anchor": null,
+          "comment": "An identification of the type of sport associated with a sports event or organization. Also called \"sport type\", \"athletic discipline\", \"game played\". Examples: \"The event's sport is Basketball\", \"The organization's sport is Soccer\", \"This competition features the sport of Gymnastics.\"",
+          "embed_score": 0.784,
+          "embed_rank": 1
+        },
+        {
+          "source": "schema.org",
+          "label": "coach",
+          "signature": "SportsTeam → Person",
+          "parent": null,
+          "inverse_of": null,
+          "score": -9.6121,
+          "matched_anchor": null,
+          "comment": "A leadership relation between a sports team and the person who acts as its coach. Also called \"team coach\", \"trainer\", \"manager\". Examples: \"Basketball team coach John Smith\", \"Soccer team coach Jane Doe\".",
+          "embed_score": 0.762,
+          "embed_rank": 13
+        },
+        {
+          "source": "schema.org",
+          "label": "athlete",
+          "signature": "SportsTeam → Person",
+          "parent": null,
+          "inverse_of": null,
+          "score": -9.7719,
+          "matched_anchor": null,
+          "comment": "A person who is a performing member of a sports team. Also called: player, team member, sportsman/sportswoman. Examples: \"SportsTeam 'Lakers' athlete 'LeBron James'\", \"SportsTeam 'Red Sox' athlete 'Mookie Betts'\", \"SportsTeam 'National Team' athlete 'Megan Rapinoe'\". Distinct from coach, which is a non-playing role.",
+          "embed_score": 0.766,
+          "embed_rank": 9
+        },
+        {
+          "source": "schema.org",
+          "label": "homeTeam",
+          "signature": "SportsEvent → Person/SportsTeam",
+          "parent": "competitor",
+          "inverse_of": null,
+          "score": -9.9489,
+          "matched_anchor": null,
+          "comment": "A home team relation between a sports event and the team or person designated as the home participant. Also called host team, home side, local team. Examples: \"A sports event has a home team 'Lions'.\", \"The match features a home team.\", \"This event's home team is a specific person.\"",
+          "embed_score": 0.746,
+          "embed_rank": 41
+        }
+      ]
+    },
+    {
+      "relation_phrase": "appointed",
+      "definition": "To be chosen or selected for a particular position or role.",
+      "embedding_query_text": "appointed: To be chosen or selected for a particular position or role.",
+      "observed_signatures": [
+        "Thing → SportsOrganization"
+      ],
+      "n_assignments": 1,
+      "assignments": [
+        {
+          "instances": [
+            "Facundo Tello -> Fifa"
+          ],
+          "chosen_property": {
+            "label": "appointed",
+            "source": "vocab",
+            "direction": "as_is",
+            "vocab_id": "P0135",
+            "is_new_to_vocab": true,
+            "definition": "To be chosen or selected for a particular position or role.",
+            "parent": null,
+            "domain": [
+              "Thing"
+            ],
+            "range": [
+              "SportsOrganization"
+            ],
+            "path": "",
+            "justification": "No existing schema.org property fits."
+          },
+          "llm_proposed": {
+            "source": "new",
+            "label": "appointed",
+            "is_new": true,
+            "direction": "as_is"
+          }
+        }
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "namedPosition",
+          "signature": "Role → Text/URL",
+          "parent": null,
+          "inverse_of": null,
+          "score": 0.5738,
+          "matched_anchor": null,
+          "comment": "A specific named position or role played by a person or organization within a larger organization. Also called role name, position title, job title. Examples: \"Athlete Role namedPosition 'Quarterback'\", \"Employee Role namedPosition 'Senior Software Engineer'\", \"Board Member Role namedPosition 'Treasurer'\". Distinct from roleName, which is a more general description of a role.",
+          "embed_score": 0.806,
+          "embed_rank": 1
+        },
+        {
+          "source": "schema.org",
+          "label": "roleName",
+          "signature": "Role → Text/URL",
+          "parent": null,
+          "inverse_of": null,
+          "score": -0.0358,
+          "matched_anchor": null,
+          "comment": "The specific designation or title of a role performed by a person or organization. Also called role title, position name, function name. Examples: `Person in Movie` roleName `\"Actor\"`, `Team Member` roleName `\"Quarterback\"`, `Project Contributor` roleName `\"Lead Developer\"`.",
+          "embed_score": 0.788,
+          "embed_rank": 10
+        },
+        {
+          "source": "schema.org",
+          "label": "jobTitle",
+          "signature": "Person → DefinedTerm/Text",
+          "parent": null,
+          "inverse_of": null,
+          "score": -1.163,
+          "matched_anchor": null,
+          "comment": "An occupational role relation between a person and their formal designation within an organization. Also called position, role, occupation, professional title. Examples: A person has a jobTitle of 'Software Engineer'. A person has a jobTitle of 'Chief Executive Officer'. A person has a jobTitle of 'Marketing Manager'.",
+          "embed_score": 0.772,
+          "embed_rank": 37
+        },
+        {
+          "source": "schema.org",
+          "label": "qualifications",
+          "signature": "JobPosting/Occupation → Credential/Text",
+          "parent": null,
+          "inverse_of": null,
+          "score": -3.5207,
+          "matched_anchor": null,
+          "comment": "A qualification relation between a job posting or occupation and the specific credentials or skills required. Also called required skills, job requirements, eligibility criteria. Examples: \"A software engineer job posting requires qualifications like a 'Bachelor's degree in Computer Science'.\", \"A doctor's occupation requires qualifications like 'Medical License'.\", \"A project manager role requires qualifications like 'PMP certification'.\"",
+          "embed_score": 0.793,
+          "embed_rank": 4
+        },
+        {
+          "source": "schema.org",
+          "label": "relevantOccupation",
+          "signature": "JobPosting → Occupation",
+          "parent": null,
+          "inverse_of": null,
+          "score": -4.3023,
+          "matched_anchor": null,
+          "comment": "A relevant occupation relation between a job posting and the specific occupation it describes. Also called job role, occupation type. Examples: \"A job posting for 'Software Engineer' has a relevant occupation 'Software Developer'.\", \"A job posting for 'Nurse Practitioner' has a relevant occupation 'Registered Nurse'.\", \"A job posting for 'Marketing Manager' has a relevant occupation 'Marketing Professional'.\"",
+          "embed_score": 0.783,
+          "embed_rank": 16
+        },
+        {
+          "source": "schema.org",
+          "label": "specialCommitments",
+          "signature": "JobPosting → Text",
+          "parent": null,
+          "inverse_of": null,
+          "score": -4.395,
+          "matched_anchor": null,
+          "comment": "A description of any specific commitments or considerations associated with a job posting. Also called \"job commitments\", \"employment considerations\", \"special hiring programs\". Examples: \"The job posting has specialCommitments VeteranCommit\", \"This role includes specialCommitments for military spouses\", \"The company lists specialCommitments for diversity initiatives.\"",
+          "embed_score": 0.792,
+          "embed_rank": 6
+        },
+        {
+          "source": "schema.org",
+          "label": "title",
+          "signature": "JobPosting → Text",
+          "parent": null,
+          "inverse_of": null,
+          "score": -5.5921,
+          "matched_anchor": null,
+          "comment": "A title relation between a job posting and the descriptive name of the job. Also called job name, position title, role title. Examples: \"Job posting title 'Software Engineer'\", \"Job posting title 'Marketing Manager'\", \"Job posting title 'Data Scientist'\".",
+          "embed_score": 0.789,
+          "embed_rank": 9
+        },
+        {
+          "source": "schema.org",
+          "label": "experienceRequirements",
+          "signature": "JobPosting/Occupation → OccupationalExperienceRequirements/Text",
+          "parent": null,
+          "inverse_of": null,
+          "score": -6.6411,
+          "matched_anchor": null,
+          "comment": "An experience requirements relation between a job posting or occupation and the necessary skills and experience for the role. Also called: required experience, skill requirements, professional background. Examples: \"Software Engineer Job\" experience requirements \"5+ years in Java development\", \"Marketing Manager Occupation\" experience requirements \"Proven track record in digital marketing campaigns\", \"Chef Position\" experience requirements \"Culinary school degree and 3 years restaurant experience\".",
+          "embed_score": 0.775,
+          "embed_rank": 28
+        },
+        {
+          "source": "schema.org",
+          "label": "totalJobOpenings",
+          "signature": "JobPosting → Integer",
+          "parent": null,
+          "inverse_of": null,
+          "score": -7.0498,
+          "matched_anchor": null,
+          "comment": "A total job openings relation between a job posting and the number of available positions. Also called number of vacancies, open positions, available roles. Examples: \"JobPosting totalJobOpenings '3'\", \"JobPosting totalJobOpenings '1'\", \"JobPosting totalJobOpenings '5'\".",
+          "embed_score": 0.789,
+          "embed_rank": 8
+        },
+        {
+          "source": "schema.org",
+          "label": "position",
+          "signature": "CreativeWork/ListItem → Integer/Text",
+          "parent": null,
+          "inverse_of": null,
+          "score": -7.2624,
+          "matched_anchor": null,
+          "comment": "An ordinal attribute indicating the sequential position of an item within a series or list. Also called order, rank, sequence number, index. Examples: A list item has a position of '1'. A chapter in a book has a position of 'Chapter 3'. A search result has a position of '5'.",
+          "embed_score": 0.789,
+          "embed_rank": 7
+        }
+      ]
+    },
+    {
+      "relation_phrase": "made decision",
+      "definition": "To reach a conclusion or make a choice after considering various options.",
+      "embedding_query_text": "made decision: To reach a conclusion or make a choice after considering various options.",
+      "observed_signatures": [
+        "Thing → SportsTeam"
+      ],
+      "n_assignments": 1,
+      "assignments": [
+        {
+          "instances": [
+            "Gianni Infantino -> Inter Miami"
+          ],
+          "chosen_property": {
+            "label": "madeDecision",
+            "source": "vocab",
+            "direction": "as_is",
+            "vocab_id": "P0136",
+            "is_new_to_vocab": true,
+            "definition": "To reach a conclusion or make a choice after considering various options.",
+            "parent": null,
+            "domain": [
+              "Thing"
+            ],
+            "range": [
+              "SportsTeam"
+            ],
+            "path": "",
+            "justification": "No existing schema.org property fits."
+          },
+          "llm_proposed": {
+            "source": "new",
+            "label": "madeDecision",
+            "is_new": true,
+            "direction": "as_is"
+          }
+        }
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "actionOption",
+          "signature": "ChooseAction → Text/Thing",
+          "parent": "object",
+          "inverse_of": null,
+          "score": -3.1131,
+          "matched_anchor": null,
+          "comment": "An action option relation between a choose action and the available choices or alternatives. Also called choice alternatives, selection options, available choices. Examples: \"A 'choose color' action's action option is 'red'.\", \"A 'select size' action's action option is 'large'.\"",
+          "embed_score": 0.812,
+          "embed_rank": 5
+        },
+        {
+          "source": "schema.org",
+          "label": "option",
+          "signature": "ChooseAction → Text/Thing",
+          "parent": "object",
+          "inverse_of": null,
+          "score": -3.9128,
+          "matched_anchor": null,
+          "comment": "A text or thing representing an option available for a choose action. Also called choice, alternative, selection. Examples: \"Choose Meal Action option 'Chicken'\", \"Choose Color Action option 'Blue'\", \"Choose Destination Action option 'Paris'\". Distinct from object, which is the general item acted upon.",
+          "embed_score": 0.836,
+          "embed_rank": 1
+        },
+        {
+          "source": "schema.org",
+          "label": "suggestedAnswer",
+          "signature": "Question → Answer/ItemList",
+          "parent": null,
+          "inverse_of": null,
+          "score": -6.7412,
+          "matched_anchor": null,
+          "comment": "A proposed response or set of responses to a question. Also called \"possible answer\", \"proposed solution\", \"answer option\", \"response to question\". Examples: \"The question has suggestedAnswer 'Yes'\", \"The quiz question's suggestedAnswer is a multiple-choice list\", \"This question provides a suggestedAnswer for users.\"",
+          "embed_score": 0.823,
+          "embed_rank": 2
+        },
+        {
+          "source": "schema.org",
+          "label": "acceptedAnswer",
+          "signature": "Question → Answer/ItemList",
+          "parent": "suggestedAnswer",
+          "inverse_of": null,
+          "score": -7.8382,
+          "matched_anchor": null,
+          "comment": "An accepted answer relation between a question and the answer(s) deemed best or most appropriate. Also called best answer, chosen solution, preferred response. Examples: \"A forum question's accepted answer is 'Use a screwdriver'.\", \"A quiz question's accepted answer is 'Option B'.\"",
+          "embed_score": 0.799,
+          "embed_rank": 9
+        },
+        {
+          "source": "schema.org",
+          "label": "possibleTreatment",
+          "signature": "MedicalCondition/MedicalSignOrSymptom → Drug/DrugClass/LifestyleModification/MedicalTherapy",
+          "parent": null,
+          "inverse_of": null,
+          "score": -8.587,
+          "matched_anchor": null,
+          "comment": "A medical attribute indicating a potential treatment, drug, or therapy to address a medical condition, sign, or symptom. Also called potential therapy, recommended treatment, intervention option. Examples: A medical condition has a possible treatment of 'antibiotics'. A symptom has a possible treatment of 'pain relievers'. Hypertension has a possible treatment of 'lifestyle modification'.",
+          "embed_score": 0.806,
+          "embed_rank": 7
+        },
+        {
+          "source": "schema.org",
+          "label": "endTime",
+          "signature": "Action/FoodEstablishmentReservation/InteractionCounter/MediaObject/Schedule → DateTime/Time",
+          "parent": null,
+          "inverse_of": null,
+          "score": -9.0953,
+          "matched_anchor": null,
+          "comment": "An end time relation between an item (such as an action, reservation, or media object) and the time it is expected to conclude or when a clip ends. Also called \"conclusion time\", \"finish time\", \"closing time\". Examples: \"Reservation 'Dinner' endTime '20:00'\", \"Action 'Meeting' endTime '17:00'\", \"Media clip endTime '00:02:30'\". Distinct from endDate, which specifies the end date for longer-term items like events or seasons.",
+          "embed_score": 0.783,
+          "embed_rank": 14
+        },
+        {
+          "source": "schema.org",
+          "label": "endDate",
+          "signature": "CreativeWorkSeason/CreativeWorkSeries/DatedMoneySpecification/EducationalOccupationalProgram/Event/MerchantReturnPolicySeasonalOverride/Role/Schedule → Date/DateTime",
+          "parent": null,
+          "inverse_of": null,
+          "score": -9.9598,
+          "matched_anchor": null,
+          "comment": "An end date relation between an item (such as a season, event, or schedule) and the date and time when it concludes. Also called \"conclusion date\", \"finish date\", \"termination date\". Examples: \"Event 'Conference' endDate '2023-10-27'\", \"Creative work season endDate '2024-05-31'\", \"Role 'Project Manager' endDate '2025-12-31'\". Distinct from endTime, which specifies the end time within a single day or for a clip.",
+          "embed_score": 0.776,
+          "embed_rank": 26
+        },
+        {
+          "source": "schema.org",
+          "label": "returnMethod",
+          "signature": "MerchantReturnPolicy/MerchantReturnPolicySeasonalOverride → ReturnMethodEnumeration",
+          "parent": null,
+          "inverse_of": null,
+          "score": -10.0377,
+          "matched_anchor": null,
+          "comment": "The available method for returning a product, chosen from a predefined set of options. Also called return procedure, return channel, method of return. Examples: `Standard Return Policy` returnMethod `ReturnByMail`, `Retailer Return Policy` returnMethod `ReturnInStore`, `Online Store Policy` returnMethod `ReturnAtCounter`.",
+          "embed_score": 0.781,
+          "embed_rank": 16
+        },
+        {
+          "source": "schema.org",
+          "label": "expertConsiderations",
+          "signature": "Diet → Text",
+          "parent": null,
+          "inverse_of": null,
+          "score": -10.2227,
+          "matched_anchor": null,
+          "comment": "An expert considerations relation between a diet and the medical expert advice pertinent to that dietary plan. Also called: medical advice, professional guidance, health warnings. Examples: \"Keto Diet\" expert considerations \"Consult a doctor if you have kidney issues\", \"Vegan Diet\" expert considerations \"Ensure adequate B12 supplementation\", \"Low-Sodium Diet\" expert considerations \"Monitor blood pressure regularly\".",
+          "embed_score": 0.789,
+          "embed_rank": 10
+        },
+        {
+          "source": "schema.org",
+          "label": "resultReview",
+          "signature": "ReviewAction → Review",
+          "parent": "result",
+          "inverse_of": null,
+          "score": -10.5153,
+          "matched_anchor": null,
+          "comment": "The specific review created as the outcome of a review action. Also called generated review, review outcome, produced review. Examples: `ReviewAction on Product` resultReview `Customer's Product Review`, `ReviewAction on Movie` resultReview `Critic's Movie Review`, `ReviewAction on Service` resultReview `User Service Feedback`. Distinct from `result`, which is a general outcome of any action.",
+          "embed_score": 0.817,
+          "embed_rank": 4
+        }
+      ]
+    },
+    {
+      "relation_phrase": "investigated by",
+      "definition": null,
+      "embedding_query_text": "investigated by:",
+      "observed_signatures": [
+        "SportsTeam → NewsMediaOrganization"
+      ],
+      "n_assignments": 1,
+      "assignments": [
+        {
+          "instances": [
+            "Argentina -> BBC Sport"
+          ],
+          "chosen_property": {
+            "label": "investigatedBy",
+            "source": "vocab",
+            "direction": "as_is",
+            "vocab_id": "P0137",
+            "is_new_to_vocab": true,
+            "definition": "To be the subject of an investigation by an organization or entity.",
+            "parent": null,
+            "domain": [
+              "SportsTeam"
+            ],
+            "range": [
+              "NewsMediaOrganization"
+            ],
+            "path": "",
+            "justification": "No existing schema.org property fits."
+          },
+          "llm_proposed": {
+            "source": "new",
+            "label": "investigatedBy",
+            "is_new": true,
+            "direction": "as_is"
+          }
+        }
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "study",
+          "signature": "MedicalEntity → MedicalStudy",
+          "parent": null,
+          "inverse_of": null,
+          "score": 4.0388,
+          "matched_anchor": null,
+          "comment": "A relation between a medical entity and a medical study or trial that investigates it. Also called \"related study\", \"investigated by study\", \"medical trial\". Examples: \"The drug has study a clinical trial\", \"The medical condition is part of a study\", \"This therapy is being evaluated in a study.\"",
+          "embed_score": 0.81,
+          "embed_rank": 1
+        },
+        {
+          "source": "schema.org",
+          "label": "studySubject",
+          "signature": "MedicalStudy → MedicalEntity",
+          "parent": null,
+          "inverse_of": null,
+          "score": 0.2996,
+          "matched_anchor": null,
+          "comment": "An investigative relation between a medical study and the medical entity (condition, therapy, drug, etc.) that is being investigated. Also called \"subject of investigation\", \"research focus\", \"entity studied\", \"trial subject\". Examples: \"The medical study has studySubject a new drug\", \"The clinical trial's studySubject is a specific medical condition\", \"This study investigates a studySubject therapy.\"",
+          "embed_score": 0.8,
+          "embed_rank": 2
+        },
+        {
+          "source": "schema.org",
+          "label": "legislationPassedBy",
+          "signature": "Legislation → Organization/Person",
+          "parent": "creator",
+          "inverse_of": null,
+          "score": -6.1417,
+          "matched_anchor": null,
+          "comment": "A passing authority relation between a piece of legislation and the organization or person that originally enacted it. Also called: enacted by, made by, legislated by. Examples: \"Primary Legislation legislationPassedBy Parliament\", \"Secondary Legislation legislationPassedBy Government\", \"Local Bylaw legislationPassedBy City Council\". Distinct from legislationResponsible, which refers to the ministry or individual in charge of elaborating or addressing questions about the legislation.",
+          "embed_score": 0.756,
+          "embed_rank": 22
+        },
+        {
+          "source": "schema.org",
+          "label": "publishedBy",
+          "signature": "PublicationEvent → Organization/Person",
+          "parent": null,
+          "inverse_of": null,
+          "score": -6.2245,
+          "matched_anchor": null,
+          "comment": "A publisher relation between a publication event and the organization or person responsible for it. Also called published by, issued by, released by. Examples: \"A book's publication event was published by 'Penguin Random House'.\", \"A journal article's publication event was published by 'Elsevier'.\", \"A blog post's publication event was published by 'Jane Doe'.\". Distinct from publisher, which refers to the publisher of the creative work itself.",
+          "embed_score": 0.765,
+          "embed_rank": 11
+        },
+        {
+          "source": "schema.org",
+          "label": "claimInterpreter",
+          "signature": "Claim → Organization/Person",
+          "parent": null,
+          "inverse_of": null,
+          "score": -6.6205,
+          "matched_anchor": null,
+          "comment": "An interpretation relation between a claim and the organization or person who interpreted it from media content. Also called \"interpreted by\", \"claim analyst\", \"fact-checker\". Examples: \"News claim claimInterpreter FactCheck.org\", \"Social media claim claimInterpreter Jane Doe\".",
+          "embed_score": 0.753,
+          "embed_rank": 32
+        },
+        {
+          "source": "schema.org",
+          "label": "cause",
+          "signature": "MedicalCondition → MedicalCause",
+          "parent": null,
+          "inverse_of": "causeOf",
+          "score": -7.0326,
+          "matched_anchor": null,
+          "comment": "A causal relation between a medical condition and its medical cause. Also called \"etiology\", \"origin\", \"caused by\". Examples: \"Flu medical condition cause Influenza virus\", \"Heart attack medical condition cause Coronary artery disease\". Distinct from causeOf, which describes what a medical cause leads to, whereas cause describes what leads to a condition.",
+          "embed_score": 0.752,
+          "embed_rank": 38
+        },
+        {
+          "source": "schema.org",
+          "label": "legislationCountersignedBy",
+          "signature": "Legislation → Organization/Person",
+          "parent": null,
+          "inverse_of": null,
+          "score": -7.058,
+          "matched_anchor": null,
+          "comment": "A countersignature relation between a piece of legislation and the person or organization that countersigned it. Also called: countersigned by, officially endorsed by, co-signed by. Examples: \"The Bill of Rights legislationCountersignedBy President Washington\", \"EU Directive 2023/45 legislationCountersignedBy European Commission\", \"Local Ordinance legislationCountersignedBy City Clerk\".",
+          "embed_score": 0.759,
+          "embed_rank": 18
+        },
+        {
+          "source": "schema.org",
+          "label": "byArtist",
+          "signature": "MusicAlbum/MusicRecording → MusicGroup/Person",
+          "parent": null,
+          "inverse_of": null,
+          "score": -7.2212,
+          "matched_anchor": null,
+          "comment": "A performance relation between a music album or recording and the music group or person who performed it. Also called \"performed by\", \"artist of\", \"featuring artist\". Examples: \"Album 'Thriller' byArtist Michael Jackson\", \"Recording 'Bohemian Rhapsody' byArtist Queen\". Distinct from composer, which is the person who wrote the music, whereas byArtist is the performer.",
+          "embed_score": 0.75,
+          "embed_rank": 42
+        },
+        {
+          "source": "schema.org",
+          "label": "issuedBy",
+          "signature": "Certification/Permit/Ticket → Organization",
+          "parent": null,
+          "inverse_of": null,
+          "score": -7.2972,
+          "matched_anchor": null,
+          "comment": "An issuing authority relation between a certification, permit, or ticket and the organization that granted or provided it. Also called granted by, provided by, authorized by, issuer. Examples: A driver's license is issuedBy 'Department of Motor Vehicles'. A concert ticket is issuedBy 'Ticketmaster'. A professional certification is issuedBy 'Certification Body X'.",
+          "embed_score": 0.749,
+          "embed_rank": 48
+        },
+        {
+          "source": "schema.org",
+          "label": "affectedBy",
+          "signature": "MedicalTest → Drug",
+          "parent": null,
+          "inverse_of": null,
+          "score": -7.3414,
+          "matched_anchor": null,
+          "comment": "An affected by relation between a medical test and the drugs that can influence its results. Also called influenced by, impacted by, drug interaction. Examples: \"A blood test's results are affected by 'anticoagulants'.\", \"The diagnostic test is affected by 'caffeine'.\"",
+          "embed_score": 0.776,
+          "embed_rank": 6
+        }
+      ]
+    },
+    {
+      "relation_phrase": "governing body of",
+      "definition": null,
+      "embedding_query_text": "governing body of:",
+      "observed_signatures": [
+        "SportsOrganization → SportsTeam"
+      ],
+      "n_assignments": 1,
+      "assignments": [
+        {
+          "instances": [
+            "Fifa -> Argentina"
+          ],
+          "chosen_property": {
+            "label": "parentOrganization",
+            "source": "schema.org",
+            "direction": "inverse",
+            "vocab_id": null,
+            "is_new_to_vocab": false,
+            "definition": null,
+            "parent": null,
+            "domain": null,
+            "range": null,
+            "path": "",
+            "justification": "Flipped to inverse to match the property's direction."
+          },
+          "llm_proposed": {
+            "source": "schema.org",
+            "label": "parentOrganization",
+            "is_new": false,
+            "direction": "inverse"
+          }
+        }
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "parentOrganization",
+          "signature": "Organization → Organization",
+          "parent": null,
+          "inverse_of": "subOrganization",
+          "score": -8.674,
+          "matched_anchor": null,
+          "comment": "A hierarchical relation between an organization and the larger organization it belongs to. Also called belongs to, is a division of, is a subsidiary of, is part of. Examples: Google is a parent organization of YouTube. A local branch is a parent organization of its national headquarters. A department is a parent organization of its university. Distinct from subOrganization, which points from a larger organization to its smaller components.",
+          "embed_score": 0.76,
+          "embed_rank": 40
+        },
+        {
+          "source": "schema.org",
+          "label": "legalStatus",
+          "signature": "DietarySupplement/Drug/MedicalEntity → DrugLegalStatus/MedicalEnumeration/Text",
+          "parent": null,
+          "inverse_of": null,
+          "score": -8.8444,
+          "matched_anchor": null,
+          "comment": "A regulatory status relation between a dietary supplement, drug, or medical entity and its legal classification, including controlled substance schedules. Also called regulatory status, legal classification, controlled substance status, drug schedule. Examples: A drug has a legalStatus of 'PrescriptionOnly'. A dietary supplement has a legalStatus of 'OverTheCounter'. A medication has a legalStatus of 'Schedule II controlled substance'. Distinct from drugClass, which is a medical classification, not a legal one.",
+          "embed_score": 0.761,
+          "embed_rank": 33
+        },
+        {
+          "source": "schema.org",
+          "label": "memberOf",
+          "signature": "Organization/Person → MemberProgramTier/Organization/ProgramMembership",
+          "parent": null,
+          "inverse_of": "member",
+          "score": -8.8604,
+          "matched_anchor": null,
+          "comment": "A membership relation between an organization or person and the organization or program membership they belong to. Also called: belongs to, is a member of, affiliated with. Examples: \"John Doe memberOf 'Local Sports Club'\", \"Acme Corp memberOf 'Industry Association'\", \"Jane Smith memberOf 'Premium Membership Tier'\". Distinct from member, which expresses the inverse relationship.",
+          "embed_score": 0.793,
+          "embed_rank": 1
+        },
+        {
+          "source": "schema.org",
+          "label": "members",
+          "signature": "Organization/ProgramMembership → Organization/Person",
+          "parent": null,
+          "inverse_of": null,
+          "score": -9.0222,
+          "matched_anchor": null,
+          "comment": "A member relation between an organization or program membership and an organization or person belonging to it. Also called: includes members, comprises, consists of. Examples: \"Club Organization members John Doe\", \"Team ProgramMembership members Jane Smith\", \"Alliance Organization members Partner Company\". Distinct from member, which is a singular form and essentially the same concept.",
+          "embed_score": 0.776,
+          "embed_rank": 6
+        },
+        {
+          "source": "schema.org",
+          "label": "member",
+          "signature": "Organization/ProgramMembership → Organization/Person",
+          "parent": null,
+          "inverse_of": "memberOf",
+          "score": -9.6475,
+          "matched_anchor": null,
+          "comment": "A member relation between an organization or program membership and an organization or person belonging to it. Also called: belongs to, is a part of, participant in. Examples: \"Club Organization member John Doe\", \"Team ProgramMembership member Jane Smith\", \"Alliance Organization member Partner Company\". Distinct from memberOf, which expresses the inverse relationship.",
+          "embed_score": 0.784,
+          "embed_rank": 3
+        },
+        {
+          "source": "schema.org",
+          "label": "subOrganization",
+          "signature": "Organization → Organization",
+          "parent": null,
+          "inverse_of": "parentOrganization",
+          "score": -10.1503,
+          "matched_anchor": null,
+          "comment": "A hierarchical relation between a parent organization and a smaller organization that is a part of it, such as a subsidiary. Also called \"subsidiary\", \"division\", \"affiliated organization\", \"part of organization\". Examples: \"Google has subOrganization YouTube\", \"The university's subOrganization is the Computer Science Department\", \"This company owns several subOrganization entities.\". Distinct from department, which is a more specific type of sub-organization.",
+          "embed_score": 0.764,
+          "embed_rank": 27
+        },
+        {
+          "source": "schema.org",
+          "label": "recognizedBy",
+          "signature": "Credential → Organization",
+          "parent": null,
+          "inverse_of": null,
+          "score": -10.1856,
+          "matched_anchor": null,
+          "comment": "A recognition relation between a credential and the organization that acknowledges its validity or value. Also called accredited by, validated by, acknowledged by. Examples: \"A university degree is recognized by 'the Ministry of Education'.\", \"A professional certification is recognized by 'an industry association'.\", \"A medical license is recognized by 'the Medical Board'.\"",
+          "embed_score": 0.76,
+          "embed_rank": 38
+        },
+        {
+          "source": "schema.org",
+          "label": "broadcaster",
+          "signature": "BroadcastService → Organization",
+          "parent": null,
+          "inverse_of": null,
+          "score": -10.1865,
+          "matched_anchor": null,
+          "comment": "An ownership or operational relation between a broadcast service and the organization responsible for it. Also called \"service provider\", \"operated by\", \"owned by\", \"broadcast by\". Examples: \"BBC Radio 4 broadcaster BBC\", \"CNN broadcast service broadcaster Warner Bros. Discovery\".",
+          "embed_score": 0.76,
+          "embed_rank": 36
+        },
+        {
+          "source": "schema.org",
+          "label": "nonprofitStatus",
+          "signature": "Organization → NonprofitType",
+          "parent": null,
+          "inverse_of": null,
+          "score": -10.2235,
+          "matched_anchor": null,
+          "comment": "The legal nonprofit status of an organization in its primary place of business. Also called charitable status, tax-exempt status, non-profit classification. Examples: \"Charity A nonprofitStatus 'Nonprofit501c3'\", \"Foundation B nonprofitStatus 'NonprofitType.Nonprofit501c4'\", \"Association C nonprofitStatus 'NonprofitType.Nonprofit501c6'\".",
+          "embed_score": 0.769,
+          "embed_rank": 12
+        },
+        {
+          "source": "schema.org",
+          "label": "recognizingAuthority",
+          "signature": "MedicalEntity → Organization",
+          "parent": null,
+          "inverse_of": null,
+          "score": -10.23,
+          "matched_anchor": null,
+          "comment": "A recognizing authority relation between a medical entity and the organization that officially endorses it within a system of medicine. Also called endorsed by, officially recognized by. Examples: \"A medical treatment is recognized by 'the World Health Organization'.\", \"A medical specialty is recognized by 'the American Medical Association'.\", \"A traditional medicine practice is recognized by 'a national health ministry'.\"",
+          "embed_score": 0.765,
+          "embed_rank": 23
+        }
+      ]
+    },
+    {
+      "relation_phrase": "president of",
+      "definition": null,
+      "embedding_query_text": "president of:",
+      "observed_signatures": [
+        "Thing → SportsOrganization"
+      ],
+      "n_assignments": 1,
+      "assignments": [
+        {
+          "instances": [
+            "Gianni Infantino -> Fifa"
+          ],
+          "chosen_property": {
+            "label": "presidentOf",
+            "source": "vocab",
+            "direction": "as_is",
+            "vocab_id": "P0084",
+            "is_new_to_vocab": false,
+            "definition": "To hold the office of president in an organization.",
+            "parent": null,
+            "domain": [
+              "Person"
+            ],
+            "range": [
+              "Organization"
+            ],
+            "path": "",
+            "justification": "No existing schema.org property fits."
+          },
+          "llm_proposed": {
+            "source": "new",
+            "label": "presidentOf",
+            "is_new": true,
+            "direction": "as_is"
+          }
+        }
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "alumniOf",
+          "signature": "Person → EducationalOrganization/Organization",
+          "parent": null,
+          "inverse_of": "alumni",
+          "score": -9.1894,
+          "matched_anchor": null,
+          "comment": "An alumni of relation between a person and an educational organization or organization they are a former student or member of. Also called graduated from, formerly attended, past affiliation. Examples: \"A person is alumni of 'MIT'.\", \"John Doe is alumni of 'Boy Scouts of America'.\" Distinct from alumni, which describes the inverse relationship (organization to person).",
+          "embed_score": 0.778,
+          "embed_rank": 4
+        },
+        {
+          "source": "schema.org",
+          "label": "founders",
+          "signature": "Organization → Person",
+          "parent": null,
+          "inverse_of": null,
+          "score": -9.2873,
+          "matched_anchor": null,
+          "comment": "A founders relation between an organization and the people who established it. Also called: co-founders, creators, originators. Examples: \"Google\" founders \"Larry Page, Sergey Brin\", \"Apple Inc.\" founders \"Steve Jobs, Steve Wozniak, Ronald Wayne\", \"Microsoft\" founders \"Bill Gates, Paul Allen\". Distinct from founder, which can be a single person or organization.",
+          "embed_score": 0.755,
+          "embed_rank": 30
+        },
+        {
+          "source": "schema.org",
+          "label": "alumni",
+          "signature": "EducationalOrganization/Organization → Person",
+          "parent": null,
+          "inverse_of": "alumniOf",
+          "score": -9.6376,
+          "matched_anchor": null,
+          "comment": "An alumni relation between an educational organization or organization and a person who is a former student or member. Also called former student, graduate, past member. Examples: \"A university's alumni include 'Jane Doe'.\", \"The club's alumni include 'John Smith'.\" Distinct from alumniOf, which describes the inverse relationship (person to organization).",
+          "embed_score": 0.773,
+          "embed_rank": 6
+        },
+        {
+          "source": "schema.org",
+          "label": "founder",
+          "signature": "Organization → Organization/Person",
+          "parent": null,
+          "inverse_of": null,
+          "score": -9.649,
+          "matched_anchor": null,
+          "comment": "A founder relation between an organization and the person or organization that established it. Also called: established by, created by, initiated by. Examples: \"Microsoft\" founder \"Bill Gates\", \"Apple Inc.\" founder \"Steve Jobs\", \"Google\" founder \"Larry Page\". Distinct from founders, which is specifically for multiple people.",
+          "embed_score": 0.768,
+          "embed_rank": 13
+        },
+        {
+          "source": "schema.org",
+          "label": "memberOf",
+          "signature": "Organization/Person → MemberProgramTier/Organization/ProgramMembership",
+          "parent": null,
+          "inverse_of": "member",
+          "score": -9.8571,
+          "matched_anchor": null,
+          "comment": "A membership relation between an organization or person and the organization or program membership they belong to. Also called: belongs to, is a member of, affiliated with. Examples: \"John Doe memberOf 'Local Sports Club'\", \"Acme Corp memberOf 'Industry Association'\", \"Jane Smith memberOf 'Premium Membership Tier'\". Distinct from member, which expresses the inverse relationship.",
+          "embed_score": 0.782,
+          "embed_rank": 1
+        },
+        {
+          "source": "schema.org",
+          "label": "members",
+          "signature": "Organization/ProgramMembership → Organization/Person",
+          "parent": null,
+          "inverse_of": null,
+          "score": -10.2371,
+          "matched_anchor": null,
+          "comment": "A member relation between an organization or program membership and an organization or person belonging to it. Also called: includes members, comprises, consists of. Examples: \"Club Organization members John Doe\", \"Team ProgramMembership members Jane Smith\", \"Alliance Organization members Partner Company\". Distinct from member, which is a singular form and essentially the same concept.",
+          "embed_score": 0.769,
+          "embed_rank": 10
+        },
+        {
+          "source": "schema.org",
+          "label": "member",
+          "signature": "Organization/ProgramMembership → Organization/Person",
+          "parent": null,
+          "inverse_of": "memberOf",
+          "score": -10.2435,
+          "matched_anchor": null,
+          "comment": "A member relation between an organization or program membership and an organization or person belonging to it. Also called: belongs to, is a part of, participant in. Examples: \"Club Organization member John Doe\", \"Team ProgramMembership member Jane Smith\", \"Alliance Organization member Partner Company\". Distinct from memberOf, which expresses the inverse relationship.",
+          "embed_score": 0.78,
+          "embed_rank": 3
+        },
+        {
+          "source": "schema.org",
+          "label": "musicGroupMember",
+          "signature": "MusicGroup → Person",
+          "parent": null,
+          "inverse_of": null,
+          "score": -10.3123,
+          "matched_anchor": null,
+          "comment": "A person who is a member of a music group. Also called band member, group member, musician in group. Examples: \"The Beatles musicGroupMember 'John Lennon'\", \"Queen musicGroupMember 'Freddie Mercury'\", \"Fleetwood Mac musicGroupMember 'Stevie Nicks'\". Distinct from member, which is a general property for any organization.",
+          "embed_score": 0.766,
+          "embed_rank": 15
+        },
+        {
+          "source": "schema.org",
+          "label": "athlete",
+          "signature": "SportsTeam → Person",
+          "parent": null,
+          "inverse_of": null,
+          "score": -10.3261,
+          "matched_anchor": null,
+          "comment": "A person who is a performing member of a sports team. Also called: player, team member, sportsman/sportswoman. Examples: \"SportsTeam 'Lakers' athlete 'LeBron James'\", \"SportsTeam 'Red Sox' athlete 'Mookie Betts'\", \"SportsTeam 'National Team' athlete 'Megan Rapinoe'\". Distinct from coach, which is a non-playing role.",
+          "embed_score": 0.756,
+          "embed_rank": 26
+        },
+        {
+          "source": "schema.org",
+          "label": "owns",
+          "signature": "Organization/Person → Thing",
+          "parent": null,
+          "inverse_of": "owner",
+          "score": -10.3382,
+          "matched_anchor": null,
+          "comment": "A thing that is owned by an organization or person. Also called possesses, holds title to, has ownership of. Examples: \"John Doe owns 'a car'\", \"Acme Corp owns 'a patent'\", \"Sarah owns 'her house'\". Distinct from memberOf, which describes membership in a group.",
+          "embed_score": 0.762,
+          "embed_rank": 19
+        }
+      ]
+    }
+  ]
+}

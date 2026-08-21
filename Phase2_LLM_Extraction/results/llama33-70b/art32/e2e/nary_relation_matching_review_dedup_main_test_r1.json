@@ -1,0 +1,2715 @@
+{
+  "article_id": "art32",
+  "match_model": "intfloat/e5-base-v2",
+  "expand_mode": true,
+  "relations": [
+    {
+      "relation_phrase": "plays against",
+      "definition": "To compete against an opponent in a game or match.",
+      "embedding_query_text": "plays against: To compete against an opponent in a game or match.",
+      "observed_signatures": [
+        "SportsTeam → SportsTeam"
+      ],
+      "n_assignments": 1,
+      "assignments": [
+        {
+          "instances": [
+            "France -> England"
+          ],
+          "chosen_property": {
+            "label": "opponentOf",
+            "source": "vocab",
+            "direction": "as_is",
+            "vocab_id": "P0153",
+            "is_new_to_vocab": true,
+            "definition": "A team that is competing against another team in a game or match.",
+            "parent": "competitor",
+            "domain": [
+              "SportsTeam"
+            ],
+            "range": [
+              "SportsTeam"
+            ],
+            "path": "competitor",
+            "justification": "No existing property fits the relation between two sports teams."
+          },
+          "llm_proposed": {
+            "source": "new",
+            "label": "opponentOf",
+            "is_new": true,
+            "direction": "as_is"
+          }
+        }
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "opponent",
+          "signature": "ExerciseAction → Person",
+          "parent": "participant",
+          "inverse_of": null,
+          "score": 1.6902,
+          "matched_anchor": null,
+          "comment": "A person who is an opponent in an exercise action. Also called adversary, competitor, rival. Examples: \"Boxing Match opponent 'Mike Tyson'\", \"Chess Game opponent 'Deep Blue'\", \"Tennis Match opponent 'Serena Williams'\". Distinct from participant, which is a general participant.",
+          "embed_score": 0.848,
+          "embed_rank": 1
+        },
+        {
+          "source": "schema.org",
+          "label": "competitor",
+          "signature": "SportsEvent → Person/SportsTeam",
+          "parent": null,
+          "inverse_of": null,
+          "score": -1.3564,
+          "matched_anchor": null,
+          "comment": "A participation relation in a sports event, indicating a person or sports team that is competing. Also called \"participant\", \"opponent\", \"rival\". Examples: \"Olympic race sports event competitor Usain Bolt\", \"Football match sports event competitor Manchester United\".",
+          "embed_score": 0.844,
+          "embed_rank": 2
+        },
+        {
+          "source": "schema.org",
+          "label": "awayTeam",
+          "signature": "SportsEvent → Person/SportsTeam",
+          "parent": "competitor",
+          "inverse_of": null,
+          "score": -3.1895,
+          "matched_anchor": null,
+          "comment": "A person or sports team designated as the away team in a sports event. Also called: visiting team, opponent. Examples: \"SportsEvent 'Football Match' awayTeam 'Team B'\", \"SportsEvent 'Basketball Game' awayTeam 'Lakers'\". Distinct from homeTeam, which is the team playing at their home venue.",
+          "embed_score": 0.792,
+          "embed_rank": 7
+        },
+        {
+          "source": "schema.org",
+          "label": "loser",
+          "signature": "WinAction → Person",
+          "parent": "participant",
+          "inverse_of": null,
+          "score": -4.1451,
+          "matched_anchor": null,
+          "comment": "A losing participant relation between a win action and the person who lost. Also called: defeated participant, vanquished, runner-up. Examples: \"Chess Match WinAction loser Opponent B\", \"Race WinAction loser Second Place Runner\", \"Debate WinAction loser Team B\".",
+          "embed_score": 0.803,
+          "embed_rank": 4
+        },
+        {
+          "source": "schema.org",
+          "label": "sport",
+          "signature": "SportsEvent/SportsOrganization → Text/URL",
+          "parent": null,
+          "inverse_of": null,
+          "score": -5.0294,
+          "matched_anchor": null,
+          "comment": "An identification of the type of sport associated with a sports event or organization. Also called \"sport type\", \"athletic discipline\", \"game played\". Examples: \"The event's sport is Basketball\", \"The organization's sport is Soccer\", \"This competition features the sport of Gymnastics.\"",
+          "embed_score": 0.808,
+          "embed_rank": 3
+        },
+        {
+          "source": "schema.org",
+          "label": "game",
+          "signature": "GameServer → VideoGame",
+          "parent": null,
+          "inverse_of": "gameServer",
+          "score": -6.4266,
+          "matched_anchor": null,
+          "comment": "A game relation between a game server and the video game that is hosted and played on it. Also called: hosted game, server game, game played. Examples: \"Minecraft Server\" game \"Minecraft\", \"World of Warcraft Realm\" game \"World of Warcraft\", \"CS:GO Server\" game \"Counter-Strike: Global Offensive\".",
+          "embed_score": 0.801,
+          "embed_rank": 5
+        },
+        {
+          "source": "schema.org",
+          "label": "playMode",
+          "signature": "VideoGame/VideoGameSeries → GamePlayMode",
+          "parent": null,
+          "inverse_of": null,
+          "score": -6.5663,
+          "matched_anchor": null,
+          "comment": "A descriptive attribute indicating the supported gameplay modes for a video game or series, such as single-player, multi-player, or co-op. Also called game mode, player configuration, gameplay style. Examples: A video game has a play mode of 'SinglePlayer'. A video game has a play mode of 'MultiPlayer'. A video game has a play mode of 'CoOp'.",
+          "embed_score": 0.781,
+          "embed_rank": 14
+        },
+        {
+          "source": "schema.org",
+          "label": "winner",
+          "signature": "LoseAction → Person",
+          "parent": "participant",
+          "inverse_of": null,
+          "score": -7.7307,
+          "matched_anchor": null,
+          "comment": "A winner relation between a losing action and the person who won it. Also called victor, triumphant participant, successful party. Examples: ChessMatchLoseAction winner Alice, RaceLoseAction winner Bob, CompetitionLoseAction winner Charlie.",
+          "embed_score": 0.773,
+          "embed_rank": 19
+        },
+        {
+          "source": "schema.org",
+          "label": "numberOfPlayers",
+          "signature": "Game/VideoGameSeries → QuantitativeValue",
+          "parent": null,
+          "inverse_of": null,
+          "score": -7.8269,
+          "matched_anchor": null,
+          "comment": "The number of people who can play a game or video game series, often expressed as a minimum, maximum, or range. Also called player count, game capacity, participant number. Examples: \"Board Game X numberOfPlayers '2-4'\", \"Video Game Y numberOfPlayers '1 (single-player)'\", \"Online Game Z numberOfPlayers '100 (max)'\".",
+          "embed_score": 0.794,
+          "embed_rank": 6
+        },
+        {
+          "source": "schema.org",
+          "label": "referee",
+          "signature": "SportsEvent → Person",
+          "parent": null,
+          "inverse_of": null,
+          "score": -8.7565,
+          "matched_anchor": null,
+          "comment": "A referee relation between a sports event and the person officiating it to enforce rules. Also called officiated by, umpire, judge. Examples: \"A football match has a referee 'Pierluigi Collina'.\", \"A tennis match has a referee 'Eva Asderaki-Moore'.\", \"A basketball game has a referee 'Joey Crawford'.\"",
+          "embed_score": 0.789,
+          "embed_rank": 9
+        }
+      ]
+    },
+    {
+      "relation_phrase": "coached by",
+      "definition": "To be trained and managed by a coach.",
+      "embedding_query_text": "coached by: To be trained and managed by a coach.",
+      "observed_signatures": [
+        "SportsTeam → Thing"
+      ],
+      "n_assignments": 1,
+      "assignments": [
+        {
+          "instances": [
+            "France -> Didier Deschamps"
+          ],
+          "chosen_property": {
+            "label": "coach",
+            "source": "schema.org",
+            "direction": "inverse",
+            "vocab_id": null,
+            "is_new_to_vocab": false,
+            "definition": null,
+            "parent": null,
+            "domain": null,
+            "range": null,
+            "path": "",
+            "justification": "Flipped to inverse to match the subject-object order."
+          },
+          "llm_proposed": {
+            "source": "schema.org",
+            "label": "coach",
+            "is_new": false,
+            "direction": "inverse"
+          }
+        }
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "coach",
+          "signature": "SportsTeam → Person",
+          "parent": null,
+          "inverse_of": null,
+          "score": 3.7965,
+          "matched_anchor": null,
+          "comment": "A leadership relation between a sports team and the person who acts as its coach. Also called \"team coach\", \"trainer\", \"manager\". Examples: \"Basketball team coach John Smith\", \"Soccer team coach Jane Doe\".",
+          "embed_score": 0.868,
+          "embed_rank": 1
+        },
+        {
+          "source": "schema.org",
+          "label": "athlete",
+          "signature": "SportsTeam → Person",
+          "parent": null,
+          "inverse_of": null,
+          "score": -7.8792,
+          "matched_anchor": null,
+          "comment": "A person who is a performing member of a sports team. Also called: player, team member, sportsman/sportswoman. Examples: \"SportsTeam 'Lakers' athlete 'LeBron James'\", \"SportsTeam 'Red Sox' athlete 'Mookie Betts'\", \"SportsTeam 'National Team' athlete 'Megan Rapinoe'\". Distinct from coach, which is a non-playing role.",
+          "embed_score": 0.766,
+          "embed_rank": 11
+        },
+        {
+          "source": "schema.org",
+          "label": "instructor",
+          "signature": "CourseInstance → Person",
+          "parent": null,
+          "inverse_of": null,
+          "score": -9.8128,
+          "matched_anchor": null,
+          "comment": "An instructional role relation between a course instance and the person who teaches or assists in teaching it. Also called teacher, lecturer, tutor, educator, faculty. Examples: A calculus course instance has 'Dr. Smith' as its instructor. A yoga class has 'Jane Doe' as its instructor. A coding bootcamp lists 'John Johnson' as an instructor.",
+          "embed_score": 0.763,
+          "embed_rank": 13
+        },
+        {
+          "source": "schema.org",
+          "label": "trainingSalary",
+          "signature": "EducationalOccupationalProgram/WorkBasedProgram → MonetaryAmountDistribution",
+          "parent": null,
+          "inverse_of": null,
+          "score": -10.7669,
+          "matched_anchor": null,
+          "comment": "A training salary relation between an educational or work-based program and the estimated earnings during the program. Also called program salary, stipend, apprenticeship wage. Examples: \"WorkBasedProgram trainingSalary '$25,000/year'\", \"EducationalOccupationalProgram trainingSalary '€1500/month'\", \"Apprenticeship trainingSalary '$12/hour'\".",
+          "embed_score": 0.782,
+          "embed_rank": 2
+        },
+        {
+          "source": "schema.org",
+          "label": "skills",
+          "signature": "JobPosting/Occupation/Organization/Person → DefinedTerm/Text",
+          "parent": null,
+          "inverse_of": null,
+          "score": -10.7842,
+          "matched_anchor": null,
+          "comment": "The competencies, knowledge, or abilities possessed by a person or organization, or required for a job or occupation. Also called competencies, abilities, qualifications, expertise. Examples: `Job Posting: Software Engineer` skills `\"Python, Java, SQL\"`, `Person: Jane Doe` skills `\"Project Management, Public Speaking\"`, `Occupation: Doctor` skills `\"Diagnosis, Patient Care\"`. Distinct from `qualifications`, which are formal requirements.",
+          "embed_score": 0.76,
+          "embed_rank": 18
+        },
+        {
+          "source": "schema.org",
+          "label": "directors",
+          "signature": "Clip/Episode/Movie/MovieSeries/RadioSeries/TVSeries/VideoGame/VideoGameSeries/VideoObject → Person",
+          "parent": null,
+          "inverse_of": null,
+          "score": -10.9927,
+          "matched_anchor": null,
+          "comment": "A creative leadership relation between a clip, episode, movie, or video game and the persons who directed it. Also called: directed by, filmmakers, showrunners. Examples: \"Movie\" directors \"Joel Coen, Ethan Coen\", \"TV Episode\" directors \"Various Directors\", \"Video Game\" directors \"Hideo Kojima, Yoji Shinkawa\". Distinct from director, which is a singular property for a single director.",
+          "embed_score": 0.757,
+          "embed_rank": 29
+        },
+        {
+          "source": "schema.org",
+          "label": "competencyRequired",
+          "signature": "EducationalOccupationalCredential/LearningResource → DefinedTerm/Text/URL",
+          "parent": null,
+          "inverse_of": null,
+          "score": -10.9958,
+          "matched_anchor": null,
+          "comment": "A requirement relation for an educational credential or learning resource, specifying the knowledge, skill, or ability needed. Also called \"required skill\", \"prerequisite competency\", \"learning outcome\". Examples: \"Certification competencyRequired 'Problem-solving skills'\", \"Course learning resource competencyRequired 'Basic algebra'\".",
+          "embed_score": 0.752,
+          "embed_rank": 49
+        },
+        {
+          "source": "schema.org",
+          "label": "exercisePlan",
+          "signature": "ExerciseAction → ExercisePlan",
+          "parent": "instrument",
+          "inverse_of": null,
+          "score": -11.0004,
+          "matched_anchor": null,
+          "comment": "An exercise plan relation between an exercise action and the specific plan or routine followed during the action. Also called: workout routine, training regimen, fitness program. Examples: \"Morning Run\" exercise plan \"Couch to 5K Plan\", \"Weightlifting Session\" exercise plan \"StrongLifts 5x5\", \"Yoga Practice\" exercise plan \"Beginner Vinyasa Flow\".",
+          "embed_score": 0.756,
+          "embed_rank": 34
+        },
+        {
+          "source": "schema.org",
+          "label": "sport",
+          "signature": "SportsEvent/SportsOrganization → Text/URL",
+          "parent": null,
+          "inverse_of": null,
+          "score": -11.0309,
+          "matched_anchor": null,
+          "comment": "An identification of the type of sport associated with a sports event or organization. Also called \"sport type\", \"athletic discipline\", \"game played\". Examples: \"The event's sport is Basketball\", \"The organization's sport is Soccer\", \"This competition features the sport of Gymnastics.\"",
+          "embed_score": 0.77,
+          "embed_rank": 8
+        },
+        {
+          "source": "schema.org",
+          "label": "referee",
+          "signature": "SportsEvent → Person",
+          "parent": null,
+          "inverse_of": null,
+          "score": -11.0321,
+          "matched_anchor": null,
+          "comment": "A referee relation between a sports event and the person officiating it to enforce rules. Also called officiated by, umpire, judge. Examples: \"A football match has a referee 'Pierluigi Collina'.\", \"A tennis match has a referee 'Eva Asderaki-Moore'.\", \"A basketball game has a referee 'Joey Crawford'.\"",
+          "embed_score": 0.773,
+          "embed_rank": 3
+        }
+      ]
+    },
+    {
+      "relation_phrase": "leaves after",
+      "definition": "To depart or leave a position or role after a certain event or period.",
+      "embedding_query_text": "leaves after: To depart or leave a position or role after a certain event or period.",
+      "observed_signatures": [
+        "Thing → SportsEvent"
+      ],
+      "n_assignments": 1,
+      "assignments": [
+        {
+          "instances": [
+            "Didier Deschamps -> France vs England"
+          ],
+          "chosen_property": {
+            "label": "leavesAfter",
+            "source": "vocab",
+            "direction": "as_is",
+            "vocab_id": "P0154",
+            "is_new_to_vocab": true,
+            "definition": "To depart or leave a position or role after a certain event or period.",
+            "parent": null,
+            "domain": [
+              "Thing"
+            ],
+            "range": [
+              "SportsEvent"
+            ],
+            "path": "",
+            "justification": "No existing property fits the relation between a person and an event."
+          },
+          "llm_proposed": {
+            "source": "new",
+            "label": "leavesAfter",
+            "is_new": true,
+            "direction": "as_is"
+          }
+        }
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "departureTime",
+          "signature": "Trip → DateTime/Time",
+          "parent": null,
+          "inverse_of": null,
+          "score": -5.176,
+          "matched_anchor": null,
+          "comment": "A temporal event relation between a trip and its expected departure time. Also called: scheduled departure, leaving time, takeoff time. Examples: \"Flight\" departure time \"2023-11-01T08:00:00Z\", \"Bus Trip\" departure time \"14:30:00\", \"Train Journey\" departure time \"2023-12-25T10:00:00\". Distinct from arrivalTime, which is the expected arrival time.",
+          "embed_score": 0.806,
+          "embed_rank": 4
+        },
+        {
+          "source": "schema.org",
+          "label": "endDate",
+          "signature": "CreativeWorkSeason/CreativeWorkSeries/DatedMoneySpecification/EducationalOccupationalProgram/Event/MerchantReturnPolicySeasonalOverride/Role/Schedule → Date/DateTime",
+          "parent": null,
+          "inverse_of": null,
+          "score": -6.31,
+          "matched_anchor": null,
+          "comment": "An end date relation between an item (such as a season, event, or schedule) and the date and time when it concludes. Also called \"conclusion date\", \"finish date\", \"termination date\". Examples: \"Event 'Conference' endDate '2023-10-27'\", \"Creative work season endDate '2024-05-31'\", \"Role 'Project Manager' endDate '2025-12-31'\". Distinct from endTime, which specifies the end time within a single day or for a clip.",
+          "embed_score": 0.82,
+          "embed_rank": 1
+        },
+        {
+          "source": "schema.org",
+          "label": "afterMedia",
+          "signature": "HowToDirection → MediaObject/URL",
+          "parent": null,
+          "inverse_of": null,
+          "score": -6.7575,
+          "matched_anchor": null,
+          "comment": "An after media relation between a how-to direction and a media object or URL depicting the state or circumstances after completing that step. Also called post-step media, result image, outcome visual. Examples: \"A recipe direction's after media is an image of the mixed ingredients.\", \"The assembly instruction's after media is a video of the connected parts.\"",
+          "embed_score": 0.799,
+          "embed_rank": 7
+        },
+        {
+          "source": "schema.org",
+          "label": "duration",
+          "signature": "Audiobook/Episode/Event/MediaObject/Movie/MusicRecording/MusicRelease/QuantitativeValueDistribution/Schedule/ServicePeriod → Duration/QuantitativeValue",
+          "parent": null,
+          "inverse_of": null,
+          "score": -7.6163,
+          "matched_anchor": null,
+          "comment": "A duration relation between an item (such as an event, media object, or schedule) and its length of time. Also called \"length\", \"time span\", \"period\". Examples: \"Movie 'Avatar' duration 'PT2H42M'\", \"Event 'Concert' duration 'PT3H'\", \"Audio recording duration 'PT5M30S'\". Distinct from durationOfWarranty, which is specifically about warranty length.",
+          "embed_score": 0.784,
+          "embed_rank": 24
+        },
+        {
+          "source": "schema.org",
+          "label": "departurePlatform",
+          "signature": "TrainTrip → Text",
+          "parent": null,
+          "inverse_of": null,
+          "score": -7.6692,
+          "matched_anchor": null,
+          "comment": "An identification relation between a train trip and the platform from which it departs. Also called: platform number, train platform, departure track. Examples: \"Train to Paris\" departure platform \"Platform 5\", \"Commuter Train\" departure platform \"Track 3\". Distinct from arrivalPlatform, which is the arrival platform.",
+          "embed_score": 0.789,
+          "embed_rank": 14
+        },
+        {
+          "source": "schema.org",
+          "label": "departureStation",
+          "signature": "TrainTrip → TrainStation",
+          "parent": null,
+          "inverse_of": null,
+          "score": -7.6875,
+          "matched_anchor": null,
+          "comment": "A geographical origin relation between a train trip and the station from which it departs. Also called: origin train station, departure rail station, train departure point. Examples: \"Train to Paris\" departure station \"London St Pancras International\", \"Commuter Train\" departure station \"Grand Central Terminal\". Distinct from arrivalStation, which is the destination station.",
+          "embed_score": 0.789,
+          "embed_rank": 16
+        },
+        {
+          "source": "schema.org",
+          "label": "monthsOfExperience",
+          "signature": "OccupationalExperienceRequirements → Number",
+          "parent": null,
+          "inverse_of": null,
+          "score": -7.9918,
+          "matched_anchor": null,
+          "comment": "A required number of months of experience for an occupational role. Also called experience duration, minimum experience, required experience in months. Examples: \"Software Engineer Role monthsOfExperience 24\", \"Marketing Manager Position monthsOfExperience 60\", \"Entry-level Job monthsOfExperience 0\".",
+          "embed_score": 0.78,
+          "embed_rank": 40
+        },
+        {
+          "source": "schema.org",
+          "label": "departureBusStop",
+          "signature": "BusTrip → BusStation/BusStop",
+          "parent": null,
+          "inverse_of": null,
+          "score": -8.0572,
+          "matched_anchor": null,
+          "comment": "A geographical origin relation between a bus trip and the stop or station from which it departs. Also called: origin bus stop, departure bus station, bus departure point. Examples: \"Bus Route 101\" departure bus stop \"Central Bus Station\", \"Intercity Bus\" departure bus stop \"Port Authority Bus Terminal\". Distinct from arrivalBusStop, which is the destination stop.",
+          "embed_score": 0.792,
+          "embed_rank": 11
+        },
+        {
+          "source": "schema.org",
+          "label": "departureBoatTerminal",
+          "signature": "BoatTrip → BoatTerminal",
+          "parent": null,
+          "inverse_of": null,
+          "score": -8.6094,
+          "matched_anchor": null,
+          "comment": "A geographical origin relation between a boat trip and the terminal or port from which it departs. Also called: origin boat terminal, departure port, ferry terminal. Examples: \"Ferry Trip\" departure boat terminal \"Dover Ferry Terminal\", \"Cruise\" departure boat terminal \"PortMiami\". Distinct from arrivalBoatTerminal, which is the destination terminal.",
+          "embed_score": 0.796,
+          "embed_rank": 9
+        },
+        {
+          "source": "schema.org",
+          "label": "startDate",
+          "signature": "CreativeWorkSeason/CreativeWorkSeries/DatedMoneySpecification/EducationalOccupationalProgram/Event/MerchantReturnPolicySeasonalOverride/Role/Schedule → Date/DateTime",
+          "parent": null,
+          "inverse_of": null,
+          "score": -8.913,
+          "matched_anchor": null,
+          "comment": "A temporal marker indicating the beginning date and time of an item, such as an event, program, or season. Also called \"beginning date\", \"commencement date\", \"start time\", \"effective date\". Examples: \"The event has startDate 2023-10-26\", \"The program's startDate is September 1st\", \"This role's startDate was last Monday.\". Distinct from dateCreated, which indicates when a creative work was first made.",
+          "embed_score": 0.79,
+          "embed_rank": 13
+        }
+      ]
+    },
+    {
+      "relation_phrase": "plays for",
+      "definition": "To be a member of a team or organization.",
+      "embedding_query_text": "plays for: To be a member of a team or organization.",
+      "observed_signatures": [
+        "Person → SportsTeam"
+      ],
+      "n_assignments": 1,
+      "assignments": [
+        {
+          "instances": [
+            "Kylian Mbappe -> France",
+            "Harry Kane -> England",
+            "Jude Bellingham -> England"
+          ],
+          "chosen_property": {
+            "label": "athlete",
+            "source": "schema.org",
+            "direction": "inverse",
+            "vocab_id": null,
+            "is_new_to_vocab": false,
+            "definition": null,
+            "parent": null,
+            "domain": null,
+            "range": null,
+            "path": "",
+            "justification": "Flipped to inverse to match the subject-object order."
+          },
+          "llm_proposed": {
+            "source": "schema.org",
+            "label": "athlete",
+            "is_new": false,
+            "direction": "inverse"
+          }
+        }
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "member",
+          "signature": "Organization/ProgramMembership → Organization/Person",
+          "parent": null,
+          "inverse_of": "memberOf",
+          "score": 0.6727,
+          "matched_anchor": null,
+          "comment": "A member relation between an organization or program membership and an organization or person belonging to it. Also called: belongs to, is a part of, participant in. Examples: \"Club Organization member John Doe\", \"Team ProgramMembership member Jane Smith\", \"Alliance Organization member Partner Company\". Distinct from memberOf, which expresses the inverse relationship.",
+          "embed_score": 0.801,
+          "embed_rank": 7
+        },
+        {
+          "source": "schema.org",
+          "label": "members",
+          "signature": "Organization/ProgramMembership → Organization/Person",
+          "parent": null,
+          "inverse_of": null,
+          "score": 0.2258,
+          "matched_anchor": null,
+          "comment": "A member relation between an organization or program membership and an organization or person belonging to it. Also called: includes members, comprises, consists of. Examples: \"Club Organization members John Doe\", \"Team ProgramMembership members Jane Smith\", \"Alliance Organization members Partner Company\". Distinct from member, which is a singular form and essentially the same concept.",
+          "embed_score": 0.783,
+          "embed_rank": 21
+        },
+        {
+          "source": "schema.org",
+          "label": "roleName",
+          "signature": "Role → Text/URL",
+          "parent": null,
+          "inverse_of": null,
+          "score": -1.1386,
+          "matched_anchor": null,
+          "comment": "The specific designation or title of a role performed by a person or organization. Also called role title, position name, function name. Examples: `Person in Movie` roleName `\"Actor\"`, `Team Member` roleName `\"Quarterback\"`, `Project Contributor` roleName `\"Lead Developer\"`.",
+          "embed_score": 0.78,
+          "embed_rank": 27
+        },
+        {
+          "source": "schema.org",
+          "label": "athlete",
+          "signature": "SportsTeam → Person",
+          "parent": null,
+          "inverse_of": null,
+          "score": -1.2726,
+          "matched_anchor": null,
+          "comment": "A person who is a performing member of a sports team. Also called: player, team member, sportsman/sportswoman. Examples: \"SportsTeam 'Lakers' athlete 'LeBron James'\", \"SportsTeam 'Red Sox' athlete 'Mookie Betts'\", \"SportsTeam 'National Team' athlete 'Megan Rapinoe'\". Distinct from coach, which is a non-playing role.",
+          "embed_score": 0.844,
+          "embed_rank": 1
+        },
+        {
+          "source": "schema.org",
+          "label": "affiliation",
+          "signature": "Person → Organization",
+          "parent": "memberOf",
+          "inverse_of": null,
+          "score": -1.7825,
+          "matched_anchor": null,
+          "comment": "An affiliation relation between a person and an organization they are associated with. Also called associated with, member of, works for, belongs to. Examples: \"A professor's affiliation is 'Harvard University'.\", \"A player's affiliation is 'Local Soccer Club'.\" Distinct from alumniOf, which specifies a past association with an educational organization.",
+          "embed_score": 0.793,
+          "embed_rank": 12
+        },
+        {
+          "source": "schema.org",
+          "label": "sport",
+          "signature": "SportsEvent/SportsOrganization → Text/URL",
+          "parent": null,
+          "inverse_of": null,
+          "score": -2.0506,
+          "matched_anchor": null,
+          "comment": "An identification of the type of sport associated with a sports event or organization. Also called \"sport type\", \"athletic discipline\", \"game played\". Examples: \"The event's sport is Basketball\", \"The organization's sport is Soccer\", \"This competition features the sport of Gymnastics.\"",
+          "embed_score": 0.824,
+          "embed_rank": 3
+        },
+        {
+          "source": "schema.org",
+          "label": "memberOf",
+          "signature": "Organization/Person → MemberProgramTier/Organization/ProgramMembership",
+          "parent": null,
+          "inverse_of": "member",
+          "score": -2.0602,
+          "matched_anchor": null,
+          "comment": "A membership relation between an organization or person and the organization or program membership they belong to. Also called: belongs to, is a member of, affiliated with. Examples: \"John Doe memberOf 'Local Sports Club'\", \"Acme Corp memberOf 'Industry Association'\", \"Jane Smith memberOf 'Premium Membership Tier'\". Distinct from member, which expresses the inverse relationship.",
+          "embed_score": 0.797,
+          "embed_rank": 10
+        },
+        {
+          "source": "schema.org",
+          "label": "hasMemberProgram",
+          "signature": "Organization → MemberProgram",
+          "parent": null,
+          "inverse_of": null,
+          "score": -2.3863,
+          "matched_anchor": null,
+          "comment": "A member program relation between an organization and a member program it offers. Also called offers program, loyalty program, membership program. Examples: \"An airline has a member program for frequent flyers.\", \"An eCommerce merchant has a member program for discounts.\", \"The organization offers a member program.\"",
+          "embed_score": 0.773,
+          "embed_rank": 41
+        },
+        {
+          "source": "schema.org",
+          "label": "numberedPosition",
+          "signature": "OrganizationRole → Number",
+          "parent": null,
+          "inverse_of": null,
+          "score": -2.4192,
+          "matched_anchor": null,
+          "comment": "A number associated with an organization role, such as an athlete's jersey number. Also called role number, position number, identifier number. Examples: \"Athlete Role numberedPosition 23\", \"Team Member Role numberedPosition 7\", \"Employee Role numberedPosition 101\". Distinct from namedPosition, which is a textual name for a role.",
+          "embed_score": 0.785,
+          "embed_rank": 18
+        },
+        {
+          "source": "schema.org",
+          "label": "namedPosition",
+          "signature": "Role → Text/URL",
+          "parent": null,
+          "inverse_of": null,
+          "score": -2.4426,
+          "matched_anchor": null,
+          "comment": "A specific named position or role played by a person or organization within a larger organization. Also called role name, position title, job title. Examples: \"Athlete Role namedPosition 'Quarterback'\", \"Employee Role namedPosition 'Senior Software Engineer'\", \"Board Member Role namedPosition 'Treasurer'\". Distinct from roleName, which is a more general description of a role.",
+          "embed_score": 0.776,
+          "embed_rank": 35
+        }
+      ]
+    },
+    {
+      "relation_phrase": "competes with",
+      "definition": "To rival or contend with someone or something.",
+      "embedding_query_text": "competes with: To rival or contend with someone or something.",
+      "observed_signatures": [
+        "Person → Person"
+      ],
+      "n_assignments": 1,
+      "assignments": [
+        {
+          "instances": [
+            "Kylian Mbappe -> Lionel Messi"
+          ],
+          "chosen_property": {
+            "label": "competitor",
+            "source": "schema.org",
+            "direction": "as_is",
+            "vocab_id": null,
+            "is_new_to_vocab": false,
+            "definition": null,
+            "parent": null,
+            "domain": null,
+            "range": null,
+            "path": "",
+            "justification": "The property fits the relation between two persons competing."
+          },
+          "llm_proposed": {
+            "source": "schema.org",
+            "label": "competitor",
+            "is_new": false,
+            "direction": "as_is"
+          }
+        }
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "competitor",
+          "signature": "SportsEvent → Person/SportsTeam",
+          "parent": null,
+          "inverse_of": null,
+          "score": 4.0038,
+          "matched_anchor": null,
+          "comment": "A participation relation in a sports event, indicating a person or sports team that is competing. Also called \"participant\", \"opponent\", \"rival\". Examples: \"Olympic race sports event competitor Usain Bolt\", \"Football match sports event competitor Manchester United\".",
+          "embed_score": 0.869,
+          "embed_rank": 1
+        },
+        {
+          "source": "schema.org",
+          "label": "opponent",
+          "signature": "ExerciseAction → Person",
+          "parent": "participant",
+          "inverse_of": null,
+          "score": 2.6124,
+          "matched_anchor": null,
+          "comment": "A person who is an opponent in an exercise action. Also called adversary, competitor, rival. Examples: \"Boxing Match opponent 'Mike Tyson'\", \"Chess Game opponent 'Deep Blue'\", \"Tennis Match opponent 'Serena Williams'\". Distinct from participant, which is a general participant.",
+          "embed_score": 0.856,
+          "embed_rank": 2
+        },
+        {
+          "source": "schema.org",
+          "label": "loser",
+          "signature": "WinAction → Person",
+          "parent": "participant",
+          "inverse_of": null,
+          "score": -4.7524,
+          "matched_anchor": null,
+          "comment": "A losing participant relation between a win action and the person who lost. Also called: defeated participant, vanquished, runner-up. Examples: \"Chess Match WinAction loser Opponent B\", \"Race WinAction loser Second Place Runner\", \"Debate WinAction loser Team B\".",
+          "embed_score": 0.787,
+          "embed_rank": 4
+        },
+        {
+          "source": "schema.org",
+          "label": "winner",
+          "signature": "LoseAction → Person",
+          "parent": "participant",
+          "inverse_of": null,
+          "score": -5.1768,
+          "matched_anchor": null,
+          "comment": "A winner relation between a losing action and the person who won it. Also called victor, triumphant participant, successful party. Examples: ChessMatchLoseAction winner Alice, RaceLoseAction winner Bob, CompetitionLoseAction winner Charlie.",
+          "embed_score": 0.766,
+          "embed_rank": 7
+        },
+        {
+          "source": "schema.org",
+          "label": "differentialDiagnosis",
+          "signature": "MedicalCondition → DDxElement",
+          "parent": null,
+          "inverse_of": null,
+          "score": -5.1786,
+          "matched_anchor": null,
+          "comment": "A diagnostic comparison relation between a medical condition and one of a set of closely-related or competing diagnoses. Also called: competing diagnosis, alternative diagnosis, diagnostic possibilities. Examples: \"Headache\" differential diagnosis \"Migraine\", \"Chest Pain\" differential diagnosis \"Heartburn\", \"Fever\" differential diagnosis \"Influenza\". Distinct from diagnosis, which is the final identified condition.",
+          "embed_score": 0.752,
+          "embed_rank": 34
+        },
+        {
+          "source": "schema.org",
+          "label": "isSimilarTo",
+          "signature": "Product/Service → Product/Service",
+          "parent": null,
+          "inverse_of": null,
+          "score": -7.0299,
+          "matched_anchor": null,
+          "comment": "A functional resemblance relation between two products or services that share similar characteristics or purposes. Also called similar to, comparable to, analogous to, like. Examples: Product A isSimilarTo 'Product B' (a competitor's product). Service X isSimilarTo 'Service Y' (an alternative service). A specific brand of coffee isSimilarTo 'another brand of coffee'. Distinct from isRelatedTo, which is a more general association without implying functional similarity.",
+          "embed_score": 0.774,
+          "embed_rank": 5
+        },
+        {
+          "source": "schema.org",
+          "label": "awayTeam",
+          "signature": "SportsEvent → Person/SportsTeam",
+          "parent": "competitor",
+          "inverse_of": null,
+          "score": -7.1529,
+          "matched_anchor": null,
+          "comment": "A person or sports team designated as the away team in a sports event. Also called: visiting team, opponent. Examples: \"SportsEvent 'Football Match' awayTeam 'Team B'\", \"SportsEvent 'Basketball Game' awayTeam 'Lakers'\". Distinct from homeTeam, which is the team playing at their home venue.",
+          "embed_score": 0.765,
+          "embed_rank": 9
+        },
+        {
+          "source": "schema.org",
+          "label": "colleagues",
+          "signature": "Person → Person",
+          "parent": null,
+          "inverse_of": null,
+          "score": -7.7305,
+          "matched_anchor": null,
+          "comment": "A professional relation between a person and other persons who are their colleagues. Also called \"co-workers\", \"associates\", \"professional peers\". Examples: \"John colleagues [Jane, Peter]\", \"Mary colleagues [Sarah, Tom]\". Distinct from colleague, which is a singular form, though semantically similar.",
+          "embed_score": 0.757,
+          "embed_rank": 21
+        },
+        {
+          "source": "schema.org",
+          "label": "athlete",
+          "signature": "SportsTeam → Person",
+          "parent": null,
+          "inverse_of": null,
+          "score": -7.7857,
+          "matched_anchor": null,
+          "comment": "A person who is a performing member of a sports team. Also called: player, team member, sportsman/sportswoman. Examples: \"SportsTeam 'Lakers' athlete 'LeBron James'\", \"SportsTeam 'Red Sox' athlete 'Mookie Betts'\", \"SportsTeam 'National Team' athlete 'Megan Rapinoe'\". Distinct from coach, which is a non-playing role.",
+          "embed_score": 0.761,
+          "embed_rank": 17
+        },
+        {
+          "source": "schema.org",
+          "label": "sport",
+          "signature": "SportsEvent/SportsOrganization → Text/URL",
+          "parent": null,
+          "inverse_of": null,
+          "score": -8.1388,
+          "matched_anchor": null,
+          "comment": "An identification of the type of sport associated with a sports event or organization. Also called \"sport type\", \"athletic discipline\", \"game played\". Examples: \"The event's sport is Basketball\", \"The organization's sport is Soccer\", \"This competition features the sport of Gymnastics.\"",
+          "embed_score": 0.762,
+          "embed_rank": 12
+        }
+      ]
+    },
+    {
+      "relation_phrase": "coaches",
+      "definition": "To train and manage a team or athlete.",
+      "embedding_query_text": "coaches: To train and manage a team or athlete.",
+      "observed_signatures": [
+        "Thing → SportsTeam"
+      ],
+      "n_assignments": 1,
+      "assignments": [
+        {
+          "instances": [
+            "Thomas Tuchel -> England"
+          ],
+          "chosen_property": {
+            "label": "coach",
+            "source": "schema.org",
+            "direction": "as_is",
+            "vocab_id": null,
+            "is_new_to_vocab": false,
+            "definition": null,
+            "parent": null,
+            "domain": null,
+            "range": null,
+            "path": "",
+            "justification": "The property fits the relation between a coach and a team."
+          },
+          "llm_proposed": {
+            "source": "schema.org",
+            "label": "coach",
+            "is_new": false,
+            "direction": "as_is"
+          }
+        }
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "coach",
+          "signature": "SportsTeam → Person",
+          "parent": null,
+          "inverse_of": null,
+          "score": 6.6003,
+          "matched_anchor": null,
+          "comment": "A leadership relation between a sports team and the person who acts as its coach. Also called \"team coach\", \"trainer\", \"manager\". Examples: \"Basketball team coach John Smith\", \"Soccer team coach Jane Doe\".",
+          "embed_score": 0.905,
+          "embed_rank": 1
+        },
+        {
+          "source": "schema.org",
+          "label": "athlete",
+          "signature": "SportsTeam → Person",
+          "parent": null,
+          "inverse_of": null,
+          "score": 1.4403,
+          "matched_anchor": null,
+          "comment": "A person who is a performing member of a sports team. Also called: player, team member, sportsman/sportswoman. Examples: \"SportsTeam 'Lakers' athlete 'LeBron James'\", \"SportsTeam 'Red Sox' athlete 'Mookie Betts'\", \"SportsTeam 'National Team' athlete 'Megan Rapinoe'\". Distinct from coach, which is a non-playing role.",
+          "embed_score": 0.817,
+          "embed_rank": 2
+        },
+        {
+          "source": "schema.org",
+          "label": "sportsTeam",
+          "signature": "ExerciseAction → SportsTeam",
+          "parent": "participant",
+          "inverse_of": null,
+          "score": -6.183,
+          "matched_anchor": null,
+          "comment": "A participation relation between an exercise action and the sports team involved in it. Also called \"team participated\", \"team involved\", \"athletic team\". Examples: \"The goal was scored by the sportsTeam Real Madrid\", \"The race involved sportsTeam Team USA\", \"This action was performed by a sportsTeam.\". Distinct from participant, which is a more general participant property.",
+          "embed_score": 0.803,
+          "embed_rank": 4
+        },
+        {
+          "source": "schema.org",
+          "label": "gender",
+          "signature": "Person/SportsTeam → GenderType/Text",
+          "parent": null,
+          "inverse_of": null,
+          "score": -7.56,
+          "matched_anchor": null,
+          "comment": "A gender relation between a person or sports team and their gender identity or classification. Also called: sex, gender identity, team gender. Examples: \"John Doe\" gender \"Male\", \"Jane Smith\" gender \"Female\", \"Mixed Doubles Team\" gender \"Mixed\".",
+          "embed_score": 0.757,
+          "embed_rank": 28
+        },
+        {
+          "source": "schema.org",
+          "label": "sport",
+          "signature": "SportsEvent/SportsOrganization → Text/URL",
+          "parent": null,
+          "inverse_of": null,
+          "score": -7.6637,
+          "matched_anchor": null,
+          "comment": "An identification of the type of sport associated with a sports event or organization. Also called \"sport type\", \"athletic discipline\", \"game played\". Examples: \"The event's sport is Basketball\", \"The organization's sport is Soccer\", \"This competition features the sport of Gymnastics.\"",
+          "embed_score": 0.804,
+          "embed_rank": 3
+        },
+        {
+          "source": "schema.org",
+          "label": "homeTeam",
+          "signature": "SportsEvent → Person/SportsTeam",
+          "parent": "competitor",
+          "inverse_of": null,
+          "score": -7.8765,
+          "matched_anchor": null,
+          "comment": "A home team relation between a sports event and the team or person designated as the home participant. Also called host team, home side, local team. Examples: \"A sports event has a home team 'Lions'.\", \"The match features a home team.\", \"This event's home team is a specific person.\"",
+          "embed_score": 0.783,
+          "embed_rank": 8
+        },
+        {
+          "source": "schema.org",
+          "label": "awayTeam",
+          "signature": "SportsEvent → Person/SportsTeam",
+          "parent": "competitor",
+          "inverse_of": null,
+          "score": -7.9295,
+          "matched_anchor": null,
+          "comment": "A person or sports team designated as the away team in a sports event. Also called: visiting team, opponent. Examples: \"SportsEvent 'Football Match' awayTeam 'Team B'\", \"SportsEvent 'Basketball Game' awayTeam 'Lakers'\". Distinct from homeTeam, which is the team playing at their home venue.",
+          "embed_score": 0.802,
+          "embed_rank": 5
+        },
+        {
+          "source": "schema.org",
+          "label": "competitor",
+          "signature": "SportsEvent → Person/SportsTeam",
+          "parent": null,
+          "inverse_of": null,
+          "score": -8.3676,
+          "matched_anchor": null,
+          "comment": "A participation relation in a sports event, indicating a person or sports team that is competing. Also called \"participant\", \"opponent\", \"rival\". Examples: \"Olympic race sports event competitor Usain Bolt\", \"Football match sports event competitor Manchester United\".",
+          "embed_score": 0.785,
+          "embed_rank": 7
+        },
+        {
+          "source": "schema.org",
+          "label": "sportsActivityLocation",
+          "signature": "ExerciseAction → SportsActivityLocation",
+          "parent": "location",
+          "inverse_of": null,
+          "score": -9.3288,
+          "matched_anchor": null,
+          "comment": "A specific location relation between an exercise action and the sports activity venue where it took place. Also called \"exercise location\", \"training venue\", \"athletic facility\", \"gym location\". Examples: \"The run had sportsActivityLocation Central Park\", \"The workout's sportsActivityLocation was the local gym\", \"This exercise action took place at a sportsActivityLocation stadium.\". Distinct from location, which is a more general location property.",
+          "embed_score": 0.768,
+          "embed_rank": 16
+        },
+        {
+          "source": "schema.org",
+          "label": "exercisePlan",
+          "signature": "ExerciseAction → ExercisePlan",
+          "parent": "instrument",
+          "inverse_of": null,
+          "score": -9.6621,
+          "matched_anchor": null,
+          "comment": "An exercise plan relation between an exercise action and the specific plan or routine followed during the action. Also called: workout routine, training regimen, fitness program. Examples: \"Morning Run\" exercise plan \"Couch to 5K Plan\", \"Weightlifting Session\" exercise plan \"StrongLifts 5x5\", \"Yoga Practice\" exercise plan \"Beginner Vinyasa Flow\".",
+          "embed_score": 0.752,
+          "embed_rank": 41
+        }
+      ]
+    },
+    {
+      "relation_phrase": "reports on",
+      "definition": "To provide information or news about something.",
+      "embedding_query_text": "reports on: To provide information or news about something.",
+      "observed_signatures": [
+        "NewsMediaOrganization → SportsEvent"
+      ],
+      "n_assignments": 1,
+      "assignments": [
+        {
+          "instances": [
+            "Al Jazeera -> France vs England"
+          ],
+          "chosen_property": {
+            "label": "about",
+            "source": "schema.org",
+            "direction": "inverse",
+            "vocab_id": null,
+            "is_new_to_vocab": false,
+            "definition": null,
+            "parent": null,
+            "domain": null,
+            "range": null,
+            "path": "",
+            "justification": "Flipped to inverse to match the subject-object order, and it fits the relation between a news organization and an event."
+          },
+          "llm_proposed": {
+            "source": "schema.org",
+            "label": "about",
+            "is_new": false,
+            "direction": "inverse"
+          }
+        }
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "dateline",
+          "signature": "NewsArticle → Text",
+          "parent": null,
+          "inverse_of": null,
+          "score": -2.2189,
+          "matched_anchor": null,
+          "comment": "A textual origin relation between a news article and the brief text describing where and when the story was written or filed. Also called: news origin, article origin, reporting location. Examples: \"News Report\" dateline \"BEIRUT, Lebanon, June 2.\", \"Article\" dateline \"Paris, France\", \"Dispatch\" dateline \"December 19, 2017 11:43AM Reporting from Washington\". Distinct from locationCreated, which is a structured representation of the creation location.",
+          "embed_score": 0.806,
+          "embed_rank": 5
+        },
+        {
+          "source": "schema.org",
+          "label": "newsUpdatesAndGuidelines",
+          "signature": "SpecialAnnouncement → URL/WebContent",
+          "parent": null,
+          "inverse_of": null,
+          "score": -3.0996,
+          "matched_anchor": null,
+          "comment": "A URL or web content providing news updates and guidelines related to a special announcement. Also called updates page, guidelines link, news and guidance. Examples: \"COVID-19 Announcement newsUpdatesAndGuidelines 'https://example.com/covid-updates'\", \"Emergency Alert newsUpdatesAndGuidelines 'https://gov.example.org/emergency-guidelines'\", \"Product Recall newsUpdatesAndGuidelines 'https://company.com/recall-info'\".",
+          "embed_score": 0.809,
+          "embed_rank": 4
+        },
+        {
+          "source": "schema.org",
+          "label": "reportNumber",
+          "signature": "Report → Text",
+          "parent": null,
+          "inverse_of": null,
+          "score": -4.8071,
+          "matched_anchor": null,
+          "comment": "A report number relation between a report and the unique identifier assigned by its publisher. Also called report ID, document number. Examples: \"A financial report has a report number 'FY2023-Q4'.\", \"A technical report has a report number 'TR-001-2024'.\", \"A government report has a report number 'GAO-24-123'.\"",
+          "embed_score": 0.798,
+          "embed_rank": 14
+        },
+        {
+          "source": "schema.org",
+          "label": "associatedArticle",
+          "signature": "MediaObject → NewsArticle",
+          "parent": null,
+          "inverse_of": null,
+          "score": -4.963,
+          "matched_anchor": null,
+          "comment": "A news article linked to a media object. Also called: related article, accompanying article, news story link. Examples: \"MediaObject 'Video of Protest' associatedArticle 'NewsArticle on Protest'\", \"MediaObject 'Photo of Event' associatedArticle 'Article about Event'.\"",
+          "embed_score": 0.815,
+          "embed_rank": 2
+        },
+        {
+          "source": "schema.org",
+          "label": "diseasePreventionInfo",
+          "signature": "SpecialAnnouncement → URL/WebContent",
+          "parent": null,
+          "inverse_of": null,
+          "score": -5.8781,
+          "matched_anchor": null,
+          "comment": "A disease prevention information relation between a special announcement and a URL or web content providing details about disease prevention. Also called \"prevention guidelines\", \"health advice\". Examples: \"Special announcement diseasePreventionInfo 'cdc.gov/prevention'\", \"Public health alert diseasePreventionInfo 'WebContent on handwashing'\", \"COVID-19 update diseasePreventionInfo 'who.int/prevention'\".",
+          "embed_score": 0.785,
+          "embed_rank": 41
+        },
+        {
+          "source": "schema.org",
+          "label": "mentions",
+          "signature": "CreativeWork → Thing",
+          "parent": null,
+          "inverse_of": null,
+          "score": -5.9597,
+          "matched_anchor": null,
+          "comment": "A mention relation between a creative work and a thing it references without necessarily being about. Also called: references, alludes to, cites. Examples: \"News Article mentions 'Climate Change'\", \"Book mentions 'Historical Event'\", \"Speech mentions 'Famous Person'\". Distinct from about, which indicates the primary topic of the creative work.",
+          "embed_score": 0.796,
+          "embed_rank": 16
+        },
+        {
+          "source": "schema.org",
+          "label": "diversityStaffingReport",
+          "signature": "NewsMediaOrganization/Organization → Article/URL",
+          "parent": "publishingPrinciples",
+          "inverse_of": null,
+          "score": -6.1434,
+          "matched_anchor": null,
+          "comment": "A diversity staffing report relation between an organization (e.g., news media) and an article or URL containing a report on staffing diversity issues. Also called \"staff diversity report\", \"workforce diversity data\", \"inclusion metrics report\". Examples: \"News media organization diversityStaffingReport 'Article on newsroom diversity'\", \"Company diversityStaffingReport 'URL to annual diversity report'\", \"Organization diversityStaffingReport 'Self-reported staffing data'\".",
+          "embed_score": 0.804,
+          "embed_rank": 7
+        },
+        {
+          "source": "schema.org",
+          "label": "printEdition",
+          "signature": "NewsArticle → Text",
+          "parent": null,
+          "inverse_of": null,
+          "score": -6.3918,
+          "matched_anchor": null,
+          "comment": "A descriptive attribute indicating the specific edition of a print product in which a news article is published. Also called edition name, print version, publication edition. Examples: A news article appears in print edition 'Late City Edition'. The story is in print edition 'National Edition'. The article's print edition is 'Weekend Edition'.",
+          "embed_score": 0.784,
+          "embed_rank": 47
+        },
+        {
+          "source": "schema.org",
+          "label": "about",
+          "signature": "Certification/CommunicateAction/CreativeWork/DefinedTerm/DefinedTermSet/Event → Thing",
+          "parent": null,
+          "inverse_of": "subjectOf",
+          "score": -6.4479,
+          "matched_anchor": null,
+          "comment": "A subject matter relation between an entity (e.g., a creative work, event, or communication) and the topic it concerns. Also called concerning, regarding, on the topic of, related to. Examples: \"A book about quantum physics.\", \"A lecture about climate change.\", \"A certification about data privacy.\"",
+          "embed_score": 0.8,
+          "embed_rank": 10
+        },
+        {
+          "source": "schema.org",
+          "label": "healthcareReportingData",
+          "signature": "Hospital → CDCPMDRecord/Dataset",
+          "parent": null,
+          "inverse_of": null,
+          "score": -6.5099,
+          "matched_anchor": null,
+          "comment": "A healthcare reporting data relation between a hospital and its associated reporting data, such as CDC records or datasets. Also called hospital data, reporting dataset, healthcare metrics. Examples: \"A hospital has healthcare reporting data from the CDC.\", \"The hospital provides healthcare reporting data as a dataset.\", \"This facility publishes its healthcare reporting data.\"",
+          "embed_score": 0.792,
+          "embed_rank": 27
+        }
+      ]
+    },
+    {
+      "relation_phrase": "is date of",
+      "definition": "To be the day or date when an event occurs.",
+      "embedding_query_text": "is date of: To be the day or date when an event occurs.",
+      "observed_signatures": [
+        "Thing → SportsEvent"
+      ],
+      "n_assignments": 1,
+      "assignments": [
+        {
+          "instances": [
+            "Saturday -> France vs England"
+          ],
+          "chosen_property": {
+            "label": "startDate",
+            "source": "schema.org",
+            "direction": "inverse",
+            "vocab_id": null,
+            "is_new_to_vocab": false,
+            "definition": null,
+            "parent": null,
+            "domain": null,
+            "range": null,
+            "path": "",
+            "justification": "Flipped to inverse to match the subject-object order, and it fits the relation between a date and an event."
+          },
+          "llm_proposed": {
+            "source": "schema.org",
+            "label": "startDate",
+            "is_new": false,
+            "direction": "inverse"
+          }
+        }
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "startDate",
+          "signature": "CreativeWorkSeason/CreativeWorkSeries/DatedMoneySpecification/EducationalOccupationalProgram/Event/MerchantReturnPolicySeasonalOverride/Role/Schedule → Date/DateTime",
+          "parent": null,
+          "inverse_of": null,
+          "score": 2.0204,
+          "matched_anchor": null,
+          "comment": "A temporal marker indicating the beginning date and time of an item, such as an event, program, or season. Also called \"beginning date\", \"commencement date\", \"start time\", \"effective date\". Examples: \"The event has startDate 2023-10-26\", \"The program's startDate is September 1st\", \"This role's startDate was last Monday.\". Distinct from dateCreated, which indicates when a creative work was first made.",
+          "embed_score": 0.85,
+          "embed_rank": 3
+        },
+        {
+          "source": "schema.org",
+          "label": "byDay",
+          "signature": "Schedule → DayOfWeek/Text",
+          "parent": null,
+          "inverse_of": null,
+          "score": 1.9787,
+          "matched_anchor": null,
+          "comment": "A temporal specification for a schedule, indicating the day(s) of the week on which a recurring event occurs. Also called \"days of week\", \"weekly recurrence\", \"on day\". Examples: \"Weekly meeting schedule byDay Monday\", \"Class schedule byDay 'MO,WE,FR'\".",
+          "embed_score": 0.84,
+          "embed_rank": 13
+        },
+        {
+          "source": "schema.org",
+          "label": "timestamp",
+          "signature": "InstantaneousEvent → DateTime",
+          "parent": null,
+          "inverse_of": null,
+          "score": 1.7783,
+          "matched_anchor": null,
+          "comment": "A timestamp relation between an instantaneous event and the specific date and time it occurred. Also called event time, occurrence time, moment of event. Examples: \"Concert timestamp 2023-10-27T20:00:00\", \"Login timestamp 2023-11-01T09:30:15Z\", \"Photo timestamp 2023-05-15T14:22:00\".",
+          "embed_score": 0.839,
+          "embed_rank": 14
+        },
+        {
+          "source": "schema.org",
+          "label": "scheduledTime",
+          "signature": "PlanAction → Date/DateTime",
+          "parent": null,
+          "inverse_of": null,
+          "score": 1.7683,
+          "matched_anchor": null,
+          "comment": "The specific date or date and time when an action is planned to occur. Also called planned time, scheduled date, appointment time. Examples: `Meeting Action` scheduledTime `2023-10-26T10:00:00`, `Delivery Action` scheduledTime `2023-11-01`, `Maintenance Action` scheduledTime `2023-12-05T14:30:00`.",
+          "embed_score": 0.829,
+          "embed_rank": 24
+        },
+        {
+          "source": "schema.org",
+          "label": "exceptDate",
+          "signature": "Schedule → Date/DateTime",
+          "parent": null,
+          "inverse_of": null,
+          "score": 1.6395,
+          "matched_anchor": null,
+          "comment": "An exception date relation between a schedule and a specific date or datetime when a scheduled event will not take place. Also called: exclusion date, cancelled date, unavailable date. Examples: \"Weekly Yoga Class Schedule\" except date \"2023-12-25\", \"Daily Bus Route Schedule\" except date \"2024-01-01T08:00:00\", \"Monthly Book Club Schedule\" except date \"2023-11-11\".",
+          "embed_score": 0.842,
+          "embed_rank": 12
+        },
+        {
+          "source": "schema.org",
+          "label": "endDate",
+          "signature": "CreativeWorkSeason/CreativeWorkSeries/DatedMoneySpecification/EducationalOccupationalProgram/Event/MerchantReturnPolicySeasonalOverride/Role/Schedule → Date/DateTime",
+          "parent": null,
+          "inverse_of": null,
+          "score": 1.6373,
+          "matched_anchor": null,
+          "comment": "An end date relation between an item (such as a season, event, or schedule) and the date and time when it concludes. Also called \"conclusion date\", \"finish date\", \"termination date\". Examples: \"Event 'Conference' endDate '2023-10-27'\", \"Creative work season endDate '2024-05-31'\", \"Role 'Project Manager' endDate '2025-12-31'\". Distinct from endTime, which specifies the end time within a single day or for a clip.",
+          "embed_score": 0.85,
+          "embed_rank": 4
+        },
+        {
+          "source": "schema.org",
+          "label": "deathDate",
+          "signature": "Person → Date",
+          "parent": null,
+          "inverse_of": null,
+          "score": 0.7732,
+          "matched_anchor": null,
+          "comment": "A temporal event relation between a person and their date of death. Also called: date of demise, passing date, decease date. Examples: \"Historical Figure\" death date \"1963-11-22\", \"Family Member\" death date \"2020-05-10\". Distinct from birthDate, which is the date of birth.",
+          "embed_score": 0.854,
+          "embed_rank": 2
+        },
+        {
+          "source": "schema.org",
+          "label": "byMonthDay",
+          "signature": "Schedule → Integer",
+          "parent": null,
+          "inverse_of": null,
+          "score": 0.6103,
+          "matched_anchor": null,
+          "comment": "A temporal specification for a schedule, indicating the day(s) of the month on which a recurring event occurs. Also called \"day of month\", \"monthly day recurrence\", \"on day of month\". Examples: \"Rent payment schedule byMonthDay 1\", \"Board meeting schedule byMonthDay 15\".",
+          "embed_score": 0.831,
+          "embed_rank": 19
+        },
+        {
+          "source": "schema.org",
+          "label": "observationDate",
+          "signature": "Observation → Date/DateTime",
+          "parent": null,
+          "inverse_of": null,
+          "score": -0.9559,
+          "matched_anchor": null,
+          "comment": "The date or date and time when an observation was made. Also called date of observation, observation timestamp, recorded date. Examples: \"Weather Observation observationDate '2023-10-27'\", \"Medical Observation observationDate '2023-10-26T14:30:00'\", \"Astronomical Observation observationDate '2023-09-15'\". Distinct from observationPeriod, which is the duration of the observation.",
+          "embed_score": 0.849,
+          "embed_rank": 6
+        },
+        {
+          "source": "schema.org",
+          "label": "contentReferenceTime",
+          "signature": "CreativeWork → DateTime",
+          "parent": null,
+          "inverse_of": null,
+          "score": -2.6674,
+          "matched_anchor": null,
+          "comment": "A temporal reference relation for a creative work, indicating the specific date and time described or emphasized within its content. Also called \"event time\", \"depicted time\", \"time of content\". Examples: \"News article contentReferenceTime '2023-10-26T14:00:00Z'\", \"Historical documentary contentReferenceTime '1945-09-02'\".",
+          "embed_score": 0.816,
+          "embed_rank": 49
+        }
+      ]
+    },
+    {
+      "relation_phrase": "is kickoff time of",
+      "definition": "To be the time when a game or match starts.",
+      "embedding_query_text": "is kickoff time of: To be the time when a game or match starts.",
+      "observed_signatures": [
+        "Time → SportsEvent"
+      ],
+      "n_assignments": 1,
+      "assignments": [
+        {
+          "instances": [
+            "5pm -> France vs England",
+            "21:00 GMT -> France vs England"
+          ],
+          "chosen_property": {
+            "label": "startTime",
+            "source": "schema.org",
+            "direction": "inverse",
+            "vocab_id": null,
+            "is_new_to_vocab": false,
+            "definition": null,
+            "parent": null,
+            "domain": null,
+            "range": null,
+            "path": "",
+            "justification": "Flipped to inverse to match the subject-object order, and it fits the relation between a time and an event."
+          },
+          "llm_proposed": {
+            "source": "schema.org",
+            "label": "startTime",
+            "is_new": false,
+            "direction": "inverse"
+          }
+        }
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "startTime",
+          "signature": "Action/FoodEstablishmentReservation/InteractionCounter/MediaObject/Schedule → DateTime/Time",
+          "parent": null,
+          "inverse_of": null,
+          "score": -1.5275,
+          "matched_anchor": null,
+          "comment": "A temporal marker indicating the beginning time of an action, reservation, or media segment. Also called \"beginning time\", \"commencement time\", \"start of action\", \"reservation time\". Examples: \"The reservation has startTime 7:00 PM\", \"The action's startTime was 10:30 AM\", \"The media clip's startTime is 00:01:15.\". Distinct from startDate, which specifies a date, while startTime focuses on the time of day or an offset.",
+          "embed_score": 0.836,
+          "embed_rank": 1
+        },
+        {
+          "source": "schema.org",
+          "label": "previousStartDate",
+          "signature": "Event → Date/DateTime",
+          "parent": null,
+          "inverse_of": null,
+          "score": -2.1531,
+          "matched_anchor": null,
+          "comment": "A temporal attribute indicating the previously scheduled start date for an event that has been rescheduled or cancelled. Also called original start date, former start date, initial event date. Examples: A rescheduled event has a previous start date of '2023-03-15'. The cancelled concert had a previous start date of '2023-07-01T19:00:00'. The postponed meeting's previous start date was 'last Monday'. Distinct from startDate, which is the current or newly scheduled start date.",
+          "embed_score": 0.78,
+          "embed_rank": 15
+        },
+        {
+          "source": "schema.org",
+          "label": "startDate",
+          "signature": "CreativeWorkSeason/CreativeWorkSeries/DatedMoneySpecification/EducationalOccupationalProgram/Event/MerchantReturnPolicySeasonalOverride/Role/Schedule → Date/DateTime",
+          "parent": null,
+          "inverse_of": null,
+          "score": -3.7189,
+          "matched_anchor": null,
+          "comment": "A temporal marker indicating the beginning date and time of an item, such as an event, program, or season. Also called \"beginning date\", \"commencement date\", \"start time\", \"effective date\". Examples: \"The event has startDate 2023-10-26\", \"The program's startDate is September 1st\", \"This role's startDate was last Monday.\". Distinct from dateCreated, which indicates when a creative work was first made.",
+          "embed_score": 0.818,
+          "embed_rank": 2
+        },
+        {
+          "source": "schema.org",
+          "label": "coverageStartTime",
+          "signature": "LiveBlogPosting → DateTime",
+          "parent": null,
+          "inverse_of": null,
+          "score": -3.7723,
+          "matched_anchor": null,
+          "comment": "A temporal boundary relation between a live blog posting and the time when its event coverage begins. Also called: coverage start, reporting start time, live blog commencement. Examples: \"Election Night Live Blog\" coverage start time \"2024-11-05T18:00:00Z\", \"Sports Event Live Update\" coverage start time \"2023-07-15T14:00:00Z\", \"Conference Live Blog\" coverage start time \"2023-10-27T09:00:00Z\". Distinct from coverageEndTime, which indicates when coverage concludes.",
+          "embed_score": 0.773,
+          "embed_rank": 28
+        },
+        {
+          "source": "schema.org",
+          "label": "startOffset",
+          "signature": "Clip/SeekToAction → HyperTocEntry/Number",
+          "parent": null,
+          "inverse_of": null,
+          "score": -4.037,
+          "matched_anchor": null,
+          "comment": "A temporal offset indicating the start time of a clip or action, measured in seconds from the beginning of a larger work. Also called \"clip start time\", \"beginning offset\", \"time offset start\", \"seek start\". Examples: \"The video clip has startOffset 30 seconds\", \"The action's startOffset is 120 seconds into the recording\", \"This segment begins at startOffset 0.\"",
+          "embed_score": 0.792,
+          "embed_rank": 6
+        },
+        {
+          "source": "schema.org",
+          "label": "doorTime",
+          "signature": "Event → DateTime/Time",
+          "parent": null,
+          "inverse_of": null,
+          "score": -5.7325,
+          "matched_anchor": null,
+          "comment": "A door time relation between an event and the date or time when admission will commence. Also called \"admission time\", \"entry time\", \"gate opening time\". Examples: \"Concert event doorTime '19:00'\", \"Theater show doorTime '2023-11-01T18:30'\", \"Festival doorTime '10:00'\".",
+          "embed_score": 0.812,
+          "embed_rank": 4
+        },
+        {
+          "source": "schema.org",
+          "label": "opens",
+          "signature": "OpeningHoursSpecification → Time",
+          "parent": null,
+          "inverse_of": null,
+          "score": -5.7674,
+          "matched_anchor": null,
+          "comment": "The specific time a place or service opens on a given day or days of the week. Also called opening time, start of business, daily opening hour. Examples: \"Monday OpeningHoursSpecification opens '09:00'\", \"Weekend OpeningHoursSpecification opens '10:00'\", \"Weekday OpeningHoursSpecification opens '08:30'\". Distinct from closes, which specifies the closing time.",
+          "embed_score": 0.792,
+          "embed_rank": 7
+        },
+        {
+          "source": "schema.org",
+          "label": "scheduledTime",
+          "signature": "PlanAction → Date/DateTime",
+          "parent": null,
+          "inverse_of": null,
+          "score": -6.2238,
+          "matched_anchor": null,
+          "comment": "The specific date or date and time when an action is planned to occur. Also called planned time, scheduled date, appointment time. Examples: `Meeting Action` scheduledTime `2023-10-26T10:00:00`, `Delivery Action` scheduledTime `2023-11-01`, `Maintenance Action` scheduledTime `2023-12-05T14:30:00`.",
+          "embed_score": 0.786,
+          "embed_rank": 11
+        },
+        {
+          "source": "schema.org",
+          "label": "availabilityStarts",
+          "signature": "ActionAccessSpecification/Demand/Offer → Date/DateTime/Time",
+          "parent": null,
+          "inverse_of": null,
+          "score": -7.8538,
+          "matched_anchor": null,
+          "comment": "A date or time marking the beginning of availability for a product or service in an offer or access specification. Also called: availability start date, offer start, access start time. Examples: \"Offer 'New Product' availabilityStarts '2023-11-01'\", \"ActionAccessSpecification 'Pre-sale' availabilityStarts '2023-10-20T09:00:00'\". Distinct from availabilityEnds, which marks the end.",
+          "embed_score": 0.787,
+          "embed_rank": 9
+        },
+        {
+          "source": "schema.org",
+          "label": "availableFrom",
+          "signature": "DeliveryEvent → DateTime",
+          "parent": null,
+          "inverse_of": null,
+          "score": -9.0807,
+          "matched_anchor": null,
+          "comment": "A date and time when an item is available for pickup from a store or locker. Also called: pickup start time, ready for collection. Examples: \"DeliveryEvent 'Package' availableFrom '2023-10-27T10:00:00'\", \"DeliveryEvent 'Order' availableFrom '2023-10-28'\". Distinct from availableThrough, which specifies the end of pickup availability.",
+          "embed_score": 0.813,
+          "embed_rank": 3
+        }
+      ]
+    },
+    {
+      "relation_phrase": "defeated",
+      "definition": "To be beaten or overcome by an opponent.",
+      "embedding_query_text": "defeated: To be beaten or overcome by an opponent.",
+      "observed_signatures": [
+        "SportsTeam → SportsTeam"
+      ],
+      "n_assignments": 1,
+      "assignments": [
+        {
+          "instances": [
+            "Argentina -> England",
+            "Spain -> France"
+          ],
+          "chosen_property": {
+            "label": "defeatedBy",
+            "source": "vocab",
+            "direction": "as_is",
+            "vocab_id": "P0155",
+            "is_new_to_vocab": true,
+            "definition": "To be beaten or overcome by an opponent in a competition.",
+            "parent": "competitor",
+            "domain": [
+              "SportsTeam"
+            ],
+            "range": [
+              "SportsTeam"
+            ],
+            "path": "competitor",
+            "justification": "No existing property fits the relation between two sports teams where one is defeated by the other."
+          },
+          "llm_proposed": {
+            "source": "new",
+            "label": "defeatedBy",
+            "is_new": true,
+            "direction": "as_is"
+          }
+        }
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "loser",
+          "signature": "WinAction → Person",
+          "parent": "participant",
+          "inverse_of": null,
+          "score": 1.7583,
+          "matched_anchor": null,
+          "comment": "A losing participant relation between a win action and the person who lost. Also called: defeated participant, vanquished, runner-up. Examples: \"Chess Match WinAction loser Opponent B\", \"Race WinAction loser Second Place Runner\", \"Debate WinAction loser Team B\".",
+          "embed_score": 0.862,
+          "embed_rank": 1
+        },
+        {
+          "source": "schema.org",
+          "label": "opponent",
+          "signature": "ExerciseAction → Person",
+          "parent": "participant",
+          "inverse_of": null,
+          "score": -1.7043,
+          "matched_anchor": null,
+          "comment": "A person who is an opponent in an exercise action. Also called adversary, competitor, rival. Examples: \"Boxing Match opponent 'Mike Tyson'\", \"Chess Game opponent 'Deep Blue'\", \"Tennis Match opponent 'Serena Williams'\". Distinct from participant, which is a general participant.",
+          "embed_score": 0.82,
+          "embed_rank": 2
+        },
+        {
+          "source": "schema.org",
+          "label": "winner",
+          "signature": "LoseAction → Person",
+          "parent": "participant",
+          "inverse_of": null,
+          "score": -3.3085,
+          "matched_anchor": null,
+          "comment": "A winner relation between a losing action and the person who won it. Also called victor, triumphant participant, successful party. Examples: ChessMatchLoseAction winner Alice, RaceLoseAction winner Bob, CompetitionLoseAction winner Charlie.",
+          "embed_score": 0.815,
+          "embed_rank": 4
+        },
+        {
+          "source": "schema.org",
+          "label": "competitor",
+          "signature": "SportsEvent → Person/SportsTeam",
+          "parent": null,
+          "inverse_of": null,
+          "score": -5.2249,
+          "matched_anchor": null,
+          "comment": "A participation relation in a sports event, indicating a person or sports team that is competing. Also called \"participant\", \"opponent\", \"rival\". Examples: \"Olympic race sports event competitor Usain Bolt\", \"Football match sports event competitor Manchester United\".",
+          "embed_score": 0.816,
+          "embed_rank": 3
+        },
+        {
+          "source": "schema.org",
+          "label": "awayTeam",
+          "signature": "SportsEvent → Person/SportsTeam",
+          "parent": "competitor",
+          "inverse_of": null,
+          "score": -7.4556,
+          "matched_anchor": null,
+          "comment": "A person or sports team designated as the away team in a sports event. Also called: visiting team, opponent. Examples: \"SportsEvent 'Football Match' awayTeam 'Team B'\", \"SportsEvent 'Basketball Game' awayTeam 'Lakers'\". Distinct from homeTeam, which is the team playing at their home venue.",
+          "embed_score": 0.756,
+          "embed_rank": 29
+        },
+        {
+          "source": "schema.org",
+          "label": "antagonist",
+          "signature": "Muscle → Muscle",
+          "parent": null,
+          "inverse_of": null,
+          "score": -9.6541,
+          "matched_anchor": null,
+          "comment": "An antagonist relation between a muscle and another muscle whose action opposes it. Also called opposing muscle, counteracting muscle. Examples: \"The biceps' antagonist is the 'triceps'.\", \"The quadriceps' antagonist is the 'hamstrings'.\"",
+          "embed_score": 0.782,
+          "embed_rank": 6
+        },
+        {
+          "source": "schema.org",
+          "label": "sport",
+          "signature": "SportsEvent/SportsOrganization → Text/URL",
+          "parent": null,
+          "inverse_of": null,
+          "score": -10.1525,
+          "matched_anchor": null,
+          "comment": "An identification of the type of sport associated with a sports event or organization. Also called \"sport type\", \"athletic discipline\", \"game played\". Examples: \"The event's sport is Basketball\", \"The organization's sport is Soccer\", \"This competition features the sport of Gymnastics.\"",
+          "embed_score": 0.767,
+          "embed_rank": 13
+        },
+        {
+          "source": "schema.org",
+          "label": "game",
+          "signature": "GameServer → VideoGame",
+          "parent": null,
+          "inverse_of": "gameServer",
+          "score": -10.2855,
+          "matched_anchor": null,
+          "comment": "A game relation between a game server and the video game that is hosted and played on it. Also called: hosted game, server game, game played. Examples: \"Minecraft Server\" game \"Minecraft\", \"World of Warcraft Realm\" game \"World of Warcraft\", \"CS:GO Server\" game \"Counter-Strike: Global Offensive\".",
+          "embed_score": 0.76,
+          "embed_rank": 19
+        },
+        {
+          "source": "schema.org",
+          "label": "referee",
+          "signature": "SportsEvent → Person",
+          "parent": null,
+          "inverse_of": null,
+          "score": -10.3128,
+          "matched_anchor": null,
+          "comment": "A referee relation between a sports event and the person officiating it to enforce rules. Also called officiated by, umpire, judge. Examples: \"A football match has a referee 'Pierluigi Collina'.\", \"A tennis match has a referee 'Eva Asderaki-Moore'.\", \"A basketball game has a referee 'Joey Crawford'.\"",
+          "embed_score": 0.754,
+          "embed_rank": 37
+        },
+        {
+          "source": "schema.org",
+          "label": "sportsEvent",
+          "signature": "ExerciseAction → SportsEvent",
+          "parent": "location",
+          "inverse_of": null,
+          "score": -10.3812,
+          "matched_anchor": null,
+          "comment": "A specific event relation between an exercise action and the sports event during which it occurred. Also called \"event of exercise\", \"competition event\", \"athletic event\". Examples: \"The sprint occurred during the sportsEvent Olympics\", \"The goal was scored in the sportsEvent World Cup match\", \"This action took place at a sportsEvent marathon.\". Distinct from event, which is a more general event property.",
+          "embed_score": 0.758,
+          "embed_rank": 23
+        }
+      ]
+    },
+    {
+      "relation_phrase": "awarded to",
+      "definition": "To be given or presented with an honor or prize.",
+      "embedding_query_text": "awarded to: To be given or presented with an honor or prize.",
+      "observed_signatures": [
+        "Event → Person"
+      ],
+      "n_assignments": 1,
+      "assignments": [
+        {
+          "instances": [
+            "Golden Boot -> Kylian Mbappe"
+          ],
+          "chosen_property": {
+            "label": "winner",
+            "source": "schema.org",
+            "direction": "inverse",
+            "vocab_id": null,
+            "is_new_to_vocab": false,
+            "definition": null,
+            "parent": null,
+            "domain": null,
+            "range": null,
+            "path": "participant",
+            "justification": "Flipped to inverse to match the subject-object order, and it fits the relation between an award and its recipient."
+          },
+          "llm_proposed": {
+            "source": "schema.org",
+            "label": "winner",
+            "is_new": false,
+            "direction": "inverse"
+          }
+        }
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "award",
+          "signature": "CreativeWork/Organization/Person/Product/Service → Text",
+          "parent": null,
+          "inverse_of": null,
+          "score": 5.7671,
+          "matched_anchor": null,
+          "comment": "An award won by or for a creative work, organization, person, product, or service. Also called: honor, prize, recognition. Examples: \"CreativeWork 'Movie' award 'Oscar'\", \"Organization 'Company X' award 'Best Employer'\", \"Person 'Scientist' award 'Nobel Prize'\". Distinct from awards, which is the plural form.",
+          "embed_score": 0.893,
+          "embed_rank": 1
+        },
+        {
+          "source": "schema.org",
+          "label": "awards",
+          "signature": "CreativeWork/Organization/Person/Product → Text",
+          "parent": null,
+          "inverse_of": null,
+          "score": 4.4923,
+          "matched_anchor": null,
+          "comment": "Awards won by or for a creative work, organization, person, or product. Also called: honors, prizes, recognitions. Examples: \"CreativeWork 'Movie' awards 'Oscar'\", \"Organization 'Company X' awards 'Best Employer'\", \"Person 'Scientist' awards 'Nobel Prize'\". Distinct from award, which is the singular form.",
+          "embed_score": 0.873,
+          "embed_rank": 2
+        },
+        {
+          "source": "schema.org",
+          "label": "educationalCredentialAwarded",
+          "signature": "Course/EducationalOccupationalProgram → EducationalOccupationalCredential/Text/URL",
+          "parent": null,
+          "inverse_of": null,
+          "score": -3.7432,
+          "matched_anchor": null,
+          "comment": "An educational credential awarded relation between a course or program and the credential received upon successful completion. Also called \"award received\", \"qualification granted\", \"certificate earned\". Examples: \"Course 'Introduction to Python' educationalCredentialAwarded 'Certificate of Completion'\", \"Program 'MBA' educationalCredentialAwarded 'Master of Business Administration'\", \"Training 'First Aid' educationalCredentialAwarded 'First Aid Certification'\".",
+          "embed_score": 0.809,
+          "embed_rank": 3
+        },
+        {
+          "source": "schema.org",
+          "label": "occupationalCredentialAwarded",
+          "signature": "Course/EducationalOccupationalProgram → EducationalOccupationalCredential/Text/URL",
+          "parent": null,
+          "inverse_of": null,
+          "score": -5.5056,
+          "matched_anchor": null,
+          "comment": "An occupational credential, such as a qualification, award, certificate, or diploma, awarded upon successful completion of a course or program. Also called credential earned, qualification awarded, program certification. Examples: \"Course X occupationalCredentialAwarded 'Certificate of Completion'\", \"Program Y occupationalCredentialAwarded 'Bachelor of Science'\", \"Training Z occupationalCredentialAwarded 'Professional Certification'\". Distinct from educationalLevel, which describes the level of education attained.",
+          "embed_score": 0.785,
+          "embed_rank": 7
+        },
+        {
+          "source": "schema.org",
+          "label": "hasCredential",
+          "signature": "Organization/Person → Credential",
+          "parent": null,
+          "inverse_of": null,
+          "score": -6.5687,
+          "matched_anchor": null,
+          "comment": "A credential relation between an organization or person and an awarded credential. Also called holds credential, awarded credential, possesses credential. Examples: \"A person has a credential as a licensed engineer.\", \"An organization has a credential for business excellence.\", \"The professional has a credential in data science.\"",
+          "embed_score": 0.774,
+          "embed_rank": 20
+        },
+        {
+          "source": "schema.org",
+          "label": "honorificPrefix",
+          "signature": "Person → Text",
+          "parent": null,
+          "inverse_of": null,
+          "score": -7.0213,
+          "matched_anchor": null,
+          "comment": "An honorific prefix relation between a person and a title preceding their name. Also called title, salutation, courtesy title. Examples: \"A person has an honorific prefix 'Dr.'.\", \"Her honorific prefix is 'Ms.'.\", \"The individual uses the honorific prefix 'Mr.'.\"",
+          "embed_score": 0.784,
+          "embed_rank": 8
+        },
+        {
+          "source": "schema.org",
+          "label": "honorificSuffix",
+          "signature": "Person → Text",
+          "parent": null,
+          "inverse_of": null,
+          "score": -7.4631,
+          "matched_anchor": null,
+          "comment": "An honorific suffix relation between a person and a title following their name. Also called post-nominal title, suffix title, academic suffix. Examples: \"A person has an honorific suffix 'PhD'.\", \"His honorific suffix is 'M.D.'.\", \"The individual uses the honorific suffix 'Jr.'.\"",
+          "embed_score": 0.792,
+          "embed_rank": 6
+        },
+        {
+          "source": "schema.org",
+          "label": "winner",
+          "signature": "LoseAction → Person",
+          "parent": "participant",
+          "inverse_of": null,
+          "score": -8.0939,
+          "matched_anchor": null,
+          "comment": "A winner relation between a losing action and the person who won it. Also called victor, triumphant participant, successful party. Examples: ChessMatchLoseAction winner Alice, RaceLoseAction winner Bob, CompetitionLoseAction winner Charlie.",
+          "embed_score": 0.798,
+          "embed_rank": 5
+        },
+        {
+          "source": "schema.org",
+          "label": "recognizedBy",
+          "signature": "Credential → Organization",
+          "parent": null,
+          "inverse_of": null,
+          "score": -9.3027,
+          "matched_anchor": null,
+          "comment": "A recognition relation between a credential and the organization that acknowledges its validity or value. Also called accredited by, validated by, acknowledged by. Examples: \"A university degree is recognized by 'the Ministry of Education'.\", \"A professional certification is recognized by 'an industry association'.\", \"A medical license is recognized by 'the Medical Board'.\"",
+          "embed_score": 0.799,
+          "embed_rank": 4
+        },
+        {
+          "source": "schema.org",
+          "label": "funding",
+          "signature": "BioChemEntity/CreativeWork/Event/MedicalEntity/Organization/Person/Product → Grant",
+          "parent": null,
+          "inverse_of": "fundedItem",
+          "score": -9.5356,
+          "matched_anchor": null,
+          "comment": "A funding relation between a biochemical entity, creative work, event, medical entity, organization, person, or product and the grant that provides its direct or indirect financial support. Also called: grant received, sponsorship, financial support. Examples: \"Cancer Research Project\" funding \"NIH Grant R01\", \"Local Theater Production\" funding \"Arts Council Grant\", \"Student Scholarship Program\" funding \"University Endowment Grant\". Distinct from funder, which is the entity providing the funding.",
+          "embed_score": 0.765,
+          "embed_rank": 41
+        }
+      ]
+    },
+    {
+      "relation_phrase": "unavailable for",
+      "definition": "To be unable to participate or take part in something.",
+      "embedding_query_text": "unavailable for: To be unable to participate or take part in something.",
+      "observed_signatures": [
+        "Person → SportsTeam"
+      ],
+      "n_assignments": 1,
+      "assignments": [
+        {
+          "instances": [
+            "William Saliba -> France",
+            "Brice Samba -> France"
+          ],
+          "chosen_property": {
+            "label": "unavailableFor",
+            "source": "vocab",
+            "direction": "as_is",
+            "vocab_id": "P0156",
+            "is_new_to_vocab": true,
+            "definition": "To be unable to participate or take part in something due to various reasons.",
+            "parent": null,
+            "domain": [
+              "Person"
+            ],
+            "range": [
+              "SportsTeam"
+            ],
+            "path": "",
+            "justification": "No existing property fits the relation between a person and a team they are unavailable for."
+          },
+          "llm_proposed": {
+            "source": "new",
+            "label": "unavailableFor",
+            "is_new": true,
+            "direction": "as_is"
+          }
+        }
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "free",
+          "signature": "PublicationEvent → Boolean",
+          "parent": null,
+          "inverse_of": null,
+          "score": -4.3682,
+          "matched_anchor": null,
+          "comment": "A free relation indicating whether a publication event, item, or place is accessible without cost. Also called: no charge, complimentary, gratis. Examples: \"Online Article Publication\" free \"true\", \"Concert Event\" free \"false\", \"Public Park Access\" free \"true\".",
+          "embed_score": 0.793,
+          "embed_rank": 8
+        },
+        {
+          "source": "schema.org",
+          "label": "ineligibleRegion",
+          "signature": "ActionAccessSpecification/DeliveryChargeSpecification/Demand/MediaObject/Offer → GeoShape/Place/Text",
+          "parent": null,
+          "inverse_of": null,
+          "score": -4.3714,
+          "matched_anchor": null,
+          "comment": "A geographical exclusion relation between an action access specification, delivery charge specification, demand, media object, or offer, and the region where it is not valid or available. Also called restricted region, excluded region, unavailable in, not valid in. Examples: An offer has an ineligibleRegion of 'Alaska'. A delivery charge specification has an ineligibleRegion of 'Hawaii'. A media object has an ineligibleRegion of 'EU'. Distinct from eligibleRegion, which specifies where something *is* valid or available.",
+          "embed_score": 0.819,
+          "embed_rank": 1
+        },
+        {
+          "source": "schema.org",
+          "label": "availableLanguage",
+          "signature": "ContactPoint/Course/LodgingBusiness/ServiceChannel/TouristAttraction → Language/Text",
+          "parent": null,
+          "inverse_of": null,
+          "score": -5.9189,
+          "matched_anchor": null,
+          "comment": "A language that can be used with or at an item, service, or place. Also called: supported language, language option, communication language. Examples: \"ContactPoint 'Support' availableLanguage 'en'\", \"Course 'Programming' availableLanguage 'es'\", \"LodgingBusiness 'Hotel' availableLanguage 'fr'\". Distinct from inLanguage, which specifies the language of the content itself.",
+          "embed_score": 0.781,
+          "embed_rank": 20
+        },
+        {
+          "source": "schema.org",
+          "label": "isAccessibleForFree",
+          "signature": "CreativeWork/Event/Place → Boolean",
+          "parent": null,
+          "inverse_of": null,
+          "score": -6.102,
+          "matched_anchor": null,
+          "comment": "An access cost relation indicating whether a creative work, event, or place can be accessed without charge. Also called free access, no charge, complimentary access, free of cost. Examples: A public park has isAccessibleForFree set to 'true'. An online article has isAccessibleForFree set to 'true'. A concert has isAccessibleForFree set to 'false'.",
+          "embed_score": 0.796,
+          "embed_rank": 4
+        },
+        {
+          "source": "schema.org",
+          "label": "hasParticipationOffer",
+          "signature": "Event → Offer",
+          "parent": null,
+          "inverse_of": null,
+          "score": -6.1105,
+          "matched_anchor": null,
+          "comment": "A participation offer relation between an event and an offer to participate in it. Also called call for participation, participation opportunity, event entry offer. Examples: \"An event has a participation offer for speakers.\", \"The conference has a participation offer for proposals.\", \"This festival includes a participation offer for performers.\". Distinct from hasSponsorshipOffer, which is an offer to sponsor the event.",
+          "embed_score": 0.779,
+          "embed_rank": 23
+        },
+        {
+          "source": "schema.org",
+          "label": "countriesNotSupported",
+          "signature": "SoftwareApplication → Text",
+          "parent": null,
+          "inverse_of": null,
+          "score": -6.6372,
+          "matched_anchor": null,
+          "comment": "A geographical restriction relation between a software application and the countries where it is not supported. Also called: unsupported regions, restricted countries, unavailable in. Examples: \"App X\" countries not supported \"Cuba\", \"Software Y\" countries not supported \"Iran, North Korea\", \"Game Z\" countries not supported \"Syria\". Distinct from countriesSupported, which lists where the application is supported.",
+          "embed_score": 0.805,
+          "embed_rank": 2
+        },
+        {
+          "source": "schema.org",
+          "label": "exceptDate",
+          "signature": "Schedule → Date/DateTime",
+          "parent": null,
+          "inverse_of": null,
+          "score": -6.7494,
+          "matched_anchor": null,
+          "comment": "An exception date relation between a schedule and a specific date or datetime when a scheduled event will not take place. Also called: exclusion date, cancelled date, unavailable date. Examples: \"Weekly Yoga Class Schedule\" except date \"2023-12-25\", \"Daily Bus Route Schedule\" except date \"2024-01-01T08:00:00\", \"Monthly Book Club Schedule\" except date \"2023-11-11\".",
+          "embed_score": 0.795,
+          "embed_rank": 7
+        },
+        {
+          "source": "schema.org",
+          "label": "conditionsOfAccess",
+          "signature": "CreativeWork → Text",
+          "parent": null,
+          "inverse_of": null,
+          "score": -6.834,
+          "matched_anchor": null,
+          "comment": "A descriptive relation for a creative work, detailing the natural language conditions affecting its availability or access methods. Also called \"access restrictions\", \"availability terms\", \"usage conditions\". Examples: \"Archival document conditionsOfAccess 'Available by appointment only'\", \"Digital artwork conditionsOfAccess 'Requires institutional login'\".",
+          "embed_score": 0.781,
+          "embed_rank": 18
+        },
+        {
+          "source": "schema.org",
+          "label": "participant",
+          "signature": "Action → Organization/Person",
+          "parent": null,
+          "inverse_of": null,
+          "score": -6.8629,
+          "matched_anchor": null,
+          "comment": "A collaborative relation between an action and an organization or person who indirectly participated in it. Also called collaborated with, involved, assisted by, co-agent. Examples: A writing action has a participant co-author. A research project has a participant researcher. A meeting has a participant attendee. Distinct from agent, which is the primary actor of an action.",
+          "embed_score": 0.775,
+          "embed_rank": 31
+        },
+        {
+          "source": "schema.org",
+          "label": "doesNotShip",
+          "signature": "OfferShippingDetails/ShippingConditions/ShippingRateSettings → Boolean",
+          "parent": null,
+          "inverse_of": null,
+          "score": -6.9595,
+          "matched_anchor": null,
+          "comment": "A does not ship relation between offer shipping details, shipping conditions, or shipping rate settings and a boolean value indicating when shipping to a particular destination is unavailable. Also called \"shipping unavailable\", \"no shipping to\", \"delivery excluded\". Examples: \"Offer shipping details doesNotShip 'true' for Alaska\", \"Shipping conditions doesNotShip 'true' for international orders\", \"Shipping rate settings doesNotShip 'true' for PO boxes\".",
+          "embed_score": 0.8,
+          "embed_rank": 3
+        }
+      ]
+    },
+    {
+      "relation_phrase": "injured",
+      "definition": "To be hurt or damaged physically.",
+      "embedding_query_text": "injured: To be hurt or damaged physically.",
+      "observed_signatures": [
+        "Person → SportsTeam"
+      ],
+      "n_assignments": 1,
+      "assignments": [
+        {
+          "instances": [
+            "Jordan Henderson -> England"
+          ],
+          "chosen_property": {
+            "label": "injuredIn",
+            "source": "vocab",
+            "direction": "as_is",
+            "vocab_id": "P0157",
+            "is_new_to_vocab": true,
+            "definition": "To be hurt or damaged physically while participating in a sports team or event.",
+            "parent": null,
+            "domain": [
+              "Person"
+            ],
+            "range": [
+              "SportsTeam"
+            ],
+            "path": "",
+            "justification": "No existing property fits the relation between a person and a team they got injured in."
+          },
+          "llm_proposed": {
+            "source": "new",
+            "label": "injuredIn",
+            "is_new": true,
+            "direction": "as_is"
+          }
+        }
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "knownVehicleDamages",
+          "signature": "Vehicle → Text",
+          "parent": null,
+          "inverse_of": null,
+          "score": -7.4352,
+          "matched_anchor": null,
+          "comment": "A vehicle condition relation between a vehicle and a textual description of its known damages, whether repaired or not. Also called vehicle damage report, damage history, known defects, condition notes. Examples: A used car has knownVehicleDamages 'minor dent on rear bumper'. A vehicle has knownVehicleDamages 'repaired fender bender'. A truck has knownVehicleDamages 'scratches on passenger side door'. Distinct from vehicleCondition, which is a general assessment, not specific damages.",
+          "embed_score": 0.791,
+          "embed_rank": 4
+        },
+        {
+          "source": "schema.org",
+          "label": "seriousAdverseOutcome",
+          "signature": "MedicalDevice/MedicalTherapy → MedicalEntity",
+          "parent": null,
+          "inverse_of": null,
+          "score": -8.3941,
+          "matched_anchor": null,
+          "comment": "A severe complication or side effect, such as death, disability, or life-threatening conditions, that may result from a medical device or therapy. Also called severe side effect, major complication, critical adverse event. Examples: `Chemotherapy` seriousAdverseOutcome `Severe Immunosuppression`, `Surgical Procedure` seriousAdverseOutcome `Infection`, `Medical Device Implant` seriousAdverseOutcome `Device Malfunction Leading to Injury`. Distinct from `adverseOutcome`, which is a more general adverse event.",
+          "embed_score": 0.787,
+          "embed_rank": 7
+        },
+        {
+          "source": "schema.org",
+          "label": "adverseOutcome",
+          "signature": "MedicalDevice/TherapeuticProcedure → MedicalEntity",
+          "parent": null,
+          "inverse_of": null,
+          "score": -8.9802,
+          "matched_anchor": null,
+          "comment": "An adverse outcome relation between a medical device or therapeutic procedure and a possible complication or side effect. Also called side effect, complication, negative reaction. Examples: \"A surgery's adverse outcome is 'infection'.\", \"A medical device's adverse outcome is 'skin irritation'.\" Distinct from seriousAdverseOutcome, which is specifically for life-threatening or severe complications.",
+          "embed_score": 0.781,
+          "embed_rank": 16
+        },
+        {
+          "source": "schema.org",
+          "label": "possibleComplication",
+          "signature": "MedicalCondition → Text",
+          "parent": null,
+          "inverse_of": null,
+          "score": -9.8932,
+          "matched_anchor": null,
+          "comment": "A medical attribute describing a potential unexpected and unfavorable evolution or outcome of a medical condition. Also called potential adverse event, risk, secondary condition, complication risk. Examples: Diabetes has a possible complication of 'kidney failure'. Surgery has a possible complication of 'infection'. A medical condition has a possible complication of 'worsening symptoms'.",
+          "embed_score": 0.786,
+          "embed_rank": 8
+        },
+        {
+          "source": "schema.org",
+          "label": "affectedBy",
+          "signature": "MedicalTest → Drug",
+          "parent": null,
+          "inverse_of": null,
+          "score": -10.4525,
+          "matched_anchor": null,
+          "comment": "An affected by relation between a medical test and the drugs that can influence its results. Also called influenced by, impacted by, drug interaction. Examples: \"A blood test's results are affected by 'anticoagulants'.\", \"The diagnostic test is affected by 'caffeine'.\"",
+          "embed_score": 0.792,
+          "embed_rank": 2
+        },
+        {
+          "source": "schema.org",
+          "label": "possibleTreatment",
+          "signature": "MedicalCondition/MedicalSignOrSymptom → Drug/DrugClass/LifestyleModification/MedicalTherapy",
+          "parent": null,
+          "inverse_of": null,
+          "score": -10.5254,
+          "matched_anchor": null,
+          "comment": "A medical attribute indicating a potential treatment, drug, or therapy to address a medical condition, sign, or symptom. Also called potential therapy, recommended treatment, intervention option. Examples: A medical condition has a possible treatment of 'antibiotics'. A symptom has a possible treatment of 'pain relievers'. Hypertension has a possible treatment of 'lifestyle modification'.",
+          "embed_score": 0.79,
+          "embed_rank": 5
+        },
+        {
+          "source": "schema.org",
+          "label": "naturalProgression",
+          "signature": "MedicalCondition → Text",
+          "parent": null,
+          "inverse_of": null,
+          "score": -10.5324,
+          "matched_anchor": null,
+          "comment": "The expected progression of a medical condition if left untreated. Also called untreated course, disease progression, natural history of condition. Examples: \"Common Cold naturalProgression 'resolves in 7-10 days'\", \"Untreated Diabetes naturalProgression 'leads to complications like neuropathy and kidney failure'\", \"Flu naturalProgression 'fever and body aches for 3-5 days, then recovery'\". Distinct from prognosis, which is a forecast of the likely course of a disease.",
+          "embed_score": 0.778,
+          "embed_rank": 18
+        },
+        {
+          "source": "schema.org",
+          "label": "intensity",
+          "signature": "ExercisePlan → QuantitativeValue/Text",
+          "parent": null,
+          "inverse_of": null,
+          "score": -10.7271,
+          "matched_anchor": null,
+          "comment": "A physical exertion measure relation between an exercise plan and the degree of force or effort involved in the exercise. Also called exertion level, effort level, vigor, strenuousness. Examples: An exercise plan has an intensity of 'moderate'. A running plan specifies an intensity of '150 bpm'. A weightlifting plan has an intensity of 'high'.",
+          "embed_score": 0.773,
+          "embed_rank": 31
+        },
+        {
+          "source": "schema.org",
+          "label": "cause",
+          "signature": "MedicalCondition → MedicalCause",
+          "parent": null,
+          "inverse_of": "causeOf",
+          "score": -10.8998,
+          "matched_anchor": null,
+          "comment": "A causal relation between a medical condition and its medical cause. Also called \"etiology\", \"origin\", \"caused by\". Examples: \"Flu medical condition cause Influenza virus\", \"Heart attack medical condition cause Coronary artery disease\". Distinct from causeOf, which describes what a medical cause leads to, whereas cause describes what leads to a condition.",
+          "embed_score": 0.785,
+          "embed_rank": 10
+        },
+        {
+          "source": "schema.org",
+          "label": "causeOf",
+          "signature": "MedicalCause → MedicalEntity",
+          "parent": null,
+          "inverse_of": "cause",
+          "score": -10.9027,
+          "matched_anchor": null,
+          "comment": "A causal relation between a medical cause and the medical entity (condition, complication, symptom) it produces. Also called \"results in\", \"leads to\", \"produces\". Examples: \"Influenza virus medical causeOf Flu\", \"Smoking medical causeOf Lung cancer\". Distinct from cause, which describes what leads to a condition, whereas causeOf describes what a medical cause leads to.",
+          "embed_score": 0.773,
+          "embed_rank": 32
+        }
+      ]
+    },
+    {
+      "relation_phrase": "doubtful for",
+      "definition": "To be uncertain or questionable about participating in something.",
+      "embedding_query_text": "doubtful for: To be uncertain or questionable about participating in something.",
+      "observed_signatures": [
+        "Person → SportsTeam"
+      ],
+      "n_assignments": 1,
+      "assignments": [
+        {
+          "instances": [
+            "Reece James -> England"
+          ],
+          "chosen_property": {
+            "label": "doubtfulFor",
+            "source": "vocab",
+            "direction": "as_is",
+            "vocab_id": "P0158",
+            "is_new_to_vocab": true,
+            "definition": "To be uncertain or questionable about participating in something due to various reasons.",
+            "parent": null,
+            "domain": [
+              "Person"
+            ],
+            "range": [
+              "SportsTeam"
+            ],
+            "path": "",
+            "justification": "No existing property fits the relation between a person and a team they are doubtful for."
+          },
+          "llm_proposed": {
+            "source": "new",
+            "label": "doubtfulFor",
+            "is_new": true,
+            "direction": "as_is"
+          }
+        }
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "participant",
+          "signature": "Action → Organization/Person",
+          "parent": null,
+          "inverse_of": null,
+          "score": -6.0019,
+          "matched_anchor": null,
+          "comment": "A collaborative relation between an action and an organization or person who indirectly participated in it. Also called collaborated with, involved, assisted by, co-agent. Examples: A writing action has a participant co-author. A research project has a participant researcher. A meeting has a participant attendee. Distinct from agent, which is the primary actor of an action.",
+          "embed_score": 0.743,
+          "embed_rank": 42
+        },
+        {
+          "source": "schema.org",
+          "label": "competitor",
+          "signature": "SportsEvent → Person/SportsTeam",
+          "parent": null,
+          "inverse_of": null,
+          "score": -6.9839,
+          "matched_anchor": null,
+          "comment": "A participation relation in a sports event, indicating a person or sports team that is competing. Also called \"participant\", \"opponent\", \"rival\". Examples: \"Olympic race sports event competitor Usain Bolt\", \"Football match sports event competitor Manchester United\".",
+          "embed_score": 0.751,
+          "embed_rank": 21
+        },
+        {
+          "source": "schema.org",
+          "label": "candidate",
+          "signature": "VoteAction → Person",
+          "parent": "object",
+          "inverse_of": null,
+          "score": -8.1868,
+          "matched_anchor": null,
+          "comment": "A participation relation in a vote action, indicating the person who is being voted for. Also called \"voted for\", \"nominee\", \"electoral candidate\". Examples: \"Election vote action candidate Jane Smith\", \"Award vote action candidate John Doe\".",
+          "embed_score": 0.757,
+          "embed_rank": 14
+        },
+        {
+          "source": "schema.org",
+          "label": "potentialAction",
+          "signature": "Thing → Action",
+          "parent": null,
+          "inverse_of": null,
+          "score": -9.0054,
+          "matched_anchor": null,
+          "comment": "A behavioral attribute indicating an idealized action in which a thing could potentially serve as the object. Also called possible action, available action, actionable item. Examples: A product has a potential action 'BuyAction'. A book has a potential action 'ReadAction'. A movie has a potential action 'WatchAction'.",
+          "embed_score": 0.772,
+          "embed_rank": 3
+        },
+        {
+          "source": "schema.org",
+          "label": "possibleComplication",
+          "signature": "MedicalCondition → Text",
+          "parent": null,
+          "inverse_of": null,
+          "score": -9.178,
+          "matched_anchor": null,
+          "comment": "A medical attribute describing a potential unexpected and unfavorable evolution or outcome of a medical condition. Also called potential adverse event, risk, secondary condition, complication risk. Examples: Diabetes has a possible complication of 'kidney failure'. Surgery has a possible complication of 'infection'. A medical condition has a possible complication of 'worsening symptoms'.",
+          "embed_score": 0.792,
+          "embed_rank": 1
+        },
+        {
+          "source": "schema.org",
+          "label": "ineligibleRegion",
+          "signature": "ActionAccessSpecification/DeliveryChargeSpecification/Demand/MediaObject/Offer → GeoShape/Place/Text",
+          "parent": null,
+          "inverse_of": null,
+          "score": -9.8633,
+          "matched_anchor": null,
+          "comment": "A geographical exclusion relation between an action access specification, delivery charge specification, demand, media object, or offer, and the region where it is not valid or available. Also called restricted region, excluded region, unavailable in, not valid in. Examples: An offer has an ineligibleRegion of 'Alaska'. A delivery charge specification has an ineligibleRegion of 'Hawaii'. A media object has an ineligibleRegion of 'EU'. Distinct from eligibleRegion, which specifies where something *is* valid or available.",
+          "embed_score": 0.747,
+          "embed_rank": 30
+        },
+        {
+          "source": "schema.org",
+          "label": "contraindication",
+          "signature": "MedicalDevice/MedicalTherapy → MedicalContraindication/Text",
+          "parent": null,
+          "inverse_of": null,
+          "score": -10.0369,
+          "matched_anchor": null,
+          "comment": "A medical restriction relation for a medical device or therapy, indicating a contraindication. Also called \"medical warning\", \"precaution\", \"not recommended for\". Examples: \"Drug therapy contraindication 'Pregnancy'\", \"Medical device contraindication 'Pacemaker users'\".",
+          "embed_score": 0.764,
+          "embed_rank": 7
+        },
+        {
+          "source": "schema.org",
+          "label": "possibleTreatment",
+          "signature": "MedicalCondition/MedicalSignOrSymptom → Drug/DrugClass/LifestyleModification/MedicalTherapy",
+          "parent": null,
+          "inverse_of": null,
+          "score": -10.0522,
+          "matched_anchor": null,
+          "comment": "A medical attribute indicating a potential treatment, drug, or therapy to address a medical condition, sign, or symptom. Also called potential therapy, recommended treatment, intervention option. Examples: A medical condition has a possible treatment of 'antibiotics'. A symptom has a possible treatment of 'pain relievers'. Hypertension has a possible treatment of 'lifestyle modification'.",
+          "embed_score": 0.763,
+          "embed_rank": 10
+        },
+        {
+          "source": "schema.org",
+          "label": "hasAdultConsideration",
+          "signature": "Offer/Product → AdultOrientedEnumeration",
+          "parent": null,
+          "inverse_of": null,
+          "score": -10.0784,
+          "matched_anchor": null,
+          "comment": "An adult suitability relation between an offer or product and its intended audience or content rating. Also called adult-oriented, age-restricted, mature content, for adults only. Examples: \"An offer has adult consideration for explicit content.\", \"A product is tagged with adult consideration.\", \"This item has adult consideration due to its theme.\"",
+          "embed_score": 0.745,
+          "embed_rank": 33
+        },
+        {
+          "source": "schema.org",
+          "label": "adverseOutcome",
+          "signature": "MedicalDevice/TherapeuticProcedure → MedicalEntity",
+          "parent": null,
+          "inverse_of": null,
+          "score": -10.1688,
+          "matched_anchor": null,
+          "comment": "An adverse outcome relation between a medical device or therapeutic procedure and a possible complication or side effect. Also called side effect, complication, negative reaction. Examples: \"A surgery's adverse outcome is 'infection'.\", \"A medical device's adverse outcome is 'skin irritation'.\" Distinct from seriousAdverseOutcome, which is specifically for life-threatening or severe complications.",
+          "embed_score": 0.763,
+          "embed_rank": 9
+        }
+      ]
+    },
+    {
+      "relation_phrase": "located in",
+      "definition": null,
+      "embedding_query_text": "located in:",
+      "observed_signatures": [
+        "StadiumOrArena → City",
+        "City → State",
+        "State → Country"
+      ],
+      "n_assignments": 1,
+      "assignments": [
+        {
+          "instances": [
+            "Miami Stadium -> Miami",
+            "Miami -> Florida",
+            "Florida -> United States"
+          ],
+          "chosen_property": {
+            "label": "containedIn",
+            "source": "schema.org",
+            "direction": "as_is",
+            "vocab_id": null,
+            "is_new_to_vocab": false,
+            "definition": null,
+            "parent": null,
+            "domain": null,
+            "range": null,
+            "path": "",
+            "justification": "The property fits the relation between a location and the larger location it is contained in."
+          },
+          "llm_proposed": {
+            "source": "schema.org",
+            "label": "containedIn",
+            "is_new": false,
+            "direction": "as_is"
+          }
+        }
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "location",
+          "signature": "Action/Event/InteractionCounter/Organization → Place/PostalAddress/Text/VirtualLocation",
+          "parent": null,
+          "inverse_of": null,
+          "score": 3.7548,
+          "matched_anchor": null,
+          "comment": "A location relation between an action, event, interaction counter, or organization and its physical or virtual place. Also called: situated at, takes place at, found at. Examples: \"Conference Event location New York Hilton\", \"Company Organization location 123 Main St\", \"Online Meeting location Virtual Conference Room\".",
+          "embed_score": 0.797,
+          "embed_rank": 5
+        },
+        {
+          "source": "schema.org",
+          "label": "containedIn",
+          "signature": "Place → Place",
+          "parent": null,
+          "inverse_of": null,
+          "score": 2.2895,
+          "matched_anchor": null,
+          "comment": "A spatial containment relation between a place and the larger place that contains it. Also called \"located in\", \"part of\", \"within\". Examples: \"City 'Paris' containedIn 'France'\", \"Building 'Eiffel Tower' containedIn 'Paris'\". Distinct from containedInPlace, which is a synonym, and containsPlace, which is the inverse.",
+          "embed_score": 0.801,
+          "embed_rank": 3
+        },
+        {
+          "source": "schema.org",
+          "label": "containedInPlace",
+          "signature": "Place → Place",
+          "parent": null,
+          "inverse_of": "containsPlace",
+          "score": 2.1595,
+          "matched_anchor": null,
+          "comment": "A spatial containment relation between a place and the larger place that contains it. Also called \"located in\", \"part of\", \"within\". Examples: \"City 'Paris' containedInPlace 'France'\", \"Building 'Eiffel Tower' containedInPlace 'Paris'\". Distinct from containedIn, which is a synonym, and containsPlace, which is the inverse.",
+          "embed_score": 0.803,
+          "embed_rank": 1
+        },
+        {
+          "source": "schema.org",
+          "label": "locationCreated",
+          "signature": "CreativeWork → Place",
+          "parent": null,
+          "inverse_of": null,
+          "score": 1.5113,
+          "matched_anchor": null,
+          "comment": "A creation location relation between a creative work and the place where it was created. Also called: place of creation, origin location, created in. Examples: \"Painting locationCreated Paris\", \"Novel locationCreated London\", \"Film locationCreated Hollywood\". Distinct from location, which refers to the current or general location of an entity.",
+          "embed_score": 0.779,
+          "embed_rank": 24
+        },
+        {
+          "source": "schema.org",
+          "label": "geoWithin",
+          "signature": "GeospatialGeometry/Place → GeospatialGeometry/Place",
+          "parent": null,
+          "inverse_of": null,
+          "score": 0.6277,
+          "matched_anchor": null,
+          "comment": "A geo within relation representing a spatial relationship where a geometry or place is located entirely inside the interior of another containing geometry or place. Also called: is inside, contained in, located within. Examples: \"City 'Paris'\" geo within \"Country 'France'\", \"Office 'Suite 100'\" geo within \"Building 'Empire State'\", \"State 'California'\" geo within \"Country 'USA'\". Distinct from geoContains, which is the inverse relation.",
+          "embed_score": 0.765,
+          "embed_rank": 50
+        },
+        {
+          "source": "schema.org",
+          "label": "gameLocation",
+          "signature": "Game/VideoGameSeries → Place/PostalAddress/URL",
+          "parent": null,
+          "inverse_of": null,
+          "score": -1.3679,
+          "matched_anchor": null,
+          "comment": "A game location relation between a game or video game series and a real or fictional place where the game or part of it is set. Also called: game setting, virtual world, game environment. Examples: \"Grand Theft Auto V\" game location \"Los Santos\", \"The Legend of Zelda: Breath of the Wild\" game location \"Hyrule\", \"Assassin's Creed Valhalla\" game location \"England\".",
+          "embed_score": 0.772,
+          "embed_rank": 36
+        },
+        {
+          "source": "schema.org",
+          "label": "homeLocation",
+          "signature": "Person → ContactPoint/Place",
+          "parent": "location",
+          "inverse_of": null,
+          "score": -1.4608,
+          "matched_anchor": null,
+          "comment": "A home location relation between a person and their residential contact point or place. Also called residence, dwelling, home address. Examples: \"A person has a home location in London.\", \"Her home location is a specific address.\", \"The individual's home location is a contact point.\"",
+          "embed_score": 0.777,
+          "embed_rank": 26
+        },
+        {
+          "source": "schema.org",
+          "label": "foundingLocation",
+          "signature": "Organization → Place",
+          "parent": null,
+          "inverse_of": null,
+          "score": -1.8867,
+          "matched_anchor": null,
+          "comment": "A founding location relation between an organization and the place where it was established. Also called: place of origin, establishment location, birthplace. Examples: \"Microsoft\" founding location \"Albuquerque, New Mexico\", \"Apple Inc.\" founding location \"Los Altos, California\", \"Google\" founding location \"Menlo Park, California\".",
+          "embed_score": 0.795,
+          "embed_rank": 6
+        },
+        {
+          "source": "schema.org",
+          "label": "applicantLocationRequirements",
+          "signature": "JobPosting → AdministrativeArea",
+          "parent": null,
+          "inverse_of": null,
+          "score": -2.2474,
+          "matched_anchor": null,
+          "comment": "An applicant location requirements relation between a job posting and the administrative area(s) from which candidates can apply, especially for remote positions. Also called remote work location, eligible application region, telecommuting area. Examples: \"A job posting's applicant location requirements include 'Anywhere in the US'.\", \"The remote job's applicant location requirements are 'Europe'.\"",
+          "embed_score": 0.784,
+          "embed_rank": 20
+        },
+        {
+          "source": "schema.org",
+          "label": "bodyLocation",
+          "signature": "AnatomicalStructure/MedicalProcedure → Text",
+          "parent": null,
+          "inverse_of": null,
+          "score": -2.4726,
+          "matched_anchor": null,
+          "comment": "A textual description of the location in the body of an anatomical structure or for a medical procedure. Also called: anatomical site, body region, procedure location. Examples: \"AnatomicalStructure 'Heart' bodyLocation 'Chest'\", \"MedicalProcedure 'Appendectomy' bodyLocation 'Abdomen'.\"",
+          "embed_score": 0.774,
+          "embed_rank": 29
+        }
+      ]
+    },
+    {
+      "relation_phrase": "takes place at",
+      "definition": null,
+      "embedding_query_text": "takes place at:",
+      "observed_signatures": [
+        "SportsEvent → StadiumOrArena"
+      ],
+      "n_assignments": 1,
+      "assignments": [
+        {
+          "instances": [
+            "FIFA World Cup 2026 -> Miami Stadium"
+          ],
+          "chosen_property": {
+            "label": "location",
+            "source": "schema.org",
+            "direction": "as_is",
+            "vocab_id": null,
+            "is_new_to_vocab": false,
+            "definition": null,
+            "parent": null,
+            "domain": null,
+            "range": null,
+            "path": "",
+            "justification": "The property fits the relation between an event and its location."
+          },
+          "llm_proposed": {
+            "source": "schema.org",
+            "label": "location",
+            "is_new": false,
+            "direction": "as_is"
+          }
+        }
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "location",
+          "signature": "Action/Event/InteractionCounter/Organization → Place/PostalAddress/Text/VirtualLocation",
+          "parent": null,
+          "inverse_of": null,
+          "score": 4.6957,
+          "matched_anchor": null,
+          "comment": "A location relation between an action, event, interaction counter, or organization and its physical or virtual place. Also called: situated at, takes place at, found at. Examples: \"Conference Event location New York Hilton\", \"Company Organization location 123 Main St\", \"Online Meeting location Virtual Conference Room\".",
+          "embed_score": 0.777,
+          "embed_rank": 1
+        },
+        {
+          "source": "schema.org",
+          "label": "sportsActivityLocation",
+          "signature": "ExerciseAction → SportsActivityLocation",
+          "parent": "location",
+          "inverse_of": null,
+          "score": 0.1584,
+          "matched_anchor": null,
+          "comment": "A specific location relation between an exercise action and the sports activity venue where it took place. Also called \"exercise location\", \"training venue\", \"athletic facility\", \"gym location\". Examples: \"The run had sportsActivityLocation Central Park\", \"The workout's sportsActivityLocation was the local gym\", \"This exercise action took place at a sportsActivityLocation stadium.\". Distinct from location, which is a more general location property.",
+          "embed_score": 0.77,
+          "embed_rank": 2
+        },
+        {
+          "source": "schema.org",
+          "label": "spatial",
+          "signature": "CreativeWork → Place",
+          "parent": null,
+          "inverse_of": null,
+          "score": -0.9811,
+          "matched_anchor": null,
+          "comment": "A general spatial relation between a creative work and a place, used when more specific location properties are not applicable. Also called \"related to place\", \"takes place in\", \"associated location\", \"geographic context\". Examples: \"The novel has spatial Paris\", \"The painting's spatial is a rural landscape\", \"This document's spatial is the Amazon rainforest.\". Distinct from spatialCoverage, which indicates the specific geographic focus of the content.",
+          "embed_score": 0.749,
+          "embed_rank": 29
+        },
+        {
+          "source": "schema.org",
+          "label": "sportsEvent",
+          "signature": "ExerciseAction → SportsEvent",
+          "parent": "location",
+          "inverse_of": null,
+          "score": -3.3434,
+          "matched_anchor": null,
+          "comment": "A specific event relation between an exercise action and the sports event during which it occurred. Also called \"event of exercise\", \"competition event\", \"athletic event\". Examples: \"The sprint occurred during the sportsEvent Olympics\", \"The goal was scored in the sportsEvent World Cup match\", \"This action took place at a sportsEvent marathon.\". Distinct from event, which is a more general event property.",
+          "embed_score": 0.763,
+          "embed_rank": 7
+        },
+        {
+          "source": "schema.org",
+          "label": "foodEvent",
+          "signature": "CookAction → FoodEvent",
+          "parent": "location",
+          "inverse_of": null,
+          "score": -4.4874,
+          "matched_anchor": null,
+          "comment": "A food event relation between a cook action and the specific food-related event where the cooking took place. Also called: culinary event, cooking event, gastronomic occasion. Examples: \"Chef prepares meal\" food event \"Annual Food Festival\", \"Home Cook makes dinner\" food event \"Family Dinner Party\", \"Baker bakes bread\" food event \"Charity Bake Sale\". Distinct from foodEstablishment, which is a specific place.",
+          "embed_score": 0.744,
+          "embed_rank": 44
+        },
+        {
+          "source": "schema.org",
+          "label": "studyLocation",
+          "signature": "MedicalStudy → AdministrativeArea",
+          "parent": null,
+          "inverse_of": null,
+          "score": -4.7403,
+          "matched_anchor": null,
+          "comment": "A geographic relation between a medical study and the administrative area where it is conducted or was conducted. Also called \"research location\", \"trial site\", \"study area\", \"geographic scope of study\". Examples: \"The medical study has studyLocation New York\", \"The clinical trial's studyLocation is Europe\", \"This study is taking place in a specific studyLocation.\"",
+          "embed_score": 0.747,
+          "embed_rank": 34
+        },
+        {
+          "source": "schema.org",
+          "label": "deathPlace",
+          "signature": "Person → Place",
+          "parent": null,
+          "inverse_of": null,
+          "score": -5.324,
+          "matched_anchor": null,
+          "comment": "A geographical event relation between a person and the place where they died. Also called: place of demise, passing location, decease location. Examples: \"Historical Figure\" death place \"Dallas, Texas\", \"Family Member\" death place \"London, UK\". Distinct from birthPlace, which is the place of birth.",
+          "embed_score": 0.767,
+          "embed_rank": 4
+        },
+        {
+          "source": "schema.org",
+          "label": "gameLocation",
+          "signature": "Game/VideoGameSeries → Place/PostalAddress/URL",
+          "parent": null,
+          "inverse_of": null,
+          "score": -5.6705,
+          "matched_anchor": null,
+          "comment": "A game location relation between a game or video game series and a real or fictional place where the game or part of it is set. Also called: game setting, virtual world, game environment. Examples: \"Grand Theft Auto V\" game location \"Los Santos\", \"The Legend of Zelda: Breath of the Wild\" game location \"Hyrule\", \"Assassin's Creed Valhalla\" game location \"England\".",
+          "embed_score": 0.75,
+          "embed_rank": 27
+        },
+        {
+          "source": "schema.org",
+          "label": "displayLocation",
+          "signature": "CreativeWork/Product → Place",
+          "parent": null,
+          "inverse_of": null,
+          "score": -5.7698,
+          "matched_anchor": null,
+          "comment": "A display location relation between a creative work or product and the place where it can be viewed or experienced in-person. Also called \"viewing location\", \"exhibition place\", \"experience venue\". Examples: \"Painting 'Mona Lisa' displayLocation 'Louvre Museum'\", \"Product 'New Car Model' displayLocation 'Dealership Showroom'\", \"Sculpture displayLocation 'Art Gallery'\".",
+          "embed_score": 0.76,
+          "embed_rank": 12
+        },
+        {
+          "source": "schema.org",
+          "label": "locationCreated",
+          "signature": "CreativeWork → Place",
+          "parent": null,
+          "inverse_of": null,
+          "score": -6.1028,
+          "matched_anchor": null,
+          "comment": "A creation location relation between a creative work and the place where it was created. Also called: place of creation, origin location, created in. Examples: \"Painting locationCreated Paris\", \"Novel locationCreated London\", \"Film locationCreated Hollywood\". Distinct from location, which refers to the current or general location of an entity.",
+          "embed_score": 0.75,
+          "embed_rank": 26
+        }
+      ]
+    },
+    {
+      "relation_phrase": "chasing",
+      "definition": "to pursue or try to obtain something",
+      "embedding_query_text": "chasing: to pursue or try to obtain something",
+      "observed_signatures": [
+        "Person → Event"
+      ],
+      "n_assignments": 1,
+      "assignments": [
+        {
+          "instances": [
+            "Kylian Mbappe -> Golden Boot",
+            "Harry Kane -> Golden Boot",
+            "Jude Bellingham -> Golden Boot"
+          ],
+          "chosen_property": {
+            "label": "chasing",
+            "source": "vocab",
+            "direction": "as_is",
+            "vocab_id": "P0159",
+            "is_new_to_vocab": true,
+            "definition": "To pursue or try to obtain something, especially an award or achievement.",
+            "parent": null,
+            "domain": [
+              "Person"
+            ],
+            "range": [
+              "Event"
+            ],
+            "path": "",
+            "justification": "No existing property fits the relation between a person and an event they are chasing."
+          },
+          "llm_proposed": {
+            "source": "new",
+            "label": "chasing",
+            "is_new": true,
+            "direction": "as_is"
+          }
+        }
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "potentialAction",
+          "signature": "Thing → Action",
+          "parent": null,
+          "inverse_of": null,
+          "score": -9.8004,
+          "matched_anchor": null,
+          "comment": "A behavioral attribute indicating an idealized action in which a thing could potentially serve as the object. Also called possible action, available action, actionable item. Examples: A product has a potential action 'BuyAction'. A book has a potential action 'ReadAction'. A movie has a potential action 'WatchAction'.",
+          "embed_score": 0.764,
+          "embed_rank": 7
+        },
+        {
+          "source": "schema.org",
+          "label": "seeks",
+          "signature": "Organization/Person → Demand",
+          "parent": null,
+          "inverse_of": null,
+          "score": -10.0509,
+          "matched_anchor": null,
+          "comment": "A demand for specific products or services expressed by an organization or person. Also called desires, looks for, requests, requires. Examples: `Company X` seeks `Demand for Software Developers`, `Person Y` seeks `Demand for Used Car`, `Organization Z` seeks `Demand for Consulting Services`. Distinct from `offers`, which is about what is provided.",
+          "embed_score": 0.826,
+          "embed_rank": 1
+        },
+        {
+          "source": "schema.org",
+          "label": "quest",
+          "signature": "Game/VideoGameSeries → Thing",
+          "parent": null,
+          "inverse_of": null,
+          "score": -10.0827,
+          "matched_anchor": null,
+          "comment": "A quest relation between a game or video game series and a specific task or mission that players can complete for a reward. Also called mission, task, objective. Examples: \"A role-playing game features a quest to 'defeat the dragon'.\", \"A video game series includes a quest to 'collect all artifacts'.\", \"An adventure game has a quest to 'rescue the princess'.\"",
+          "embed_score": 0.768,
+          "embed_rank": 5
+        },
+        {
+          "source": "schema.org",
+          "label": "object",
+          "signature": "Action → Thing",
+          "parent": null,
+          "inverse_of": null,
+          "score": -10.4518,
+          "matched_anchor": null,
+          "comment": "A thing upon which an action is carried out, potentially changing its state. Also called target, item acted upon, recipient of action. Examples: \"Read Action object 'a book'\", \"Buy Action object 'a product'\", \"Edit Action object 'a document'\". Distinct from instrument, which is the tool used to perform the action.",
+          "embed_score": 0.757,
+          "embed_rank": 19
+        },
+        {
+          "source": "schema.org",
+          "label": "toLocation",
+          "signature": "ExerciseAction/InsertAction/MoveAction/TransferAction → Place",
+          "parent": "location",
+          "inverse_of": null,
+          "score": -10.8015,
+          "matched_anchor": null,
+          "comment": "A destination location relation between an action (like exercise, insert, move, or transfer) and the final place of the object or agent after the action. Also called destination, final location, arrival place. Examples: \"MoveAction toLocation 'New York'\", \"TransferAction toLocation 'Warehouse B'\", \"ExerciseAction toLocation 'gym'\". Distinct from location, which is the general place where something is or occurs.",
+          "embed_score": 0.763,
+          "embed_rank": 9
+        },
+        {
+          "source": "schema.org",
+          "label": "opponent",
+          "signature": "ExerciseAction → Person",
+          "parent": "participant",
+          "inverse_of": null,
+          "score": -10.8134,
+          "matched_anchor": null,
+          "comment": "A person who is an opponent in an exercise action. Also called adversary, competitor, rival. Examples: \"Boxing Match opponent 'Mike Tyson'\", \"Chess Game opponent 'Deep Blue'\", \"Tennis Match opponent 'Serena Williams'\". Distinct from participant, which is a general participant.",
+          "embed_score": 0.758,
+          "embed_rank": 16
+        },
+        {
+          "source": "schema.org",
+          "label": "follows",
+          "signature": "Person → Person",
+          "parent": null,
+          "inverse_of": null,
+          "score": -10.8195,
+          "matched_anchor": null,
+          "comment": "A follows relation representing a generic uni-directional social connection between two people. Also called: is following, subscribes to, tracks. Examples: \"Alice follows Bob\", \"Charlie follows David\", \"Eve follows Frank\". Distinct from followee, which is the object of a follow action.",
+          "embed_score": 0.754,
+          "embed_rank": 29
+        },
+        {
+          "source": "schema.org",
+          "label": "followee",
+          "signature": "FollowAction → Organization/Person",
+          "parent": "object",
+          "inverse_of": null,
+          "score": -10.8316,
+          "matched_anchor": null,
+          "comment": "A followee relation between a follow action and the person or organization that is being followed. Also called: followed entity, subject of follow, target of follow. Examples: \"User A follows User B\" followee \"User B\", \"Fan follows Band X\" followee \"Band X\", \"Journalist follows News Organization Y\" followee \"News Organization Y\". Distinct from follows, which is the general social relation.",
+          "embed_score": 0.757,
+          "embed_rank": 17
+        },
+        {
+          "source": "schema.org",
+          "label": "hasOccupation",
+          "signature": "Person → Occupation",
+          "parent": null,
+          "inverse_of": null,
+          "score": -10.8719,
+          "matched_anchor": null,
+          "comment": "An occupation relation between a person and their current occupation. Also called profession, job, employment. Examples: \"A person has an occupation as a software engineer.\", \"She has an occupation as a doctor.\", \"His occupation is a teacher.\"",
+          "embed_score": 0.759,
+          "embed_rank": 15
+        },
+        {
+          "source": "schema.org",
+          "label": "availableAtOrFrom",
+          "signature": "Demand/Offer → Place",
+          "parent": "areaServed",
+          "inverse_of": null,
+          "score": -10.8958,
+          "matched_anchor": null,
+          "comment": "A place from which an offer can be obtained. Also called: pickup location, sales point, distribution point. Examples: \"Offer 'Groceries' availableAtOrFrom 'Supermarket A'\", \"Offer 'Concert Tickets' availableAtOrFrom 'Venue Box Office'.\"",
+          "embed_score": 0.768,
+          "embed_rank": 4
+        }
+      ]
+    }
+  ]
+}

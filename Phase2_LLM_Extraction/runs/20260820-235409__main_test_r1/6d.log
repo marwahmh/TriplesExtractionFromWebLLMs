@@ -1,0 +1,837 @@
+[NbConvertApp] Converting notebook /Users/marwah/Documents/Thesis/TriplesExtractionFromWebLLMs/Phase2_LLM_Extraction/notebooks/e2e/6d_e2e_type_canonicalization.ipynb to notebook
+/opt/anaconda3/lib/python3.12/site-packages/nbformat/__init__.py:93: MissingIDFieldWarning: Code cell is missing an id field, this will become a hard error in future nbformat versions. You may want to use `normalize()` on your notebooks before validations (available since nbformat 5.1.4). Previous versions of nbformat are fixing this issue transparently, and will stop doing so in the future.
+  validate(nb)
+Traceback (most recent call last):
+  File "/opt/anaconda3/bin/jupyter-nbconvert", line 11, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "/opt/anaconda3/lib/python3.12/site-packages/jupyter_core/application.py", line 283, in launch_instance
+    super().launch_instance(argv=argv, **kwargs)
+  File "/opt/anaconda3/lib/python3.12/site-packages/traitlets/config/application.py", line 1075, in launch_instance
+    app.start()
+  File "/opt/anaconda3/lib/python3.12/site-packages/nbconvert/nbconvertapp.py", line 412, in start
+    self.convert_notebooks()
+  File "/opt/anaconda3/lib/python3.12/site-packages/nbconvert/nbconvertapp.py", line 590, in convert_notebooks
+    self.convert_single_notebook(notebook_filename)
+  File "/opt/anaconda3/lib/python3.12/site-packages/nbconvert/nbconvertapp.py", line 556, in convert_single_notebook
+    output, resources = self.export_single_notebook(
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.12/site-packages/nbconvert/nbconvertapp.py", line 479, in export_single_notebook
+    output, resources = self.exporter.from_filename(
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.12/site-packages/nbconvert/exporters/exporter.py", line 203, in from_filename
+    return self.from_file(f, resources=resources, **kw)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.12/site-packages/nbconvert/exporters/exporter.py", line 222, in from_file
+    return self.from_notebook_node(
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.12/site-packages/nbconvert/exporters/notebook.py", line 36, in from_notebook_node
+    nb_copy, resources = super().from_notebook_node(nb, resources, **kw)
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.12/site-packages/nbconvert/exporters/exporter.py", line 156, in from_notebook_node
+    nb_copy, resources = self._preprocess(nb_copy, resources)
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.12/site-packages/nbconvert/exporters/exporter.py", line 354, in _preprocess
+    nbc, resc = preprocessor(nbc, resc)  # type:ignore[operator]
+                ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.12/site-packages/nbconvert/preprocessors/base.py", line 48, in __call__
+    return self.preprocess(nb, resources)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.12/site-packages/nbconvert/preprocessors/execute.py", line 102, in preprocess
+    self.preprocess_cell(cell, resources, index)
+  File "/opt/anaconda3/lib/python3.12/site-packages/nbconvert/preprocessors/execute.py", line 123, in preprocess_cell
+    cell = self.execute_cell(cell, index, store_history=True)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.12/site-packages/jupyter_core/utils/__init__.py", line 165, in wrapped
+    return loop.run_until_complete(inner)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.12/asyncio/base_events.py", line 687, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.12/site-packages/nbclient/client.py", line 1058, in async_execute_cell
+    await self._check_raise_for_error(cell, cell_index, exec_reply)
+  File "/opt/anaconda3/lib/python3.12/site-packages/nbclient/client.py", line 914, in _check_raise_for_error
+    raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
+nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
+------------------
+# ---- PERIODIC RE-CONSOLIDATION (CONSOLIDATE_EVERY) -------------------------------------------
+# Off by default: with CONSOLIDATE_EVERY = 0 this cell does nothing and the stage is the classic
+# "build everything, consolidate once at the end".
+#
+# With it set to N, the vocabulary is re-consolidated every N articles and the merged result is fed
+# BACK as the working vocabulary, so article N+1 builds on the collapsed term set rather than on
+# every duplicate produced so far. That is the point of the knob: it bounds both the vocabulary and
+# the consolidation prompt, which is the largest in the pipeline (~25-40k tokens) and grows with the
+# vocabulary — on a 59-article corpus the single end-of-run call is what would hit the context limit.
+#
+# Two things this has to get right, and why it is not just "call consolidate_vocab in a loop":
+#
+#   ids     the consolidated vocabulary keeps `next_id` (85 types -> 75 survivors, next_id still 86),
+#           so feeding it back never re-issues a retired id.
+#   remap   refresh_ext_after_consolidation builds its mapping from ONE report and follows merge
+#           chains inside it. Each pass overwrites the report, so refreshing after every pass would
+#           lose the earlier ones and leave article 1 pointing at a term retired in pass 1. Instead
+#           the passes are ACCUMULATED into one cumulative report and the graphs are refreshed once,
+#           at the end — the chain-following in _resolve then composes the passes for free
+#           (T0003 -> T0001 in pass 1, T0001 -> T0007 in pass 2 resolves to T0007).
+#
+# The cumulative report is also what run_metrics reads, so cons_merge_groups / cons_merged_into_schema
+# are the totals across the whole stage rather than the last pass only.
+if CONSOLIDATE_EVERY and len(TODO_ALL) > len(todo):
+    _reports = [json.loads(CONSOLIDATION_REPORT_PATH.read_text())] if CONSOLIDATION_REPORT_PATH.exists() else []
+    _rest = TODO_ALL[len(todo):]
+    _chunks = [_rest[i:i + CONSOLIDATE_EVERY] for i in range(0, len(_rest), CONSOLIDATE_EVERY)]
+    print(f"periodic consolidation: {len(_chunks)} further chunk(s) of <= {CONSOLIDATE_EVERY} article(s)\n")
+
+    for _ci, _chunk in enumerate(_chunks, start=2):
+        # feed the consolidated vocabulary back in — without this the raw vocabulary keeps every
+        # duplicate and the periodic passes are mere checkpoints.
+        # RECONCILING feed-back. A pass must only ever remove a type it RECORDED as merged;
+        # anything else that disappears is a term the per-article graphs still point at, and feeding
+        # a lossy vocabulary forward turns those references into dangling ids that no later pass can
+        # repair (it no longer knows the term existed). Measured on the first periodic 6e run: 5 of
+        # 29 removals had no merge record, orphaning 9 relations. Restore them and say so, rather
+        # than carrying the loss silently into the next chunk.
+        _prev = {t["id"]: t for t in load_vocab()["types"]}
+        _con = load_consolidated()
+        _merged = {m["id"] for g in (_reports[-1].get("merges") or []) for m in (g.get("merged") or [])}
+        _lost = [i for i in _prev if i not in {t["id"] for t in _con["types"]} and i not in _merged]
+        if _lost:
+            print(f"  [repair] {len(_lost)} type(s) left the vocabulary with no merge record "
+                  f"-- restoring: {_lost}")
+            _con["types"] = _con["types"] + [_prev[i] for i in _lost]
+        save_vocab(_con)
+        vocab = load_vocab()
+        print(f"── chunk {_ci}: {len(vocab['types'])} type(s) carried forward | {_chunk}")
+        _cpre = {}
+        if PARALLEL_LLM and not INLINE_VOCAB_CANDIDATES and len(_chunk) > 1:
+            _cpre = {r.item: r.value for r in
+                     nb_parallel.pmap(lambda a: prefetch_types(a, vocab), _chunk, workers=WORKERS)
+                     if r.ok}
+        for aid in _chunk:
+            with nb_parallel.usage_scope(aid):
+                canonicalize_article_types(aid, vocab, write=True, save=True, verbose=True,
+                                           pre=_cpre.get(aid))
+            if aid not in _cpre:
+                time.sleep(5)
+        if CONSOLIDATE:
+            _reports.append(consolidate_vocab(load_vocab()))
+        else:
+            _consolidation_disabled()
+
+    # One cumulative report: the union of every pass, so the single refresh below composes them.
+    if _reports:
+        _cum = dict(_reports[-1])
+        _cum["merges"] = [g for r in _reports for g in (r.get("merges") or [])]
+        _cum["reparents"] = [g for r in _reports for g in (r.get("reparents") or [])]
+        _cum["consolidation_passes"] = len(_reports)
+        _cum["n_merges"] = len(_cum["merges"])
+        _cum["n_reparented"] = sum(len(g.get("children") or []) for g in _cum["reparents"])
+        _cum["n_types_removed"] = sum(len(g.get("merged") or []) for g in _cum["merges"])
+        _cum["n_merged_into_schema"] = sum(len(g.get("merged") or []) for g in _cum["merges"]
+                                           if g.get("survivor_source") == "schema.org")
+        # NOT pass 1's "before" and pass 4's "after" — those describe different populations (the
+        # vocabulary after one chunk vs after twenty), and quoted as a pair they read as though
+        # consolidation GREW the vocabulary. The meaningful pair for a periodic run is the
+        # counterfactual: what the vocabulary would be had nothing been collapsed, against what it
+        # actually is. (Sanity check: before == next_id - 1, i.e. every id ever issued.)
+        _cum["vocab_size_after"] = _reports[-1].get("vocab_size_after")
+        _cum["vocab_size_before"] = (_cum["vocab_size_after"] or 0) + _cum["n_types_removed"]
+        _cum["per_pass"] = [{"before": r.get("vocab_size_before"), "after": r.get("vocab_size_after")}
+                            for r in _reports]
+        CONSOLIDATION_REPORT_PATH.write_text(json.dumps(_cum, indent=2, ensure_ascii=False))
+        print(f"\ncumulative report over {len(_reports)} pass(es) -> {CONSOLIDATION_REPORT_PATH.name}"
+              f"   {_cum['n_merges']} merge group(s), {_cum['n_types_removed']} type(s) removed")
+
+    refresh_ext_after_consolidation()          # once, with the composed mapping
+
+    # The build cell above wrote the cost file straight after chunk 1, but nb_parallel's ledger keeps
+    # accumulating for the whole notebook run (reset_usage is called once, up there). So a periodic
+    # run's token file stopped at the first CONSOLIDATE_EVERY articles and understated the run —
+    # found on the validation runs, where this said 5 calls for a 20-article run. Re-emit it here,
+    # once every chunk has been built, so the file covers the whole run.
+    nb_parallel.usage_report(f"6d · e2e type canonicalization · {EXPERIMENT} · all {len(TODO_ALL)} article(s)",
+                             wall_seconds=time.perf_counter() - _t0,
+                             write=RESULTS_DIR / "_global" / "e2e" / f"token_usage_types{_osfx}.json",
+                             experiment=EXPERIMENT, run_tag=RUN_TAG,
+                             consolidation_passes=len(_reports))
+    print(f"\ndone — {len(load_consolidated()['types'])} consolidated types over "
+          f"{len(TODO_ALL)} article(s)")
+
+# ---- INVARIANT: the consolidated graphs and the vocabulary must agree ---------------------------
+# Consolidating repeatedly can strand a graph on an id that no longer exists: a term merged in one
+# pass and merged AGAIN in a later one loses its trail. That failure is SILENT — the run finishes and
+# the counts look plausible. Three cheap checks, each of which has caught a real defect on this
+# corpus:
+#   dangling    an id the vocabulary no longer holds (the original check).
+#   duplicates  the SAME id held twice. A repair run that reused a run_tag re-issued P0558-P0563,
+#               already taken by six consolidation-generalize terms, and six relations then resolved
+#               to a different property than the one they were assigned. Ids still existed, so the
+#               dangling check saw nothing.
+#   labels      the reference's own label vs the label of the entry it points at. This is what
+#               catches a refresh that did not run: nb4's read the wrong field names, remapped
+#               nothing, and reported "0 nodes changed" while 65 references stayed on
+#               pre-consolidation terms.
+import glob as _glob
+_vocab = load_consolidated()["types"]
+_live = {t["id"]: t.get("canonical_label") for t in _vocab}
+_dups = len(_vocab) - len(_live)
+_dangling, _mismatch, _checked = [], [], 0
+for _f in sorted(_glob.glob(str(RESULTS_DIR / "art*" / "e2e" / "*_typed_consolidated.json"))):
+    _g = json.loads(Path(_f).read_text())
+    _aid = Path(_f).parts[-3]
+    for _coll in ("entities", "nary_nodes"):
+        for _n in _g.get(_coll, []):
+            _v = _n.get("type_vocab_id")
+            if not _v:
+                continue
+            _checked += 1
+            _lab = _n.get("type")
+            if _v not in _live:
+                _dangling.append((_aid, _v, _lab))
+            elif _lab != _live[_v]:
+                _mismatch.append((_aid, _v, _lab, _live[_v]))
+if _dups:
+    from collections import Counter as _C
+    _seen = _C(t["id"] for t in _vocab)
+    print(f"\n  *** {_dups} duplicated id(s) in the consolidated vocabulary: "
+          f"{[i for i, n in _seen.items() if n > 1][:10]}")
+if _dangling:
+    print(f"\n  *** {len(_dangling)} reference(s) to {len({d[1] for d in _dangling})} vanished type(s):")
+    for _d in _dangling[:10]:
+        print(f"      {_d[0]}  {_d[1]}  {_d[2]}")
+if _mismatch:
+    print(f"\n  *** {len(_mismatch)} reference(s) whose label disagrees with the vocabulary "
+          f"(a refresh that did not reach this data):")
+    for _d in _mismatch[:10]:
+        print(f"      {_d[0]}  {_d[1]}  graph says {_d[2]!r}, vocabulary says {_d[3]!r}")
+if _dups or _dangling or _mismatch:
+    raise AssertionError(
+        f"{_dups} duplicated id(s), {len(_dangling)} dangling reference(s) and "
+        f"{len(_mismatch)} label disagreement(s) between the consolidated graphs and the "
+        f"type vocabulary — these graphs are NOT safe to report. Fix before using this run.")
+print(f"  invariant OK — {_checked} vocabulary reference(s) resolve, with matching labels and no "
+      f"duplicated ids")
+
+------------------
+
+----- stdout -----
+periodic consolidation: 15 further chunk(s) of <= 5 article(s)
+
+── chunk 2: 22 type(s) carried forward | ['art13', 'art14', 'art16', 'art18', 'art19']
+5 item(s), running on 5 threads
+----- stdout -----
+[1/5] art19  (77.3s)
+----- stdout -----
+[2/5] art18  (80.2s)
+----- stdout -----
+[3/5] art14  (82.1s)
+----- stdout -----
+[4/5] art13  (99.7s)
+----- stdout -----
+[5/5] art16  (105.2s)
+
+done — 5/5 ok in 105.2s
+  art13: 16 entity + 2 event types over 25 entities | +9 minted | 17 ent via vocab | vocab now 31
+  art14: 9 entity + 2 event types over 20 entities | +2 minted | 2 ent via vocab | vocab now 33
+  art16: 17 entity + 2 event types over 29 entities | +7 minted | 11 ent via vocab | vocab now 40
+  art18: 10 entity + 1 event types over 38 entities | +2 minted | 1 ent via vocab | vocab now 42
+  art19: 6 entity + 2 event types over 20 entities | +4 minted | 3 ent via vocab | vocab now 46
+----- stdout -----
+consolidation (1 call): subtype_mode='subclass' | pool=vocab | 2 merge-group(s), 2 removed (0 into schema.org), 2 re-parented (0 under schema.org) | vocab 46 -> 44
+  [merge/syno] keep T0006 'SettlementExpansion' <= ['SettlementActivity']
+  [merge/syno] keep T0015 'SpaceLaunch' <= ['Launch']
+  [subtype] ['CelestialBody'] <: CelestialObject
+  [subtype] ['Galaxy'] <: GalaxyCluster
+  consolidated vocab -> /Users/marwah/Documents/Thesis/TriplesExtractionFromWebLLMs/Phase2_LLM_Extraction/results/llama33-70b/_global/e2e/type_vocabulary_dedup_main_test_r1_consolidated.json  (raw type_vocabulary_dedup_main_test_r1.json untouched)
+  report -> /Users/marwah/Documents/Thesis/TriplesExtractionFromWebLLMs/Phase2_LLM_Extraction/results/llama33-70b/_global/e2e/type_consolidation_report_dedup_main_test_r1.json
+── chunk 3: 44 type(s) carried forward | ['art20', 'art21', 'art22', 'art24', 'art25']
+5 item(s), running on 5 threads
+----- stdout -----
+[1/5] art20  (64.2s)
+----- stdout -----
+[2/5] art25  (75.4s)
+[3/5] art24  (75.5s)
+----- stdout -----
+[4/5] art22  (78.1s)
+----- stdout -----
+[5/5] art21  (92.6s)
+
+done — 5/5 ok in 92.6s
+  art20: 5 entity + 2 event types over 17 entities | +2 minted | 0 ent via vocab | vocab now 46
+  art21: 16 entity + 2 event types over 29 entities | +9 minted | 11 ent via vocab | vocab now 55
+  art22: 9 entity + 2 event types over 19 entities | +7 minted | 11 ent via vocab | vocab now 62
+  art24: 9 entity + 3 event types over 34 entities | +2 minted | 3 ent via vocab | vocab now 64
+  art25: 11 entity + 1 event types over 16 entities | +3 minted | 2 ent via vocab | vocab now 67
+----- stdout -----
+consolidation (1 call): subtype_mode='subclass' | pool=vocab | 3 merge-group(s), 3 removed (0 into schema.org), 7 re-parented (0 under schema.org) | vocab 67 -> 64
+  [merge/syno] keep T0001 'ResignationEvent' <= ['WithdrawalEvent']
+  [merge/syno] keep T0043 'FootballCoach' <= ['SoccerManager']
+  [merge/syno] keep T0065 'EarningsForecast' <= ['RecordQuarterlyProfits']
+  [subtype] ['GamingEntrepreneur', 'GameCharacter', 'GameLocation', 'GamingConsole', 'GameRelease', 'GameDevelopment'] <: GameDeveloper
+  [subtype] ['ElectronicComponent'] <: Technology
+  consolidated vocab -> /Users/marwah/Documents/Thesis/TriplesExtractionFromWebLLMs/Phase2_LLM_Extraction/results/llama33-70b/_global/e2e/type_vocabulary_dedup_main_test_r1_consolidated.json  (raw type_vocabulary_dedup_main_test_r1.json untouched)
+  report -> /Users/marwah/Documents/Thesis/TriplesExtractionFromWebLLMs/Phase2_LLM_Extraction/results/llama33-70b/_global/e2e/type_consolidation_report_dedup_main_test_r1.json
+── chunk 4: 64 type(s) carried forward | ['art26', 'art27', 'art28', 'art29', 'art30']
+5 item(s), running on 5 threads
+----- stdout -----
+[1/5] art28  (67.2s)
+----- stdout -----
+[2/5] art29  (72.4s)
+----- stdout -----
+[3/5] art27  (73.4s)
+----- stdout -----
+[4/5] art26  (74.4s)
+----- stdout -----
+[5/5] art30  (75.6s)
+
+done — 5/5 ok in 75.6s
+  art26: 9 entity + 2 event types over 16 entities | +3 minted | 4 ent via vocab | vocab now 67
+  art27: 8 entity + 3 event types over 24 entities | +4 minted | 1 ent via vocab | vocab now 71
+  art28: 8 entity + 1 event types over 38 entities | +2 minted | 5 ent via vocab | vocab now 73
+  art29: 9 entity + 2 event types over 24 entities | +2 minted | 2 ent via vocab | vocab now 75
+  art30: 8 entity + 3 event types over 20 entities | +6 minted | 11 ent via vocab | vocab now 81
+----- stdout -----
+consolidation (1 call): subtype_mode='subclass' | pool=vocab | 1 merge-group(s), 2 removed (0 into schema.org), 2 re-parented (0 under schema.org) | vocab 81 -> 79
+  [merge/syno] keep T0043 'FootballCoach' <= ['FootballReferee', 'FifaPresident']
+  [subtype] ['AftershockEvent'] <: EarthquakeEvent
+  [subtype] ['Wildfire'] <: FireEvent
+  consolidated vocab -> /Users/marwah/Documents/Thesis/TriplesExtractionFromWebLLMs/Phase2_LLM_Extraction/results/llama33-70b/_global/e2e/type_vocabulary_dedup_main_test_r1_consolidated.json  (raw type_vocabulary_dedup_main_test_r1.json untouched)
+  report -> /Users/marwah/Documents/Thesis/TriplesExtractionFromWebLLMs/Phase2_LLM_Extraction/results/llama33-70b/_global/e2e/type_consolidation_report_dedup_main_test_r1.json
+── chunk 5: 79 type(s) carried forward | ['art31', 'art32', 'art33', 'art34', 'art35']
+5 item(s), running on 5 threads
+----- stdout -----
+[1/5] art35  (72.5s)
+----- stdout -----
+[2/5] art32  (90.9s)
+----- stdout -----
+[3/5] art34  (91.9s)
+----- stdout -----
+[4/5] art33  (93.8s)
+----- stdout -----
+[5/5] art31  (113.4s)
+
+done — 5/5 ok in 113.4s
+  art31: 20 entity + 2 event types over 23 entities | +5 minted | 7 ent via vocab | vocab now 84
+  art32: 12 entity + 2 event types over 24 entities | +3 minted | 12 ent via vocab | vocab now 87
+  art33: 13 entity + 2 event types over 23 entities | +4 minted | 7 ent via vocab | vocab now 91
+  art34: 11 entity + 2 event types over 31 entities | +2 minted | 4 ent via vocab | vocab now 93
+  art35: 6 entity + 1 event types over 19 entities | +2 minted | 15 ent via vocab | vocab now 95
+----- stdout -----
+consolidation (1 call): subtype_mode='subclass' | pool=vocab | 2 merge-group(s), 2 removed (0 into schema.org), 3 re-parented (0 under schema.org) | vocab 95 -> 93
+  [merge/syno] keep T0043 'FootballCoach' <= ['FootballManager']
+  [merge/syno] keep T0001 'ResignationEvent' <= ['ManagerialFarewell']
+  [subtype] ['GalaxyCluster', 'Galaxy'] <: CelestialObject
+  [subtype] ['SpaceCompany'] <: SpaceAgency
+  consolidated vocab -> /Users/marwah/Documents/Thesis/TriplesExtractionFromWebLLMs/Phase2_LLM_Extraction/results/llama33-70b/_global/e2e/type_vocabulary_dedup_main_test_r1_consolidated.json  (raw type_vocabulary_dedup_main_test_r1.json untouched)
+  report -> /Users/marwah/Documents/Thesis/TriplesExtractionFromWebLLMs/Phase2_LLM_Extraction/results/llama33-70b/_global/e2e/type_consolidation_report_dedup_main_test_r1.json
+── chunk 6: 93 type(s) carried forward | ['art36', 'art37', 'art38', 'art39', 'art40']
+5 item(s), running on 5 threads
+----- stdout -----
+[1/5] art36  (84.4s)
+----- stdout -----
+[2/5] art40  (88.8s)
+----- stdout -----
+[3/5] art38  (96.3s)
+----- stdout -----
+[4/5] art39  (103.8s)
+----- stdout -----
+[5/5] art37  (112.2s)
+
+done — 5/5 ok in 112.2s
+  art36: 9 entity + 2 event types over 13 entities | +1 minted | 1 ent via vocab | vocab now 94
+  art37: 15 entity + 3 event types over 22 entities | +9 minted | 10 ent via vocab | vocab now 103
+  art38: 13 entity + 2 event types over 34 entities | +2 minted | 2 ent via vocab | vocab now 105
+  art39: 12 entity + 4 event types over 16 entities | +11 minted | 13 ent via vocab | vocab now 116
+  art40: 11 entity + 1 event types over 22 entities | +3 minted | 7 ent via vocab | vocab now 119
+----- stdout -----
+consolidation (1 call): subtype_mode='subclass' | pool=vocab | 1 merge-group(s), 1 removed (0 into schema.org), 4 re-parented (0 under schema.org) | vocab 119 -> 118
+  [merge/syno] keep T0036 'Politician' <= ['Activist']
+  [subtype] ['OnlineGameMode'] <: GameDeveloper
+  [subtype] ['Actress'] <: Actor
+  [subtype] ['MilitaryConflict', 'MilitaryEscalation'] <: MilitaryAttack
+  consolidated vocab -> /Users/marwah/Documents/Thesis/TriplesExtractionFromWebLLMs/Phase2_LLM_Extraction/results/llama33-70b/_global/e2e/type_vocabulary_dedup_main_test_r1_consolidated.json  (raw type_vocabulary_dedup_main_test_r1.json untouched)
+  report -> /Users/marwah/Documents/Thesis/TriplesExtractionFromWebLLMs/Phase2_LLM_Extraction/results/llama33-70b/_global/e2e/type_consolidation_report_dedup_main_test_r1.json
+── chunk 7: 118 type(s) carried forward | ['art41', 'art42', 'art43', 'art45', 'art47']
+5 item(s), running on 5 threads
+----- stdout -----
+[1/5] art42  (61.4s)
+----- stdout -----
+[2/5] art41  (61.8s)
+----- stdout -----
+[3/5] art43  (65.1s)
+----- stdout -----
+[4/5] art45  (69.9s)
+----- stdout -----
+[5/5] art47  (80.6s)
+
+done — 5/5 ok in 80.6s
+  art41: 6 entity + 2 event types over 22 entities | +2 minted | 0 ent via vocab | vocab now 120
+  art42: 5 entity + 2 event types over 17 entities | +2 minted | 2 ent via vocab | vocab now 122
+  art43: 8 entity + 1 event types over 18 entities | +3 minted | 12 ent via vocab | vocab now 125
+  art45: 10 entity + 2 event types over 16 entities | +2 minted | 2 ent via vocab | vocab now 127
+  art47: 14 entity + 1 event types over 43 entities | +2 minted | 4 ent via vocab | vocab now 129
+----- stdout -----
+consolidation (1 call): subtype_mode='subclass' | pool=vocab | 1 merge-group(s), 1 removed (0 into schema.org), 5 re-parented (0 under schema.org) | vocab 129 -> 128
+  [merge/syno] keep T0068 'Death' <= ['DeathEvent']
+  [subtype] ['Wildfire', 'TsunamiWarningEvent'] <: EarthquakeEvent
+  [subtype] ['Actor', 'Actress'] <: FilmDirector
+  [subtype] ['MilitaryThreat'] <: MilitaryAction
+  consolidated vocab -> /Users/marwah/Documents/Thesis/TriplesExtractionFromWebLLMs/Phase2_LLM_Extraction/results/llama33-70b/_global/e2e/type_vocabulary_dedup_main_test_r1_consolidated.json  (raw type_vocabulary_dedup_main_test_r1.json untouched)
+  report -> /Users/marwah/Documents/Thesis/TriplesExtractionFromWebLLMs/Phase2_LLM_Extraction/results/llama33-70b/_global/e2e/type_consolidation_report_dedup_main_test_r1.json
+── chunk 8: 128 type(s) carried forward | ['art48', 'art49', 'art50', 'art51', 'art53']
+5 item(s), running on 5 threads
+----- stdout -----
+[1/5] art53  (65.6s)
+----- stdout -----
+[2/5] art49  (68.4s)
+[3/5] art51  (68.5s)
+----- stdout -----
+[4/5] art50  (70.1s)
+----- stdout -----
+[5/5] art48  (89.9s)
+
+done — 5/5 ok in 89.9s
+  art48: 14 entity + 3 event types over 21 entities | +3 minted | 3 ent via vocab | vocab now 131
+  art49: 7 entity + 2 event types over 13 entities | +3 minted | 4 ent via vocab | vocab now 134
+  art50: 8 entity + 2 event types over 24 entities | +1 minted | 7 ent via vocab | vocab now 135
+  art51: 8 entity + 2 event types over 25 entities | +2 minted | 4 ent via vocab | vocab now 137
+  art53: 6 entity + 2 event types over 15 entities | +2 minted | 0 ent via vocab | vocab now 139
+----- stdout -----
+consolidation (1 call): subtype_mode='subclass' | pool=vocab | 6 merge-group(s), 7 removed (0 into schema.org), 1 re-parented (0 under schema.org) | vocab 139 -> 132
+  [merge/syno] keep T0026 'CelestialObject' <= ['GalaxyCluster']
+  [merge/syno] keep T0069 'SocialMediaPlatform' <= ['Death']
+  [merge/syno] keep T0071 'FireEvent' <= ['Wildfire']
+  [merge/syno] keep T0076 'EarthquakeEvent' <= ['TsunamiWarningEvent', 'AftershockEvent']
+  [merge/syno] keep T0114 'Attack' <= ['ConflictEscalation']
+  [merge/syno] keep T0105 'RegulatoryRuling' <= ['LegislationEvent']
+  [subtype] ['MilitaryOperation'] <: MilitaryAction
+  consolidated vocab -> /Users/marwah/Documents/Thesis/TriplesExtractionFromWebLLMs/Phase2_LLM_Extraction/results/llama33-70b/_global/e2e/type_vocabulary_dedup_main_test_r1_consolidated.json  (raw type_vocabulary_dedup_main_test_r1.json untouched)
+  report -> /Users/marwah/Documents/Thesis/TriplesExtractionFromWebLLMs/Phase2_LLM_Extraction/results/llama33-70b/_global/e2e/type_consolidation_report_dedup_main_test_r1.json
+── chunk 9: 132 type(s) carried forward | ['art54', 'art56', 'art60', 'art61', 'art62']
+5 item(s), running on 5 threads
+----- stdout -----
+[1/5] art54  (78.5s)
+----- stdout -----
+[2/5] art61  (88.7s)
+----- stdout -----
+[3/5] art62  (94.7s)
+----- stdout -----
+[4/5] art60  (97.3s)
+----- stdout -----
+[5/5] art56  (101.1s)
+
+done — 5/5 ok in 101.1s
+  art54: 9 entity + 1 event types over 20 entities | +1 minted | 10 ent via vocab | vocab now 133
+  art56: 17 entity + 1 event types over 24 entities | +5 minted | 9 ent via vocab | vocab now 138
+  art60: 14 entity + 3 event types over 17 entities | +5 minted | 2 ent via vocab | vocab now 143
+  art61: 9 entity + 3 event types over 21 entities | +2 minted | 2 ent via vocab | vocab now 145
+  art62: 12 entity + 3 event types over 23 entities | +2 minted | 1 ent via vocab | vocab now 147
+----- stdout -----
+consolidation (1 call): subtype_mode='subclass' | pool=vocab | 1 merge-group(s), 1 removed (0 into schema.org), 4 re-parented (0 under schema.org) | vocab 147 -> 146
+  [merge/syno] keep T0049 'ElectionEvent' <= ['Election']
+  [subtype] ['MilitaryThreat', 'MilitaryOperation'] <: MilitaryAttack
+  [subtype] ['MilitaryThreat', 'MilitaryOperation'] <: MilitaryAction
+  consolidated vocab -> /Users/marwah/Documents/Thesis/TriplesExtractionFromWebLLMs/Phase2_LLM_Extraction/results/llama33-70b/_global/e2e/type_vocabulary_dedup_main_test_r1_consolidated.json  (raw type_vocabulary_dedup_main_test_r1.json untouched)
+  report -> /Users/marwah/Documents/Thesis/TriplesExtractionFromWebLLMs/Phase2_LLM_Extraction/results/llama33-70b/_global/e2e/type_consolidation_report_dedup_main_test_r1.json
+── chunk 10: 146 type(s) carried forward | ['art63', 'art64', 'art65', 'art66', 'art67']
+5 item(s), running on 5 threads
+----- stdout -----
+[1/5] art65  (62.3s)
+----- stdout -----
+[2/5] art66  (73.5s)
+----- stdout -----
+[3/5] art67  (78.6s)
+----- stdout -----
+[4/5] art63  (81.1s)
+----- stdout -----
+[5/5] art64  (86.5s)
+
+done — 5/5 ok in 86.5s
+  art63: 11 entity + 3 event types over 24 entities | +5 minted | 14 ent via vocab | vocab now 151
+  art64: 10 entity + 4 event types over 25 entities | +8 minted | 18 ent via vocab | vocab now 159
+  art65: 5 entity + 2 event types over 7 entities | +2 minted | 1 ent via vocab | vocab now 161
+  art66: 10 entity + 1 event types over 13 entities | +3 minted | 3 ent via vocab | vocab now 164
+  art67: 11 entity + 1 event types over 27 entities | +4 minted | 17 ent via vocab | vocab now 168
+----- stdout -----
+consolidation (1 call): subtype_mode='subclass' | pool=vocab | 5 merge-group(s), 135 removed (135 into schema.org), 4 re-parented (0 under schema.org) | vocab 168 -> 33
+  [merge/syno] keep schema.org 'Organization' <= ['MilitantGroup', 'MilitaryOrganization', 'EconomicResearchFirm', 'InternationalOrganization', 'MediaOutlet']
+  [merge/syno] keep schema.org 'Person' <= ['Politician', 'Executive', 'Artist', 'Journalist', 'FootballPlayer', 'FootballPundit', 'InvestmentManager', 'CentralBanker', 'Interviewer', 'Curator']
+  [merge/syno] keep schema.org 'Event' <= ['ResignationEvent', 'SettlementExpansion', 'Heatwave', 'SpaceLaunch', 'AntitrustFine', 'CourtRuling', 'RegulatoryAction', 'TradeDispute', 'DiplomaticEffort', 'ElectionEvent', 'EarningsForecast', 'FireEvent', 'Holiday', 'EarthquakeEvent', 'MarketEvent', 'ProductLaunch', 'LeadershipChange', 'FuneralProcession', 'FootballAward', 'SpaceDocking', 'AwardCeremony', 'RegulatoryRuling', 'Strait', 'OilPriceIncrease', 'Attack', 'MilitaryConflict', 'MilitaryEscalation', 'FilmIndustry', 'MovieProduction', 'FilmingChallenge', 'BoxOfficeSuccess', 'WorldCupFinal', 'WorldCupSemiFinal', 'MilitaryThreat', 'MilitaryAction', 'DateRange', 'Stabbing', 'ComedyTroupe', 'Conflict', 'Ceasefire', 'MonthYear', 'EngagementAnnouncement', 'TrainingCamp', 'TradeBan', 'Partnership', 'CastingAnnouncement', 'ComicConAnnouncement', 'BorderCrossing', 'LegislativeAction', 'VirusSpecies', 'EbolaOutbreak', 'BoatInterception', 'PassengerDeath', 'ContractSigning', 'Transfer', 'Campaign', 'TransferSigning', 'TransferNegotiation', 'CoachingAppointment', 'Empire', 'ArtisticInfluence', 'SportsBoycott', 'ViolentIncident', 'SolarEclipse']
+  [merge/syno] keep schema.org 'Place' <= ['GeographicRegion', 'Roadway', 'Infrastructure', 'RefugeeCamp', 'Cosmodrome', 'HealthZone']
+  [merge/syno] keep schema.org 'Thing' <= ['Phenomenon', 'TechnologyCompany', 'Industry', 'SpaceTelescope', 'CelestialObject', 'LaunchSite', 'CelestialBody', 'Galaxy', 'Award', 'Jewellery', 'Committee', 'Theft', 'Investigation', 'FootballCoach', 'SemiFinalMatch', 'Waterway', 'Island', 'GameDeveloper', 'StockIndex', 'Technology', 'ElectronicComponent', 'TimePeriod', 'EnvironmentalFactor', 'DayOfWeek', 'Nationality', 'ArtificialIntelligenceSystem', 'RelativeDate', 'SpaceCompany', 'SpaceModule', 'Age', 'Commodity', 'MotoringOrganization', 'FilmFormat', 'Influence', 'NumberOfPeople', 'AgeGroup', 'ShippingRoute', 'GovernmentCommittee', 'Decade', 'EthnicGroup', 'HistoricalEntity', 'FootballLeague', 'ArtMovement', 'IndigenousGroup', 'InvestmentPlan', 'LawEnforcementAgency', 'PhysicalObject', 'Territory', 'Region', 'Planet']
+  [subtype] ['MilitaryThreat', 'MilitaryOperation'] <: MilitaryAttack
+  [subtype] ['ArtMovementFormation', 'ArtOrganizationFormation'] <: ArtOrganization
+  consolidated vocab -> /Users/marwah/Documents/Thesis/TriplesExtractionFromWebLLMs/Phase2_LLM_Extraction/results/llama33-70b/_global/e2e/type_vocabulary_dedup_main_test_r1_consolidated.json  (raw type_vocabulary_dedup_main_test_r1.json untouched)
+  report -> /Users/marwah/Documents/Thesis/TriplesExtractionFromWebLLMs/Phase2_LLM_Extraction/results/llama33-70b/_global/e2e/type_consolidation_report_dedup_main_test_r1.json
+── chunk 11: 33 type(s) carried forward | ['art68', 'art69', 'art70', 'art71', 'art75']
+5 item(s), running on 5 threads
+----- stdout -----
+[1/5] art68  (57.4s)
+----- stdout -----
+[2/5] art75  (58.0s)
+----- stdout -----
+[3/5] art71  (60.3s)
+----- stdout -----
+[4/5] art69  (62.8s)
+----- stdout -----
+[5/5] art70  (75.3s)
+
+done — 5/5 ok in 75.3s
+  art68: 6 entity + 2 event types over 15 entities | +2 minted | 0 ent via vocab | vocab now 35
+  art69: 8 entity + 2 event types over 15 entities | +4 minted | 2 ent via vocab | vocab now 39
+  art70: 12 entity + 2 event types over 18 entities | +9 minted | 12 ent via vocab | vocab now 48
+  art71: 8 entity + 1 event types over 10 entities | +4 minted | 4 ent via vocab | vocab now 52
+  art75: 5 entity + 2 event types over 7 entities | +4 minted | 5 ent via vocab | vocab now 56
+----- stdout -----
+consolidation (1 call): subtype_mode='subclass' | pool=vocab | 1 merge-group(s), 1 removed (0 into schema.org), 4 re-parented (0 under schema.org) | vocab 56 -> 55
+  [merge/syno] keep T0119 'Actor' <= ['Actress']
+  [subtype] ['SurveyEvent'] <: ResearchEvent
+  [subtype] ['GamingEntrepreneur', 'GameRelease', 'GameDevelopment'] <: GamingConsole
+  consolidated vocab -> /Users/marwah/Documents/Thesis/TriplesExtractionFromWebLLMs/Phase2_LLM_Extraction/results/llama33-70b/_global/e2e/type_vocabulary_dedup_main_test_r1_consolidated.json  (raw type_vocabulary_dedup_main_test_r1.json untouched)
+  report -> /Users/marwah/Documents/Thesis/TriplesExtractionFromWebLLMs/Phase2_LLM_Extraction/results/llama33-70b/_global/e2e/type_consolidation_report_dedup_main_test_r1.json
+── chunk 12: 55 type(s) carried forward | ['art76', 'art77', 'art78', 'art79', 'art80']
+5 item(s), running on 5 threads
+----- stdout -----
+[1/5] art77  (66.8s)
+----- stdout -----
+[2/5] art78  (74.3s)
+----- stdout -----
+[3/5] art79  (76.9s)
+----- stdout -----
+[4/5] art76  (82.4s)
+----- stdout -----
+[5/5] art80  (85.1s)
+
+done — 5/5 ok in 85.1s
+  art76: 12 entity + 2 event types over 16 entities | +7 minted | 10 ent via vocab | vocab now 62
+  art77: 7 entity + 2 event types over 15 entities | +3 minted | 1 ent via vocab | vocab now 65
+  art78: 9 entity + 1 event types over 12 entities | +4 minted | 6 ent via vocab | vocab now 69
+  art79: 9 entity + 2 event types over 35 entities | +3 minted | 4 ent via vocab | vocab now 72
+  art80: 12 entity + 4 event types over 32 entities | +6 minted | 7 ent via vocab | vocab now 78
+----- stdout -----
+consolidation (1 call): subtype_mode='subclass' | pool=vocab | 4 merge-group(s), 6 removed (0 into schema.org), 4 re-parented (0 under schema.org) | vocab 78 -> 72
+  [merge/syno] keep T0054 'GamingConsole' <= ['GamingEntrepreneur', 'GameRelease', 'GameDevelopment']
+  [merge/syno] keep T0060 'Month' <= ['MonthAndYear']
+  [merge/syno] keep T0198 'WeatherOrganization' <= ['WeatherService']
+  [merge/syno] keep T0227 'StreamingService' <= ['UtilityTracker']
+  [subtype] ['CompanyCategory'] <: Industry
+  [subtype] ['ArtificialIntelligenceCompany', 'CybersecurityCompany'] <: TechnologyCompany
+  [subtype] ['HumanitarianOrganization'] <: GeologicalOrganization
+  consolidated vocab -> /Users/marwah/Documents/Thesis/TriplesExtractionFromWebLLMs/Phase2_LLM_Extraction/results/llama33-70b/_global/e2e/type_vocabulary_dedup_main_test_r1_consolidated.json  (raw type_vocabulary_dedup_main_test_r1.json untouched)
+  report -> /Users/marwah/Documents/Thesis/TriplesExtractionFromWebLLMs/Phase2_LLM_Extraction/results/llama33-70b/_global/e2e/type_consolidation_report_dedup_main_test_r1.json
+── chunk 13: 72 type(s) carried forward | ['art81', 'art82', 'art83', 'art84', 'art85']
+5 item(s), running on 5 threads
+----- stdout -----
+[1/5] art82  (68.0s)
+----- stdout -----
+[2/5] art85  (69.0s)
+----- stdout -----
+[3/5] art81  (74.6s)
+----- stdout -----
+[4/5] art84  (77.0s)
+----- stdout -----
+[5/5] art83  (82.8s)
+
+done — 5/5 ok in 82.8s
+  art81: 9 entity + 2 event types over 19 entities | +3 minted | 6 ent via vocab | vocab now 75
+  art82: 8 entity + 2 event types over 21 entities | +2 minted | 0 ent via vocab | vocab now 77
+  art83: 12 entity + 2 event types over 23 entities | +3 minted | 1 ent via vocab | vocab now 80
+  art84: 11 entity + 2 event types over 20 entities | +4 minted | 3 ent via vocab | vocab now 84
+  art85: 7 entity + 2 event types over 27 entities | +2 minted | 4 ent via vocab | vocab now 86
+----- stdout -----
+consolidation (1 call): subtype_mode='subclass' | pool=vocab | 1 merge-group(s), 1 removed (0 into schema.org), 8 re-parented (0 under schema.org) | vocab 86 -> 85
+  [merge/syno] keep T0069 'SocialMediaPlatform' <= ['StreamingService']
+  [subtype] ['MedicalResearchEvent', 'MedicalDiagnosisEvent'] <: ResearchEvent
+  [subtype] ['Heatwave', 'Hurricane', 'FlashFlood', 'Drought'] <: WeatherEvent
+  [subtype] ['ArtificialIntelligenceSystem'] <: Technology
+  [subtype] ['TechnologyCompany'] <: InvestmentCompany
+  consolidated vocab -> /Users/marwah/Documents/Thesis/TriplesExtractionFromWebLLMs/Phase2_LLM_Extraction/results/llama33-70b/_global/e2e/type_vocabulary_dedup_main_test_r1_consolidated.json  (raw type_vocabulary_dedup_main_test_r1.json untouched)
+  report -> /Users/marwah/Documents/Thesis/TriplesExtractionFromWebLLMs/Phase2_LLM_Extraction/results/llama33-70b/_global/e2e/type_consolidation_report_dedup_main_test_r1.json
+── chunk 14: 85 type(s) carried forward | ['art86', 'art87', 'art88', 'art89', 'art90']
+5 item(s), running on 5 threads
+----- stdout -----
+[1/5] art87  (66.6s)
+----- stdout -----
+[2/5] art89  (70.5s)
+----- stdout -----
+[3/5] art86  (81.6s)
+----- stdout -----
+[4/5] art90  (92.2s)
+----- stdout -----
+[5/5] art88  (93.0s)
+
+done — 5/5 ok in 93.1s
+  art86: 11 entity + 2 event types over 19 entities | +4 minted | 4 ent via vocab | vocab now 89
+  art87: 5 entity + 2 event types over 17 entities | +3 minted | 1 ent via vocab | vocab now 92
+  art88: 15 entity + 2 event types over 19 entities | +7 minted | 5 ent via vocab | vocab now 99
+  art89: 8 entity + 1 event types over 36 entities | +1 minted | 0 ent via vocab | vocab now 100
+  art90: 15 entity + 2 event types over 29 entities | +5 minted | 8 ent via vocab | vocab now 105
+----- stdout -----
+consolidation (1 call): subtype_mode='subclass' | pool=vocab | 1 merge-group(s), 1 removed (0 into schema.org), 2 re-parented (0 under schema.org) | vocab 105 -> 104
+  [merge/syno] keep T0248 'MusicCompetition' <= ['MusicCompetitionEvent']
+  [subtype] ['MusicCompetitionEvent'] <: MusicCompetition
+  [subtype] ['MusicChart'] <: MusicCategory
+  consolidated vocab -> /Users/marwah/Documents/Thesis/TriplesExtractionFromWebLLMs/Phase2_LLM_Extraction/results/llama33-70b/_global/e2e/type_vocabulary_dedup_main_test_r1_consolidated.json  (raw type_vocabulary_dedup_main_test_r1.json untouched)
+  report -> /Users/marwah/Documents/Thesis/TriplesExtractionFromWebLLMs/Phase2_LLM_Extraction/results/llama33-70b/_global/e2e/type_consolidation_report_dedup_main_test_r1.json
+── chunk 15: 104 type(s) carried forward | ['art91', 'art92', 'art93', 'art94', 'art95']
+5 item(s), running on 5 threads
+----- stdout -----
+[1/5] art91  (81.1s)
+----- stdout -----
+[2/5] art92  (86.0s)
+----- stdout -----
+[3/5] art95  (88.9s)
+----- stdout -----
+[4/5] art93  (89.7s)
+----- stdout -----
+[5/5] art94  (98.5s)
+
+done — 5/5 ok in 98.5s
+  art91: 10 entity + 1 event types over 10 entities | +5 minted | 4 ent via vocab | vocab now 109
+  art92: 10 entity + 3 event types over 28 entities | +3 minted | 2 ent via vocab | vocab now 112
+  art93: 11 entity + 2 event types over 17 entities | +8 minted | 9 ent via vocab | vocab now 120
+  art94: 16 entity + 2 event types over 18 entities | +7 minted | 6 ent via vocab | vocab now 127
+  art95: 11 entity + 2 event types over 16 entities | +4 minted | 3 ent via vocab | vocab now 131
+----- stdout -----
+consolidation (1 call): subtype_mode='subclass' | pool=vocab | 3 merge-group(s), 6 removed (0 into schema.org), 6 re-parented (0 under schema.org) | vocab 131 -> 125
+  [merge/syno] keep T0119 'Actor' <= ['Artist', 'FilmDirector']
+  [merge/syno] keep T0220 'PersonGroup' <= ['VictimGroup', 'PerpetratorGroup']
+  [merge/syno] keep T0210 'ProfessionalGroup' <= ['PoliticianGroup', 'EuropeanCommissionPresident']
+  [subtype] ['RankingEvent'] <: ResearchEvent
+  [subtype] ['Star', 'BlackHole', 'Galaxy'] <: SpaceTelescope
+  [subtype] ['RescueOfficial', 'DisasterManagementAgencyHead'] <: DisasterManagementAgency
+  consolidated vocab -> /Users/marwah/Documents/Thesis/TriplesExtractionFromWebLLMs/Phase2_LLM_Extraction/results/llama33-70b/_global/e2e/type_vocabulary_dedup_main_test_r1_consolidated.json  (raw type_vocabulary_dedup_main_test_r1.json untouched)
+  report -> /Users/marwah/Documents/Thesis/TriplesExtractionFromWebLLMs/Phase2_LLM_Extraction/results/llama33-70b/_global/e2e/type_consolidation_report_dedup_main_test_r1.json
+── chunk 16: 125 type(s) carried forward | ['art96', 'art97', 'art98', 'art99', 'art100']
+5 item(s), running on 5 threads
+----- stdout -----
+[1/5] art96  (55.2s)
+----- stdout -----
+[2/5] art100  (57.7s)
+----- stdout -----
+[3/5] art97  (67.9s)
+----- stdout -----
+[4/5] art99  (71.8s)
+----- stdout -----
+[5/5] art98  (77.8s)
+
+done — 5/5 ok in 77.8s
+  art96: 4 entity + 2 event types over 15 entities | +2 minted | 0 ent via vocab | vocab now 127
+  art97: 8 entity + 2 event types over 27 entities | +3 minted | 1 ent via vocab | vocab now 130
+  art98: 11 entity + 3 event types over 49 entities | +3 minted | 14 ent via vocab | vocab now 133
+  art99: 10 entity + 2 event types over 14 entities | +6 minted | 8 ent via vocab | vocab now 139
+  art100: 5 entity + 2 event types over 19 entities | +2 minted | 0 ent via vocab | vocab now 141
+----- stdout -----
+consolidation (1 call): subtype_mode='subclass' | pool=vocab | 2 merge-group(s), 3 removed (0 into schema.org), 1 re-parented (0 under schema.org) | vocab 141 -> 138
+  [merge/syno] keep T0274 'ShootingIncident' <= ['Murder', 'MurderTrial']
+  [merge/syno] keep T0274 'ShootingIncident' <= ['Shooting']
+  [subtype] ['GeologicalOrganization'] <: HumanitarianOrganization
+  consolidated vocab -> /Users/marwah/Documents/Thesis/TriplesExtractionFromWebLLMs/Phase2_LLM_Extraction/results/llama33-70b/_global/e2e/type_vocabulary_dedup_main_test_r1_consolidated.json  (raw type_vocabulary_dedup_main_test_r1.json untouched)
+  report -> /Users/marwah/Documents/Thesis/TriplesExtractionFromWebLLMs/Phase2_LLM_Extraction/results/llama33-70b/_global/e2e/type_consolidation_report_dedup_main_test_r1.json
+
+cumulative report over 16 pass(es) -> type_consolidation_report_dedup_main_test_r1.json   36 merge group(s), 174 type(s) removed
+  art10: 4 node(s) changed
+  art100: 2 node(s) changed
+  art11: 10 node(s) changed
+  art13: 14 node(s) changed
+  art14: 1 node(s) changed
+  art16: 13 node(s) changed
+  art18: 2 node(s) changed
+  art19: 4 node(s) changed
+  art20: 2 node(s) changed
+  art21: 9 node(s) changed
+  art22: 10 node(s) changed
+  art24: 5 node(s) changed
+  art25: 4 node(s) changed
+  art26: 4 node(s) changed
+  art27: 4 node(s) changed
+  art28: 5 node(s) changed
+  art29: 2 node(s) changed
+  art30: 9 node(s) changed
+  art31: 6 node(s) changed
+  art32: 13 node(s) changed
+  art33: 5 node(s) changed
+  art34: 6 node(s) changed
+  art35: 15 node(s) changed
+  art36: 3 node(s) changed
+  art37: 12 node(s) changed
+  art38: 4 node(s) changed
+  art39: 15 node(s) changed
+  art40: 4 node(s) changed
+  art41: 4 node(s) changed
+  art42: 4 node(s) changed
+  art43: 10 node(s) changed
+  art45: 3 node(s) changed
+  art47: 4 node(s) changed
+  art48: 5 node(s) changed
+  art49: 5 node(s) changed
+  art50: 4 node(s) changed
+  art51: 6 node(s) changed
+  art53: 2 node(s) changed
+  art54: 11 node(s) changed
+  art56: 7 node(s) changed
+  art6: 1 node(s) changed
+  art60: 5 node(s) changed
+  art61: 4 node(s) changed
+  art62: 4 node(s) changed
+  art63: 16 node(s) changed
+  art64: 21 node(s) changed
+  art65: 2 node(s) changed
+  art66: 4 node(s) changed
+  art67: 13 node(s) changed
+  art68: 1 node(s) changed
+  art69: 1 node(s) changed
+  art7: 5 node(s) changed
+  art71: 4 node(s) changed
+  art75: 2 node(s) changed
+  art76: 1 node(s) changed
+  art78: 4 node(s) changed
+  art79: 3 node(s) changed
+  art80: 5 node(s) changed
+  art81: 2 node(s) changed
+  art82: 2 node(s) changed
+----- stdout -----
+  art88: 1 node(s) changed
+  art89: 1 node(s) changed
+  art9: 3 node(s) changed
+  art90: 5 node(s) changed
+  art91: 2 node(s) changed
+  art93: 3 node(s) changed
+  art94: 3 node(s) changed
+  art95: 1 node(s) changed
+  art96: 1 node(s) changed
+done — wrote nary_graph_dedup_main_test_r1_typed_consolidated.json for each article (incremental *_ext.json untouched)
+       372 changed node(s) across 69 article(s) -> consolidation_ext_changes_dedup_main_test_r1.json
+
+========================================================================
+LLM USAGE — 6d · e2e type canonicalization · main · all 80 article(s)
+               calls     prompt     output  thinking      total    llm_s
+-                 16    385,872      6,538         0    392,410    861.3
+art10              1      6,803        824         0      7,627     87.9
+art100             1      3,754        411         0      4,165     50.4
+art11              1      6,882      1,011         0      7,893     95.9
+art13              1      8,911      1,071         0      9,982     92.0
+art14              1      5,190        652         0      5,842     74.2
+art16              1      8,865      1,203         0     10,068     97.4
+art18              1      5,183        624         0      5,807     72.5
+art19              1      4,219        555         0      4,774     69.5
+art20              1      3,579        416         0      3,995     57.0
+art21              1      8,594      1,081         0      9,675     85.3
+art22              1      5,492        721         0      6,213     70.9
+art24              1      5,769        653         0      6,422     68.2
+art25              1      5,837        661         0      6,498     68.3
+art26              1      5,507        676         0      6,183     64.4
+art27              1      5,613        658         0      6,271     63.4
+art28              1      4,304        523         0      4,827     57.3
+art29              1      5,406        632         0      6,038     62.4
+art30              1      5,647        706         0      6,353     65.6
+art31              1      9,976      1,349         0     11,325    103.8
+art32              1      6,389        785         0      7,174     81.3
+art33              1      7,093        855         0      7,948     84.2
+art34              1      6,382        809         0      7,191     82.3
+art35              1      3,604        410         0      4,014     63.0
+art36              1      5,292        627         0      5,919     76.5
+art37              1      8,790      1,263         0     10,053    104.3
+art38              1      7,370        876         0      8,246     88.4
+art39              1      7,711      1,061         0      8,772     95.9
+art40              1      5,770        727         0      6,497     81.1
+art41              1      3,930        484         0      4,414     54.9
+art42              1      3,671        474         0      4,145     54.5
+art43              1      4,685        567         0      5,252     58.3
+art45              1      5,706        676         0      6,382     63.1
+art47              1      7,167        952         0      8,119     73.8
+art48              1      8,049      1,106         0      9,155     82.7
+art49              1      4,493        571         0      5,064     61.3
+art50              1      5,165        608         0      5,773     63.1
+art51              1      4,999        572         0      5,571     61.3
+art53              1      4,198        506         0      4,704     58.5
+art54              1      4,979        558         0      5,537     72.1
+art56              1      8,527      1,065         0      9,592     94.8
+art6               1      4,927        595         0      5,522     77.8
+art60              1      8,116        957         0      9,073     90.9
+art61              1      5,762        769         0      6,531     82.3
+art62              1      7,123        903         0      8,026     88.4
+art63              1      6,758        823         0      7,581     74.6
+art64              1      6,881        963         0      7,844     80.1
+art65              1      3,549        410         0      3,959     56.0
+art66              1      5,373        657         0      6,030     67.2
+art67              1      6,056        773         0      6,829     72.3
+art68              1      4,086        457         0      4,543     51.7
+art69              1      4,947        588         0      5,535     57.1
+art7               1      6,763        944         0      7,707     93.2
+art70              1      6,900        904         0      7,804     69.6
+art71              1      4,627        529         0      5,156     54.6
+art75              1      3,605        474         0      4,079     52.3
+art76              1      6,697        841         0      7,538     76.3
+art77              1      4,405        490         0      4,895     60.6
+art78              1      4,994        661         0      5,655     68.3
+art79              1      5,457        711         0      6,168     70.7
+art80              1      7,543        913         0      8,456     78.9
+art81              1      5,571        701         0      6,272     69.5
+art82              1      5,155        560         0      5,715     62.8
+art83              1      6,867        915         0      7,782     77.7
+art84              1      6,198        760         0      6,958     71.8
+art85              1      4,611        576         0      5,187     63.8
+art86              1      6,399        754         0      7,153     75.2
+art87              1      3,526        434         0      3,960     60.4
+art88              1      8,066      1,022         0      9,088     86.8
+art89              1      4,537        525         0      5,062     64.3
+art9               1      5,083        590         0      5,673     77.6
+art90              1      8,194        997         0      9,191     86.0
+art91              1      5,424        649         0      6,073     74.7
+art92              1      6,345        747         0      7,092     79.5
+art93              1      6,428        832         0      7,260     83.1
+art94              1      8,410      1,056         0      9,466     91.9
+art95              1      6,524        808         0      7,332     82.3
+art96              1      3,231        349         0      3,580     47.9
+art97              1      5,209        638         0      5,847     60.6
+art98              1      7,064        878         0      7,942     70.5
+art99              1      6,017        727         0      6,744     64.4
+------------------------------------------------------------------------
+TOTAL             96    858,801     65,397         0    924,198   6696.6
+wall clock: 2513.5s   (summed LLM time 6696.6s)  (2.7x overlap)
+thinking tokens: 0 — this backend reported none (thinking off, or not reported)
+wrote /Users/marwah/Documents/Thesis/TriplesExtractionFromWebLLMs/Phase2_LLM_Extraction/results/llama33-70b/_global/e2e/token_usage_types_dedup_main_test_r1.json
+
+done — 138 consolidated types over 80 article(s)
+
+  *** 83 reference(s) to 53 vanished type(s):
+      art1  T0001  IslandGroup
+      art12  T0022  District
+      art12  T0022  District
+      art12  T0021  HostileAction
+      art15  T0026  TheftEvent
+      art15  T0026  TheftEvent
+      art15  T0026  TheftEvent
+      art15  T0026  TheftEvent
+      art17  T0028  WorldCupMatch
+      art17  T0029  WorldCupTournament
+
+  *** 24 reference(s) whose label disagrees with the vocabulary (a refresh that did not reach this data):
+      art17  T0027  graph says 'InternationalRetirement', vocabulary says 'SpaceAgency'
+      art2  T0004  graph says 'Holiday', vocabulary says 'FormalAgreement'
+      art2  T0005  graph says 'WeddingCelebration', vocabulary says 'Year'
+      art23  T0035  graph says 'Restructure', vocabulary says 'ConcertTour'
+      art3  T0011  graph says 'ResearchEvent', vocabulary says 'SpaceMission'
+      art4  T0012  graph says 'TennisCompetition', vocabulary says 'SpaceCenter'
+      art4  T0012  graph says 'TennisCompetition', vocabulary says 'SpaceCenter'
+      art4  T0012  graph says 'TennisCompetition', vocabulary says 'SpaceCenter'
+      art4  T0012  graph says 'TennisCompetition', vocabulary says 'SpaceCenter'
+      art4  T0013  graph says 'TennisTournamentPrizeMoney', vocabulary says 'Lander'
+------------------
+
+[0;31m---------------------------------------------------------------------------[0m
+[0;31mAssertionError[0m                            Traceback (most recent call last)
+Cell [0;32mIn[17], line 153[0m
+[1;32m    151[0m         [38;5;28mprint[39m([38;5;124mf[39m[38;5;124m"[39m[38;5;124m      [39m[38;5;132;01m{[39;00m_d[[38;5;241m0[39m][38;5;132;01m}[39;00m[38;5;124m  [39m[38;5;132;01m{[39;00m_d[[38;5;241m1[39m][38;5;132;01m}[39;00m[38;5;124m  graph says [39m[38;5;132;01m{[39;00m_d[[38;5;241m2[39m][38;5;132;01m!r}[39;00m[38;5;124m, vocabulary says [39m[38;5;132;01m{[39;00m_d[[38;5;241m3[39m][38;5;132;01m!r}[39;00m[38;5;124m"[39m)
+[1;32m    152[0m [38;5;28;01mif[39;00m _dups [38;5;129;01mor[39;00m _dangling [38;5;129;01mor[39;00m _mismatch:
+[0;32m--> 153[0m     [38;5;28;01mraise[39;00m [38;5;167;01mAssertionError[39;00m(
+[1;32m    154[0m         [38;5;124mf[39m[38;5;124m"[39m[38;5;132;01m{[39;00m_dups[38;5;132;01m}[39;00m[38;5;124m duplicated id(s), [39m[38;5;132;01m{[39;00m[38;5;28mlen[39m(_dangling)[38;5;132;01m}[39;00m[38;5;124m dangling reference(s) and [39m[38;5;124m"[39m
+[1;32m    155[0m         [38;5;124mf[39m[38;5;124m"[39m[38;5;132;01m{[39;00m[38;5;28mlen[39m(_mismatch)[38;5;132;01m}[39;00m[38;5;124m label disagreement(s) between the consolidated graphs and the [39m[38;5;124m"[39m
+[1;32m    156[0m         [38;5;124mf[39m[38;5;124m"[39m[38;5;124mtype vocabulary — these graphs are NOT safe to report. Fix before using this run.[39m[38;5;124m"[39m)
+[1;32m    157[0m [38;5;28mprint[39m([38;5;124mf[39m[38;5;124m"[39m[38;5;124m  invariant OK — [39m[38;5;132;01m{[39;00m_checked[38;5;132;01m}[39;00m[38;5;124m vocabulary reference(s) resolve, with matching labels and no [39m[38;5;124m"[39m
+[1;32m    158[0m       [38;5;124mf[39m[38;5;124m"[39m[38;5;124mduplicated ids[39m[38;5;124m"[39m)
+
+[0;31mAssertionError[0m: 0 duplicated id(s), 83 dangling reference(s) and 24 label disagreement(s) between the consolidated graphs and the type vocabulary — these graphs are NOT safe to report. Fix before using this run.
+
