@@ -1,0 +1,861 @@
+{
+  "article_id": "art20",
+  "match_model": "intfloat/e5-base-v2",
+  "expand_mode": true,
+  "types": [
+    {
+      "oie_type": "Person",
+      "embedding_query_text": "Person: A human being. Also called Individual, Human, Agent. Examples: Gianni Infantino, Patrice Motsepe, Aleksander Ceferin, FIFA president.",
+      "chosen_type": {
+        "label": "Person",
+        "source": "schema.org",
+        "vocab_id": null,
+        "is_new_to_vocab": false,
+        "definition": null,
+        "parent": null,
+        "path": "Thing",
+        "justification": "The schema.org Person class directly matches the OIE_TYPE 'Person' and its definition, and all mentions are individual human beings."
+      },
+      "llm_proposed": {
+        "source": "schema.org",
+        "label": "Person",
+        "is_new": false
+      },
+      "mentions": [
+        "Gianni Infantino",
+        "Patrice Motsepe",
+        "Aleksander Ceferin"
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "Person",
+          "path": "Thing",
+          "score": 0.843,
+          "comment": "A Person is an individual human being, whether alive, dead, undead, or fictional. Also called individual, human, character. Examples: John Doe, Albert Einstein, Sherlock Holmes. Distinct from Organization, which is a group of people."
+        },
+        {
+          "source": "schema.org",
+          "label": "SportsEvent",
+          "path": "Thing > Event",
+          "score": 0.777,
+          "comment": "An event involving athletic competition or display. Also called athletic contest, game, match, sporting competition. Examples: a football game, an Olympic event, a marathon race, a tennis tournament."
+        },
+        {
+          "source": "schema.org",
+          "label": "Organization",
+          "path": "Thing",
+          "score": 0.777,
+          "comment": "An Organization is a group of people with a particular purpose, such as a school, NGO, corporation, or club. Also called entity, institution, association. Examples: Google, Harvard University, Red Cross, a local sports club. Distinct from Person, which is an individual."
+        },
+        {
+          "source": "schema.org",
+          "label": "SportsTeam",
+          "path": "Thing > Organization > SportsOrganization",
+          "score": 0.777,
+          "comment": "An organization consisting of a group of athletes who compete together in a sport. Also called athletic team, squad, club, side. Examples: the Los Angeles Lakers, the New England Patriots, a high school basketball team."
+        },
+        {
+          "source": "schema.org",
+          "label": "SportsOrganization",
+          "path": "Thing > Organization",
+          "score": 0.774,
+          "comment": "A general category for organizations involved in sports, including teams, governing bodies, and associations. Also called athletic organization, sports body, sports group. Examples: the NBA, a local youth soccer league, the International Olympic Committee."
+        }
+      ]
+    },
+    {
+      "oie_type": "Organization",
+      "embedding_query_text": "Organization: A structured group of people with a particular purpose, such as a business, government department, or sports association. Also called Company, Institution, Association, Body, Federation. Examples: FIFA, Confederation of African Football, Football Association of Ireland, UEFA.",
+      "chosen_type": {
+        "label": "Organization",
+        "source": "schema.org",
+        "vocab_id": null,
+        "is_new_to_vocab": false,
+        "definition": null,
+        "parent": null,
+        "path": "Thing",
+        "justification": "The schema.org Organization class perfectly aligns with the OIE_TYPE 'Organization', its definition, and all provided examples of football governing bodies."
+      },
+      "llm_proposed": {
+        "source": "schema.org",
+        "label": "Organization",
+        "is_new": false
+      },
+      "mentions": [
+        "FIFA",
+        "Confederation of African Football",
+        "Football Association of Ireland",
+        "UEFA",
+        "CONCACAF",
+        "AFC",
+        "Sky News",
+        "English FA",
+        "Welsh FA"
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "Organization",
+          "path": "Thing",
+          "score": 0.889,
+          "comment": "An Organization is a group of people with a particular purpose, such as a school, NGO, corporation, or club. Also called entity, institution, association. Examples: Google, Harvard University, Red Cross, a local sports club. Distinct from Person, which is an individual."
+        },
+        {
+          "source": "schema.org",
+          "label": "SportsOrganization",
+          "path": "Thing > Organization",
+          "score": 0.868,
+          "comment": "A general category for organizations involved in sports, including teams, governing bodies, and associations. Also called athletic organization, sports body, sports group. Examples: the NBA, a local youth soccer league, the International Olympic Committee."
+        },
+        {
+          "source": "schema.org",
+          "label": "SportsTeam",
+          "path": "Thing > Organization > SportsOrganization",
+          "score": 0.84,
+          "comment": "An organization consisting of a group of athletes who compete together in a sport. Also called athletic team, squad, club, side. Examples: the Los Angeles Lakers, the New England Patriots, a high school basketball team."
+        },
+        {
+          "source": "schema.org",
+          "label": "MedicalOrganization",
+          "path": "Thing > Organization",
+          "score": 0.832,
+          "comment": "An organization, physical or virtual, operating in the medical domain, such as a hospital or clinic. Also called healthcare organization, medical institution, health system. Examples: \"Mayo Clinic\", \"World Health Organization\", \"Doctors Without Borders\". Distinct from Organization, which is a broader category for any group."
+        },
+        {
+          "source": "schema.org",
+          "label": "GovernmentOrganization",
+          "path": "Thing > Organization",
+          "score": 0.829,
+          "comment": "A GovernmentOrganization is an organization or agency that is part of a governmental body. Also called public sector entity, state agency, governmental body. Examples: Department of Defense, Environmental Protection Agency, National Institutes of Health, local city council."
+        }
+      ]
+    },
+    {
+      "oie_type": "Process",
+      "embedding_query_text": "Process: A series of actions or steps taken in order to achieve a particular end. Also called Procedure, Method, Operation, System. Examples: Elections, election, elections, re-election.",
+      "chosen_type": {
+        "label": "Election",
+        "source": "vocab",
+        "vocab_id": "T0284",
+        "is_new_to_vocab": true,
+        "definition": "A formal process of making a decision or choosing a representative by voting.",
+        "parent": "Event",
+        "path": "Thing > Event",
+        "justification": "None of the candidate schema.org Action types fully capture 'Elections' as a broader process or event. Minting 'Election' as a specific type of Event is the best fit."
+      },
+      "llm_proposed": {
+        "source": "new",
+        "label": "Election",
+        "is_new": true
+      },
+      "mentions": [
+        "Elections"
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "VoteAction",
+          "path": "Thing > Action > AssessAction > ChooseAction",
+          "score": 0.819,
+          "comment": "The act of expressing a preference or choice from a predefined set of options. Also called casting a vote, ballot, election. Examples: voting in a political election, casting a vote for a competition winner, participating in a poll."
+        },
+        {
+          "source": "schema.org",
+          "label": "ChooseAction",
+          "path": "Thing > Action > AssessAction",
+          "score": 0.806,
+          "comment": "The act of expressing a preference or making a selection from a set of options. Also called select, pick, opt for, decide. Examples: Choosing a meal from a menu, choosing a candidate in an election, choosing a color for a car."
+        },
+        {
+          "source": "schema.org",
+          "label": "PlanAction",
+          "path": "Thing > Action > OrganizeAction",
+          "score": 0.806,
+          "comment": "PlanAction is an OrganizeAction that involves arranging the execution of an event, task, action, reservation, or plan for a future time. Also called scheduling, arranging, pre-arranging. Examples: planning a wedding, scheduling a meeting, arranging a trip itinerary, setting up a project timeline."
+        },
+        {
+          "source": "schema.org",
+          "label": "CreateAction",
+          "path": "Thing > Action",
+          "score": 0.803,
+          "comment": "A CreateAction is the act of deliberately producing, generating, or building a new result or entity by an agent. Also called production, generation, fabrication, construction. Examples: Writing a book, composing a song, building a house, designing a website."
+        },
+        {
+          "source": "schema.org",
+          "label": "OrganizeAction",
+          "path": "Thing > Action",
+          "score": 0.802,
+          "comment": "An OrganizeAction, as an Action, is the act of manipulating, administering, supervising, or controlling one or more objects. Also called arrange, manage, coordinate. Examples: organizing a conference, managing a project, arranging files on a computer. Distinct from CreateAction, which focuses on producing something new."
+        }
+      ]
+    },
+    {
+      "oie_type": "Competition",
+      "embedding_query_text": "Competition: An event or contest in which people or teams compete against each other. Also called Tournament, Championship, Match, Game. Examples: World Cup, UEFA Super Cup, Club World Cup.",
+      "chosen_type": {
+        "label": "SportsEvent",
+        "source": "schema.org",
+        "vocab_id": null,
+        "is_new_to_vocab": false,
+        "definition": null,
+        "parent": null,
+        "path": "Thing > Event",
+        "justification": "The schema.org SportsEvent class directly matches the OIE_TYPE 'Competition' and its definition, as all examples are major athletic competitions."
+      },
+      "llm_proposed": {
+        "source": "schema.org",
+        "label": "SportsEvent",
+        "is_new": false
+      },
+      "mentions": [
+        "World Cup",
+        "UEFA Super Cup",
+        "Club World Cup"
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "SportsEvent",
+          "path": "Thing > Event",
+          "score": 0.842,
+          "comment": "An event involving athletic competition or display. Also called athletic contest, game, match, sporting competition. Examples: a football game, an Olympic event, a marathon race, a tennis tournament."
+        },
+        {
+          "source": "schema.org",
+          "label": "SportsTeam",
+          "path": "Thing > Organization > SportsOrganization",
+          "score": 0.796,
+          "comment": "An organization consisting of a group of athletes who compete together in a sport. Also called athletic team, squad, club, side. Examples: the Los Angeles Lakers, the New England Patriots, a high school basketball team."
+        },
+        {
+          "source": "schema.org",
+          "label": "SportsOrganization",
+          "path": "Thing > Organization",
+          "score": 0.792,
+          "comment": "A general category for organizations involved in sports, including teams, governing bodies, and associations. Also called athletic organization, sports body, sports group. Examples: the NBA, a local youth soccer league, the International Olympic Committee."
+        },
+        {
+          "source": "schema.org",
+          "label": "Event",
+          "path": "Thing",
+          "score": 0.788,
+          "comment": "An Event is a Thing happening at a specific time and location, such as a concert, lecture, or festival. Also called happening, occurrence, occasion. Examples: A rock concert, a public lecture, a sports match, a community festival."
+        },
+        {
+          "source": "schema.org",
+          "label": "ConferenceEvent",
+          "path": "Thing > Event",
+          "score": 0.787,
+          "comment": "An event specifically organized as a conference, typically involving presentations, discussions, and networking. Also called conference, convention, symposium, summit. Examples: A tech conference, an academic symposium, a business summit, a medical convention. Distinct from Event, which is a general occurrence."
+        }
+      ]
+    },
+    {
+      "oie_type": "Group",
+      "embedding_query_text": "Group: A number of people or things that are located, gathered, or classed together. Also called Team, Collective, Assembly, Body. Examples: Private investors, 211 member associations.",
+      "chosen_type": {
+        "label": "Organization",
+        "source": "schema.org",
+        "vocab_id": null,
+        "is_new_to_vocab": false,
+        "definition": null,
+        "parent": null,
+        "path": "Thing",
+        "justification": "While 'Group' is broad, 'Organization' is the best fit among candidates. '211 member associations' clearly refers to an organization, and 'Private investors' can represent a collective acting as an organization."
+      },
+      "llm_proposed": {
+        "source": "schema.org",
+        "label": "Organization",
+        "is_new": false
+      },
+      "mentions": [
+        "Private investors",
+        "211 member associations"
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "PerformingGroup",
+          "path": "Thing > Organization",
+          "score": 0.814,
+          "comment": "A PerformingGroup is an organization of performers, such as a band, orchestra, or circus. Also called performance ensemble, troupe, artistic group. Examples: Cirque du Soleil, a local theatre company, a dance troupe. Distinct from MusicGroup, which is specifically for musical performers."
+        },
+        {
+          "source": "schema.org",
+          "label": "Consortium",
+          "path": "Thing > Organization",
+          "score": 0.812,
+          "comment": "A membership organization typically composed of other organizations collaborating on a shared project or goal. Also called alliance, syndicate, federation, partnership. Examples: World Wide Web Consortium (W3C), a research consortium, a banking consortium, a joint venture. Distinct from Organization, which is a general grouping of people or entities."
+        },
+        {
+          "source": "schema.org",
+          "label": "Organization",
+          "path": "Thing",
+          "score": 0.81,
+          "comment": "An Organization is a group of people with a particular purpose, such as a school, NGO, corporation, or club. Also called entity, institution, association. Examples: Google, Harvard University, Red Cross, a local sports club. Distinct from Person, which is an individual."
+        },
+        {
+          "source": "schema.org",
+          "label": "SportsTeam",
+          "path": "Thing > Organization > SportsOrganization",
+          "score": 0.809,
+          "comment": "An organization consisting of a group of athletes who compete together in a sport. Also called athletic team, squad, club, side. Examples: the Los Angeles Lakers, the New England Patriots, a high school basketball team."
+        },
+        {
+          "source": "schema.org",
+          "label": "SportsOrganization",
+          "path": "Thing > Organization",
+          "score": 0.809,
+          "comment": "A general category for organizations involved in sports, including teams, governing bodies, and associations. Also called athletic organization, sports body, sports group. Examples: the NBA, a local youth soccer league, the International Olympic Committee."
+        }
+      ]
+    },
+    {
+      "oie_type": "Document",
+      "embedding_query_text": "Document: A piece of written, printed, or electronic matter that provides information or evidence or that serves as an official record. Also called Record, Report, File, Paper. Examples: Joint letter, letter of support.",
+      "chosen_type": {
+        "label": "TextDigitalDocument",
+        "source": "schema.org",
+        "vocab_id": null,
+        "is_new_to_vocab": false,
+        "definition": null,
+        "parent": null,
+        "path": "Thing > CreativeWork > DigitalDocument",
+        "justification": "The schema.org TextDigitalDocument class is a specific and accurate fit for 'Document' when the examples are 'Joint letter' and 'letter of support', which are textual documents."
+      },
+      "llm_proposed": {
+        "source": "schema.org",
+        "label": "TextDigitalDocument",
+        "is_new": false
+      },
+      "mentions": [
+        "Joint letter",
+        "letter of support"
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "DigitalDocument",
+          "path": "Thing > CreativeWork",
+          "score": 0.82,
+          "comment": "A creative work representing an electronic file or document. Also called Electronic document, e-document, digital file, computer file. Examples: A PDF report, a Word document, a spreadsheet, an image file, an e-book. Distinct from CreativeWork, which is a broader category for any creative output."
+        },
+        {
+          "source": "schema.org",
+          "label": "NoteDigitalDocument",
+          "path": "Thing > CreativeWork > DigitalDocument",
+          "score": 0.818,
+          "comment": "A NoteDigitalDocument, as a DigitalDocument, is a file containing a note, primarily for the author's reference. Also called digital note, electronic memo, text note. Examples: a personal reminder in a digital format, a draft of an idea, a quick thought saved electronically. Distinct from BlogPosting, which is intended for public consumption."
+        },
+        {
+          "source": "schema.org",
+          "label": "TextDigitalDocument",
+          "path": "Thing > CreativeWork > DigitalDocument",
+          "score": 0.81,
+          "comment": "A digital document primarily composed of textual content. Also called text file, digital document, e-document. Examples: a PDF report, a Word document, an e-book. Distinct from TextObject, which is a media object representing a text file, often for embedding or linking."
+        },
+        {
+          "source": "schema.org",
+          "label": "Manuscript",
+          "path": "Thing > CreativeWork",
+          "score": 0.808,
+          "comment": "A creative work, such as a book, document, or musical piece, written by hand rather than typed or printed. Also called handwritten document, original script, autograph. Examples: a medieval illuminated manuscript, an author's handwritten draft of a novel, a composer's original musical score."
+        },
+        {
+          "source": "schema.org",
+          "label": "SpreadsheetDigitalDocument",
+          "path": "Thing > CreativeWork > DigitalDocument",
+          "score": 0.797,
+          "comment": "A digital document designed for organizing and analyzing data in rows and columns, typically containing formulas and charts. Also called spreadsheet file, data sheet, workbook, Excel file. Examples: a budget spreadsheet, a sales report in Google Sheets, a financial model in Microsoft Excel."
+        }
+      ]
+    },
+    {
+      "oie_type": "Date",
+      "embedding_query_text": "Date: A particular day, month, or year, often specified in the text. Also called Day, Calendar date, Specific day. Examples: March next year, Thursday, Wednesday, 2027.",
+      "chosen_type": {
+        "label": "Date",
+        "source": "schema.org",
+        "vocab_id": null,
+        "is_new_to_vocab": false,
+        "definition": null,
+        "parent": null,
+        "path": "",
+        "justification": "The schema.org Date datatype is the most encompassing for 'a particular day, month, or year', covering 'March next year' and '2027'. While 'DayOfWeek' is specific for 'Thursday'/'Wednesday', Date can represent specific days within a calendar."
+      },
+      "llm_proposed": {
+        "source": "schema.org",
+        "label": "Date",
+        "is_new": false
+      },
+      "mentions": [
+        "March next year",
+        "Thursday",
+        "Wednesday",
+        "2027"
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "Date",
+          "path": "",
+          "score": 0.854,
+          "comment": "Date is a data type representing a specific calendar date, typically formatted according to ISO 8601. Also called calendar date, specific day. Examples: \"2023-10-27\", \"1999-12-31\", \"0001-01-01\"."
+        },
+        {
+          "source": "schema.org",
+          "label": "DayOfWeek",
+          "path": "Thing > Intangible > Enumeration",
+          "score": 0.812,
+          "comment": "An enumeration representing a specific day of the week, used for scheduling or recurring events. Also called Weekday, calendar day, day name. Examples: Monday, Tuesday, Saturday, Sunday. Distinct from Date, which specifies a particular calendar date."
+        },
+        {
+          "source": "schema.org",
+          "label": "DateTime",
+          "path": "",
+          "score": 0.802,
+          "comment": "A data type representing a specific point in time, combining both date and time components according to ISO 8601. Also called Timestamp, date and time string, ISO 8601 datetime. Examples: \"2023-10-27T10:30:00Z\", \"1999-12-31T23:59:59-05:00\", \"2024-01-15T14:00:00\". Distinct from Date, which only specifies a calendar date without time."
+        },
+        {
+          "source": "schema.org",
+          "label": "Time",
+          "path": "",
+          "score": 0.797,
+          "comment": "A data type representing a specific point in time, typically in hh:mm:ss format, potentially with a timezone offset. Also called timestamp, clock time, time of day. Examples: \"14:30:00\", \"09:00:00Z\", \"17:45:30+01:00\"."
+        },
+        {
+          "source": "schema.org",
+          "label": "Schedule",
+          "path": "Thing > Intangible",
+          "score": 0.794,
+          "comment": "A definition of a repeating time period used to describe a regularly occurring event, specifying frequency, days, and start/end times. Also called timetable, recurring event plan, calendar entry, routine. Examples: a weekly yoga class schedule, a bus route timetable, a daily meeting schedule, a concert series calendar."
+        }
+      ]
+    },
+    {
+      "oie_type": "City",
+      "embedding_query_text": "City: A large town or urban area. Also called Metropolis, Town, Urban center. Examples: Salzburg.",
+      "chosen_type": {
+        "label": "City",
+        "source": "schema.org",
+        "vocab_id": null,
+        "is_new_to_vocab": false,
+        "definition": null,
+        "parent": null,
+        "path": "Thing > Place > AdministrativeArea",
+        "justification": "The schema.org City class is a direct and perfect match for the OIE_TYPE 'City' and the example 'Salzburg'."
+      },
+      "llm_proposed": {
+        "source": "schema.org",
+        "label": "City",
+        "is_new": false
+      },
+      "mentions": [
+        "Salzburg"
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "City",
+          "path": "Thing > Place > AdministrativeArea",
+          "score": 0.854,
+          "comment": "A large and permanent human settlement, typically an administrative area with a defined government. Also called town, municipality, urban area, metropolis. Examples: New York City, London, Tokyo, Paris. Distinct from AdministrativeArea, which is a broader category including states, provinces, etc."
+        },
+        {
+          "source": "schema.org",
+          "label": "StadiumOrArena",
+          "path": "Thing > Place > CivicStructure",
+          "score": 0.793,
+          "comment": "A large civic structure designed for sporting events, concerts, or other large-scale public gatherings. Also called stadium, arena, coliseum, sports complex. Examples: Wembley Stadium, Madison Square Garden, the Roman Colosseum."
+        },
+        {
+          "source": "schema.org",
+          "label": "Zoo",
+          "path": "Thing > Place > CivicStructure",
+          "score": 0.788,
+          "comment": "A civic structure and facility where wild animals are housed, exhibited, and often bred for conservation and public education. Also called zoological garden, animal park, wildlife park. Examples: San Diego Zoo, London Zoo, Bronx Zoo."
+        },
+        {
+          "source": "schema.org",
+          "label": "ShoppingCenter",
+          "path": "Thing > Organization > LocalBusiness",
+          "score": 0.784,
+          "comment": "A large retail complex containing multiple stores and businesses, often with shared parking. Also called mall, shopping mall, retail complex, plaza. Examples: 'Westfield Century City', 'Mall of America', 'The Grove'."
+        },
+        {
+          "source": "schema.org",
+          "label": "CityHall",
+          "path": "Thing > Place > CivicStructure > GovernmentBuilding",
+          "score": 0.783,
+          "comment": "A government building serving as the administrative headquarters for a city or town. Also called town hall, municipal building, civic center. Examples: New York City Hall, London City Hall, a local town's municipal office. Distinct from GovernmentBuilding, which is a broader category for any government facility."
+        }
+      ]
+    },
+    {
+      "oie_type": "Event",
+      "embedding_query_text": "Event: A happening or occurrence, especially one of importance. Also called Occurrence, Incident, Happening, Affair. Examples: FAI Board Meeting.",
+      "chosen_type": {
+        "label": "Event",
+        "source": "schema.org",
+        "vocab_id": null,
+        "is_new_to_vocab": false,
+        "definition": null,
+        "parent": null,
+        "path": "Thing",
+        "justification": "The schema.org Event class is a direct and perfect match for the OIE_TYPE 'Event' and the example 'FAI Board Meeting'."
+      },
+      "llm_proposed": {
+        "source": "schema.org",
+        "label": "Event",
+        "is_new": false
+      },
+      "mentions": [
+        "FAI Board Meeting"
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "Event",
+          "path": "Thing",
+          "score": 0.874,
+          "comment": "An Event is a Thing happening at a specific time and location, such as a concert, lecture, or festival. Also called happening, occurrence, occasion. Examples: A rock concert, a public lecture, a sports match, a community festival."
+        },
+        {
+          "source": "schema.org",
+          "label": "SportsEvent",
+          "path": "Thing > Event",
+          "score": 0.839,
+          "comment": "An event involving athletic competition or display. Also called athletic contest, game, match, sporting competition. Examples: a football game, an Olympic event, a marathon race, a tennis tournament."
+        },
+        {
+          "source": "schema.org",
+          "label": "ConferenceEvent",
+          "path": "Thing > Event",
+          "score": 0.833,
+          "comment": "An event specifically organized as a conference, typically involving presentations, discussions, and networking. Also called conference, convention, symposium, summit. Examples: A tech conference, an academic symposium, a business summit, a medical convention. Distinct from Event, which is a general occurrence."
+        },
+        {
+          "source": "schema.org",
+          "label": "EducationEvent",
+          "path": "Thing > Event",
+          "score": 0.83,
+          "comment": "An EducationEvent is an Event focused on learning or instruction. Also called educational activity, learning event, training session. Examples: A university lecture, a workshop on coding, a seminar on financial literacy, a school field trip."
+        },
+        {
+          "source": "schema.org",
+          "label": "DeliveryEvent",
+          "path": "Thing > Event",
+          "score": 0.826,
+          "comment": "An event representing the delivery of an item, typically a product or package. Also called Shipping event, package delivery, consignment event. Examples: A package arriving at its destination, a food delivery being completed, a furniture delivery appointment. Distinct from Order, which is the request for items, not the delivery itself."
+        }
+      ]
+    },
+    {
+      "oie_type": "Time Period",
+      "embedding_query_text": "Time Period: A duration or span of time. Also called Period, Interval, Duration, Span. Examples: earlier this year, this week.",
+      "chosen_type": {
+        "label": "Duration",
+        "source": "schema.org",
+        "vocab_id": null,
+        "is_new_to_vocab": false,
+        "definition": null,
+        "parent": null,
+        "path": "Quantity",
+        "justification": "The schema.org Duration class accurately represents a 'period of time', which aligns with the OIE_TYPE 'Time Period' and examples like 'earlier this year' and 'this week'."
+      },
+      "llm_proposed": {
+        "source": "schema.org",
+        "label": "Duration",
+        "is_new": false
+      },
+      "mentions": [
+        "earlier this year",
+        "this week"
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "Duration",
+          "path": "Quantity",
+          "score": 0.84,
+          "comment": "As a Quantity, Duration represents a period of time, typically expressed in ISO 8601 format. Also called time span, period, length of time. Examples: \"PT1H30M\" (1 hour 30 minutes), \"P3D\" (3 days), \"PT2H\" (2 hours)."
+        },
+        {
+          "source": "schema.org",
+          "label": "Schedule",
+          "path": "Thing > Intangible",
+          "score": 0.828,
+          "comment": "A definition of a repeating time period used to describe a regularly occurring event, specifying frequency, days, and start/end times. Also called timetable, recurring event plan, calendar entry, routine. Examples: a weekly yoga class schedule, a bus route timetable, a daily meeting schedule, a concert series calendar."
+        },
+        {
+          "source": "schema.org",
+          "label": "Time",
+          "path": "",
+          "score": 0.814,
+          "comment": "A data type representing a specific point in time, typically in hh:mm:ss format, potentially with a timezone offset. Also called timestamp, clock time, time of day. Examples: \"14:30:00\", \"09:00:00Z\", \"17:45:30+01:00\"."
+        },
+        {
+          "source": "schema.org",
+          "label": "Season",
+          "path": "Thing > CreativeWork",
+          "score": 0.809,
+          "comment": "A distinct period within a media series, such as a television show, radio program, or video game. Also called media season, series installment, broadcast season. Examples: 'Season 1 of Game of Thrones', 'The Fall 2023 radio season', 'Chapter 3 of a video game series'. Distinct from TVSeason, which is specifically for television broadcasts."
+        },
+        {
+          "source": "schema.org",
+          "label": "ServicePeriod",
+          "path": "Thing > Intangible > StructuredValue",
+          "score": 0.799,
+          "comment": "A structured value representing a duration for a service, often including constraints like cutoff times or business days. Also called service duration, operational window, delivery timeframe, handling period. Examples: a 2-day shipping period with a 3 PM cutoff, a 5-business-day processing time, a 24/7 support period."
+        }
+      ]
+    },
+    {
+      "oie_type": "Concept",
+      "embedding_query_text": "Concept: An abstract idea or general notion. Also called Idea, Notion, Principle, Abstract. Examples: Irish football, governance, transparency, meaningful consultation.",
+      "chosen_type": {
+        "label": "DefinedTerm",
+        "source": "schema.org",
+        "vocab_id": null,
+        "is_new_to_vocab": false,
+        "definition": null,
+        "parent": null,
+        "path": "Thing > Intangible",
+        "justification": "The schema.org DefinedTerm class is the best fit for 'Concept', as it represents abstract ideas or general notions that can be formally defined, such as 'governance' or 'transparency'."
+      },
+      "llm_proposed": {
+        "source": "schema.org",
+        "label": "DefinedTerm",
+        "is_new": false
+      },
+      "mentions": [
+        "Irish football",
+        "governance",
+        "transparency",
+        "meaningful consultation",
+        "support",
+        "European football",
+        "North and Central America football",
+        "Asia football"
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "DefinedTerm",
+          "path": "Thing > Intangible",
+          "score": 0.787,
+          "comment": "An intangible entity representing a word, phrase, or acronym with a formal definition, often used in glossaries or classification schemes. Also called Glossary entry, vocabulary term, classification code, concept. Examples: \"ISBN\" (International Standard Book Number), \"HTTP\" (Hypertext Transfer Protocol), \"Organic\" (as a food label). Distinct from DefinedTermSet, which is a collection of such terms."
+        },
+        {
+          "source": "schema.org",
+          "label": "Statement",
+          "path": "Thing > CreativeWork",
+          "score": 0.785,
+          "comment": "A declaration or assertion about something, often a fact or an interesting piece of information. Also called assertion, declaration, factoid, claim. Examples: 'The Earth is round', 'Water boils at 100 degrees Celsius', 'The capital of France is Paris'. Distinct from Claim, which is used for more formal, verifiable assertions in fact-checking."
+        },
+        {
+          "source": "schema.org",
+          "label": "Claim",
+          "path": "Thing > CreativeWork",
+          "score": 0.783,
+          "comment": "A specific, factually-oriented statement that can be reviewed for accuracy. Also called assertion, statement, proposition, contention. Examples: \"The Earth is flat,\" \"Coffee cures cancer,\" \"This product is 100% organic.\" Distinct from ClaimReview, which is the review of a claim."
+        },
+        {
+          "source": "schema.org",
+          "label": "Conversation",
+          "path": "Thing > CreativeWork",
+          "score": 0.782,
+          "comment": "A series of one or more messages exchanged between individuals or organizations on a specific topic. Also called discussion, dialogue, chat, discourse. Examples: An email thread, a text message exchange, a forum discussion, a spoken dialogue. Distinct from Comment, which is a single remark on an item."
+        },
+        {
+          "source": "schema.org",
+          "label": "Class",
+          "path": "Thing > Intangible",
+          "score": 0.78,
+          "comment": "An intangible concept representing a category or type of entity, equivalent to rdfs:Class. Also called type, category, kind, schema. Examples: \"Person\" class, \"Product\" class, \"Event\" class. Distinct from DefinedTerm, which is a specific term within a vocabulary."
+        }
+      ]
+    },
+    {
+      "oie_type": "Role",
+      "embedding_query_text": "Role: The function or position that someone has in an organization, society, or in a particular situation. Also called Position, Capacity, Function, Office. Examples: FIFA President, FIFA Vice-president, CAF President, UEFA President.",
+      "chosen_type": {
+        "label": "OrganizationRole",
+        "source": "schema.org",
+        "vocab_id": null,
+        "is_new_to_vocab": false,
+        "definition": null,
+        "parent": null,
+        "path": "Thing > Intangible > Role",
+        "justification": "The schema.org OrganizationRole class is a more specific and accurate fit than the general 'Role', as all examples ('FIFA President', 'CAF President') are positions within organizations."
+      },
+      "llm_proposed": {
+        "source": "schema.org",
+        "label": "OrganizationRole",
+        "is_new": false
+      },
+      "mentions": [
+        "FIFA President",
+        "FIFA Vice-president",
+        "CAF President",
+        "UEFA President"
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "Role",
+          "path": "Thing > Intangible",
+          "score": 0.85,
+          "comment": "Additional information describing a relationship or property, such as a person's function in an organization or a character played in a movie. Also called function, capacity, position, part. Examples: 'actor' role for a person in a film, 'member' role for a player on a sports team, 'author' role for a person on a book."
+        },
+        {
+          "source": "schema.org",
+          "label": "OrganizationRole",
+          "path": "Thing > Intangible > Role",
+          "score": 0.828,
+          "comment": "An OrganizationRole, as a Role, describes a specific function or position within an organization. Also called organizational position, corporate role, job title. Examples: CEO, Marketing Manager, Board Member, Volunteer Coordinator. Distinct from Role, which is a broader category for any role."
+        },
+        {
+          "source": "schema.org",
+          "label": "EmployeeRole",
+          "path": "Thing > Intangible > Role > OrganizationRole",
+          "score": 0.794,
+          "comment": "An EmployeeRole is an OrganizationRole describing the relationship of an individual as an employee within an organization. Also called job position, staff role, employment status. Examples: \"Software Engineer\" at Google, \"Marketing Manager\" at a startup, \"Cashier\" at a supermarket."
+        },
+        {
+          "source": "schema.org",
+          "label": "PerformanceRole",
+          "path": "Thing > Intangible > Role",
+          "score": 0.791,
+          "comment": "A PerformanceRole, as a Role, is a role an entity plays in a theatrical performance, such as a movie or TV series. Also called acting role, character role, stage role. Examples: 'actor in a film', 'director of a play', 'musician in a concert'. Distinct from OrganizationRole, which is a role within an organization."
+        },
+        {
+          "source": "schema.org",
+          "label": "LinkRole",
+          "path": "Thing > Intangible > Role",
+          "score": 0.788,
+          "comment": "A LinkRole is an intangible role representing a Web link, allowing for the specification of link relationships and other HTML link element details outside of HTML. Also called URL role, hyperlink descriptor, web link attribute. Examples: a link with 'linkRelationship' 'amphtml', a canonical URL link, a link to a related resource."
+        }
+      ]
+    },
+    {
+      "oie_type": "Nationality",
+      "embedding_query_text": "Nationality Examples: Swiss.",
+      "chosen_type": {
+        "label": "Country",
+        "source": "schema.org",
+        "vocab_id": null,
+        "is_new_to_vocab": false,
+        "definition": null,
+        "parent": null,
+        "path": "Thing > Place > AdministrativeArea",
+        "justification": "The schema.org Country class is the closest concept to represent 'Nationality', as 'Swiss' refers to the country Switzerland."
+      },
+      "llm_proposed": {
+        "source": "schema.org",
+        "label": "Country",
+        "is_new": false
+      },
+      "mentions": [
+        "Swiss"
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "Country",
+          "path": "Thing > Place > AdministrativeArea",
+          "score": 0.759,
+          "comment": "A Country is a sovereign state or nation, representing a primary administrative division of the Earth's surface. Also called nation, state, sovereign state, realm. Examples: United States, Canada, France, Japan, Brazil."
+        },
+        {
+          "source": "schema.org",
+          "label": "NLNonprofitType",
+          "path": "Thing > Intangible > Enumeration > NonprofitType",
+          "score": 0.753,
+          "comment": "NLNonprofitType is an enumeration for specific non-profit organization types originating from the Netherlands. Also called Dutch non-profit type, Netherlands charity classification. Examples: ANBI (Algemeen Nut Beogende Instelling), SBBI (Sociaal Belang Behartigende Instelling). Distinct from NonprofitType, which is a general enumeration for non-profit types."
+        },
+        {
+          "source": "schema.org",
+          "label": "DENonprofitType",
+          "path": "Thing > Intangible > Enumeration > NonprofitType",
+          "score": 0.749,
+          "comment": "DENonprofitType is an enumeration representing specific types of non-profit organizations recognized under German fiscal code, article 52. Also called German non-profit classification, AO 52 non-profit. Examples: A German charitable foundation, a registered German association for public benefit."
+        },
+        {
+          "source": "schema.org",
+          "label": "ITNonprofitType",
+          "path": "Thing > Intangible > Enumeration > NonprofitType",
+          "score": 0.748,
+          "comment": "ITNonprofitType is a nonprofit type enumeration specifically for non-profit organizations originating from Italy. Also called Italian non-profit category, Italy NPO type, Italian charity classification. Examples: 'ONLUS', 'APS', 'ODV' (specific Italian non-profit legal forms). Distinct from NonprofitType, which is a more general enumeration of non-profit organization types."
+        },
+        {
+          "source": "schema.org",
+          "label": "RestrictedDiet",
+          "path": "Thing > Intangible > Enumeration",
+          "score": 0.743,
+          "comment": "A RestrictedDiet is an Enumeration representing a diet limited to certain foods or preparations due to cultural, religious, health, or lifestyle reasons. Also called special diet, dietary restriction. Examples: vegan diet, gluten-free diet, kosher diet, low-sodium diet."
+        }
+      ]
+    },
+    {
+      "oie_type": "Quantity",
+      "embedding_query_text": "Quantity Examples: 56.",
+      "chosen_type": {
+        "label": "Quantity",
+        "source": "schema.org",
+        "vocab_id": null,
+        "is_new_to_vocab": false,
+        "definition": null,
+        "parent": null,
+        "path": "",
+        "justification": "The schema.org Quantity datatype is a direct match for the OIE_TYPE 'Quantity' and can represent a numerical value like '56' as a measurable amount."
+      },
+      "llm_proposed": {
+        "source": "schema.org",
+        "label": "Quantity",
+        "is_new": false
+      },
+      "mentions": [
+        "56"
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "Quantity",
+          "path": "",
+          "score": 0.807,
+          "comment": "Quantity is a data type representing measurable amounts such as distance, time, mass, or weight. Also called amount, measure, magnitude. Examples: '3 kg', '4 milligrams', '10 meters', '2 hours'."
+        },
+        {
+          "source": "schema.org",
+          "label": "Mass",
+          "path": "Quantity",
+          "score": 0.794,
+          "comment": "A quantity representing the amount of matter in an object, typically expressed with a unit of measure. Also called weight, bulk, quantity of matter. Examples: \"5 kg\", \"10 pounds\", \"200 grams\", \"1 ton\". Distinct from Quantity, which is a broader concept for any measurable amount."
+        },
+        {
+          "source": "schema.org",
+          "label": "Number",
+          "path": "",
+          "score": 0.786,
+          "comment": "Number is a data type representing numerical values. Also called numeric value, quantity, digit. Examples: 10, 3.14, -5, 1000000. Distinct from Text, which represents character strings."
+        },
+        {
+          "source": "schema.org",
+          "label": "TypeAndQuantityNode",
+          "path": "Thing > Intangible > StructuredValue",
+          "score": 0.779,
+          "comment": "A structured value indicating the quantity, unit of measurement, and business function of goods within a bundle offer. Also called quantity specification, offer item details, bundle component. Examples: \"3 kg of apples for sale\", \"2 units of product X as a bonus\", \"1 liter of milk in a grocery bundle\"."
+        },
+        {
+          "source": "schema.org",
+          "label": "Distance",
+          "path": "Quantity",
+          "score": 0.776,
+          "comment": "As a Quantity, Distance represents a numerical value combined with a unit of length. Also called length, extent, span, separation. Examples: \"10 km\", \"5 miles\", \"300 meters\", \"2 feet\"."
+        }
+      ]
+    }
+  ]
+}

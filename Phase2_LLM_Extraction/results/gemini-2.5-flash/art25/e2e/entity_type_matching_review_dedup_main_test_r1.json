@@ -1,0 +1,2226 @@
+{
+  "article_id": "art25",
+  "match_model": "intfloat/e5-base-v2",
+  "expand_mode": true,
+  "types": [
+    {
+      "oie_type": "City",
+      "embedding_query_text": "City: A large and permanent human settlement; an urban area. Also called Metropolis, Town, UrbanCenter. Examples: Bangkok, Thai capital.",
+      "chosen_type": {
+        "label": "City",
+        "source": "schema.org",
+        "vocab_id": null,
+        "is_new_to_vocab": false,
+        "definition": null,
+        "parent": null,
+        "path": "Thing > Place > AdministrativeArea",
+        "justification": "The schema.org City class perfectly matches the OIE_TYPE 'City' and its definition, as well as the example 'Bangkok'."
+      },
+      "llm_proposed": {
+        "source": "schema.org",
+        "label": "City",
+        "is_new": false
+      },
+      "mentions": [
+        "Bangkok"
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "City",
+          "path": "Thing > Place > AdministrativeArea",
+          "score": 0.888,
+          "comment": "A large and permanent human settlement, typically an administrative area with a defined government. Also called town, municipality, urban area, metropolis. Examples: New York City, London, Tokyo, Paris. Distinct from AdministrativeArea, which is a broader category including states, provinces, etc."
+        },
+        {
+          "source": "schema.org",
+          "label": "CityHall",
+          "path": "Thing > Place > CivicStructure > GovernmentBuilding",
+          "score": 0.794,
+          "comment": "A government building serving as the administrative headquarters for a city or town. Also called town hall, municipal building, civic center. Examples: New York City Hall, London City Hall, a local town's municipal office. Distinct from GovernmentBuilding, which is a broader category for any government facility."
+        },
+        {
+          "source": "schema.org",
+          "label": "Residence",
+          "path": "Thing > Place",
+          "score": 0.788,
+          "comment": "A Residence is a Place where a person lives. Also called home, dwelling, abode. Examples: a house, an apartment, a condominium, a dormitory room."
+        },
+        {
+          "source": "schema.org",
+          "label": "ShoppingCenter",
+          "path": "Thing > Organization > LocalBusiness",
+          "score": 0.788,
+          "comment": "A large retail complex containing multiple stores and businesses, often with shared parking. Also called mall, shopping mall, retail complex, plaza. Examples: 'Westfield Century City', 'Mall of America', 'The Grove'."
+        },
+        {
+          "source": "schema.org",
+          "label": "StadiumOrArena",
+          "path": "Thing > Place > CivicStructure",
+          "score": 0.787,
+          "comment": "A large civic structure designed for sporting events, concerts, or other large-scale public gatherings. Also called stadium, arena, coliseum, sports complex. Examples: Wembley Stadium, Madison Square Garden, the Roman Colosseum."
+        }
+      ]
+    },
+    {
+      "oie_type": "BarAndRestaurant",
+      "embedding_query_text": "BarAndRestaurant: An establishment that serves alcoholic drinks and food to customers. Also called Pub, Eatery, Tavern, Diner. Examples: Rong Beer Na Lat Phrao bar and restaurant, Bangkok bar, the venue, the bar.",
+      "chosen_type": {
+        "label": "BarAndRestaurant",
+        "source": "vocab",
+        "vocab_id": "T0350",
+        "is_new_to_vocab": true,
+        "definition": "An establishment that serves both alcoholic drinks and food to customers.",
+        "parent": "FoodEstablishment",
+        "path": "Thing > Organization > LocalBusiness > FoodEstablishment",
+        "justification": "Neither BarOrPub nor Restaurant fully captures the combined nature of 'BarAndRestaurant' as implied by the OIE_TYPE and example. Minting a new type with FoodEstablishment as parent is the most accurate solution."
+      },
+      "llm_proposed": {
+        "source": "new",
+        "label": "BarAndRestaurant",
+        "is_new": true
+      },
+      "mentions": [
+        "Rong Beer Na Lat Phrao bar and restaurant"
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "BarOrPub",
+          "path": "Thing > Organization > LocalBusiness > FoodEstablishment",
+          "score": 0.878,
+          "comment": "A FoodEstablishment that primarily serves alcoholic beverages and often food. Also called bar, pub, tavern, lounge. Examples: \"The Green Dragon Pub\", \"O'Malley's Bar & Grill\", \"The Corner Taproom\". Distinct from Restaurant, which primarily focuses on serving meals."
+        },
+        {
+          "source": "schema.org",
+          "label": "Restaurant",
+          "path": "Thing > Organization > LocalBusiness > FoodEstablishment",
+          "score": 0.837,
+          "comment": "A Restaurant is a FoodEstablishment and LocalBusiness serving food and drink. Also called eatery, diner, cafe. Examples: \"The French Laundry\", a local pizzeria, a fast-food restaurant, a fine dining establishment."
+        },
+        {
+          "source": "schema.org",
+          "label": "FastFoodRestaurant",
+          "path": "Thing > Organization > LocalBusiness > FoodEstablishment",
+          "score": 0.829,
+          "comment": "A FastFoodRestaurant is a FoodEstablishment specializing in quickly prepared and served food. Also called quick-service restaurant, drive-thru. Examples: McDonald's, Subway, a local burger joint, a taco stand."
+        },
+        {
+          "source": "schema.org",
+          "label": "AdultEntertainment",
+          "path": "Thing > Organization > LocalBusiness > EntertainmentBusiness",
+          "score": 0.814,
+          "comment": "AdultEntertainment is an EntertainmentBusiness specializing in content or services intended for adults. Also called adult venue, adult club, adult establishment. Examples: A strip club, an adult movie theater, an adult bookstore."
+        },
+        {
+          "source": "schema.org",
+          "label": "CafeOrCoffeeShop",
+          "path": "Thing > Organization > LocalBusiness > FoodEstablishment",
+          "score": 0.813,
+          "comment": "A CafeOrCoffeeShop is a FoodEstablishment primarily serving coffee, other beverages, and often light meals or pastries. Also called coffee house, coffee bar, cafe. Examples: Starbucks, local independent coffee shop, a small bistro. Distinct from Restaurant, which typically offers a wider range of full meals."
+        }
+      ]
+    },
+    {
+      "oie_type": "TimePoint",
+      "embedding_query_text": "TimePoint: A specific moment in time. Also called Moment, Instant, SpecificTime. Examples: late Sunday night, early Monday morning, 2:00am Monday, 10:00pm on Sunday.",
+      "chosen_type": {
+        "label": "InstantaneousEvent",
+        "source": "schema.org",
+        "vocab_id": null,
+        "is_new_to_vocab": false,
+        "definition": null,
+        "parent": null,
+        "path": "Thing > Intangible > StructuredValue",
+        "justification": "InstantaneousEvent, defined as an 'event with no duration, such as a single point in time', is the best fit for 'TimePoint' and its descriptive examples like 'late Sunday night'."
+      },
+      "llm_proposed": {
+        "source": "schema.org",
+        "label": "InstantaneousEvent",
+        "is_new": false
+      },
+      "mentions": [
+        "late Sunday night",
+        "early Monday morning",
+        "2:00am Monday"
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "Time",
+          "path": "",
+          "score": 0.841,
+          "comment": "A data type representing a specific point in time, typically in hh:mm:ss format, potentially with a timezone offset. Also called timestamp, clock time, time of day. Examples: \"14:30:00\", \"09:00:00Z\", \"17:45:30+01:00\"."
+        },
+        {
+          "source": "schema.org",
+          "label": "InstantaneousEvent",
+          "path": "Thing > Intangible > StructuredValue",
+          "score": 0.815,
+          "comment": "An InstantaneousEvent is a structured value representing an event with no duration, such as a single point in time. Also called momentary event, point event, discrete occurrence. Examples: a computer log entry, a timestamp, a single click on a webpage. Distinct from Event, which typically has a duration."
+        },
+        {
+          "source": "schema.org",
+          "label": "DateTime",
+          "path": "",
+          "score": 0.812,
+          "comment": "A data type representing a specific point in time, combining both date and time components according to ISO 8601. Also called Timestamp, date and time string, ISO 8601 datetime. Examples: \"2023-10-27T10:30:00Z\", \"1999-12-31T23:59:59-05:00\", \"2024-01-15T14:00:00\". Distinct from Date, which only specifies a calendar date without time."
+        },
+        {
+          "source": "schema.org",
+          "label": "DayOfWeek",
+          "path": "Thing > Intangible > Enumeration",
+          "score": 0.796,
+          "comment": "An enumeration representing a specific day of the week, used for scheduling or recurring events. Also called Weekday, calendar day, day name. Examples: Monday, Tuesday, Saturday, Sunday. Distinct from Date, which specifies a particular calendar date."
+        },
+        {
+          "source": "schema.org",
+          "label": "Schedule",
+          "path": "Thing > Intangible",
+          "score": 0.796,
+          "comment": "A definition of a repeating time period used to describe a regularly occurring event, specifying frequency, days, and start/end times. Also called timetable, recurring event plan, calendar entry, routine. Examples: a weekly yoga class schedule, a bus route timetable, a daily meeting schedule, a concert series calendar."
+        }
+      ]
+    },
+    {
+      "oie_type": "Quantity",
+      "embedding_query_text": "Quantity: A measurable amount or number of something. Also called Amount, Number, Count, Value. Examples: 27 people, 63, 22, 25 people.",
+      "chosen_type": {
+        "label": "Quantity",
+        "source": "schema.org",
+        "vocab_id": null,
+        "is_new_to_vocab": false,
+        "definition": null,
+        "parent": null,
+        "path": "",
+        "justification": "The schema.org Quantity data type directly matches the OIE_TYPE 'Quantity' and its definition of 'measurable amount or number', fitting all provided numerical examples."
+      },
+      "llm_proposed": {
+        "source": "schema.org",
+        "label": "Quantity",
+        "is_new": false
+      },
+      "mentions": [
+        "27 people",
+        "63",
+        "22",
+        "25 people",
+        "67 people",
+        "more than 200"
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "Quantity",
+          "path": "",
+          "score": 0.873,
+          "comment": "Quantity is a data type representing measurable amounts such as distance, time, mass, or weight. Also called amount, measure, magnitude. Examples: '3 kg', '4 milligrams', '10 meters', '2 hours'."
+        },
+        {
+          "source": "schema.org",
+          "label": "Mass",
+          "path": "Quantity",
+          "score": 0.848,
+          "comment": "A quantity representing the amount of matter in an object, typically expressed with a unit of measure. Also called weight, bulk, quantity of matter. Examples: \"5 kg\", \"10 pounds\", \"200 grams\", \"1 ton\". Distinct from Quantity, which is a broader concept for any measurable amount."
+        },
+        {
+          "source": "schema.org",
+          "label": "Number",
+          "path": "",
+          "score": 0.834,
+          "comment": "Number is a data type representing numerical values. Also called numeric value, quantity, digit. Examples: 10, 3.14, -5, 1000000. Distinct from Text, which represents character strings."
+        },
+        {
+          "source": "schema.org",
+          "label": "Distance",
+          "path": "Quantity",
+          "score": 0.812,
+          "comment": "As a Quantity, Distance represents a numerical value combined with a unit of length. Also called length, extent, span, separation. Examples: \"10 km\", \"5 miles\", \"300 meters\", \"2 feet\"."
+        },
+        {
+          "source": "schema.org",
+          "label": "Duration",
+          "path": "Quantity",
+          "score": 0.81,
+          "comment": "As a Quantity, Duration represents a period of time, typically expressed in ISO 8601 format. Also called time span, period, length of time. Examples: \"PT1H30M\" (1 hour 30 minutes), \"P3D\" (3 days), \"PT2H\" (2 hours)."
+        }
+      ]
+    },
+    {
+      "oie_type": "GroupOfPeople",
+      "embedding_query_text": "GroupOfPeople: A collection of individuals forming a collective unit. Also called Crowd, Assembly, Team, Community. Examples: patrons, officials, emergency service workers, musicians.",
+      "chosen_type": {
+        "label": "GroupOfPeople",
+        "source": "vocab",
+        "vocab_id": "T0253",
+        "is_new_to_vocab": false,
+        "definition": "A collection of individuals considered as a unit.",
+        "parent": "Thing",
+        "path": "Thing",
+        "justification": "The schema.org Organization is too specific as it implies a particular purpose, which does not cover general groups like 'patrons' or 'crowd of people'. No other candidate fits, so a new type is minted with Thing as the parent."
+      },
+      "llm_proposed": {
+        "source": "new",
+        "label": "GroupOfPeople",
+        "is_new": true
+      },
+      "mentions": [
+        "patrons",
+        "officials",
+        "emergency service workers",
+        "musicians",
+        "crowd of people",
+        "victims",
+        "most of the victims"
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "PerformingGroup",
+          "path": "Thing > Organization",
+          "score": 0.824,
+          "comment": "A PerformingGroup is an organization of performers, such as a band, orchestra, or circus. Also called performance ensemble, troupe, artistic group. Examples: Cirque du Soleil, a local theatre company, a dance troupe. Distinct from MusicGroup, which is specifically for musical performers."
+        },
+        {
+          "source": "schema.org",
+          "label": "MusicGroup",
+          "path": "Thing > Organization > PerformingGroup",
+          "score": 0.82,
+          "comment": "A MusicGroup, as a PerformingGroup, is an organization of musicians, such as a band or orchestra, or a solo musician. Also called band, musical ensemble, orchestra, solo artist. Examples: The Beatles, New York Philharmonic, Taylor Swift. Distinct from PerformingGroup, which is a broader category for any performance group."
+        },
+        {
+          "source": "schema.org",
+          "label": "Organization",
+          "path": "Thing",
+          "score": 0.812,
+          "comment": "An Organization is a group of people with a particular purpose, such as a school, NGO, corporation, or club. Also called entity, institution, association. Examples: Google, Harvard University, Red Cross, a local sports club. Distinct from Person, which is an individual."
+        },
+        {
+          "source": "schema.org",
+          "label": "Audience",
+          "path": "Thing > Intangible",
+          "score": 0.805,
+          "comment": "An Audience is an Intangible entity representing the specific group of people for whom an item or creative work is intended. Also called target group, readership, viewership, demographic. Examples: children, teenagers, medical professionals, general public, investors."
+        },
+        {
+          "source": "schema.org",
+          "label": "SearchRescueOrganization",
+          "path": "Thing > Organization",
+          "score": 0.804,
+          "comment": "An organization dedicated to finding and providing aid to people who are lost or in imminent danger. Also called SAR team, rescue service, emergency search unit. Examples: a mountain rescue team, a coast guard search and rescue unit, a volunteer SAR group."
+        }
+      ]
+    },
+    {
+      "oie_type": "Organization",
+      "embedding_query_text": "Organization: A structured body of people with a particular purpose. Also called Company, Agency, Institution, Association. Examples: AFP, Thai national police, Agence France-Presse, local police.",
+      "chosen_type": {
+        "label": "Organization",
+        "source": "schema.org",
+        "vocab_id": null,
+        "is_new_to_vocab": false,
+        "definition": null,
+        "parent": null,
+        "path": "Thing",
+        "justification": "The schema.org Organization class is a direct and perfect match for the OIE_TYPE 'Organization' and the examples 'AFP' and 'Thai national police'."
+      },
+      "llm_proposed": {
+        "source": "schema.org",
+        "label": "Organization",
+        "is_new": false
+      },
+      "mentions": [
+        "AFP",
+        "Thai national police"
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "Organization",
+          "path": "Thing",
+          "score": 0.897,
+          "comment": "An Organization is a group of people with a particular purpose, such as a school, NGO, corporation, or club. Also called entity, institution, association. Examples: Google, Harvard University, Red Cross, a local sports club. Distinct from Person, which is an individual."
+        },
+        {
+          "source": "schema.org",
+          "label": "SearchRescueOrganization",
+          "path": "Thing > Organization",
+          "score": 0.84,
+          "comment": "An organization dedicated to finding and providing aid to people who are lost or in imminent danger. Also called SAR team, rescue service, emergency search unit. Examples: a mountain rescue team, a coast guard search and rescue unit, a volunteer SAR group."
+        },
+        {
+          "source": "schema.org",
+          "label": "SportsOrganization",
+          "path": "Thing > Organization",
+          "score": 0.84,
+          "comment": "A general category for organizations involved in sports, including teams, governing bodies, and associations. Also called athletic organization, sports body, sports group. Examples: the NBA, a local youth soccer league, the International Olympic Committee."
+        },
+        {
+          "source": "schema.org",
+          "label": "GovernmentOrganization",
+          "path": "Thing > Organization",
+          "score": 0.831,
+          "comment": "A GovernmentOrganization is an organization or agency that is part of a governmental body. Also called public sector entity, state agency, governmental body. Examples: Department of Defense, Environmental Protection Agency, National Institutes of Health, local city council."
+        },
+        {
+          "source": "schema.org",
+          "label": "NewsMediaOrganization",
+          "path": "Thing > Organization",
+          "score": 0.83,
+          "comment": "A NewsMediaOrganization is an organization that produces and disseminates news, such as a newspaper or TV station. Also called news agency, media outlet, journalistic organization. Examples: The New York Times, BBC News, CNN. Distinct from Organization, which is a broader category for any type of organization."
+        }
+      ]
+    },
+    {
+      "oie_type": "Person",
+      "embedding_query_text": "Person: An individual human being. Also called Individual, Human, Man, Woman. Examples: AFP journalist, Chadchart Sittipunt, Kan Kutirat, woman.",
+      "chosen_type": {
+        "label": "Person",
+        "source": "schema.org",
+        "vocab_id": null,
+        "is_new_to_vocab": false,
+        "definition": null,
+        "parent": null,
+        "path": "Thing",
+        "justification": "The schema.org Person class is a direct and perfect match for the OIE_TYPE 'Person' and all provided examples of individuals."
+      },
+      "llm_proposed": {
+        "source": "schema.org",
+        "label": "Person",
+        "is_new": false
+      },
+      "mentions": [
+        "AFP journalist",
+        "Chadchart Sittipunt",
+        "Kan Kutirat",
+        "woman",
+        "Anutin Charnvirakul"
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "Person",
+          "path": "Thing",
+          "score": 0.865,
+          "comment": "A Person is an individual human being, whether alive, dead, undead, or fictional. Also called individual, human, character. Examples: John Doe, Albert Einstein, Sherlock Holmes. Distinct from Organization, which is a group of people."
+        },
+        {
+          "source": "schema.org",
+          "label": "IndividualProduct",
+          "path": "Thing > Product",
+          "score": 0.792,
+          "comment": "An IndividualProduct is a single, identifiable instance of a product. Also called specific product unit, unique item, serialized product. Examples: a laptop with a specific serial number, a particular copy of a book, a unique piece of art. Distinct from ProductModel, which describes a class of products, and ProductGroup, which is a collection of products."
+        },
+        {
+          "source": "schema.org",
+          "label": "IndividualPhysician",
+          "path": "Thing > Organization > LocalBusiness > MedicalBusiness > Physician",
+          "score": 0.785,
+          "comment": "An IndividualPhysician is a medical business representing a single medical practitioner. Also called doctor, medical doctor, general practitioner, specialist. Examples: Dr. Jane Smith (a family doctor), Dr. John Doe (a cardiologist), a local pediatrician. Distinct from Physician, which is the general role, and MedicalOrganization, which is a facility."
+        },
+        {
+          "source": "schema.org",
+          "label": "ProfilePage",
+          "path": "Thing > CreativeWork > WebPage",
+          "score": 0.784,
+          "comment": "A ProfilePage is a WebPage dedicated to displaying information about a specific entity, such as a person or organization. Also called user profile, personal page, bio page. Examples: a LinkedIn profile, a social media user's page, an author's biography page, a company's \"About Us\" page."
+        },
+        {
+          "source": "schema.org",
+          "label": "Thing",
+          "path": "",
+          "score": 0.781,
+          "comment": "The most generic and fundamental type in schema.org, representing any item or entity. Also called entity, item, object. Examples: a person, a book, a place, an event."
+        }
+      ]
+    },
+    {
+      "oie_type": "Title",
+      "embedding_query_text": "Title: A formal designation of a person's position or office. Also called Position, Office, Rank, Designation. Examples: Bangkok Governor, Prime Minister, Massive fire at Bangkok pub kills at least 27 people.",
+      "chosen_type": {
+        "label": "Role",
+        "source": "schema.org",
+        "vocab_id": null,
+        "is_new_to_vocab": false,
+        "definition": null,
+        "parent": null,
+        "path": "Thing > Intangible",
+        "justification": "The schema.org Role class, describing a 'person's function in an organization', is the best fit for 'Title' and examples like 'Bangkok Governor' and 'Prime Minister'."
+      },
+      "llm_proposed": {
+        "source": "schema.org",
+        "label": "Role",
+        "is_new": false
+      },
+      "mentions": [
+        "Bangkok Governor",
+        "Prime Minister",
+        "Massive fire at Bangkok pub kills at least 27 people"
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "State",
+          "path": "Thing > Place > AdministrativeArea",
+          "score": 0.799,
+          "comment": "A major administrative division of a country, such as a state or province. Also called province, region, territory, commonwealth. Examples: California, Ontario, Bavaria, Texas."
+        },
+        {
+          "source": "schema.org",
+          "label": "City",
+          "path": "Thing > Place > AdministrativeArea",
+          "score": 0.793,
+          "comment": "A large and permanent human settlement, typically an administrative area with a defined government. Also called town, municipality, urban area, metropolis. Examples: New York City, London, Tokyo, Paris. Distinct from AdministrativeArea, which is a broader category including states, provinces, etc."
+        },
+        {
+          "source": "schema.org",
+          "label": "Occupation",
+          "path": "Thing > Intangible",
+          "score": 0.79,
+          "comment": "An Occupation is a profession that may involve prolonged training and/or a formal qualification. Also called profession, job, career. Examples: doctor, engineer, teacher, artist. Distinct from Role, which describes a specific function within an organization or context."
+        },
+        {
+          "source": "schema.org",
+          "label": "Role",
+          "path": "Thing > Intangible",
+          "score": 0.786,
+          "comment": "Additional information describing a relationship or property, such as a person's function in an organization or a character played in a movie. Also called function, capacity, position, part. Examples: 'actor' role for a person in a film, 'member' role for a player on a sports team, 'author' role for a person on a book."
+        },
+        {
+          "source": "schema.org",
+          "label": "PoliticalParty",
+          "path": "Thing > Organization",
+          "score": 0.785,
+          "comment": "A PoliticalParty is an Organization formed to contest elections and hold power in government. Also called political movement, party. Examples: Democratic Party, Republican Party, Labour Party, Conservative Party."
+        }
+      ]
+    },
+    {
+      "oie_type": "Condition",
+      "embedding_query_text": "Condition: A state of being or a particular situation. Also called State, Status, Situation, Circumstance. Examples: injuries, critical condition, chaos.",
+      "chosen_type": {
+        "label": "Condition",
+        "source": "vocab",
+        "vocab_id": "T0351",
+        "is_new_to_vocab": true,
+        "definition": "A state of being or a particular situation.",
+        "parent": "Thing",
+        "path": "Thing",
+        "justification": "MedicalCondition is too specific as it does not cover 'chaos'. No other candidate fits the broad definition of 'Condition', so a new type is minted with Thing as the parent."
+      },
+      "llm_proposed": {
+        "source": "new",
+        "label": "Condition",
+        "is_new": true
+      },
+      "mentions": [
+        "injuries",
+        "critical condition",
+        "chaos"
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "MedicalCondition",
+          "path": "Thing > MedicalEntity",
+          "score": 0.806,
+          "comment": "A medical entity representing any condition of the human body that affects normal functioning, including diseases, injuries, disabilities, and disorders. Also called disease, illness, health disorder, ailment. Examples: \"influenza\", \"diabetes\", \"a broken arm\", \"depression\", \"asthma\"."
+        },
+        {
+          "source": "schema.org",
+          "label": "StatusEnumeration",
+          "path": "Thing > Intangible > Enumeration",
+          "score": 0.804,
+          "comment": "An enumeration type representing various status types or states. Also called status list, state types, condition enumeration. Examples: 'Active', 'Pending', 'Completed', 'Cancelled'."
+        },
+        {
+          "source": "schema.org",
+          "label": "State",
+          "path": "Thing > Place > AdministrativeArea",
+          "score": 0.797,
+          "comment": "A major administrative division of a country, such as a state or province. Also called province, region, territory, commonwealth. Examples: California, Ontario, Bavaria, Texas."
+        },
+        {
+          "source": "schema.org",
+          "label": "Event",
+          "path": "Thing",
+          "score": 0.797,
+          "comment": "An Event is a Thing happening at a specific time and location, such as a concert, lecture, or festival. Also called happening, occurrence, occasion. Examples: A rock concert, a public lecture, a sports match, a community festival."
+        },
+        {
+          "source": "schema.org",
+          "label": "ActionStatusType",
+          "path": "Thing > Intangible > Enumeration > StatusEnumeration",
+          "score": 0.795,
+          "comment": "ActionStatusType is an Enumeration representing the current state or status of an Action. Also called action state, status of action, progress status. Examples: `ActiveActionStatus`, `CompletedActionStatus`, `FailedActionStatus`, `PotentialActionStatus`."
+        }
+      ]
+    },
+    {
+      "oie_type": "BuildingFeature",
+      "embedding_query_text": "BuildingFeature: A distinct part or characteristic of a building. Also called ArchitecturalElement, StructuralComponent, Facility. Examples: fire exit, stage, windows, toilets with no exit.",
+      "chosen_type": {
+        "label": "BuildingFeature",
+        "source": "vocab",
+        "vocab_id": "T0188",
+        "is_new_to_vocab": false,
+        "definition": "A distinct or characteristic part of a building's structure or design.",
+        "parent": "Place",
+        "path": "Thing > Place",
+        "justification": "None of the candidates adequately describe general 'BuildingFeature' examples like 'fire exit' or 'windows'. Minting a new type with Place as the parent is the most appropriate."
+      },
+      "llm_proposed": {
+        "source": "new",
+        "label": "BuildingFeature",
+        "is_new": true
+      },
+      "mentions": [
+        "fire exit",
+        "stage",
+        "windows",
+        "toilets with no exit",
+        "entrance"
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "LocationFeatureSpecification",
+          "path": "Thing > Intangible > StructuredValue > PropertyValue",
+          "score": 0.819,
+          "comment": "A structured value that specifies a feature of an accommodation, represented as a property-value pair. Also called accommodation feature, amenity detail, property value specification. Examples: \"hasWifi: true\", \"numberOfBedrooms: 3\", \"petsAllowed: false\", \"poolType: outdoor\"."
+        },
+        {
+          "source": "schema.org",
+          "label": "PublicToilet",
+          "path": "Thing > Place > CivicStructure",
+          "score": 0.819,
+          "comment": "A PublicToilet is a CivicStructure containing one or more toilets available for use by the general public, customers, or employees. Also called public restroom, public convenience, washroom. Examples: a toilet in a park, a restroom in a shopping mall, a public toilet facility at a train station, a highway rest stop bathroom."
+        },
+        {
+          "source": "schema.org",
+          "label": "Room",
+          "path": "Thing > Place > Accommodation",
+          "score": 0.818,
+          "comment": "A distinguishable space within a structure, typically separated by interior walls. Also called chamber, compartment, space, area. Examples: a hotel room, a living room, a bedroom, a conference room."
+        },
+        {
+          "source": "schema.org",
+          "label": "House",
+          "path": "Thing > Place > Accommodation",
+          "score": 0.818,
+          "comment": "A House is an accommodation type representing a building or structure intended for human or other creature habitation. Also called dwelling, residence, home. Examples: a single-family home, a townhouse, a cottage. Distinct from Apartment, which is a unit within a larger building, and HotelRoom, which is a temporary lodging unit."
+        },
+        {
+          "source": "schema.org",
+          "label": "WebPageElement",
+          "path": "Thing > CreativeWork",
+          "score": 0.816,
+          "comment": "A distinct part or component within a web page. Also called page component, web element, UI element. Examples: a navigation menu, an image, a form, a table."
+        }
+      ]
+    },
+    {
+      "oie_type": "Object",
+      "embedding_query_text": "Object: A material thing that can be seen and touched. Also called Item, Thing, Article, Device. Examples: obstructions, metal barricades, police tape, black body bags.",
+      "chosen_type": {
+        "label": "Thing",
+        "source": "schema.org",
+        "vocab_id": null,
+        "is_new_to_vocab": false,
+        "definition": null,
+        "parent": null,
+        "path": "",
+        "justification": "The schema.org Thing is the most generic type and accurately represents 'Object' as a 'material thing that can be seen and touched', encompassing all examples."
+      },
+      "llm_proposed": {
+        "source": "schema.org",
+        "label": "Thing",
+        "is_new": false
+      },
+      "mentions": [
+        "obstructions",
+        "metal barricades",
+        "police tape",
+        "black body bags"
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "Vehicle",
+          "path": "Thing > Product",
+          "score": 0.824,
+          "comment": "A device designed or used for transporting people or cargo across various environments. Also called conveyance, transport, automobile. Examples: a car, a bicycle, an airplane, a boat, a truck."
+        },
+        {
+          "source": "schema.org",
+          "label": "Thing",
+          "path": "",
+          "score": 0.819,
+          "comment": "The most generic and fundamental type in schema.org, representing any item or entity. Also called entity, item, object. Examples: a person, a book, a place, an event."
+        },
+        {
+          "source": "schema.org",
+          "label": "Product",
+          "path": "Thing",
+          "score": 0.811,
+          "comment": "A Product is any offered good or service. Also called item, merchandise, offering. Examples: a pair of shoes, a concert ticket, a car rental service, an episode of a TV show."
+        },
+        {
+          "source": "schema.org",
+          "label": "VideoObject",
+          "path": "Thing > CreativeWork > MediaObject",
+          "score": 0.809,
+          "comment": "A media object representing a video file. Also called video file, digital video, movie clip. Examples: an MP4 video, a YouTube video, a short film."
+        },
+        {
+          "source": "schema.org",
+          "label": "ImageObject",
+          "path": "Thing > CreativeWork > MediaObject",
+          "score": 0.807,
+          "comment": "An ImageObject is a media object creative work representing an image file. Also called picture, photo, graphic, visual. Examples: a JPEG photograph, a PNG illustration, a GIF animation. Distinct from VideoObject, which is a video file, and AudioObject, which is an audio file."
+        }
+      ]
+    },
+    {
+      "oie_type": "Occupation",
+      "embedding_query_text": "Occupation: A job or profession. Also called Profession, Job, Vocation, Career. Examples: Laotian tourist.",
+      "chosen_type": {
+        "label": "Tourist",
+        "source": "vocab",
+        "vocab_id": "T0352",
+        "is_new_to_vocab": true,
+        "definition": "A person who travels for pleasure or culture.",
+        "parent": "Thing",
+        "path": "Thing",
+        "justification": "The OIE_TYPE 'Occupation' conflicts with the example 'Laotian tourist', which is not an occupation. None of the provided candidates fit 'tourist'. Minting 'Tourist' with Thing as the parent is the best option given the constraints."
+      },
+      "llm_proposed": {
+        "source": "new",
+        "label": "Tourist",
+        "is_new": true
+      },
+      "mentions": [
+        "Laotian tourist"
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "Occupation",
+          "path": "Thing > Intangible",
+          "score": 0.859,
+          "comment": "An Occupation is a profession that may involve prolonged training and/or a formal qualification. Also called profession, job, career. Examples: doctor, engineer, teacher, artist. Distinct from Role, which describes a specific function within an organization or context."
+        },
+        {
+          "source": "schema.org",
+          "label": "TouristDestination",
+          "path": "Thing > Place",
+          "score": 0.789,
+          "comment": "A place, region, or area that is a primary focus for tourism, often containing multiple tourist attractions. Also called travel destination, vacation spot, tourist region. Examples: Paris, the Grand Canyon, the Caribbean islands, a specific resort town. Distinct from TouristAttraction, which is a specific point of interest within a destination."
+        },
+        {
+          "source": "schema.org",
+          "label": "ProfessionalService",
+          "path": "Thing > Organization > LocalBusiness",
+          "score": 0.788,
+          "comment": "ProfessionalService is a LocalBusiness type for providers of specialized services. Also called expert service, specialized service. Examples: a legal service, an accounting service, a dental practice, an architectural firm. Distinct from Service, which is a broader concept of an intangible offering."
+        },
+        {
+          "source": "schema.org",
+          "label": "TouristAttraction",
+          "path": "Thing > Place",
+          "score": 0.78,
+          "comment": "A specific place or feature that draws tourists due to its interest or appeal. Also called point of interest, visitor attraction, landmark. Examples: the Eiffel Tower, a national park, a historical museum, a famous statue. Distinct from TouristDestination, which is a broader area containing one or more attractions."
+        },
+        {
+          "source": "schema.org",
+          "label": "TouristTrip",
+          "path": "Thing > Intangible > Trip",
+          "score": 0.777,
+          "comment": "An itinerary or journey undertaken by visitors for tourism purposes, often involving visits to multiple places of interest. Also called vacation itinerary, travel plan, sightseeing tour. Examples: a two-week European tour, a weekend getaway to a national park, a cruise itinerary."
+        }
+      ]
+    },
+    {
+      "oie_type": "SocialMediaPlatform",
+      "embedding_query_text": "SocialMediaPlatform: An online service that allows users to create and share content or participate in social networking. Also called SocialNetwork, OnlinePlatform, DigitalCommunity. Examples: Facebook.",
+      "chosen_type": {
+        "label": "SocialMediaPlatform",
+        "source": "vocab",
+        "vocab_id": "T0128",
+        "is_new_to_vocab": false,
+        "definition": "An online service or site that allows users to create and share content or to participate in social networking.",
+        "parent": "WebSite",
+        "path": "Thing > CreativeWork > WebSite",
+        "justification": "None of the candidates represent a 'SocialMediaPlatform' like 'Facebook'. Minting a new type with Service as the parent is the most accurate."
+      },
+      "llm_proposed": {
+        "source": "new",
+        "label": "SocialMediaPlatform",
+        "is_new": true
+      },
+      "mentions": [
+        "Facebook"
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "SocialMediaPosting",
+          "path": "Thing > CreativeWork > Article",
+          "score": 0.835,
+          "comment": "A creative work published on a social media platform, such as a blog post, tweet, or Facebook update. Also called social post, microblog post, status update, online share. Examples: a tweet from a celebrity, a Facebook status update, a blog post on Medium, an Instagram caption."
+        },
+        {
+          "source": "schema.org",
+          "label": "DiscussionForumPosting",
+          "path": "Thing > CreativeWork > Article > SocialMediaPosting",
+          "score": 0.828,
+          "comment": "A social media posting that is an entry or message within an online discussion forum. Also called Forum post, message board entry, thread reply, online discussion. Examples: A question posted on a tech support forum, a comment in a gaming community thread, a new topic started on a hobby board. Distinct from BlogPosting, which is typically a longer, standalone article on a blog."
+        },
+        {
+          "source": "schema.org",
+          "label": "UserPlusOnes",
+          "path": "Thing > Event > UserInteraction",
+          "score": 0.811,
+          "comment": "An outdated type representing a user's interaction of giving a \"+1\" endorsement, typically on Google+ or similar platforms. Also called user endorsement, +1, social recommendation. Examples: a user giving a +1 to a web page, endorsing a business, recommending content."
+        },
+        {
+          "source": "schema.org",
+          "label": "RuntimePlatform",
+          "path": "Thing > CreativeWork > SoftwareApplication",
+          "score": 0.81,
+          "comment": "A specialized software environment providing the necessary infrastructure, libraries, and services for executing a program. Also called execution environment, software platform, runtime environment, operating system. Examples: Java Virtual Machine (JVM), Node.js runtime, .NET Common Language Runtime (CLR), Python interpreter."
+        },
+        {
+          "source": "schema.org",
+          "label": "BlogPosting",
+          "path": "Thing > CreativeWork > Article > SocialMediaPosting",
+          "score": 0.804,
+          "comment": "An Article that is an individual entry or post published within a blog. Also called blog post, blog entry, weblog post. Examples: \"A blog post about new software features\", \"An article on a travel blog\", \"A recipe post on a food blog\". Distinct from Blog, which is the collection of posts."
+        }
+      ]
+    },
+    {
+      "oie_type": "MediaContent",
+      "embedding_query_text": "MediaContent: Information or entertainment distributed through various media. Also called Content, Publication, Broadcast, Post. Examples: video, social media post, his post.",
+      "chosen_type": {
+        "label": "WebContent",
+        "source": "schema.org",
+        "vocab_id": null,
+        "is_new_to_vocab": false,
+        "definition": null,
+        "parent": null,
+        "path": "Thing > CreativeWork",
+        "justification": "WebContent is a general type for 'content accessible via the web', which fits both 'video' and 'social media post' as forms of 'MediaContent'."
+      },
+      "llm_proposed": {
+        "source": "schema.org",
+        "label": "WebContent",
+        "is_new": false
+      },
+      "mentions": [
+        "video",
+        "social media post"
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "WebContent",
+          "path": "Thing > CreativeWork",
+          "score": 0.864,
+          "comment": "A general type representing any content accessible via the web, including web pages, websites, and their elements. Also called web content item, online content, digital web asset. Examples: a blog post, an entire website, an image embedded on a page."
+        },
+        {
+          "source": "schema.org",
+          "label": "HealthTopicContent",
+          "path": "Thing > CreativeWork > WebContent",
+          "score": 0.838,
+          "comment": "HealthTopicContent is web content about a specific aspect of a health topic, such as a medical condition, its symptoms, or treatments. Also called medical web content, health information article, wellness resource. Examples: an article explaining diabetes symptoms, a webpage detailing cancer treatments, a video on heart disease prevention."
+        },
+        {
+          "source": "schema.org",
+          "label": "AdvertiserContentArticle",
+          "path": "Thing > CreativeWork > Article",
+          "score": 0.835,
+          "comment": "An AdvertiserContentArticle is an Article that has been paid for or produced to the specifications of an external entity. Also called sponsored article, advertorial, native advertising, paid content. Examples: A blog post promoting a product written by an influencer, a sponsored news segment, an article funded by a brand. Distinct from NewsArticle, which is typically produced by independent journalists."
+        },
+        {
+          "source": "schema.org",
+          "label": "SocialMediaPosting",
+          "path": "Thing > CreativeWork > Article",
+          "score": 0.822,
+          "comment": "A creative work published on a social media platform, such as a blog post, tweet, or Facebook update. Also called social post, microblog post, status update, online share. Examples: a tweet from a celebrity, a Facebook status update, a blog post on Medium, an Instagram caption."
+        },
+        {
+          "source": "schema.org",
+          "label": "BroadcastEvent",
+          "path": "Thing > Event > PublicationEvent",
+          "score": 0.82,
+          "comment": "A BroadcastEvent is a PublicationEvent representing an event that is transmitted over the air or online. Also called live broadcast, streamed event, televised event, radio broadcast. Examples: a live news report, a sports game broadcast, a concert livestream."
+        }
+      ]
+    },
+    {
+      "oie_type": "Substance",
+      "embedding_query_text": "Substance: A particular kind of matter with uniform properties. Also called Material, Matter, Chemical. Examples: smoke, white dust, burned plastic.",
+      "chosen_type": {
+        "label": "Substance",
+        "source": "schema.org",
+        "vocab_id": null,
+        "is_new_to_vocab": false,
+        "definition": null,
+        "parent": null,
+        "path": "Thing > MedicalEntity",
+        "justification": "The schema.org Substance class is a direct and perfect match for the OIE_TYPE 'Substance' and its definition, covering examples like 'smoke' and 'burned plastic'."
+      },
+      "llm_proposed": {
+        "source": "schema.org",
+        "label": "Substance",
+        "is_new": false
+      },
+      "mentions": [
+        "smoke",
+        "white dust",
+        "burned plastic"
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "Substance",
+          "path": "Thing > MedicalEntity",
+          "score": 0.862,
+          "comment": "Any matter of defined composition with discrete existence, which can be biological, mineral, or chemical. Also called material, chemical compound, element, matter. Examples: water, oxygen, penicillin, granite."
+        },
+        {
+          "source": "schema.org",
+          "label": "ChemicalSubstance",
+          "path": "Thing > BioChemEntity",
+          "score": 0.813,
+          "comment": "A portion of matter with constant composition, composed of molecular entities of the same or different types. Also called chemical compound, chemical, substance, molecule. Examples: Water (H2O), Sodium Chloride (NaCl), Ethanol, Oxygen."
+        },
+        {
+          "source": "schema.org",
+          "label": "Mass",
+          "path": "Quantity",
+          "score": 0.798,
+          "comment": "A quantity representing the amount of matter in an object, typically expressed with a unit of measure. Also called weight, bulk, quantity of matter. Examples: \"5 kg\", \"10 pounds\", \"200 grams\", \"1 ton\". Distinct from Quantity, which is a broader concept for any measurable amount."
+        },
+        {
+          "source": "schema.org",
+          "label": "Product",
+          "path": "Thing",
+          "score": 0.791,
+          "comment": "A Product is any offered good or service. Also called item, merchandise, offering. Examples: a pair of shoes, a concert ticket, a car rental service, an episode of a TV show."
+        },
+        {
+          "source": "schema.org",
+          "label": "BioChemEntity",
+          "path": "Thing",
+          "score": 0.789,
+          "comment": "A fundamental Thing representing any biological, chemical, or biochemical substance or entity. Also called biochemical, chemical compound, biological entity, molecule. Examples: \"A protein molecule\", \"A specific gene sequence\", \"A synthetic chemical compound\", \"DNA\"."
+        }
+      ]
+    },
+    {
+      "oie_type": "Furniture",
+      "embedding_query_text": "Furniture: Movable articles that are used to make a room or building suitable for living or working. Also called Furnishing, Fixture, HouseholdItem. Examples: stools, tables.",
+      "chosen_type": {
+        "label": "Furniture",
+        "source": "vocab",
+        "vocab_id": "T0190",
+        "is_new_to_vocab": false,
+        "definition": "Movable articles that are used to make a room or building suitable for living or working.",
+        "parent": "Product",
+        "path": "Thing > Product",
+        "justification": "None of the candidates represent actual furniture items. Minting a new type 'Furniture' with Product as the parent is the most appropriate."
+      },
+      "llm_proposed": {
+        "source": "new",
+        "label": "Furniture",
+        "is_new": true
+      },
+      "mentions": [
+        "stools",
+        "tables"
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "FurnitureStore",
+          "path": "Thing > Organization > LocalBusiness > Store",
+          "score": 0.825,
+          "comment": "A FurnitureStore is a Store that sells furniture. Also called home furnishings store, furniture retailer. Examples: IKEA, Ashley Furniture, a local antique furniture shop."
+        },
+        {
+          "source": "schema.org",
+          "label": "House",
+          "path": "Thing > Place > Accommodation",
+          "score": 0.821,
+          "comment": "A House is an accommodation type representing a building or structure intended for human or other creature habitation. Also called dwelling, residence, home. Examples: a single-family home, a townhouse, a cottage. Distinct from Apartment, which is a unit within a larger building, and HotelRoom, which is a temporary lodging unit."
+        },
+        {
+          "source": "schema.org",
+          "label": "Room",
+          "path": "Thing > Place > Accommodation",
+          "score": 0.811,
+          "comment": "A distinguishable space within a structure, typically separated by interior walls. Also called chamber, compartment, space, area. Examples: a hotel room, a living room, a bedroom, a conference room."
+        },
+        {
+          "source": "schema.org",
+          "label": "Residence",
+          "path": "Thing > Place",
+          "score": 0.811,
+          "comment": "A Residence is a Place where a person lives. Also called home, dwelling, abode. Examples: a house, an apartment, a condominium, a dormitory room."
+        },
+        {
+          "source": "schema.org",
+          "label": "Accommodation",
+          "path": "Thing > Place",
+          "score": 0.803,
+          "comment": "An Accommodation is a Place that can house human beings, such as a hotel room, camping pitch, or meeting room. Also called lodging, dwelling, living space, temporary residence. Examples: A hotel suite, a campsite, a vacation rental apartment, a conference room."
+        }
+      ]
+    },
+    {
+      "oie_type": "Beverage",
+      "embedding_query_text": "Beverage: A drink, especially one other than water. Also called Drink, Liquid, Refreshment. Examples: bottles of beer.",
+      "chosen_type": {
+        "label": "Beverage",
+        "source": "vocab",
+        "vocab_id": "T0353",
+        "is_new_to_vocab": true,
+        "definition": "A drink, especially one other than water, typically consumed as a product.",
+        "parent": "Product",
+        "path": "Thing > Product",
+        "justification": "None of the candidates represent a 'Beverage' itself. 'bottles of beer' are products, so minting 'Beverage' with Product as the parent is the best fit."
+      },
+      "llm_proposed": {
+        "source": "new",
+        "label": "Beverage",
+        "is_new": true
+      },
+      "mentions": [
+        "bottles of beer"
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "DrinkAction",
+          "path": "Thing > Action > ConsumeAction",
+          "score": 0.794,
+          "comment": "DrinkAction is a ConsumeAction representing the act of swallowing liquids. Also called imbibing, sipping, quaffing. Examples: Drinking water, sipping coffee, consuming a soft drink, taking a shot of medicine."
+        },
+        {
+          "source": "schema.org",
+          "label": "BarOrPub",
+          "path": "Thing > Organization > LocalBusiness > FoodEstablishment",
+          "score": 0.793,
+          "comment": "A FoodEstablishment that primarily serves alcoholic beverages and often food. Also called bar, pub, tavern, lounge. Examples: \"The Green Dragon Pub\", \"O'Malley's Bar & Grill\", \"The Corner Taproom\". Distinct from Restaurant, which primarily focuses on serving meals."
+        },
+        {
+          "source": "schema.org",
+          "label": "RiverBodyOfWater",
+          "path": "Thing > Place > Landform > BodyOfWater",
+          "score": 0.792,
+          "comment": "A natural flowing watercourse, typically freshwater, flowing towards an ocean, sea, lake, or another river. Also called river, stream, waterway, current. Examples: the Nile River, the Amazon River, the Mississippi River, the Thames. Distinct from SeaBodyOfWater, which is a large expanse of saltwater."
+        },
+        {
+          "source": "schema.org",
+          "label": "SomeProducts",
+          "path": "Thing > Product",
+          "score": 0.79,
+          "comment": "A placeholder representing multiple similar products of the same kind, used when specific individual products are not distinguished. Also called product group, product category, generic products, similar items. Examples: 'a batch of apples', 'several identical t-shirts', 'a collection of standard screws'."
+        },
+        {
+          "source": "schema.org",
+          "label": "Brewery",
+          "path": "Thing > Organization > LocalBusiness > FoodEstablishment",
+          "score": 0.79,
+          "comment": "A Brewery is a FoodEstablishment that produces beer. Also called beer factory, microbrewery, brewpub. Examples: Guinness Brewery, Sierra Nevada Brewing Co., local craft brewery."
+        }
+      ]
+    },
+    {
+      "oie_type": "Clothing",
+      "embedding_query_text": "Clothing: Articles of dress, especially outer garments. Also called Apparel, Garment, Attire. Examples: pyjamas.",
+      "chosen_type": {
+        "label": "Clothing",
+        "source": "vocab",
+        "vocab_id": "T0354",
+        "is_new_to_vocab": true,
+        "definition": "Articles of dress, especially outer garments.",
+        "parent": "Product",
+        "path": "Thing > Product",
+        "justification": "None of the candidates represent 'Clothing' items. Minting a new type 'Clothing' with Product as the parent is the most appropriate."
+      },
+      "llm_proposed": {
+        "source": "new",
+        "label": "Clothing",
+        "is_new": true
+      },
+      "mentions": [
+        "pyjamas"
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "WearAction",
+          "path": "Thing > Action > ConsumeAction > UseAction",
+          "score": 0.799,
+          "comment": "The act of dressing oneself in clothing or accessories. Also called put on, don, attire oneself. Examples: wearing a coat, putting on shoes, wearing a hat."
+        },
+        {
+          "source": "schema.org",
+          "label": "ClothingStore",
+          "path": "Thing > Organization > LocalBusiness > Store",
+          "score": 0.787,
+          "comment": "A local business specializing in the retail sale of apparel and accessories. Also called apparel store, boutique, fashion shop, garment retailer. Examples: H&M, Zara, Nordstrom, a local boutique. Distinct from Store, which is a general retail establishment."
+        },
+        {
+          "source": "schema.org",
+          "label": "WearableSizeGroupEnumeration",
+          "path": "Thing > Intangible > Enumeration > SizeGroupEnumeration",
+          "score": 0.785,
+          "comment": "An enumeration of common size groups or types for wearable products. Also called apparel size group, clothing size type, garment category. Examples: \"men's\", \"women's\", \"children's\", \"unisex\"."
+        },
+        {
+          "source": "schema.org",
+          "label": "WearableMeasurementTypeEnumeration",
+          "path": "Thing > Intangible > Enumeration > MeasurementTypeEnumeration",
+          "score": 0.777,
+          "comment": "An enumeration of common measurement types used for wearable products. Also called wearable sizing type, apparel measurement, garment dimension. Examples: \"chest circumference\", \"sleeve length\", \"inseam\"."
+        },
+        {
+          "source": "schema.org",
+          "label": "WearableSizeSystemEnumeration",
+          "path": "Thing > Intangible > Enumeration > SizeSystemEnumeration",
+          "score": 0.776,
+          "comment": "An enumeration of common sizing systems specific to wearable products. Also called apparel sizing system, clothing size standard, garment measurement standard. Examples: \"US size system\", \"EU size system\", \"UK size system\"."
+        }
+      ]
+    },
+    {
+      "oie_type": "Device",
+      "embedding_query_text": "Device: A thing made or adapted for a particular purpose, especially a piece of mechanical or electronic equipment. Also called Apparatus, Instrument, Gadget. Examples: circuit breaker.",
+      "chosen_type": {
+        "label": "Product",
+        "source": "schema.org",
+        "vocab_id": null,
+        "is_new_to_vocab": false,
+        "definition": null,
+        "parent": null,
+        "path": "Thing",
+        "justification": "A 'circuit breaker' is a manufactured item, making schema.org Product the most suitable general type for 'Device'."
+      },
+      "llm_proposed": {
+        "source": "schema.org",
+        "label": "Product",
+        "is_new": false
+      },
+      "mentions": [
+        "circuit breaker"
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "Vehicle",
+          "path": "Thing > Product",
+          "score": 0.84,
+          "comment": "A device designed or used for transporting people or cargo across various environments. Also called conveyance, transport, automobile. Examples: a car, a bicycle, an airplane, a boat, a truck."
+        },
+        {
+          "source": "schema.org",
+          "label": "Product",
+          "path": "Thing",
+          "score": 0.808,
+          "comment": "A Product is any offered good or service. Also called item, merchandise, offering. Examples: a pair of shoes, a concert ticket, a car rental service, an episode of a TV show."
+        },
+        {
+          "source": "schema.org",
+          "label": "MotorizedBicycle",
+          "path": "Thing > Product > Vehicle",
+          "score": 0.808,
+          "comment": "A vehicle that is primarily a bicycle equipped with an attached motor for power or assistance. Also called e-bike, electric bicycle, moped (older sense). Examples: a pedal-assist electric bicycle, a bicycle with a small gas engine kit. Distinct from Motorcycle, which is designed from the ground up as a motor vehicle."
+        },
+        {
+          "source": "schema.org",
+          "label": "Event",
+          "path": "Thing",
+          "score": 0.803,
+          "comment": "An Event is a Thing happening at a specific time and location, such as a concert, lecture, or festival. Also called happening, occurrence, occasion. Examples: A rock concert, a public lecture, a sports match, a community festival."
+        },
+        {
+          "source": "schema.org",
+          "label": "MedicalDevice",
+          "path": "Thing > MedicalEntity",
+          "score": 0.802,
+          "comment": "A medical entity representing any object used in a medical capacity for diagnosing or treating a patient. Also called medical instrument, healthcare apparatus, diagnostic tool. Examples: a stethoscope, an MRI machine, a surgical scalpel, a blood pressure monitor."
+        }
+      ]
+    },
+    {
+      "oie_type": "Concept",
+      "embedding_query_text": "Concept: An abstract idea or general notion. Also called Idea, Notion, Principle. Examples: power.",
+      "chosen_type": {
+        "label": "Concept",
+        "source": "vocab",
+        "vocab_id": "T0091",
+        "is_new_to_vocab": false,
+        "definition": "An abstract idea or general notion.",
+        "parent": "Intangible",
+        "path": "Thing > Intangible",
+        "justification": "None of the candidates adequately represent a general 'Concept' like 'power'. Minting a new type with Intangible as the parent is the most appropriate."
+      },
+      "llm_proposed": {
+        "source": "new",
+        "label": "Concept",
+        "is_new": true
+      },
+      "mentions": [
+        "power"
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "Statement",
+          "path": "Thing > CreativeWork",
+          "score": 0.786,
+          "comment": "A declaration or assertion about something, often a fact or an interesting piece of information. Also called assertion, declaration, factoid, claim. Examples: 'The Earth is round', 'Water boils at 100 degrees Celsius', 'The capital of France is Paris'. Distinct from Claim, which is used for more formal, verifiable assertions in fact-checking."
+        },
+        {
+          "source": "schema.org",
+          "label": "Series",
+          "path": "Thing > Intangible",
+          "score": 0.783,
+          "comment": "A general group of related items, which may or may not be of the same kind, forming a sequence or collection. Also called collection, sequence, set, installment. Examples: a book series, a lecture series, a product line, a collection of artworks. Distinct from CreativeWorkSeries, which is a series of creative works."
+        },
+        {
+          "source": "schema.org",
+          "label": "Class",
+          "path": "Thing > Intangible",
+          "score": 0.781,
+          "comment": "An intangible concept representing a category or type of entity, equivalent to rdfs:Class. Also called type, category, kind, schema. Examples: \"Person\" class, \"Product\" class, \"Event\" class. Distinct from DefinedTerm, which is a specific term within a vocabulary."
+        },
+        {
+          "source": "schema.org",
+          "label": "Thing",
+          "path": "",
+          "score": 0.78,
+          "comment": "The most generic and fundamental type in schema.org, representing any item or entity. Also called entity, item, object. Examples: a person, a book, a place, an event."
+        },
+        {
+          "source": "schema.org",
+          "label": "Claim",
+          "path": "Thing > CreativeWork",
+          "score": 0.78,
+          "comment": "A specific, factually-oriented statement that can be reviewed for accuracy. Also called assertion, statement, proposition, contention. Examples: \"The Earth is flat,\" \"Coffee cures cancer,\" \"This product is 100% organic.\" Distinct from ClaimReview, which is the review of a claim."
+        }
+      ]
+    },
+    {
+      "oie_type": "EventCause",
+      "embedding_query_text": "EventCause: A factor or incident that directly leads to an event. Also called Trigger, Origin, Reason. Examples: explosion.",
+      "chosen_type": {
+        "label": "Event",
+        "source": "schema.org",
+        "vocab_id": null,
+        "is_new_to_vocab": false,
+        "definition": null,
+        "parent": null,
+        "path": "Thing",
+        "justification": "An 'explosion' is a happening, which is best classified as a schema.org Event. While it acts as a cause, Event is the most fitting type for the phenomenon itself."
+      },
+      "llm_proposed": {
+        "source": "schema.org",
+        "label": "Event",
+        "is_new": false
+      },
+      "mentions": [
+        "explosion"
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "Event",
+          "path": "Thing",
+          "score": 0.849,
+          "comment": "An Event is a Thing happening at a specific time and location, such as a concert, lecture, or festival. Also called happening, occurrence, occasion. Examples: A rock concert, a public lecture, a sports match, a community festival."
+        },
+        {
+          "source": "schema.org",
+          "label": "DeliveryEvent",
+          "path": "Thing > Event",
+          "score": 0.827,
+          "comment": "An event representing the delivery of an item, typically a product or package. Also called Shipping event, package delivery, consignment event. Examples: A package arriving at its destination, a food delivery being completed, a furniture delivery appointment. Distinct from Order, which is the request for items, not the delivery itself."
+        },
+        {
+          "source": "schema.org",
+          "label": "ConferenceEvent",
+          "path": "Thing > Event",
+          "score": 0.826,
+          "comment": "An event specifically organized as a conference, typically involving presentations, discussions, and networking. Also called conference, convention, symposium, summit. Examples: A tech conference, an academic symposium, a business summit, a medical convention. Distinct from Event, which is a general occurrence."
+        },
+        {
+          "source": "schema.org",
+          "label": "ChildrensEvent",
+          "path": "Thing > Event",
+          "score": 0.824,
+          "comment": "An event specifically organized and designed for children. Also called kids' event, family event, youth gathering. Examples: A puppet show, a children's birthday party, a school play, a kids' festival."
+        },
+        {
+          "source": "schema.org",
+          "label": "MedicalCause",
+          "path": "Thing > MedicalEntity",
+          "score": 0.824,
+          "comment": "A medical entity representing the causative agent(s) responsible for a pathophysiologic process leading to a medical condition, symptom, or sign. Also called etiology, causative factor, underlying reason. Examples: \"HIV virus\" as a cause of AIDS, \"pulmonary embolism\" as a cause of cardiac arrest, \"bacterial infection\"."
+        }
+      ]
+    },
+    {
+      "oie_type": "Emotion",
+      "embedding_query_text": "Emotion: A strong feeling deriving from one's circumstances, mood, or relationships with others. Also called Feeling, Sentiment, Passion. Examples: panic.",
+      "chosen_type": {
+        "label": "Emotion",
+        "source": "vocab",
+        "vocab_id": "T0355",
+        "is_new_to_vocab": true,
+        "definition": "A strong feeling deriving from one's circumstances, mood, or relationships with others.",
+        "parent": "Intangible",
+        "path": "Thing > Intangible",
+        "justification": "None of the candidates represent an 'Emotion' itself, but rather actions related to emotions. Minting a new type with Intangible as the parent is the most appropriate for 'panic'."
+      },
+      "llm_proposed": {
+        "source": "new",
+        "label": "Emotion",
+        "is_new": true
+      },
+      "mentions": [
+        "panic"
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "ReactAction",
+          "path": "Thing > Action > AssessAction",
+          "score": 0.797,
+          "comment": "ReactAction is an AssessAction representing the act of responding instinctively and emotionally to an object, expressing a sentiment. Also called emotional response, sentiment expression. Examples: liking a social media post, disliking a video, expressing shock at news, showing approval for an idea."
+        },
+        {
+          "source": "schema.org",
+          "label": "WantAction",
+          "path": "Thing > Action > AssessAction > ReactAction",
+          "score": 0.786,
+          "comment": "The act of expressing a desire or wish for an object or outcome. Also called desire, wish for, covet. Examples: wanting a new car, desiring a specific job, wishing for peace."
+        },
+        {
+          "source": "schema.org",
+          "label": "DislikeAction",
+          "path": "Thing > Action > AssessAction > ReactAction",
+          "score": 0.777,
+          "comment": "A react action expressing a negative sentiment or disapproval towards an object, proposition, or theme. Also called Express dislike, disapprove of, show aversion, downvote. Examples: Disliking a movie, expressing disapproval of a policy, downvoting a comment online. Distinct from LikeAction, which expresses positive sentiment or approval."
+        },
+        {
+          "source": "schema.org",
+          "label": "LikeAction",
+          "path": "Thing > Action > AssessAction > ReactAction",
+          "score": 0.776,
+          "comment": "A LikeAction is a react action representing the act of expressing a positive sentiment about an object. Also called approve action, endorse action, favorite action. Examples: liking a post on social media, giving a thumbs-up to a video, expressing approval for an idea. Distinct from DislikeAction, which expresses negative sentiment."
+        },
+        {
+          "source": "schema.org",
+          "label": "AssessAction",
+          "path": "Thing > Action",
+          "score": 0.773,
+          "comment": "An AssessAction is an Action involving the formation of an opinion, reaction, or sentiment about something. Also called evaluate, appraise, judge, review, rate. Examples: a critic reviewing a movie, a teacher grading an assignment, a user rating a product, a doctor evaluating a patient's condition."
+        }
+      ]
+    },
+    {
+      "oie_type": "Country",
+      "embedding_query_text": "Country: A nation with its own government, occupying a particular territory. Also called Nation, State, Land. Examples: Thailand.",
+      "chosen_type": {
+        "label": "Country",
+        "source": "schema.org",
+        "vocab_id": null,
+        "is_new_to_vocab": false,
+        "definition": null,
+        "parent": null,
+        "path": "Thing > Place > AdministrativeArea",
+        "justification": "The schema.org Country class is a direct and perfect match for the OIE_TYPE 'Country' and the example 'Thailand'."
+      },
+      "llm_proposed": {
+        "source": "schema.org",
+        "label": "Country",
+        "is_new": false
+      },
+      "mentions": [
+        "Thailand"
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "Country",
+          "path": "Thing > Place > AdministrativeArea",
+          "score": 0.852,
+          "comment": "A Country is a sovereign state or nation, representing a primary administrative division of the Earth's surface. Also called nation, state, sovereign state, realm. Examples: United States, Canada, France, Japan, Brazil."
+        },
+        {
+          "source": "schema.org",
+          "label": "State",
+          "path": "Thing > Place > AdministrativeArea",
+          "score": 0.819,
+          "comment": "A major administrative division of a country, such as a state or province. Also called province, region, territory, commonwealth. Examples: California, Ontario, Bavaria, Texas."
+        },
+        {
+          "source": "schema.org",
+          "label": "DefenceEstablishment",
+          "path": "Thing > Place > CivicStructure > GovernmentBuilding",
+          "score": 0.776,
+          "comment": "A government building or civic structure primarily used for military or national defense purposes. Also called Military base, army base, naval base, air force station. Examples: The Pentagon, Fort Bragg, Pearl Harbor Naval Shipyard, Royal Air Force Lakenheath. Distinct from GovernmentBuilding, which is a broader category for any government facility."
+        },
+        {
+          "source": "schema.org",
+          "label": "City",
+          "path": "Thing > Place > AdministrativeArea",
+          "score": 0.77,
+          "comment": "A large and permanent human settlement, typically an administrative area with a defined government. Also called town, municipality, urban area, metropolis. Examples: New York City, London, Tokyo, Paris. Distinct from AdministrativeArea, which is a broader category including states, provinces, etc."
+        },
+        {
+          "source": "schema.org",
+          "label": "BodyOfWater",
+          "path": "Thing > Place > Landform",
+          "score": 0.77,
+          "comment": "A Landform representing a significant accumulation of water, such as a sea, ocean, or lake. Also called aquatic environment, water body, large water mass. Examples: \"The Pacific Ocean\", \"Lake Superior\", \"The Mediterranean Sea\", \"The Nile River\". Distinct from Beach, which is a specific landform adjacent to a body of water."
+        }
+      ]
+    },
+    {
+      "oie_type": "Regulation",
+      "embedding_query_text": "Regulation: A rule or directive made and maintained by an authority. Also called Rule, Law, Ordinance, Guideline. Examples: health and safety regulations.",
+      "chosen_type": {
+        "label": "Legislation",
+        "source": "schema.org",
+        "vocab_id": null,
+        "is_new_to_vocab": false,
+        "definition": null,
+        "parent": null,
+        "path": "Thing > CreativeWork",
+        "justification": "The schema.org Legislation class, which includes 'regulation' in its definition, is a perfect match for the OIE_TYPE 'Regulation' and the example 'health and safety regulations'."
+      },
+      "llm_proposed": {
+        "source": "schema.org",
+        "label": "Legislation",
+        "is_new": false
+      },
+      "mentions": [
+        "health and safety regulations"
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "MedicalGuidelineContraindication",
+          "path": "Thing > MedicalEntity > MedicalGuideline",
+          "score": 0.806,
+          "comment": "A medical guideline that specifically designates a process as harmful, supported by sound data. Also called contraindicated guideline, harmful practice warning, medical prohibition. Examples: \"guideline against routine antibiotic use for viral infections\", \"contraindication for specific surgical techniques\". Distinct from MedicalGuidelineRecommendation, which suggests an efficacious process."
+        },
+        {
+          "source": "schema.org",
+          "label": "Legislation",
+          "path": "Thing > CreativeWork",
+          "score": 0.789,
+          "comment": "Legislation is a creative work representing a legal document such as an act, decree, or bill, or a component thereof. Also called law, statute, legal act, regulation. Examples: the Civil Rights Act, a local ordinance, a proposed bill in parliament. Distinct from LegislationObject, which is a specific file containing the legislation."
+        },
+        {
+          "source": "schema.org",
+          "label": "MedicalGuidelineRecommendation",
+          "path": "Thing > MedicalEntity > MedicalGuideline",
+          "score": 0.779,
+          "comment": "A medical guideline that recommends a process as efficacious, supported by sound data. Also called recommended guideline, best practice recommendation, medical advice. Examples: \"guideline recommending statins for high cholesterol\", \"recommendation for early cancer screening\". Distinct from MedicalGuidelineContraindication, which warns against a harmful process."
+        },
+        {
+          "source": "schema.org",
+          "label": "GovernmentPermit",
+          "path": "Thing > Intangible > Permit",
+          "score": 0.779,
+          "comment": "A GovernmentPermit is a formal authorization issued by a government agency. Also called public license, state approval, official authorization. Examples: building permit, driver's license, business operating license, fishing permit."
+        },
+        {
+          "source": "schema.org",
+          "label": "MedicalGuideline",
+          "path": "Thing > MedicalEntity",
+          "score": 0.778,
+          "comment": "A medical entity representing a recommendation made by a standard society or consensus statement on how to diagnose and treat a particular condition. Also called clinical guideline, practice recommendation, medical protocol. Examples: \"AHA/ACC Heart Failure Guideline\", \"NICE guidelines for diabetes management\", \"WHO recommendations for vaccination\"."
+        }
+      ]
+    },
+    {
+      "oie_type": "VenueCategory",
+      "embedding_query_text": "VenueCategory: A classification for types of places where events or activities take place. Also called EstablishmentType, LocationCategory, PlaceType. Examples: bars and nightclubs.",
+      "chosen_type": {
+        "label": "VenueCategory",
+        "source": "vocab",
+        "vocab_id": "T0356",
+        "is_new_to_vocab": true,
+        "definition": "A classification for types of places where events or activities take place.",
+        "parent": "Intangible",
+        "path": "Thing > Intangible",
+        "justification": "The OIE_TYPE is a 'category' of venues, not a specific venue. None of the candidates represent a category. Minting a new type with Intangible as the parent is the most appropriate."
+      },
+      "llm_proposed": {
+        "source": "new",
+        "label": "VenueCategory",
+        "is_new": true
+      },
+      "mentions": [
+        "bars and nightclubs"
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "SportsActivityLocation",
+          "path": "Thing > Organization > LocalBusiness",
+          "score": 0.842,
+          "comment": "A local business or facility providing a venue for sports activities. Also called sports venue, athletic facility, recreation center, playing field. Examples: a local gym, a public tennis court, a community swimming pool, a golf course."
+        },
+        {
+          "source": "schema.org",
+          "label": "Place",
+          "path": "Thing",
+          "score": 0.837,
+          "comment": "A Place is an entity that has a somewhat fixed, physical extension. Also called location, venue, site. Examples: a city, a building, a park, a specific address. Distinct from Event, which is a happening in time."
+        },
+        {
+          "source": "schema.org",
+          "label": "NightClub",
+          "path": "Thing > Organization > LocalBusiness > EntertainmentBusiness",
+          "score": 0.83,
+          "comment": "A NightClub is a local business that operates as a venue for dancing, entertainment, and socializing, typically at night. Also called discotheque, club, dance club. Examples: a popular city nightclub, a themed dance club, a music venue with late-night hours. Distinct from Bar, which may not feature dancing or a DJ."
+        },
+        {
+          "source": "schema.org",
+          "label": "EventVenue",
+          "path": "Thing > Place > CivicStructure",
+          "score": 0.825,
+          "comment": "An EventVenue is a CivicStructure that serves as a location for events. Also called venue, event space, performance hall. Examples: A concert hall, a stadium, a conference center, a community hall."
+        },
+        {
+          "source": "schema.org",
+          "label": "BarOrPub",
+          "path": "Thing > Organization > LocalBusiness > FoodEstablishment",
+          "score": 0.825,
+          "comment": "A FoodEstablishment that primarily serves alcoholic beverages and often food. Also called bar, pub, tavern, lounge. Examples: \"The Green Dragon Pub\", \"O'Malley's Bar & Grill\", \"The Corner Taproom\". Distinct from Restaurant, which primarily focuses on serving meals."
+        }
+      ]
+    },
+    {
+      "oie_type": "AbstractConcept",
+      "embedding_query_text": "AbstractConcept: An idea or concept that is not concrete or physical. Also called Idea, Notion, Principle. Examples: concerns.",
+      "chosen_type": {
+        "label": "AbstractConcept",
+        "source": "vocab",
+        "vocab_id": "T0357",
+        "is_new_to_vocab": true,
+        "definition": "An idea or concept that is not concrete or physical.",
+        "parent": "Intangible",
+        "path": "Thing > Intangible",
+        "justification": "None of the candidates adequately represent a general 'AbstractConcept' like 'concerns'. Minting a new type with Intangible as the parent is the most appropriate."
+      },
+      "llm_proposed": {
+        "source": "new",
+        "label": "AbstractConcept",
+        "is_new": true
+      },
+      "mentions": [
+        "concerns"
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "DisagreeAction",
+          "path": "Thing > Action > AssessAction > ReactAction",
+          "score": 0.807,
+          "comment": "A react action expressing a negative opinion or difference of opinion regarding an object, proposition, or theme. Also called Express disagreement, object to, dispute, dissent. Examples: Disagreeing with a political statement, objecting to a proposed plan, disputing a fact. Distinct from AgreeAction, which expresses positive sentiment or agreement."
+        },
+        {
+          "source": "schema.org",
+          "label": "ChemicalSubstance",
+          "path": "Thing > BioChemEntity",
+          "score": 0.805,
+          "comment": "A portion of matter with constant composition, composed of molecular entities of the same or different types. Also called chemical compound, chemical, substance, molecule. Examples: Water (H2O), Sodium Chloride (NaCl), Ethanol, Oxygen."
+        },
+        {
+          "source": "schema.org",
+          "label": "CommunicateAction",
+          "path": "Thing > Action > InteractAction",
+          "score": 0.805,
+          "comment": "The act of transmitting information to another person or entity through a specific medium. Also called communication, conveying information, interacting. Examples: Sending an email, making a phone call, giving a speech, writing a letter. Distinct from InteractAction, which is a broader category of actions involving interaction."
+        },
+        {
+          "source": "schema.org",
+          "label": "AgreeAction",
+          "path": "Thing > Action > AssessAction > ReactAction",
+          "score": 0.803,
+          "comment": "AgreeAction, as a ReactAction, is the act of expressing a consistency of opinion with an object or proposition. Also called concur, assent, approve, consent. Examples: Agreeing with a statement, consenting to a proposal, approving a plan, liking a social media post. Distinct from DisagreeAction, which is the act of expressing an inconsistency of opinion."
+        },
+        {
+          "source": "schema.org",
+          "label": "TransferAction",
+          "path": "Thing > Action",
+          "score": 0.801,
+          "comment": "The act of moving an object, whether animate or inanimate, from one location to another. Also called move, transport, relocate. Examples: transferring funds between bank accounts, moving furniture to a new house, transferring a patient to another hospital."
+        }
+      ]
+    },
+    {
+      "oie_type": "Nightclub",
+      "embedding_query_text": "Nightclub: An entertainment venue that is open late into the night, typically providing music, dancing, and alcoholic drinks. Also called Club, Disco, DanceHall. Examples: Mountain B nightclub, Santika club.",
+      "chosen_type": {
+        "label": "NightClub",
+        "source": "schema.org",
+        "vocab_id": null,
+        "is_new_to_vocab": false,
+        "definition": null,
+        "parent": null,
+        "path": "Thing > Organization > LocalBusiness > EntertainmentBusiness",
+        "justification": "The schema.org NightClub class is a direct and perfect match for the OIE_TYPE 'Nightclub', its definition, and the examples provided."
+      },
+      "llm_proposed": {
+        "source": "schema.org",
+        "label": "NightClub",
+        "is_new": false
+      },
+      "mentions": [
+        "Mountain B nightclub",
+        "Santika club"
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "NightClub",
+          "path": "Thing > Organization > LocalBusiness > EntertainmentBusiness",
+          "score": 0.874,
+          "comment": "A NightClub is a local business that operates as a venue for dancing, entertainment, and socializing, typically at night. Also called discotheque, club, dance club. Examples: a popular city nightclub, a themed dance club, a music venue with late-night hours. Distinct from Bar, which may not feature dancing or a DJ."
+        },
+        {
+          "source": "schema.org",
+          "label": "Casino",
+          "path": "Thing > Organization > LocalBusiness > EntertainmentBusiness",
+          "score": 0.805,
+          "comment": "A local business primarily offering gambling activities and often entertainment. Also called gambling house, gaming establishment, resort casino. Examples: Bellagio, Caesars Palace, Monte Carlo Casino."
+        },
+        {
+          "source": "schema.org",
+          "label": "AdultEntertainment",
+          "path": "Thing > Organization > LocalBusiness > EntertainmentBusiness",
+          "score": 0.802,
+          "comment": "AdultEntertainment is an EntertainmentBusiness specializing in content or services intended for adults. Also called adult venue, adult club, adult establishment. Examples: A strip club, an adult movie theater, an adult bookstore."
+        },
+        {
+          "source": "schema.org",
+          "label": "ComedyClub",
+          "path": "Thing > Organization > LocalBusiness > EntertainmentBusiness",
+          "score": 0.789,
+          "comment": "A local business venue primarily dedicated to hosting comedy performances. Also called stand-up club, humor venue, comedy theater. Examples: The Comedy Store, Caroline's on Broadway, Second City, The Laugh Factory. Distinct from EntertainmentBusiness, which is a broader category for businesses providing entertainment."
+        },
+        {
+          "source": "schema.org",
+          "label": "EntertainmentBusiness",
+          "path": "Thing > Organization > LocalBusiness",
+          "score": 0.786,
+          "comment": "An EntertainmentBusiness is a LocalBusiness that provides entertainment services. Also called amusement business, leisure provider. Examples: A movie theater, a concert venue, an arcade, a theme park."
+        }
+      ]
+    },
+    {
+      "oie_type": "AdministrativeDivision",
+      "embedding_query_text": "AdministrativeDivision: A territorial unit within a country, used for administrative purposes. Also called Province, State, Region, District. Examples: Chonburi province.",
+      "chosen_type": {
+        "label": "State",
+        "source": "schema.org",
+        "vocab_id": null,
+        "is_new_to_vocab": false,
+        "definition": null,
+        "parent": null,
+        "path": "Thing > Place > AdministrativeArea",
+        "justification": "The schema.org State class, defined as a 'major administrative division of a country, such as a state or province', is a perfect match for 'AdministrativeDivision' and the example 'Chonburi province'."
+      },
+      "llm_proposed": {
+        "source": "schema.org",
+        "label": "State",
+        "is_new": false
+      },
+      "mentions": [
+        "Chonburi province"
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "State",
+          "path": "Thing > Place > AdministrativeArea",
+          "score": 0.834,
+          "comment": "A major administrative division of a country, such as a state or province. Also called province, region, territory, commonwealth. Examples: California, Ontario, Bavaria, Texas."
+        },
+        {
+          "source": "schema.org",
+          "label": "AdministrativeArea",
+          "path": "Thing > Place",
+          "score": 0.831,
+          "comment": "An AdministrativeArea is a geographical region, typically governed by a specific authority. Also called political division, jurisdiction, governmental region, territory. Examples: A country, a state, a province, a city, a county."
+        },
+        {
+          "source": "schema.org",
+          "label": "SchoolDistrict",
+          "path": "Thing > Place > AdministrativeArea",
+          "score": 0.821,
+          "comment": "An administrative area responsible for the organization and operation of public schools within its geographical boundaries. Also called education district, school system, local education authority. Examples: 'Los Angeles Unified School District', 'New York City Department of Education', 'Springfield School District 186'."
+        },
+        {
+          "source": "schema.org",
+          "label": "Country",
+          "path": "Thing > Place > AdministrativeArea",
+          "score": 0.819,
+          "comment": "A Country is a sovereign state or nation, representing a primary administrative division of the Earth's surface. Also called nation, state, sovereign state, realm. Examples: United States, Canada, France, Japan, Brazil."
+        },
+        {
+          "source": "schema.org",
+          "label": "SearchRescueOrganization",
+          "path": "Thing > Organization",
+          "score": 0.796,
+          "comment": "An organization dedicated to finding and providing aid to people who are lost or in imminent danger. Also called SAR team, rescue service, emergency search unit. Examples: a mountain rescue team, a coast guard search and rescue unit, a volunteer SAR group."
+        }
+      ]
+    },
+    {
+      "oie_type": "Year",
+      "embedding_query_text": "Year: A period of 365 or 366 days, divided into 12 months, starting from January 1st. Also called CalendarYear, AnnualPeriod. Examples: 2022, 2009.",
+      "chosen_type": {
+        "label": "CalendarYear",
+        "source": "vocab",
+        "vocab_id": "T0084",
+        "is_new_to_vocab": false,
+        "definition": "A period of 365 or 366 days, divided into 12 months, starting from January 1st.",
+        "parent": "Intangible",
+        "path": "Thing > Intangible",
+        "justification": "Schema.org does not have a specific data type for 'Year'. Date is too specific (day, month, year). Minting a new type 'Year' with Intangible as the parent is the most appropriate."
+      },
+      "llm_proposed": {
+        "source": "new",
+        "label": "Year",
+        "is_new": true
+      },
+      "mentions": [
+        "2022",
+        "2009"
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "Schedule",
+          "path": "Thing > Intangible",
+          "score": 0.801,
+          "comment": "A definition of a repeating time period used to describe a regularly occurring event, specifying frequency, days, and start/end times. Also called timetable, recurring event plan, calendar entry, routine. Examples: a weekly yoga class schedule, a bus route timetable, a daily meeting schedule, a concert series calendar."
+        },
+        {
+          "source": "schema.org",
+          "label": "ServicePeriod",
+          "path": "Thing > Intangible > StructuredValue",
+          "score": 0.793,
+          "comment": "A structured value representing a duration for a service, often including constraints like cutoff times or business days. Also called service duration, operational window, delivery timeframe, handling period. Examples: a 2-day shipping period with a 3 PM cutoff, a 5-business-day processing time, a 24/7 support period."
+        },
+        {
+          "source": "schema.org",
+          "label": "Date",
+          "path": "",
+          "score": 0.788,
+          "comment": "Date is a data type representing a specific calendar date, typically formatted according to ISO 8601. Also called calendar date, specific day. Examples: \"2023-10-27\", \"1999-12-31\", \"0001-01-01\"."
+        },
+        {
+          "source": "schema.org",
+          "label": "CreativeWorkSeason",
+          "path": "Thing > CreativeWork",
+          "score": 0.787,
+          "comment": "A CreativeWorkSeason is a distinct period or installment within a larger media series, such as a television show, radio program, or video game. Also called TV season, media season, series season, broadcast season. Examples: \"Game of Thrones Season 8,\" \"The Crown Season 4,\" \"The Mandalorian Season 2.\" Distinct from CreativeWorkSeries, which is the entire collection of seasons or related works."
+        },
+        {
+          "source": "schema.org",
+          "label": "Season",
+          "path": "Thing > CreativeWork",
+          "score": 0.787,
+          "comment": "A distinct period within a media series, such as a television show, radio program, or video game. Also called media season, series installment, broadcast season. Examples: 'Season 1 of Game of Thrones', 'The Fall 2023 radio season', 'Chapter 3 of a video game series'. Distinct from TVSeason, which is specifically for television broadcasts."
+        }
+      ]
+    },
+    {
+      "oie_type": "Event",
+      "embedding_query_text": "Event: A planned public or social occasion. Also called Occasion, Function, Gathering. Examples: New Year's Eve party.",
+      "chosen_type": {
+        "label": "SocialEvent",
+        "source": "schema.org",
+        "vocab_id": null,
+        "is_new_to_vocab": false,
+        "definition": null,
+        "parent": null,
+        "path": "Thing > Event",
+        "justification": "SocialEvent is a more specific and accurate fit than the general Event for 'New Year's Eve party', which is primarily a social occasion."
+      },
+      "llm_proposed": {
+        "source": "schema.org",
+        "label": "SocialEvent",
+        "is_new": false
+      },
+      "mentions": [
+        "New Year's Eve party"
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "Event",
+          "path": "Thing",
+          "score": 0.875,
+          "comment": "An Event is a Thing happening at a specific time and location, such as a concert, lecture, or festival. Also called happening, occurrence, occasion. Examples: A rock concert, a public lecture, a sports match, a community festival."
+        },
+        {
+          "source": "schema.org",
+          "label": "SocialEvent",
+          "path": "Thing > Event",
+          "score": 0.87,
+          "comment": "An event primarily focused on social interaction and entertainment. Also called party, gathering, social function, get-together. Examples: a birthday party, a wedding reception, a community picnic, a networking mixer."
+        },
+        {
+          "source": "schema.org",
+          "label": "DeliveryEvent",
+          "path": "Thing > Event",
+          "score": 0.843,
+          "comment": "An event representing the delivery of an item, typically a product or package. Also called Shipping event, package delivery, consignment event. Examples: A package arriving at its destination, a food delivery being completed, a furniture delivery appointment. Distinct from Order, which is the request for items, not the delivery itself."
+        },
+        {
+          "source": "schema.org",
+          "label": "ConferenceEvent",
+          "path": "Thing > Event",
+          "score": 0.843,
+          "comment": "An event specifically organized as a conference, typically involving presentations, discussions, and networking. Also called conference, convention, symposium, summit. Examples: A tech conference, an academic symposium, a business summit, a medical convention. Distinct from Event, which is a general occurrence."
+        },
+        {
+          "source": "schema.org",
+          "label": "DanceEvent",
+          "path": "Thing > Event",
+          "score": 0.841,
+          "comment": "A DanceEvent is a social gathering or organized occasion primarily focused on dancing. Also called dance party, ball, disco, social dance. Examples: A salsa night, a wedding reception with dancing, a school prom, a folk dance festival."
+        }
+      ]
+    },
+    {
+      "oie_type": "Phenomenon",
+      "embedding_query_text": "Phenomenon: A fact or situation that is observed to exist or happen, especially one whose cause or explanation is in question. Also called Occurrence, Manifestation, Event. Examples: fire, flames, massive fire, huge fire.",
+      "chosen_type": {
+        "label": "Event",
+        "source": "schema.org",
+        "vocab_id": null,
+        "is_new_to_vocab": false,
+        "definition": null,
+        "parent": null,
+        "path": "Thing",
+        "justification": "Phenomena like 'fire' and 'flames' are occurrences or happenings, which are best classified as a schema.org Event."
+      },
+      "llm_proposed": {
+        "source": "schema.org",
+        "label": "Event",
+        "is_new": false
+      },
+      "mentions": [
+        "fire",
+        "flames"
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "Event",
+          "path": "Thing",
+          "score": 0.824,
+          "comment": "An Event is a Thing happening at a specific time and location, such as a concert, lecture, or festival. Also called happening, occurrence, occasion. Examples: A rock concert, a public lecture, a sports match, a community festival."
+        },
+        {
+          "source": "schema.org",
+          "label": "Observation",
+          "path": "Thing > Intangible",
+          "score": 0.796,
+          "comment": "An Observation is an intangible entity used to specify observations about an entity at a particular time, often quantitative. Also called measurement, data point, recorded value. Examples: a temperature reading, a stock price at a specific time, a survey response. Distinct from QuantitativeValue, which is a specific type of observation with a numerical value and unit."
+        },
+        {
+          "source": "schema.org",
+          "label": "WatchAction",
+          "path": "Thing > Action > ConsumeAction",
+          "score": 0.788,
+          "comment": "The act of consuming dynamic or moving visual content. Also called view, observe, see. Examples: watching a movie, watching a live sports broadcast, watching a video tutorial."
+        },
+        {
+          "source": "schema.org",
+          "label": "Trip",
+          "path": "Thing > Intangible",
+          "score": 0.788,
+          "comment": "A general term for a journey or itinerary involving visits to one or more places. Also called journey, travel, excursion. Examples: a business trip, a family vacation, a day trip to the beach."
+        },
+        {
+          "source": "schema.org",
+          "label": "Festival",
+          "path": "Thing > Event",
+          "score": 0.786,
+          "comment": "A Festival is an Event that is a public celebration or series of special events. Also called celebration, gala, fete. Examples: A music festival, a film festival, a cultural heritage festival, a food and wine festival."
+        }
+      ]
+    },
+    {
+      "oie_type": "Sound",
+      "embedding_query_text": "Sound: Vibrations that travel through the air or another medium and can be heard when they reach a person's or animal's ear. Also called Noise, AuditorySensation, Acoustic. Examples: screaming, loud screaming.",
+      "chosen_type": {
+        "label": "Sound",
+        "source": "vocab",
+        "vocab_id": "T0358",
+        "is_new_to_vocab": true,
+        "definition": "Vibrations that travel through the air or another medium and can be heard when they reach a person's or animal's ear.",
+        "parent": "Intangible",
+        "path": "Thing > Intangible",
+        "justification": "None of the candidates represent the phenomenon of 'Sound' itself. Minting a new type with Intangible as the parent is the most appropriate for 'screaming'."
+      },
+      "llm_proposed": {
+        "source": "new",
+        "label": "Sound",
+        "is_new": true
+      },
+      "mentions": [
+        "screaming"
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "ListenAction",
+          "path": "Thing > Action > ConsumeAction",
+          "score": 0.798,
+          "comment": "The act of consuming audio content, as a type of action. Also called hearing, audio consumption, listening activity. Examples: listening to music, hearing a podcast, attending an audio lecture."
+        },
+        {
+          "source": "schema.org",
+          "label": "AudioObject",
+          "path": "Thing > CreativeWork > MediaObject",
+          "score": 0.797,
+          "comment": "An AudioObject is a MediaObject representing an audio file or recording. Also called audio file, sound recording, sound clip, audio track. Examples: an MP3 song, a podcast episode, a voice memo, a sound effect. Distinct from VideoObject, which contains visual content."
+        },
+        {
+          "source": "schema.org",
+          "label": "CommunicateAction",
+          "path": "Thing > Action > InteractAction",
+          "score": 0.789,
+          "comment": "The act of transmitting information to another person or entity through a specific medium. Also called communication, conveying information, interacting. Examples: Sending an email, making a phone call, giving a speech, writing a letter. Distinct from InteractAction, which is a broader category of actions involving interaction."
+        },
+        {
+          "source": "schema.org",
+          "label": "BroadcastFrequencySpecification",
+          "path": "Thing > Intangible",
+          "score": 0.786,
+          "comment": "A BroadcastFrequencySpecification is an Intangible entity detailing the frequency in MHz and the modulation used for a particular BroadcastService. Also called frequency details, broadcast parameters, channel specification. Examples: 99.5 FM, 1080 AM, UHF channel 23."
+        },
+        {
+          "source": "schema.org",
+          "label": "PeopleAudience",
+          "path": "Thing > Intangible > Audience",
+          "score": 0.784,
+          "comment": "A PeopleAudience, as an Audience, describes a set of characteristics belonging to people, e.g., who compose an item's target audience. Also called demographic group, target audience, human audience. Examples: 'adults aged 18-35', 'students', 'retirees'. Distinct from Audience, which is a broader category including non-human audiences."
+        }
+      ]
+    },
+    {
+      "oie_type": "VisualContent",
+      "embedding_query_text": "VisualContent: Information or media that is primarily visual in nature. Also called Visuals, Graphics, Imagery. Examples: images.",
+      "chosen_type": {
+        "label": "ImageObject",
+        "source": "schema.org",
+        "vocab_id": null,
+        "is_new_to_vocab": false,
+        "definition": null,
+        "parent": null,
+        "path": "Thing > CreativeWork > MediaObject",
+        "justification": "ImageObject is a specific type of media object representing an image file, which is a perfect match for 'VisualContent' and the example 'images'."
+      },
+      "llm_proposed": {
+        "source": "schema.org",
+        "label": "ImageObject",
+        "is_new": false
+      },
+      "mentions": [
+        "images"
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "WebContent",
+          "path": "Thing > CreativeWork",
+          "score": 0.862,
+          "comment": "A general type representing any content accessible via the web, including web pages, websites, and their elements. Also called web content item, online content, digital web asset. Examples: a blog post, an entire website, an image embedded on a page."
+        },
+        {
+          "source": "schema.org",
+          "label": "VisualArtwork",
+          "path": "Thing > CreativeWork",
+          "score": 0.854,
+          "comment": "A creative work that is primarily visual in nature, such as a painting, sculpture, or photograph. Also called art piece, visual art, artwork. Examples: Leonardo da Vinci's Mona Lisa, a Rodin sculpture, an Ansel Adams photograph."
+        },
+        {
+          "source": "schema.org",
+          "label": "VisualArtsEvent",
+          "path": "Thing > Event",
+          "score": 0.839,
+          "comment": "An event related to visual arts, such as an exhibition, gallery opening, or art fair. Also called art exhibition, gallery event, visual art show. Examples: a painting exhibition, a sculpture display, a photography festival."
+        },
+        {
+          "source": "schema.org",
+          "label": "HealthTopicContent",
+          "path": "Thing > CreativeWork > WebContent",
+          "score": 0.831,
+          "comment": "HealthTopicContent is web content about a specific aspect of a health topic, such as a medical condition, its symptoms, or treatments. Also called medical web content, health information article, wellness resource. Examples: an article explaining diabetes symptoms, a webpage detailing cancer treatments, a video on heart disease prevention."
+        },
+        {
+          "source": "schema.org",
+          "label": "ImageObject",
+          "path": "Thing > CreativeWork > MediaObject",
+          "score": 0.826,
+          "comment": "An ImageObject is a media object creative work representing an image file. Also called picture, photo, graphic, visual. Examples: a JPEG photograph, a PNG illustration, a GIF animation. Distinct from VideoObject, which is a video file, and AudioObject, which is an audio file."
+        }
+      ]
+    },
+    {
+      "oie_type": "Characteristic",
+      "embedding_query_text": "Characteristic: A feature or quality belonging typically to a person, place, or thing and serving to identify it. Also called Trait, Attribute, Quality. Examples: lax approach.",
+      "chosen_type": {
+        "label": "Characteristic",
+        "source": "vocab",
+        "vocab_id": "T0359",
+        "is_new_to_vocab": true,
+        "definition": "A feature or quality belonging typically to a person, place, or thing and serving to identify it.",
+        "parent": "Intangible",
+        "path": "Thing > Intangible",
+        "justification": "None of the candidates adequately represent a general 'Characteristic' like 'lax approach'. Minting a new type with Intangible as the parent is the most appropriate."
+      },
+      "llm_proposed": {
+        "source": "new",
+        "label": "Characteristic",
+        "is_new": true
+      },
+      "mentions": [
+        "lax approach"
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "PropertyValue",
+          "path": "Thing > Intangible > StructuredValue",
+          "score": 0.811,
+          "comment": "A PropertyValue is a StructuredValue representing a property-value pair, such as a feature of a product or place. Also called feature, attribute value, characteristic. Examples: \"color: red\", \"weight: 5kg\", \"hasWifi: true\", \"engineType: V8\". Distinct from using specific schema.org properties directly, which is preferred when available."
+        },
+        {
+          "source": "schema.org",
+          "label": "TouristAttraction",
+          "path": "Thing > Place",
+          "score": 0.808,
+          "comment": "A specific place or feature that draws tourists due to its interest or appeal. Also called point of interest, visitor attraction, landmark. Examples: the Eiffel Tower, a national park, a historical museum, a famous statue. Distinct from TouristDestination, which is a broader area containing one or more attractions."
+        },
+        {
+          "source": "schema.org",
+          "label": "PeopleAudience",
+          "path": "Thing > Intangible > Audience",
+          "score": 0.804,
+          "comment": "A PeopleAudience, as an Audience, describes a set of characteristics belonging to people, e.g., who compose an item's target audience. Also called demographic group, target audience, human audience. Examples: 'adults aged 18-35', 'students', 'retirees'. Distinct from Audience, which is a broader category including non-human audiences."
+        },
+        {
+          "source": "schema.org",
+          "label": "LocationFeatureSpecification",
+          "path": "Thing > Intangible > StructuredValue > PropertyValue",
+          "score": 0.8,
+          "comment": "A structured value that specifies a feature of an accommodation, represented as a property-value pair. Also called accommodation feature, amenity detail, property value specification. Examples: \"hasWifi: true\", \"numberOfBedrooms: 3\", \"petsAllowed: false\", \"poolType: outdoor\"."
+        },
+        {
+          "source": "schema.org",
+          "label": "Property",
+          "path": "Thing > Intangible",
+          "score": 0.798,
+          "comment": "A Property is an Intangible used to indicate attributes and relationships of some Thing, equivalent to rdf:Property. Also called attribute, characteristic, relation. Examples: \"name\", \"description\", \"url\", \"author\"."
+        }
+      ]
+    },
+    {
+      "oie_type": "Date",
+      "embedding_query_text": "Date: A particular day of the month or year, as specified by a number and a name of a month. Also called CalendarDate, Day. Examples: Date: 13/07/2026, 13/07/2026.",
+      "chosen_type": {
+        "label": "Date",
+        "source": "schema.org",
+        "vocab_id": null,
+        "is_new_to_vocab": false,
+        "definition": null,
+        "parent": null,
+        "path": "",
+        "justification": "The schema.org Date data type is a direct and perfect match for the OIE_TYPE 'Date' and its definition, fitting the example '13/07/2026'."
+      },
+      "llm_proposed": {
+        "source": "schema.org",
+        "label": "Date",
+        "is_new": false
+      },
+      "mentions": [
+        "Date: 13/07/2026"
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "Date",
+          "path": "",
+          "score": 0.862,
+          "comment": "Date is a data type representing a specific calendar date, typically formatted according to ISO 8601. Also called calendar date, specific day. Examples: \"2023-10-27\", \"1999-12-31\", \"0001-01-01\"."
+        },
+        {
+          "source": "schema.org",
+          "label": "DayOfWeek",
+          "path": "Thing > Intangible > Enumeration",
+          "score": 0.816,
+          "comment": "An enumeration representing a specific day of the week, used for scheduling or recurring events. Also called Weekday, calendar day, day name. Examples: Monday, Tuesday, Saturday, Sunday. Distinct from Date, which specifies a particular calendar date."
+        },
+        {
+          "source": "schema.org",
+          "label": "DateTime",
+          "path": "",
+          "score": 0.801,
+          "comment": "A data type representing a specific point in time, combining both date and time components according to ISO 8601. Also called Timestamp, date and time string, ISO 8601 datetime. Examples: \"2023-10-27T10:30:00Z\", \"1999-12-31T23:59:59-05:00\", \"2024-01-15T14:00:00\". Distinct from Date, which only specifies a calendar date without time."
+        },
+        {
+          "source": "schema.org",
+          "label": "Schedule",
+          "path": "Thing > Intangible",
+          "score": 0.796,
+          "comment": "A definition of a repeating time period used to describe a regularly occurring event, specifying frequency, days, and start/end times. Also called timetable, recurring event plan, calendar entry, routine. Examples: a weekly yoga class schedule, a bus route timetable, a daily meeting schedule, a concert series calendar."
+        },
+        {
+          "source": "schema.org",
+          "label": "Time",
+          "path": "",
+          "score": 0.794,
+          "comment": "A data type representing a specific point in time, typically in hh:mm:ss format, potentially with a timezone offset. Also called timestamp, clock time, time of day. Examples: \"14:30:00\", \"09:00:00Z\", \"17:45:30+01:00\"."
+        }
+      ]
+    },
+    {
+      "oie_type": "Document",
+      "embedding_query_text": "Document Examples: document.",
+      "chosen_type": {
+        "label": "DigitalDocument",
+        "source": "schema.org",
+        "vocab_id": null,
+        "is_new_to_vocab": false,
+        "definition": null,
+        "parent": null,
+        "path": "Thing > CreativeWork",
+        "justification": "DigitalDocument is the most general and appropriate schema.org type for the OIE_TYPE 'Document', encompassing various electronic file types."
+      },
+      "llm_proposed": {
+        "source": "schema.org",
+        "label": "DigitalDocument",
+        "is_new": false
+      },
+      "mentions": [
+        "document"
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "NoteDigitalDocument",
+          "path": "Thing > CreativeWork > DigitalDocument",
+          "score": 0.817,
+          "comment": "A NoteDigitalDocument, as a DigitalDocument, is a file containing a note, primarily for the author's reference. Also called digital note, electronic memo, text note. Examples: a personal reminder in a digital format, a draft of an idea, a quick thought saved electronically. Distinct from BlogPosting, which is intended for public consumption."
+        },
+        {
+          "source": "schema.org",
+          "label": "DigitalDocument",
+          "path": "Thing > CreativeWork",
+          "score": 0.81,
+          "comment": "A creative work representing an electronic file or document. Also called Electronic document, e-document, digital file, computer file. Examples: A PDF report, a Word document, a spreadsheet, an image file, an e-book. Distinct from CreativeWork, which is a broader category for any creative output."
+        },
+        {
+          "source": "schema.org",
+          "label": "TextDigitalDocument",
+          "path": "Thing > CreativeWork > DigitalDocument",
+          "score": 0.806,
+          "comment": "A digital document primarily composed of textual content. Also called text file, digital document, e-document. Examples: a PDF report, a Word document, an e-book. Distinct from TextObject, which is a media object representing a text file, often for embedding or linking."
+        },
+        {
+          "source": "schema.org",
+          "label": "PresentationDigitalDocument",
+          "path": "Thing > CreativeWork > DigitalDocument",
+          "score": 0.801,
+          "comment": "A PresentationDigitalDocument is a DigitalDocument file containing slides or used for a presentation. Also called slide deck, presentation file, slideshow. Examples: a Microsoft PowerPoint file, a Google Slides presentation, a Keynote document, a PDF of presentation slides."
+        },
+        {
+          "source": "schema.org",
+          "label": "SpreadsheetDigitalDocument",
+          "path": "Thing > CreativeWork > DigitalDocument",
+          "score": 0.801,
+          "comment": "A digital document designed for organizing and analyzing data in rows and columns, typically containing formulas and charts. Also called spreadsheet file, data sheet, workbook, Excel file. Examples: a budget spreadsheet, a sales report in Google Sheets, a financial model in Microsoft Excel."
+        }
+      ]
+    },
+    {
+      "oie_type": "URL",
+      "embedding_query_text": "URL Examples: https://www.france24.com/en/asia-pacific/20260712-bangkok-pub-fire-kills-27-thailand.",
+      "chosen_type": {
+        "label": "URL",
+        "source": "schema.org",
+        "vocab_id": null,
+        "is_new_to_vocab": false,
+        "definition": null,
+        "parent": null,
+        "path": "Text",
+        "justification": "The schema.org URL data type is a direct and perfect match for the OIE_TYPE 'URL' and the provided web address example."
+      },
+      "llm_proposed": {
+        "source": "schema.org",
+        "label": "URL",
+        "is_new": false
+      },
+      "mentions": [
+        "https://www.france24.com/en/asia-pacific/20260712-bangkok-pub-fire-kills-27-thailand"
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "BarOrPub",
+          "path": "Thing > Organization > LocalBusiness > FoodEstablishment",
+          "score": 0.739,
+          "comment": "A FoodEstablishment that primarily serves alcoholic beverages and often food. Also called bar, pub, tavern, lounge. Examples: \"The Green Dragon Pub\", \"O'Malley's Bar & Grill\", \"The Corner Taproom\". Distinct from Restaurant, which primarily focuses on serving meals."
+        },
+        {
+          "source": "schema.org",
+          "label": "URL",
+          "path": "Text",
+          "score": 0.739,
+          "comment": "A data type representing a Uniform Resource Locator, which specifies the address of a resource on the internet. Also called web address, link, internet address. Examples: \"https://schema.org\", \"ftp://example.com/file.zip\", \"mailto:info@example.com\"."
+        },
+        {
+          "source": "schema.org",
+          "label": "SearchResultsPage",
+          "path": "Thing > CreativeWork > WebPage",
+          "score": 0.737,
+          "comment": "A web page displaying the results of a search query. Also called search results, SERP, query results page. Examples: Google search results page, Amazon product search results, a library catalog search page."
+        },
+        {
+          "source": "schema.org",
+          "label": "NLNonprofitType",
+          "path": "Thing > Intangible > Enumeration > NonprofitType",
+          "score": 0.736,
+          "comment": "NLNonprofitType is an enumeration for specific non-profit organization types originating from the Netherlands. Also called Dutch non-profit type, Netherlands charity classification. Examples: ANBI (Algemeen Nut Beogende Instelling), SBBI (Sociaal Belang Behartigende Instelling). Distinct from NonprofitType, which is a general enumeration for non-profit types."
+        },
+        {
+          "source": "schema.org",
+          "label": "BackgroundNewsArticle",
+          "path": "Thing > CreativeWork > Article > NewsArticle",
+          "score": 0.735,
+          "comment": "A NewsArticle that provides historical context, definitions, or detailed explanations on a specific topic. Also called explainer article, backgrounder, FAQ document. Examples: \"An explainer on climate change\", \"A detailed history of the European Union\", \"FAQ about blockchain technology\". Distinct from NewsArticle, which reports on current events."
+        }
+      ]
+    }
+  ]
+}
