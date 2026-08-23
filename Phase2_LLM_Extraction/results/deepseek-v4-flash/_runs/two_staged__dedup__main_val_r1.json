@@ -1,0 +1,3352 @@
+{
+  "run_id": "two_staged__dedup__main_val_r1",
+  "experiment": "main",
+  "description": "The reported configuration: schema-only inline retrieval + global re-consolidation, cross-encoder rerank on the relation side, two-call consolidation with generalize. Every ablation is measured against it.",
+  "track": "two_staged",
+  "results_model": "deepseek-v4-flash",
+  "variant": "dedup",
+  "run_tag": "main_val_r1",
+  "input_tag": "main_val_r1",
+  "created": "2026-08-23T15:25:33+02:00",
+  "stages": {
+    "2": {
+      "started": "2026-08-23T15:25:33+02:00",
+      "finished": "2026-08-23T15:36:04+02:00",
+      "git": {
+        "commit": "87b9b9aa337681412899ee0973d6a8ce6c9502ea",
+        "short": "87b9b9aa",
+        "branch": "main",
+        "dirty": true
+      },
+      "env": {
+        "host": "mac-pret2",
+        "python": "3.12.4",
+        "platform": "macOS-14.0-arm64-arm-64bit",
+        "backend": "deepseek-v4-flash",
+        "gemini_model": "gemini-2.5-flash",
+        "match_model": "intfloat/e5-base-v2",
+        "vllm_base_url": null
+      },
+      "config": {
+        "experiment": "main",
+        "description": "The reported configuration: schema-only inline retrieval + global re-consolidation, cross-encoder rerank on the relation side, two-call consolidation with generalize. Every ablation is measured against it.",
+        "results_model": "deepseek-v4-flash",
+        "backend": "deepseek-v4-flash",
+        "gemini_model": "gemini-2.5-flash",
+        "match_model": "intfloat/e5-base-v2",
+        "selected_articles": [
+          "art1",
+          "art2",
+          "art3",
+          "art4",
+          "art5",
+          "art8",
+          "art12",
+          "art15",
+          "art17",
+          "art23",
+          "art44",
+          "art46",
+          "art52",
+          "art55",
+          "art57",
+          "art58",
+          "art59",
+          "art72",
+          "art73",
+          "art74"
+        ],
+        "variant": "dedup",
+        "run_tag": "main_val_r1",
+        "repeat": 1,
+        "input_tag": "main_val_r1",
+        "overwrite": false,
+        "2": {
+          "workers": 4,
+          "thinking_budget": -1,
+          "max_output_tokens": null
+        },
+        "6": {
+          "workers": 4,
+          "thinking_budget": -1,
+          "max_output_tokens": null
+        },
+        "6b": {
+          "prompt": "nary",
+          "review": true,
+          "workers": 4,
+          "thinking_budget": -1,
+          "max_output_tokens": 24576
+        },
+        "6c": {
+          "prompt": "dedup",
+          "review": true,
+          "workers": 4,
+          "thinking_budget": -1,
+          "max_output_tokens": null
+        },
+        "4": {
+          "fresh": true,
+          "expand_mode": true,
+          "top_k_match": 5,
+          "align_query_style": true,
+          "consolidate": true,
+          "inline_vocab_candidates": false,
+          "rerank": false,
+          "rerank_from": 50,
+          "rerank_model": "cross-encoder/ms-marco-MiniLM-L-6-v2",
+          "rerank_consolidate": true,
+          "rerank_consolidate_from": 25,
+          "consolidate_top_k": 5,
+          "consolidate_include_schema": false,
+          "subtype_mode": "subclass",
+          "include_all_schema": false,
+          "consolidate_every": 5
+        },
+        "6d": {
+          "fresh": true,
+          "expand_mode": true,
+          "top_k_match": 5,
+          "align_query_style": true,
+          "consolidate": true,
+          "consolidate_every": 5,
+          "inline_vocab_candidates": false,
+          "parallel_llm": true,
+          "workers": 5,
+          "rerank": false,
+          "rerank_from": 50,
+          "rerank_model": "cross-encoder/ms-marco-MiniLM-L-6-v2",
+          "rerank_consolidate": true,
+          "rerank_consolidate_from": 25,
+          "consolidate_top_k": 5,
+          "consolidate_include_schema": false,
+          "subtype_mode": "subclass",
+          "include_all_schema": false
+        },
+        "7": {
+          "fresh": true,
+          "expand_mode": true,
+          "top_k_match": 10,
+          "align_query_style": true,
+          "prompt": "long",
+          "consolidate": true,
+          "inline_vocab_candidates": false,
+          "parallel_llm": true,
+          "workers": 4,
+          "anchor_mode": "original",
+          "anchor_penalty": 0.005,
+          "drop_ambiguous_synonyms": true,
+          "rerank": true,
+          "rerank_from": 50,
+          "rerank_model": "cross-encoder/ms-marco-MiniLM-L-6-v2",
+          "rerank_consolidate": true,
+          "rerank_consolidate_from": 50,
+          "consolidate_top_k": 10,
+          "consolidate_include_schema": true,
+          "subprop_mode": "subproperty",
+          "allow_generalize": true,
+          "two_call_consolidation": true,
+          "guard_schema_parent": true,
+          "include_all_schema": false,
+          "consolidate_every": 5
+        },
+        "7b": {
+          "fresh": true,
+          "expand_mode": true,
+          "top_k_match": 10,
+          "align_query_style": true,
+          "prompt": "long",
+          "consolidate": true,
+          "inline_vocab_candidates": false,
+          "parallel_llm": true,
+          "workers": 4,
+          "anchor_mode": "original",
+          "anchor_penalty": 0.005,
+          "drop_ambiguous_synonyms": true,
+          "rerank": true,
+          "rerank_from": 50,
+          "rerank_model": "cross-encoder/ms-marco-MiniLM-L-6-v2",
+          "rerank_consolidate": true,
+          "rerank_consolidate_from": 50,
+          "consolidate_top_k": 10,
+          "consolidate_include_schema": true,
+          "subprop_mode": "subproperty",
+          "allow_generalize": true,
+          "two_call_consolidation": true,
+          "guard_schema_parent": true,
+          "include_all_schema": false,
+          "consolidate_every": 5
+        },
+        "6e": {
+          "fresh": true,
+          "expand_mode": true,
+          "top_k_match": 10,
+          "align_query_style": true,
+          "prompt": "long",
+          "consolidate": true,
+          "inline_vocab_candidates": false,
+          "parallel_llm": true,
+          "workers": 5,
+          "anchor_mode": "original",
+          "anchor_penalty": 0.005,
+          "drop_ambiguous_synonyms": true,
+          "rerank": true,
+          "rerank_from": 50,
+          "rerank_model": "cross-encoder/ms-marco-MiniLM-L-6-v2",
+          "rerank_consolidate": true,
+          "rerank_consolidate_from": 50,
+          "consolidate_top_k": 10,
+          "consolidate_include_schema": true,
+          "subprop_mode": "subproperty",
+          "allow_generalize": true,
+          "two_call_consolidation": true,
+          "guard_schema_parent": true,
+          "include_all_schema": false,
+          "consolidate_every": 5
+        },
+        "split": "validation"
+      },
+      "articles": [
+        "art1",
+        "art2",
+        "art3",
+        "art4",
+        "art5",
+        "art8",
+        "art12",
+        "art15",
+        "art17",
+        "art23",
+        "art44",
+        "art46",
+        "art52",
+        "art55",
+        "art57",
+        "art58",
+        "art59",
+        "art72",
+        "art73",
+        "art74"
+      ],
+      "outputs": [
+        {
+          "path": "_global/metrics_oie_main_val_r1.json",
+          "bytes": 5476,
+          "modified": "2026-08-23T15:36:04"
+        },
+        {
+          "path": "_global/token_usage_nb2_oie_entities_main_val_r1.json",
+          "bytes": 7492,
+          "modified": "2026-08-23T15:36:04"
+        },
+        {
+          "path": "art1/two_staged/1_entities/oie_entities_main_val_r1.json",
+          "bytes": 16896,
+          "modified": "2026-08-23T15:26:02"
+        },
+        {
+          "path": "art12/two_staged/1_entities/oie_entities_main_val_r1.json",
+          "bytes": 250664,
+          "modified": "2026-08-23T15:33:30"
+        },
+        {
+          "path": "art15/two_staged/1_entities/oie_entities_main_val_r1.json",
+          "bytes": 9547,
+          "modified": "2026-08-23T15:33:43"
+        },
+        {
+          "path": "art17/two_staged/1_entities/oie_entities_main_val_r1.json",
+          "bytes": 7550,
+          "modified": "2026-08-23T15:33:53"
+        },
+        {
+          "path": "art2/two_staged/1_entities/oie_entities_main_val_r1.json",
+          "bytes": 12931,
+          "modified": "2026-08-23T15:26:18"
+        },
+        {
+          "path": "art23/two_staged/1_entities/oie_entities_main_val_r1.json",
+          "bytes": 7021,
+          "modified": "2026-08-23T15:34:04"
+        },
+        {
+          "path": "art3/two_staged/1_entities/oie_entities_main_val_r1.json",
+          "bytes": 12106,
+          "modified": "2026-08-23T15:26:37"
+        },
+        {
+          "path": "art4/two_staged/1_entities/oie_entities_main_val_r1.json",
+          "bytes": 3534,
+          "modified": "2026-08-23T15:26:43"
+        },
+        {
+          "path": "art44/two_staged/1_entities/oie_entities_main_val_r1.json",
+          "bytes": 11000,
+          "modified": "2026-08-23T15:34:20"
+        },
+        {
+          "path": "art46/two_staged/1_entities/oie_entities_main_val_r1.json",
+          "bytes": 5203,
+          "modified": "2026-08-23T15:34:27"
+        },
+        {
+          "path": "art5/two_staged/1_entities/oie_entities_main_val_r1.json",
+          "bytes": 7827,
+          "modified": "2026-08-23T15:26:56"
+        },
+        {
+          "path": "art52/two_staged/1_entities/oie_entities_main_val_r1.json",
+          "bytes": 6727,
+          "modified": "2026-08-23T15:34:39"
+        },
+        {
+          "path": "art55/two_staged/1_entities/oie_entities_main_val_r1.json",
+          "bytes": 7328,
+          "modified": "2026-08-23T15:34:48"
+        },
+        {
+          "path": "art57/two_staged/1_entities/oie_entities_main_val_r1.json",
+          "bytes": 10802,
+          "modified": "2026-08-23T15:35:03"
+        },
+        {
+          "path": "art58/two_staged/1_entities/oie_entities_main_val_r1.json",
+          "bytes": 6127,
+          "modified": "2026-08-23T15:35:12"
+        },
+        {
+          "path": "art59/two_staged/1_entities/oie_entities_main_val_r1.json",
+          "bytes": 10793,
+          "modified": "2026-08-23T15:35:26"
+        },
+        {
+          "path": "art72/two_staged/1_entities/oie_entities_main_val_r1.json",
+          "bytes": 12639,
+          "modified": "2026-08-23T15:35:39"
+        },
+        {
+          "path": "art73/two_staged/1_entities/oie_entities_main_val_r1.json",
+          "bytes": 10613,
+          "modified": "2026-08-23T15:35:53"
+        },
+        {
+          "path": "art74/two_staged/1_entities/oie_entities_main_val_r1.json",
+          "bytes": 7204,
+          "modified": "2026-08-23T15:36:04"
+        },
+        {
+          "path": "art8/two_staged/1_entities/oie_entities_main_val_r1.json",
+          "bytes": 11368,
+          "modified": "2026-08-23T15:27:09"
+        }
+      ],
+      "token_usage": {
+        "calls": 20,
+        "prompt_tokens": 46102,
+        "output_tokens": 104042,
+        "thoughts_tokens": 0,
+        "total_tokens": 150144,
+        "seconds": 625.9,
+        "files": [
+          "_global/token_usage_nb2_oie_entities_main_val_r1.json"
+        ]
+      },
+      "metrics": {
+        "stage": "oie",
+        "experiment": "main",
+        "track": "binary",
+        "timestamp": "2026-08-23T15:36:04",
+        "summary": {
+          "articles": 20,
+          "entity_files": 20,
+          "relation_files": 0,
+          "entities": 2266,
+          "distinct_types": 342,
+          "relations": 0,
+          "distinct_phrases": 0,
+          "mean_relations_per_entity": 0.0,
+          "calls": 20,
+          "prompt_tokens": 46102,
+          "output_tokens": 104042,
+          "thoughts_tokens": 0,
+          "total_tokens": 150144,
+          "llm_seconds": 625.9,
+          "found": 1
+        },
+        "per_article": [
+          {
+            "article": "art1",
+            "entities": 76,
+            "distinct_types": 25,
+            "entities_with_normalized_value": 18,
+            "relations": 0,
+            "distinct_phrases": 0,
+            "relations_per_entity": 0.0,
+            "mean_confidence": null
+          },
+          {
+            "article": "art2",
+            "entities": 43,
+            "distinct_types": 28,
+            "entities_with_normalized_value": 9,
+            "relations": 0,
+            "distinct_phrases": 0,
+            "relations_per_entity": 0.0,
+            "mean_confidence": null
+          },
+          {
+            "article": "art3",
+            "entities": 47,
+            "distinct_types": 20,
+            "entities_with_normalized_value": 1,
+            "relations": 0,
+            "distinct_phrases": 0,
+            "relations_per_entity": 0.0,
+            "mean_confidence": null
+          },
+          {
+            "article": "art4",
+            "entities": 15,
+            "distinct_types": 5,
+            "entities_with_normalized_value": 2,
+            "relations": 0,
+            "distinct_phrases": 0,
+            "relations_per_entity": 0.0,
+            "mean_confidence": null
+          },
+          {
+            "article": "art5",
+            "entities": 30,
+            "distinct_types": 14,
+            "entities_with_normalized_value": 3,
+            "relations": 0,
+            "distinct_phrases": 0,
+            "relations_per_entity": 0.0,
+            "mean_confidence": null
+          },
+          {
+            "article": "art8",
+            "entities": 48,
+            "distinct_types": 18,
+            "entities_with_normalized_value": 8,
+            "relations": 0,
+            "distinct_phrases": 0,
+            "relations_per_entity": 0.0,
+            "mean_confidence": null
+          },
+          {
+            "article": "art12",
+            "entities": 1568,
+            "distinct_types": 29,
+            "entities_with_normalized_value": 1509,
+            "relations": 0,
+            "distinct_phrases": 0,
+            "relations_per_entity": 0.0,
+            "mean_confidence": null
+          },
+          {
+            "article": "art15",
+            "entities": 36,
+            "distinct_types": 19,
+            "entities_with_normalized_value": 8,
+            "relations": 0,
+            "distinct_phrases": 0,
+            "relations_per_entity": 0.0,
+            "mean_confidence": null
+          },
+          {
+            "article": "art17",
+            "entities": 26,
+            "distinct_types": 14,
+            "entities_with_normalized_value": 5,
+            "relations": 0,
+            "distinct_phrases": 0,
+            "relations_per_entity": 0.0,
+            "mean_confidence": null
+          },
+          {
+            "article": "art23",
+            "entities": 29,
+            "distinct_types": 12,
+            "entities_with_normalized_value": 3,
+            "relations": 0,
+            "distinct_phrases": 0,
+            "relations_per_entity": 0.0,
+            "mean_confidence": null
+          },
+          {
+            "article": "art44",
+            "entities": 39,
+            "distinct_types": 22,
+            "entities_with_normalized_value": 9,
+            "relations": 0,
+            "distinct_phrases": 0,
+            "relations_per_entity": 0.0,
+            "mean_confidence": null
+          },
+          {
+            "article": "art46",
+            "entities": 24,
+            "distinct_types": 8,
+            "entities_with_normalized_value": 3,
+            "relations": 0,
+            "distinct_phrases": 0,
+            "relations_per_entity": 0.0,
+            "mean_confidence": null
+          },
+          {
+            "article": "art52",
+            "entities": 22,
+            "distinct_types": 14,
+            "entities_with_normalized_value": 3,
+            "relations": 0,
+            "distinct_phrases": 0,
+            "relations_per_entity": 0.0,
+            "mean_confidence": null
+          },
+          {
+            "article": "art55",
+            "entities": 30,
+            "distinct_types": 13,
+            "entities_with_normalized_value": 3,
+            "relations": 0,
+            "distinct_phrases": 0,
+            "relations_per_entity": 0.0,
+            "mean_confidence": null
+          },
+          {
+            "article": "art57",
+            "entities": 47,
+            "distinct_types": 16,
+            "entities_with_normalized_value": 3,
+            "relations": 0,
+            "distinct_phrases": 0,
+            "relations_per_entity": 0.0,
+            "mean_confidence": null
+          },
+          {
+            "article": "art58",
+            "entities": 23,
+            "distinct_types": 12,
+            "entities_with_normalized_value": 2,
+            "relations": 0,
+            "distinct_phrases": 0,
+            "relations_per_entity": 0.0,
+            "mean_confidence": null
+          },
+          {
+            "article": "art59",
+            "entities": 44,
+            "distinct_types": 19,
+            "entities_with_normalized_value": 4,
+            "relations": 0,
+            "distinct_phrases": 0,
+            "relations_per_entity": 0.0,
+            "mean_confidence": null
+          },
+          {
+            "article": "art72",
+            "entities": 58,
+            "distinct_types": 18,
+            "entities_with_normalized_value": 5,
+            "relations": 0,
+            "distinct_phrases": 0,
+            "relations_per_entity": 0.0,
+            "mean_confidence": null
+          },
+          {
+            "article": "art73",
+            "entities": 35,
+            "distinct_types": 21,
+            "entities_with_normalized_value": 6,
+            "relations": 0,
+            "distinct_phrases": 0,
+            "relations_per_entity": 0.0,
+            "mean_confidence": null
+          },
+          {
+            "article": "art74",
+            "entities": 26,
+            "distinct_types": 15,
+            "entities_with_normalized_value": 7,
+            "relations": 0,
+            "distinct_phrases": 0,
+            "relations_per_entity": 0.0,
+            "mean_confidence": null
+          }
+        ]
+      }
+    },
+    "4": {
+      "started": "2026-08-23T15:36:08+02:00",
+      "finished": "2026-08-23T15:53:41+02:00",
+      "git": {
+        "commit": "87b9b9aa337681412899ee0973d6a8ce6c9502ea",
+        "short": "87b9b9aa",
+        "branch": "main",
+        "dirty": true
+      },
+      "env": {
+        "host": "mac-pret2",
+        "python": "3.12.4",
+        "platform": "macOS-14.0-arm64-arm-64bit",
+        "backend": "deepseek-v4-flash",
+        "gemini_model": "gemini-2.5-flash",
+        "match_model": "intfloat/e5-base-v2",
+        "vllm_base_url": null
+      },
+      "config": {
+        "experiment": "main",
+        "description": "The reported configuration: schema-only inline retrieval + global re-consolidation, cross-encoder rerank on the relation side, two-call consolidation with generalize. Every ablation is measured against it.",
+        "results_model": "deepseek-v4-flash",
+        "backend": "deepseek-v4-flash",
+        "gemini_model": "gemini-2.5-flash",
+        "match_model": "intfloat/e5-base-v2",
+        "selected_articles": [
+          "art1",
+          "art2",
+          "art3",
+          "art4",
+          "art5",
+          "art8",
+          "art12",
+          "art15",
+          "art17",
+          "art23",
+          "art44",
+          "art46",
+          "art52",
+          "art55",
+          "art57",
+          "art58",
+          "art59",
+          "art72",
+          "art73",
+          "art74"
+        ],
+        "variant": "dedup",
+        "run_tag": "main_val_r1",
+        "repeat": 1,
+        "input_tag": "main_val_r1",
+        "overwrite": false,
+        "2": {
+          "workers": 4,
+          "thinking_budget": -1,
+          "max_output_tokens": null
+        },
+        "6": {
+          "workers": 4,
+          "thinking_budget": -1,
+          "max_output_tokens": null
+        },
+        "6b": {
+          "prompt": "nary",
+          "review": true,
+          "workers": 4,
+          "thinking_budget": -1,
+          "max_output_tokens": 24576
+        },
+        "6c": {
+          "prompt": "dedup",
+          "review": true,
+          "workers": 4,
+          "thinking_budget": -1,
+          "max_output_tokens": null
+        },
+        "4": {
+          "fresh": true,
+          "expand_mode": true,
+          "top_k_match": 5,
+          "align_query_style": true,
+          "consolidate": true,
+          "inline_vocab_candidates": false,
+          "rerank": false,
+          "rerank_from": 50,
+          "rerank_model": "cross-encoder/ms-marco-MiniLM-L-6-v2",
+          "rerank_consolidate": true,
+          "rerank_consolidate_from": 25,
+          "consolidate_top_k": 5,
+          "consolidate_include_schema": false,
+          "subtype_mode": "subclass",
+          "include_all_schema": false,
+          "consolidate_every": 5
+        },
+        "6d": {
+          "fresh": true,
+          "expand_mode": true,
+          "top_k_match": 5,
+          "align_query_style": true,
+          "consolidate": true,
+          "consolidate_every": 5,
+          "inline_vocab_candidates": false,
+          "parallel_llm": true,
+          "workers": 5,
+          "rerank": false,
+          "rerank_from": 50,
+          "rerank_model": "cross-encoder/ms-marco-MiniLM-L-6-v2",
+          "rerank_consolidate": true,
+          "rerank_consolidate_from": 25,
+          "consolidate_top_k": 5,
+          "consolidate_include_schema": false,
+          "subtype_mode": "subclass",
+          "include_all_schema": false
+        },
+        "7": {
+          "fresh": true,
+          "expand_mode": true,
+          "top_k_match": 10,
+          "align_query_style": true,
+          "prompt": "long",
+          "consolidate": true,
+          "inline_vocab_candidates": false,
+          "parallel_llm": true,
+          "workers": 4,
+          "anchor_mode": "original",
+          "anchor_penalty": 0.005,
+          "drop_ambiguous_synonyms": true,
+          "rerank": true,
+          "rerank_from": 50,
+          "rerank_model": "cross-encoder/ms-marco-MiniLM-L-6-v2",
+          "rerank_consolidate": true,
+          "rerank_consolidate_from": 50,
+          "consolidate_top_k": 10,
+          "consolidate_include_schema": true,
+          "subprop_mode": "subproperty",
+          "allow_generalize": true,
+          "two_call_consolidation": true,
+          "guard_schema_parent": true,
+          "include_all_schema": false,
+          "consolidate_every": 5
+        },
+        "7b": {
+          "fresh": true,
+          "expand_mode": true,
+          "top_k_match": 10,
+          "align_query_style": true,
+          "prompt": "long",
+          "consolidate": true,
+          "inline_vocab_candidates": false,
+          "parallel_llm": true,
+          "workers": 4,
+          "anchor_mode": "original",
+          "anchor_penalty": 0.005,
+          "drop_ambiguous_synonyms": true,
+          "rerank": true,
+          "rerank_from": 50,
+          "rerank_model": "cross-encoder/ms-marco-MiniLM-L-6-v2",
+          "rerank_consolidate": true,
+          "rerank_consolidate_from": 50,
+          "consolidate_top_k": 10,
+          "consolidate_include_schema": true,
+          "subprop_mode": "subproperty",
+          "allow_generalize": true,
+          "two_call_consolidation": true,
+          "guard_schema_parent": true,
+          "include_all_schema": false,
+          "consolidate_every": 5
+        },
+        "6e": {
+          "fresh": true,
+          "expand_mode": true,
+          "top_k_match": 10,
+          "align_query_style": true,
+          "prompt": "long",
+          "consolidate": true,
+          "inline_vocab_candidates": false,
+          "parallel_llm": true,
+          "workers": 5,
+          "anchor_mode": "original",
+          "anchor_penalty": 0.005,
+          "drop_ambiguous_synonyms": true,
+          "rerank": true,
+          "rerank_from": 50,
+          "rerank_model": "cross-encoder/ms-marco-MiniLM-L-6-v2",
+          "rerank_consolidate": true,
+          "rerank_consolidate_from": 50,
+          "consolidate_top_k": 10,
+          "consolidate_include_schema": true,
+          "subprop_mode": "subproperty",
+          "allow_generalize": true,
+          "two_call_consolidation": true,
+          "guard_schema_parent": true,
+          "include_all_schema": false,
+          "consolidate_every": 5
+        },
+        "split": "validation"
+      },
+      "articles": [
+        "art1",
+        "art2",
+        "art3",
+        "art4",
+        "art5",
+        "art8",
+        "art12",
+        "art15",
+        "art17",
+        "art23",
+        "art44",
+        "art46",
+        "art52",
+        "art55",
+        "art57",
+        "art58",
+        "art59",
+        "art72",
+        "art73",
+        "art74"
+      ],
+      "outputs": [
+        {
+          "path": "_global/consolidation_ext_changes_main_val_r1.json",
+          "bytes": 56568,
+          "modified": "2026-08-23T15:53:41"
+        },
+        {
+          "path": "_global/metrics_types_main_val_r1.json",
+          "bytes": 4661,
+          "modified": "2026-08-23T15:53:41"
+        },
+        {
+          "path": "_global/token_usage_types_main_val_r1.json",
+          "bytes": 8505,
+          "modified": "2026-08-23T15:53:41"
+        },
+        {
+          "path": "_global/type_consolidation_report_main_val_r1.json",
+          "bytes": 91835,
+          "modified": "2026-08-23T15:53:41"
+        },
+        {
+          "path": "_global/type_hierarchy_main_val_r1.txt",
+          "bytes": 4346,
+          "modified": "2026-08-23T15:53:41"
+        },
+        {
+          "path": "_global/type_hierarchy_main_val_r1_consolidated.txt",
+          "bytes": 4238,
+          "modified": "2026-08-23T15:53:41"
+        },
+        {
+          "path": "_global/type_vocabulary_main_val_r1.json",
+          "bytes": 48161,
+          "modified": "2026-08-23T15:53:18"
+        },
+        {
+          "path": "_global/type_vocabulary_main_val_r1_consolidated.json",
+          "bytes": 46078,
+          "modified": "2026-08-23T15:53:41"
+        },
+        {
+          "path": "art1/two_staged/1_entities/entities_typed_main_val_r1.json",
+          "bytes": 41978,
+          "modified": "2026-08-23T15:36:57"
+        },
+        {
+          "path": "art1/two_staged/1_entities/entities_typed_main_val_r1_consolidated.json",
+          "bytes": 42035,
+          "modified": "2026-08-23T15:53:41"
+        },
+        {
+          "path": "art1/two_staged/1_entities/entity_type_matching_review_main_val_r1.json",
+          "bytes": 75415,
+          "modified": "2026-08-23T15:36:57"
+        },
+        {
+          "path": "art12/two_staged/1_entities/entities_typed_main_val_r1.json",
+          "bytes": 39649,
+          "modified": "2026-08-23T15:39:05"
+        },
+        {
+          "path": "art12/two_staged/1_entities/entities_typed_main_val_r1_consolidated.json",
+          "bytes": 39718,
+          "modified": "2026-08-23T15:53:41"
+        },
+        {
+          "path": "art12/two_staged/1_entities/entity_type_matching_review_main_val_r1.json",
+          "bytes": 115426,
+          "modified": "2026-08-23T15:39:05"
+        },
+        {
+          "path": "art15/two_staged/1_entities/entities_typed_main_val_r1.json",
+          "bytes": 19585,
+          "modified": "2026-08-23T15:39:24"
+        },
+        {
+          "path": "art15/two_staged/1_entities/entities_typed_main_val_r1_consolidated.json",
+          "bytes": 19647,
+          "modified": "2026-08-23T15:53:41"
+        },
+        {
+          "path": "art15/two_staged/1_entities/entity_type_matching_review_main_val_r1.json",
+          "bytes": 59326,
+          "modified": "2026-08-23T15:39:24"
+        },
+        {
+          "path": "art17/two_staged/1_entities/entities_typed_main_val_r1.json",
+          "bytes": 16578,
+          "modified": "2026-08-23T15:39:42"
+        },
+        {
+          "path": "art17/two_staged/1_entities/entities_typed_main_val_r1_consolidated.json",
+          "bytes": 16637,
+          "modified": "2026-08-23T15:53:41"
+        },
+        {
+          "path": "art17/two_staged/1_entities/entity_type_matching_review_main_val_r1.json",
+          "bytes": 43242,
+          "modified": "2026-08-23T15:39:42"
+        },
+        {
+          "path": "art2/two_staged/1_entities/entities_typed_main_val_r1.json",
+          "bytes": 27071,
+          "modified": "2026-08-23T15:37:20"
+        },
+        {
+          "path": "art2/two_staged/1_entities/entities_typed_main_val_r1_consolidated.json",
+          "bytes": 27167,
+          "modified": "2026-08-23T15:53:41"
+        },
+        {
+          "path": "art2/two_staged/1_entities/entity_type_matching_review_main_val_r1.json",
+          "bytes": 90078,
+          "modified": "2026-08-23T15:37:20"
+        },
+        {
+          "path": "art23/two_staged/1_entities/entities_typed_main_val_r1.json",
+          "bytes": 18148,
+          "modified": "2026-08-23T15:39:57"
+        },
+        {
+          "path": "art23/two_staged/1_entities/entities_typed_main_val_r1_consolidated.json",
+          "bytes": 18287,
+          "modified": "2026-08-23T15:53:41"
+        },
+        {
+          "path": "art23/two_staged/1_entities/entity_type_matching_review_main_val_r1.json",
+          "bytes": 38060,
+          "modified": "2026-08-23T15:39:57"
+        },
+        {
+          "path": "art3/two_staged/1_entities/entities_typed_main_val_r1.json",
+          "bytes": 28807,
+          "modified": "2026-08-23T15:37:38"
+        },
+        {
+          "path": "art3/two_staged/1_entities/entities_typed_main_val_r1_consolidated.json",
+          "bytes": 28748,
+          "modified": "2026-08-23T15:53:41"
+        },
+        {
+          "path": "art3/two_staged/1_entities/entity_type_matching_review_main_val_r1.json",
+          "bytes": 63695,
+          "modified": "2026-08-23T15:37:38"
+        },
+        {
+          "path": "art4/two_staged/1_entities/entities_typed_main_val_r1.json",
+          "bytes": 9698,
+          "modified": "2026-08-23T15:37:51"
+        },
+        {
+          "path": "art4/two_staged/1_entities/entities_typed_main_val_r1_consolidated.json",
+          "bytes": 9762,
+          "modified": "2026-08-23T15:53:41"
+        },
+        {
+          "path": "art4/two_staged/1_entities/entity_type_matching_review_main_val_r1.json",
+          "bytes": 15903,
+          "modified": "2026-08-23T15:37:51"
+        },
+        {
+          "path": "art44/two_staged/1_entities/entities_typed_main_val_r1.json",
+          "bytes": 23199,
+          "modified": "2026-08-23T15:40:29"
+        },
+        {
+          "path": "art44/two_staged/1_entities/entities_typed_main_val_r1_consolidated.json",
+          "bytes": 23209,
+          "modified": "2026-08-23T15:53:41"
+        },
+        {
+          "path": "art44/two_staged/1_entities/entity_type_matching_review_main_val_r1.json",
+          "bytes": 67668,
+          "modified": "2026-08-23T15:40:29"
+        },
+        {
+          "path": "art46/two_staged/1_entities/entities_typed_main_val_r1.json",
+          "bytes": 14903,
+          "modified": "2026-08-23T15:40:43"
+        },
+        {
+          "path": "art46/two_staged/1_entities/entities_typed_main_val_r1_consolidated.json",
+          "bytes": 14985,
+          "modified": "2026-08-23T15:53:41"
+        },
+        {
+          "path": "art46/two_staged/1_entities/entity_type_matching_review_main_val_r1.json",
+          "bytes": 24179,
+          "modified": "2026-08-23T15:40:43"
+        },
+        {
+          "path": "art5/two_staged/1_entities/entities_typed_main_val_r1.json",
+          "bytes": 17799,
+          "modified": "2026-08-23T15:38:07"
+        },
+        {
+          "path": "art5/two_staged/1_entities/entities_typed_main_val_r1_consolidated.json",
+          "bytes": 17849,
+          "modified": "2026-08-23T15:53:41"
+        },
+        {
+          "path": "art5/two_staged/1_entities/entity_type_matching_review_main_val_r1.json",
+          "bytes": 44170,
+          "modified": "2026-08-23T15:38:07"
+        },
+        {
+          "path": "art52/two_staged/1_entities/entities_typed_main_val_r1.json",
+          "bytes": 14006,
+          "modified": "2026-08-23T15:40:57"
+        },
+        {
+          "path": "art52/two_staged/1_entities/entities_typed_main_val_r1_consolidated.json",
+          "bytes": 14128,
+          "modified": "2026-08-23T15:53:41"
+        },
+        {
+          "path": "art52/two_staged/1_entities/entity_type_matching_review_main_val_r1.json",
+          "bytes": 45071,
+          "modified": "2026-08-23T15:40:57"
+        },
+        {
+          "path": "art55/two_staged/1_entities/entities_typed_main_val_r1.json",
+          "bytes": 17115,
+          "modified": "2026-08-23T15:41:12"
+        },
+        {
+          "path": "art55/two_staged/1_entities/entities_typed_main_val_r1_consolidated.json",
+          "bytes": 17169,
+          "modified": "2026-08-23T15:53:41"
+        },
+        {
+          "path": "art55/two_staged/1_entities/entity_type_matching_review_main_val_r1.json",
+          "bytes": 40202,
+          "modified": "2026-08-23T15:41:12"
+        },
+        {
+          "path": "art57/two_staged/1_entities/entities_typed_main_val_r1.json",
+          "bytes": 29267,
+          "modified": "2026-08-23T15:41:27"
+        },
+        {
+          "path": "art57/two_staged/1_entities/entities_typed_main_val_r1_consolidated.json",
+          "bytes": 29299,
+          "modified": "2026-08-23T15:53:41"
+        },
+        {
+          "path": "art57/two_staged/1_entities/entity_type_matching_review_main_val_r1.json",
+          "bytes": 51401,
+          "modified": "2026-08-23T15:41:27"
+        },
+        {
+          "path": "art58/two_staged/1_entities/entities_typed_main_val_r1.json",
+          "bytes": 13627,
+          "modified": "2026-08-23T15:47:29"
+        },
+        {
+          "path": "art58/two_staged/1_entities/entities_typed_main_val_r1_consolidated.json",
+          "bytes": 13681,
+          "modified": "2026-08-23T15:53:41"
+        },
+        {
+          "path": "art58/two_staged/1_entities/entity_type_matching_review_main_val_r1.json",
+          "bytes": 37680,
+          "modified": "2026-08-23T15:47:29"
+        },
+        {
+          "path": "art59/two_staged/1_entities/entities_typed_main_val_r1.json",
+          "bytes": 25850,
+          "modified": "2026-08-23T15:47:47"
+        },
+        {
+          "path": "art59/two_staged/1_entities/entities_typed_main_val_r1_consolidated.json",
+          "bytes": 25944,
+          "modified": "2026-08-23T15:53:41"
+        },
+        {
+          "path": "art59/two_staged/1_entities/entity_type_matching_review_main_val_r1.json",
+          "bytes": 59214,
+          "modified": "2026-08-23T15:47:47"
+        },
+        {
+          "path": "art72/two_staged/1_entities/entities_typed_main_val_r1.json",
+          "bytes": 44318,
+          "modified": "2026-08-23T15:52:41"
+        },
+        {
+          "path": "art72/two_staged/1_entities/entities_typed_main_val_r1_consolidated.json",
+          "bytes": 44375,
+          "modified": "2026-08-23T15:53:41"
+        },
+        {
+          "path": "art72/two_staged/1_entities/entity_type_matching_review_main_val_r1.json",
+          "bytes": 56535,
+          "modified": "2026-08-23T15:52:41"
+        },
+        {
+          "path": "art73/two_staged/1_entities/entities_typed_main_val_r1.json",
+          "bytes": 22090,
+          "modified": "2026-08-23T15:53:00"
+        },
+        {
+          "path": "art73/two_staged/1_entities/entities_typed_main_val_r1_consolidated.json",
+          "bytes": 22206,
+          "modified": "2026-08-23T15:53:41"
+        },
+        {
+          "path": "art73/two_staged/1_entities/entity_type_matching_review_main_val_r1.json",
+          "bytes": 68416,
+          "modified": "2026-08-23T15:53:00"
+        },
+        {
+          "path": "art74/two_staged/1_entities/entities_typed_main_val_r1.json",
+          "bytes": 15465,
+          "modified": "2026-08-23T15:53:18"
+        },
+        {
+          "path": "art74/two_staged/1_entities/entities_typed_main_val_r1_consolidated.json",
+          "bytes": 15687,
+          "modified": "2026-08-23T15:53:41"
+        },
+        {
+          "path": "art74/two_staged/1_entities/entity_type_matching_review_main_val_r1.json",
+          "bytes": 46680,
+          "modified": "2026-08-23T15:53:18"
+        },
+        {
+          "path": "art8/two_staged/1_entities/entities_typed_main_val_r1.json",
+          "bytes": 30039,
+          "modified": "2026-08-23T15:38:40"
+        },
+        {
+          "path": "art8/two_staged/1_entities/entities_typed_main_val_r1_consolidated.json",
+          "bytes": 30275,
+          "modified": "2026-08-23T15:53:41"
+        },
+        {
+          "path": "art8/two_staged/1_entities/entity_type_matching_review_main_val_r1.json",
+          "bytes": 57695,
+          "modified": "2026-08-23T15:38:40"
+        }
+      ],
+      "token_usage": {
+        "calls": 24,
+        "prompt_tokens": 242908,
+        "output_tokens": 158688,
+        "thoughts_tokens": 0,
+        "total_tokens": 401596,
+        "seconds": 862.0,
+        "files": [
+          "_global/token_usage_types_main_val_r1.json"
+        ]
+      },
+      "metrics": {
+        "stage": "types",
+        "experiment": "main",
+        "track": "two_staged",
+        "timestamp": "2026-08-23T15:53:41",
+        "summary": {
+          "articles": 20,
+          "review_files": 20,
+          "typed_files": 20,
+          "distinct_oie_types": 342,
+          "type_decisions": {
+            "schema.org": 238,
+            "mint": 104
+          },
+          "schema_org_reuse_pct": 69.6,
+          "mint_pct": 30.4,
+          "entities_typed": 732,
+          "entity_type_sources": {
+            "schema.org": 570,
+            "mint": 162
+          },
+          "entity_schema_org_pct": 77.9,
+          "chosen_in_candidates_pct": 69.0,
+          "mean_rank_of_chosen": 1.28,
+          "chosen_at_rank1_pct": 83.9,
+          "rr_reranked": false,
+          "vocab_raw": 104,
+          "vocab_consolidated": 84,
+          "vocab_reduction_pct": 19.2,
+          "consolidated": true,
+          "cons_calls": 1,
+          "cons_pool": "vocab",
+          "cons_reranked": true,
+          "cons_vocab_before": 104,
+          "cons_vocab_after": 84,
+          "cons_merge_groups": 15,
+          "cons_removed": 20,
+          "cons_merged_into_schema": 0,
+          "cons_reparented": 37,
+          "cons_reparented_under_schema": 0,
+          "cons_generalize_groups": null,
+          "cons_generalized": null,
+          "cons_blocked_degrounding": null,
+          "cons_parent_conflicts": null,
+          "cons_keep_overrides": null,
+          "cons_offkind_dropped": null,
+          "cons_self_parent_fixed": 0,
+          "cons_in_shortlist_pct": 93.0,
+          "calls": 24,
+          "prompt_tokens": 242908,
+          "output_tokens": 158688,
+          "thoughts_tokens": 0,
+          "total_tokens": 401596,
+          "llm_seconds": 862.0,
+          "found": 1
+        },
+        "per_article": [
+          {
+            "article": "art1",
+            "distinct_oie_types": 25,
+            "entities": 69,
+            "minted": 5,
+            "schema_org": 20,
+            "cum_minted": 5
+          },
+          {
+            "article": "art2",
+            "distinct_oie_types": 28,
+            "entities": 42,
+            "minted": 15,
+            "schema_org": 13,
+            "cum_minted": 20
+          },
+          {
+            "article": "art3",
+            "distinct_oie_types": 20,
+            "entities": 45,
+            "minted": 9,
+            "schema_org": 11,
+            "cum_minted": 29
+          },
+          {
+            "article": "art4",
+            "distinct_oie_types": 5,
+            "entities": 15,
+            "minted": 1,
+            "schema_org": 4,
+            "cum_minted": 30
+          },
+          {
+            "article": "art5",
+            "distinct_oie_types": 14,
+            "entities": 29,
+            "minted": 2,
+            "schema_org": 12,
+            "cum_minted": 32
+          },
+          {
+            "article": "art8",
+            "distinct_oie_types": 18,
+            "entities": 48,
+            "minted": 8,
+            "schema_org": 10,
+            "cum_minted": 40
+          },
+          {
+            "article": "art12",
+            "distinct_oie_types": 29,
+            "entities": 61,
+            "minted": 11,
+            "schema_org": 18,
+            "cum_minted": 51
+          },
+          {
+            "article": "art15",
+            "distinct_oie_types": 19,
+            "entities": 31,
+            "minted": 2,
+            "schema_org": 17,
+            "cum_minted": 53
+          },
+          {
+            "article": "art17",
+            "distinct_oie_types": 14,
+            "entities": 25,
+            "minted": 4,
+            "schema_org": 10,
+            "cum_minted": 57
+          },
+          {
+            "article": "art23",
+            "distinct_oie_types": 12,
+            "entities": 29,
+            "minted": 5,
+            "schema_org": 7,
+            "cum_minted": 62
+          },
+          {
+            "article": "art44",
+            "distinct_oie_types": 22,
+            "entities": 38,
+            "minted": 5,
+            "schema_org": 17,
+            "cum_minted": 67
+          },
+          {
+            "article": "art46",
+            "distinct_oie_types": 8,
+            "entities": 24,
+            "minted": 2,
+            "schema_org": 6,
+            "cum_minted": 69
+          },
+          {
+            "article": "art52",
+            "distinct_oie_types": 14,
+            "entities": 22,
+            "minted": 3,
+            "schema_org": 11,
+            "cum_minted": 72
+          },
+          {
+            "article": "art55",
+            "distinct_oie_types": 13,
+            "entities": 28,
+            "minted": 1,
+            "schema_org": 12,
+            "cum_minted": 73
+          },
+          {
+            "article": "art57",
+            "distinct_oie_types": 16,
+            "entities": 47,
+            "minted": 7,
+            "schema_org": 9,
+            "cum_minted": 80
+          },
+          {
+            "article": "art58",
+            "distinct_oie_types": 12,
+            "entities": 23,
+            "minted": 1,
+            "schema_org": 11,
+            "cum_minted": 81
+          },
+          {
+            "article": "art59",
+            "distinct_oie_types": 19,
+            "entities": 42,
+            "minted": 4,
+            "schema_org": 15,
+            "cum_minted": 85
+          },
+          {
+            "article": "art72",
+            "distinct_oie_types": 18,
+            "entities": 55,
+            "minted": 5,
+            "schema_org": 13,
+            "cum_minted": 90
+          },
+          {
+            "article": "art73",
+            "distinct_oie_types": 21,
+            "entities": 35,
+            "minted": 9,
+            "schema_org": 12,
+            "cum_minted": 99
+          },
+          {
+            "article": "art74",
+            "distinct_oie_types": 15,
+            "entities": 24,
+            "minted": 5,
+            "schema_org": 10,
+            "cum_minted": 104
+          }
+        ]
+      }
+    },
+    "6b": {
+      "started": "2026-08-23T16:35:59+02:00",
+      "owner": {
+        "pid": 57735,
+        "host": "mac-pret2",
+        "at": "2026-08-23T16:35:59+02:00"
+      },
+      "finished": null,
+      "git": {
+        "commit": "87b9b9aa337681412899ee0973d6a8ce6c9502ea",
+        "short": "87b9b9aa",
+        "branch": "main",
+        "dirty": true
+      },
+      "env": {
+        "host": "mac-pret2",
+        "python": "3.12.4",
+        "platform": "macOS-14.0-arm64-arm-64bit",
+        "backend": "deepseek-v4-flash",
+        "gemini_model": "gemini-2.5-flash",
+        "match_model": "intfloat/e5-base-v2",
+        "vllm_base_url": null
+      },
+      "config": {
+        "experiment": "main",
+        "description": "The reported configuration: schema-only inline retrieval + global re-consolidation, cross-encoder rerank on the relation side, two-call consolidation with generalize. Every ablation is measured against it.",
+        "results_model": "deepseek-v4-flash",
+        "backend": "deepseek-v4-flash",
+        "gemini_model": "gemini-2.5-flash",
+        "match_model": "intfloat/e5-base-v2",
+        "selected_articles": [
+          "art46",
+          "art55",
+          "art59"
+        ],
+        "variant": "dedup",
+        "run_tag": "main_val_r1",
+        "repeat": 1,
+        "input_tag": "main_val_r1",
+        "overwrite": false,
+        "2": {
+          "workers": 4,
+          "thinking_budget": -1,
+          "max_output_tokens": null
+        },
+        "6": {
+          "workers": 4,
+          "thinking_budget": -1,
+          "max_output_tokens": null
+        },
+        "6b": {
+          "prompt": "nary",
+          "review": true,
+          "workers": 4,
+          "thinking_budget": -1,
+          "max_output_tokens": 24576
+        },
+        "6c": {
+          "prompt": "dedup",
+          "review": true,
+          "workers": 4,
+          "thinking_budget": -1,
+          "max_output_tokens": null
+        },
+        "4": {
+          "fresh": true,
+          "expand_mode": true,
+          "top_k_match": 5,
+          "align_query_style": true,
+          "consolidate": true,
+          "inline_vocab_candidates": false,
+          "rerank": false,
+          "rerank_from": 50,
+          "rerank_model": "cross-encoder/ms-marco-MiniLM-L-6-v2",
+          "rerank_consolidate": true,
+          "rerank_consolidate_from": 25,
+          "consolidate_top_k": 5,
+          "consolidate_include_schema": false,
+          "subtype_mode": "subclass",
+          "include_all_schema": false,
+          "consolidate_every": 5
+        },
+        "6d": {
+          "fresh": true,
+          "expand_mode": true,
+          "top_k_match": 5,
+          "align_query_style": true,
+          "consolidate": true,
+          "consolidate_every": 5,
+          "inline_vocab_candidates": false,
+          "parallel_llm": true,
+          "workers": 5,
+          "rerank": false,
+          "rerank_from": 50,
+          "rerank_model": "cross-encoder/ms-marco-MiniLM-L-6-v2",
+          "rerank_consolidate": true,
+          "rerank_consolidate_from": 25,
+          "consolidate_top_k": 5,
+          "consolidate_include_schema": false,
+          "subtype_mode": "subclass",
+          "include_all_schema": false
+        },
+        "7": {
+          "fresh": true,
+          "expand_mode": true,
+          "top_k_match": 10,
+          "align_query_style": true,
+          "prompt": "long",
+          "consolidate": true,
+          "inline_vocab_candidates": false,
+          "parallel_llm": true,
+          "workers": 4,
+          "anchor_mode": "original",
+          "anchor_penalty": 0.005,
+          "drop_ambiguous_synonyms": true,
+          "rerank": true,
+          "rerank_from": 50,
+          "rerank_model": "cross-encoder/ms-marco-MiniLM-L-6-v2",
+          "rerank_consolidate": true,
+          "rerank_consolidate_from": 50,
+          "consolidate_top_k": 10,
+          "consolidate_include_schema": true,
+          "subprop_mode": "subproperty",
+          "allow_generalize": true,
+          "two_call_consolidation": true,
+          "guard_schema_parent": true,
+          "include_all_schema": false,
+          "consolidate_every": 5
+        },
+        "7b": {
+          "fresh": true,
+          "expand_mode": true,
+          "top_k_match": 10,
+          "align_query_style": true,
+          "prompt": "long",
+          "consolidate": true,
+          "inline_vocab_candidates": false,
+          "parallel_llm": true,
+          "workers": 4,
+          "anchor_mode": "original",
+          "anchor_penalty": 0.005,
+          "drop_ambiguous_synonyms": true,
+          "rerank": true,
+          "rerank_from": 50,
+          "rerank_model": "cross-encoder/ms-marco-MiniLM-L-6-v2",
+          "rerank_consolidate": true,
+          "rerank_consolidate_from": 50,
+          "consolidate_top_k": 10,
+          "consolidate_include_schema": true,
+          "subprop_mode": "subproperty",
+          "allow_generalize": true,
+          "two_call_consolidation": true,
+          "guard_schema_parent": true,
+          "include_all_schema": false,
+          "consolidate_every": 5
+        },
+        "6e": {
+          "fresh": true,
+          "expand_mode": true,
+          "top_k_match": 10,
+          "align_query_style": true,
+          "prompt": "long",
+          "consolidate": true,
+          "inline_vocab_candidates": false,
+          "parallel_llm": true,
+          "workers": 5,
+          "anchor_mode": "original",
+          "anchor_penalty": 0.005,
+          "drop_ambiguous_synonyms": true,
+          "rerank": true,
+          "rerank_from": 50,
+          "rerank_model": "cross-encoder/ms-marco-MiniLM-L-6-v2",
+          "rerank_consolidate": true,
+          "rerank_consolidate_from": 50,
+          "consolidate_top_k": 10,
+          "consolidate_include_schema": true,
+          "subprop_mode": "subproperty",
+          "allow_generalize": true,
+          "two_call_consolidation": true,
+          "guard_schema_parent": true,
+          "include_all_schema": false,
+          "consolidate_every": 5
+        },
+        "split": "validation",
+        "articles_overridden": true
+      },
+      "articles": [
+        "art46",
+        "art55",
+        "art59"
+      ],
+      "outputs": [],
+      "token_usage": null,
+      "metrics": null,
+      "attempts": [
+        {
+          "started": "2026-08-23T15:53:47+02:00",
+          "finished": "2026-08-23T16:04:41+02:00",
+          "git": {
+            "commit": "87b9b9aa337681412899ee0973d6a8ce6c9502ea",
+            "short": "87b9b9aa",
+            "branch": "main",
+            "dirty": true
+          },
+          "env": {
+            "host": "mac-pret2",
+            "python": "3.12.4",
+            "platform": "macOS-14.0-arm64-arm-64bit",
+            "backend": "deepseek-v4-flash",
+            "gemini_model": "gemini-2.5-flash",
+            "match_model": "intfloat/e5-base-v2",
+            "vllm_base_url": null
+          },
+          "config": {
+            "experiment": "main",
+            "description": "The reported configuration: schema-only inline retrieval + global re-consolidation, cross-encoder rerank on the relation side, two-call consolidation with generalize. Every ablation is measured against it.",
+            "results_model": "deepseek-v4-flash",
+            "backend": "deepseek-v4-flash",
+            "gemini_model": "gemini-2.5-flash",
+            "match_model": "intfloat/e5-base-v2",
+            "selected_articles": [
+              "art1",
+              "art2",
+              "art3",
+              "art4",
+              "art5",
+              "art8",
+              "art12",
+              "art15",
+              "art17",
+              "art23",
+              "art44",
+              "art46",
+              "art52",
+              "art55",
+              "art57",
+              "art58",
+              "art59",
+              "art72",
+              "art73",
+              "art74"
+            ],
+            "variant": "dedup",
+            "run_tag": "main_val_r1",
+            "repeat": 1,
+            "input_tag": "main_val_r1",
+            "overwrite": false,
+            "2": {
+              "workers": 4,
+              "thinking_budget": -1,
+              "max_output_tokens": null
+            },
+            "6": {
+              "workers": 4,
+              "thinking_budget": -1,
+              "max_output_tokens": null
+            },
+            "6b": {
+              "prompt": "nary",
+              "review": true,
+              "workers": 4,
+              "thinking_budget": -1,
+              "max_output_tokens": 24576
+            },
+            "6c": {
+              "prompt": "dedup",
+              "review": true,
+              "workers": 4,
+              "thinking_budget": -1,
+              "max_output_tokens": null
+            },
+            "4": {
+              "fresh": true,
+              "expand_mode": true,
+              "top_k_match": 5,
+              "align_query_style": true,
+              "consolidate": true,
+              "inline_vocab_candidates": false,
+              "rerank": false,
+              "rerank_from": 50,
+              "rerank_model": "cross-encoder/ms-marco-MiniLM-L-6-v2",
+              "rerank_consolidate": true,
+              "rerank_consolidate_from": 25,
+              "consolidate_top_k": 5,
+              "consolidate_include_schema": false,
+              "subtype_mode": "subclass",
+              "include_all_schema": false,
+              "consolidate_every": 5
+            },
+            "6d": {
+              "fresh": true,
+              "expand_mode": true,
+              "top_k_match": 5,
+              "align_query_style": true,
+              "consolidate": true,
+              "consolidate_every": 5,
+              "inline_vocab_candidates": false,
+              "parallel_llm": true,
+              "workers": 5,
+              "rerank": false,
+              "rerank_from": 50,
+              "rerank_model": "cross-encoder/ms-marco-MiniLM-L-6-v2",
+              "rerank_consolidate": true,
+              "rerank_consolidate_from": 25,
+              "consolidate_top_k": 5,
+              "consolidate_include_schema": false,
+              "subtype_mode": "subclass",
+              "include_all_schema": false
+            },
+            "7": {
+              "fresh": true,
+              "expand_mode": true,
+              "top_k_match": 10,
+              "align_query_style": true,
+              "prompt": "long",
+              "consolidate": true,
+              "inline_vocab_candidates": false,
+              "parallel_llm": true,
+              "workers": 4,
+              "anchor_mode": "original",
+              "anchor_penalty": 0.005,
+              "drop_ambiguous_synonyms": true,
+              "rerank": true,
+              "rerank_from": 50,
+              "rerank_model": "cross-encoder/ms-marco-MiniLM-L-6-v2",
+              "rerank_consolidate": true,
+              "rerank_consolidate_from": 50,
+              "consolidate_top_k": 10,
+              "consolidate_include_schema": true,
+              "subprop_mode": "subproperty",
+              "allow_generalize": true,
+              "two_call_consolidation": true,
+              "guard_schema_parent": true,
+              "include_all_schema": false,
+              "consolidate_every": 5
+            },
+            "7b": {
+              "fresh": true,
+              "expand_mode": true,
+              "top_k_match": 10,
+              "align_query_style": true,
+              "prompt": "long",
+              "consolidate": true,
+              "inline_vocab_candidates": false,
+              "parallel_llm": true,
+              "workers": 4,
+              "anchor_mode": "original",
+              "anchor_penalty": 0.005,
+              "drop_ambiguous_synonyms": true,
+              "rerank": true,
+              "rerank_from": 50,
+              "rerank_model": "cross-encoder/ms-marco-MiniLM-L-6-v2",
+              "rerank_consolidate": true,
+              "rerank_consolidate_from": 50,
+              "consolidate_top_k": 10,
+              "consolidate_include_schema": true,
+              "subprop_mode": "subproperty",
+              "allow_generalize": true,
+              "two_call_consolidation": true,
+              "guard_schema_parent": true,
+              "include_all_schema": false,
+              "consolidate_every": 5
+            },
+            "6e": {
+              "fresh": true,
+              "expand_mode": true,
+              "top_k_match": 10,
+              "align_query_style": true,
+              "prompt": "long",
+              "consolidate": true,
+              "inline_vocab_candidates": false,
+              "parallel_llm": true,
+              "workers": 5,
+              "anchor_mode": "original",
+              "anchor_penalty": 0.005,
+              "drop_ambiguous_synonyms": true,
+              "rerank": true,
+              "rerank_from": 50,
+              "rerank_model": "cross-encoder/ms-marco-MiniLM-L-6-v2",
+              "rerank_consolidate": true,
+              "rerank_consolidate_from": 50,
+              "consolidate_top_k": 10,
+              "consolidate_include_schema": true,
+              "subprop_mode": "subproperty",
+              "allow_generalize": true,
+              "two_call_consolidation": true,
+              "guard_schema_parent": true,
+              "include_all_schema": false,
+              "consolidate_every": 5
+            },
+            "split": "validation"
+          },
+          "articles": [
+            "art1",
+            "art2",
+            "art3",
+            "art4",
+            "art5",
+            "art8",
+            "art12",
+            "art15",
+            "art17",
+            "art23",
+            "art44",
+            "art46",
+            "art52",
+            "art55",
+            "art57",
+            "art58",
+            "art59",
+            "art72",
+            "art73",
+            "art74"
+          ],
+          "outputs": [
+            {
+              "path": "_global/metrics_extraction_dedup_main_val_r1.json",
+              "bytes": 12530,
+              "modified": "2026-08-23T16:04:41"
+            },
+            {
+              "path": "_global/token_usage_nb6b_nary_dedup_main_val_r1.json",
+              "bytes": 8708,
+              "modified": "2026-08-23T16:04:41"
+            },
+            {
+              "path": "art1/two_staged/3_nary_graph/nary_graph_dedup_main_val_r1.json",
+              "bytes": 82377,
+              "modified": "2026-08-23T15:54:49"
+            },
+            {
+              "path": "art12/two_staged/3_nary_graph/nary_graph_dedup_main_val_r1.json",
+              "bytes": 57826,
+              "modified": "2026-08-23T15:56:18"
+            },
+            {
+              "path": "art15/two_staged/3_nary_graph/nary_graph_dedup_main_val_r1.json",
+              "bytes": 94449,
+              "modified": "2026-08-23T15:56:59"
+            },
+            {
+              "path": "art17/two_staged/3_nary_graph/nary_graph_dedup_main_val_r1.json",
+              "bytes": 35558,
+              "modified": "2026-08-23T15:56:37"
+            },
+            {
+              "path": "art2/two_staged/3_nary_graph/nary_graph_dedup_main_val_r1.json",
+              "bytes": 91491,
+              "modified": "2026-08-23T15:54:56"
+            },
+            {
+              "path": "art23/two_staged/3_nary_graph/nary_graph_dedup_main_val_r1.json",
+              "bytes": 47123,
+              "modified": "2026-08-23T15:57:08"
+            },
+            {
+              "path": "art3/two_staged/3_nary_graph/nary_graph_dedup_main_val_r1.json",
+              "bytes": 21470,
+              "modified": "2026-08-23T16:04:41"
+            },
+            {
+              "path": "art4/two_staged/3_nary_graph/nary_graph_dedup_main_val_r1.json",
+              "bytes": 50937,
+              "modified": "2026-08-23T15:54:47"
+            },
+            {
+              "path": "art44/two_staged/3_nary_graph/nary_graph_dedup_main_val_r1.json",
+              "bytes": 70144,
+              "modified": "2026-08-23T15:57:35"
+            },
+            {
+              "path": "art5/two_staged/3_nary_graph/nary_graph_dedup_main_val_r1.json",
+              "bytes": 107702,
+              "modified": "2026-08-23T15:55:52"
+            },
+            {
+              "path": "art52/two_staged/3_nary_graph/nary_graph_dedup_main_val_r1.json",
+              "bytes": 56860,
+              "modified": "2026-08-23T16:03:36"
+            },
+            {
+              "path": "art57/two_staged/3_nary_graph/nary_graph_dedup_main_val_r1.json",
+              "bytes": 37737,
+              "modified": "2026-08-23T15:57:54"
+            },
+            {
+              "path": "art58/two_staged/3_nary_graph/nary_graph_dedup_main_val_r1.json",
+              "bytes": 40786,
+              "modified": "2026-08-23T15:58:07"
+            },
+            {
+              "path": "art72/two_staged/3_nary_graph/nary_graph_dedup_main_val_r1.json",
+              "bytes": 198871,
+              "modified": "2026-08-23T16:03:40"
+            },
+            {
+              "path": "art73/two_staged/3_nary_graph/nary_graph_dedup_main_val_r1.json",
+              "bytes": 93291,
+              "modified": "2026-08-23T15:59:06"
+            },
+            {
+              "path": "art74/two_staged/3_nary_graph/nary_graph_dedup_main_val_r1.json",
+              "bytes": 63898,
+              "modified": "2026-08-23T15:59:48"
+            },
+            {
+              "path": "art8/two_staged/3_nary_graph/nary_graph_dedup_main_val_r1.json",
+              "bytes": 114880,
+              "modified": "2026-08-23T15:55:46"
+            }
+          ],
+          "token_usage": {
+            "prompt_tokens": 419356,
+            "output_tokens": 404156,
+            "thoughts_tokens": 0,
+            "total_tokens": 823512,
+            "files": [
+              "_global/token_usage_nb6b_nary_dedup_main_val_r1.json"
+            ]
+          },
+          "metrics": {
+            "stage": "extraction",
+            "experiment": "main",
+            "track": "two_staged",
+            "timestamp": "2026-08-23T16:04:41",
+            "summary": {
+              "entities": 638,
+              "nary_nodes": 367,
+              "relations": 1219,
+              "articles": 17,
+              "main_events": 27,
+              "distinct_entity_types": 282,
+              "distinct_relation_phrases": 476,
+              "mean_largest_component_share": 87.5,
+              "isolated_nodes": 137,
+              "mean_evidence_spans": 45.74,
+              "reviewed_articles": 15,
+              "review_ran": true,
+              "review_articles": 17,
+              "review_failed_articles": 0,
+              "review_added_entities": 0,
+              "review_added_nary_nodes": 0,
+              "review_added_relations": 2219,
+              "review_removed_nary_nodes": 0,
+              "review_removed_relations": 174,
+              "review_fixed_evidence": 551,
+              "review_guard_dropped": 7,
+              "review_relations_before": 4058,
+              "review_relations_after": 6035,
+              "review_relations_delta_pct": 48.7,
+              "review_nodes_delta_pct": 0.0,
+              "review_entities_delta_pct": null,
+              "prompt_tokens": 419356,
+              "output_tokens": 404156,
+              "thoughts_tokens": 0,
+              "total_tokens": 823512
+            },
+            "per_article": [
+              {
+                "article": "art1",
+                "entities": 69,
+                "nary_nodes": 36,
+                "relations": 132,
+                "node_kinds": {
+                  "Event": 9,
+                  "Observation": 17,
+                  "Claim": 10
+                },
+                "main_events": 4,
+                "distinct_entity_types": 21,
+                "distinct_relation_phrases": 35,
+                "entities_with_normalized_value": 0,
+                "relations_per_node": 1.26,
+                "largest_component_share": 93.3,
+                "isolated_nodes": 7,
+                "mean_evidence_spans": 34.7,
+                "mean_confidence": 0.99,
+                "reviewed": true,
+                "review_added_relations": 36,
+                "review_added_entities": null,
+                "review_relations_before": 98,
+                "total_tokens": 26897
+              },
+              {
+                "article": "art2",
+                "entities": 42,
+                "nary_nodes": 17,
+                "relations": 75,
+                "node_kinds": {
+                  "Event": 5,
+                  "Observation": 4,
+                  "Claim": 8
+                },
+                "main_events": 1,
+                "distinct_entity_types": 27,
+                "distinct_relation_phrases": 35,
+                "entities_with_normalized_value": 0,
+                "relations_per_node": 1.27,
+                "largest_component_share": 91.5,
+                "isolated_nodes": 5,
+                "mean_evidence_spans": 55.08,
+                "mean_confidence": 0.88,
+                "reviewed": true,
+                "review_added_relations": 5,
+                "review_added_entities": null,
+                "review_relations_before": 70,
+                "total_tokens": 23284
+              },
+              {
+                "article": "art3",
+                "entities": 45,
+                "nary_nodes": 21,
+                "relations": 11,
+                "node_kinds": {
+                  "Event": 9,
+                  "Observation": 6,
+                  "Claim": 6
+                },
+                "main_events": 1,
+                "distinct_entity_types": 20,
+                "distinct_relation_phrases": 9,
+                "entities_with_normalized_value": 0,
+                "relations_per_node": 0.17,
+                "largest_component_share": 13.6,
+                "isolated_nodes": 57,
+                "mean_evidence_spans": 1.18,
+                "mean_confidence": 0.94,
+                "reviewed": false,
+                "review_added_relations": 1040,
+                "review_added_entities": null,
+                "review_relations_before": 1559,
+                "total_tokens": 253551
+              },
+              {
+                "article": "art4",
+                "entities": 15,
+                "nary_nodes": 24,
+                "relations": 61,
+                "node_kinds": {
+                  "Event": 6,
+                  "Observation": 18
+                },
+                "main_events": 1,
+                "distinct_entity_types": 5,
+                "distinct_relation_phrases": 18,
+                "entities_with_normalized_value": 0,
+                "relations_per_node": 1.56,
+                "largest_component_share": 100.0,
+                "isolated_nodes": 0,
+                "mean_evidence_spans": 48.39,
+                "mean_confidence": 1.0,
+                "reviewed": true,
+                "review_added_relations": 0,
+                "review_added_entities": null,
+                "review_relations_before": 61,
+                "total_tokens": 18425
+              },
+              {
+                "article": "art5",
+                "entities": 29,
+                "nary_nodes": 21,
+                "relations": 82,
+                "node_kinds": {
+                  "Event": 7,
+                  "Observation": 6,
+                  "Claim": 8
+                },
+                "main_events": 2,
+                "distinct_entity_types": 14,
+                "distinct_relation_phrases": 44,
+                "entities_with_normalized_value": 0,
+                "relations_per_node": 1.64,
+                "largest_component_share": 96.0,
+                "isolated_nodes": 2,
+                "mean_evidence_spans": 56.39,
+                "mean_confidence": 0.91,
+                "reviewed": true,
+                "review_added_relations": 2,
+                "review_added_entities": null,
+                "review_relations_before": 82,
+                "total_tokens": 24868
+              },
+              {
+                "article": "art8",
+                "entities": 48,
+                "nary_nodes": 24,
+                "relations": 82,
+                "node_kinds": {
+                  "Event": 10,
+                  "Observation": 5,
+                  "Claim": 9
+                },
+                "main_events": 1,
+                "distinct_entity_types": 18,
+                "distinct_relation_phrases": 38,
+                "entities_with_normalized_value": 0,
+                "relations_per_node": 1.14,
+                "largest_component_share": 83.3,
+                "isolated_nodes": 12,
+                "mean_evidence_spans": 55.56,
+                "mean_confidence": 0.91,
+                "reviewed": true,
+                "review_added_relations": 82,
+                "review_added_entities": null,
+                "review_relations_before": 81,
+                "total_tokens": 25349
+              },
+              {
+                "article": "art12",
+                "entities": 61,
+                "nary_nodes": 23,
+                "relations": 79,
+                "node_kinds": {
+                  "Event": 8,
+                  "Observation": 8,
+                  "Claim": 7
+                },
+                "main_events": 1,
+                "distinct_entity_types": 25,
+                "distinct_relation_phrases": 2,
+                "entities_with_normalized_value": 0,
+                "relations_per_node": 0.94,
+                "largest_component_share": 95.2,
+                "isolated_nodes": 4,
+                "mean_evidence_spans": 47.72,
+                "mean_confidence": 0.84,
+                "reviewed": true,
+                "review_added_relations": 79,
+                "review_added_entities": null,
+                "review_relations_before": 117,
+                "total_tokens": 32183
+              },
+              {
+                "article": "art15",
+                "entities": 31,
+                "nary_nodes": 23,
+                "relations": 59,
+                "node_kinds": {
+                  "Event": 12,
+                  "Observation": 8,
+                  "Claim": 3
+                },
+                "main_events": 1,
+                "distinct_entity_types": 15,
+                "distinct_relation_phrases": 23,
+                "entities_with_normalized_value": 0,
+                "relations_per_node": 1.09,
+                "largest_component_share": 87.0,
+                "isolated_nodes": 7,
+                "mean_evidence_spans": 67.8,
+                "mean_confidence": 0.98,
+                "reviewed": true,
+                "review_added_relations": 0,
+                "review_added_entities": null,
+                "review_relations_before": 59,
+                "total_tokens": 21869
+              },
+              {
+                "article": "art17",
+                "entities": 25,
+                "nary_nodes": 20,
+                "relations": 51,
+                "node_kinds": {
+                  "Event": 15,
+                  "Observation": 3,
+                  "Claim": 2
+                },
+                "main_events": 2,
+                "distinct_entity_types": 12,
+                "distinct_relation_phrases": 29,
+                "entities_with_normalized_value": 0,
+                "relations_per_node": 1.13,
+                "largest_component_share": 95.6,
+                "isolated_nodes": 2,
+                "mean_evidence_spans": 28.24,
+                "mean_confidence": 1.0,
+                "reviewed": true,
+                "review_added_relations": 0,
+                "review_added_entities": null,
+                "review_relations_before": 51,
+                "total_tokens": 14524
+              },
+              {
+                "article": "art23",
+                "entities": 29,
+                "nary_nodes": 28,
+                "relations": 77,
+                "node_kinds": {
+                  "Event": 10,
+                  "Observation": 5,
+                  "Claim": 13
+                },
+                "main_events": 2,
+                "distinct_entity_types": 12,
+                "distinct_relation_phrases": 22,
+                "entities_with_normalized_value": 0,
+                "relations_per_node": 1.35,
+                "largest_component_share": 100.0,
+                "isolated_nodes": 0,
+                "mean_evidence_spans": 38.25,
+                "mean_confidence": 1.0,
+                "reviewed": true,
+                "review_added_relations": 1,
+                "review_added_entities": null,
+                "review_relations_before": 77,
+                "total_tokens": 19480
+              },
+              {
+                "article": "art44",
+                "entities": 38,
+                "nary_nodes": 20,
+                "relations": 68,
+                "node_kinds": {
+                  "Event": 11,
+                  "Observation": 4,
+                  "Claim": 5
+                },
+                "main_events": 2,
+                "distinct_entity_types": 18,
+                "distinct_relation_phrases": 42,
+                "entities_with_normalized_value": 0,
+                "relations_per_node": 1.17,
+                "largest_component_share": 94.8,
+                "isolated_nodes": 3,
+                "mean_evidence_spans": 46.54,
+                "mean_confidence": 1.0,
+                "reviewed": true,
+                "review_added_relations": 3,
+                "review_added_entities": null,
+                "review_relations_before": 65,
+                "total_tokens": 20795
+              },
+              {
+                "article": "art52",
+                "entities": 22,
+                "nary_nodes": 13,
+                "relations": 77,
+                "node_kinds": {
+                  "Event": 2,
+                  "Observation": 5,
+                  "Claim": 6
+                },
+                "main_events": 3,
+                "distinct_entity_types": 14,
+                "distinct_relation_phrases": 23,
+                "entities_with_normalized_value": 0,
+                "relations_per_node": 2.2,
+                "largest_component_share": 100.0,
+                "isolated_nodes": 0,
+                "mean_evidence_spans": 55.69,
+                "mean_confidence": 0.91,
+                "reviewed": true,
+                "review_added_relations": 4,
+                "review_added_entities": null,
+                "review_relations_before": 1437,
+                "total_tokens": 182743
+              },
+              {
+                "article": "art57",
+                "entities": 47,
+                "nary_nodes": 20,
+                "relations": 44,
+                "node_kinds": {
+                  "Event": 5,
+                  "Observation": 12,
+                  "Claim": 3
+                },
+                "main_events": 1,
+                "distinct_entity_types": 16,
+                "distinct_relation_phrases": 26,
+                "entities_with_normalized_value": 0,
+                "relations_per_node": 0.66,
+                "largest_component_share": 62.7,
+                "isolated_nodes": 23,
+                "mean_evidence_spans": 7.02,
+                "mean_confidence": 1.0,
+                "reviewed": true,
+                "review_added_relations": 37,
+                "review_added_entities": null,
+                "review_relations_before": 54,
+                "total_tokens": 19118
+              },
+              {
+                "article": "art58",
+                "entities": 23,
+                "nary_nodes": 18,
+                "relations": 55,
+                "node_kinds": {
+                  "Event": 8,
+                  "Observation": 3,
+                  "Claim": 7
+                },
+                "main_events": 2,
+                "distinct_entity_types": 12,
+                "distinct_relation_phrases": 30,
+                "entities_with_normalized_value": 0,
+                "relations_per_node": 1.34,
+                "largest_component_share": 100.0,
+                "isolated_nodes": 0,
+                "mean_evidence_spans": 54.42,
+                "mean_confidence": 0.92,
+                "reviewed": true,
+                "review_added_relations": 1,
+                "review_added_entities": null,
+                "review_relations_before": 54,
+                "total_tokens": 15900
+              },
+              {
+                "article": "art72",
+                "entities": 55,
+                "nary_nodes": 26,
+                "relations": 146,
+                "node_kinds": {
+                  "Event": 4,
+                  "Observation": 10,
+                  "Claim": 12
+                },
+                "main_events": 1,
+                "distinct_entity_types": 18,
+                "distinct_relation_phrases": 27,
+                "entities_with_normalized_value": 0,
+                "relations_per_node": 1.8,
+                "largest_component_share": 88.9,
+                "isolated_nodes": 9,
+                "mean_evidence_spans": 86.81,
+                "mean_confidence": 1.0,
+                "reviewed": false,
+                "review_added_relations": 916,
+                "review_added_entities": null,
+                "review_relations_before": 78,
+                "total_tokens": 85730
+              },
+              {
+                "article": "art73",
+                "entities": 35,
+                "nary_nodes": 17,
+                "relations": 79,
+                "node_kinds": {
+                  "Event": 4,
+                  "Observation": 5,
+                  "Claim": 8
+                },
+                "main_events": 1,
+                "distinct_entity_types": 20,
+                "distinct_relation_phrases": 42,
+                "entities_with_normalized_value": 0,
+                "relations_per_node": 1.52,
+                "largest_component_share": 98.1,
+                "isolated_nodes": 1,
+                "mean_evidence_spans": 44.85,
+                "mean_confidence": 0.9,
+                "reviewed": true,
+                "review_added_relations": 12,
+                "review_added_entities": null,
+                "review_relations_before": 73,
+                "total_tokens": 21830
+              },
+              {
+                "article": "art74",
+                "entities": 24,
+                "nary_nodes": 16,
+                "relations": 41,
+                "node_kinds": {
+                  "Event": 5,
+                  "Observation": 3,
+                  "Claim": 8
+                },
+                "main_events": 1,
+                "distinct_entity_types": 15,
+                "distinct_relation_phrases": 31,
+                "entities_with_normalized_value": 0,
+                "relations_per_node": 1.02,
+                "largest_component_share": 87.5,
+                "isolated_nodes": 5,
+                "mean_evidence_spans": 48.9,
+                "mean_confidence": 1.0,
+                "reviewed": true,
+                "review_added_relations": 1,
+                "review_added_entities": null,
+                "review_relations_before": 42,
+                "total_tokens": 16966
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "7b": {
+      "started": "2026-08-23T17:19:03+02:00",
+      "finished": "2026-08-23T17:35:15+02:00",
+      "git": {
+        "commit": "87b9b9aa337681412899ee0973d6a8ce6c9502ea",
+        "short": "87b9b9aa",
+        "branch": "main",
+        "dirty": true
+      },
+      "env": {
+        "host": "mac-pret2",
+        "python": "3.12.4",
+        "platform": "macOS-14.0-arm64-arm-64bit",
+        "backend": "deepseek-v4-flash",
+        "gemini_model": "gemini-2.5-flash",
+        "match_model": "intfloat/e5-base-v2",
+        "vllm_base_url": null
+      },
+      "config": {
+        "experiment": "main",
+        "description": "The reported configuration: schema-only inline retrieval + global re-consolidation, cross-encoder rerank on the relation side, two-call consolidation with generalize. Every ablation is measured against it.",
+        "results_model": "deepseek-v4-flash",
+        "backend": "deepseek-v4-flash",
+        "gemini_model": "gemini-2.5-flash",
+        "match_model": "intfloat/e5-base-v2",
+        "selected_articles": [
+          "art1",
+          "art2",
+          "art3",
+          "art4",
+          "art5",
+          "art8",
+          "art12",
+          "art15",
+          "art17",
+          "art23",
+          "art44",
+          "art46",
+          "art52",
+          "art55",
+          "art57",
+          "art58",
+          "art59",
+          "art72",
+          "art73",
+          "art74"
+        ],
+        "variant": "dedup",
+        "run_tag": "main_val_r1",
+        "repeat": 1,
+        "input_tag": "main_val_r1",
+        "overwrite": false,
+        "2": {
+          "workers": 4,
+          "thinking_budget": -1,
+          "max_output_tokens": null
+        },
+        "6": {
+          "workers": 4,
+          "thinking_budget": -1,
+          "max_output_tokens": null
+        },
+        "6b": {
+          "prompt": "nary",
+          "review": true,
+          "workers": 4,
+          "thinking_budget": -1,
+          "max_output_tokens": 24576
+        },
+        "6c": {
+          "prompt": "dedup",
+          "review": true,
+          "workers": 4,
+          "thinking_budget": -1,
+          "max_output_tokens": null
+        },
+        "4": {
+          "fresh": true,
+          "expand_mode": true,
+          "top_k_match": 5,
+          "align_query_style": true,
+          "consolidate": true,
+          "inline_vocab_candidates": false,
+          "rerank": false,
+          "rerank_from": 50,
+          "rerank_model": "cross-encoder/ms-marco-MiniLM-L-6-v2",
+          "rerank_consolidate": true,
+          "rerank_consolidate_from": 25,
+          "consolidate_top_k": 5,
+          "consolidate_include_schema": false,
+          "subtype_mode": "subclass",
+          "include_all_schema": false,
+          "consolidate_every": 5
+        },
+        "6d": {
+          "fresh": true,
+          "expand_mode": true,
+          "top_k_match": 5,
+          "align_query_style": true,
+          "consolidate": true,
+          "consolidate_every": 5,
+          "inline_vocab_candidates": false,
+          "parallel_llm": true,
+          "workers": 5,
+          "rerank": false,
+          "rerank_from": 50,
+          "rerank_model": "cross-encoder/ms-marco-MiniLM-L-6-v2",
+          "rerank_consolidate": true,
+          "rerank_consolidate_from": 25,
+          "consolidate_top_k": 5,
+          "consolidate_include_schema": false,
+          "subtype_mode": "subclass",
+          "include_all_schema": false
+        },
+        "7": {
+          "fresh": true,
+          "expand_mode": true,
+          "top_k_match": 10,
+          "align_query_style": true,
+          "prompt": "long",
+          "consolidate": true,
+          "inline_vocab_candidates": false,
+          "parallel_llm": true,
+          "workers": 4,
+          "anchor_mode": "original",
+          "anchor_penalty": 0.005,
+          "drop_ambiguous_synonyms": true,
+          "rerank": true,
+          "rerank_from": 50,
+          "rerank_model": "cross-encoder/ms-marco-MiniLM-L-6-v2",
+          "rerank_consolidate": true,
+          "rerank_consolidate_from": 50,
+          "consolidate_top_k": 10,
+          "consolidate_include_schema": true,
+          "subprop_mode": "subproperty",
+          "allow_generalize": true,
+          "two_call_consolidation": true,
+          "guard_schema_parent": true,
+          "include_all_schema": false,
+          "consolidate_every": 5
+        },
+        "7b": {
+          "fresh": true,
+          "expand_mode": true,
+          "top_k_match": 10,
+          "align_query_style": true,
+          "prompt": "long",
+          "consolidate": true,
+          "inline_vocab_candidates": false,
+          "parallel_llm": true,
+          "workers": 4,
+          "anchor_mode": "original",
+          "anchor_penalty": 0.005,
+          "drop_ambiguous_synonyms": true,
+          "rerank": true,
+          "rerank_from": 50,
+          "rerank_model": "cross-encoder/ms-marco-MiniLM-L-6-v2",
+          "rerank_consolidate": true,
+          "rerank_consolidate_from": 50,
+          "consolidate_top_k": 10,
+          "consolidate_include_schema": true,
+          "subprop_mode": "subproperty",
+          "allow_generalize": true,
+          "two_call_consolidation": true,
+          "guard_schema_parent": true,
+          "include_all_schema": false,
+          "consolidate_every": 5
+        },
+        "6e": {
+          "fresh": true,
+          "expand_mode": true,
+          "top_k_match": 10,
+          "align_query_style": true,
+          "prompt": "long",
+          "consolidate": true,
+          "inline_vocab_candidates": false,
+          "parallel_llm": true,
+          "workers": 5,
+          "anchor_mode": "original",
+          "anchor_penalty": 0.005,
+          "drop_ambiguous_synonyms": true,
+          "rerank": true,
+          "rerank_from": 50,
+          "rerank_model": "cross-encoder/ms-marco-MiniLM-L-6-v2",
+          "rerank_consolidate": true,
+          "rerank_consolidate_from": 50,
+          "consolidate_top_k": 10,
+          "consolidate_include_schema": true,
+          "subprop_mode": "subproperty",
+          "allow_generalize": true,
+          "two_call_consolidation": true,
+          "guard_schema_parent": true,
+          "include_all_schema": false,
+          "consolidate_every": 5
+        },
+        "split": "validation"
+      },
+      "articles": [
+        "art1",
+        "art2",
+        "art3",
+        "art4",
+        "art5",
+        "art8",
+        "art12",
+        "art15",
+        "art17",
+        "art23",
+        "art44",
+        "art46",
+        "art52",
+        "art55",
+        "art57",
+        "art58",
+        "art59",
+        "art72",
+        "art73",
+        "art74"
+      ],
+      "outputs": [
+        {
+          "path": "_global/metrics_relations_dedup_main_val_r1.json",
+          "bytes": 10914,
+          "modified": "2026-08-23T17:35:15"
+        },
+        {
+          "path": "_global/nary_relation_consolidation_ext_changes_dedup_main_val_r1.json",
+          "bytes": 256504,
+          "modified": "2026-08-23T17:35:14"
+        },
+        {
+          "path": "_global/nary_relation_consolidation_report_dedup_main_val_r1.json",
+          "bytes": 533581,
+          "modified": "2026-08-23T17:35:14"
+        },
+        {
+          "path": "_global/nary_relation_vocabulary_dedup_main_val_r1.json",
+          "bytes": 100996,
+          "modified": "2026-08-23T17:29:37"
+        },
+        {
+          "path": "_global/nary_relation_vocabulary_dedup_main_val_r1_consolidated.json",
+          "bytes": 101697,
+          "modified": "2026-08-23T17:35:14"
+        },
+        {
+          "path": "_global/property_hierarchy_ext_dedup_main_val_r1.txt",
+          "bytes": 4250,
+          "modified": "2026-08-23T17:35:14"
+        },
+        {
+          "path": "_global/property_hierarchy_ext_dedup_main_val_r1_consolidated.txt",
+          "bytes": 4346,
+          "modified": "2026-08-23T17:35:14"
+        },
+        {
+          "path": "_global/token_usage_dedup_main_val_r1.json",
+          "bytes": 3870,
+          "modified": "2026-08-23T17:35:14"
+        },
+        {
+          "path": "art1/two_staged/3_nary_graph/nary_graph_dedup_main_val_r1_extended.json",
+          "bytes": 136617,
+          "modified": "2026-08-23T17:21:23"
+        },
+        {
+          "path": "art1/two_staged/3_nary_graph/nary_graph_dedup_main_val_r1_extended_consolidated.json",
+          "bytes": 136876,
+          "modified": "2026-08-23T17:35:14"
+        },
+        {
+          "path": "art1/two_staged/3_nary_graph/nary_relation_matching_review_dedup_main_val_r1.json",
+          "bytes": 308595,
+          "modified": "2026-08-23T17:21:23"
+        },
+        {
+          "path": "art12/two_staged/3_nary_graph/nary_graph_dedup_main_val_r1_extended.json",
+          "bytes": 91766,
+          "modified": "2026-08-23T17:23:20"
+        },
+        {
+          "path": "art12/two_staged/3_nary_graph/nary_graph_dedup_main_val_r1_extended_consolidated.json",
+          "bytes": 94007,
+          "modified": "2026-08-23T17:35:14"
+        },
+        {
+          "path": "art12/two_staged/3_nary_graph/nary_relation_matching_review_dedup_main_val_r1.json",
+          "bytes": 26235,
+          "modified": "2026-08-23T17:23:20"
+        },
+        {
+          "path": "art15/two_staged/3_nary_graph/nary_graph_dedup_main_val_r1_extended.json",
+          "bytes": 121661,
+          "modified": "2026-08-23T17:23:20"
+        },
+        {
+          "path": "art15/two_staged/3_nary_graph/nary_graph_dedup_main_val_r1_extended_consolidated.json",
+          "bytes": 121760,
+          "modified": "2026-08-23T17:35:14"
+        },
+        {
+          "path": "art15/two_staged/3_nary_graph/nary_relation_matching_review_dedup_main_val_r1.json",
+          "bytes": 197348,
+          "modified": "2026-08-23T17:23:20"
+        },
+        {
+          "path": "art17/two_staged/3_nary_graph/nary_graph_dedup_main_val_r1_extended.json",
+          "bytes": 53824,
+          "modified": "2026-08-23T17:23:20"
+        },
+        {
+          "path": "art17/two_staged/3_nary_graph/nary_graph_dedup_main_val_r1_extended_consolidated.json",
+          "bytes": 53997,
+          "modified": "2026-08-23T17:35:14"
+        },
+        {
+          "path": "art17/two_staged/3_nary_graph/nary_relation_matching_review_dedup_main_val_r1.json",
+          "bytes": 244124,
+          "modified": "2026-08-23T17:23:20"
+        },
+        {
+          "path": "art2/two_staged/3_nary_graph/nary_graph_dedup_main_val_r1_extended.json",
+          "bytes": 122789,
+          "modified": "2026-08-23T17:21:24"
+        },
+        {
+          "path": "art2/two_staged/3_nary_graph/nary_graph_dedup_main_val_r1_extended_consolidated.json",
+          "bytes": 122846,
+          "modified": "2026-08-23T17:35:14"
+        },
+        {
+          "path": "art2/two_staged/3_nary_graph/nary_relation_matching_review_dedup_main_val_r1.json",
+          "bytes": 296522,
+          "modified": "2026-08-23T17:21:24"
+        },
+        {
+          "path": "art23/two_staged/3_nary_graph/nary_graph_dedup_main_val_r1_extended.json",
+          "bytes": 77208,
+          "modified": "2026-08-23T17:23:20"
+        },
+        {
+          "path": "art23/two_staged/3_nary_graph/nary_graph_dedup_main_val_r1_extended_consolidated.json",
+          "bytes": 77207,
+          "modified": "2026-08-23T17:35:14"
+        },
+        {
+          "path": "art23/two_staged/3_nary_graph/nary_relation_matching_review_dedup_main_val_r1.json",
+          "bytes": 189524,
+          "modified": "2026-08-23T17:23:20"
+        },
+        {
+          "path": "art3/two_staged/3_nary_graph/nary_graph_dedup_main_val_r1_extended.json",
+          "bytes": 25718,
+          "modified": "2026-08-23T17:21:24"
+        },
+        {
+          "path": "art3/two_staged/3_nary_graph/nary_graph_dedup_main_val_r1_extended_consolidated.json",
+          "bytes": 25842,
+          "modified": "2026-08-23T17:35:14"
+        },
+        {
+          "path": "art3/two_staged/3_nary_graph/nary_relation_matching_review_dedup_main_val_r1.json",
+          "bytes": 74433,
+          "modified": "2026-08-23T17:21:24"
+        },
+        {
+          "path": "art4/two_staged/3_nary_graph/nary_graph_dedup_main_val_r1_extended.json",
+          "bytes": 75241,
+          "modified": "2026-08-23T17:21:24"
+        },
+        {
+          "path": "art4/two_staged/3_nary_graph/nary_graph_dedup_main_val_r1_extended_consolidated.json",
+          "bytes": 75345,
+          "modified": "2026-08-23T17:35:14"
+        },
+        {
+          "path": "art4/two_staged/3_nary_graph/nary_relation_matching_review_dedup_main_val_r1.json",
+          "bytes": 155037,
+          "modified": "2026-08-23T17:21:24"
+        },
+        {
+          "path": "art44/two_staged/3_nary_graph/nary_graph_dedup_main_val_r1_extended.json",
+          "bytes": 96052,
+          "modified": "2026-08-23T17:25:56"
+        },
+        {
+          "path": "art44/two_staged/3_nary_graph/nary_graph_dedup_main_val_r1_extended_consolidated.json",
+          "bytes": 96435,
+          "modified": "2026-08-23T17:35:14"
+        },
+        {
+          "path": "art44/two_staged/3_nary_graph/nary_relation_matching_review_dedup_main_val_r1.json",
+          "bytes": 350319,
+          "modified": "2026-08-23T17:25:56"
+        },
+        {
+          "path": "art46/two_staged/3_nary_graph/nary_graph_dedup_main_val_r1_extended.json",
+          "bytes": 71807,
+          "modified": "2026-08-23T17:25:56"
+        },
+        {
+          "path": "art46/two_staged/3_nary_graph/nary_graph_dedup_main_val_r1_extended_consolidated.json",
+          "bytes": 71888,
+          "modified": "2026-08-23T17:35:14"
+        },
+        {
+          "path": "art46/two_staged/3_nary_graph/nary_relation_matching_review_dedup_main_val_r1.json",
+          "bytes": 120476,
+          "modified": "2026-08-23T17:25:56"
+        },
+        {
+          "path": "art5/two_staged/3_nary_graph/nary_graph_dedup_main_val_r1_extended.json",
+          "bytes": 146639,
+          "modified": "2026-08-23T17:21:24"
+        },
+        {
+          "path": "art5/two_staged/3_nary_graph/nary_graph_dedup_main_val_r1_extended_consolidated.json",
+          "bytes": 146812,
+          "modified": "2026-08-23T17:35:14"
+        },
+        {
+          "path": "art5/two_staged/3_nary_graph/nary_relation_matching_review_dedup_main_val_r1.json",
+          "bytes": 380476,
+          "modified": "2026-08-23T17:21:24"
+        },
+        {
+          "path": "art52/two_staged/3_nary_graph/nary_graph_dedup_main_val_r1_extended.json",
+          "bytes": 95224,
+          "modified": "2026-08-23T17:25:56"
+        },
+        {
+          "path": "art52/two_staged/3_nary_graph/nary_graph_dedup_main_val_r1_extended_consolidated.json",
+          "bytes": 95407,
+          "modified": "2026-08-23T17:35:14"
+        },
+        {
+          "path": "art52/two_staged/3_nary_graph/nary_relation_matching_review_dedup_main_val_r1.json",
+          "bytes": 200888,
+          "modified": "2026-08-23T17:25:56"
+        },
+        {
+          "path": "art55/two_staged/3_nary_graph/nary_graph_dedup_main_val_r1_extended.json",
+          "bytes": 91757,
+          "modified": "2026-08-23T17:26:19"
+        },
+        {
+          "path": "art55/two_staged/3_nary_graph/nary_graph_dedup_main_val_r1_extended_consolidated.json",
+          "bytes": 91811,
+          "modified": "2026-08-23T17:35:14"
+        },
+        {
+          "path": "art55/two_staged/3_nary_graph/nary_relation_matching_review_dedup_main_val_r1.json",
+          "bytes": 229712,
+          "modified": "2026-08-23T17:26:19"
+        },
+        {
+          "path": "art57/two_staged/3_nary_graph/nary_graph_dedup_main_val_r1_extended.json",
+          "bytes": 53181,
+          "modified": "2026-08-23T17:26:24"
+        },
+        {
+          "path": "art57/two_staged/3_nary_graph/nary_graph_dedup_main_val_r1_extended_consolidated.json",
+          "bytes": 53532,
+          "modified": "2026-08-23T17:35:14"
+        },
+        {
+          "path": "art57/two_staged/3_nary_graph/nary_relation_matching_review_dedup_main_val_r1.json",
+          "bytes": 219116,
+          "modified": "2026-08-23T17:26:24"
+        },
+        {
+          "path": "art58/two_staged/3_nary_graph/nary_graph_dedup_main_val_r1_extended.json",
+          "bytes": 60258,
+          "modified": "2026-08-23T17:29:37"
+        },
+        {
+          "path": "art58/two_staged/3_nary_graph/nary_graph_dedup_main_val_r1_extended_consolidated.json",
+          "bytes": 60425,
+          "modified": "2026-08-23T17:35:14"
+        },
+        {
+          "path": "art58/two_staged/3_nary_graph/nary_relation_matching_review_dedup_main_val_r1.json",
+          "bytes": 253004,
+          "modified": "2026-08-23T17:29:37"
+        },
+        {
+          "path": "art59/two_staged/3_nary_graph/nary_graph_dedup_main_val_r1_extended.json",
+          "bytes": 154539,
+          "modified": "2026-08-23T17:29:37"
+        },
+        {
+          "path": "art59/two_staged/3_nary_graph/nary_graph_dedup_main_val_r1_extended_consolidated.json",
+          "bytes": 154664,
+          "modified": "2026-08-23T17:35:14"
+        },
+        {
+          "path": "art59/two_staged/3_nary_graph/nary_relation_matching_review_dedup_main_val_r1.json",
+          "bytes": 208039,
+          "modified": "2026-08-23T17:29:37"
+        },
+        {
+          "path": "art72/two_staged/3_nary_graph/nary_graph_dedup_main_val_r1_extended.json",
+          "bytes": 283852,
+          "modified": "2026-08-23T17:29:37"
+        },
+        {
+          "path": "art72/two_staged/3_nary_graph/nary_graph_dedup_main_val_r1_extended_consolidated.json",
+          "bytes": 283960,
+          "modified": "2026-08-23T17:35:14"
+        },
+        {
+          "path": "art72/two_staged/3_nary_graph/nary_relation_matching_review_dedup_main_val_r1.json",
+          "bytes": 237351,
+          "modified": "2026-08-23T17:29:37"
+        },
+        {
+          "path": "art73/two_staged/3_nary_graph/nary_graph_dedup_main_val_r1_extended.json",
+          "bytes": 127980,
+          "modified": "2026-08-23T17:29:37"
+        },
+        {
+          "path": "art73/two_staged/3_nary_graph/nary_graph_dedup_main_val_r1_extended_consolidated.json",
+          "bytes": 128108,
+          "modified": "2026-08-23T17:35:14"
+        },
+        {
+          "path": "art73/two_staged/3_nary_graph/nary_relation_matching_review_dedup_main_val_r1.json",
+          "bytes": 355918,
+          "modified": "2026-08-23T17:29:37"
+        },
+        {
+          "path": "art74/two_staged/3_nary_graph/nary_graph_dedup_main_val_r1_extended.json",
+          "bytes": 80137,
+          "modified": "2026-08-23T17:29:37"
+        },
+        {
+          "path": "art74/two_staged/3_nary_graph/nary_graph_dedup_main_val_r1_extended_consolidated.json",
+          "bytes": 80194,
+          "modified": "2026-08-23T17:35:14"
+        },
+        {
+          "path": "art74/two_staged/3_nary_graph/nary_relation_matching_review_dedup_main_val_r1.json",
+          "bytes": 260830,
+          "modified": "2026-08-23T17:29:37"
+        },
+        {
+          "path": "art8/two_staged/3_nary_graph/nary_graph_dedup_main_val_r1_extended.json",
+          "bytes": 152511,
+          "modified": "2026-08-23T17:23:20"
+        },
+        {
+          "path": "art8/two_staged/3_nary_graph/nary_graph_dedup_main_val_r1_extended_consolidated.json",
+          "bytes": 152677,
+          "modified": "2026-08-23T17:35:14"
+        },
+        {
+          "path": "art8/two_staged/3_nary_graph/nary_relation_matching_review_dedup_main_val_r1.json",
+          "bytes": 321552,
+          "modified": "2026-08-23T17:23:20"
+        }
+      ],
+      "token_usage": {
+        "prompt_tokens": 650445,
+        "output_tokens": 61092,
+        "thoughts_tokens": 0,
+        "total_tokens": 711537,
+        "seconds": 22.6,
+        "files": [
+          "_global/token_usage_dedup_main_val_r1.json"
+        ]
+      },
+      "metrics": {
+        "stage": "relations",
+        "experiment": "main",
+        "track": "two_staged",
+        "timestamp": "2026-08-23T17:35:15",
+        "summary": {
+          "articles": 20,
+          "review_files": 20,
+          "extended_files": 20,
+          "distinct_phrases": 541,
+          "split_phrases": 0,
+          "instances": 1414,
+          "triples": 1411,
+          "merged_triples": 3,
+          "inverse_reused": 74,
+          "assignment_sources": {
+            "mint": 178,
+            "schema.org": 344,
+            "vocab": 19
+          },
+          "assignment_mint_pct": 32.9,
+          "triple_schema_org_pct": 63.5,
+          "triples_consolidated": 1411,
+          "triple_schema_org_pct_consolidated": 63.5,
+          "cons_triples_property_changed": 215,
+          "cons_triples_property_changed_pct": 15.2,
+          "cons_triples_to_schema_org": 0,
+          "directions": {
+            "as_is": 508,
+            "inverse": 33
+          },
+          "chosen_in_candidates_pct": 59.7,
+          "mean_rank_of_chosen": 2.84,
+          "chosen_at_rank1_pct": 48.6,
+          "rr_reranked": true,
+          "rr_shown_candidates": 5410,
+          "rr_promoted": 2611,
+          "rr_promoted_pct": 48.3,
+          "rr_promoted_schema_org": 2611,
+          "rr_promoted_schema_org_pct": 100.0,
+          "rr_decisions_with_chosen_in_shortlist": 323,
+          "rr_chosen_promoted": 51,
+          "rr_chosen_promoted_pct": 15.8,
+          "rr_chosen_promoted_schema": 46,
+          "rr_mean_embed_rank_of_chosen": 5.83,
+          "rr_mean_positions_gained": 3.0,
+          "vocab_raw": 178,
+          "vocab_consolidated": 92,
+          "vocab_reduction_pct": 48.3,
+          "consolidated": true,
+          "cons_calls": 2,
+          "cons_pool": "vocab+schema.org",
+          "cons_reranked": true,
+          "cons_vocab_before": 178,
+          "cons_vocab_after": 92,
+          "cons_merge_groups": 48,
+          "cons_removed": 86,
+          "cons_merged_into_schema": 0,
+          "cons_reparented": 118,
+          "cons_reparented_under_schema": 0,
+          "cons_generalize_groups": 0,
+          "cons_generalized": 0,
+          "cons_blocked_degrounding": 5,
+          "cons_parent_conflicts": 1312,
+          "cons_keep_overrides": 0,
+          "cons_offkind_dropped": 0,
+          "cons_self_parent_fixed": 0,
+          "cons_in_shortlist_pct": 73.5,
+          "calls": 20,
+          "prompt_tokens": 650445,
+          "output_tokens": 61092,
+          "thoughts_tokens": 0,
+          "total_tokens": 711537,
+          "llm_seconds": 22.6,
+          "found": 1
+        },
+        "per_article": [
+          {
+            "article": "art1",
+            "phrases": 35,
+            "mints": 13,
+            "split_phrases": 0,
+            "instances": 132,
+            "triples": 132,
+            "merged_triples": 0,
+            "inverse_reused": 3,
+            "schema_org_triples": 69,
+            "vocab_triples": 63,
+            "triples_consolidated": 132,
+            "schema_org_triples_consolidated": 69,
+            "cons_property_changed": 11,
+            "cons_triples_to_schema_org": 0,
+            "cum_minted": 13
+          },
+          {
+            "article": "art2",
+            "phrases": 35,
+            "mints": 0,
+            "split_phrases": 0,
+            "instances": 75,
+            "triples": 75,
+            "merged_triples": 0,
+            "inverse_reused": 1,
+            "schema_org_triples": 75,
+            "vocab_triples": 0,
+            "triples_consolidated": 75,
+            "schema_org_triples_consolidated": 75,
+            "cons_property_changed": 0,
+            "cons_triples_to_schema_org": 0,
+            "cum_minted": 13
+          },
+          {
+            "article": "art3",
+            "phrases": 9,
+            "mints": 6,
+            "split_phrases": 0,
+            "instances": 11,
+            "triples": 11,
+            "merged_triples": 0,
+            "inverse_reused": 2,
+            "schema_org_triples": 3,
+            "vocab_triples": 8,
+            "triples_consolidated": 11,
+            "schema_org_triples_consolidated": 3,
+            "cons_property_changed": 4,
+            "cons_triples_to_schema_org": 0,
+            "cum_minted": 19
+          },
+          {
+            "article": "art4",
+            "phrases": 18,
+            "mints": 9,
+            "split_phrases": 0,
+            "instances": 61,
+            "triples": 61,
+            "merged_triples": 0,
+            "inverse_reused": 11,
+            "schema_org_triples": 42,
+            "vocab_triples": 19,
+            "triples_consolidated": 61,
+            "schema_org_triples_consolidated": 42,
+            "cons_property_changed": 7,
+            "cons_triples_to_schema_org": 0,
+            "cum_minted": 28
+          },
+          {
+            "article": "art5",
+            "phrases": 44,
+            "mints": 19,
+            "split_phrases": 0,
+            "instances": 82,
+            "triples": 82,
+            "merged_triples": 0,
+            "inverse_reused": 8,
+            "schema_org_triples": 54,
+            "vocab_triples": 28,
+            "triples_consolidated": 82,
+            "schema_org_triples_consolidated": 54,
+            "cons_property_changed": 15,
+            "cons_triples_to_schema_org": 0,
+            "cum_minted": 47
+          },
+          {
+            "article": "art8",
+            "phrases": 38,
+            "mints": 15,
+            "split_phrases": 0,
+            "instances": 82,
+            "triples": 80,
+            "merged_triples": 2,
+            "inverse_reused": 17,
+            "schema_org_triples": 58,
+            "vocab_triples": 22,
+            "triples_consolidated": 80,
+            "schema_org_triples_consolidated": 58,
+            "cons_property_changed": 11,
+            "cons_triples_to_schema_org": 0,
+            "cum_minted": 62
+          },
+          {
+            "article": "art12",
+            "phrases": 2,
+            "mints": 1,
+            "split_phrases": 0,
+            "instances": 79,
+            "triples": 79,
+            "merged_triples": 0,
+            "inverse_reused": 0,
+            "schema_org_triples": 1,
+            "vocab_triples": 78,
+            "triples_consolidated": 79,
+            "schema_org_triples_consolidated": 1,
+            "cons_property_changed": 78,
+            "cons_triples_to_schema_org": 0,
+            "cum_minted": 63
+          },
+          {
+            "article": "art15",
+            "phrases": 23,
+            "mints": 4,
+            "split_phrases": 0,
+            "instances": 59,
+            "triples": 59,
+            "merged_triples": 0,
+            "inverse_reused": 1,
+            "schema_org_triples": 51,
+            "vocab_triples": 8,
+            "triples_consolidated": 59,
+            "schema_org_triples_consolidated": 51,
+            "cons_property_changed": 4,
+            "cons_triples_to_schema_org": 0,
+            "cum_minted": 67
+          },
+          {
+            "article": "art17",
+            "phrases": 29,
+            "mints": 15,
+            "split_phrases": 0,
+            "instances": 51,
+            "triples": 51,
+            "merged_triples": 0,
+            "inverse_reused": 0,
+            "schema_org_triples": 29,
+            "vocab_triples": 22,
+            "triples_consolidated": 51,
+            "schema_org_triples_consolidated": 29,
+            "cons_property_changed": 15,
+            "cons_triples_to_schema_org": 0,
+            "cum_minted": 82
+          },
+          {
+            "article": "art23",
+            "phrases": 22,
+            "mints": 5,
+            "split_phrases": 0,
+            "instances": 77,
+            "triples": 77,
+            "merged_triples": 0,
+            "inverse_reused": 9,
+            "schema_org_triples": 50,
+            "vocab_triples": 27,
+            "triples_consolidated": 77,
+            "schema_org_triples_consolidated": 50,
+            "cons_property_changed": 25,
+            "cons_triples_to_schema_org": 0,
+            "cum_minted": 87
+          },
+          {
+            "article": "art44",
+            "phrases": 42,
+            "mints": 13,
+            "split_phrases": 0,
+            "instances": 68,
+            "triples": 68,
+            "merged_triples": 0,
+            "inverse_reused": 2,
+            "schema_org_triples": 49,
+            "vocab_triples": 19,
+            "triples_consolidated": 68,
+            "schema_org_triples_consolidated": 49,
+            "cons_property_changed": 14,
+            "cons_triples_to_schema_org": 0,
+            "cum_minted": 100
+          },
+          {
+            "article": "art46",
+            "phrases": 14,
+            "mints": 4,
+            "split_phrases": 0,
+            "instances": 50,
+            "triples": 50,
+            "merged_triples": 0,
+            "inverse_reused": 0,
+            "schema_org_triples": 46,
+            "vocab_triples": 4,
+            "triples_consolidated": 50,
+            "schema_org_triples_consolidated": 46,
+            "cons_property_changed": 3,
+            "cons_triples_to_schema_org": 0,
+            "cum_minted": 104
+          },
+          {
+            "article": "art52",
+            "phrases": 23,
+            "mints": 15,
+            "split_phrases": 0,
+            "instances": 77,
+            "triples": 77,
+            "merged_triples": 0,
+            "inverse_reused": 0,
+            "schema_org_triples": 29,
+            "vocab_triples": 48,
+            "triples_consolidated": 77,
+            "schema_org_triples_consolidated": 29,
+            "cons_property_changed": 11,
+            "cons_triples_to_schema_org": 0,
+            "cum_minted": 119
+          },
+          {
+            "article": "art55",
+            "phrases": 27,
+            "mints": 6,
+            "split_phrases": 0,
+            "instances": 54,
+            "triples": 54,
+            "merged_triples": 0,
+            "inverse_reused": 0,
+            "schema_org_triples": 47,
+            "vocab_triples": 7,
+            "triples_consolidated": 54,
+            "schema_org_triples_consolidated": 47,
+            "cons_property_changed": 6,
+            "cons_triples_to_schema_org": 0,
+            "cum_minted": 125
+          },
+          {
+            "article": "art57",
+            "phrases": 26,
+            "mints": 11,
+            "split_phrases": 0,
+            "instances": 44,
+            "triples": 44,
+            "merged_triples": 0,
+            "inverse_reused": 6,
+            "schema_org_triples": 28,
+            "vocab_triples": 16,
+            "triples_consolidated": 44,
+            "schema_org_triples_consolidated": 28,
+            "cons_property_changed": 11,
+            "cons_triples_to_schema_org": 0,
+            "cum_minted": 136
+          },
+          {
+            "article": "art58",
+            "phrases": 30,
+            "mints": 17,
+            "split_phrases": 0,
+            "instances": 55,
+            "triples": 55,
+            "merged_triples": 0,
+            "inverse_reused": 1,
+            "schema_org_triples": 25,
+            "vocab_triples": 30,
+            "triples_consolidated": 55,
+            "schema_org_triples_consolidated": 25,
+            "cons_property_changed": 0,
+            "cons_triples_to_schema_org": 0,
+            "cum_minted": 153
+          },
+          {
+            "article": "art59",
+            "phrases": 24,
+            "mints": 3,
+            "split_phrases": 0,
+            "instances": 91,
+            "triples": 91,
+            "merged_triples": 0,
+            "inverse_reused": 13,
+            "schema_org_triples": 81,
+            "vocab_triples": 10,
+            "triples_consolidated": 91,
+            "schema_org_triples_consolidated": 81,
+            "cons_property_changed": 0,
+            "cons_triples_to_schema_org": 0,
+            "cum_minted": 156
+          },
+          {
+            "article": "art72",
+            "phrases": 27,
+            "mints": 11,
+            "split_phrases": 0,
+            "instances": 146,
+            "triples": 146,
+            "merged_triples": 0,
+            "inverse_reused": 0,
+            "schema_org_triples": 53,
+            "vocab_triples": 93,
+            "triples_consolidated": 146,
+            "schema_org_triples_consolidated": 53,
+            "cons_property_changed": 0,
+            "cons_triples_to_schema_org": 0,
+            "cum_minted": 167
+          },
+          {
+            "article": "art73",
+            "phrases": 42,
+            "mints": 11,
+            "split_phrases": 0,
+            "instances": 79,
+            "triples": 79,
+            "merged_triples": 0,
+            "inverse_reused": 0,
+            "schema_org_triples": 67,
+            "vocab_triples": 12,
+            "triples_consolidated": 79,
+            "schema_org_triples_consolidated": 67,
+            "cons_property_changed": 0,
+            "cons_triples_to_schema_org": 0,
+            "cum_minted": 178
+          },
+          {
+            "article": "art74",
+            "phrases": 31,
+            "mints": 0,
+            "split_phrases": 0,
+            "instances": 41,
+            "triples": 40,
+            "merged_triples": 1,
+            "inverse_reused": 0,
+            "schema_org_triples": 39,
+            "vocab_triples": 1,
+            "triples_consolidated": 40,
+            "schema_org_triples_consolidated": 39,
+            "cons_property_changed": 0,
+            "cons_triples_to_schema_org": 0,
+            "cum_minted": 178
+          }
+        ]
+      }
+    }
+  },
+  "updated": "2026-08-23T17:35:15+02:00"
+}

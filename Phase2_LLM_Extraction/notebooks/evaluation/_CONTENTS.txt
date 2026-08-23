@@ -7,8 +7,10 @@ Files:
   10_mine_benchmark.ipynb   corpus - MINE-1 recall: are the 15 facts per article findable in the graph?
 
 Ground truth lives in dataset/metadata/<art>.json ("facts": 15 sentences per article).
-Reports land in results/_global/evaluation/, per-fact judgment logs next to each graph scored
-(mine_judgments_<variant>.json / .csv).
+Per-fact judgment logs land next to each graph scored (mine_judgments_<variant>.json / .csv);
+corpus reports in results/<model>/_global/evaluation/mine_report_<judge>_<run_tag>.json. One pass
+scores every (model, variant, article) named in the notebook's MODELS/GRAPH_VARIANTS and resumes
+past anything already scored, so a sweep and a single-model run are the same cell.
 
 Pairs with nb9 (grounding): nb9 measures precision (is the graph true to the article?),
 nb10 measures recall (is the article in the graph?). Quote them together.

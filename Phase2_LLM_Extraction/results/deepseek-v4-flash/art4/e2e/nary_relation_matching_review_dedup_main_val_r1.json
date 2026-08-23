@@ -1,0 +1,2461 @@
+{
+  "article_id": "art4",
+  "match_model": "intfloat/e5-base-v2",
+  "expand_mode": true,
+  "relations": [
+    {
+      "relation_phrase": "awarded to",
+      "definition": "Indicates that a prize or amount is given to a recipient.",
+      "embedding_query_text": "awarded to: Indicates that a prize or amount is given to a recipient.",
+      "observed_signatures": [
+        "PrizeAward → SportsEvent",
+        "PrizeAward → Person"
+      ],
+      "n_assignments": 1,
+      "assignments": [
+        {
+          "instances": [
+            "US Open prize money -> men's singles",
+            "US Open prize money -> women's singles",
+            "2024 US Open prize -> Jannik Sinner",
+            "2024 US Open prize -> Aryna Sabalenka",
+            "Mixed doubles final -> Sara Errani",
+            "Mixed doubles final -> Andrea Vavassori",
+            "Doubles prize -> men's and women's doubles pairs",
+            "Wheelchair prize -> wheelchair competitors"
+          ],
+          "chosen_property": {
+            "label": "awardedTo",
+            "source": "vocab",
+            "direction": "as_is",
+            "vocab_id": "P0028",
+            "is_new_to_vocab": true,
+            "definition": "Indicates the recipient of a prize or award.",
+            "parent": null,
+            "domain": [
+              "PrizeAward"
+            ],
+            "range": [
+              "Person",
+              "SportsEvent"
+            ],
+            "path": "",
+            "justification": "No schema.org property expresses PrizeAward to recipient; award is inverse (entity to award text)."
+          },
+          "llm_proposed": {
+            "source": "new",
+            "label": "awardedTo",
+            "is_new": true,
+            "direction": "as_is"
+          }
+        }
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "award",
+          "signature": "CreativeWork/Organization/Person/Product/Service → Text",
+          "parent": null,
+          "inverse_of": null,
+          "score": -1.3828,
+          "matched_anchor": null,
+          "comment": "An award won by or for a creative work, organization, person, product, or service. Also called: honor, prize, recognition. Examples: \"CreativeWork 'Movie' award 'Oscar'\", \"Organization 'Company X' award 'Best Employer'\", \"Person 'Scientist' award 'Nobel Prize'\". Distinct from awards, which is the plural form.",
+          "embed_score": 0.859,
+          "embed_rank": 1
+        },
+        {
+          "source": "schema.org",
+          "label": "awards",
+          "signature": "CreativeWork/Organization/Person/Product → Text",
+          "parent": null,
+          "inverse_of": null,
+          "score": -1.8422,
+          "matched_anchor": null,
+          "comment": "Awards won by or for a creative work, organization, person, or product. Also called: honors, prizes, recognitions. Examples: \"CreativeWork 'Movie' awards 'Oscar'\", \"Organization 'Company X' awards 'Best Employer'\", \"Person 'Scientist' awards 'Nobel Prize'\". Distinct from award, which is the singular form.",
+          "embed_score": 0.848,
+          "embed_rank": 2
+        },
+        {
+          "source": "schema.org",
+          "label": "recipient",
+          "signature": "AuthorizeAction/CommunicateAction/DonateAction/GiveAction/Message/PayAction/ReturnAction/SendAction/TipAction → Audience/ContactPoint/Organization/Person",
+          "parent": "participant",
+          "inverse_of": null,
+          "score": -4.7475,
+          "matched_anchor": null,
+          "comment": "A recipient relation between an action (like sending or paying) and the audience, contact point, organization, or person receiving it. Also called receiver, intended for, sent to. Examples: \"A message has a recipient 'John Doe'.\", \"A donation has a recipient 'Charity Organization'.\", \"A payment has a recipient 'Vendor Inc.'.\"",
+          "embed_score": 0.787,
+          "embed_rank": 4
+        },
+        {
+          "source": "schema.org",
+          "label": "educationalCredentialAwarded",
+          "signature": "Course/EducationalOccupationalProgram → EducationalOccupationalCredential/Text/URL",
+          "parent": null,
+          "inverse_of": null,
+          "score": -5.0309,
+          "matched_anchor": null,
+          "comment": "An educational credential awarded relation between a course or program and the credential received upon successful completion. Also called \"award received\", \"qualification granted\", \"certificate earned\". Examples: \"Course 'Introduction to Python' educationalCredentialAwarded 'Certificate of Completion'\", \"Program 'MBA' educationalCredentialAwarded 'Master of Business Administration'\", \"Training 'First Aid' educationalCredentialAwarded 'First Aid Certification'\".",
+          "embed_score": 0.778,
+          "embed_rank": 9
+        },
+        {
+          "source": "schema.org",
+          "label": "isGift",
+          "signature": "Order → Boolean",
+          "parent": null,
+          "inverse_of": null,
+          "score": -6.0005,
+          "matched_anchor": null,
+          "comment": "A transaction intent relation indicating whether an order was placed as a gift for a recipient other than the buyer. Also called gift purchase, purchased as gift, gift order. Examples: An order has isGift set to 'true'. A purchase has isGift set to 'false'. A book order has isGift set to 'true' with gift wrapping.",
+          "embed_score": 0.76,
+          "embed_rank": 31
+        },
+        {
+          "source": "schema.org",
+          "label": "fundedItem",
+          "signature": "Grant → BioChemEntity/CreativeWork/Event/MedicalEntity/Organization/Person/Product",
+          "parent": null,
+          "inverse_of": "funding",
+          "score": -7.4998,
+          "matched_anchor": null,
+          "comment": "A funded item relation between a grant and the biochemical entity, creative work, event, medical entity, organization, person, or product that receives direct or indirect funding or sponsorship. Also called: grant recipient, sponsored item, supported entity. Examples: \"Research Grant\" funded item \"Cancer Research Project\", \"Arts Grant\" funded item \"Local Theater Production\", \"Educational Grant\" funded item \"Student Scholarship Program\". Distinct from funding, which is the grant itself.",
+          "embed_score": 0.781,
+          "embed_rank": 7
+        },
+        {
+          "source": "schema.org",
+          "label": "amount",
+          "signature": "DatedMoneySpecification/InvestmentOrDeposit/LoanOrCredit/MonetaryGrant/MoneyTransfer → MonetaryAmount/Number",
+          "parent": null,
+          "inverse_of": null,
+          "score": -7.6436,
+          "matched_anchor": null,
+          "comment": "An amount relation between a financial entity (e.g., loan, grant, money transfer) and the monetary value or number associated with it. Also called value, sum, quantity of money. Examples: \"A loan's amount is '$10,000'.\", \"The grant's amount is '€5,000'.\", \"A money transfer's amount is '250'.\"",
+          "embed_score": 0.769,
+          "embed_rank": 15
+        },
+        {
+          "source": "schema.org",
+          "label": "ccRecipient",
+          "signature": "Message → ContactPoint/Organization/Person",
+          "parent": "recipient",
+          "inverse_of": null,
+          "score": -8.109,
+          "matched_anchor": null,
+          "comment": "A recipient relation for a message, indicating a contact point, organization, or person who is copied on it. Also called \"carbon copy recipient\", \"copied to\", \"CC'd party\". Examples: \"Email message ccRecipient John Doe\", \"Internal memo message ccRecipient HR Department\".",
+          "embed_score": 0.756,
+          "embed_rank": 46
+        },
+        {
+          "source": "schema.org",
+          "label": "beneficiaryBank",
+          "signature": "MoneyTransfer → BankOrCreditUnion/Text",
+          "parent": null,
+          "inverse_of": null,
+          "score": -8.2456,
+          "matched_anchor": null,
+          "comment": "A bank, branch, or financial institution operating the beneficiary's bank account or releasing funds for a money transfer. Also called: recipient bank, receiving bank, destination bank. Examples: \"MoneyTransfer 'Wire Transfer' beneficiaryBank 'Bank of America'\", \"MoneyTransfer 'International Transfer' beneficiaryBank 'HSBC'.\"",
+          "embed_score": 0.762,
+          "embed_rank": 26
+        },
+        {
+          "source": "schema.org",
+          "label": "borrower",
+          "signature": "LendAction → Person",
+          "parent": "participant",
+          "inverse_of": null,
+          "score": -8.4075,
+          "matched_anchor": null,
+          "comment": "A person who borrows the object being lent in a lend action. Also called: recipient of loan, loan taker. Examples: \"LendAction 'Book Loan' borrower 'Jane Doe'\", \"LendAction 'Tool Rental' borrower 'John Smith'\". Distinct from lender, which is the person providing the object.",
+          "embed_score": 0.755,
+          "embed_rank": 49
+        }
+      ]
+    },
+    {
+      "relation_phrase": "amount",
+      "definition": "Specifies the monetary value associated with an event or item.",
+      "embedding_query_text": "amount: Specifies the monetary value associated with an event or item.",
+      "observed_signatures": [
+        "PrizeAward → MonetaryAmount"
+      ],
+      "n_assignments": 1,
+      "assignments": [
+        {
+          "instances": [
+            "US Open prize money -> £3.74m ($5m)",
+            "2024 US Open prize -> £2.84m ($3.6m)",
+            "Other Grand Slam prizes -> £53.5m",
+            "Other Grand Slam prizes -> £47m",
+            "Other Grand Slam prizes -> £49m",
+            "Mixed doubles final -> £736,880 ($1m)",
+            "Doubles prize -> £750,000",
+            "Wheelchair prize -> £1.2m"
+          ],
+          "chosen_property": {
+            "label": "amount",
+            "source": "schema.org",
+            "direction": "as_is",
+            "vocab_id": null,
+            "is_new_to_vocab": false,
+            "definition": null,
+            "parent": null,
+            "domain": null,
+            "range": null,
+            "path": "",
+            "justification": "amount fits PrizeAward to MonetaryAmount."
+          },
+          "llm_proposed": {
+            "source": "schema.org",
+            "label": "amount",
+            "is_new": false,
+            "direction": "as_is"
+          }
+        }
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "amount",
+          "signature": "DatedMoneySpecification/InvestmentOrDeposit/LoanOrCredit/MonetaryGrant/MoneyTransfer → MonetaryAmount/Number",
+          "parent": null,
+          "inverse_of": null,
+          "score": 3.9196,
+          "matched_anchor": null,
+          "comment": "An amount relation between a financial entity (e.g., loan, grant, money transfer) and the monetary value or number associated with it. Also called value, sum, quantity of money. Examples: \"A loan's amount is '$10,000'.\", \"The grant's amount is '€5,000'.\", \"A money transfer's amount is '250'.\"",
+          "embed_score": 0.888,
+          "embed_rank": 1
+        },
+        {
+          "source": "schema.org",
+          "label": "price",
+          "signature": "DonateAction/Offer/PriceSpecification/TradeAction → Number/Text",
+          "parent": null,
+          "inverse_of": null,
+          "score": 1.4008,
+          "matched_anchor": null,
+          "comment": "A financial attribute indicating the monetary value of an offer, product, or price component. Also called cost, rate, charge, amount. Examples: An offer has a price of '19.99'. A product has a price of '100'. The service has a price of '50.00'. Distinct from priceCurrency, which specifies the currency of the price.",
+          "embed_score": 0.844,
+          "embed_rank": 3
+        },
+        {
+          "source": "schema.org",
+          "label": "value",
+          "signature": "MonetaryAmount/PropertyValue/QuantitativeValue → Boolean/Number/StructuredValue/Text",
+          "parent": null,
+          "inverse_of": null,
+          "score": 1.3245,
+          "matched_anchor": null,
+          "comment": "A value relation between a monetary amount, property value, or quantitative value and its specific numerical, textual, boolean, or structured content. Also called amount, quantity, content. Examples: \"QuantitativeValue value '10'\", \"PropertyValue value 'red'\", \"MonetaryAmount value '99.99'\".",
+          "embed_score": 0.856,
+          "embed_rank": 2
+        },
+        {
+          "source": "schema.org",
+          "label": "amountOfThisGood",
+          "signature": "TypeAndQuantityNode → Number",
+          "parent": null,
+          "inverse_of": null,
+          "score": 0.0203,
+          "matched_anchor": null,
+          "comment": "An amount of this good relation between a type and quantity node and the numerical quantity of a specific good included in an offer. Also called quantity, number of items, item count. Examples: \"A shopping cart item's amount of this good is '2'.\", \"The offer specifies an amount of this good as '5'.\"",
+          "embed_score": 0.834,
+          "embed_rank": 5
+        },
+        {
+          "source": "schema.org",
+          "label": "returnShippingFeesAmount",
+          "signature": "MerchantReturnPolicy/MerchantReturnPolicySeasonalOverride → MonetaryAmount",
+          "parent": null,
+          "inverse_of": null,
+          "score": -1.5239,
+          "matched_anchor": null,
+          "comment": "The monetary cost associated with shipping products back for returns. Also called return shipping cost, return postage fee, shipping fee for returns. Examples: `Standard Return Policy` returnShippingFeesAmount `\"$7.99\"`, `Large Item Return Policy` returnShippingFeesAmount `\"$25.00\"`, `Free Returns Policy` returnShippingFeesAmount `\"$0.00\"`. Distinct from `returnFees`, which specifies the *type* of fee, not the amount.",
+          "embed_score": 0.781,
+          "embed_rank": 45
+        },
+        {
+          "source": "schema.org",
+          "label": "orderQuantity",
+          "signature": "OrderItem → Number/QuantitativeValue",
+          "parent": null,
+          "inverse_of": null,
+          "score": -2.5296,
+          "matched_anchor": null,
+          "comment": "The number or quantity of a specific item ordered within an order item. Also called item quantity, ordered amount, number of units. Examples: \"OrderItem A orderQuantity 2\", \"OrderItem B orderQuantity 5\", \"OrderItem C orderQuantity 1\". Distinct from numItems (for ShippingConditions), which is a limit on total items for shipping.",
+          "embed_score": 0.785,
+          "embed_rank": 36
+        },
+        {
+          "source": "schema.org",
+          "label": "maxValue",
+          "signature": "MonetaryAmount/PropertyValue/PropertyValueSpecification/QuantitativeValue → Number",
+          "parent": null,
+          "inverse_of": null,
+          "score": -2.7851,
+          "matched_anchor": null,
+          "comment": "An upper value relation between a monetary amount, property value, property value specification, or quantitative value and the highest value of a characteristic or property. Also called: maximum limit, upper bound, highest possible value. Examples: \"Temperature Range maxValue 30\", \"Age Limit maxValue 65\", \"Credit Score maxValue 850\". Distinct from maxPrice, which specifically refers to the highest price in a range.",
+          "embed_score": 0.79,
+          "embed_rank": 26
+        },
+        {
+          "source": "schema.org",
+          "label": "baseSalary",
+          "signature": "EmployeeRole/JobPosting → MonetaryAmount/Number/PriceSpecification",
+          "parent": null,
+          "inverse_of": null,
+          "score": -2.8497,
+          "matched_anchor": null,
+          "comment": "A monetary amount, number, or price specification representing the base salary of a job or an employee role. Also called: starting salary, basic pay, compensation. Examples: \"JobPosting 'Software Engineer' baseSalary '$120,000'\", \"EmployeeRole 'Manager' baseSalary 'MonetaryAmount 80000 USD'.\"",
+          "embed_score": 0.8,
+          "embed_rank": 13
+        },
+        {
+          "source": "schema.org",
+          "label": "currency",
+          "signature": "DatedMoneySpecification/ExchangeRateSpecification/LoanOrCredit/MonetaryAmount/MonetaryAmountDistribution → Text",
+          "parent": null,
+          "inverse_of": null,
+          "score": -2.8541,
+          "matched_anchor": null,
+          "comment": "A monetary unit relation between a monetary amount or specification and the currency in which it is expressed. Also called: monetary currency, unit of money, payment unit. Examples: \"Product Price\" currency \"USD\", \"Loan Amount\" currency \"EUR\", \"Exchange Rate\" currency \"JPY\", \"Salary\" currency \"GBP\". Distinct from costCurrency, which is specific to drug costs.",
+          "embed_score": 0.843,
+          "embed_rank": 4
+        },
+        {
+          "source": "schema.org",
+          "label": "loanPaymentAmount",
+          "signature": "RepaymentSpecification → MonetaryAmount",
+          "parent": null,
+          "inverse_of": null,
+          "score": -2.9462,
+          "matched_anchor": null,
+          "comment": "A payment amount relation between a repayment specification and the monetary amount of a single payment. Also called: single payment amount, installment amount, payment value. Examples: \"Monthly Repayment loanPaymentAmount $1,500\", \"Quarterly Installment loanPaymentAmount €750\", \"Final Payment loanPaymentAmount £10,000\".",
+          "embed_score": 0.793,
+          "embed_rank": 23
+        }
+      ]
+    },
+    {
+      "relation_phrase": "part of",
+      "definition": "Indicates that one entity is a component or member of another.",
+      "embedding_query_text": "part of: Indicates that one entity is a component or member of another.",
+      "observed_signatures": [
+        "SportsEvent → PrizeAward",
+        "PrizeAward → SportsEvent",
+        "PrizeAward → Date"
+      ],
+      "n_assignments": 2,
+      "assignments": [
+        {
+          "instances": [
+            "US Open prize money -> 2025 US Open",
+            "2024 US Open prize -> 2024 US Open",
+            "Other Grand Slam prizes -> 2025",
+            "Mixed doubles final -> 2025 US Open",
+            "Doubles prize -> 2025 US Open",
+            "Wheelchair prize -> 2025 US Open"
+          ],
+          "chosen_property": {
+            "label": "isPartOf",
+            "source": "schema.org",
+            "direction": "as_is",
+            "vocab_id": null,
+            "is_new_to_vocab": false,
+            "definition": null,
+            "parent": null,
+            "domain": null,
+            "range": null,
+            "path": "",
+            "justification": "PrizeAward is part of SportsEvent/Date; isPartOf fits."
+          },
+          "llm_proposed": {
+            "source": "schema.org",
+            "label": "isPartOf",
+            "is_new": false,
+            "direction": "as_is"
+          }
+        },
+        {
+          "instances": [
+            "Winner -> US Open prize money",
+            "Runner-up -> US Open prize money",
+            "Semi-final -> US Open prize money",
+            "Quarter-final -> US Open prize money",
+            "Round four -> US Open prize money",
+            "Round three -> US Open prize money",
+            "Round two -> US Open prize money",
+            "Round one -> US Open prize money"
+          ],
+          "chosen_property": {
+            "label": "isPartOf",
+            "source": "schema.org",
+            "direction": "inverse",
+            "vocab_id": null,
+            "is_new_to_vocab": false,
+            "definition": null,
+            "parent": null,
+            "domain": null,
+            "range": null,
+            "path": "",
+            "justification": "SportsEvent is part of PrizeAward; inverse of hasPart."
+          },
+          "llm_proposed": {
+            "source": "schema.org",
+            "label": "isPartOf",
+            "is_new": false,
+            "direction": "inverse"
+          }
+        }
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "isPartOfBioChemEntity",
+          "signature": "BioChemEntity → BioChemEntity",
+          "parent": null,
+          "inverse_of": "hasBioChemEntityPart",
+          "score": 5.7183,
+          "matched_anchor": null,
+          "comment": "A biochemical part-whole relation indicating that one biochemical entity is a component of another larger biochemical entity. Also called component of biochem entity, contained within biochem entity, element of biochem entity. Examples: A protein domain isPartOfBioChemEntity 'a larger protein'. A subunit isPartOfBioChemEntity 'a protein complex'. A specific gene sequence isPartOfBioChemEntity 'a chromosome'.",
+          "embed_score": 0.849,
+          "embed_rank": 1
+        },
+        {
+          "source": "schema.org",
+          "label": "isPartOf",
+          "signature": "CreativeWork → CreativeWork/URL",
+          "parent": null,
+          "inverse_of": "hasPart",
+          "score": 4.4942,
+          "matched_anchor": null,
+          "comment": "A part-whole relation indicating that an item or creative work is a component of a larger creative work or resource. Also called component of, member of, contained in, element of. Examples: A chapter isPartOf 'a book'. An episode isPartOf 'a TV series'. A web page isPartOf 'a website'. Distinct from hasPart, which expresses the inverse relationship (the whole *has* a part).",
+          "embed_score": 0.84,
+          "embed_rank": 6
+        },
+        {
+          "source": "schema.org",
+          "label": "hasBioChemEntityPart",
+          "signature": "BioChemEntity → BioChemEntity",
+          "parent": null,
+          "inverse_of": "isPartOfBioChemEntity",
+          "score": 0.94,
+          "matched_anchor": null,
+          "comment": "A part-whole relation between a biochemical entity and one of its constituent biochemical entities. Also called composed of, contains, includes part, made of. Examples: \"A protein has a BioChemEntity part of an amino acid sequence.\", \"A cell has BioChemEntity parts like organelles.\", \"A molecule has BioChemEntity parts of atoms.\"",
+          "embed_score": 0.822,
+          "embed_rank": 12
+        },
+        {
+          "source": "schema.org",
+          "label": "partOfSystem",
+          "signature": "AnatomicalStructure → AnatomicalSystem",
+          "parent": null,
+          "inverse_of": null,
+          "score": 0.5015,
+          "matched_anchor": null,
+          "comment": "A biological relation between an anatomical structure and the anatomical or organ system it is a component of. Also called is a component of, belongs to, is found in, forms part of. Examples: The heart is part of the circulatory system. The lungs are part of the respiratory system. A bone is part of the skeletal system.",
+          "embed_score": 0.84,
+          "embed_rank": 5
+        },
+        {
+          "source": "schema.org",
+          "label": "hasPart",
+          "signature": "CreativeWork → CreativeWork",
+          "parent": null,
+          "inverse_of": "isPartOf",
+          "score": 0.1957,
+          "matched_anchor": null,
+          "comment": "A part-whole relation between a creative work and another creative work that is a component of it. Also called includes part, contains component, component of. Examples: \"A book has a part that is a chapter.\", \"A symphony has a part that is a movement.\", \"A website has a part that is a specific page.\". Distinct from includedComposition, which is specific to music compositions.",
+          "embed_score": 0.82,
+          "embed_rank": 15
+        },
+        {
+          "source": "schema.org",
+          "label": "member",
+          "signature": "Organization/ProgramMembership → Organization/Person",
+          "parent": null,
+          "inverse_of": "memberOf",
+          "score": -1.0005,
+          "matched_anchor": null,
+          "comment": "A member relation between an organization or program membership and an organization or person belonging to it. Also called: belongs to, is a part of, participant in. Examples: \"Club Organization member John Doe\", \"Team ProgramMembership member Jane Smith\", \"Alliance Organization member Partner Company\". Distinct from memberOf, which expresses the inverse relationship.",
+          "embed_score": 0.849,
+          "embed_rank": 2
+        },
+        {
+          "source": "schema.org",
+          "label": "members",
+          "signature": "Organization/ProgramMembership → Organization/Person",
+          "parent": null,
+          "inverse_of": null,
+          "score": -2.1078,
+          "matched_anchor": null,
+          "comment": "A member relation between an organization or program membership and an organization or person belonging to it. Also called: includes members, comprises, consists of. Examples: \"Club Organization members John Doe\", \"Team ProgramMembership members Jane Smith\", \"Alliance Organization members Partner Company\". Distinct from member, which is a singular form and essentially the same concept.",
+          "embed_score": 0.841,
+          "embed_rank": 4
+        },
+        {
+          "source": "schema.org",
+          "label": "subEvent",
+          "signature": "Event → Event",
+          "parent": null,
+          "inverse_of": "superEvent",
+          "score": -2.3589,
+          "matched_anchor": null,
+          "comment": "A hierarchical relation between a larger event and a smaller event that is a component or part of it. Also called \"part of event\", \"component event\", \"nested event\", \"event within event\". Examples: \"The conference has subEvent a keynote speech\", \"The festival's subEvent is a specific concert\", \"This event includes a subEvent workshop.\". Distinct from superEvent, which points from the smaller event to the larger one.",
+          "embed_score": 0.812,
+          "embed_rank": 21
+        },
+        {
+          "source": "schema.org",
+          "label": "parentService",
+          "signature": "BroadcastService → BroadcastService",
+          "parent": null,
+          "inverse_of": null,
+          "score": -2.7198,
+          "matched_anchor": null,
+          "comment": "A hierarchical relation between a broadcast service and a broader broadcast service it is a variation or component of. Also called belongs to, is a variation of, is part of, is a channel of. Examples: BBC One Scotland is a parent service of BBC One. A regional news channel is a parent service of a national news channel. A specific sports channel is a parent service of a broader sports network.",
+          "embed_score": 0.802,
+          "embed_rank": 37
+        },
+        {
+          "source": "schema.org",
+          "label": "memberOf",
+          "signature": "Organization/Person → MemberProgramTier/Organization/ProgramMembership",
+          "parent": null,
+          "inverse_of": "member",
+          "score": -2.8134,
+          "matched_anchor": null,
+          "comment": "A membership relation between an organization or person and the organization or program membership they belong to. Also called: belongs to, is a member of, affiliated with. Examples: \"John Doe memberOf 'Local Sports Club'\", \"Acme Corp memberOf 'Industry Association'\", \"Jane Smith memberOf 'Premium Membership Tier'\". Distinct from member, which expresses the inverse relationship.",
+          "embed_score": 0.838,
+          "embed_rank": 7
+        }
+      ]
+    },
+    {
+      "relation_phrase": "located in",
+      "definition": "Indicates the place where an entity is situated.",
+      "embedding_query_text": "located in: Indicates the place where an entity is situated.",
+      "observed_signatures": [
+        "PrizeAward → City",
+        "SportsEvent → City"
+      ],
+      "n_assignments": 1,
+      "assignments": [
+        {
+          "instances": [
+            "US Open prize money -> New York",
+            "2024 US Open prize -> New York",
+            "2025 US Open -> New York",
+            "2024 US Open -> New York"
+          ],
+          "chosen_property": {
+            "label": "location",
+            "source": "schema.org",
+            "direction": "as_is",
+            "vocab_id": null,
+            "is_new_to_vocab": false,
+            "definition": null,
+            "parent": null,
+            "domain": null,
+            "range": null,
+            "path": "",
+            "justification": "location fits PrizeAward/SportsEvent to City."
+          },
+          "llm_proposed": {
+            "source": "schema.org",
+            "label": "location",
+            "is_new": false,
+            "direction": "as_is"
+          }
+        }
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "location",
+          "signature": "Action/Event/InteractionCounter/Organization → Place/PostalAddress/Text/VirtualLocation",
+          "parent": null,
+          "inverse_of": null,
+          "score": 2.4421,
+          "matched_anchor": null,
+          "comment": "A location relation between an action, event, interaction counter, or organization and its physical or virtual place. Also called: situated at, takes place at, found at. Examples: \"Conference Event location New York Hilton\", \"Company Organization location 123 Main St\", \"Online Meeting location Virtual Conference Room\".",
+          "embed_score": 0.862,
+          "embed_rank": 1
+        },
+        {
+          "source": "schema.org",
+          "label": "locationCreated",
+          "signature": "CreativeWork → Place",
+          "parent": null,
+          "inverse_of": null,
+          "score": 1.9577,
+          "matched_anchor": null,
+          "comment": "A creation location relation between a creative work and the place where it was created. Also called: place of creation, origin location, created in. Examples: \"Painting locationCreated Paris\", \"Novel locationCreated London\", \"Film locationCreated Hollywood\". Distinct from location, which refers to the current or general location of an entity.",
+          "embed_score": 0.814,
+          "embed_rank": 19
+        },
+        {
+          "source": "schema.org",
+          "label": "address",
+          "signature": "GeoCoordinates/GeoShape/Organization/Person/Place → PostalAddress/Text",
+          "parent": null,
+          "inverse_of": null,
+          "score": -0.3635,
+          "matched_anchor": null,
+          "comment": "An address relation between an entity (e.g., organization, person, place) and its physical postal address. Also called physical location, mailing address, street address. Examples: \"A company's address is '123 Main St, Anytown'.\", \"A person's address is 'PO Box 123'.\", \"The restaurant's address is '456 Oak Ave'.\"",
+          "embed_score": 0.839,
+          "embed_rank": 3
+        },
+        {
+          "source": "schema.org",
+          "label": "containedIn",
+          "signature": "Place → Place",
+          "parent": null,
+          "inverse_of": null,
+          "score": -1.3198,
+          "matched_anchor": null,
+          "comment": "A spatial containment relation between a place and the larger place that contains it. Also called \"located in\", \"part of\", \"within\". Examples: \"City 'Paris' containedIn 'France'\", \"Building 'Eiffel Tower' containedIn 'Paris'\". Distinct from containedInPlace, which is a synonym, and containsPlace, which is the inverse.",
+          "embed_score": 0.832,
+          "embed_rank": 6
+        },
+        {
+          "source": "schema.org",
+          "label": "foundingLocation",
+          "signature": "Organization → Place",
+          "parent": null,
+          "inverse_of": null,
+          "score": -1.4372,
+          "matched_anchor": null,
+          "comment": "A founding location relation between an organization and the place where it was established. Also called: place of origin, establishment location, birthplace. Examples: \"Microsoft\" founding location \"Albuquerque, New Mexico\", \"Apple Inc.\" founding location \"Los Altos, California\", \"Google\" founding location \"Menlo Park, California\".",
+          "embed_score": 0.837,
+          "embed_rank": 4
+        },
+        {
+          "source": "schema.org",
+          "label": "containedInPlace",
+          "signature": "Place → Place",
+          "parent": null,
+          "inverse_of": "containsPlace",
+          "score": -1.5384,
+          "matched_anchor": null,
+          "comment": "A spatial containment relation between a place and the larger place that contains it. Also called \"located in\", \"part of\", \"within\". Examples: \"City 'Paris' containedInPlace 'France'\", \"Building 'Eiffel Tower' containedInPlace 'Paris'\". Distinct from containedIn, which is a synonym, and containsPlace, which is the inverse.",
+          "embed_score": 0.84,
+          "embed_rank": 2
+        },
+        {
+          "source": "schema.org",
+          "label": "observationAbout",
+          "signature": "Observation → Place/Thing",
+          "parent": null,
+          "inverse_of": null,
+          "score": -2.8095,
+          "matched_anchor": null,
+          "comment": "An entity, often a place, that an observation is about or associated with. Also called observed entity, subject of observation, related to observation. Examples: \"Weather Observation observationAbout 'London'\", \"Patient Vitals Observation observationAbout 'John Doe'\", \"Traffic Count Observation observationAbout 'Main Street'\".",
+          "embed_score": 0.804,
+          "embed_rank": 28
+        },
+        {
+          "source": "schema.org",
+          "label": "contentLocation",
+          "signature": "CreativeWork → Place",
+          "parent": null,
+          "inverse_of": null,
+          "score": -2.8336,
+          "matched_anchor": null,
+          "comment": "A descriptive relation for a creative work, indicating the place depicted or described within its content. Also called \"depicted location\", \"setting\", \"place of content\". Examples: \"Photograph contentLocation 'Eiffel Tower'\", \"Novel contentLocation 'London'\".",
+          "embed_score": 0.822,
+          "embed_rank": 12
+        },
+        {
+          "source": "schema.org",
+          "label": "isLocatedInSubcellularLocation",
+          "signature": "BioChemEntity → DefinedTerm/PropertyValue/URL",
+          "parent": null,
+          "inverse_of": null,
+          "score": -3.4025,
+          "matched_anchor": null,
+          "comment": "A subcellular localization relation between a biochemical entity and its specific location within a cell. Also called found in subcellular location, localized to, present in subcellular compartment. Examples: A protein is isLocatedInSubcellularLocation 'cytoplasm'. DNA is isLocatedInSubcellularLocation 'nucleus'. Mitochondrial enzymes are isLocatedInSubcellularLocation 'mitochondrion'.",
+          "embed_score": 0.824,
+          "embed_rank": 11
+        },
+        {
+          "source": "schema.org",
+          "label": "globalLocationNumber",
+          "signature": "Organization/Person/Place → Text",
+          "parent": "identifier",
+          "inverse_of": null,
+          "score": -4.2513,
+          "matched_anchor": null,
+          "comment": "A global location number relation between an organization, person, or place and its unique 13-digit GLN identifier. Also called: GLN, International Location Number, ILN. Examples: \"Acme Corp Warehouse\" global location number \"1234567890123\", \"Hospital Main Campus\" global location number \"9876543210987\", \"Distribution Center X\" global location number \"1122334455667\".",
+          "embed_score": 0.799,
+          "embed_rank": 36
+        }
+      ]
+    },
+    {
+      "relation_phrase": "total amount",
+      "definition": "Specifies the overall sum of money for a group or event.",
+      "embedding_query_text": "total amount: Specifies the overall sum of money for a group or event.",
+      "observed_signatures": [
+        "PrizeAward → MonetaryAmount"
+      ],
+      "n_assignments": 1,
+      "assignments": [
+        {
+          "instances": [
+            "US Open prize money -> £67.3m ($90m)"
+          ],
+          "chosen_property": {
+            "label": "amount",
+            "source": "schema.org",
+            "direction": "as_is",
+            "vocab_id": null,
+            "is_new_to_vocab": false,
+            "definition": null,
+            "parent": null,
+            "domain": null,
+            "range": null,
+            "path": "",
+            "justification": "amount fits PrizeAward to MonetaryAmount."
+          },
+          "llm_proposed": {
+            "source": "schema.org",
+            "label": "amount",
+            "is_new": false,
+            "direction": "as_is"
+          }
+        }
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "amount",
+          "signature": "DatedMoneySpecification/InvestmentOrDeposit/LoanOrCredit/MonetaryGrant/MoneyTransfer → MonetaryAmount/Number",
+          "parent": null,
+          "inverse_of": null,
+          "score": -2.1541,
+          "matched_anchor": null,
+          "comment": "An amount relation between a financial entity (e.g., loan, grant, money transfer) and the monetary value or number associated with it. Also called value, sum, quantity of money. Examples: \"A loan's amount is '$10,000'.\", \"The grant's amount is '€5,000'.\", \"A money transfer's amount is '250'.\"",
+          "embed_score": 0.834,
+          "embed_rank": 1
+        },
+        {
+          "source": "schema.org",
+          "label": "totalPaymentDue",
+          "signature": "Invoice → MonetaryAmount/PriceSpecification",
+          "parent": null,
+          "inverse_of": null,
+          "score": -3.498,
+          "matched_anchor": null,
+          "comment": "A total payment due relation between an invoice and the full amount owed. Also called total amount owed, invoice total, outstanding balance. Examples: \"Invoice totalPaymentDue '$150.00'\", \"Invoice totalPaymentDue '€250.50'\", \"Invoice totalPaymentDue '$75.25'\".",
+          "embed_score": 0.791,
+          "embed_rank": 9
+        },
+        {
+          "source": "schema.org",
+          "label": "netWorth",
+          "signature": "Person → MonetaryAmount/PriceSpecification",
+          "parent": null,
+          "inverse_of": null,
+          "score": -5.0088,
+          "matched_anchor": null,
+          "comment": "The total financial value of a person, calculated as assets minus liabilities. Also called personal wealth, financial worth, total assets. Examples: \"Person A netWorth '$1,000,000'\", \"Person B netWorth '$500,000'\", \"Person C netWorth '$10,000'\".",
+          "embed_score": 0.786,
+          "embed_rank": 15
+        },
+        {
+          "source": "schema.org",
+          "label": "maximumAttendeeCapacity",
+          "signature": "Event/Place → Integer",
+          "parent": null,
+          "inverse_of": null,
+          "score": -5.2884,
+          "matched_anchor": null,
+          "comment": "An attendee capacity relation between an event or place and the total number of individuals it can accommodate. Also called: maximum occupancy, total capacity, attendee limit. Examples: \"Concert Venue maximumAttendeeCapacity 5000\", \"Conference Room maximumAttendeeCapacity 100\", \"Public Park maximumAttendeeCapacity 10000\".",
+          "embed_score": 0.776,
+          "embed_rank": 29
+        },
+        {
+          "source": "schema.org",
+          "label": "offerCount",
+          "signature": "AggregateOffer → Integer",
+          "parent": null,
+          "inverse_of": null,
+          "score": -5.2935,
+          "matched_anchor": null,
+          "comment": "The total number of individual offers aggregated for a product. Also called number of offers, offer quantity, total offers. Examples: \"Product A AggregateOffer offerCount 10\", \"Service B AggregateOffer offerCount 5\", \"Item C AggregateOffer offerCount 20\". Distinct from orderQuantity, which is the quantity of a specific item in an order.",
+          "embed_score": 0.798,
+          "embed_rank": 4
+        },
+        {
+          "source": "schema.org",
+          "label": "amountOfThisGood",
+          "signature": "TypeAndQuantityNode → Number",
+          "parent": null,
+          "inverse_of": null,
+          "score": -6.2055,
+          "matched_anchor": null,
+          "comment": "An amount of this good relation between a type and quantity node and the numerical quantity of a specific good included in an offer. Also called quantity, number of items, item count. Examples: \"A shopping cart item's amount of this good is '2'.\", \"The offer specifies an amount of this good as '5'.\"",
+          "embed_score": 0.809,
+          "embed_rank": 3
+        },
+        {
+          "source": "schema.org",
+          "label": "price",
+          "signature": "DonateAction/Offer/PriceSpecification/TradeAction → Number/Text",
+          "parent": null,
+          "inverse_of": null,
+          "score": -6.5821,
+          "matched_anchor": null,
+          "comment": "A financial attribute indicating the monetary value of an offer, product, or price component. Also called cost, rate, charge, amount. Examples: An offer has a price of '19.99'. A product has a price of '100'. The service has a price of '50.00'. Distinct from priceCurrency, which specifies the currency of the price.",
+          "embed_score": 0.788,
+          "embed_rank": 13
+        },
+        {
+          "source": "schema.org",
+          "label": "downPayment",
+          "signature": "RepaymentSpecification → MonetaryAmount/Number",
+          "parent": null,
+          "inverse_of": null,
+          "score": -6.7299,
+          "matched_anchor": null,
+          "comment": "A down payment relation between a repayment specification and a monetary amount or number, representing an initial payment made at the start of a purchase. Also called \"initial payment\", \"deposit\", \"first installment\". Examples: \"Car loan repayment downPayment '$5000'\", \"House purchase repayment downPayment '10% of total'\", \"Furniture financing downPayment '200 USD'\".",
+          "embed_score": 0.785,
+          "embed_rank": 19
+        },
+        {
+          "source": "schema.org",
+          "label": "totalPrice",
+          "signature": "Reservation/Ticket → Number/PriceSpecification/Text",
+          "parent": null,
+          "inverse_of": null,
+          "score": -7.0708,
+          "matched_anchor": null,
+          "comment": "A total price relation between a reservation or ticket and its full cost, including taxes and shipping. Also called full cost, final price, reservation cost. Examples: \"Reservation totalPrice '$120.00'\", \"Ticket totalPrice '€50.00'\", \"Flight reservation totalPrice '$350.75'\".",
+          "embed_score": 0.812,
+          "embed_rank": 2
+        },
+        {
+          "source": "schema.org",
+          "label": "value",
+          "signature": "MonetaryAmount/PropertyValue/QuantitativeValue → Boolean/Number/StructuredValue/Text",
+          "parent": null,
+          "inverse_of": null,
+          "score": -7.2452,
+          "matched_anchor": null,
+          "comment": "A value relation between a monetary amount, property value, or quantitative value and its specific numerical, textual, boolean, or structured content. Also called amount, quantity, content. Examples: \"QuantitativeValue value '10'\", \"PropertyValue value 'red'\", \"MonetaryAmount value '99.99'\".",
+          "embed_score": 0.777,
+          "embed_rank": 27
+        }
+      ]
+    },
+    {
+      "relation_phrase": "shared among",
+      "definition": "Indicates that a total is distributed across multiple recipients.",
+      "embedding_query_text": "shared among: Indicates that a total is distributed across multiple recipients.",
+      "observed_signatures": [
+        "PrizeAward → SportsEvent"
+      ],
+      "n_assignments": 1,
+      "assignments": [
+        {
+          "instances": [
+            "US Open prize money -> doubles",
+            "US Open prize money -> wheelchair competitors"
+          ],
+          "chosen_property": {
+            "label": "sharedAmong",
+            "source": "vocab",
+            "direction": "as_is",
+            "vocab_id": "P0029",
+            "is_new_to_vocab": true,
+            "definition": "Indicates the group or category among which a prize is distributed.",
+            "parent": null,
+            "domain": [
+              "PrizeAward"
+            ],
+            "range": [
+              "SportsEvent"
+            ],
+            "path": "",
+            "justification": "No schema.org property expresses distribution across categories."
+          },
+          "llm_proposed": {
+            "source": "new",
+            "label": "sharedAmong",
+            "is_new": true,
+            "direction": "as_is"
+          }
+        }
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "additionalNumberOfGuests",
+          "signature": "RsvpAction → Number",
+          "parent": null,
+          "inverse_of": null,
+          "score": -6.5012,
+          "matched_anchor": null,
+          "comment": "An additional number of guests relation between an RSVP action and the count of extra attendees beyond the invitee. Also called plus-one count, extra guests, total additional attendees. Examples: \"An RSVP action's additional number of guests is '2'.\", \"The wedding RSVP indicates an additional number of guests of '1'.\"",
+          "embed_score": 0.79,
+          "embed_rank": 2
+        },
+        {
+          "source": "schema.org",
+          "label": "aggregateRating",
+          "signature": "Brand/CreativeWork/Event/Offer/Organization/Place/Product/Service → AggregateRating",
+          "parent": null,
+          "inverse_of": null,
+          "score": -7.3421,
+          "matched_anchor": null,
+          "comment": "An aggregate rating relation between an item (e.g., product, service, creative work) and its overall rating derived from multiple reviews. Also called overall score, collective rating, average review. Examples: \"A product's aggregate rating is '4.5 stars'.\", \"A movie's aggregate rating is '8.2/10'.\"",
+          "embed_score": 0.773,
+          "embed_rank": 11
+        },
+        {
+          "source": "schema.org",
+          "label": "offerCount",
+          "signature": "AggregateOffer → Integer",
+          "parent": null,
+          "inverse_of": null,
+          "score": -7.7688,
+          "matched_anchor": null,
+          "comment": "The total number of individual offers aggregated for a product. Also called number of offers, offer quantity, total offers. Examples: \"Product A AggregateOffer offerCount 10\", \"Service B AggregateOffer offerCount 5\", \"Item C AggregateOffer offerCount 20\". Distinct from orderQuantity, which is the quantity of a specific item in an order.",
+          "embed_score": 0.797,
+          "embed_rank": 1
+        },
+        {
+          "source": "schema.org",
+          "label": "totalHistoricalEnrollment",
+          "signature": "Course → Integer",
+          "parent": null,
+          "inverse_of": null,
+          "score": -8.582,
+          "matched_anchor": null,
+          "comment": "A total historical enrollment relation between a course and the cumulative number of students who have ever enrolled in it. Also called cumulative enrollment, past enrollment count, historical student count. Examples: \"Course totalHistoricalEnrollment '500'\", \"Course totalHistoricalEnrollment '1200'\", \"Course totalHistoricalEnrollment '75'\".",
+          "embed_score": 0.76,
+          "embed_rank": 36
+        },
+        {
+          "source": "schema.org",
+          "label": "ratingCount",
+          "signature": "AggregateRating → Integer",
+          "parent": null,
+          "inverse_of": null,
+          "score": -8.6707,
+          "matched_anchor": null,
+          "comment": "A rating count relation between an aggregate rating and the total number of individual ratings contributing to it. Also called number of ratings, total ratings. Examples: \"An aggregate rating has a rating count of 150.\", \"A product review summary has a rating count of 500.\", \"A movie's average rating has a rating count of 10,000.\"",
+          "embed_score": 0.774,
+          "embed_rank": 10
+        },
+        {
+          "source": "schema.org",
+          "label": "healthPlanCostSharing",
+          "signature": "HealthPlanFormulary/HealthPlanNetwork → Boolean/HealthPlanCostSharingSpecification",
+          "parent": null,
+          "inverse_of": null,
+          "score": -8.7849,
+          "matched_anchor": null,
+          "comment": "A cost-sharing relation between a health plan formulary or network and the patient's cost responsibilities. Also called patient costs, cost responsibility, shared costs. Examples: \"A health plan formulary has health plan cost-sharing details.\", \"The network includes health plan cost-sharing information.\", \"This plan specifies health plan cost-sharing.\"",
+          "embed_score": 0.764,
+          "embed_rank": 24
+        },
+        {
+          "source": "schema.org",
+          "label": "recipient",
+          "signature": "AuthorizeAction/CommunicateAction/DonateAction/GiveAction/Message/PayAction/ReturnAction/SendAction/TipAction → Audience/ContactPoint/Organization/Person",
+          "parent": "participant",
+          "inverse_of": null,
+          "score": -8.8877,
+          "matched_anchor": null,
+          "comment": "A recipient relation between an action (like sending or paying) and the audience, contact point, organization, or person receiving it. Also called receiver, intended for, sent to. Examples: \"A message has a recipient 'John Doe'.\", \"A donation has a recipient 'Charity Organization'.\", \"A payment has a recipient 'Vendor Inc.'.\"",
+          "embed_score": 0.788,
+          "embed_rank": 3
+        },
+        {
+          "source": "schema.org",
+          "label": "ccRecipient",
+          "signature": "Message → ContactPoint/Organization/Person",
+          "parent": "recipient",
+          "inverse_of": null,
+          "score": -8.9891,
+          "matched_anchor": null,
+          "comment": "A recipient relation for a message, indicating a contact point, organization, or person who is copied on it. Also called \"carbon copy recipient\", \"copied to\", \"CC'd party\". Examples: \"Email message ccRecipient John Doe\", \"Internal memo message ccRecipient HR Department\".",
+          "embed_score": 0.782,
+          "embed_rank": 4
+        },
+        {
+          "source": "schema.org",
+          "label": "sharedContent",
+          "signature": "Comment/SocialMediaPosting → CreativeWork",
+          "parent": null,
+          "inverse_of": null,
+          "score": -9.0569,
+          "matched_anchor": null,
+          "comment": "A creative work, such as an image, video, or audio clip, that is included or shared within a comment or social media posting. Also called embedded content, attached media, shared media. Examples: `Social Media Post` sharedContent `ImageObject: Photo of event`, `Blog Comment` sharedContent `VideoObject: YouTube link`, `Forum Post` sharedContent `AudioObject: Podcast snippet`. Distinct from `mentions`, which is a reference to another entity, not necessarily embedded content.",
+          "embed_score": 0.772,
+          "embed_rank": 14
+        },
+        {
+          "source": "schema.org",
+          "label": "commentCount",
+          "signature": "CreativeWork → Integer",
+          "parent": null,
+          "inverse_of": null,
+          "score": -9.1761,
+          "matched_anchor": null,
+          "comment": "A quantitative measurement for a creative work, indicating the total number of comments it has received. Also called \"number of comments\", \"comment total\", \"feedback count\". Examples: \"Blog post commentCount 15\", \"Article commentCount 200\".",
+          "embed_score": 0.774,
+          "embed_rank": 9
+        }
+      ]
+    },
+    {
+      "relation_phrase": "increased by",
+      "definition": "Indicates a change in value relative to a previous state.",
+      "embedding_query_text": "increased by: Indicates a change in value relative to a previous state.",
+      "observed_signatures": [
+        "PrizeAward → Date"
+      ],
+      "n_assignments": 1,
+      "assignments": [
+        {
+          "instances": [
+            "US Open prize money -> 2024",
+            "US Open prize money -> 2025"
+          ],
+          "chosen_property": {
+            "label": "increasedBy",
+            "source": "vocab",
+            "direction": "as_is",
+            "vocab_id": "P0030",
+            "is_new_to_vocab": true,
+            "definition": "Indicates the year in which a value was increased relative to a previous period.",
+            "parent": null,
+            "domain": [
+              "PrizeAward"
+            ],
+            "range": [
+              "Date"
+            ],
+            "path": "",
+            "justification": "No schema.org property fits PrizeAward to Date for increase."
+          },
+          "llm_proposed": {
+            "source": "new",
+            "label": "increasedBy",
+            "is_new": true,
+            "direction": "as_is"
+          }
+        }
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "greaterOrEqual",
+          "signature": "QualitativeValue → QualitativeValue",
+          "parent": null,
+          "inverse_of": null,
+          "score": -6.8318,
+          "matched_anchor": null,
+          "comment": "A greater or equal relation indicating that one qualitative value is superior to or the same as another. Also called: is greater than or equal to, at least, no less than. Examples: \"High\" greater or equal \"Medium\", \"Good\" greater or equal \"Good\", \"Large\" greater or equal \"Medium\". Distinct from greater, which does not include equality.",
+          "embed_score": 0.761,
+          "embed_rank": 26
+        },
+        {
+          "source": "schema.org",
+          "label": "greater",
+          "signature": "QualitativeValue → QualitativeValue",
+          "parent": null,
+          "inverse_of": null,
+          "score": -6.926,
+          "matched_anchor": null,
+          "comment": "A greater relation indicating that one qualitative value is superior or larger than another. Also called: is greater than, exceeds, is more than. Examples: \"High\" greater \"Medium\", \"Excellent\" greater \"Good\", \"Large\" greater \"Small\". Distinct from greaterOrEqual, which includes equality.",
+          "embed_score": 0.778,
+          "embed_rank": 4
+        },
+        {
+          "source": "schema.org",
+          "label": "supersededBy",
+          "signature": "Class/Enumeration/Property → Class/Enumeration/Property",
+          "parent": null,
+          "inverse_of": null,
+          "score": -7.1202,
+          "matched_anchor": null,
+          "comment": "A deprecation relation between an older term (property, class, or enumeration) and a newer term that replaces or supersedes it. Also called \"replaced by\", \"obsoleted by\", \"succeeded by\", \"deprecated by\". Examples: \"OldProperty is supersededBy NewProperty\", \"The deprecated class is supersededBy a modern equivalent\", \"This enumeration value is supersededBy a more precise one.\"",
+          "embed_score": 0.773,
+          "embed_rank": 8
+        },
+        {
+          "source": "schema.org",
+          "label": "equal",
+          "signature": "QualitativeValue → QualitativeValue",
+          "parent": null,
+          "inverse_of": null,
+          "score": -7.5448,
+          "matched_anchor": null,
+          "comment": "An equality relation between two qualitative values, indicating that the subject qualitative value is considered equal to the object qualitative value within a specific ordering context. Also called \"is equivalent to\", \"is the same as\", \"matches\". Examples: \"Qualitative value 'Satisfactory' equal 'Acceptable'\", \"Qualitative value 'Medium' equal 'Average'\", \"Qualitative value 'High' equal 'Very Good'\".",
+          "embed_score": 0.763,
+          "embed_rank": 24
+        },
+        {
+          "source": "schema.org",
+          "label": "valueReference",
+          "signature": "PropertyValue/QualitativeValue/QuantitativeValue → DefinedTerm/Enumeration/MeasurementTypeEnumeration/PropertyValue/QualitativeValue/QuantitativeValue/StructuredValue/Text",
+          "parent": null,
+          "inverse_of": null,
+          "score": -8.1341,
+          "matched_anchor": null,
+          "comment": "A value reference relation between a property value, qualitative value, or quantitative value and a secondary value providing additional information or context. Also called reference value, contextual value, measurement context. Examples: \"QuantitativeValue valueReference 'Standard Temperature'\", \"PropertyValue valueReference 'Color Spectrum'\", \"QuantitativeValue valueReference 'RPM at max torque'\".",
+          "embed_score": 0.763,
+          "embed_rank": 23
+        },
+        {
+          "source": "schema.org",
+          "label": "currentExchangeRate",
+          "signature": "ExchangeRateSpecification → UnitPriceSpecification",
+          "parent": null,
+          "inverse_of": null,
+          "score": -8.1353,
+          "matched_anchor": null,
+          "comment": "A value relation between an exchange rate specification and the current price of a currency. Also called: exchange value, currency rate, conversion rate. Examples: \"USD to EUR\" current exchange rate \"0.92 EUR per USD\", \"GBP to JPY\" current exchange rate \"180 JPY per GBP\".",
+          "embed_score": 0.783,
+          "embed_rank": 2
+        },
+        {
+          "source": "schema.org",
+          "label": "stepValue",
+          "signature": "PropertyValueSpecification → Number",
+          "parent": null,
+          "inverse_of": null,
+          "score": -8.1509,
+          "matched_anchor": null,
+          "comment": "A numerical value indicating the required granularity or increment for a property value specification. Also called \"granularity\", \"increment value\", \"step size\", \"value interval\". Examples: \"The slider has stepValue 1\", \"The input field's stepValue is 0.5\", \"This property requires a stepValue of 10.\"",
+          "embed_score": 0.779,
+          "embed_rank": 3
+        },
+        {
+          "source": "schema.org",
+          "label": "value",
+          "signature": "MonetaryAmount/PropertyValue/QuantitativeValue → Boolean/Number/StructuredValue/Text",
+          "parent": null,
+          "inverse_of": null,
+          "score": -8.316,
+          "matched_anchor": null,
+          "comment": "A value relation between a monetary amount, property value, or quantitative value and its specific numerical, textual, boolean, or structured content. Also called amount, quantity, content. Examples: \"QuantitativeValue value '10'\", \"PropertyValue value 'red'\", \"MonetaryAmount value '99.99'\".",
+          "embed_score": 0.765,
+          "embed_rank": 20
+        },
+        {
+          "source": "schema.org",
+          "label": "maxValue",
+          "signature": "MonetaryAmount/PropertyValue/PropertyValueSpecification/QuantitativeValue → Number",
+          "parent": null,
+          "inverse_of": null,
+          "score": -8.4128,
+          "matched_anchor": null,
+          "comment": "An upper value relation between a monetary amount, property value, property value specification, or quantitative value and the highest value of a characteristic or property. Also called: maximum limit, upper bound, highest possible value. Examples: \"Temperature Range maxValue 30\", \"Age Limit maxValue 65\", \"Credit Score maxValue 850\". Distinct from maxPrice, which specifically refers to the highest price in a range.",
+          "embed_score": 0.757,
+          "embed_rank": 41
+        },
+        {
+          "source": "schema.org",
+          "label": "increasesRiskOf",
+          "signature": "MedicalRiskFactor → MedicalEntity",
+          "parent": null,
+          "inverse_of": null,
+          "score": -8.4873,
+          "matched_anchor": null,
+          "comment": "A risk amplification relation between a medical risk factor and the medical entity (condition, complication) whose likelihood it increases. Also called heightens risk of, raises risk of, predisposes to, contributes to risk of. Examples: Smoking increasesRiskOf lung cancer. High blood pressure increasesRiskOf heart attack. Obesity increasesRiskOf type 2 diabetes.",
+          "embed_score": 0.784,
+          "embed_rank": 1
+        }
+      ]
+    },
+    {
+      "relation_phrase": "awarded at",
+      "definition": "Indicates the event or location where a prize is given.",
+      "embedding_query_text": "awarded at: Indicates the event or location where a prize is given.",
+      "observed_signatures": [
+        "PrizeAward → SportsEvent"
+      ],
+      "n_assignments": 1,
+      "assignments": [
+        {
+          "instances": [
+            "Other Grand Slam prizes -> Wimbledon",
+            "Other Grand Slam prizes -> Australian Open",
+            "Other Grand Slam prizes -> French Open"
+          ],
+          "chosen_property": {
+            "label": "location",
+            "source": "schema.org",
+            "direction": "as_is",
+            "vocab_id": null,
+            "is_new_to_vocab": false,
+            "definition": null,
+            "parent": null,
+            "domain": null,
+            "range": null,
+            "path": "",
+            "justification": "location fits PrizeAward to SportsEvent as event location."
+          },
+          "llm_proposed": {
+            "source": "schema.org",
+            "label": "location",
+            "is_new": false,
+            "direction": "as_is"
+          }
+        }
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "award",
+          "signature": "CreativeWork/Organization/Person/Product/Service → Text",
+          "parent": null,
+          "inverse_of": null,
+          "score": -1.7597,
+          "matched_anchor": null,
+          "comment": "An award won by or for a creative work, organization, person, product, or service. Also called: honor, prize, recognition. Examples: \"CreativeWork 'Movie' award 'Oscar'\", \"Organization 'Company X' award 'Best Employer'\", \"Person 'Scientist' award 'Nobel Prize'\". Distinct from awards, which is the plural form.",
+          "embed_score": 0.839,
+          "embed_rank": 1
+        },
+        {
+          "source": "schema.org",
+          "label": "awards",
+          "signature": "CreativeWork/Organization/Person/Product → Text",
+          "parent": null,
+          "inverse_of": null,
+          "score": -1.9603,
+          "matched_anchor": null,
+          "comment": "Awards won by or for a creative work, organization, person, or product. Also called: honors, prizes, recognitions. Examples: \"CreativeWork 'Movie' awards 'Oscar'\", \"Organization 'Company X' awards 'Best Employer'\", \"Person 'Scientist' awards 'Nobel Prize'\". Distinct from award, which is the singular form.",
+          "embed_score": 0.833,
+          "embed_rank": 2
+        },
+        {
+          "source": "schema.org",
+          "label": "location",
+          "signature": "Action/Event/InteractionCounter/Organization → Place/PostalAddress/Text/VirtualLocation",
+          "parent": null,
+          "inverse_of": null,
+          "score": -5.7479,
+          "matched_anchor": null,
+          "comment": "A location relation between an action, event, interaction counter, or organization and its physical or virtual place. Also called: situated at, takes place at, found at. Examples: \"Conference Event location New York Hilton\", \"Company Organization location 123 Main St\", \"Online Meeting location Virtual Conference Room\".",
+          "embed_score": 0.754,
+          "embed_rank": 27
+        },
+        {
+          "source": "schema.org",
+          "label": "educationalCredentialAwarded",
+          "signature": "Course/EducationalOccupationalProgram → EducationalOccupationalCredential/Text/URL",
+          "parent": null,
+          "inverse_of": null,
+          "score": -7.7646,
+          "matched_anchor": null,
+          "comment": "An educational credential awarded relation between a course or program and the credential received upon successful completion. Also called \"award received\", \"qualification granted\", \"certificate earned\". Examples: \"Course 'Introduction to Python' educationalCredentialAwarded 'Certificate of Completion'\", \"Program 'MBA' educationalCredentialAwarded 'Master of Business Administration'\", \"Training 'First Aid' educationalCredentialAwarded 'First Aid Certification'\".",
+          "embed_score": 0.767,
+          "embed_rank": 9
+        },
+        {
+          "source": "schema.org",
+          "label": "deathPlace",
+          "signature": "Person → Place",
+          "parent": null,
+          "inverse_of": null,
+          "score": -8.0043,
+          "matched_anchor": null,
+          "comment": "A geographical event relation between a person and the place where they died. Also called: place of demise, passing location, decease location. Examples: \"Historical Figure\" death place \"Dallas, Texas\", \"Family Member\" death place \"London, UK\". Distinct from birthPlace, which is the place of birth.",
+          "embed_score": 0.751,
+          "embed_rank": 42
+        },
+        {
+          "source": "schema.org",
+          "label": "event",
+          "signature": "InformAction/InviteAction/JoinAction/LeaveAction/Organization/Place/PlayAction → Event",
+          "parent": null,
+          "inverse_of": null,
+          "score": -8.2125,
+          "matched_anchor": null,
+          "comment": "An event association relation between an action, organization, or place and an event connected to it. Also called \"associated event\", \"related event\", \"features event\". Examples: \"Organization 'Museum' event 'Art Exhibition'\", \"Place 'Park' event 'Summer Festival'\", \"Inform action event 'Meeting Reminder'\". Distinct from events, which is the plural form.",
+          "embed_score": 0.764,
+          "embed_rank": 13
+        },
+        {
+          "source": "schema.org",
+          "label": "sportsEvent",
+          "signature": "ExerciseAction → SportsEvent",
+          "parent": "location",
+          "inverse_of": null,
+          "score": -8.4044,
+          "matched_anchor": null,
+          "comment": "A specific event relation between an exercise action and the sports event during which it occurred. Also called \"event of exercise\", \"competition event\", \"athletic event\". Examples: \"The sprint occurred during the sportsEvent Olympics\", \"The goal was scored in the sportsEvent World Cup match\", \"This action took place at a sportsEvent marathon.\". Distinct from event, which is a more general event property.",
+          "embed_score": 0.766,
+          "embed_rank": 10
+        },
+        {
+          "source": "schema.org",
+          "label": "events",
+          "signature": "Organization/Place → Event",
+          "parent": null,
+          "inverse_of": null,
+          "score": -8.4935,
+          "matched_anchor": null,
+          "comment": "An events association relation between an organization or place and the events connected to it. Also called \"associated events\", \"related events\", \"features events\". Examples: \"Organization 'Museum' events 'Art Exhibition, Lecture Series'\", \"Place 'Park' events 'Summer Festival, Winter Fair'\", \"Company 'Tech Solutions' events 'Annual Conference, Product Launch'\". Distinct from event, which is the singular form.",
+          "embed_score": 0.771,
+          "embed_rank": 6
+        },
+        {
+          "source": "schema.org",
+          "label": "recordedAt",
+          "signature": "CreativeWork → Event",
+          "parent": null,
+          "inverse_of": "recordedIn",
+          "score": -8.5416,
+          "matched_anchor": null,
+          "comment": "A recording location relation between a creative work and the event where it was recorded. Also called recorded during, captured at event. Examples: \"A live album was recorded at 'Wembley Stadium Concert'.\", \"A documentary film was recorded at 'the Amazon Rainforest Expedition'.\", \"A podcast episode was recorded at 'a conference panel discussion'.\". Distinct from recordedIn, which is the inverse relation.",
+          "embed_score": 0.753,
+          "embed_rank": 32
+        },
+        {
+          "source": "schema.org",
+          "label": "startDate",
+          "signature": "CreativeWorkSeason/CreativeWorkSeries/DatedMoneySpecification/EducationalOccupationalProgram/Event/MerchantReturnPolicySeasonalOverride/Role/Schedule → Date/DateTime",
+          "parent": null,
+          "inverse_of": null,
+          "score": -8.5607,
+          "matched_anchor": null,
+          "comment": "A temporal marker indicating the beginning date and time of an item, such as an event, program, or season. Also called \"beginning date\", \"commencement date\", \"start time\", \"effective date\". Examples: \"The event has startDate 2023-10-26\", \"The program's startDate is September 1st\", \"This role's startDate was last Monday.\". Distinct from dateCreated, which indicates when a creative work was first made.",
+          "embed_score": 0.749,
+          "embed_rank": 49
+        }
+      ]
+    },
+    {
+      "relation_phrase": "defeated",
+      "definition": "Indicates that one party beat another in a competition.",
+      "embedding_query_text": "defeated: Indicates that one party beat another in a competition.",
+      "observed_signatures": [
+        "PrizeAward → Person"
+      ],
+      "n_assignments": 1,
+      "assignments": [
+        {
+          "instances": [
+            "Mixed doubles final -> Casper Ruud",
+            "Mixed doubles final -> Iga Swiatek"
+          ],
+          "chosen_property": {
+            "label": "loser",
+            "source": "schema.org",
+            "direction": "inverse",
+            "vocab_id": null,
+            "is_new_to_vocab": false,
+            "definition": null,
+            "parent": null,
+            "domain": null,
+            "range": null,
+            "path": "participant",
+            "justification": "PrizeAward defeated Person; inverse of loser (WinAction loser Person)."
+          },
+          "llm_proposed": {
+            "source": "schema.org",
+            "label": "loser",
+            "is_new": false,
+            "direction": "inverse"
+          }
+        }
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "winner",
+          "signature": "LoseAction → Person",
+          "parent": "participant",
+          "inverse_of": null,
+          "score": -0.4337,
+          "matched_anchor": null,
+          "comment": "A winner relation between a losing action and the person who won it. Also called victor, triumphant participant, successful party. Examples: ChessMatchLoseAction winner Alice, RaceLoseAction winner Bob, CompetitionLoseAction winner Charlie.",
+          "embed_score": 0.821,
+          "embed_rank": 2
+        },
+        {
+          "source": "schema.org",
+          "label": "loser",
+          "signature": "WinAction → Person",
+          "parent": "participant",
+          "inverse_of": null,
+          "score": -2.0548,
+          "matched_anchor": null,
+          "comment": "A losing participant relation between a win action and the person who lost. Also called: defeated participant, vanquished, runner-up. Examples: \"Chess Match WinAction loser Opponent B\", \"Race WinAction loser Second Place Runner\", \"Debate WinAction loser Team B\".",
+          "embed_score": 0.841,
+          "embed_rank": 1
+        },
+        {
+          "source": "schema.org",
+          "label": "competitor",
+          "signature": "SportsEvent → Person/SportsTeam",
+          "parent": null,
+          "inverse_of": null,
+          "score": -4.9136,
+          "matched_anchor": null,
+          "comment": "A participation relation in a sports event, indicating a person or sports team that is competing. Also called \"participant\", \"opponent\", \"rival\". Examples: \"Olympic race sports event competitor Usain Bolt\", \"Football match sports event competitor Manchester United\".",
+          "embed_score": 0.816,
+          "embed_rank": 3
+        },
+        {
+          "source": "schema.org",
+          "label": "opponent",
+          "signature": "ExerciseAction → Person",
+          "parent": "participant",
+          "inverse_of": null,
+          "score": -7.5006,
+          "matched_anchor": null,
+          "comment": "A person who is an opponent in an exercise action. Also called adversary, competitor, rival. Examples: \"Boxing Match opponent 'Mike Tyson'\", \"Chess Game opponent 'Deep Blue'\", \"Tennis Match opponent 'Serena Williams'\". Distinct from participant, which is a general participant.",
+          "embed_score": 0.785,
+          "embed_rank": 5
+        },
+        {
+          "source": "schema.org",
+          "label": "sportsEvent",
+          "signature": "ExerciseAction → SportsEvent",
+          "parent": "location",
+          "inverse_of": null,
+          "score": -8.7125,
+          "matched_anchor": null,
+          "comment": "A specific event relation between an exercise action and the sports event during which it occurred. Also called \"event of exercise\", \"competition event\", \"athletic event\". Examples: \"The sprint occurred during the sportsEvent Olympics\", \"The goal was scored in the sportsEvent World Cup match\", \"This action took place at a sportsEvent marathon.\". Distinct from event, which is a more general event property.",
+          "embed_score": 0.752,
+          "embed_rank": 29
+        },
+        {
+          "source": "schema.org",
+          "label": "candidate",
+          "signature": "VoteAction → Person",
+          "parent": "object",
+          "inverse_of": null,
+          "score": -8.739,
+          "matched_anchor": null,
+          "comment": "A participation relation in a vote action, indicating the person who is being voted for. Also called \"voted for\", \"nominee\", \"electoral candidate\". Examples: \"Election vote action candidate Jane Smith\", \"Award vote action candidate John Doe\".",
+          "embed_score": 0.79,
+          "embed_rank": 4
+        },
+        {
+          "source": "schema.org",
+          "label": "sport",
+          "signature": "SportsEvent/SportsOrganization → Text/URL",
+          "parent": null,
+          "inverse_of": null,
+          "score": -9.2999,
+          "matched_anchor": null,
+          "comment": "An identification of the type of sport associated with a sports event or organization. Also called \"sport type\", \"athletic discipline\", \"game played\". Examples: \"The event's sport is Basketball\", \"The organization's sport is Soccer\", \"This competition features the sport of Gymnastics.\"",
+          "embed_score": 0.76,
+          "embed_rank": 13
+        },
+        {
+          "source": "schema.org",
+          "label": "awayTeam",
+          "signature": "SportsEvent → Person/SportsTeam",
+          "parent": "competitor",
+          "inverse_of": null,
+          "score": -9.935,
+          "matched_anchor": null,
+          "comment": "A person or sports team designated as the away team in a sports event. Also called: visiting team, opponent. Examples: \"SportsEvent 'Football Match' awayTeam 'Team B'\", \"SportsEvent 'Basketball Game' awayTeam 'Lakers'\". Distinct from homeTeam, which is the team playing at their home venue.",
+          "embed_score": 0.748,
+          "embed_rank": 36
+        },
+        {
+          "source": "schema.org",
+          "label": "eventAttendanceMode",
+          "signature": "Event → EventAttendanceModeEnumeration",
+          "parent": null,
+          "inverse_of": null,
+          "score": -10.0234,
+          "matched_anchor": null,
+          "comment": "An event attendance mode relation between an event and the enumeration indicating whether it occurs online, offline, or a mix. Also called \"attendance format\", \"event delivery mode\", \"participation mode\". Examples: \"Event 'Conference' eventAttendanceMode 'OnlineEventAttendanceMode'\", \"Event 'Workshop' eventAttendanceMode 'OfflineEventAttendanceMode'\", \"Event 'Hybrid Meeting' eventAttendanceMode 'MixedEventAttendanceMode'\".",
+          "embed_score": 0.745,
+          "embed_rank": 47
+        },
+        {
+          "source": "schema.org",
+          "label": "nonEqual",
+          "signature": "QualitativeValue → QualitativeValue",
+          "parent": null,
+          "inverse_of": null,
+          "score": -10.235,
+          "matched_anchor": null,
+          "comment": "A qualitative value that is not equal to another qualitative value. Also called not equivalent to, different from, unequal to. Examples: \"Value A nonEqual 'Value B'\", \"Color Red nonEqual 'Color Blue'\", \"Size Small nonEqual 'Size Large'\". Distinct from equal, which indicates equivalence.",
+          "embed_score": 0.747,
+          "embed_rank": 40
+        }
+      ]
+    },
+    {
+      "relation_phrase": "category",
+      "definition": "Indicates the type or class of an event.",
+      "embedding_query_text": "category: Indicates the type or class of an event.",
+      "observed_signatures": [
+        "PrizeAward → SportsEvent"
+      ],
+      "n_assignments": 1,
+      "assignments": [
+        {
+          "instances": [
+            "Mixed doubles final -> mixed doubles championship"
+          ],
+          "chosen_property": {
+            "label": "category",
+            "source": "schema.org",
+            "direction": "as_is",
+            "vocab_id": null,
+            "is_new_to_vocab": false,
+            "definition": null,
+            "parent": null,
+            "domain": null,
+            "range": null,
+            "path": "",
+            "justification": "category fits PrizeAward to SportsEvent as classification."
+          },
+          "llm_proposed": {
+            "source": "schema.org",
+            "label": "category",
+            "is_new": false,
+            "direction": "as_is"
+          }
+        }
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "seatingType",
+          "signature": "Seat → QualitativeValue/Text",
+          "parent": null,
+          "inverse_of": null,
+          "score": 3.2555,
+          "matched_anchor": null,
+          "comment": "The classification or category of a seat, indicating its type or class. Also called seat class, seat category, type of seating. Examples: `Airplane Seat` seatingType `\"Economy Class\"`, `Theater Seat` seatingType `\"Premium\"`, `Train Seat` seatingType `\"First Class\"`.",
+          "embed_score": 0.816,
+          "embed_rank": 13
+        },
+        {
+          "source": "schema.org",
+          "label": "category",
+          "signature": "ActionAccessSpecification/Guide/Invoice/Offer/PhysicalActivity/Product/Recommendation/Service/SpecialAnnouncement → CategoryCode/PhysicalActivityCategory/Text/Thing/URL",
+          "parent": null,
+          "inverse_of": null,
+          "score": 2.9956,
+          "matched_anchor": null,
+          "comment": "A classification relation assigning a category to an item such as an offer, product, service, or announcement. Also called \"type\", \"classification\", \"genre\", \"tag\". Examples: \"Product category 'Electronics'\", \"Service category 'Home Repair'\", \"Offer category 'Seasonal Sale'\".",
+          "embed_score": 0.846,
+          "embed_rank": 1
+        },
+        {
+          "source": "schema.org",
+          "label": "eventStatus",
+          "signature": "Event → EventStatusType",
+          "parent": null,
+          "inverse_of": null,
+          "score": 1.649,
+          "matched_anchor": null,
+          "comment": "An event status relation between an event and its current status type. Also called \"event condition\", \"status of event\", \"event state\". Examples: \"Event 'Concert' eventStatus 'EventCancelled'\", \"Event 'Meeting' eventStatus 'EventScheduled'\", \"Event 'Festival' eventStatus 'EventRescheduled'\".",
+          "embed_score": 0.819,
+          "embed_rank": 10
+        },
+        {
+          "source": "schema.org",
+          "label": "sport",
+          "signature": "SportsEvent/SportsOrganization → Text/URL",
+          "parent": null,
+          "inverse_of": null,
+          "score": 1.1999,
+          "matched_anchor": null,
+          "comment": "An identification of the type of sport associated with a sports event or organization. Also called \"sport type\", \"athletic discipline\", \"game played\". Examples: \"The event's sport is Basketball\", \"The organization's sport is Soccer\", \"This competition features the sport of Gymnastics.\"",
+          "embed_score": 0.822,
+          "embed_rank": 9
+        },
+        {
+          "source": "schema.org",
+          "label": "credentialCategory",
+          "signature": "Credential → DefinedTerm/Text/URL",
+          "parent": null,
+          "inverse_of": null,
+          "score": -0.1425,
+          "matched_anchor": null,
+          "comment": "A classification relation between a credential and its type or category. Also called: credential type, certification category, award type. Examples: \"PhD\" credential category \"degree\", \"PMP\" credential category \"certificate\", \"Scout Badge\" credential category \"badge\", \"Driver's License\" credential category \"license\".",
+          "embed_score": 0.791,
+          "embed_rank": 32
+        },
+        {
+          "source": "schema.org",
+          "label": "statType",
+          "signature": "StatisticalVariable → Property/Text/URL",
+          "parent": null,
+          "inverse_of": null,
+          "score": -0.5579,
+          "matched_anchor": null,
+          "comment": "A classification of a statistical variable by the type of statistic it represents, such as mean or count. Also called \"statistic type\", \"measurement type\", \"data type\", \"statistical measure\". Examples: \"The variable has statType mean\", \"This statistical variable's statType is count\", \"The statType indicates a median value.\"",
+          "embed_score": 0.785,
+          "embed_rank": 45
+        },
+        {
+          "source": "schema.org",
+          "label": "events",
+          "signature": "Organization/Place → Event",
+          "parent": null,
+          "inverse_of": null,
+          "score": -0.5835,
+          "matched_anchor": null,
+          "comment": "An events association relation between an organization or place and the events connected to it. Also called \"associated events\", \"related events\", \"features events\". Examples: \"Organization 'Museum' events 'Art Exhibition, Lecture Series'\", \"Place 'Park' events 'Summer Festival, Winter Fair'\", \"Company 'Tech Solutions' events 'Annual Conference, Product Launch'\". Distinct from event, which is the singular form.",
+          "embed_score": 0.835,
+          "embed_rank": 3
+        },
+        {
+          "source": "schema.org",
+          "label": "event",
+          "signature": "InformAction/InviteAction/JoinAction/LeaveAction/Organization/Place/PlayAction → Event",
+          "parent": null,
+          "inverse_of": null,
+          "score": -0.6253,
+          "matched_anchor": null,
+          "comment": "An event association relation between an action, organization, or place and an event connected to it. Also called \"associated event\", \"related event\", \"features event\". Examples: \"Organization 'Museum' event 'Art Exhibition'\", \"Place 'Park' event 'Summer Festival'\", \"Inform action event 'Meeting Reminder'\". Distinct from events, which is the plural form.",
+          "embed_score": 0.838,
+          "embed_rank": 2
+        },
+        {
+          "source": "schema.org",
+          "label": "exerciseType",
+          "signature": "ExerciseAction/ExercisePlan → Text",
+          "parent": null,
+          "inverse_of": null,
+          "score": -0.7383,
+          "matched_anchor": null,
+          "comment": "An exercise type relation between an exercise action or plan and the specific category or kind of physical activity. Also called: activity type, workout category, training style. Examples: \"Morning Run\" exercise type \"Aerobics\", \"Weightlifting Session\" exercise type \"Strength Training\", \"Yoga Practice\" exercise type \"Flexibility Training\".",
+          "embed_score": 0.796,
+          "embed_rank": 26
+        },
+        {
+          "source": "schema.org",
+          "label": "drugClass",
+          "signature": "Drug → DrugClass",
+          "parent": null,
+          "inverse_of": null,
+          "score": -0.8877,
+          "matched_anchor": null,
+          "comment": "A drug class relation between a drug and the category of drugs it belongs to. Also called \"belongs to class\", \"type of drug\", \"drug category\". Examples: \"Drug 'Atorvastatin' drugClass 'Statins'\", \"Drug 'Amoxicillin' drugClass 'Penicillins'\", \"Drug 'Insulin' drugClass 'Hormones'\".",
+          "embed_score": 0.796,
+          "embed_rank": 27
+        }
+      ]
+    },
+    {
+      "relation_phrase": "prize money",
+      "definition": "Specifies the monetary award for a particular round or position.",
+      "embedding_query_text": "prize money: Specifies the monetary award for a particular round or position.",
+      "observed_signatures": [
+        "SportsEvent → MonetaryAmount"
+      ],
+      "n_assignments": 1,
+      "assignments": [
+        {
+          "instances": [
+            "Winner -> £3.73m",
+            "Runner-up -> £1.87m",
+            "Semi-final -> £943,000",
+            "Quarter-final -> £494,000",
+            "Round four -> £299,000",
+            "Round three -> £177,000",
+            "Round two -> £115,000",
+            "Round one -> £82,000"
+          ],
+          "chosen_property": {
+            "label": "amount",
+            "source": "schema.org",
+            "direction": "as_is",
+            "vocab_id": null,
+            "is_new_to_vocab": false,
+            "definition": null,
+            "parent": null,
+            "domain": null,
+            "range": null,
+            "path": "",
+            "justification": "amount fits SportsEvent to MonetaryAmount."
+          },
+          "llm_proposed": {
+            "source": "schema.org",
+            "label": "amount",
+            "is_new": false,
+            "direction": "as_is"
+          }
+        }
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "award",
+          "signature": "CreativeWork/Organization/Person/Product/Service → Text",
+          "parent": null,
+          "inverse_of": null,
+          "score": -6.0368,
+          "matched_anchor": null,
+          "comment": "An award won by or for a creative work, organization, person, product, or service. Also called: honor, prize, recognition. Examples: \"CreativeWork 'Movie' award 'Oscar'\", \"Organization 'Company X' award 'Best Employer'\", \"Person 'Scientist' award 'Nobel Prize'\". Distinct from awards, which is the plural form.",
+          "embed_score": 0.795,
+          "embed_rank": 1
+        },
+        {
+          "source": "schema.org",
+          "label": "awards",
+          "signature": "CreativeWork/Organization/Person/Product → Text",
+          "parent": null,
+          "inverse_of": null,
+          "score": -6.7028,
+          "matched_anchor": null,
+          "comment": "Awards won by or for a creative work, organization, person, or product. Also called: honors, prizes, recognitions. Examples: \"CreativeWork 'Movie' awards 'Oscar'\", \"Organization 'Company X' awards 'Best Employer'\", \"Person 'Scientist' awards 'Nobel Prize'\". Distinct from award, which is the singular form.",
+          "embed_score": 0.784,
+          "embed_rank": 3
+        },
+        {
+          "source": "schema.org",
+          "label": "baseSalary",
+          "signature": "EmployeeRole/JobPosting → MonetaryAmount/Number/PriceSpecification",
+          "parent": null,
+          "inverse_of": null,
+          "score": -7.6096,
+          "matched_anchor": null,
+          "comment": "A monetary amount, number, or price specification representing the base salary of a job or an employee role. Also called: starting salary, basic pay, compensation. Examples: \"JobPosting 'Software Engineer' baseSalary '$120,000'\", \"EmployeeRole 'Manager' baseSalary 'MonetaryAmount 80000 USD'.\"",
+          "embed_score": 0.776,
+          "embed_rank": 4
+        },
+        {
+          "source": "schema.org",
+          "label": "salaryCurrency",
+          "signature": "EmployeeRole/JobPosting → Text",
+          "parent": null,
+          "inverse_of": null,
+          "score": -8.4897,
+          "matched_anchor": null,
+          "comment": "The currency in which the salary for a job posting or employee role is expressed. Also called pay currency, wage currency, compensation currency. Examples: `Software Engineer Job` salaryCurrency `\"USD\"`, `Marketing Manager Role` salaryCurrency `\"EUR\"`, `Doctor Position` salaryCurrency `\"GBP\"`.",
+          "embed_score": 0.785,
+          "embed_rank": 2
+        },
+        {
+          "source": "schema.org",
+          "label": "price",
+          "signature": "DonateAction/Offer/PriceSpecification/TradeAction → Number/Text",
+          "parent": null,
+          "inverse_of": null,
+          "score": -8.7633,
+          "matched_anchor": null,
+          "comment": "A financial attribute indicating the monetary value of an offer, product, or price component. Also called cost, rate, charge, amount. Examples: An offer has a price of '19.99'. A product has a price of '100'. The service has a price of '50.00'. Distinct from priceCurrency, which specifies the currency of the price.",
+          "embed_score": 0.768,
+          "embed_rank": 10
+        },
+        {
+          "source": "schema.org",
+          "label": "currency",
+          "signature": "DatedMoneySpecification/ExchangeRateSpecification/LoanOrCredit/MonetaryAmount/MonetaryAmountDistribution → Text",
+          "parent": null,
+          "inverse_of": null,
+          "score": -9.3202,
+          "matched_anchor": null,
+          "comment": "A monetary unit relation between a monetary amount or specification and the currency in which it is expressed. Also called: monetary currency, unit of money, payment unit. Examples: \"Product Price\" currency \"USD\", \"Loan Amount\" currency \"EUR\", \"Exchange Rate\" currency \"JPY\", \"Salary\" currency \"GBP\". Distinct from costCurrency, which is specific to drug costs.",
+          "embed_score": 0.762,
+          "embed_rank": 13
+        },
+        {
+          "source": "schema.org",
+          "label": "priceCurrency",
+          "signature": "DonateAction/Offer/PriceSpecification/Reservation/Ticket/TradeAction → Text",
+          "parent": null,
+          "inverse_of": null,
+          "score": -9.8563,
+          "matched_anchor": null,
+          "comment": "A financial attribute indicating the currency in which a price or price component is expressed. Also called currency type, monetary unit, unit of exchange. Examples: An offer has a price currency of 'USD'. A product's price currency is 'EUR'. The ticket price currency is 'GBP'. Distinct from price, which is the numerical value.",
+          "embed_score": 0.753,
+          "embed_rank": 26
+        },
+        {
+          "source": "schema.org",
+          "label": "orderValue",
+          "signature": "ShippingConditions → MonetaryAmount",
+          "parent": null,
+          "inverse_of": null,
+          "score": -10.0493,
+          "matched_anchor": null,
+          "comment": "A monetary amount representing the minimum or maximum order value for which specific shipping conditions are valid. Also called order total threshold, shipping value limit, purchase amount condition. Examples: \"Free Shipping orderValue '$50.00'\", \"Discounted Shipping orderValue 'min $100.00'\", \"Special Rate Shipping orderValue 'max $20.00'\". Distinct from orderPercentage, which is a rate based on order value.",
+          "embed_score": 0.745,
+          "embed_rank": 38
+        },
+        {
+          "source": "schema.org",
+          "label": "amount",
+          "signature": "DatedMoneySpecification/InvestmentOrDeposit/LoanOrCredit/MonetaryGrant/MoneyTransfer → MonetaryAmount/Number",
+          "parent": null,
+          "inverse_of": null,
+          "score": -10.1166,
+          "matched_anchor": null,
+          "comment": "An amount relation between a financial entity (e.g., loan, grant, money transfer) and the monetary value or number associated with it. Also called value, sum, quantity of money. Examples: \"A loan's amount is '$10,000'.\", \"The grant's amount is '€5,000'.\", \"A money transfer's amount is '250'.\"",
+          "embed_score": 0.753,
+          "embed_rank": 27
+        },
+        {
+          "source": "schema.org",
+          "label": "estimatedSalary",
+          "signature": "JobPosting/Occupation → MonetaryAmount/MonetaryAmountDistribution/Number",
+          "parent": null,
+          "inverse_of": null,
+          "score": -10.1777,
+          "matched_anchor": null,
+          "comment": "An estimated salary relation between a job posting or occupation and the monetary amount, distribution, or number representing an approximate salary. Also called \"projected salary\", \"average pay\", \"salary range\". Examples: \"Job posting 'Software Engineer' estimatedSalary '$120,000'\", \"Occupation 'Teacher' estimatedSalary 'MonetaryAmountDistribution for $50k-$70k'\", \"Job 'Data Scientist' estimatedSalary '150000'\".",
+          "embed_score": 0.76,
+          "embed_rank": 17
+        }
+      ]
+    },
+    {
+      "relation_phrase": "has edition",
+      "definition": "Indicates that a tournament has a specific year's occurrence.",
+      "embedding_query_text": "has edition: Indicates that a tournament has a specific year's occurrence.",
+      "observed_signatures": [
+        "SportsEvent → SportsEvent"
+      ],
+      "n_assignments": 1,
+      "assignments": [
+        {
+          "instances": [
+            "US Open -> 2025 US Open",
+            "US Open -> 2024 US Open"
+          ],
+          "chosen_property": {
+            "label": "hasEdition",
+            "source": "vocab",
+            "direction": "as_is",
+            "vocab_id": "P0031",
+            "is_new_to_vocab": true,
+            "definition": "Indicates a specific annual occurrence or edition of an event.",
+            "parent": null,
+            "domain": [
+              "SportsEvent"
+            ],
+            "range": [
+              "SportsEvent"
+            ],
+            "path": "",
+            "justification": "No schema.org property fits SportsEvent to SportsEvent for edition."
+          },
+          "llm_proposed": {
+            "source": "new",
+            "label": "hasEdition",
+            "is_new": true,
+            "direction": "as_is"
+          }
+        }
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "gameEdition",
+          "signature": "VideoGame → Text",
+          "parent": null,
+          "inverse_of": null,
+          "score": -4.6277,
+          "matched_anchor": null,
+          "comment": "A game edition relation between a video game and its specific version or release edition. Also called: game version, release edition, special edition. Examples: \"Cyberpunk 2077\" game edition \"Ultimate Edition\", \"The Witcher 3\" game edition \"Game of the Year Edition\", \"Minecraft\" game edition \"Java Edition\".",
+          "embed_score": 0.77,
+          "embed_rank": 17
+        },
+        {
+          "source": "schema.org",
+          "label": "byMonth",
+          "signature": "Schedule → Integer",
+          "parent": null,
+          "inverse_of": null,
+          "score": -4.9053,
+          "matched_anchor": null,
+          "comment": "A temporal specification for a schedule, indicating the month(s) of the year on which a recurring event occurs. Also called \"months of year\", \"monthly recurrence\", \"in month\". Examples: \"Annual conference schedule byMonth 10\", \"Quarterly report schedule byMonth 3,6,9,12\".",
+          "embed_score": 0.764,
+          "embed_rank": 22
+        },
+        {
+          "source": "schema.org",
+          "label": "yearBuilt",
+          "signature": "Accommodation → Number",
+          "parent": null,
+          "inverse_of": null,
+          "score": -8.7594,
+          "matched_anchor": null,
+          "comment": "A construction year relation between an accommodation and a number, indicating the year in which the accommodation was built. Also called construction year, built year, year of construction. Examples: Hotel yearBuilt 1985, ApartmentBuilding yearBuilt 2010, House yearBuilt 1950.",
+          "embed_score": 0.764,
+          "embed_rank": 23
+        },
+        {
+          "source": "schema.org",
+          "label": "byMonthDay",
+          "signature": "Schedule → Integer",
+          "parent": null,
+          "inverse_of": null,
+          "score": -8.8125,
+          "matched_anchor": null,
+          "comment": "A temporal specification for a schedule, indicating the day(s) of the month on which a recurring event occurs. Also called \"day of month\", \"monthly day recurrence\", \"on day of month\". Examples: \"Rent payment schedule byMonthDay 1\", \"Board meeting schedule byMonthDay 15\".",
+          "embed_score": 0.756,
+          "embed_rank": 42
+        },
+        {
+          "source": "schema.org",
+          "label": "editEIDR",
+          "signature": "CreativeWork → Text/URL",
+          "parent": "identifier",
+          "inverse_of": null,
+          "score": -9.4632,
+          "matched_anchor": null,
+          "comment": "An edit EIDR relation between a creative work and a text or URL identifier for a specific edit or edition of that work. Also called \"edition identifier\", \"version EIDR\", \"cut EIDR\". Examples: \"Movie 'Blade Runner' editEIDR '10.5240/1F2A-E1C5-680A-14C6-E76B-I'\", \"TV episode editEIDR '10.5240/8A35-3BEE-6497-5D12-9E4F-3'\", \"Documentary editEIDR '10.5240/ABC1-DEF2-GHI3-JKL4-MNO5-P'\". Distinct from titleEIDR, which identifies the work itself rather than a specific edit.",
+          "embed_score": 0.755,
+          "embed_rank": 50
+        },
+        {
+          "source": "schema.org",
+          "label": "bookEdition",
+          "signature": "Book → Text",
+          "parent": null,
+          "inverse_of": null,
+          "score": -9.4805,
+          "matched_anchor": null,
+          "comment": "A textual description of the edition of a book. Also called: edition number, publication edition. Examples: \"Book 'The Lord of the Rings' bookEdition 'First Edition'\", \"Book 'Textbook' bookEdition '2nd Edition'.\"",
+          "embed_score": 0.763,
+          "embed_rank": 24
+        },
+        {
+          "source": "schema.org",
+          "label": "season",
+          "signature": "RadioSeries/TVSeries/VideoGameSeries → CreativeWorkSeason/URL",
+          "parent": "hasPart",
+          "inverse_of": null,
+          "score": -9.5124,
+          "matched_anchor": null,
+          "comment": "A specific season within a radio, TV, or video game series. Also called series season, season of show, installment season. Examples: `TV Series: The Crown` season `CreativeWorkSeason: Season 4`, `Video Game Series: FIFA` season `URL to FIFA 23 Season`, `Radio Series: The Archers` season `CreativeWorkSeason: 2022 Season`. Distinct from `seasons`, which is the plural form.",
+          "embed_score": 0.779,
+          "embed_rank": 4
+        },
+        {
+          "source": "schema.org",
+          "label": "sportsEvent",
+          "signature": "ExerciseAction → SportsEvent",
+          "parent": "location",
+          "inverse_of": null,
+          "score": -9.5306,
+          "matched_anchor": null,
+          "comment": "A specific event relation between an exercise action and the sports event during which it occurred. Also called \"event of exercise\", \"competition event\", \"athletic event\". Examples: \"The sprint occurred during the sportsEvent Olympics\", \"The goal was scored in the sportsEvent World Cup match\", \"This action took place at a sportsEvent marathon.\". Distinct from event, which is a more general event property.",
+          "embed_score": 0.78,
+          "embed_rank": 3
+        },
+        {
+          "source": "schema.org",
+          "label": "copyrightYear",
+          "signature": "CreativeWork → Number",
+          "parent": null,
+          "inverse_of": null,
+          "score": -9.6218,
+          "matched_anchor": null,
+          "comment": "A temporal relation between a creative work and the year its copyright was first asserted. Also called: year of copyright, copyright date, first copyright year. Examples: \"Classic Album\" copyright year \"1970\", \"Software Version 1.0\" copyright year \"2005\", \"Research Paper\" copyright year \"2022\". Distinct from datePublished, which is the date of first publication or broadcast.",
+          "embed_score": 0.76,
+          "embed_rank": 28
+        },
+        {
+          "source": "schema.org",
+          "label": "version",
+          "signature": "CreativeWork → Number/Text",
+          "parent": null,
+          "inverse_of": null,
+          "score": -9.6865,
+          "matched_anchor": null,
+          "comment": "A version relation between a creative work and the specific iteration embodied by a resource. Also called edition, revision, build. Examples: \"Software version '2.0'\", \"Book version '3rd Edition'\", \"Document version '1.5'\".",
+          "embed_score": 0.76,
+          "embed_rank": 31
+        }
+      ]
+    },
+    {
+      "relation_phrase": "has category",
+      "definition": "Indicates that a tournament includes a specific competition type.",
+      "embedding_query_text": "has category: Indicates that a tournament includes a specific competition type.",
+      "observed_signatures": [
+        "SportsEvent → SportsEvent"
+      ],
+      "n_assignments": 1,
+      "assignments": [
+        {
+          "instances": [
+            "2025 US Open -> men's singles",
+            "2025 US Open -> women's singles",
+            "2025 US Open -> doubles",
+            "2025 US Open -> wheelchair competitors",
+            "2025 US Open -> mixed doubles championship",
+            "2025 US Open -> men's and women's doubles pairs"
+          ],
+          "chosen_property": {
+            "label": "subEvent",
+            "source": "schema.org",
+            "direction": "as_is",
+            "vocab_id": null,
+            "is_new_to_vocab": false,
+            "definition": null,
+            "parent": null,
+            "domain": null,
+            "range": null,
+            "path": "",
+            "justification": "subEvent fits SportsEvent to SportsEvent as component category."
+          },
+          "llm_proposed": {
+            "source": "schema.org",
+            "label": "subEvent",
+            "is_new": false,
+            "direction": "as_is"
+          }
+        }
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "sport",
+          "signature": "SportsEvent/SportsOrganization → Text/URL",
+          "parent": null,
+          "inverse_of": null,
+          "score": -1.9957,
+          "matched_anchor": null,
+          "comment": "An identification of the type of sport associated with a sports event or organization. Also called \"sport type\", \"athletic discipline\", \"game played\". Examples: \"The event's sport is Basketball\", \"The organization's sport is Soccer\", \"This competition features the sport of Gymnastics.\"",
+          "embed_score": 0.812,
+          "embed_rank": 1
+        },
+        {
+          "source": "schema.org",
+          "label": "competitor",
+          "signature": "SportsEvent → Person/SportsTeam",
+          "parent": null,
+          "inverse_of": null,
+          "score": -3.5595,
+          "matched_anchor": null,
+          "comment": "A participation relation in a sports event, indicating a person or sports team that is competing. Also called \"participant\", \"opponent\", \"rival\". Examples: \"Olympic race sports event competitor Usain Bolt\", \"Football match sports event competitor Manchester United\".",
+          "embed_score": 0.809,
+          "embed_rank": 2
+        },
+        {
+          "source": "schema.org",
+          "label": "sportsEvent",
+          "signature": "ExerciseAction → SportsEvent",
+          "parent": "location",
+          "inverse_of": null,
+          "score": -4.3454,
+          "matched_anchor": null,
+          "comment": "A specific event relation between an exercise action and the sports event during which it occurred. Also called \"event of exercise\", \"competition event\", \"athletic event\". Examples: \"The sprint occurred during the sportsEvent Olympics\", \"The goal was scored in the sportsEvent World Cup match\", \"This action took place at a sportsEvent marathon.\". Distinct from event, which is a more general event property.",
+          "embed_score": 0.8,
+          "embed_rank": 3
+        },
+        {
+          "source": "schema.org",
+          "label": "exerciseType",
+          "signature": "ExerciseAction/ExercisePlan → Text",
+          "parent": null,
+          "inverse_of": null,
+          "score": -6.1226,
+          "matched_anchor": null,
+          "comment": "An exercise type relation between an exercise action or plan and the specific category or kind of physical activity. Also called: activity type, workout category, training style. Examples: \"Morning Run\" exercise type \"Aerobics\", \"Weightlifting Session\" exercise type \"Strength Training\", \"Yoga Practice\" exercise type \"Flexibility Training\".",
+          "embed_score": 0.764,
+          "embed_rank": 34
+        },
+        {
+          "source": "schema.org",
+          "label": "hasCategoryCode",
+          "signature": "CategoryCodeSet → CategoryCode",
+          "parent": "hasDefinedTerm",
+          "inverse_of": null,
+          "score": -6.149,
+          "matched_anchor": null,
+          "comment": "A code inclusion relation between a category code set and one of its contained category codes. Also called contains code, includes code, code within. Examples: \"A product category set has a category code for electronics.\", \"A medical code set has a category code for diseases.\", \"The classification system has a category code for services.\"",
+          "embed_score": 0.785,
+          "embed_rank": 6
+        },
+        {
+          "source": "schema.org",
+          "label": "category",
+          "signature": "ActionAccessSpecification/Guide/Invoice/Offer/PhysicalActivity/Product/Recommendation/Service/SpecialAnnouncement → CategoryCode/PhysicalActivityCategory/Text/Thing/URL",
+          "parent": null,
+          "inverse_of": null,
+          "score": -6.5791,
+          "matched_anchor": null,
+          "comment": "A classification relation assigning a category to an item such as an offer, product, service, or announcement. Also called \"type\", \"classification\", \"genre\", \"tag\". Examples: \"Product category 'Electronics'\", \"Service category 'Home Repair'\", \"Offer category 'Seasonal Sale'\".",
+          "embed_score": 0.788,
+          "embed_rank": 5
+        },
+        {
+          "source": "schema.org",
+          "label": "interactionType",
+          "signature": "InteractionCounter → Action",
+          "parent": null,
+          "inverse_of": null,
+          "score": -6.6372,
+          "matched_anchor": null,
+          "comment": "A classification relation between an interaction counter and the specific type of action it represents. Also called type of engagement, action category, interaction kind. Examples: An interaction counter has an interactionType of 'LikeAction'. An interaction counter has an interactionType of 'CommentAction'. An interaction counter has an interactionType of 'ShareAction'.",
+          "embed_score": 0.764,
+          "embed_rank": 35
+        },
+        {
+          "source": "schema.org",
+          "label": "subEvent",
+          "signature": "Event → Event",
+          "parent": null,
+          "inverse_of": "superEvent",
+          "score": -6.8611,
+          "matched_anchor": null,
+          "comment": "A hierarchical relation between a larger event and a smaller event that is a component or part of it. Also called \"part of event\", \"component event\", \"nested event\", \"event within event\". Examples: \"The conference has subEvent a keynote speech\", \"The festival's subEvent is a specific concert\", \"This event includes a subEvent workshop.\". Distinct from superEvent, which points from the smaller event to the larger one.",
+          "embed_score": 0.769,
+          "embed_rank": 26
+        },
+        {
+          "source": "schema.org",
+          "label": "hasSponsorshipOffer",
+          "signature": "Event → Offer",
+          "parent": null,
+          "inverse_of": null,
+          "score": -7.1482,
+          "matched_anchor": null,
+          "comment": "A sponsorship offer relation between an event and an offer to sponsor it. Also called sponsorship opportunity, sponsor package, call for sponsors. Examples: \"An event has a sponsorship offer for corporate partners.\", \"The conference has a sponsorship offer with different tiers.\", \"This festival includes a sponsorship offer.\". Distinct from hasParticipationOffer, which is an offer to participate in the event.",
+          "embed_score": 0.761,
+          "embed_rank": 46
+        },
+        {
+          "source": "schema.org",
+          "label": "homeTeam",
+          "signature": "SportsEvent → Person/SportsTeam",
+          "parent": "competitor",
+          "inverse_of": null,
+          "score": -7.3148,
+          "matched_anchor": null,
+          "comment": "A home team relation between a sports event and the team or person designated as the home participant. Also called host team, home side, local team. Examples: \"A sports event has a home team 'Lions'.\", \"The match features a home team.\", \"This event's home team is a specific person.\"",
+          "embed_score": 0.772,
+          "embed_rank": 22
+        }
+      ]
+    },
+    {
+      "relation_phrase": "won",
+      "definition": "Indicates that a participant achieved victory in an event.",
+      "embedding_query_text": "won: Indicates that a participant achieved victory in an event.",
+      "observed_signatures": [
+        "Person → SportsEvent",
+        "Person → PrizeAward"
+      ],
+      "n_assignments": 1,
+      "assignments": [
+        {
+          "instances": [
+            "Jannik Sinner -> 2024 US Open",
+            "Aryna Sabalenka -> 2024 US Open",
+            "Sara Errani -> Mixed doubles final",
+            "Andrea Vavassori -> Mixed doubles final"
+          ],
+          "chosen_property": {
+            "label": "winner",
+            "source": "schema.org",
+            "direction": "inverse",
+            "vocab_id": null,
+            "is_new_to_vocab": false,
+            "definition": null,
+            "parent": null,
+            "domain": null,
+            "range": null,
+            "path": "participant",
+            "justification": "Person won SportsEvent/PrizeAward; inverse of winner (LoseAction winner Person)."
+          },
+          "llm_proposed": {
+            "source": "schema.org",
+            "label": "winner",
+            "is_new": false,
+            "direction": "inverse"
+          }
+        }
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "winner",
+          "signature": "LoseAction → Person",
+          "parent": "participant",
+          "inverse_of": null,
+          "score": 4.0092,
+          "matched_anchor": null,
+          "comment": "A winner relation between a losing action and the person who won it. Also called victor, triumphant participant, successful party. Examples: ChessMatchLoseAction winner Alice, RaceLoseAction winner Bob, CompetitionLoseAction winner Charlie.",
+          "embed_score": 0.848,
+          "embed_rank": 1
+        },
+        {
+          "source": "schema.org",
+          "label": "loser",
+          "signature": "WinAction → Person",
+          "parent": "participant",
+          "inverse_of": null,
+          "score": 0.3343,
+          "matched_anchor": null,
+          "comment": "A losing participant relation between a win action and the person who lost. Also called: defeated participant, vanquished, runner-up. Examples: \"Chess Match WinAction loser Opponent B\", \"Race WinAction loser Second Place Runner\", \"Debate WinAction loser Team B\".",
+          "embed_score": 0.822,
+          "embed_rank": 2
+        },
+        {
+          "source": "schema.org",
+          "label": "competitor",
+          "signature": "SportsEvent → Person/SportsTeam",
+          "parent": null,
+          "inverse_of": null,
+          "score": -1.2043,
+          "matched_anchor": null,
+          "comment": "A participation relation in a sports event, indicating a person or sports team that is competing. Also called \"participant\", \"opponent\", \"rival\". Examples: \"Olympic race sports event competitor Usain Bolt\", \"Football match sports event competitor Manchester United\".",
+          "embed_score": 0.818,
+          "embed_rank": 3
+        },
+        {
+          "source": "schema.org",
+          "label": "opponent",
+          "signature": "ExerciseAction → Person",
+          "parent": "participant",
+          "inverse_of": null,
+          "score": -6.1802,
+          "matched_anchor": null,
+          "comment": "A person who is an opponent in an exercise action. Also called adversary, competitor, rival. Examples: \"Boxing Match opponent 'Mike Tyson'\", \"Chess Game opponent 'Deep Blue'\", \"Tennis Match opponent 'Serena Williams'\". Distinct from participant, which is a general participant.",
+          "embed_score": 0.773,
+          "embed_rank": 18
+        },
+        {
+          "source": "schema.org",
+          "label": "hasParticipationOffer",
+          "signature": "Event → Offer",
+          "parent": null,
+          "inverse_of": null,
+          "score": -6.3071,
+          "matched_anchor": null,
+          "comment": "A participation offer relation between an event and an offer to participate in it. Also called call for participation, participation opportunity, event entry offer. Examples: \"An event has a participation offer for speakers.\", \"The conference has a participation offer for proposals.\", \"This festival includes a participation offer for performers.\". Distinct from hasSponsorshipOffer, which is an offer to sponsor the event.",
+          "embed_score": 0.779,
+          "embed_rank": 15
+        },
+        {
+          "source": "schema.org",
+          "label": "sportsTeam",
+          "signature": "ExerciseAction → SportsTeam",
+          "parent": "participant",
+          "inverse_of": null,
+          "score": -6.3951,
+          "matched_anchor": null,
+          "comment": "A participation relation between an exercise action and the sports team involved in it. Also called \"team participated\", \"team involved\", \"athletic team\". Examples: \"The goal was scored by the sportsTeam Real Madrid\", \"The race involved sportsTeam Team USA\", \"This action was performed by a sportsTeam.\". Distinct from participant, which is a more general participant property.",
+          "embed_score": 0.772,
+          "embed_rank": 20
+        },
+        {
+          "source": "schema.org",
+          "label": "candidate",
+          "signature": "VoteAction → Person",
+          "parent": "object",
+          "inverse_of": null,
+          "score": -6.6664,
+          "matched_anchor": null,
+          "comment": "A participation relation in a vote action, indicating the person who is being voted for. Also called \"voted for\", \"nominee\", \"electoral candidate\". Examples: \"Election vote action candidate Jane Smith\", \"Award vote action candidate John Doe\".",
+          "embed_score": 0.781,
+          "embed_rank": 13
+        },
+        {
+          "source": "schema.org",
+          "label": "participant",
+          "signature": "Action → Organization/Person",
+          "parent": null,
+          "inverse_of": null,
+          "score": -7.1872,
+          "matched_anchor": null,
+          "comment": "A collaborative relation between an action and an organization or person who indirectly participated in it. Also called collaborated with, involved, assisted by, co-agent. Examples: A writing action has a participant co-author. A research project has a participant researcher. A meeting has a participant attendee. Distinct from agent, which is the primary actor of an action.",
+          "embed_score": 0.756,
+          "embed_rank": 49
+        },
+        {
+          "source": "schema.org",
+          "label": "attendee",
+          "signature": "Event → Organization/Person",
+          "parent": null,
+          "inverse_of": null,
+          "score": -7.2958,
+          "matched_anchor": null,
+          "comment": "A person or organization present at an event. Also called: participant, guest, visitor. Examples: \"Event 'Concert' attendee 'John Doe'\", \"Event 'Conference' attendee 'Acme Corp'\", \"Event 'Meeting' attendee 'Jane Smith'\". Distinct from attendees, which is the plural form.",
+          "embed_score": 0.787,
+          "embed_rank": 9
+        },
+        {
+          "source": "schema.org",
+          "label": "sportsEvent",
+          "signature": "ExerciseAction → SportsEvent",
+          "parent": "location",
+          "inverse_of": null,
+          "score": -7.34,
+          "matched_anchor": null,
+          "comment": "A specific event relation between an exercise action and the sports event during which it occurred. Also called \"event of exercise\", \"competition event\", \"athletic event\". Examples: \"The sprint occurred during the sportsEvent Olympics\", \"The goal was scored in the sportsEvent World Cup match\", \"This action took place at a sportsEvent marathon.\". Distinct from event, which is a more general event property.",
+          "embed_score": 0.791,
+          "embed_rank": 7
+        }
+      ]
+    },
+    {
+      "relation_phrase": "lost to",
+      "definition": "Indicates that a participant was defeated by another.",
+      "embedding_query_text": "lost to: Indicates that a participant was defeated by another.",
+      "observed_signatures": [
+        "Person → Person"
+      ],
+      "n_assignments": 1,
+      "assignments": [
+        {
+          "instances": [
+            "Casper Ruud -> Sara Errani",
+            "Iga Swiatek -> Sara Errani",
+            "Casper Ruud -> Andrea Vavassori",
+            "Iga Swiatek -> Andrea Vavassori"
+          ],
+          "chosen_property": {
+            "label": "loser",
+            "source": "schema.org",
+            "direction": "inverse",
+            "vocab_id": null,
+            "is_new_to_vocab": false,
+            "definition": null,
+            "parent": null,
+            "domain": null,
+            "range": null,
+            "path": "participant",
+            "justification": "Person lost to Person; inverse of loser (WinAction loser Person)."
+          },
+          "llm_proposed": {
+            "source": "schema.org",
+            "label": "loser",
+            "is_new": false,
+            "direction": "inverse"
+          }
+        }
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "loser",
+          "signature": "WinAction → Person",
+          "parent": "participant",
+          "inverse_of": null,
+          "score": 5.0232,
+          "matched_anchor": null,
+          "comment": "A losing participant relation between a win action and the person who lost. Also called: defeated participant, vanquished, runner-up. Examples: \"Chess Match WinAction loser Opponent B\", \"Race WinAction loser Second Place Runner\", \"Debate WinAction loser Team B\".",
+          "embed_score": 0.854,
+          "embed_rank": 1
+        },
+        {
+          "source": "schema.org",
+          "label": "winner",
+          "signature": "LoseAction → Person",
+          "parent": "participant",
+          "inverse_of": null,
+          "score": -0.8923,
+          "matched_anchor": null,
+          "comment": "A winner relation between a losing action and the person who won it. Also called victor, triumphant participant, successful party. Examples: ChessMatchLoseAction winner Alice, RaceLoseAction winner Bob, CompetitionLoseAction winner Charlie.",
+          "embed_score": 0.796,
+          "embed_rank": 4
+        },
+        {
+          "source": "schema.org",
+          "label": "competitor",
+          "signature": "SportsEvent → Person/SportsTeam",
+          "parent": null,
+          "inverse_of": null,
+          "score": -4.5991,
+          "matched_anchor": null,
+          "comment": "A participation relation in a sports event, indicating a person or sports team that is competing. Also called \"participant\", \"opponent\", \"rival\". Examples: \"Olympic race sports event competitor Usain Bolt\", \"Football match sports event competitor Manchester United\".",
+          "embed_score": 0.816,
+          "embed_rank": 2
+        },
+        {
+          "source": "schema.org",
+          "label": "opponent",
+          "signature": "ExerciseAction → Person",
+          "parent": "participant",
+          "inverse_of": null,
+          "score": -6.078,
+          "matched_anchor": null,
+          "comment": "A person who is an opponent in an exercise action. Also called adversary, competitor, rival. Examples: \"Boxing Match opponent 'Mike Tyson'\", \"Chess Game opponent 'Deep Blue'\", \"Tennis Match opponent 'Serena Williams'\". Distinct from participant, which is a general participant.",
+          "embed_score": 0.798,
+          "embed_rank": 3
+        },
+        {
+          "source": "schema.org",
+          "label": "participant",
+          "signature": "Action → Organization/Person",
+          "parent": null,
+          "inverse_of": null,
+          "score": -6.654,
+          "matched_anchor": null,
+          "comment": "A collaborative relation between an action and an organization or person who indirectly participated in it. Also called collaborated with, involved, assisted by, co-agent. Examples: A writing action has a participant co-author. A research project has a participant researcher. A meeting has a participant attendee. Distinct from agent, which is the primary actor of an action.",
+          "embed_score": 0.745,
+          "embed_rank": 25
+        },
+        {
+          "source": "schema.org",
+          "label": "sportsTeam",
+          "signature": "ExerciseAction → SportsTeam",
+          "parent": "participant",
+          "inverse_of": null,
+          "score": -7.1843,
+          "matched_anchor": null,
+          "comment": "A participation relation between an exercise action and the sports team involved in it. Also called \"team participated\", \"team involved\", \"athletic team\". Examples: \"The goal was scored by the sportsTeam Real Madrid\", \"The race involved sportsTeam Team USA\", \"This action was performed by a sportsTeam.\". Distinct from participant, which is a more general participant property.",
+          "embed_score": 0.767,
+          "embed_rank": 7
+        },
+        {
+          "source": "schema.org",
+          "label": "candidate",
+          "signature": "VoteAction → Person",
+          "parent": "object",
+          "inverse_of": null,
+          "score": -8.0959,
+          "matched_anchor": null,
+          "comment": "A participation relation in a vote action, indicating the person who is being voted for. Also called \"voted for\", \"nominee\", \"electoral candidate\". Examples: \"Election vote action candidate Jane Smith\", \"Award vote action candidate John Doe\".",
+          "embed_score": 0.771,
+          "embed_rank": 6
+        },
+        {
+          "source": "schema.org",
+          "label": "member",
+          "signature": "Organization/ProgramMembership → Organization/Person",
+          "parent": null,
+          "inverse_of": "memberOf",
+          "score": -9.3773,
+          "matched_anchor": null,
+          "comment": "A member relation between an organization or program membership and an organization or person belonging to it. Also called: belongs to, is a part of, participant in. Examples: \"Club Organization member John Doe\", \"Team ProgramMembership member Jane Smith\", \"Alliance Organization member Partner Company\". Distinct from memberOf, which expresses the inverse relationship.",
+          "embed_score": 0.742,
+          "embed_rank": 37
+        },
+        {
+          "source": "schema.org",
+          "label": "eventAttendanceMode",
+          "signature": "Event → EventAttendanceModeEnumeration",
+          "parent": null,
+          "inverse_of": null,
+          "score": -9.3945,
+          "matched_anchor": null,
+          "comment": "An event attendance mode relation between an event and the enumeration indicating whether it occurs online, offline, or a mix. Also called \"attendance format\", \"event delivery mode\", \"participation mode\". Examples: \"Event 'Conference' eventAttendanceMode 'OnlineEventAttendanceMode'\", \"Event 'Workshop' eventAttendanceMode 'OfflineEventAttendanceMode'\", \"Event 'Hybrid Meeting' eventAttendanceMode 'MixedEventAttendanceMode'\".",
+          "embed_score": 0.74,
+          "embed_rank": 46
+        },
+        {
+          "source": "schema.org",
+          "label": "hasParticipationOffer",
+          "signature": "Event → Offer",
+          "parent": null,
+          "inverse_of": null,
+          "score": -9.5429,
+          "matched_anchor": null,
+          "comment": "A participation offer relation between an event and an offer to participate in it. Also called call for participation, participation opportunity, event entry offer. Examples: \"An event has a participation offer for speakers.\", \"The conference has a participation offer for proposals.\", \"This festival includes a participation offer for performers.\". Distinct from hasSponsorshipOffer, which is an offer to sponsor the event.",
+          "embed_score": 0.742,
+          "embed_rank": 39
+        }
+      ]
+    }
+  ]
+}

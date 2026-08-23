@@ -1,0 +1,329 @@
+[NbConvertApp] Converting notebook /Users/marwah/Documents/Thesis/TriplesExtractionFromWebLLMs/Phase2_LLM_Extraction/notebooks/e2e/6e_e2e_relation_canonicalization.ipynb to notebook
+/opt/anaconda3/lib/python3.12/site-packages/nbformat/__init__.py:93: MissingIDFieldWarning: Code cell is missing an id field, this will become a hard error in future nbformat versions. You may want to use `normalize()` on your notebooks before validations (available since nbformat 5.1.4). Previous versions of nbformat are fixing this issue transparently, and will stop doing so in the future.
+  validate(nb)
+/opt/anaconda3/lib/python3.12/site-packages/nbformat/__init__.py:93: DuplicateCellId: Non-unique cell id 'cell002' detected. Corrected to 'b8689452'.
+  validate(nb)
+Traceback (most recent call last):
+  File "/opt/anaconda3/bin/jupyter-nbconvert", line 11, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "/opt/anaconda3/lib/python3.12/site-packages/jupyter_core/application.py", line 283, in launch_instance
+    super().launch_instance(argv=argv, **kwargs)
+  File "/opt/anaconda3/lib/python3.12/site-packages/traitlets/config/application.py", line 1075, in launch_instance
+    app.start()
+  File "/opt/anaconda3/lib/python3.12/site-packages/nbconvert/nbconvertapp.py", line 412, in start
+    self.convert_notebooks()
+  File "/opt/anaconda3/lib/python3.12/site-packages/nbconvert/nbconvertapp.py", line 590, in convert_notebooks
+    self.convert_single_notebook(notebook_filename)
+  File "/opt/anaconda3/lib/python3.12/site-packages/nbconvert/nbconvertapp.py", line 556, in convert_single_notebook
+    output, resources = self.export_single_notebook(
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.12/site-packages/nbconvert/nbconvertapp.py", line 479, in export_single_notebook
+    output, resources = self.exporter.from_filename(
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.12/site-packages/nbconvert/exporters/exporter.py", line 203, in from_filename
+    return self.from_file(f, resources=resources, **kw)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.12/site-packages/nbconvert/exporters/exporter.py", line 222, in from_file
+    return self.from_notebook_node(
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.12/site-packages/nbconvert/exporters/notebook.py", line 36, in from_notebook_node
+    nb_copy, resources = super().from_notebook_node(nb, resources, **kw)
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.12/site-packages/nbconvert/exporters/exporter.py", line 156, in from_notebook_node
+    nb_copy, resources = self._preprocess(nb_copy, resources)
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.12/site-packages/nbconvert/exporters/exporter.py", line 354, in _preprocess
+    nbc, resc = preprocessor(nbc, resc)  # type:ignore[operator]
+                ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.12/site-packages/nbconvert/preprocessors/base.py", line 48, in __call__
+    return self.preprocess(nb, resources)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.12/site-packages/nbconvert/preprocessors/execute.py", line 102, in preprocess
+    self.preprocess_cell(cell, resources, index)
+  File "/opt/anaconda3/lib/python3.12/site-packages/nbconvert/preprocessors/execute.py", line 123, in preprocess_cell
+    cell = self.execute_cell(cell, index, store_history=True)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.12/site-packages/jupyter_core/utils/__init__.py", line 165, in wrapped
+    return loop.run_until_complete(inner)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.12/asyncio/base_events.py", line 687, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.12/site-packages/nbclient/client.py", line 1058, in async_execute_cell
+    await self._check_raise_for_error(cell, cell_index, exec_reply)
+  File "/opt/anaconda3/lib/python3.12/site-packages/nbclient/client.py", line 914, in _check_raise_for_error
+    raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
+nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
+------------------
+# ---- PERIODIC RE-CONSOLIDATION (CONSOLIDATE_EVERY) -------------------------------------------
+# The relation-side twin of 6d's periodic cell; see it for why the passes are accumulated instead of
+# refreshed one at a time (refresh_ext_after_consolidation composes merge chains from ONE report, so
+# refreshing per pass would drop the earlier ones and strand article 1 on a retired property id).
+#
+# Two things kept from the main build loop, which 6d does not have:
+#   prefetch   within a chunk the per-article calls are still independent while the inline pool is
+#              schema.org only, so PARALLEL_LLM keeps working — it is only ACROSS chunks that the
+#              vocabulary state matters.
+#   tokens     TOKENS accumulates across chunks and the ledger is rewritten at the end, so the cost
+#              file covers the whole stage rather than the first chunk.
+if CONSOLIDATE_EVERY and len(TODO_ALL) > len(todo):
+    _reports = [json.loads(CONSOLIDATION_REPORT_PATH.read_text())] if CONSOLIDATION_REPORT_PATH.exists() else []
+    _rest = TODO_ALL[len(todo):]
+    _chunks = [_rest[i:i + CONSOLIDATE_EVERY] for i in range(0, len(_rest), CONSOLIDATE_EVERY)]
+    print(f"periodic consolidation: {len(_chunks)} further chunk(s) of <= {CONSOLIDATE_EVERY} article(s)\n")
+
+    for _ci, _chunk in enumerate(_chunks, start=2):
+        # RECONCILING feed-back. A pass must only ever remove a property it RECORDED as merged;
+        # anything else that disappears is a term the per-article graphs still point at, and feeding
+        # a lossy vocabulary forward turns those references into dangling ids that no later pass can
+        # repair (it no longer knows the term existed). Measured on the first periodic 6e run: 5 of
+        # 29 removals had no merge record, orphaning 9 relations. Restore them and say so, rather
+        # than carrying the loss silently into the next chunk.
+        _prev = {t["id"]: t for t in load_vocab()["properties"]}
+        _con = load_consolidated()
+        _merged = {m["id"] for g in (_reports[-1].get("merges") or []) for m in (g.get("merged") or [])}
+        _lost = [i for i in _prev if i not in {t["id"] for t in _con["properties"]} and i not in _merged]
+        if _lost:
+            print(f"  [repair] {len(_lost)} property(s) left the vocabulary with no merge record "
+                  f"-- restoring: {_lost}")
+            _con["properties"] = _con["properties"] + [_prev[i] for i in _lost]
+        save_vocab(_con)
+        vocab = load_vocab()
+        print(f"── chunk {_ci}: {len(vocab['properties'])} propert(ies) carried forward | {_chunk}")
+        _pre = {}
+        if PARALLEL_LLM and not INLINE_VOCAB_CANDIDATES and len(_chunk) > 1:
+            _pre = {r.item: r.value for r in
+                    nb_parallel.pmap(lambda a: prefetch_assignments(a, vocab), _chunk, workers=WORKERS)
+                    if r.ok}
+        for aid in _chunk:
+            _ta = time.perf_counter()
+            with nb_parallel.usage_scope(aid):
+                process_article(aid, vocab, write=True, save=True, verbose=True, pre=_pre.get(aid))
+            _u = (_pre.get(aid) or {}).get("usage") or LAST_USAGE
+            TOKENS.append({"article": aid, "seconds": round(time.perf_counter() - _ta, 1),
+                           **(_u or {})})
+            if aid not in _pre:
+                time.sleep(5)
+        if CONSOLIDATE:
+            _reports.append(consolidate_vocab(load_vocab()))
+        else:
+            _consolidation_disabled()
+
+    if _reports:
+        _cum = dict(_reports[-1])
+        _cum["merges"] = [g for r in _reports for g in (r.get("merges") or [])]
+        _cum["reparents"] = [g for r in _reports for g in (r.get("reparents") or [])]
+        _cum["consolidation_passes"] = len(_reports)
+        _cum["n_merges"] = len(_cum["merges"])
+        _cum["n_reparented"] = sum(len(g.get("children") or []) for g in _cum["reparents"])
+        _cum["n_props_removed"] = sum(len(g.get("merged") or []) for g in _cum["merges"])
+        _cum["n_merged_into_schema"] = sum(len(g.get("merged") or []) for g in _cum["merges"]
+                                           if g.get("survivor_source") == "schema.org")
+        # NOT pass 1's "before" and pass 4's "after" — those describe different populations (the
+        # vocabulary after one chunk vs after twenty), and quoted as a pair they read as though
+        # consolidation GREW the vocabulary. The meaningful pair for a periodic run is the
+        # counterfactual: what the vocabulary would be had nothing been collapsed, against what it
+        # actually is. (Sanity check: before == next_id - 1, i.e. every id ever issued.)
+        _cum["vocab_size_after"] = _reports[-1].get("vocab_size_after")
+        _cum["vocab_size_before"] = (_cum["vocab_size_after"] or 0) + _cum["n_props_removed"]
+        _cum["per_pass"] = [{"before": r.get("vocab_size_before"), "after": r.get("vocab_size_after")}
+                            for r in _reports]
+        CONSOLIDATION_REPORT_PATH.write_text(json.dumps(_cum, indent=2, ensure_ascii=False))
+        print(f"\ncumulative report over {len(_reports)} pass(es) -> {CONSOLIDATION_REPORT_PATH.name}"
+              f"   {_cum['n_merges']} merge group(s), {_cum['n_props_removed']} propert(ies) removed")
+
+    refresh_ext_after_consolidation()          # once, with the composed mapping
+
+    _toktot = {k: sum((t.get(k) or 0) for t in TOKENS)
+               for k in ("prompt_tokens", "output_tokens", "thoughts_tokens", "total_tokens", "seconds")}
+    _tokp = RESULTS_DIR / "_global" / "e2e" / f"token_usage{_osfx}.json"
+    _tokp.write_text(json.dumps({"method": "candidate", "experiment": EXPERIMENT, "variant": VARIANT,
+                                 "prompt": PROMPT, "model": GEMINI_MODEL,
+                                 "consolidation_passes": len(_reports),
+                                 "per_article": TOKENS, "totals": _toktot}, indent=2, ensure_ascii=False))
+    print(f"\ndone — {len(load_consolidated()['properties'])} consolidated properties over "
+          f"{len(TODO_ALL)} article(s) | tokens {_toktot['total_tokens']:,} -> {_tokp.name}")
+
+# ---- INVARIANT: the consolidated graphs and the vocabulary must agree ---------------------------
+# Consolidating repeatedly can strand a graph on an id that no longer exists: a term merged in one
+# pass and merged AGAIN in a later one loses its trail. That failure is SILENT — the run finishes and
+# the counts look plausible. Three cheap checks, each of which has caught a real defect on this
+# corpus:
+#   dangling    an id the vocabulary no longer holds (the original check).
+#   duplicates  the SAME id held twice. A repair run that reused a run_tag re-issued P0558-P0563,
+#               already taken by six consolidation-generalize terms, and six relations then resolved
+#               to a different property than the one they were assigned. Ids still existed, so the
+#               dangling check saw nothing.
+#   labels      the reference's own label vs the label of the entry it points at. This is what
+#               catches a refresh that did not run: nb4's read the wrong field names, remapped
+#               nothing, and reported "0 nodes changed" while 65 references stayed on
+#               pre-consolidation terms.
+import glob as _glob
+_vocab = load_consolidated()["properties"]
+_live = {t["id"]: t.get("canonical_label") for t in _vocab}
+_dups = len(_vocab) - len(_live)
+_dangling, _mismatch, _checked = [], [], 0
+for _f in sorted(_glob.glob(str(RESULTS_DIR / "art*" / "e2e" / f"*{_osfx}_extended_consolidated.json"))):
+    _g = json.loads(Path(_f).read_text())
+    _aid = Path(_f).parts[-3]
+    for _coll in ("relations",):
+        for _n in _g.get(_coll, []):
+            _v = _n.get("vocab_id")
+            if not _v:
+                continue
+            _checked += 1
+            _lab = _n.get("property")
+            if _v not in _live:
+                _dangling.append((_aid, _v, _lab))
+            elif _lab != _live[_v]:
+                _mismatch.append((_aid, _v, _lab, _live[_v]))
+if _dups:
+    from collections import Counter as _C
+    _seen = _C(t["id"] for t in _vocab)
+    print(f"\n  *** {_dups} duplicated id(s) in the consolidated vocabulary: "
+          f"{[i for i, n in _seen.items() if n > 1][:10]}")
+if _dangling:
+    print(f"\n  *** {len(_dangling)} reference(s) to {len({d[1] for d in _dangling})} vanished property(s):")
+    for _d in _dangling[:10]:
+        print(f"      {_d[0]}  {_d[1]}  {_d[2]}")
+if _mismatch:
+    print(f"\n  *** {len(_mismatch)} reference(s) whose label disagrees with the vocabulary "
+          f"(a refresh that did not reach this data):")
+    for _d in _mismatch[:10]:
+        print(f"      {_d[0]}  {_d[1]}  graph says {_d[2]!r}, vocabulary says {_d[3]!r}")
+if _dups or _dangling or _mismatch:
+    raise AssertionError(
+        f"{_dups} duplicated id(s), {len(_dangling)} dangling reference(s) and "
+        f"{len(_mismatch)} label disagreement(s) between the consolidated graphs and the "
+        f"property vocabulary — these graphs are NOT safe to report. Fix before using this run.")
+print(f"  invariant OK — {_checked} vocabulary reference(s) resolve, with matching labels and no "
+      f"duplicated ids")
+
+------------------
+
+----- stdout -----
+periodic consolidation: 3 further chunk(s) of <= 5 article(s)
+
+  [repair] 3 property(s) left the vocabulary with no merge record -- restoring: ['P0003', 'P0014', 'P0029']
+── chunk 2: 61 propert(ies) carried forward | ['art8', 'art12', 'art17', 'art23', 'art44']
+5 item(s), running on 5 threads
+----- stdout -----
+[1/5] art23  (53.8s)
+----- stdout -----
+[2/5] art8  (61.8s)
+----- stdout -----
+[3/5] art12  (62.7s)
+----- stdout -----
+[4/5] art44  (75.0s)
+----- stdout -----
+[5/5] art17  (91.5s)
+
+done — 5/5 ok in 91.5s
+  art8: 15 phrases (0 split), 44 instances -> 44 triples (0 merged, 0 inverse-reused) | +11 minted | vocab now 72
+  art12: 18 phrases (0 split), 36 instances -> 36 triples (0 merged, 1 inverse-reused) | +9 minted | vocab now 81
+  art17: 25 phrases (1 split), 32 instances -> 32 triples (0 merged, 0 inverse-reused) | +18 minted | vocab now 99
+  art23: 11 phrases (0 split), 34 instances -> 34 triples (0 merged, 0 inverse-reused) | +7 minted | vocab now 106
+  art44: 22 phrases (0 split), 37 instances -> 37 triples (0 merged, 0 inverse-reused) | +12 minted | vocab now 118
+----- stdout -----
+consolidation (2 call): subprop_mode='subproperty' | pool=vocab+schema.org | 3 merge-group(s), 4 generalize-group(s), 19 removed (6 into schema.org), 2 re-parented (1 under schema.org) | vocab 118 -> 103
+  [merge/syno] keep schema.org 'validUntil' <= ['validUntil']
+  [merge/syno] keep schema.org 'winner' <= ['wonBy', 'won', 'hasWinner']
+  [merge/syno] keep schema.org 'loser' <= ['lostBy', 'defeated']
+  [generalize] new P0120 'timeInterval' <= ['occurredDuring', 'occurredSince', 'timeSpan']
+  [generalize] new P0121 'alertStatus' <= ['issuedAlert', 'declaredAlert', 'hasAlert']
+  [generalize] new P0122 'prizeAmount' <= ['hasPrizeAmount', 'hasTotalPrizeMoney', 'awardedPrizeMoney']
+  [generalize] new P0123 'statement' <= ['said', 'saidIncreaseInDeaths', 'madeStatement', 'saidBy']
+  [subproperty] ['about'] subPropertyOf about (schema.org)
+  [subproperty] ['agreedToEnsureSafePassageIn'] subPropertyOf claimedRightToControl
+  consolidated vocab -> /Users/marwah/Documents/Thesis/TriplesExtractionFromWebLLMs/Phase2_LLM_Extraction/results/gpt-oss-120b/_global/e2e/nary_relation_vocabulary_dedup_main_val_r1_consolidated.json  (raw nary_relation_vocabulary_dedup_main_val_r1.json untouched)
+  report -> /Users/marwah/Documents/Thesis/TriplesExtractionFromWebLLMs/Phase2_LLM_Extraction/results/gpt-oss-120b/_global/e2e/nary_relation_consolidation_report_dedup_main_val_r1.json
+  [repair] 13 property(s) left the vocabulary with no merge record -- restoring: ['P0006', 'P0010', 'P0012', 'P0013', 'P0016', 'P0018', 'P0038', 'P0040', 'P0041', 'P0062', 'P0003', 'P0014', 'P0075']
+── chunk 3: 116 propert(ies) carried forward | ['art46', 'art52', 'art55', 'art57', 'art58']
+5 item(s), running on 5 threads
+----- stdout -----
+[1/5] art57  (31.2s)
+----- stdout -----
+[2/5] art52  (54.3s)
+----- stdout -----
+[3/5] art46  (58.5s)
+----- stdout -----
+[4/5] art58  (84.8s)
+----- stdout -----
+[5/5] art55  (88.3s)
+
+done — 5/5 ok in 88.3s
+  art46: 18 phrases (0 split), 27 instances -> 26 triples (1 merged, 0 inverse-reused) | +7 minted | vocab now 123
+  art52: 16 phrases (0 split), 48 instances -> 48 triples (0 merged, 0 inverse-reused) | +12 minted | vocab now 135
+  art55: 20 phrases (0 split), 39 instances -> 39 triples (0 merged, 0 inverse-reused) | +13 minted | vocab now 148
+  art57: 7 phrases (0 split), 18 instances -> 18 triples (0 merged, 0 inverse-reused) | +1 minted | vocab now 149
+  art58: 22 phrases (1 split), 40 instances -> 40 triples (0 merged, 0 inverse-reused) | +14 minted | vocab now 163
+----- stdout -----
+[WARN] merge call failed (InternalServerError: Error code: 504 - {'error': {'message': 'Gateway timeout', 'param': None, 'code': 'GATEWAY_TIMEOUT', 'type': 'error'}, 'request_id': 'chatcmpl-cd7b1df470224ceca28d14f9ec52d792'})
+----- stdout -----
+consolidation (2 call): subprop_mode='subproperty' | pool=vocab+schema.org | 0 merge-group(s), 0 generalize-group(s), 0 removed (0 into schema.org), 15 re-parented (3 under schema.org) | vocab 163 -> 163
+  [subproperty] ['occurredDuring'] subPropertyOf occurredSince
+  [subproperty] ['issuedAlert'] subPropertyOf declaredAlert
+  [subproperty] ['saidIncreaseInDeaths'] subPropertyOf said
+  [subproperty] ['claimAboutEvent'] subPropertyOf about
+  [subproperty] ['relatedToEvent'] subPropertyOf claimAboutEvent
+  [subproperty] ['timeSpan'] subPropertyOf timeInterval
+  [subproperty] ['hasPrizeAmount'] subPropertyOf prizeAmount
+  [subproperty] ['hasVenue'] subPropertyOf location (schema.org)
+  [subproperty] ['includes'] subPropertyOf funder (schema.org)
+  [subproperty] ['studioSpunOff'] subPropertyOf subOrganization (schema.org)
+  [subproperty] ['hasGoalCount', 'hasAppearanceCount', 'hasTotalWildfiresCount', 'jobReductionCount'] subPropertyOf hasCount
+  [subproperty] ['appliesToContentFrom'] subPropertyOf describes
+  [guard] kept 'hasSymbolCount' under schema:wordCount (refused re-parent onto hasCount)
+  [guard] kept 'addedFeature' under schema:featureList (refused re-parent onto describes)
+  consolidated vocab -> /Users/marwah/Documents/Thesis/TriplesExtractionFromWebLLMs/Phase2_LLM_Extraction/results/gpt-oss-120b/_global/e2e/nary_relation_vocabulary_dedup_main_val_r1_consolidated.json  (raw nary_relation_vocabulary_dedup_main_val_r1.json untouched)
+  report -> /Users/marwah/Documents/Thesis/TriplesExtractionFromWebLLMs/Phase2_LLM_Extraction/results/gpt-oss-120b/_global/e2e/nary_relation_consolidation_report_dedup_main_val_r1.json
+── chunk 4: 163 propert(ies) carried forward | ['art59', 'art72', 'art73', 'art74']
+4 item(s), running on 4 threads
+----- stdout -----
+[1/4] art59  (66.8s)
+----- stdout -----
+[2/4] art72  (70.8s)
+----- stdout -----
+[3/4] art73  (84.7s)
+----- stdout -----
+[4/4] art74  (97.2s)
+
+done — 4/4 ok in 97.2s
+  art59: 12 phrases (1 split), 47 instances -> 47 triples (0 merged, 0 inverse-reused) | +9 minted | vocab now 172
+  art72: 22 phrases (0 split), 43 instances -> 43 triples (0 merged, 0 inverse-reused) | +9 minted | vocab now 181
+  art73: 22 phrases (0 split), 38 instances -> 38 triples (0 merged, 0 inverse-reused) | +16 minted | vocab now 197
+  art74: 25 phrases (0 split), 31 instances -> 31 triples (0 merged, 0 inverse-reused) | +15 minted | vocab now 212
+----- stdout -----
+    [llm_backend] TRUNCATED at 7102 output tokens after 367s — raise the server's --max-model-len (MAXLEN=...), or if the count is far above the sizing note, it is a repetition loop (try temperature=0.6)
+    [json_repair] salvaged a malformed response (25532 chars)
+------------------
+
+[0;31m---------------------------------------------------------------------------[0m
+[0;31mAttributeError[0m                            Traceback (most recent call last)
+Cell [0;32mIn[23], line 51[0m
+[1;32m     49[0m         time[38;5;241m.[39msleep([38;5;241m5[39m)
+[1;32m     50[0m [38;5;28;01mif[39;00m CONSOLIDATE:
+[0;32m---> 51[0m     _reports[38;5;241m.[39mappend(consolidate_vocab(load_vocab()))
+[1;32m     52[0m [38;5;28;01melse[39;00m:
+[1;32m     53[0m     _consolidation_disabled()
+
+Cell [0;32mIn[21], line 405[0m, in [0;36mconsolidate_vocab[0;34m(vocab, write_report, verbose)[0m
+[1;32m    402[0m gate_m [38;5;241m=[39m ([38;5;124m"[39m[38;5;124m"[39m [38;5;28;01mif[39;00m ALLOW_GENERALIZE [38;5;28;01melse[39;00m
+[1;32m    403[0m           [38;5;124m"[39m[38;5;130;01m\n[39;00m[38;5;124mDo NOT return GENERALIZE groups; use only entries that already exist.[39m[38;5;124m"[39m)
+[1;32m    404[0m groups_m, shortlist, _adj [38;5;241m=[39m _judge(ents_sorted, MERGE_PROMPT, gate_m, [38;5;124m"[39m[38;5;124mmerge[39m[38;5;124m"[39m)
+[0;32m--> 405[0m _apply(_split_label_collisions(_normalize_generalize(_only(_derive_kind(groups_m), [38;5;28;01mFalse[39;00m, [38;5;124m"[39m[38;5;124mmerge[39m[38;5;124m"[39m))))
+[1;32m    407[0m [38;5;66;03m# PASS 2 — hierarchy over the SURVIVORS, with shortlists retrieved fresh from the post-merge[39;00m
+[1;32m    408[0m [38;5;66;03m# vocabulary: slots that merged-away entries were occupying now hold real candidates, and no[39;00m
+[1;32m    409[0m [38;5;66;03m# child can be parented under an entry pass 1 just deleted.[39;00m
+[1;32m    410[0m [38;5;28;01mif[39;00m SUBPROP_MODE [38;5;241m!=[39m [38;5;124m"[39m[38;5;124moff[39m[38;5;124m"[39m:
+
+Cell [0;32mIn[21], line 226[0m, in [0;36mconsolidate_vocab.<locals>._derive_kind[0;34m(groups)[0m
+[1;32m    224[0m out [38;5;241m=[39m []
+[1;32m    225[0m [38;5;28;01mfor[39;00m g [38;5;129;01min[39;00m groups:
+[0;32m--> 226[0m     [38;5;28;01mif[39;00m (g[38;5;241m.[39mget([38;5;124m"[39m[38;5;124mkind[39m[38;5;124m"[39m) [38;5;129;01mor[39;00m [38;5;124m"[39m[38;5;124m"[39m)[38;5;241m.[39mstrip():
+[1;32m    227[0m         out[38;5;241m.[39mappend(g); [38;5;28;01mcontinue[39;00m
+[1;32m    228[0m     mints [38;5;241m=[39m [38;5;28mbool[39m((g[38;5;241m.[39mget([38;5;124m"[39m[38;5;124mnew_label[39m[38;5;124m"[39m) [38;5;129;01mor[39;00m [38;5;124m"[39m[38;5;124m"[39m)[38;5;241m.[39mstrip()) [38;5;129;01mand[39;00m [38;5;129;01mnot[39;00m g[38;5;241m.[39mget([38;5;124m"[39m[38;5;124mkeep_id[39m[38;5;124m"[39m)
+
+[0;31mAttributeError[0m: 'list' object has no attribute 'get'
+

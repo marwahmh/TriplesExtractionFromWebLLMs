@@ -48,4 +48,31 @@ fi
 
 MODEL=$(printf '%s\n' "$JOBS" | awk -v n="$NODE" '$2==n {$1=""; $2=""; print substr($0,3); exit}')
 echo "tunnel: localhost:${PORT}  ->  ${NODE}:8000   [${MODEL}]   (Ctrl-C to stop)"
-exec ssh -N -L "${PORT}:${NODE}.lab-ia.local:8000" slurm
+# Keepalive + reconnect. A plain `ssh -N -L` forward is silently dropped by a NAT or firewall
+# idle timeout, and llm_backend.py has no retry of its own — so on a multi-hour canonicalization
+# stage a dropped tunnel ends the stage, and with FRESH=True that means redoing every article.
+# ServerAlive* makes ssh notice within ~90s; the loop puts the forward back. RECONNECT=0 restores
+# the old single-shot behaviour.
+SSH_OPTS=(-N -o ServerAliveInterval=30 -o ServerAliveCountMax=3 -o ExitOnForwardFailure=yes
+          -L "${PORT}:${NODE}.lab-ia.local:8000")
+
+if [ "${RECONNECT:-1}" != "1" ]; then
+  exec ssh "${SSH_OPTS[@]}" slurm
+fi
+
+trap 'echo; echo "tunnel closed."; exit 0' INT TERM
+fails=0
+while true; do
+  t0=$SECONDS
+  ssh "${SSH_OPTS[@]}" slurm || true
+  # A tunnel that ran a while and then dropped is worth reopening. One that dies instantly, over
+  # and over, means the job ended or the node changed — stop rather than spin.
+  if [ $((SECONDS - t0)) -lt 15 ]; then fails=$((fails + 1)); else fails=0; fi
+  if [ "$fails" -ge 5 ]; then
+    echo "  tunnel failed 5x in a row inside 15s — the vLLM job has probably ended."
+    echo "  check:  ssh slurm 'squeue -u \$USER'"
+    exit 1
+  fi
+  echo "  tunnel dropped $(date +%H:%M:%S) — reconnecting in 5s (Ctrl-C to stop)"
+  sleep 5
+done

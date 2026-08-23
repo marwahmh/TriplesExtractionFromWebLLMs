@@ -5,7 +5,7 @@
   "types": [
     {
       "oie_type": "Country",
-      "embedding_query_text": "Country: A sovereign nation-state recognized as a political entity. Also called nation, state, sovereign state, country. Examples: Democratic Republic of Congo, Uganda, France, DR Congo.",
+      "embedding_query_text": "Country: A sovereign nation-state recognized as a political entity. Also called nation, state, republic, nation-state. Examples: Democratic Republic of Congo, Uganda, France, DR Congo.",
       "chosen_type": {
         "label": "Country",
         "source": "schema.org",
@@ -14,7 +14,7 @@
         "definition": null,
         "parent": null,
         "path": "Thing > Place > AdministrativeArea",
-        "justification": "Country matches the mentions of sovereign nations."
+        "justification": "Mentions are sovereign nations; schema.org Country matches exactly."
       },
       "llm_proposed": {
         "source": "schema.org",
@@ -31,7 +31,7 @@
           "source": "schema.org",
           "label": "Country",
           "path": "Thing > Place > AdministrativeArea",
-          "score": 0.85,
+          "score": 0.847,
           "comment": "A Country is a sovereign state or nation, representing a primary administrative division of the Earth's surface. Also called nation, state, sovereign state, realm. Examples: United States, Canada, France, Japan, Brazil."
         },
         {
@@ -45,7 +45,7 @@
           "source": "schema.org",
           "label": "PoliticalParty",
           "path": "Thing > Organization",
-          "score": 0.773,
+          "score": 0.774,
           "comment": "A PoliticalParty is an Organization formed to contest elections and hold power in government. Also called political movement, party. Examples: Democratic Party, Republican Party, Labour Party, Conservative Party."
         },
         {
@@ -57,82 +57,75 @@
         },
         {
           "source": "schema.org",
-          "label": "Embassy",
-          "path": "Thing > Place > CivicStructure > GovernmentBuilding",
-          "score": 0.764,
-          "comment": "An Embassy is a GovernmentBuilding representing the diplomatic mission of one country in another. Also called consulate, diplomatic mission, high commission. Examples: The U.S. Embassy in London, the French Embassy in Washington D.C., a country's consulate general."
+          "label": "Person",
+          "path": "Thing",
+          "score": 0.762,
+          "comment": "A Person is an individual human being, whether alive, dead, undead, or fictional. Also called individual, human, character. Examples: John Doe, Albert Einstein, Sherlock Holmes. Distinct from Organization, which is a group of people."
         }
       ]
     },
     {
-      "oie_type": "Organization",
-      "embedding_query_text": "Organization: An organized group of people with a particular purpose, such as a health agency, research institute, or news agency. Also called agency, institution, body, group, organisation. Examples: World Health Organization, Institut National de Recherche Biomédicale, Institute of Tropical Medicine, University of Oxford.",
+      "oie_type": "InternationalOrganization",
+      "embedding_query_text": "InternationalOrganization: An organization composed of multiple sovereign states that operates across national borders. Also called intergovernmental organization, global body, multinational agency, world body. Examples: World Health Organization, WHO.",
       "chosen_type": {
-        "label": "Organization",
+        "label": "MedicalOrganization",
         "source": "schema.org",
         "vocab_id": null,
         "is_new_to_vocab": false,
         "definition": null,
         "parent": null,
-        "path": "Thing",
-        "justification": "Organization covers all listed health and research institutions."
+        "path": "Thing > Organization",
+        "justification": "World Health Organization is a health‑focused organization, fitting MedicalOrganization."
       },
       "llm_proposed": {
         "source": "schema.org",
-        "label": "Organization",
+        "label": "MedicalOrganization",
         "is_new": false
       },
       "mentions": [
-        "World Health Organization",
-        "Institut National de Recherche Biomédicale",
-        "Institute of Tropical Medicine",
-        "University of Oxford",
-        "Africa CDC",
-        "US public health authorities",
-        "Reuters",
-        "AFP"
+        "World Health Organization"
       ],
       "candidates": [
         {
           "source": "schema.org",
-          "label": "Organization",
-          "path": "Thing",
-          "score": 0.893,
-          "comment": "An Organization is a group of people with a particular purpose, such as a school, NGO, corporation, or club. Also called entity, institution, association. Examples: Google, Harvard University, Red Cross, a local sports club. Distinct from Person, which is an individual."
-        },
-        {
-          "source": "schema.org",
           "label": "MedicalOrganization",
           "path": "Thing > Organization",
-          "score": 0.85,
+          "score": 0.848,
           "comment": "An organization, physical or virtual, operating in the medical domain, such as a hospital or clinic. Also called healthcare organization, medical institution, health system. Examples: \"Mayo Clinic\", \"World Health Organization\", \"Doctors Without Borders\". Distinct from Organization, which is a broader category for any group."
         },
         {
           "source": "schema.org",
-          "label": "ResearchOrganization",
+          "label": "GovernmentOrganization",
           "path": "Thing > Organization",
-          "score": 0.845,
-          "comment": "A ResearchOrganization is an Organization dedicated to conducting research. Also called scientific institute, research company, academic research center. Examples: Max Planck Society, Bell Labs, a university research department, a pharmaceutical research firm."
-        },
-        {
-          "source": "schema.org",
-          "label": "SearchRescueOrganization",
-          "path": "Thing > Organization",
-          "score": 0.839,
-          "comment": "An organization dedicated to finding and providing aid to people who are lost or in imminent danger. Also called SAR team, rescue service, emergency search unit. Examples: a mountain rescue team, a coast guard search and rescue unit, a volunteer SAR group."
+          "score": 0.841,
+          "comment": "A GovernmentOrganization is an organization or agency that is part of a governmental body. Also called public sector entity, state agency, governmental body. Examples: Department of Defense, Environmental Protection Agency, National Institutes of Health, local city council."
         },
         {
           "source": "schema.org",
           "label": "SportsOrganization",
           "path": "Thing > Organization",
-          "score": 0.838,
+          "score": 0.835,
           "comment": "A general category for organizations involved in sports, including teams, governing bodies, and associations. Also called athletic organization, sports body, sports group. Examples: the NBA, a local youth soccer league, the International Olympic Committee."
+        },
+        {
+          "source": "schema.org",
+          "label": "ResearchOrganization",
+          "path": "Thing > Organization",
+          "score": 0.814,
+          "comment": "A ResearchOrganization is an Organization dedicated to conducting research. Also called scientific institute, research company, academic research center. Examples: Max Planck Society, Bell Labs, a university research department, a pharmaceutical research firm."
+        },
+        {
+          "source": "schema.org",
+          "label": "EducationalOrganization",
+          "path": "Thing > Place > CivicStructure",
+          "score": 0.814,
+          "comment": "An EducationalOrganization is a CivicStructure that provides education. Also called learning institution, academic body, school. Examples: A university, a high school, a vocational college, a research institute."
         }
       ]
     },
     {
       "oie_type": "Person",
-      "embedding_query_text": "Person: An individual human being. Also called individual, human, figure, official, personage. Examples: Tedros Adhanom Ghebreyesus, Samuel Roger Kamba, Tedros, WHO chief Tedros.",
+      "embedding_query_text": "Person: An individual human being. Also called individual, human, figure, personage. Examples: Tedros Adhanom Ghebreyesus, Dr Samuel Roger Kamba, Pregnant woman (Ebola positive), Suspected Ebola patient.",
       "chosen_type": {
         "label": "Person",
         "source": "schema.org",
@@ -141,7 +134,7 @@
         "definition": null,
         "parent": null,
         "path": "Thing",
-        "justification": "Person matches the individual names provided."
+        "justification": "All mentions are individual humans; schema.org Person is appropriate."
       },
       "llm_proposed": {
         "source": "schema.org",
@@ -150,22 +143,24 @@
       },
       "mentions": [
         "Tedros Adhanom Ghebreyesus",
-        "Samuel Roger Kamba"
+        "Dr Samuel Roger Kamba",
+        "Pregnant woman (Ebola positive)",
+        "Suspected Ebola patient"
       ],
       "candidates": [
         {
           "source": "schema.org",
           "label": "Person",
           "path": "Thing",
-          "score": 0.866,
+          "score": 0.867,
           "comment": "A Person is an individual human being, whether alive, dead, undead, or fictional. Also called individual, human, character. Examples: John Doe, Albert Einstein, Sherlock Holmes. Distinct from Organization, which is a group of people."
         },
         {
           "source": "schema.org",
-          "label": "Organization",
-          "path": "Thing",
-          "score": 0.796,
-          "comment": "An Organization is a group of people with a particular purpose, such as a school, NGO, corporation, or club. Also called entity, institution, association. Examples: Google, Harvard University, Red Cross, a local sports club. Distinct from Person, which is an individual."
+          "label": "IndividualPhysician",
+          "path": "Thing > Organization > LocalBusiness > MedicalBusiness > Physician",
+          "score": 0.803,
+          "comment": "An IndividualPhysician is a medical business representing a single medical practitioner. Also called doctor, medical doctor, general practitioner, specialist. Examples: Dr. Jane Smith (a family doctor), Dr. John Doe (a cardiologist), a local pediatrician. Distinct from Physician, which is the general role, and MedicalOrganization, which is a facility."
         },
         {
           "source": "schema.org",
@@ -176,23 +171,23 @@
         },
         {
           "source": "schema.org",
-          "label": "IndividualPhysician",
-          "path": "Thing > Organization > LocalBusiness > MedicalBusiness > Physician",
-          "score": 0.787,
-          "comment": "An IndividualPhysician is a medical business representing a single medical practitioner. Also called doctor, medical doctor, general practitioner, specialist. Examples: Dr. Jane Smith (a family doctor), Dr. John Doe (a cardiologist), a local pediatrician. Distinct from Physician, which is the general role, and MedicalOrganization, which is a facility."
+          "label": "InfectiousAgentClass",
+          "path": "Thing > Intangible > Enumeration > MedicalEnumeration",
+          "score": 0.784,
+          "comment": "InfectiousAgentClass is a medical enumeration of classes of agents or pathogens that transmit infectious diseases. Also called pathogen type, disease agent category, microbial class. Examples: 'Bacteria', 'Virus', 'Fungus', 'Parasite'."
         },
         {
           "source": "schema.org",
-          "label": "UKNonprofitType",
-          "path": "Thing > Intangible > Enumeration > NonprofitType",
-          "score": 0.784,
-          "comment": "An enumeration of specific non-profit organization types recognized within the United Kingdom. Also called UK charity type, British non-profit category, UK voluntary sector classification. Examples: a registered charity, a community interest company (CIC), a benevolent society."
+          "label": "ProfilePage",
+          "path": "Thing > CreativeWork > WebPage",
+          "score": 0.783,
+          "comment": "A ProfilePage is a WebPage dedicated to displaying information about a specific entity, such as a person or organization. Also called user profile, personal page, bio page. Examples: a LinkedIn profile, a social media user's page, an author's biography page, a company's \"About Us\" page."
         }
       ]
     },
     {
       "oie_type": "VirusSpecies",
-      "embedding_query_text": "VirusSpecies: A distinct species of virus within a larger virus family. Also called virus strain, viral species, pathogen species, virus type. Examples: Bundibugyo virus species.",
+      "embedding_query_text": "VirusSpecies: A distinct taxonomic group of viruses sharing common characteristics. Also called viral strain, virus type, virus variant, viral species. Examples: Bundibugyo virus.",
       "chosen_type": {
         "label": "Taxon",
         "source": "schema.org",
@@ -201,7 +196,7 @@
         "definition": null,
         "parent": null,
         "path": "Thing",
-        "justification": "Taxon represents the virus species mentioned."
+        "justification": "Bundibugyo virus is a biological species; Taxon captures taxonomic entities."
       },
       "llm_proposed": {
         "source": "schema.org",
@@ -209,62 +204,62 @@
         "is_new": false
       },
       "mentions": [
-        "Bundibugyo virus species"
+        "Bundibugyo virus"
       ],
       "candidates": [
         {
           "source": "schema.org",
           "label": "InfectiousAgentClass",
           "path": "Thing > Intangible > Enumeration > MedicalEnumeration",
-          "score": 0.796,
+          "score": 0.79,
           "comment": "InfectiousAgentClass is a medical enumeration of classes of agents or pathogens that transmit infectious diseases. Also called pathogen type, disease agent category, microbial class. Examples: 'Bacteria', 'Virus', 'Fungus', 'Parasite'."
         },
         {
           "source": "schema.org",
           "label": "Taxon",
           "path": "Thing",
-          "score": 0.786,
+          "score": 0.781,
           "comment": "A cohesive biological unit representing a group of organisms, such as a species, genus, or family. Also called biological classification, taxonomic group, species, genus. Examples: Homo sapiens, Canis familiaris, Felidae (cat family), Plantae (plant kingdom)."
         },
         {
           "source": "schema.org",
           "label": "InfectiousDisease",
           "path": "Thing > MedicalEntity > MedicalCondition",
-          "score": 0.786,
+          "score": 0.78,
           "comment": "An InfectiousDisease is a medical condition resulting from the presence of pathogenic microbial agents like viruses, bacteria, or fungi. Also called communicable disease, contagious illness, infection. Examples: influenza, COVID-19, malaria, tuberculosis. Distinct from MedicalCondition, which is a broader category for any health problem."
         },
         {
           "source": "schema.org",
           "label": "DDxElement",
           "path": "Thing > MedicalEntity > MedicalIntangible",
-          "score": 0.775,
+          "score": 0.777,
           "comment": "A DDxElement is an alternative, closely-related medical condition considered during differential diagnosis, along with the distinguishing signs. Also called differential diagnosis item, alternative diagnosis, rule-out condition. Examples: Considering \"strep throat\" as a DDxElement for a patient presenting with a sore throat and fever, alongside \"common cold.\""
         },
         {
           "source": "schema.org",
           "label": "MedicalRiskFactor",
           "path": "Thing > MedicalEntity",
-          "score": 0.772,
+          "score": 0.774,
           "comment": "A medical entity representing anything that increases a person's likelihood of developing a disease, medical condition, or complication. Also called risk element, predisposing factor, vulnerability. Examples: \"smoking\", \"high cholesterol\", \"family history of heart disease\", \"obesity\". Distinct from MedicalRiskEstimator, which is a tool to calculate risk based on multiple factors."
         }
       ]
     },
     {
       "oie_type": "Disease",
-      "embedding_query_text": "Disease: An illness caused by a pathogen affecting the body. Also called illness, infection, sickness, condition. Examples: Ebola.",
+      "embedding_query_text": "Disease: A medical condition characterized by specific signs and symptoms. Also called illness, ailment, infection, malady. Examples: Ebola.",
       "chosen_type": {
-        "label": "InfectiousDisease",
+        "label": "MedicalCondition",
         "source": "schema.org",
         "vocab_id": null,
         "is_new_to_vocab": false,
         "definition": null,
         "parent": null,
-        "path": "Thing > MedicalEntity > MedicalCondition",
-        "justification": "InfectiousDisease accurately describes Ebola as an infectious disease."
+        "path": "Thing > MedicalEntity",
+        "justification": "Ebola is a disease; MedicalCondition covers diseases and disorders."
       },
       "llm_proposed": {
         "source": "schema.org",
-        "label": "InfectiousDisease",
+        "label": "MedicalCondition",
         "is_new": false
       },
       "mentions": [
@@ -273,221 +268,163 @@
       "candidates": [
         {
           "source": "schema.org",
-          "label": "InfectiousDisease",
-          "path": "Thing > MedicalEntity > MedicalCondition",
-          "score": 0.833,
-          "comment": "An InfectiousDisease is a medical condition resulting from the presence of pathogenic microbial agents like viruses, bacteria, or fungi. Also called communicable disease, contagious illness, infection. Examples: influenza, COVID-19, malaria, tuberculosis. Distinct from MedicalCondition, which is a broader category for any health problem."
-        },
-        {
-          "source": "schema.org",
           "label": "MedicalCondition",
           "path": "Thing > MedicalEntity",
-          "score": 0.814,
+          "score": 0.823,
           "comment": "A medical entity representing any condition of the human body that affects normal functioning, including diseases, injuries, disabilities, and disorders. Also called disease, illness, health disorder, ailment. Examples: \"influenza\", \"diabetes\", \"a broken arm\", \"depression\", \"asthma\"."
         },
         {
           "source": "schema.org",
-          "label": "InfectiousAgentClass",
-          "path": "Thing > Intangible > Enumeration > MedicalEnumeration",
-          "score": 0.808,
-          "comment": "InfectiousAgentClass is a medical enumeration of classes of agents or pathogens that transmit infectious diseases. Also called pathogen type, disease agent category, microbial class. Examples: 'Bacteria', 'Virus', 'Fungus', 'Parasite'."
-        },
-        {
-          "source": "schema.org",
-          "label": "MedicalCause",
-          "path": "Thing > MedicalEntity",
-          "score": 0.803,
-          "comment": "A medical entity representing the causative agent(s) responsible for a pathophysiologic process leading to a medical condition, symptom, or sign. Also called etiology, causative factor, underlying reason. Examples: \"HIV virus\" as a cause of AIDS, \"pulmonary embolism\" as a cause of cardiac arrest, \"bacterial infection\"."
-        },
-        {
-          "source": "schema.org",
-          "label": "Drug",
-          "path": "Thing > Product",
-          "score": 0.803,
-          "comment": "A Drug is a Product that is a chemical or biological substance used as a medical therapy, having a physiological effect on an organism. Also called medicine, pharmaceutical, medication. Examples: Aspirin, Insulin, Penicillin, Ibuprofen."
-        }
-      ]
-    },
-    {
-      "oie_type": "Outbreak",
-      "embedding_query_text": "Outbreak: An occurrence of disease cases in a specific region over a period of time. Also called epidemic, flare‑up, spread, incident. Examples: Ebola outbreak in Democratic Republic of Congo, current outbreak of Ebola in DR Congo.",
-      "chosen_type": {
-        "label": "Event",
-        "source": "schema.org",
-        "vocab_id": null,
-        "is_new_to_vocab": false,
-        "definition": null,
-        "parent": null,
-        "path": "Thing",
-        "justification": "Event captures the occurrence of a disease outbreak."
-      },
-      "llm_proposed": {
-        "source": "schema.org",
-        "label": "Event",
-        "is_new": false
-      },
-      "mentions": [
-        "Ebola outbreak in Democratic Republic of Congo"
-      ],
-      "candidates": [
-        {
-          "source": "schema.org",
-          "label": "Event",
-          "path": "Thing",
-          "score": 0.804,
-          "comment": "An Event is a Thing happening at a specific time and location, such as a concert, lecture, or festival. Also called happening, occurrence, occasion. Examples: A rock concert, a public lecture, a sports match, a community festival."
-        },
-        {
-          "source": "schema.org",
-          "label": "ConferenceEvent",
-          "path": "Thing > Event",
-          "score": 0.783,
-          "comment": "An event specifically organized as a conference, typically involving presentations, discussions, and networking. Also called conference, convention, symposium, summit. Examples: A tech conference, an academic symposium, a business summit, a medical convention. Distinct from Event, which is a general occurrence."
-        },
-        {
-          "source": "schema.org",
           "label": "InfectiousDisease",
           "path": "Thing > MedicalEntity > MedicalCondition",
-          "score": 0.781,
+          "score": 0.818,
           "comment": "An InfectiousDisease is a medical condition resulting from the presence of pathogenic microbial agents like viruses, bacteria, or fungi. Also called communicable disease, contagious illness, infection. Examples: influenza, COVID-19, malaria, tuberculosis. Distinct from MedicalCondition, which is a broader category for any health problem."
         },
         {
           "source": "schema.org",
-          "label": "SportsEvent",
-          "path": "Thing > Event",
-          "score": 0.781,
-          "comment": "An event involving athletic competition or display. Also called athletic contest, game, match, sporting competition. Examples: a football game, an Olympic event, a marathon race, a tennis tournament."
-        },
-        {
-          "source": "schema.org",
-          "label": "TheaterEvent",
-          "path": "Thing > Event",
-          "score": 0.78,
-          "comment": "An event representing a live performance in a theater. Also called stage play, theatrical show, drama performance. Examples: a Broadway musical, a local community play, a Shakespearean tragedy."
-        }
-      ]
-    },
-    {
-      "oie_type": "TreatmentTrial",
-      "embedding_query_text": "TreatmentTrial: A clinical study testing the safety and efficacy of medical interventions. Also called clinical trial, study, experiment, investigation. Examples: Ebola treatment trial in Democratic Republic of Congo, trial of potential treatments, Ebola treatment trial.",
-      "chosen_type": {
-        "label": "MedicalTrial",
-        "source": "schema.org",
-        "vocab_id": null,
-        "is_new_to_vocab": false,
-        "definition": null,
-        "parent": null,
-        "path": "Thing > MedicalEntity > MedicalStudy",
-        "justification": "MedicalTrial is the schema.org class for clinical treatment trials."
-      },
-      "llm_proposed": {
-        "source": "schema.org",
-        "label": "MedicalTrial",
-        "is_new": false
-      },
-      "mentions": [
-        "Ebola treatment trial in Democratic Republic of Congo"
-      ],
-      "candidates": [
-        {
-          "source": "schema.org",
-          "label": "MedicalTrial",
-          "path": "Thing > MedicalEntity > MedicalStudy",
-          "score": 0.888,
-          "comment": "A medical study that uses a scientific process to compare the safety and efficacy of medical therapies or procedures, typically with random allocation to groups. Also called clinical trial, randomized controlled trial, interventional study. Examples: a Phase 3 drug trial, a study comparing two surgical techniques, a vaccine efficacy trial. Distinct from MedicalObservationalStudy, where treatment assignment is not controlled by the investigator."
-        },
-        {
-          "source": "schema.org",
-          "label": "MedicalTherapy",
-          "path": "Thing > MedicalEntity > MedicalProcedure > TherapeuticProcedure",
+          "label": "MedicalSignOrSymptom",
+          "path": "Thing > MedicalEntity > MedicalCondition",
           "score": 0.818,
-          "comment": "A therapeutic medical procedure designed to prevent, treat, and cure human diseases and medical conditions. Also called medical treatment, healthcare intervention, therapy regimen. Examples: \"pharmacotherapy\", \"behavioral therapy\", \"supportive therapy\", \"dialysis\". Distinct from MedicalProcedure, which is a broader category including diagnostic procedures."
+          "comment": "A medical condition representing any feature, objective or subjective, associated with a medical condition. Also called clinical manifestation, health indicator, disease feature. Examples: \"pain\", \"fever\", \"fatigue\", \"rash\", \"nausea\". Distinct from MedicalCondition, which is the underlying state itself."
         },
         {
           "source": "schema.org",
-          "label": "TherapeuticProcedure",
-          "path": "Thing > MedicalEntity > MedicalProcedure",
-          "score": 0.816,
-          "comment": "A medical procedure specifically intended to treat a health condition or improve a patient's well-being. Also called medical treatment, therapy, healing procedure. Examples: chemotherapy, physical therapy, surgical removal of a tumor."
+          "label": "MedicalIndication",
+          "path": "Thing > MedicalEntity",
+          "score": 0.806,
+          "comment": "A medical entity representing a condition or factor that suggests the use of a medical therapy. Also called indication for treatment, therapeutic rationale, medical justification. Examples: \"high blood pressure\" as an indication for antihypertensive drugs, \"fever\" as an indication for antipyretics."
         },
         {
           "source": "schema.org",
-          "label": "MedicalTrialDesign",
-          "path": "Thing > Intangible > Enumeration > MedicalEnumeration",
-          "score": 0.812,
-          "comment": "An enumeration of design models for medical trials. Also called clinical trial design, trial methodology, study architecture. Examples: \"RandomizedControlledTrial\", \"SingleBlindTrial\", \"DoubleBlindTrial\", \"CrossoverTrial\"."
-        },
-        {
-          "source": "schema.org",
-          "label": "MedicalObservationalStudy",
-          "path": "Thing > MedicalEntity > MedicalStudy",
-          "score": 0.811,
-          "comment": "A medical study that infers the effect of a treatment by observing a cohort of subjects over time, without investigator control over treatment assignment. Also called observational research, cohort study, epidemiological study. Examples: a study tracking health outcomes in smokers vs. non-smokers, a study on diet and disease incidence. Distinct from MedicalTrial, where subjects are randomly assigned to treatment groups."
+          "label": "MedicalSymptom",
+          "path": "Thing > MedicalEntity > MedicalCondition > MedicalSignOrSymptom",
+          "score": 0.803,
+          "comment": "A medical sign or symptom that is a subjective complaint sensed and expressed by the patient. Also called subjective symptom, patient complaint, reported feeling. Examples: \"stomachache\", \"lower-back pain\", \"fatigue\", \"headache\", \"nausea\". Distinct from MedicalSign, which is an objective finding."
         }
       ]
     },
     {
-      "oie_type": "Drug",
-      "embedding_query_text": "Drug: A chemical substance used for treatment or prevention of disease. Also called medication, pharmaceutical, antiviral, therapeutic. Examples: Antiviral drug, antiviral drugs.",
+      "oie_type": "ResearchInstitute",
+      "embedding_query_text": "ResearchInstitute: An organization dedicated to scientific research and development. Also called research center, laboratory, institute, research facility. Examples: Institut National de Recherche Biomédicale, Institute of Tropical Medicine.",
       "chosen_type": {
-        "label": "Drug",
+        "label": "ResearchOrganization",
         "source": "schema.org",
         "vocab_id": null,
         "is_new_to_vocab": false,
         "definition": null,
         "parent": null,
-        "path": "Thing > Product",
-        "justification": "Drug matches the mention of an antiviral drug."
+        "path": "Thing > Organization",
+        "justification": "Institutes described are research bodies; ResearchOrganization matches."
       },
       "llm_proposed": {
         "source": "schema.org",
-        "label": "Drug",
+        "label": "ResearchOrganization",
         "is_new": false
       },
       "mentions": [
-        "Antiviral drug"
+        "Institut National de Recherche Biomédicale",
+        "Institute of Tropical Medicine"
       ],
       "candidates": [
         {
           "source": "schema.org",
-          "label": "Drug",
-          "path": "Thing > Product",
-          "score": 0.886,
-          "comment": "A Drug is a Product that is a chemical or biological substance used as a medical therapy, having a physiological effect on an organism. Also called medicine, pharmaceutical, medication. Examples: Aspirin, Insulin, Penicillin, Ibuprofen."
+          "label": "ResearchOrganization",
+          "path": "Thing > Organization",
+          "score": 0.844,
+          "comment": "A ResearchOrganization is an Organization dedicated to conducting research. Also called scientific institute, research company, academic research center. Examples: Max Planck Society, Bell Labs, a university research department, a pharmaceutical research firm."
         },
         {
           "source": "schema.org",
-          "label": "DrugClass",
-          "path": "Thing > MedicalEntity",
-          "score": 0.831,
-          "comment": "A DrugClass is a MedicalEntity representing a category of medical drugs, grouped by general pharmacological class, common mechanisms of action, or physiological effects. Also called drug category, medication group, therapeutic class. Examples: Statins, Antibiotics, Antidepressants, Beta-blockers."
-        },
-        {
-          "source": "schema.org",
-          "label": "DrugStrength",
-          "path": "Thing > MedicalEntity > MedicalIntangible",
-          "score": 0.82,
-          "comment": "A DrugStrength is a MedicalIntangible representing a specific potency in which a medical drug is available in a particular country. Also called medication dosage, pharmaceutical concentration. Examples: \"500 mg tablets\", \"10 mg/mL solution\", \"25 mcg patch\"."
-        },
-        {
-          "source": "schema.org",
-          "label": "Pharmacy",
-          "path": "Thing > Organization > LocalBusiness > MedicalBusiness",
-          "score": 0.814,
-          "comment": "A Pharmacy is a local business that dispenses prescription medications and often sells over-the-counter drugs and health products. Also called drugstore, chemist, apothecary. Examples: CVS Pharmacy, Walgreens, a local independent pharmacy. Distinct from Physician, who provides medical consultations."
-        },
-        {
-          "source": "schema.org",
-          "label": "Substance",
-          "path": "Thing > MedicalEntity",
+          "label": "ResearchProject",
+          "path": "Thing > Organization > Project",
           "score": 0.813,
-          "comment": "Any matter of defined composition with discrete existence, which can be biological, mineral, or chemical. Also called material, chemical compound, element, matter. Examples: water, oxygen, penicillin, granite."
+          "comment": "A ResearchProject is a Project representing a planned enterprise aimed at scientific or academic inquiry. Also called research initiative, study, academic project. Examples: a clinical trial, a grant-funded scientific study, a historical research project, a university-led exploration."
+        },
+        {
+          "source": "schema.org",
+          "label": "DiagnosticLab",
+          "path": "Thing > Organization > MedicalOrganization",
+          "score": 0.808,
+          "comment": "A medical organization that provides on-site or off-site diagnostic services, such as testing and analysis. Also called Medical laboratory, pathology lab, clinical lab, testing facility. Examples: Quest Diagnostics, LabCorp, a hospital's pathology department. Distinct from MedicalClinic, which provides direct patient care and consultations."
+        },
+        {
+          "source": "schema.org",
+          "label": "SearchRescueOrganization",
+          "path": "Thing > Organization",
+          "score": 0.8,
+          "comment": "An organization dedicated to finding and providing aid to people who are lost or in imminent danger. Also called SAR team, rescue service, emergency search unit. Examples: a mountain rescue team, a coast guard search and rescue unit, a volunteer SAR group."
+        },
+        {
+          "source": "schema.org",
+          "label": "MedicalClinic",
+          "path": "Thing > Organization > LocalBusiness > MedicalBusiness",
+          "score": 0.795,
+          "comment": "A medical business facility, often associated with a hospital, dedicated to specific diagnosis and/or healthcare, typically for outpatients but sometimes inpatients. Also called clinic, healthcare center, medical facility. Examples: a dermatology clinic, a walk-in clinic, a university health clinic, a family practice. Distinct from Hospital, which is a larger institution providing comprehensive medical care."
+        }
+      ]
+    },
+    {
+      "oie_type": "University",
+      "embedding_query_text": "University: An institution of higher education and research granting academic degrees. Also called college, academic institution, higher education, scholarly institute. Examples: University of Oxford.",
+      "chosen_type": {
+        "label": "CollegeOrUniversity",
+        "source": "schema.org",
+        "vocab_id": null,
+        "is_new_to_vocab": false,
+        "definition": null,
+        "parent": null,
+        "path": "Thing > Place > CivicStructure > EducationalOrganization",
+        "justification": "University of Oxford is a higher‑education institution; CollegeOrUniversity is the exact class."
+      },
+      "llm_proposed": {
+        "source": "schema.org",
+        "label": "CollegeOrUniversity",
+        "is_new": false
+      },
+      "mentions": [
+        "University of Oxford"
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "CollegeOrUniversity",
+          "path": "Thing > Place > CivicStructure > EducationalOrganization",
+          "score": 0.83,
+          "comment": "A third-level educational institution providing higher education. Also called university, college, higher education institution. Examples: Harvard University, Oxford College, Massachusetts Institute of Technology, Sorbonne University. Distinct from EducationalOrganization, which is a broader category for any educational body."
+        },
+        {
+          "source": "schema.org",
+          "label": "School",
+          "path": "Thing > Place > CivicStructure > EducationalOrganization",
+          "score": 0.801,
+          "comment": "An educational organization providing instruction to students, typically for primary or secondary education. Also called educational institution, academy, learning center, college. Examples: a public elementary school, a private high school, a vocational school, a university."
+        },
+        {
+          "source": "schema.org",
+          "label": "ResearchOrganization",
+          "path": "Thing > Organization",
+          "score": 0.797,
+          "comment": "A ResearchOrganization is an Organization dedicated to conducting research. Also called scientific institute, research company, academic research center. Examples: Max Planck Society, Bell Labs, a university research department, a pharmaceutical research firm."
+        },
+        {
+          "source": "schema.org",
+          "label": "EducationalOrganization",
+          "path": "Thing > Place > CivicStructure",
+          "score": 0.795,
+          "comment": "An EducationalOrganization is a CivicStructure that provides education. Also called learning institution, academic body, school. Examples: A university, a high school, a vocational college, a research institute."
+        },
+        {
+          "source": "schema.org",
+          "label": "Thesis",
+          "path": "Thing > CreativeWork",
+          "score": 0.786,
+          "comment": "A scholarly document submitted by a candidate for an academic degree or professional qualification. Also called dissertation, academic paper, research thesis. Examples: a PhD dissertation, a master's thesis, an undergraduate honors thesis."
         }
       ]
     },
     {
       "oie_type": "Province",
-      "embedding_query_text": "Province: A primary administrative division within a country. Also called region, state, district, territory. Examples: South Kivu, North Kivu, Ituri, Tshopo.",
+      "embedding_query_text": "Province: A primary administrative subdivision of a country. Also called region, state, district, administrative area. Examples: South Kivu, North Kivu, Ituri, Tshopo.",
       "chosen_type": {
         "label": "State",
         "source": "schema.org",
@@ -496,7 +433,7 @@
         "definition": null,
         "parent": null,
         "path": "Thing > Place > AdministrativeArea",
-        "justification": "State corresponds to provinces as administrative divisions."
+        "justification": "The listed provinces are primary administrative subdivisions; State includes provinces."
       },
       "llm_proposed": {
         "source": "schema.org",
@@ -509,50 +446,49 @@
         "Ituri",
         "Tshopo",
         "Haut-Uele",
-        "Bas-Uele",
-        "Kinshasa"
+        "Bas-Uele"
       ],
       "candidates": [
         {
           "source": "schema.org",
           "label": "State",
           "path": "Thing > Place > AdministrativeArea",
-          "score": 0.825,
+          "score": 0.823,
           "comment": "A major administrative division of a country, such as a state or province. Also called province, region, territory, commonwealth. Examples: California, Ontario, Bavaria, Texas."
         },
         {
           "source": "schema.org",
           "label": "Country",
           "path": "Thing > Place > AdministrativeArea",
-          "score": 0.803,
+          "score": 0.805,
           "comment": "A Country is a sovereign state or nation, representing a primary administrative division of the Earth's surface. Also called nation, state, sovereign state, realm. Examples: United States, Canada, France, Japan, Brazil."
         },
         {
           "source": "schema.org",
           "label": "AdministrativeArea",
           "path": "Thing > Place",
-          "score": 0.783,
+          "score": 0.786,
           "comment": "An AdministrativeArea is a geographical region, typically governed by a specific authority. Also called political division, jurisdiction, governmental region, territory. Examples: A country, a state, a province, a city, a county."
         },
         {
           "source": "schema.org",
-          "label": "DefinedRegion",
-          "path": "Thing > Place",
-          "score": 0.776,
-          "comment": "A geographic area defined by specific, potentially non-administrative criteria, such as a set of postal codes or states. Also called Custom region, service area, delivery zone, sales territory. Examples: \"All US states except Alaska and Hawaii\", \"Postal codes 90210-90215\", \"The greater London area for delivery\". Distinct from AdministrativeArea, which is a politically defined region like a state or county."
+          "label": "City",
+          "path": "Thing > Place > AdministrativeArea",
+          "score": 0.772,
+          "comment": "A large and permanent human settlement, typically an administrative area with a defined government. Also called town, municipality, urban area, metropolis. Examples: New York City, London, Tokyo, Paris. Distinct from AdministrativeArea, which is a broader category including states, provinces, etc."
         },
         {
           "source": "schema.org",
           "label": "SchoolDistrict",
           "path": "Thing > Place > AdministrativeArea",
-          "score": 0.773,
+          "score": 0.771,
           "comment": "An administrative area responsible for the organization and operation of public schools within its geographical boundaries. Also called education district, school system, local education authority. Examples: 'Los Angeles Unified School District', 'New York City Department of Education', 'Springfield School District 186'."
         }
       ]
     },
     {
       "oie_type": "City",
-      "embedding_query_text": "City: An urban settlement with a large population. Also called town, metropolis, municipality, urban area. Examples: Kisangani, Geneva.",
+      "embedding_query_text": "City: An urban settlement with a large population and administrative significance. Also called metropolis, town, municipality, urban center. Examples: Kinshasa, Geneva, Kisangani.",
       "chosen_type": {
         "label": "City",
         "source": "schema.org",
@@ -561,7 +497,7 @@
         "definition": null,
         "parent": null,
         "path": "Thing > Place > AdministrativeArea",
-        "justification": "City matches the urban settlements mentioned."
+        "justification": "Kinshasa, Geneva, Kisangani are urban settlements; City is the correct class."
       },
       "llm_proposed": {
         "source": "schema.org",
@@ -569,59 +505,60 @@
         "is_new": false
       },
       "mentions": [
-        "Kisangani",
-        "Geneva"
+        "Kinshasa",
+        "Geneva",
+        "Kisangani"
       ],
       "candidates": [
         {
           "source": "schema.org",
           "label": "City",
           "path": "Thing > Place > AdministrativeArea",
-          "score": 0.86,
+          "score": 0.853,
           "comment": "A large and permanent human settlement, typically an administrative area with a defined government. Also called town, municipality, urban area, metropolis. Examples: New York City, London, Tokyo, Paris. Distinct from AdministrativeArea, which is a broader category including states, provinces, etc."
         },
         {
           "source": "schema.org",
           "label": "CityHall",
           "path": "Thing > Place > CivicStructure > GovernmentBuilding",
-          "score": 0.785,
+          "score": 0.788,
           "comment": "A government building serving as the administrative headquarters for a city or town. Also called town hall, municipal building, civic center. Examples: New York City Hall, London City Hall, a local town's municipal office. Distinct from GovernmentBuilding, which is a broader category for any government facility."
         },
         {
           "source": "schema.org",
           "label": "Zoo",
           "path": "Thing > Place > CivicStructure",
-          "score": 0.779,
+          "score": 0.777,
           "comment": "A civic structure and facility where wild animals are housed, exhibited, and often bred for conservation and public education. Also called zoological garden, animal park, wildlife park. Examples: San Diego Zoo, London Zoo, Bronx Zoo."
         },
         {
           "source": "schema.org",
           "label": "StadiumOrArena",
           "path": "Thing > Place > CivicStructure",
-          "score": 0.777,
+          "score": 0.776,
           "comment": "A large civic structure designed for sporting events, concerts, or other large-scale public gatherings. Also called stadium, arena, coliseum, sports complex. Examples: Wembley Stadium, Madison Square Garden, the Roman Colosseum."
         },
         {
           "source": "schema.org",
           "label": "ShoppingCenter",
           "path": "Thing > Organization > LocalBusiness",
-          "score": 0.774,
+          "score": 0.773,
           "comment": "A large retail complex containing multiple stores and businesses, often with shared parking. Also called mall, shopping mall, retail complex, plaza. Examples: 'Westfield Century City', 'Mall of America', 'The Grove'."
         }
       ]
     },
     {
       "oie_type": "ArmedGroup",
-      "embedding_query_text": "ArmedGroup: An organized group using armed force, often in conflict. Also called rebel group, militia, insurgent group, armed faction. Examples: M23 rebel group.",
+      "embedding_query_text": "ArmedGroup: An organized group that uses armed force to achieve political or territorial objectives. Also called militia, rebel group, insurgent group, armed faction. Examples: M23 rebel group, M23.",
       "chosen_type": {
         "label": "ArmedGroup",
         "source": "vocab",
-        "vocab_id": "T0020",
+        "vocab_id": "T0016",
         "is_new_to_vocab": true,
-        "definition": "ArmedGroup: An organized group that uses armed force, typically in conflict.",
+        "definition": "An organized group that uses armed force to pursue political or territorial objectives.",
         "parent": "Organization",
         "path": "Thing > Organization",
-        "justification": "No existing class fits an armed group; a new type is needed."
+        "justification": "No existing schema.org class captures rebel/armed groups; mint under Organization."
       },
       "llm_proposed": {
         "source": "new",
@@ -634,20 +571,6 @@
       "candidates": [
         {
           "source": "schema.org",
-          "label": "PerformingGroup",
-          "path": "Thing > Organization",
-          "score": 0.797,
-          "comment": "A PerformingGroup is an organization of performers, such as a band, orchestra, or circus. Also called performance ensemble, troupe, artistic group. Examples: Cirque du Soleil, a local theatre company, a dance troupe. Distinct from MusicGroup, which is specifically for musical performers."
-        },
-        {
-          "source": "schema.org",
-          "label": "MusicGroup",
-          "path": "Thing > Organization > PerformingGroup",
-          "score": 0.795,
-          "comment": "A MusicGroup, as a PerformingGroup, is an organization of musicians, such as a band or orchestra, or a solo musician. Also called band, musical ensemble, orchestra, solo artist. Examples: The Beatles, New York Philharmonic, Taylor Swift. Distinct from PerformingGroup, which is a broader category for any performance group."
-        },
-        {
-          "source": "schema.org",
           "label": "SearchRescueOrganization",
           "path": "Thing > Organization",
           "score": 0.789,
@@ -655,23 +578,37 @@
         },
         {
           "source": "schema.org",
-          "label": "TheaterGroup",
-          "path": "Thing > Organization > PerformingGroup",
-          "score": 0.783,
-          "comment": "An organization or company dedicated to producing and performing theatrical works. Also called theater company, drama troupe, acting ensemble. Examples: The Royal Shakespeare Company, Cirque du Soleil, a local amateur dramatics society."
+          "label": "PerformingGroup",
+          "path": "Thing > Organization",
+          "score": 0.788,
+          "comment": "A PerformingGroup is an organization of performers, such as a band, orchestra, or circus. Also called performance ensemble, troupe, artistic group. Examples: Cirque du Soleil, a local theatre company, a dance troupe. Distinct from MusicGroup, which is specifically for musical performers."
         },
         {
           "source": "schema.org",
-          "label": "Consortium",
+          "label": "PoliticalParty",
           "path": "Thing > Organization",
-          "score": 0.78,
-          "comment": "A membership organization typically composed of other organizations collaborating on a shared project or goal. Also called alliance, syndicate, federation, partnership. Examples: World Wide Web Consortium (W3C), a research consortium, a banking consortium, a joint venture. Distinct from Organization, which is a general grouping of people or entities."
+          "score": 0.787,
+          "comment": "A PoliticalParty is an Organization formed to contest elections and hold power in government. Also called political movement, party. Examples: Democratic Party, Republican Party, Labour Party, Conservative Party."
+        },
+        {
+          "source": "schema.org",
+          "label": "MusicGroup",
+          "path": "Thing > Organization > PerformingGroup",
+          "score": 0.786,
+          "comment": "A MusicGroup, as a PerformingGroup, is an organization of musicians, such as a band or orchestra, or a solo musician. Also called band, musical ensemble, orchestra, solo artist. Examples: The Beatles, New York Philharmonic, Taylor Swift. Distinct from PerformingGroup, which is a broader category for any performance group."
+        },
+        {
+          "source": "schema.org",
+          "label": "TheaterGroup",
+          "path": "Thing > Organization > PerformingGroup",
+          "score": 0.779,
+          "comment": "An organization or company dedicated to producing and performing theatrical works. Also called theater company, drama troupe, acting ensemble. Examples: The Royal Shakespeare Company, Cirque du Soleil, a local amateur dramatics society."
         }
       ]
     },
     {
       "oie_type": "Date",
-      "embedding_query_text": "Date: A specific calendar date. Also called day, calendar date, point in time, date. Examples: 1 July 2026, 3 July 2026, May 2026, 1July.",
+      "embedding_query_text": "Date: A specific calendar day or period expressed in a standardized format. Also called calendar date, day, time point, date stamp. Examples: 2 July 2026, 1 July 2026, May 2026.",
       "chosen_type": {
         "label": "Date",
         "source": "schema.org",
@@ -680,7 +617,7 @@
         "definition": null,
         "parent": null,
         "path": "",
-        "justification": "Date matches the specific calendar dates listed."
+        "justification": "Mentions are calendar dates; schema.org Date matches."
       },
       "llm_proposed": {
         "source": "schema.org",
@@ -688,8 +625,8 @@
         "is_new": false
       },
       "mentions": [
+        "2 July 2026",
         "1 July 2026",
-        "3 July 2026",
         "May 2026"
       ],
       "candidates": [
@@ -697,280 +634,225 @@
           "source": "schema.org",
           "label": "Date",
           "path": "",
-          "score": 0.847,
+          "score": 0.858,
           "comment": "Date is a data type representing a specific calendar date, typically formatted according to ISO 8601. Also called calendar date, specific day. Examples: \"2023-10-27\", \"1999-12-31\", \"0001-01-01\"."
-        },
-        {
-          "source": "schema.org",
-          "label": "DayOfWeek",
-          "path": "Thing > Intangible > Enumeration",
-          "score": 0.811,
-          "comment": "An enumeration representing a specific day of the week, used for scheduling or recurring events. Also called Weekday, calendar day, day name. Examples: Monday, Tuesday, Saturday, Sunday. Distinct from Date, which specifies a particular calendar date."
         },
         {
           "source": "schema.org",
           "label": "DateTime",
           "path": "",
-          "score": 0.804,
+          "score": 0.818,
           "comment": "A data type representing a specific point in time, combining both date and time components according to ISO 8601. Also called Timestamp, date and time string, ISO 8601 datetime. Examples: \"2023-10-27T10:30:00Z\", \"1999-12-31T23:59:59-05:00\", \"2024-01-15T14:00:00\". Distinct from Date, which only specifies a calendar date without time."
         },
         {
           "source": "schema.org",
           "label": "Time",
           "path": "",
-          "score": 0.803,
+          "score": 0.816,
           "comment": "A data type representing a specific point in time, typically in hh:mm:ss format, potentially with a timezone offset. Also called timestamp, clock time, time of day. Examples: \"14:30:00\", \"09:00:00Z\", \"17:45:30+01:00\"."
+        },
+        {
+          "source": "schema.org",
+          "label": "DayOfWeek",
+          "path": "Thing > Intangible > Enumeration",
+          "score": 0.807,
+          "comment": "An enumeration representing a specific day of the week, used for scheduling or recurring events. Also called Weekday, calendar day, day name. Examples: Monday, Tuesday, Saturday, Sunday. Distinct from Date, which specifies a particular calendar date."
         },
         {
           "source": "schema.org",
           "label": "Schedule",
           "path": "Thing > Intangible",
-          "score": 0.797,
+          "score": 0.803,
           "comment": "A definition of a repeating time period used to describe a regularly occurring event, specifying frequency, days, and start/end times. Also called timetable, recurring event plan, calendar entry, routine. Examples: a weekly yoga class schedule, a bus route timetable, a daily meeting schedule, a concert series calendar."
         }
       ]
     },
     {
-      "oie_type": "Virus",
-      "embedding_query_text": "Virus Examples: Ebola virus.",
+      "oie_type": "CaseCount",
+      "embedding_query_text": "CaseCount: A numeric value representing the number of reported cases, deaths, or recoveries of a disease. Also called tally, count, statistic, figure. Examples: 1,460 confirmed cases, 452 deaths, 213 recoveries, 150 suspected cases.",
       "chosen_type": {
-        "label": "Virus",
+        "label": "CaseCount",
         "source": "vocab",
-        "vocab_id": "T0021",
+        "vocab_id": "T0017",
         "is_new_to_vocab": true,
-        "definition": "Virus: A microscopic infectious agent consisting of genetic material encased in a protein coat.",
-        "parent": "MedicalEntity",
-        "path": "Thing > MedicalEntity",
-        "justification": "No class for a specific virus; a new Virus type is required."
+        "definition": "A numeric count representing the number of reported disease cases, deaths, or recoveries.",
+        "parent": "Intangible",
+        "path": "Thing > Intangible",
+        "justification": "No schema.org class models case counts; mint as an Intangible quantitative value."
       },
       "llm_proposed": {
         "source": "new",
-        "label": "Virus",
+        "label": "CaseCount",
         "is_new": true
       },
       "mentions": [
-        "Ebola virus"
+        "1,460 confirmed cases",
+        "452 deaths",
+        "213 recoveries",
+        "150 suspected cases",
+        "20 confirmed cases in Uganda",
+        "2 deaths in Uganda",
+        "1 confirmed case in France"
       ],
       "candidates": [
         {
           "source": "schema.org",
-          "label": "InfectiousAgentClass",
-          "path": "Thing > Intangible > Enumeration > MedicalEnumeration",
-          "score": 0.792,
-          "comment": "InfectiousAgentClass is a medical enumeration of classes of agents or pathogens that transmit infectious diseases. Also called pathogen type, disease agent category, microbial class. Examples: 'Bacteria', 'Virus', 'Fungus', 'Parasite'."
+          "label": "RsvpResponseType",
+          "path": "Thing > Intangible > Enumeration",
+          "score": 0.786,
+          "comment": "An enumeration type representing the possible responses to an RSVP request. Also called RSVP status, attendance response, invitation reply type. Examples: RsvpResponseType.Yes, RsvpResponseType.No, RsvpResponseType.MayBe."
         },
         {
           "source": "schema.org",
-          "label": "InfectiousDisease",
-          "path": "Thing > MedicalEntity > MedicalCondition",
-          "score": 0.787,
-          "comment": "An InfectiousDisease is a medical condition resulting from the presence of pathogenic microbial agents like viruses, bacteria, or fungi. Also called communicable disease, contagious illness, infection. Examples: influenza, COVID-19, malaria, tuberculosis. Distinct from MedicalCondition, which is a broader category for any health problem."
+          "label": "MedicalRiskCalculator",
+          "path": "Thing > MedicalEntity > MedicalRiskEstimator",
+          "score": 0.784,
+          "comment": "A medical risk estimator that is a complex mathematical calculation, often requiring an online tool, used to assess prognosis. Also called prognosis calculator, risk assessment tool, clinical prediction model. Examples: a calculator for cardiovascular disease risk, a tool for predicting cancer recurrence. Distinct from MedicalRiskScore, which is a simpler sum of risk factors."
         },
         {
           "source": "schema.org",
-          "label": "CovidTestingFacility",
-          "path": "Thing > Organization > LocalBusiness > MedicalBusiness > MedicalClinic",
-          "score": 0.769,
-          "comment": "A CovidTestingFacility is a medical clinic or other designated location where individuals can receive testing for the COVID-19 Coronavirus disease. Also called COVID test site, coronavirus testing center, SARS-CoV-2 testing facility. Examples: A drive-thru COVID testing center, a pharmacy offering COVID tests, a hospital's dedicated testing unit."
+          "label": "StatisticalPopulation",
+          "path": "Thing > Intangible",
+          "score": 0.784,
+          "comment": "A set of instances of a given type that satisfy specific constraints, used for statistical analysis. Also called statistical group, data population, sample group, target demographic. Examples: all persons with a home location in a specific city, all events occurring in a particular year, all news articles mentioning a certain keyword. Distinct from StatisticalVariable, which represents a measurable metric within a population."
         },
         {
           "source": "schema.org",
-          "label": "MedicalCondition",
-          "path": "Thing > MedicalEntity",
-          "score": 0.757,
-          "comment": "A medical entity representing any condition of the human body that affects normal functioning, including diseases, injuries, disabilities, and disorders. Also called disease, illness, health disorder, ailment. Examples: \"influenza\", \"diabetes\", \"a broken arm\", \"depression\", \"asthma\"."
+          "label": "EventStatusType",
+          "path": "Thing > Intangible > Enumeration > StatusEnumeration",
+          "score": 0.782,
+          "comment": "An EventStatusType is a StatusEnumeration whose instances represent various states an Event may be in. Also called event state, status of event. Examples: EventScheduled, EventCancelled, EventPostponed, EventRescheduled."
         },
         {
           "source": "schema.org",
-          "label": "MedicalSignOrSymptom",
-          "path": "Thing > MedicalEntity > MedicalCondition",
-          "score": 0.754,
-          "comment": "A medical condition representing any feature, objective or subjective, associated with a medical condition. Also called clinical manifestation, health indicator, disease feature. Examples: \"pain\", \"fever\", \"fatigue\", \"rash\", \"nausea\". Distinct from MedicalCondition, which is the underlying state itself."
+          "label": "MedicalRiskScore",
+          "path": "Thing > MedicalEntity > MedicalRiskEstimator",
+          "score": 0.781,
+          "comment": "A medical risk estimator that is a simple system summing risk factors to yield a score associated with prognosis. Also called clinical score, prognostic score, risk index. Examples: \"CHAD score\", \"TIMI risk score\", \"APACHE II score\". Distinct from MedicalRiskCalculator, which involves more complex mathematical calculations."
         }
       ]
     },
     {
-      "oie_type": "BodyPart",
-      "embedding_query_text": "BodyPart Examples: immune system, organs.",
+      "oie_type": "Drug",
+      "embedding_query_text": "Drug Examples: Two antiviral drugs.",
       "chosen_type": {
-        "label": "AnatomicalStructure",
+        "label": "Drug",
         "source": "schema.org",
         "vocab_id": null,
         "is_new_to_vocab": false,
         "definition": null,
         "parent": null,
-        "path": "Thing > MedicalEntity",
-        "justification": "AnatomicalStructure covers body parts like immune system and organs."
+        "path": "Thing > Product",
+        "justification": "Reference to antiviral drugs fits the Drug product class."
       },
       "llm_proposed": {
         "source": "schema.org",
-        "label": "AnatomicalStructure",
+        "label": "Drug",
         "is_new": false
       },
       "mentions": [
-        "immune system",
-        "organs"
+        "Two antiviral drugs"
       ],
       "candidates": [
         {
           "source": "schema.org",
-          "label": "AnatomicalStructure",
-          "path": "Thing > MedicalEntity",
-          "score": 0.817,
-          "comment": "An AnatomicalStructure is a MedicalEntity representing any part of the human body, such as organs, tissues, or cells. Also called body part, biological structure, anatomical component. Examples: The heart, a bone, a muscle, a neuron, the liver. Distinct from AnatomicalSystem, which is a group of structures working together."
+          "label": "DrugStrength",
+          "path": "Thing > MedicalEntity > MedicalIntangible",
+          "score": 0.784,
+          "comment": "A DrugStrength is a MedicalIntangible representing a specific potency in which a medical drug is available in a particular country. Also called medication dosage, pharmaceutical concentration. Examples: \"500 mg tablets\", \"10 mg/mL solution\", \"25 mcg patch\"."
         },
         {
           "source": "schema.org",
-          "label": "AnatomicalSystem",
-          "path": "Thing > MedicalEntity",
-          "score": 0.811,
-          "comment": "An AnatomicalSystem is a MedicalEntity comprising a group of anatomical structures that function together to perform a specific task. Also called organ system, biological system, body system. Examples: The circulatory system, the digestive system, the nervous system, the skeletal system. Distinct from AnatomicalStructure, which is an individual part of the body."
-        },
-        {
-          "source": "schema.org",
-          "label": "MedicalRiskFactor",
-          "path": "Thing > MedicalEntity",
-          "score": 0.804,
-          "comment": "A medical entity representing anything that increases a person's likelihood of developing a disease, medical condition, or complication. Also called risk element, predisposing factor, vulnerability. Examples: \"smoking\", \"high cholesterol\", \"family history of heart disease\", \"obesity\". Distinct from MedicalRiskEstimator, which is a tool to calculate risk based on multiple factors."
-        },
-        {
-          "source": "schema.org",
-          "label": "MedicalCondition",
-          "path": "Thing > MedicalEntity",
-          "score": 0.804,
-          "comment": "A medical entity representing any condition of the human body that affects normal functioning, including diseases, injuries, disabilities, and disorders. Also called disease, illness, health disorder, ailment. Examples: \"influenza\", \"diabetes\", \"a broken arm\", \"depression\", \"asthma\"."
-        },
-        {
-          "source": "schema.org",
-          "label": "BodyMeasurementTypeEnumeration",
-          "path": "Thing > Intangible > Enumeration > MeasurementTypeEnumeration",
-          "score": 0.798,
-          "comment": "A MeasurementTypeEnumeration listing various dimensions of a person's body, often used for clothing fit. Also called body dimension type, clothing size measurement, anthropometric measurement. Examples: \"Chest circumference\", \"Waist size\", \"Inseam length\", \"Shoe size\"."
-        }
-      ]
-    },
-    {
-      "oie_type": "Animal",
-      "embedding_query_text": "Animal Examples: fruit bats.",
-      "chosen_type": {
-        "label": "Animal",
-        "source": "vocab",
-        "vocab_id": "T0022",
-        "is_new_to_vocab": true,
-        "definition": "Animal: A living organism belonging to the kingdom Animalia, capable of movement and responsive behavior.",
-        "parent": "Thing",
-        "path": "Thing",
-        "justification": "No class for generic animals; a new Animal type is needed."
-      },
-      "llm_proposed": {
-        "source": "new",
-        "label": "Animal",
-        "is_new": true
-      },
-      "mentions": [
-        "fruit bats"
-      ],
-      "candidates": [
-        {
-          "source": "schema.org",
-          "label": "AnimalShelter",
-          "path": "Thing > Organization > LocalBusiness",
-          "score": 0.754,
-          "comment": "An AnimalShelter is a LocalBusiness that provides temporary housing and care for animals, often facilitating adoption. Also called animal rescue, humane society, pet shelter. Examples: The ASPCA, a local humane society, a dog rescue organization."
-        },
-        {
-          "source": "schema.org",
-          "label": "Winery",
-          "path": "Thing > Organization > LocalBusiness > FoodEstablishment",
-          "score": 0.742,
-          "comment": "A local business that produces wine, often including facilities for grape cultivation, wine production, and tasting. Also called vineyard, wine producer, wine estate. Examples: Robert Mondavi Winery, a local family-owned vineyard, a wine tasting room."
-        },
-        {
-          "source": "schema.org",
-          "label": "InfectiousAgentClass",
+          "label": "DrugPrescriptionStatus",
           "path": "Thing > Intangible > Enumeration > MedicalEnumeration",
-          "score": 0.738,
-          "comment": "InfectiousAgentClass is a medical enumeration of classes of agents or pathogens that transmit infectious diseases. Also called pathogen type, disease agent category, microbial class. Examples: 'Bacteria', 'Virus', 'Fungus', 'Parasite'."
-        },
-        {
-          "source": "schema.org",
-          "label": "VeterinaryCare",
-          "path": "Thing > Organization > MedicalOrganization",
-          "score": 0.738,
-          "comment": "A local business or organization providing medical services for animals. Also called vet clinic, animal hospital, veterinary practice. Examples: a local veterinary office, an emergency animal hospital, a mobile vet service."
-        },
-        {
-          "source": "schema.org",
-          "label": "Zoo",
-          "path": "Thing > Place > CivicStructure",
-          "score": 0.734,
-          "comment": "A civic structure and facility where wild animals are housed, exhibited, and often bred for conservation and public education. Also called zoological garden, animal park, wildlife park. Examples: San Diego Zoo, London Zoo, Bronx Zoo."
-        }
-      ]
-    },
-    {
-      "oie_type": "Substance",
-      "embedding_query_text": "Substance Examples: bodily fluids, blood.",
-      "chosen_type": {
-        "label": "Substance",
-        "source": "schema.org",
-        "vocab_id": null,
-        "is_new_to_vocab": false,
-        "definition": null,
-        "parent": null,
-        "path": "Thing > MedicalEntity",
-        "justification": "Substance matches bodily fluids and blood."
-      },
-      "llm_proposed": {
-        "source": "schema.org",
-        "label": "Substance",
-        "is_new": false
-      },
-      "mentions": [
-        "bodily fluids",
-        "blood"
-      ],
-      "candidates": [
-        {
-          "source": "schema.org",
-          "label": "Substance",
-          "path": "Thing > MedicalEntity",
-          "score": 0.841,
-          "comment": "Any matter of defined composition with discrete existence, which can be biological, mineral, or chemical. Also called material, chemical compound, element, matter. Examples: water, oxygen, penicillin, granite."
-        },
-        {
-          "source": "schema.org",
-          "label": "ChemicalSubstance",
-          "path": "Thing > BioChemEntity",
-          "score": 0.805,
-          "comment": "A portion of matter with constant composition, composed of molecular entities of the same or different types. Also called chemical compound, chemical, substance, molecule. Examples: Water (H2O), Sodium Chloride (NaCl), Ethanol, Oxygen."
+          "score": 0.777,
+          "comment": "A DrugPrescriptionStatus is a MedicalEnumeration indicating whether a drug is available by prescription or over-the-counter. Also called medication availability, prescription requirement. Examples: PrescriptionOnly, OverTheCounter."
         },
         {
           "source": "schema.org",
           "label": "Drug",
           "path": "Thing > Product",
-          "score": 0.797,
+          "score": 0.776,
           "comment": "A Drug is a Product that is a chemical or biological substance used as a medical therapy, having a physiological effect on an organism. Also called medicine, pharmaceutical, medication. Examples: Aspirin, Insulin, Penicillin, Ibuprofen."
         },
         {
           "source": "schema.org",
-          "label": "BioChemEntity",
-          "path": "Thing",
-          "score": 0.791,
-          "comment": "A fundamental Thing representing any biological, chemical, or biochemical substance or entity. Also called biochemical, chemical compound, biological entity, molecule. Examples: \"A protein molecule\", \"A specific gene sequence\", \"A synthetic chemical compound\", \"DNA\"."
+          "label": "DrugClass",
+          "path": "Thing > MedicalEntity",
+          "score": 0.775,
+          "comment": "A DrugClass is a MedicalEntity representing a category of medical drugs, grouped by general pharmacological class, common mechanisms of action, or physiological effects. Also called drug category, medication group, therapeutic class. Examples: Statins, Antibiotics, Antidepressants, Beta-blockers."
         },
         {
           "source": "schema.org",
-          "label": "MedicalRiskFactor",
-          "path": "Thing > MedicalEntity",
-          "score": 0.79,
-          "comment": "A medical entity representing anything that increases a person's likelihood of developing a disease, medical condition, or complication. Also called risk element, predisposing factor, vulnerability. Examples: \"smoking\", \"high cholesterol\", \"family history of heart disease\", \"obesity\". Distinct from MedicalRiskEstimator, which is a tool to calculate risk based on multiple factors."
+          "label": "InfectiousAgentClass",
+          "path": "Thing > Intangible > Enumeration > MedicalEnumeration",
+          "score": 0.774,
+          "comment": "InfectiousAgentClass is a medical enumeration of classes of agents or pathogens that transmit infectious diseases. Also called pathogen type, disease agent category, microbial class. Examples: 'Bacteria', 'Virus', 'Fungus', 'Parasite'."
         }
       ]
     },
     {
-      "oie_type": "Duration",
-      "embedding_query_text": "Duration Examples: incubation period.",
+      "oie_type": "FacilityCount",
+      "embedding_query_text": "FacilityCount Examples: 10 laboratories.",
+      "chosen_type": {
+        "label": "FacilityCount",
+        "source": "vocab",
+        "vocab_id": "T0018",
+        "is_new_to_vocab": true,
+        "definition": "A numeric count indicating the number of facilities (e.g., laboratories) of a given type.",
+        "parent": "Intangible",
+        "path": "Thing > Intangible",
+        "justification": "No existing class for counts of facilities; mint under Intangible."
+      },
+      "llm_proposed": {
+        "source": "new",
+        "label": "FacilityCount",
+        "is_new": true
+      },
+      "mentions": [
+        "10 laboratories"
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "DiagnosticLab",
+          "path": "Thing > Organization > MedicalOrganization",
+          "score": 0.795,
+          "comment": "A medical organization that provides on-site or off-site diagnostic services, such as testing and analysis. Also called Medical laboratory, pathology lab, clinical lab, testing facility. Examples: Quest Diagnostics, LabCorp, a hospital's pathology department. Distinct from MedicalClinic, which provides direct patient care and consultations."
+        },
+        {
+          "source": "schema.org",
+          "label": "MedicalTrialDesign",
+          "path": "Thing > Intangible > Enumeration > MedicalEnumeration",
+          "score": 0.78,
+          "comment": "An enumeration of design models for medical trials. Also called clinical trial design, trial methodology, study architecture. Examples: \"RandomizedControlledTrial\", \"SingleBlindTrial\", \"DoubleBlindTrial\", \"CrossoverTrial\"."
+        },
+        {
+          "source": "schema.org",
+          "label": "MedicalObservationalStudyDesign",
+          "path": "Thing > Intangible > Enumeration > MedicalEnumeration",
+          "score": 0.779,
+          "comment": "An enumeration of design models for observational medical studies. Also called observational study type, research design, epidemiological design. Examples: \"CohortStudy\", \"CaseControlStudy\", \"CrossSectionalStudy\"."
+        },
+        {
+          "source": "schema.org",
+          "label": "CovidTestingFacility",
+          "path": "Thing > Organization > LocalBusiness > MedicalBusiness > MedicalClinic",
+          "score": 0.775,
+          "comment": "A CovidTestingFacility is a medical clinic or other designated location where individuals can receive testing for the COVID-19 Coronavirus disease. Also called COVID test site, coronavirus testing center, SARS-CoV-2 testing facility. Examples: A drive-thru COVID testing center, a pharmacy offering COVID tests, a hospital's dedicated testing unit."
+        },
+        {
+          "source": "schema.org",
+          "label": "MedicalStudyStatus",
+          "path": "Thing > Intangible > Enumeration > MedicalEnumeration",
+          "score": 0.774,
+          "comment": "An enumeration representing the status of a medical study. Also called study phase, research status, trial stage. Examples: \"Recruiting\", \"Active, not recruiting\", \"Completed\", \"Terminated\"."
+        }
+      ]
+    },
+    {
+      "oie_type": "TimeRange",
+      "embedding_query_text": "TimeRange Examples: 2 to 21 days.",
       "chosen_type": {
         "label": "Duration",
         "source": "schema.org",
@@ -979,7 +861,7 @@
         "definition": null,
         "parent": null,
         "path": "Quantity",
-        "justification": "Duration matches the incubation period concept."
+        "justification": "The expression \"2 to 21 days\" denotes a time span; Duration captures this."
       },
       "llm_proposed": {
         "source": "schema.org",
@@ -987,104 +869,43 @@
         "is_new": false
       },
       "mentions": [
-        "incubation period"
+        "2 to 21 days"
       ],
       "candidates": [
         {
           "source": "schema.org",
+          "label": "Schedule",
+          "path": "Thing > Intangible",
+          "score": 0.78,
+          "comment": "A definition of a repeating time period used to describe a regularly occurring event, specifying frequency, days, and start/end times. Also called timetable, recurring event plan, calendar entry, routine. Examples: a weekly yoga class schedule, a bus route timetable, a daily meeting schedule, a concert series calendar."
+        },
+        {
+          "source": "schema.org",
+          "label": "ShippingDeliveryTime",
+          "path": "Thing > Intangible > StructuredValue",
+          "score": 0.78,
+          "comment": "A structured value providing details about the expected delivery times for product shipping. Also called delivery timeframe, estimated delivery, shipping lead time, transit time. Examples: 'ships in 1-2 business days', 'delivery by Friday', 'estimated 3-5 day transit'."
+        },
+        {
+          "source": "schema.org",
           "label": "Duration",
           "path": "Quantity",
-          "score": 0.822,
+          "score": 0.778,
           "comment": "As a Quantity, Duration represents a period of time, typically expressed in ISO 8601 format. Also called time span, period, length of time. Examples: \"PT1H30M\" (1 hour 30 minutes), \"P3D\" (3 days), \"PT2H\" (2 hours)."
         },
         {
           "source": "schema.org",
           "label": "ServicePeriod",
           "path": "Thing > Intangible > StructuredValue",
-          "score": 0.796,
+          "score": 0.77,
           "comment": "A structured value representing a duration for a service, often including constraints like cutoff times or business days. Also called service duration, operational window, delivery timeframe, handling period. Examples: a 2-day shipping period with a 3 PM cutoff, a 5-business-day processing time, a 24/7 support period."
         },
         {
           "source": "schema.org",
-          "label": "Schedule",
-          "path": "Thing > Intangible",
-          "score": 0.783,
-          "comment": "A definition of a repeating time period used to describe a regularly occurring event, specifying frequency, days, and start/end times. Also called timetable, recurring event plan, calendar entry, routine. Examples: a weekly yoga class schedule, a bus route timetable, a daily meeting schedule, a concert series calendar."
-        },
-        {
-          "source": "schema.org",
-          "label": "InstantaneousEvent",
-          "path": "Thing > Intangible > StructuredValue",
-          "score": 0.78,
-          "comment": "An InstantaneousEvent is a structured value representing an event with no duration, such as a single point in time. Also called momentary event, point event, discrete occurrence. Examples: a computer log entry, a timestamp, a single click on a webpage. Distinct from Event, which typically has a duration."
-        },
-        {
-          "source": "schema.org",
-          "label": "ShippingDeliveryTime",
-          "path": "Thing > Intangible > StructuredValue",
-          "score": 0.779,
-          "comment": "A structured value providing details about the expected delivery times for product shipping. Also called delivery timeframe, estimated delivery, shipping lead time, transit time. Examples: 'ships in 1-2 business days', 'delivery by Friday', 'estimated 3-5 day transit'."
-        }
-      ]
-    },
-    {
-      "oie_type": "Symptom",
-      "embedding_query_text": "Symptom Examples: fever, headache, tiredness.",
-      "chosen_type": {
-        "label": "MedicalSymptom",
-        "source": "schema.org",
-        "vocab_id": null,
-        "is_new_to_vocab": false,
-        "definition": null,
-        "parent": null,
-        "path": "Thing > MedicalEntity > MedicalCondition > MedicalSignOrSymptom",
-        "justification": "MedicalSymptom matches the listed symptoms."
-      },
-      "llm_proposed": {
-        "source": "schema.org",
-        "label": "MedicalSymptom",
-        "is_new": false
-      },
-      "mentions": [
-        "fever",
-        "headache",
-        "tiredness"
-      ],
-      "candidates": [
-        {
-          "source": "schema.org",
-          "label": "MedicalSymptom",
-          "path": "Thing > MedicalEntity > MedicalCondition > MedicalSignOrSymptom",
-          "score": 0.807,
-          "comment": "A medical sign or symptom that is a subjective complaint sensed and expressed by the patient. Also called subjective symptom, patient complaint, reported feeling. Examples: \"stomachache\", \"lower-back pain\", \"fatigue\", \"headache\", \"nausea\". Distinct from MedicalSign, which is an objective finding."
-        },
-        {
-          "source": "schema.org",
-          "label": "MedicalSignOrSymptom",
-          "path": "Thing > MedicalEntity > MedicalCondition",
-          "score": 0.778,
-          "comment": "A medical condition representing any feature, objective or subjective, associated with a medical condition. Also called clinical manifestation, health indicator, disease feature. Examples: \"pain\", \"fever\", \"fatigue\", \"rash\", \"nausea\". Distinct from MedicalCondition, which is the underlying state itself."
-        },
-        {
-          "source": "schema.org",
-          "label": "MedicalSign",
-          "path": "Thing > MedicalEntity > MedicalCondition > MedicalSignOrSymptom",
-          "score": 0.774,
-          "comment": "A medical sign or symptom that is an objective physical manifestation of a medical condition, discoverable by diagnostic tests or physical examination. Also called objective symptom, clinical sign, diagnostic finding. Examples: \"fever\", \"rash\", \"high blood pressure\", \"swelling\". Distinct from MedicalSymptom, which is subjective and reported by the patient."
-        },
-        {
-          "source": "schema.org",
-          "label": "DDxElement",
+          "label": "DoseSchedule",
           "path": "Thing > MedicalEntity > MedicalIntangible",
-          "score": 0.767,
-          "comment": "A DDxElement is an alternative, closely-related medical condition considered during differential diagnosis, along with the distinguishing signs. Also called differential diagnosis item, alternative diagnosis, rule-out condition. Examples: Considering \"strep throat\" as a DDxElement for a patient presenting with a sore throat and fever, alongside \"common cold.\""
-        },
-        {
-          "source": "schema.org",
-          "label": "HealthTopicContent",
-          "path": "Thing > CreativeWork > WebContent",
-          "score": 0.759,
-          "comment": "HealthTopicContent is web content about a specific aspect of a health topic, such as a medical condition, its symptoms, or treatments. Also called medical web content, health information article, wellness resource. Examples: an article explaining diabetes symptoms, a webpage detailing cancer treatments, a video on heart disease prevention."
+          "score": 0.769,
+          "comment": "A DoseSchedule is a MedicalIntangible specifying a particular regimen for administering a drug or supplement. Also called dosing regimen, medication schedule, treatment plan. Examples: \"Take one pill daily\", \"Apply twice a day for 7 days\", \"Administer 500mg every 8 hours\"."
         }
       ]
     }

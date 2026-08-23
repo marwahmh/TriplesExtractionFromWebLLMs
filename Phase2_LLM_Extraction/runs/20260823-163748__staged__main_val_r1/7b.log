@@ -1,0 +1,286 @@
+[NbConvertApp] Converting notebook /Users/marwah/Documents/Thesis/TriplesExtractionFromWebLLMs/Phase2_LLM_Extraction/notebooks/two_staged/7b_nary_property_extension.ipynb to notebook
+/opt/anaconda3/lib/python3.12/site-packages/nbformat/__init__.py:93: MissingIDFieldWarning: Code cell is missing an id field, this will become a hard error in future nbformat versions. You may want to use `normalize()` on your notebooks before validations (available since nbformat 5.1.4). Previous versions of nbformat are fixing this issue transparently, and will stop doing so in the future.
+  validate(nb)
+/opt/anaconda3/lib/python3.12/site-packages/nbformat/__init__.py:93: DuplicateCellId: Non-unique cell id 'cell002' detected. Corrected to '917f25f4'.
+  validate(nb)
+Traceback (most recent call last):
+  File "/opt/anaconda3/bin/jupyter-nbconvert", line 11, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "/opt/anaconda3/lib/python3.12/site-packages/jupyter_core/application.py", line 283, in launch_instance
+    super().launch_instance(argv=argv, **kwargs)
+  File "/opt/anaconda3/lib/python3.12/site-packages/traitlets/config/application.py", line 1075, in launch_instance
+    app.start()
+  File "/opt/anaconda3/lib/python3.12/site-packages/nbconvert/nbconvertapp.py", line 412, in start
+    self.convert_notebooks()
+  File "/opt/anaconda3/lib/python3.12/site-packages/nbconvert/nbconvertapp.py", line 590, in convert_notebooks
+    self.convert_single_notebook(notebook_filename)
+  File "/opt/anaconda3/lib/python3.12/site-packages/nbconvert/nbconvertapp.py", line 556, in convert_single_notebook
+    output, resources = self.export_single_notebook(
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.12/site-packages/nbconvert/nbconvertapp.py", line 479, in export_single_notebook
+    output, resources = self.exporter.from_filename(
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.12/site-packages/nbconvert/exporters/exporter.py", line 203, in from_filename
+    return self.from_file(f, resources=resources, **kw)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.12/site-packages/nbconvert/exporters/exporter.py", line 222, in from_file
+    return self.from_notebook_node(
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.12/site-packages/nbconvert/exporters/notebook.py", line 36, in from_notebook_node
+    nb_copy, resources = super().from_notebook_node(nb, resources, **kw)
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.12/site-packages/nbconvert/exporters/exporter.py", line 156, in from_notebook_node
+    nb_copy, resources = self._preprocess(nb_copy, resources)
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.12/site-packages/nbconvert/exporters/exporter.py", line 354, in _preprocess
+    nbc, resc = preprocessor(nbc, resc)  # type:ignore[operator]
+                ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.12/site-packages/nbconvert/preprocessors/base.py", line 48, in __call__
+    return self.preprocess(nb, resources)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.12/site-packages/nbconvert/preprocessors/execute.py", line 102, in preprocess
+    self.preprocess_cell(cell, resources, index)
+  File "/opt/anaconda3/lib/python3.12/site-packages/nbconvert/preprocessors/execute.py", line 123, in preprocess_cell
+    cell = self.execute_cell(cell, index, store_history=True)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.12/site-packages/jupyter_core/utils/__init__.py", line 165, in wrapped
+    return loop.run_until_complete(inner)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.12/asyncio/base_events.py", line 687, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.12/site-packages/nbclient/client.py", line 1058, in async_execute_cell
+    await self._check_raise_for_error(cell, cell_index, exec_reply)
+  File "/opt/anaconda3/lib/python3.12/site-packages/nbclient/client.py", line 914, in _check_raise_for_error
+    raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
+nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
+------------------
+# Incremental build.
+#
+# FRESH comes from the config. True: start from an EMPTY vocabulary and process ALL of
+# ARTICLE_ORDER — what a reported run does, reproducible from the config alone. False: keep the
+# existing nary_relation_vocabulary<_osfx>.json and extend it with NEW_ARTICLES only (or, if that is
+# empty, with every article that has no extended graph yet).
+NEW_ARTICLES = []          # used only when FRESH is False
+
+if FRESH:
+    vocab = {"properties": [], "next_id": 1}; save_vocab(vocab); todo = ARTICLE_ORDER
+else:
+    vocab = load_vocab()
+    todo  = NEW_ARTICLES or [a for a in ARTICLE_ORDER
+                             if not (RESULTS_DIR / a / f"two_staged/3_nary_graph/nary_graph{_osfx}_extended.json").exists()]
+
+# CONSOLIDATE_EVERY (config, 0 = off) re-consolidates every N articles instead of once at the end.
+# This cell then builds only the FIRST chunk — consolidate_vocab / refresh_ext_after_consolidation are
+# defined further down, so the remaining chunks are driven by the periodic cell BELOW them.
+TODO_ALL = list(todo)
+if CONSOLIDATE_EVERY:
+    todo = TODO_ALL[:CONSOLIDATE_EVERY]
+
+print(f"building property vocabulary over {len(todo)} article(s): {todo}\n")
+nb_parallel.reset_usage()          # the report below covers only the calls THIS run makes
+_t0 = time.perf_counter()
+
+LAST_USAGE = None
+TOKENS = []
+
+# Phase 1 — the LLM calls, in parallel when they are independent of the vocabulary (see PARALLEL_LLM
+# in the config cell). Nothing is applied here, so the vocabulary is untouched.
+_pre = {}
+if PARALLEL_LLM and INLINE_VOCAB_CANDIDATES:
+    print("PARALLEL_LLM ignored: INLINE_VOCAB_CANDIDATES is True, so each article's candidate list\n"
+          "depends on the vocabulary the earlier articles built — the calls are NOT independent.\n")
+elif PARALLEL_LLM and len(todo) > 1:
+    print(f"phase 1 — {len(todo)} LLM calls on {WORKERS} threads (inline pool is schema.org only)")
+    _pre = {r.item: r.value for r in
+            nb_parallel.pmap(lambda a: prefetch_assignments(a, vocab), todo, workers=WORKERS)
+            if r.ok}
+    print("\nphase 2 — applying to the vocabulary in ARTICLE_ORDER (no LLM calls)")
+
+# Phase 2 — apply, strictly in ARTICLE_ORDER, so the vocabulary evolves exactly as it would in a
+# sequential run and the written output is identical; only the API waiting was overlapped.
+for aid in todo:
+    _ta = time.perf_counter()
+    with nb_parallel.usage_scope(aid):      # tag this article's calls so the report breaks down per article
+        process_article(aid, vocab, write=True, save=True, verbose=True, pre=_pre.get(aid))
+    _u = (_pre.get(aid) or {}).get("usage") or LAST_USAGE   # prefetched -> that article's OWN counts
+    TOKENS.append({"article": aid, "seconds": round(time.perf_counter() - _ta, 1),
+                   **(_u or {})})           # tokens (incl. THINKING) + elapsed for that article
+    if aid not in _pre:                     # nothing to pace when the call already happened
+        time.sleep(5)
+print(f"\ndone — {len(vocab['properties'])} canonical properties in {VOCAB_PATH}")
+
+# Per-article token log, tagged per experiment so each run keeps its own (run_metrics reads it).
+_toktot = {k: sum((t.get(k) or 0) for t in TOKENS)
+           for k in ("prompt_tokens", "output_tokens", "thoughts_tokens", "total_tokens", "seconds")}
+_tokp = RESULTS_DIR / "_global" / f"token_usage{_osfx}.json"
+_tokp.write_text(json.dumps({"method": "candidate", "experiment": EXPERIMENT, "variant": VARIANT,
+                             "prompt": PROMPT, "model": GEMINI_MODEL,
+                             "per_article": TOKENS, "totals": _toktot}, indent=2, ensure_ascii=False))
+print(f"tokens (candidate): {_toktot} -> {_tokp.name}")
+
+# --- what this run cost: calls, prompt / output / THINKING tokens, and elapsed time ------------
+nb_parallel.usage_report(f"nb7b · n-ary relation canonicalization · {EXPERIMENT}",
+                         wall_seconds=time.perf_counter() - _t0,
+                         experiment=EXPERIMENT, run_tag=RUN_TAG)
+------------------
+
+----- stdout -----
+building property vocabulary over 5 article(s): ['art1', 'art2', 'art3', 'art4', 'art5']
+
+phase 1 — 5 LLM calls on 4 threads (inline pool is schema.org only)
+5 item(s), running on 4 threads
+----- stdout -----
+[1/5] art3  (25.6s)
+----- stdout -----
+[2/5] art4  (40.3s)
+----- stdout -----
+[3/5] art5  (31.8s)
+   FAILED: BadRequestError: Error code: 400 - {'error': {'object': 'error', 'type': 'invalid_request_error', 'code': 'invalid_request_error', 'message': "Floating point NaN (not-a-number) is detected in generation. It's likely a model issue leading to overflow. Please contact Fireworks if it's a Fireworks-hosted model or check your model weights if it's a custom model."}}
+----- stdout -----
+[4/5] art1  (67.3s)
+----- stdout -----
+[5/5] art2  (70.7s)
+
+done — 4/5 ok in 70.7s; FAILED: art5
+
+phase 2 — applying to the vocabulary in ARTICLE_ORDER (no LLM calls)
+  art1: 35 phrases (0 split), 132 instances -> 132 triples (0 merged, 18 inverse-reused) | +14 minted | vocab now 14
+  art2: 35 phrases (0 split), 75 instances -> 70 triples (5 merged, 6 inverse-reused) | +0 minted | vocab now 14
+  art3: 9 phrases (0 split), 11 instances -> 11 triples (0 merged, 1 inverse-reused) | +5 minted | vocab now 19
+  art4: 18 phrases (0 split), 61 instances -> 61 triples (0 merged, 11 inverse-reused) | +7 minted | vocab now 26
+------------------
+
+[0;31m---------------------------------------------------------------------------[0m
+[0;31mBadRequestError[0m                           Traceback (most recent call last)
+Cell [0;32mIn[18], line 48[0m
+[1;32m     46[0m _ta [38;5;241m=[39m time[38;5;241m.[39mperf_counter()
+[1;32m     47[0m [38;5;28;01mwith[39;00m nb_parallel[38;5;241m.[39musage_scope(aid):      [38;5;66;03m# tag this article's calls so the report breaks down per article[39;00m
+[0;32m---> 48[0m     process_article(aid, vocab, write[38;5;241m=[39m[38;5;28;01mTrue[39;00m, save[38;5;241m=[39m[38;5;28;01mTrue[39;00m, verbose[38;5;241m=[39m[38;5;28;01mTrue[39;00m, pre[38;5;241m=[39m_pre[38;5;241m.[39mget(aid))
+[1;32m     49[0m _u [38;5;241m=[39m (_pre[38;5;241m.[39mget(aid) [38;5;129;01mor[39;00m {})[38;5;241m.[39mget([38;5;124m"[39m[38;5;124musage[39m[38;5;124m"[39m) [38;5;129;01mor[39;00m LAST_USAGE   [38;5;66;03m# prefetched -> that article's OWN counts[39;00m
+[1;32m     50[0m TOKENS[38;5;241m.[39mappend({[38;5;124m"[39m[38;5;124marticle[39m[38;5;124m"[39m: aid, [38;5;124m"[39m[38;5;124mseconds[39m[38;5;124m"[39m: [38;5;28mround[39m(time[38;5;241m.[39mperf_counter() [38;5;241m-[39m _ta, [38;5;241m1[39m),
+[1;32m     51[0m                [38;5;241m*[39m[38;5;241m*[39m(_u [38;5;129;01mor[39;00m {})})           [38;5;66;03m# tokens (incl. THINKING) + elapsed for that article[39;00m
+
+Cell [0;32mIn[16], line 21[0m, in [0;36mprocess_article[0;34m(aid, vocab, write, save, verbose, pre)[0m
+[1;32m     17[0m [38;5;28;01mdef[39;00m [38;5;21mprocess_article[39m(aid, vocab, write[38;5;241m=[39m[38;5;28;01mTrue[39;00m, save[38;5;241m=[39m[38;5;28;01mTrue[39;00m, verbose[38;5;241m=[39m[38;5;28;01mTrue[39;00m, pre[38;5;241m=[39m[38;5;28;01mNone[39;00m):
+[1;32m     18[0m     [38;5;66;03m# `pre` is a prefetch_assignments() result. Everything BELOW this point mutates the vocabulary[39;00m
+[1;32m     19[0m     [38;5;66;03m# (mint / bump / save) and must therefore run one article at a time, in ARTICLE_ORDER.[39;00m
+[1;32m     20[0m     [38;5;28;01mif[39;00m pre [38;5;129;01mis[39;00m [38;5;28;01mNone[39;00m:
+[0;32m---> 21[0m         pre [38;5;241m=[39m prefetch_assignments(aid, vocab)
+[1;32m     22[0m     oie, by_id, rinfo [38;5;241m=[39m pre[[38;5;124m"[39m[38;5;124moie[39m[38;5;124m"[39m], pre[[38;5;124m"[39m[38;5;124mby_id[39m[38;5;124m"[39m], pre[[38;5;124m"[39m[38;5;124mrinfo[39m[38;5;124m"[39m]
+[1;32m     23[0m     phrases, qtexts, groups [38;5;241m=[39m pre[[38;5;124m"[39m[38;5;124mphrases[39m[38;5;124m"[39m], pre[[38;5;124m"[39m[38;5;124mqtexts[39m[38;5;124m"[39m], pre[[38;5;124m"[39m[38;5;124mgroups[39m[38;5;124m"[39m]
+
+Cell [0;32mIn[16], line 13[0m, in [0;36mprefetch_assignments[0;34m(aid, vocab)[0m
+[1;32m     11[0m oie, by_id, rinfo, phrases, qtexts, groups [38;5;241m=[39m load_article(aid)
+[1;32m     12[0m cands  [38;5;241m=[39m retrieve_candidates(qtexts, vocab)
+[0;32m---> 13[0m report [38;5;241m=[39m llm_assign(phrases, rinfo, groups, by_id, cands)   [38;5;66;03m# phrase -> [assignments][39;00m
+[1;32m     14[0m [38;5;28;01mreturn[39;00m {[38;5;124m"[39m[38;5;124moie[39m[38;5;124m"[39m: oie, [38;5;124m"[39m[38;5;124mby_id[39m[38;5;124m"[39m: by_id, [38;5;124m"[39m[38;5;124mrinfo[39m[38;5;124m"[39m: rinfo, [38;5;124m"[39m[38;5;124mphrases[39m[38;5;124m"[39m: phrases, [38;5;124m"[39m[38;5;124mqtexts[39m[38;5;124m"[39m: qtexts,
+[1;32m     15[0m         [38;5;124m"[39m[38;5;124mgroups[39m[38;5;124m"[39m: groups, [38;5;124m"[39m[38;5;124mcands[39m[38;5;124m"[39m: cands, [38;5;124m"[39m[38;5;124mreport[39m[38;5;124m"[39m: report, [38;5;124m"[39m[38;5;124musage[39m[38;5;124m"[39m: nb_parallel[38;5;241m.[39mlast_usage()}
+
+Cell [0;32mIn[14], line 26[0m, in [0;36mllm_assign[0;34m(phrases, rinfo, groups, by_id, cands)[0m
+[1;32m     24[0m     blocks[38;5;241m.[39mappend([38;5;124m"[39m[38;5;130;01m\n[39;00m[38;5;124m"[39m[38;5;241m.[39mjoin(b))
+[1;32m     25[0m user [38;5;241m=[39m [38;5;124mf[39m[38;5;124m"[39m[38;5;124mYou are given [39m[38;5;132;01m{[39;00m[38;5;28mlen[39m(phrases)[38;5;132;01m}[39;00m[38;5;124m GROUPS from one document.[39m[38;5;130;01m\n[39;00m[38;5;130;01m\n[39;00m[38;5;124m"[39m [38;5;241m+[39m [38;5;124m"[39m[38;5;130;01m\n[39;00m[38;5;130;01m\n[39;00m[38;5;124m"[39m[38;5;241m.[39mjoin(blocks)
+[0;32m---> 26[0m parsed  [38;5;241m=[39m parse_json(gemini_json(active_select_prompt(), user))
+[1;32m     27[0m results [38;5;241m=[39m parsed[38;5;241m.[39mget([38;5;124m"[39m[38;5;124mresults[39m[38;5;124m"[39m, parsed) [38;5;28;01mif[39;00m [38;5;28misinstance[39m(parsed, [38;5;28mdict[39m) [38;5;28;01melse[39;00m parsed
+[1;32m     28[0m [38;5;66;03m# skip bare strings the model may emit in place of a group object (see nb4 / 6c)[39;00m
+
+File [0;32m~/Documents/Thesis/TriplesExtractionFromWebLLMs/Phase2_LLM_Extraction/notebooks/llm_backend.py:265[0m, in [0;36mllm_json[0;34m(system_prompt, user_message, model, temperature)[0m
+[1;32m    262[0m     kwargs[[38;5;124m"[39m[38;5;124mmax_tokens[39m[38;5;124m"[39m] [38;5;241m=[39m MAX_OUTPUT_TOKENS
+[1;32m    264[0m t0 [38;5;241m=[39m time[38;5;241m.[39mperf_counter()
+[0;32m--> 265[0m resp [38;5;241m=[39m _client[38;5;241m.[39mchat[38;5;241m.[39mcompletions[38;5;241m.[39mcreate([38;5;241m*[39m[38;5;241m*[39mkwargs)
+[1;32m    266[0m elapsed [38;5;241m=[39m time[38;5;241m.[39mperf_counter() [38;5;241m-[39m t0        [38;5;66;03m# local: the global below is shared across threads[39;00m
+[1;32m    267[0m last_latency_s [38;5;241m=[39m elapsed
+
+File [0;32m~/.local/lib/python3.12/site-packages/openai/_utils/_utils.py:298[0m, in [0;36mrequired_args.<locals>.inner.<locals>.wrapper[0;34m(*args, **kwargs)[0m
+[1;32m    296[0m             msg [38;5;241m=[39m [38;5;124mf[39m[38;5;124m"[39m[38;5;124mMissing required argument: [39m[38;5;132;01m{[39;00mquote(missing[[38;5;241m0[39m])[38;5;132;01m}[39;00m[38;5;124m"[39m
+[1;32m    297[0m     [38;5;28;01mraise[39;00m [38;5;167;01mTypeError[39;00m(msg)
+[0;32m--> 298[0m [38;5;28;01mreturn[39;00m func([38;5;241m*[39margs, [38;5;241m*[39m[38;5;241m*[39mkwargs)
+
+File [0;32m~/.local/lib/python3.12/site-packages/openai/resources/chat/completions/completions.py:1296[0m, in [0;36mCompletions.create[0;34m(self, messages, model, audio, frequency_penalty, function_call, functions, logit_bias, logprobs, max_completion_tokens, max_tokens, metadata, modalities, moderation, n, parallel_tool_calls, prediction, presence_penalty, prompt_cache_key, prompt_cache_options, prompt_cache_retention, reasoning_effort, response_format, safety_identifier, seed, service_tier, stop, store, stream, stream_options, temperature, tool_choice, tools, top_logprobs, top_p, user, verbosity, web_search_options, extra_headers, extra_query, extra_body, timeout)[0m
+[1;32m   1247[0m [38;5;129m@required_args[39m([[38;5;124m"[39m[38;5;124mmessages[39m[38;5;124m"[39m, [38;5;124m"[39m[38;5;124mmodel[39m[38;5;124m"[39m], [[38;5;124m"[39m[38;5;124mmessages[39m[38;5;124m"[39m, [38;5;124m"[39m[38;5;124mmodel[39m[38;5;124m"[39m, [38;5;124m"[39m[38;5;124mstream[39m[38;5;124m"[39m])
+[1;32m   1248[0m [38;5;28;01mdef[39;00m [38;5;21mcreate[39m(
+[1;32m   1249[0m     [38;5;28mself[39m,
+[0;32m   (...)[0m
+[1;32m   1293[0m     timeout: [38;5;28mfloat[39m [38;5;241m|[39m httpx[38;5;241m.[39mTimeout [38;5;241m|[39m [38;5;28;01mNone[39;00m [38;5;241m|[39m NotGiven [38;5;241m=[39m not_given,
+[1;32m   1294[0m ) [38;5;241m-[39m[38;5;241m>[39m ChatCompletion [38;5;241m|[39m Stream[ChatCompletionChunk]:
+[1;32m   1295[0m     validate_response_format(response_format)
+[0;32m-> 1296[0m     [38;5;28;01mreturn[39;00m [38;5;28mself[39m[38;5;241m.[39m_post(
+[1;32m   1297[0m         [38;5;124m"[39m[38;5;124m/chat/completions[39m[38;5;124m"[39m,
+[1;32m   1298[0m         body[38;5;241m=[39mmaybe_transform(
+[1;32m   1299[0m             {
+[1;32m   1300[0m                 [38;5;124m"[39m[38;5;124mmessages[39m[38;5;124m"[39m: messages,
+[1;32m   1301[0m                 [38;5;124m"[39m[38;5;124mmodel[39m[38;5;124m"[39m: model,
+[1;32m   1302[0m                 [38;5;124m"[39m[38;5;124maudio[39m[38;5;124m"[39m: audio,
+[1;32m   1303[0m                 [38;5;124m"[39m[38;5;124mfrequency_penalty[39m[38;5;124m"[39m: frequency_penalty,
+[1;32m   1304[0m                 [38;5;124m"[39m[38;5;124mfunction_call[39m[38;5;124m"[39m: function_call,
+[1;32m   1305[0m                 [38;5;124m"[39m[38;5;124mfunctions[39m[38;5;124m"[39m: functions,
+[1;32m   1306[0m                 [38;5;124m"[39m[38;5;124mlogit_bias[39m[38;5;124m"[39m: logit_bias,
+[1;32m   1307[0m                 [38;5;124m"[39m[38;5;124mlogprobs[39m[38;5;124m"[39m: logprobs,
+[1;32m   1308[0m                 [38;5;124m"[39m[38;5;124mmax_completion_tokens[39m[38;5;124m"[39m: max_completion_tokens,
+[1;32m   1309[0m                 [38;5;124m"[39m[38;5;124mmax_tokens[39m[38;5;124m"[39m: max_tokens,
+[1;32m   1310[0m                 [38;5;124m"[39m[38;5;124mmetadata[39m[38;5;124m"[39m: metadata,
+[1;32m   1311[0m                 [38;5;124m"[39m[38;5;124mmodalities[39m[38;5;124m"[39m: modalities,
+[1;32m   1312[0m                 [38;5;124m"[39m[38;5;124mmoderation[39m[38;5;124m"[39m: moderation,
+[1;32m   1313[0m                 [38;5;124m"[39m[38;5;124mn[39m[38;5;124m"[39m: n,
+[1;32m   1314[0m                 [38;5;124m"[39m[38;5;124mparallel_tool_calls[39m[38;5;124m"[39m: parallel_tool_calls,
+[1;32m   1315[0m                 [38;5;124m"[39m[38;5;124mprediction[39m[38;5;124m"[39m: prediction,
+[1;32m   1316[0m                 [38;5;124m"[39m[38;5;124mpresence_penalty[39m[38;5;124m"[39m: presence_penalty,
+[1;32m   1317[0m                 [38;5;124m"[39m[38;5;124mprompt_cache_key[39m[38;5;124m"[39m: prompt_cache_key,
+[1;32m   1318[0m                 [38;5;124m"[39m[38;5;124mprompt_cache_options[39m[38;5;124m"[39m: prompt_cache_options,
+[1;32m   1319[0m                 [38;5;124m"[39m[38;5;124mprompt_cache_retention[39m[38;5;124m"[39m: prompt_cache_retention,
+[1;32m   1320[0m                 [38;5;124m"[39m[38;5;124mreasoning_effort[39m[38;5;124m"[39m: reasoning_effort,
+[1;32m   1321[0m                 [38;5;124m"[39m[38;5;124mresponse_format[39m[38;5;124m"[39m: response_format,
+[1;32m   1322[0m                 [38;5;124m"[39m[38;5;124msafety_identifier[39m[38;5;124m"[39m: safety_identifier,
+[1;32m   1323[0m                 [38;5;124m"[39m[38;5;124mseed[39m[38;5;124m"[39m: seed,
+[1;32m   1324[0m                 [38;5;124m"[39m[38;5;124mservice_tier[39m[38;5;124m"[39m: service_tier,
+[1;32m   1325[0m                 [38;5;124m"[39m[38;5;124mstop[39m[38;5;124m"[39m: stop,
+[1;32m   1326[0m                 [38;5;124m"[39m[38;5;124mstore[39m[38;5;124m"[39m: store,
+[1;32m   1327[0m                 [38;5;124m"[39m[38;5;124mstream[39m[38;5;124m"[39m: stream,
+[1;32m   1328[0m                 [38;5;124m"[39m[38;5;124mstream_options[39m[38;5;124m"[39m: stream_options,
+[1;32m   1329[0m                 [38;5;124m"[39m[38;5;124mtemperature[39m[38;5;124m"[39m: temperature,
+[1;32m   1330[0m                 [38;5;124m"[39m[38;5;124mtool_choice[39m[38;5;124m"[39m: tool_choice,
+[1;32m   1331[0m                 [38;5;124m"[39m[38;5;124mtools[39m[38;5;124m"[39m: tools,
+[1;32m   1332[0m                 [38;5;124m"[39m[38;5;124mtop_logprobs[39m[38;5;124m"[39m: top_logprobs,
+[1;32m   1333[0m                 [38;5;124m"[39m[38;5;124mtop_p[39m[38;5;124m"[39m: top_p,
+[1;32m   1334[0m                 [38;5;124m"[39m[38;5;124muser[39m[38;5;124m"[39m: user,
+[1;32m   1335[0m                 [38;5;124m"[39m[38;5;124mverbosity[39m[38;5;124m"[39m: verbosity,
+[1;32m   1336[0m                 [38;5;124m"[39m[38;5;124mweb_search_options[39m[38;5;124m"[39m: web_search_options,
+[1;32m   1337[0m             },
+[1;32m   1338[0m             completion_create_params[38;5;241m.[39mCompletionCreateParamsStreaming
+[1;32m   1339[0m             [38;5;28;01mif[39;00m stream
+[1;32m   1340[0m             [38;5;28;01melse[39;00m completion_create_params[38;5;241m.[39mCompletionCreateParamsNonStreaming,
+[1;32m   1341[0m         ),
+[1;32m   1342[0m         options[38;5;241m=[39mmake_request_options(
+[1;32m   1343[0m             extra_headers[38;5;241m=[39mextra_headers,
+[1;32m   1344[0m             extra_query[38;5;241m=[39mextra_query,
+[1;32m   1345[0m             extra_body[38;5;241m=[39mextra_body,
+[1;32m   1346[0m             timeout[38;5;241m=[39mtimeout,
+[1;32m   1347[0m             security[38;5;241m=[39m{[38;5;124m"[39m[38;5;124mbearer_auth[39m[38;5;124m"[39m: [38;5;28;01mTrue[39;00m},
+[1;32m   1348[0m         ),
+[1;32m   1349[0m         cast_to[38;5;241m=[39mChatCompletion,
+[1;32m   1350[0m         stream[38;5;241m=[39mstream [38;5;129;01mor[39;00m [38;5;28;01mFalse[39;00m,
+[1;32m   1351[0m         stream_cls[38;5;241m=[39mStream[ChatCompletionChunk],
+[1;32m   1352[0m     )
+
+File [0;32m~/.local/lib/python3.12/site-packages/openai/_base_client.py:1375[0m, in [0;36mSyncAPIClient.post[0;34m(self, path, cast_to, body, content, options, files, stream, stream_cls)[0m
+[1;32m   1366[0m     warnings[38;5;241m.[39mwarn(
+[1;32m   1367[0m         [38;5;124m"[39m[38;5;124mPassing raw bytes as `body` is deprecated and will be removed in a future version. [39m[38;5;124m"[39m
+[1;32m   1368[0m         [38;5;124m"[39m[38;5;124mPlease pass raw bytes via the `content` parameter instead.[39m[38;5;124m"[39m,
+[1;32m   1369[0m         [38;5;167;01mDeprecationWarning[39;00m,
+[1;32m   1370[0m         stacklevel[38;5;241m=[39m[38;5;241m2[39m,
+[1;32m   1371[0m     )
+[1;32m   1372[0m opts [38;5;241m=[39m FinalRequestOptions[38;5;241m.[39mconstruct(
+[1;32m   1373[0m     method[38;5;241m=[39m[38;5;124m"[39m[38;5;124mpost[39m[38;5;124m"[39m, url[38;5;241m=[39mpath, json_data[38;5;241m=[39mbody, content[38;5;241m=[39mcontent, files[38;5;241m=[39mto_httpx_files(files), [38;5;241m*[39m[38;5;241m*[39moptions
+[1;32m   1374[0m )
+[0;32m-> 1375[0m [38;5;28;01mreturn[39;00m cast(ResponseT, [38;5;28mself[39m[38;5;241m.[39mrequest(cast_to, opts, stream[38;5;241m=[39mstream, stream_cls[38;5;241m=[39mstream_cls))
+
+File [0;32m~/.local/lib/python3.12/site-packages/openai/_base_client.py:1148[0m, in [0;36mSyncAPIClient.request[0;34m(self, cast_to, options, stream, stream_cls)[0m
+[1;32m   1145[0m             err[38;5;241m.[39mresponse[38;5;241m.[39mread()
+[1;32m   1147[0m         log[38;5;241m.[39mdebug([38;5;124m"[39m[38;5;124mRe-raising status error[39m[38;5;124m"[39m)
+[0;32m-> 1148[0m         [38;5;28;01mraise[39;00m [38;5;28mself[39m[38;5;241m.[39m_make_status_error_from_response(err[38;5;241m.[39mresponse) [38;5;28;01mfrom[39;00m [38;5;28;01mNone[39;00m
+[1;32m   1150[0m     [38;5;28;01mbreak[39;00m
+[1;32m   1152[0m [38;5;28;01massert[39;00m response [38;5;129;01mis[39;00m [38;5;129;01mnot[39;00m [38;5;28;01mNone[39;00m, [38;5;124m"[39m[38;5;124mcould not resolve response (should never happen)[39m[38;5;124m"[39m
+
+[0;31mBadRequestError[0m: Error code: 400 - {'error': {'object': 'error', 'type': 'invalid_request_error', 'code': 'invalid_request_error', 'message': "Floating point NaN (not-a-number) is detected in generation. It's likely a model issue leading to overflow. Please contact Fireworks if it's a Fireworks-hosted model or check your model weights if it's a custom model."}}
+
