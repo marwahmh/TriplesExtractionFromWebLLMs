@@ -7,30 +7,32 @@
   "grounding_report": {
     "nary_nodes": {
       "total": 33,
-      "grounded": 33,
-      "rate": 1.0,
-      "failures": {},
+      "grounded": 29,
+      "rate": 0.879,
+      "failures": {
+        "extrinsic": 4
+      },
       "citation_status": {
         "found": 33
       },
       "citation_precision": {
-        "n": 33,
-        "matched": 21,
-        "rate": 0.636
+        "n": 29,
+        "matched": 26,
+        "rate": 0.897
       },
       "judge_quote_status": {
-        "found": 24,
-        "partial": 5,
-        "missing": 4
+        "found": 28,
+        "partial": 1
       }
     },
     "relations": {
       "total": 151,
-      "grounded": 134,
-      "rate": 0.887,
+      "grounded": 128,
+      "rate": 0.848,
       "failures": {
-        "intrinsic": 10,
-        "extrinsic": 7
+        "extrinsic": 10,
+        "orphan": 8,
+        "intrinsic": 5
       },
       "citation_status": {
         "found": 145,
@@ -38,44 +40,43 @@
         "partial": 2
       },
       "citation_precision": {
-        "n": 134,
-        "matched": 123,
-        "rate": 0.918
+        "n": 128,
+        "matched": 109,
+        "rate": 0.852
       },
       "judge_quote_status": {
         "found": 121,
-        "partial": 12,
+        "partial": 3,
         "missing": 4
       }
     },
     "relations_by_property_source": {
       "schema.org": {
         "total": 124,
-        "grounded": 115,
-        "rate": 0.927
+        "grounded": 106,
+        "rate": 0.855
       },
       "vocab": {
         "total": 27,
-        "grounded": 19,
-        "rate": 0.704
+        "grounded": 22,
+        "rate": 0.815
       }
     },
     "nodes_by_type_source": {
       "not_canonicalized": {
         "total": 33,
-        "grounded": 33,
-        "rate": 1.0
+        "grounded": 29,
+        "rate": 0.879
       }
     }
   },
   "grounding_config": {
     "method": "full_article",
-    "judge_backend": "qwen3-32b-think",
-    "judge_model": "qwen3-32b",
-    "judge_batch": 20,
-    "prompt_sha1": "67305d45abb6",
+    "backend": "gpt-oss-120b",
+    "model": "accounts/fireworks/models/gpt-oss-120b",
+    "judge_batch": 60,
     "graph": "nary_graph_dedup_main_val_r1_extended_consolidated.json",
-    "self_judged": false
+    "prompt_sha1": "67305d45abb6"
   },
   "entities": [
     {
@@ -497,6 +498,26 @@
       "type_vocab_id": null
     },
     {
+      "id": "E48",
+      "text": "families",
+      "type": "SocialGroup",
+      "aliases": [],
+      "type_source": "vocab",
+      "type_parent": "Organization",
+      "type_vocab_id": "T0104",
+      "type_definition": "A collection of people who interact with each other and share similar characteristics or a sense of unity."
+    },
+    {
+      "id": "E49",
+      "text": "affected communities",
+      "type": "SocialGroup",
+      "aliases": [],
+      "type_source": "vocab",
+      "type_parent": "Organization",
+      "type_vocab_id": "T0104",
+      "type_definition": "A collection of people who interact with each other and share similar characteristics or a sense of unity."
+    },
+    {
       "id": "E50",
       "text": "Ebola",
       "type": "InfectiousDisease",
@@ -583,24 +604,6 @@
       "id": "E59",
       "text": "virus",
       "type": "InfectiousAgentClass",
-      "aliases": [],
-      "type_source": "schema.org",
-      "type_parent": null,
-      "type_vocab_id": null
-    },
-    {
-      "id": "E60",
-      "text": "body's immune system",
-      "type": "AnatomicalSystem",
-      "aliases": [],
-      "type_source": "schema.org",
-      "type_parent": null,
-      "type_vocab_id": null
-    },
-    {
-      "id": "E61",
-      "text": "organs",
-      "type": "AnatomicalStructure",
       "aliases": [],
       "type_source": "schema.org",
       "type_parent": null,
@@ -844,15 +847,6 @@
       "type_vocab_id": null
     },
     {
-      "id": "E89",
-      "text": "symptoms",
-      "type": "MedicalSymptom",
-      "aliases": [],
-      "type_source": "schema.org",
-      "type_parent": null,
-      "type_vocab_id": null
-    },
-    {
       "id": "E90",
       "text": "fever",
       "type": "MedicalSymptom",
@@ -1006,10 +1000,10 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Ebola treatments trial begins in DR Congo",
+        "quote": "A trial of potential treatments for the species of virus behind the current deadly Ebola outbreak in the Democratic Republic of Congo has begun",
         "quote_status": "found",
         "quote_ratio": 1.0,
-        "citation_match": false,
+        "citation_match": true,
         "grounded": true
       }
     },
@@ -1086,7 +1080,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "The first patient has been enrolled in DR Congo",
+        "quote": "The first patient has been enrolled in DR Congo, WHO chief Tedros Adhanom Ghebreyesus said on Thursday",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -1126,9 +1120,9 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Tedros said ... 'The first patient has been enrolled in DR Congo'",
-        "quote_status": "missing",
-        "quote_ratio": 0.785,
+        "quote": "The first patient has been enrolled in DR Congo, WHO chief Tedros Adhanom Ghebreyesus said on Thursday",
+        "quote_status": "found",
+        "quote_ratio": 1.0,
         "citation_match": false,
         "grounded": true
       }
@@ -1166,7 +1160,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "More than 1,400 cases and 438 deaths have been confirmed",
+        "quote": "More than 1,400 cases and 438 deaths have been confirmed in the country, according to the WHO",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -1246,7 +1240,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "There are currently no approved vaccines or treatments for the Bundibugyo virus species",
+        "quote": "There are currently no approved vaccines or treatments for the Bundibugyo virus species of the disease, which is highly infectious",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -1286,10 +1280,10 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Tedros said: 'Even without approved therapeutics, people are recovering ...'",
-        "quote_status": "partial",
-        "quote_ratio": 0.868,
-        "citation_match": false,
+        "quote": "Even without approved therapeutics, people are recovering from this disease, but of course, we could save many more lives with safe and effective therapeutics in our toolkit",
+        "quote_status": "found",
+        "quote_ratio": 1.0,
+        "citation_match": true,
         "grounded": true
       }
     },
@@ -1326,10 +1320,10 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "DR Congo's Health Minister Dr Samuel Roger Kamba said the launch 'represents a significant step forward'",
-        "quote_status": "partial",
-        "quote_ratio": 0.894,
-        "citation_match": false,
+        "quote": "DR Congo's Health Minister Dr Samuel Roger Kamba said the launch \"represents a significant step forward, offering renewed hope to patients, their families, and affected communities\"",
+        "quote_status": "found",
+        "quote_ratio": 1.0,
+        "citation_match": true,
         "grounded": true
       }
     },
@@ -1366,7 +1360,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "The current outbreak of Ebola in DR Congo began in May",
+        "quote": "The current outbreak of Ebola in DR Congo began in May, though transmission had been going undetected for some time",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -1406,7 +1400,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "transmission had been going undetected for some time",
+        "quote": "though transmission had been going undetected for some time",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -1446,7 +1440,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "The situation has been declared a public health emergency by the WHO",
+        "quote": "The situation has been declared a public health emergency by the WHO, which says there have been 1,460 confirmed cases in DR Congo, with 150 suspected cases and 452 deaths, as of 1July",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -1486,10 +1480,10 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "1,460 confirmed cases ... 452 deaths, as of 1July",
-        "quote_status": "partial",
+        "quote": "there have been 1,460 confirmed cases in DR Congo, with 150 suspected cases and 452 deaths, as of 1July",
+        "quote_status": "found",
         "quote_ratio": 1.0,
-        "citation_match": false,
+        "citation_match": true,
         "grounded": true
       }
     },
@@ -1526,167 +1520,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "20 confirmed cases in Uganda ... 1 confirmed case in France, as of 1 July",
-        "quote_status": "missing",
-        "quote_ratio": 0.644,
-        "citation_match": false,
-        "grounded": true
-      }
-    },
-    {
-      "id": "EV4",
-      "node_kind": "Event",
-      "type": "Virus Attack",
-      "label": "Ebola virus attacks body systems",
-      "is_main": false,
-      "evidence": [
-        "Ebola is caused by a virus which attacks the body's immune system and organs."
-      ],
-      "confidence": 0.9,
-      "grounding": {
-        "evidence_status": "found",
-        "evidence_detail": {
-          "n_quotes": 1,
-          "found": 1,
-          "partial": 0,
-          "missing": 0,
-          "worst_ratio": 1.0
-        },
-        "evidence_resolved": [
-          {
-            "quote": "Ebola is caused by a virus which attacks the body's immune system and organs.",
-            "status": "found",
-            "ratio": 1.0,
-            "start": 1845,
-            "end": 1922,
-            "matched_text": "Ebola is caused by a virus which attacks the body's immune system and organs.",
-            "sentence": "Ebola is caused by a virus which attacks the body's immune system and organs.\nIt normally infects animals, typically fruit bats, but outbreaks among humans can sometimes start when people handle infected animals."
-          }
-        ],
-        "supported": true,
-        "failure_type": null,
-        "note": "",
-        "quote": "Ebola is caused by a virus which attacks the body's immune system and organs",
-        "quote_status": "found",
-        "quote_ratio": 1.0,
-        "citation_match": true,
-        "grounded": true
-      }
-    },
-    {
-      "id": "EV5",
-      "node_kind": "Event",
-      "type": "Animal Infection",
-      "label": "Ebola virus infects animals",
-      "is_main": false,
-      "evidence": [
-        "It normally infects animals, typically fruit bats"
-      ],
-      "confidence": 0.9,
-      "grounding": {
-        "evidence_status": "found",
-        "evidence_detail": {
-          "n_quotes": 1,
-          "found": 1,
-          "partial": 0,
-          "missing": 0,
-          "worst_ratio": 1.0
-        },
-        "evidence_resolved": [
-          {
-            "quote": "It normally infects animals, typically fruit bats",
-            "status": "found",
-            "ratio": 1.0,
-            "start": 1923,
-            "end": 1972,
-            "matched_text": "It normally infects animals, typically fruit bats",
-            "sentence": "It normally infects animals, typically fruit bats, but outbreaks among humans can sometimes start when people handle infected animals."
-          }
-        ],
-        "supported": true,
-        "failure_type": null,
-        "note": "",
-        "quote": "Ebola is caused by a virus which normally infects animals, typically fruit bats",
-        "quote_status": "missing",
-        "quote_ratio": 0.658,
-        "citation_match": false,
-        "grounded": true
-      }
-    },
-    {
-      "id": "EV6",
-      "node_kind": "Event",
-      "type": "Human Outbreak Start",
-      "label": "Human outbreaks start from animal handling",
-      "is_main": false,
-      "evidence": [
-        "outbreaks among humans can sometimes start when people handle infected animals."
-      ],
-      "confidence": 0.9,
-      "grounding": {
-        "evidence_status": "found",
-        "evidence_detail": {
-          "n_quotes": 1,
-          "found": 1,
-          "partial": 0,
-          "missing": 0,
-          "worst_ratio": 1.0
-        },
-        "evidence_resolved": [
-          {
-            "quote": "outbreaks among humans can sometimes start when people handle infected animals.",
-            "status": "found",
-            "ratio": 1.0,
-            "start": 1978,
-            "end": 2057,
-            "matched_text": "outbreaks among humans can sometimes start when people handle infected animals.",
-            "sentence": "It normally infects animals, typically fruit bats, but outbreaks among humans can sometimes start when people handle infected animals. It is spread through bodily fluids like blood."
-          }
-        ],
-        "supported": true,
-        "failure_type": null,
-        "note": "",
-        "quote": "outbreaks among humans can sometimes start when people handle infected animals",
-        "quote_status": "found",
-        "quote_ratio": 1.0,
-        "citation_match": true,
-        "grounded": true
-      }
-    },
-    {
-      "id": "EV7",
-      "node_kind": "Event",
-      "type": "Disease Transmission",
-      "label": "Ebola spread mechanism",
-      "is_main": false,
-      "evidence": [
-        "It is spread through bodily fluids like blood."
-      ],
-      "confidence": 0.9,
-      "grounding": {
-        "evidence_status": "found",
-        "evidence_detail": {
-          "n_quotes": 1,
-          "found": 1,
-          "partial": 0,
-          "missing": 0,
-          "worst_ratio": 1.0
-        },
-        "evidence_resolved": [
-          {
-            "quote": "It is spread through bodily fluids like blood.",
-            "status": "found",
-            "ratio": 1.0,
-            "start": 2058,
-            "end": 2104,
-            "matched_text": "It is spread through bodily fluids like blood.",
-            "sentence": "It is spread through bodily fluids like blood.\nCongolese health authorities have said the outbreak is currently restricted to three eastern provinces - South Kivu, North Kivu and Ituri."
-          }
-        ],
-        "supported": true,
-        "failure_type": null,
-        "note": "",
-        "quote": "It is spread through bodily fluids like blood",
+        "quote": "There have also been 20 confirmed cases in Uganda, leading to two deaths, and one confirmed case in France, as of 1 July",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -1726,7 +1560,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "the outbreak is currently restricted to three eastern provinces",
+        "quote": "Congolese health authorities have said the outbreak is currently restricted to three eastern provinces - South Kivu, North Kivu and Ituri",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -1766,7 +1600,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Reuters and AFP news agencies report that the body of a pregnant woman tested positive for Ebola in the neighbouring Tshopo province",
+        "quote": "the Reuters and AFP news agencies report that the body of a pregnant woman tested positive for Ebola in the neighbouring Tshopo province",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -1806,7 +1640,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "The Reuters and AFP news agencies report that the body of a pregnant woman tested positive for Ebola in the neighbouring Tshopo province. The woman reportedly died in Ituri, before her body was transported by motorbike to Tshopo's main city, Kisangani...",
+        "quote": "The woman reportedly died in Ituri, before her body was transported by motorbike to Tshopo's main city, Kisangani",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -1846,7 +1680,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "an individual suspected of having Ebola reportedly fled from an isolation unit in Ituri and later tested positive in the nearby Haut-Uele province.",
+        "quote": "an individual suspected of having Ebola reportedly fled from an isolation unit in Ituri and later tested positive in the nearby Haut-Uele province",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -1886,7 +1720,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Authorities are said to have launched contact-tracing efforts across Tshopo and Haut-Uele.",
+        "quote": "Authorities are said to have launched contact-tracing efforts across Tshopo and Haut-Uele",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -1926,10 +1760,10 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "public gatherings were banned in both these provinces, along with neighbouring Bas-Uele and the capital, Kinshsasa...",
+        "quote": "public gatherings were banned in both these provinces, along with neighbouring Bas-Uele and the capital, Kinshsasa",
         "quote_status": "found",
         "quote_ratio": 1.0,
-        "citation_match": false,
+        "citation_match": true,
         "grounded": true
       }
     },
@@ -1966,7 +1800,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "People with Ebola usually only become contagious after developing symptoms, and it takes two to 21 days for symptoms to appear.",
+        "quote": "People with Ebola usually only become contagious after developing symptoms, and it takes two to 21 days for symptoms to appear",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -2006,7 +1840,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "They come on suddenly and start like flu or malaria with fever, headache and tiredness.",
+        "quote": "They come on suddenly and start like flu or malaria with fever, headache and tiredness",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -2046,7 +1880,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "DR Congo's health ministry said it has improved diagnosis across the affected region...",
+        "quote": "DR Congo's health ministry said it has improved diagnosis across the affected region",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -2086,7 +1920,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Previously, four laboratories were testing for Ebola, but that number has now increased to 10.",
+        "quote": "Previously, four laboratories were testing for Ebola, but that number has now increased to 10",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -2126,7 +1960,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "According to both Africa CDC and US public health authorities, the current outbreak has the potential to be one of the largest ever, because it was spreading for weeks before it was confirmed to be Ebola.",
+        "quote": "According to both Africa CDC and US public health authorities, the current outbreak has the potential to be one of the largest ever, because it was spreading for weeks before it was confirmed to be Ebola",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -2166,10 +2000,10 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "the outbreak began in May, though transmission had been going undetected for some time.",
-        "quote_status": "partial",
-        "quote_ratio": 0.874,
-        "citation_match": false,
+        "quote": "it was spreading for weeks before it was confirmed to be Ebola",
+        "quote_status": "found",
+        "quote_ratio": 1.0,
+        "citation_match": true,
         "grounded": true
       }
     },
@@ -2206,7 +2040,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "International organisations also warn that conflict in eastern DR Congo is making it more difficult to tackle the outbreak. The M23 rebel group is in control of large parts of both North and South Kivu.",
+        "quote": "International organisations also warn that conflict in eastern DR Congo is making it more difficult to tackle the outbreak",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -2246,7 +2080,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "The M23 rebel group is in control of large parts of both North and South Kivu.",
+        "quote": "The M23 rebel group is in control of large parts of both North and South Kivu",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -2286,10 +2120,10 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "There are currently no approved vaccines or treatments for the Bundibugyo virus species of the disease... Virologists must develop vaccines for each individual species of Ebola, of which there are six, but only three are known to cause outbreaks.",
-        "quote_status": "missing",
-        "quote_ratio": 0.431,
-        "citation_match": false,
+        "quote": "Vaccines must be developed for each individual species of Ebola, of which there are six, but only three are known to cause outbreaks",
+        "quote_status": "found",
+        "quote_ratio": 1.0,
+        "citation_match": true,
         "grounded": true
       }
     }
@@ -2345,10 +2179,10 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "A trial of potential treatments for the species of virus behind the current deadly Ebola outbreak in the Democratic Republic of Congo has begun, the World Health Organization (WHO) has announced.",
+        "quote": "Ebola treatments trial begins in DR Congo",
         "quote_status": "found",
         "quote_ratio": 1.0,
-        "citation_match": true,
+        "citation_match": false,
         "grounded": true
       }
     },
@@ -2402,7 +2236,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "A trial of potential treatments for the species of virus behind the current deadly Ebola outbreak in the Democratic Republic of Congo has begun, the World Health Organization (WHO) has announced.",
+        "quote": "A trial of potential treatments for the species of virus behind the current deadly Ebola outbreak",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -2459,7 +2293,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "A trial of potential treatments for the species of virus behind the current deadly Ebola outbreak in the Democratic Republic of Congo has begun, the World Health Organization (WHO) has announced.",
+        "quote": "A trial of potential treatments for the species of virus behind the current deadly Ebola outbreak",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -2516,10 +2350,10 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "A trial of potential treatments for the species of virus behind the current deadly Ebola outbreak in the Democratic Republic of Congo has begun, the World Health Organization (WHO) has announced.",
+        "quote": "Ebola treatments trial begins in DR Congo",
         "quote_status": "found",
         "quote_ratio": 1.0,
-        "citation_match": true,
+        "citation_match": false,
         "grounded": true
       }
     },
@@ -2630,7 +2464,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "The current trial is sponsored by the WHO, and is being co-ordinated by scientists at the Institut National de Recherche Biomédicale in DR Congo, the Institute of Tropical Medicine in Belgium, and the University of Oxford in the UK.",
+        "quote": "co-ordinated by scientists at the Institut National de Recherche Biomédicale in DR Congo",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -2687,7 +2521,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "The current trial is sponsored by the WHO, and is being co-ordinated by scientists at the Institut National de Recherche Biomédicale in DR Congo, the Institute of Tropical Medicine in Belgium, and the University of Oxford in the UK.",
+        "quote": "the Institute of Tropical Medicine in Belgium",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -2744,7 +2578,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "The current trial is sponsored by the WHO, and is being co-ordinated by scientists at the Institut National de Recherche Biomédicale in DR Congo, the Institute of Tropical Medicine in Belgium, and the University of Oxford in the UK.",
+        "quote": "the University of Oxford in the UK",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -2801,7 +2635,64 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "The current outbreak of Ebola in DR Congo began in May, though transmission had been going undetected for some time.",
+        "quote": "The current outbreak of Ebola in DR Congo began in May",
+        "quote_status": "found",
+        "quote_ratio": 1.0,
+        "citation_match": true,
+        "grounded": true
+      }
+    },
+    {
+      "subject_id": "EV9",
+      "subject_text": "Individual fled isolation and tested positive",
+      "subject_type": "Ebola Suspect Movement",
+      "property": "location",
+      "property_source": "schema.org",
+      "vocab_id": null,
+      "property_is_new_to_vocab": false,
+      "property_definition": null,
+      "property_parent": null,
+      "property_justification": "The subject (Event or Organization) is physically located in the object (Place), fitting the 'location' property.",
+      "object_id": "E74",
+      "object_text": "Ituri",
+      "object_type": "State",
+      "relation_phrases": [
+        "located in"
+      ],
+      "phrase_directions": {
+        "located in": "as_is"
+      },
+      "evidence": [
+        [
+          "in Ituri"
+        ]
+      ],
+      "confidence": 0.9,
+      "grounding": {
+        "evidence_status": "found",
+        "evidence_detail": {
+          "n_quotes": 1,
+          "found": 1,
+          "partial": 0,
+          "missing": 0,
+          "worst_ratio": 1.0
+        },
+        "evidence_resolved": [
+          {
+            "quote": "in Ituri",
+            "status": "found",
+            "ratio": 1.0,
+            "start": 2417,
+            "end": 2425,
+            "matched_text": "in Ituri",
+            "sentence": "The woman reportedly died in Ituri, before her body was transported by motorbike to Tshopo's main city, Kisangani, which has a population of about 1."
+          }
+        ],
+        "orphaned": false,
+        "supported": true,
+        "failure_type": null,
+        "note": "",
+        "quote": "an individual suspected of having Ebola reportedly fled from an isolation unit in Ituri and later tested positive in the nearby Haut-Uele province.",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -2925,7 +2816,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Speaking to reporters from the WHO headquarters in Geneva on Thursday, Tedros said: \"Even without approved therapeutics, people are recovering from this disease, but of course, we could save many more lives with safe and effective therapeutics in our toolkit.\"",
+        "quote": "Speaking to reporters from the WHO headquarters in Geneva on Thursday, Tedros said:",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -2982,9 +2873,9 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "According to the WHO, 1,460 confirmed cases in DR Congo, with 150 suspected cases and 452 deaths, as of 1 July.",
-        "quote_status": "partial",
-        "quote_ratio": 0.856,
+        "quote": "which says there have been 1,460 confirmed cases in DR Congo, with 150 suspected cases and 452 deaths, as of 1July.",
+        "quote_status": "found",
+        "quote_ratio": 1.0,
         "citation_match": true,
         "grounded": true
       }
@@ -3096,7 +2987,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "There have also been 20 confirmed cases in Uganda, leading to two deaths, and one confirmed case in France, as of 1 July.",
+        "quote": "one confirmed case in France, as of 1 July.",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -3438,10 +3329,10 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "A trial of potential treatments for the species of virus behind the current deadly Ebola outbreak in the Democratic Republic of Congo has begun, the World Health Organization (WHO) has announced.",
-        "quote_status": "found",
+        "quote": "A trial of potential treatments ... has begun, the World Health Organization (WHO) has announced.",
+        "quote_status": "partial",
         "quote_ratio": 1.0,
-        "citation_match": true,
+        "citation_match": false,
         "grounded": true
       }
     },
@@ -3552,7 +3443,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Congolese health authorities have said the outbreak is currently restricted to three eastern provinces - South Kivu, North Kivu and Ituri.",
+        "quote": "Congolese health authorities have said the outbreak is currently restricted to three eastern provinces",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -3609,8 +3500,8 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "A trial of potential treatments for the species of virus behind the current deadly Ebola outbreak in the Democratic Republic of Congo has begun, the World Health Organization (WHO) has announced.",
-        "quote_status": "found",
+        "quote": "A trial of potential treatments ... has begun, the World Health Organization (WHO) has announced.",
+        "quote_status": "partial",
         "quote_ratio": 1.0,
         "citation_match": true,
         "grounded": true
@@ -3723,10 +3614,10 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "More than 1,400 cases and 438 deaths have been confirmed in the country, according to the WHO.",
+        "quote": "which says there have been 1,460 confirmed cases in DR Congo, with 150 suspected cases and 452 deaths, as of 1July.",
         "quote_status": "found",
         "quote_ratio": 1.0,
-        "citation_match": true,
+        "citation_match": false,
         "grounded": true
       }
     },
@@ -3780,7 +3671,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Speaking to reporters from the WHO headquarters in Geneva on Thursday, Tedros said: \"Even without approved therapeutics, people are recovering from this disease, but of course, we could save many more lives with safe and effective therapeutics in our toolkit.\"",
+        "quote": "Speaking to reporters from the WHO headquarters in Geneva on Thursday, Tedros said:",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -3837,7 +3728,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "DR Congo's Health Minister Dr Samuel Roger Kamba said the launch \"represents a significant step forward, offering renewed hope to patients, their families, and affected communities\".",
+        "quote": "DR Congo's Health Minister Dr Samuel Roger Kamba said the launch \"represents a significant step forward...",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -3894,64 +3785,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "The situation has been declared a public health emergency by the WHO...",
-        "quote_status": "found",
-        "quote_ratio": 1.0,
-        "citation_match": true,
-        "grounded": true
-      }
-    },
-    {
-      "subject_id": "CL7",
-      "subject_text": "Congolese authorities stated outbreak restriction",
-      "subject_type": "Statement",
-      "property": "creator",
-      "property_source": "schema.org",
-      "vocab_id": null,
-      "property_is_new_to_vocab": false,
-      "property_definition": null,
-      "property_parent": null,
-      "property_justification": "The CreativeWork (Statement, Report, etc.) is created or authored by the Person or Organization, fitting the 'creator' property.",
-      "object_id": "E66",
-      "object_text": "DR Congo's health ministry",
-      "object_type": "MedicalOrganization",
-      "relation_phrases": [
-        "attributed to"
-      ],
-      "phrase_directions": {
-        "attributed to": "as_is"
-      },
-      "evidence": [
-        [
-          "Congolese health authorities have said"
-        ]
-      ],
-      "confidence": 0.9,
-      "grounding": {
-        "evidence_status": "found",
-        "evidence_detail": {
-          "n_quotes": 1,
-          "found": 1,
-          "partial": 0,
-          "missing": 0,
-          "worst_ratio": 1.0
-        },
-        "evidence_resolved": [
-          {
-            "quote": "Congolese health authorities have said",
-            "status": "found",
-            "ratio": 1.0,
-            "start": 2105,
-            "end": 2143,
-            "matched_text": "Congolese health authorities have said",
-            "sentence": "Congolese health authorities have said the outbreak is currently restricted to three eastern provinces - South Kivu, North Kivu and Ituri."
-          }
-        ],
-        "orphaned": false,
-        "supported": true,
-        "failure_type": null,
-        "note": "",
-        "quote": "Congolese health authorities have said the outbreak is currently restricted to three eastern provinces - South Kivu, North Kivu and Ituri.",
+        "quote": "The situation has been declared a public health emergency by the WHO",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -4008,10 +3842,10 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "The Reuters and AFP news agencies report that the body of a pregnant woman tested positive for Ebola in the neighbouring Tshopo province.",
+        "quote": "Reuters and AFP news agencies report that the body of a pregnant woman tested positive for Ebola in the neighbouring Tshopo province.",
         "quote_status": "found",
         "quote_ratio": 1.0,
-        "citation_match": true,
+        "citation_match": false,
         "grounded": true
       }
     },
@@ -4065,10 +3899,10 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "The Reuters and AFP news agencies report that the body of a pregnant woman tested positive for Ebola in the neighbouring Tshopo province.",
+        "quote": "Reuters and AFP news agencies report that the body of a pregnant woman tested positive for Ebola in the neighbouring Tshopo province.",
         "quote_status": "found",
         "quote_ratio": 1.0,
-        "citation_match": true,
+        "citation_match": false,
         "grounded": true
       }
     },
@@ -4236,7 +4070,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "According to both Africa CDC and US public health authorities, the current outbreak has the potential to be one of the largest ever...",
+        "quote": "According to both Africa CDC and US public health authorities, the current outbreak has the potential...",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -4293,7 +4127,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "According to both Africa CDC and US public health authorities, the current outbreak has the potential to be one of the largest ever...",
+        "quote": "According to both Africa CDC and US public health authorities, the current outbreak has the potential...",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -4407,66 +4241,9 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "The first patient has been enrolled in DR Congo...",
+        "quote": "The first patient has been enrolled in DR Congo",
         "quote_status": "found",
         "quote_ratio": 1.0,
-        "citation_match": true,
-        "grounded": true
-      }
-    },
-    {
-      "subject_id": "EV6",
-      "subject_text": "Human outbreaks start from animal handling",
-      "subject_type": "Human Outbreak Start",
-      "property": "participant",
-      "property_source": "schema.org",
-      "vocab_id": null,
-      "property_is_new_to_vocab": false,
-      "property_definition": null,
-      "property_parent": null,
-      "property_justification": "The Event (Action) involves the Person/Class (Thing) as a participant, fitting the 'participant' property.",
-      "object_id": "E46",
-      "object_text": "people",
-      "object_type": "StatisticalPopulation",
-      "relation_phrases": [
-        "involves"
-      ],
-      "phrase_directions": {
-        "involves": "as_is"
-      },
-      "evidence": [
-        [
-          "outbreaks among humans can sometimes start when people handle infected animals."
-        ]
-      ],
-      "confidence": 0.9,
-      "grounding": {
-        "evidence_status": "found",
-        "evidence_detail": {
-          "n_quotes": 1,
-          "found": 1,
-          "partial": 0,
-          "missing": 0,
-          "worst_ratio": 1.0
-        },
-        "evidence_resolved": [
-          {
-            "quote": "outbreaks among humans can sometimes start when people handle infected animals.",
-            "status": "found",
-            "ratio": 1.0,
-            "start": 1978,
-            "end": 2057,
-            "matched_text": "outbreaks among humans can sometimes start when people handle infected animals.",
-            "sentence": "It normally infects animals, typically fruit bats, but outbreaks among humans can sometimes start when people handle infected animals. It is spread through bodily fluids like blood."
-          }
-        ],
-        "orphaned": false,
-        "supported": true,
-        "failure_type": null,
-        "note": "",
-        "quote": "It is spread through bodily fluids like blood. Outbreaks among humans can sometimes start when people handle infected animals.",
-        "quote_status": "missing",
-        "quote_ratio": 0.714,
         "citation_match": true,
         "grounded": true
       }
@@ -4521,8 +4298,8 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "The woman reportedly died in Ituri, before her body was transported by motorbike to Tshopo's main city, Kisangani...",
-        "quote_status": "found",
+        "quote": "The body of a pregnant woman ... The woman reportedly died in Ituri",
+        "quote_status": "partial",
         "quote_ratio": 1.0,
         "citation_match": true,
         "grounded": true
@@ -4578,121 +4355,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "an individual suspected of having Ebola reportedly fled from an isolation unit in Ituri and later tested positive in the nearby Haut-Uele province.",
-        "quote_status": "found",
-        "quote_ratio": 1.0,
-        "citation_match": true,
-        "grounded": true
-      }
-    },
-    {
-      "subject_id": "EV2",
-      "subject_text": "First patient enrolled in trial",
-      "subject_type": "Patient Enrollment",
-      "property": "isPartOf",
-      "property_source": "schema.org",
-      "vocab_id": null,
-      "property_is_new_to_vocab": false,
-      "property_definition": null,
-      "property_parent": null,
-      "property_justification": "The subject (Event/CreativeWork) is a component or stage of the object (Event/CreativeWork), fitting the 'isPartOf' property.",
-      "object_id": "EV1",
-      "object_text": "Ebola treatments trial begins",
-      "object_type": "Medical Trial Start",
-      "relation_phrases": [
-        "is part of"
-      ],
-      "phrase_directions": {
-        "is part of": "as_is"
-      },
-      "evidence": [
-        [
-          "A trial of potential treatments ... has begun, The first patient has been enrolled"
-        ]
-      ],
-      "confidence": 0.9,
-      "grounding": {
-        "evidence_status": "missing",
-        "evidence_detail": {
-          "n_quotes": 1,
-          "found": 0,
-          "partial": 0,
-          "missing": 1,
-          "worst_ratio": 0.598
-        },
-        "evidence_resolved": [
-          {
-            "quote": "A trial of potential treatments ... has begun, The first patient has been enrolled",
-            "status": "missing",
-            "ratio": 0.598,
-            "start": null,
-            "end": null,
-            "matched_text": null,
-            "sentence": null
-          }
-        ],
-        "orphaned": false,
-        "supported": true,
-        "failure_type": null,
-        "note": "",
-        "quote": "The first patient has been enrolled in DR Congo, WHO chief Tedros Adhanom Ghebreyesus said on Thursday.",
-        "quote_status": "found",
-        "quote_ratio": 1.0,
-        "citation_match": false,
-        "grounded": true
-      }
-    },
-    {
-      "subject_id": "OBS3",
-      "subject_text": "Undetected Ebola transmission",
-      "subject_type": "Undetected Transmission",
-      "property": "isPartOf",
-      "property_source": "schema.org",
-      "vocab_id": null,
-      "property_is_new_to_vocab": false,
-      "property_definition": null,
-      "property_parent": null,
-      "property_justification": "The subject (Event/CreativeWork) is a component or stage of the object (Event/CreativeWork), fitting the 'isPartOf' property.",
-      "object_id": "EV3",
-      "object_text": "Ebola outbreak began in DR Congo",
-      "object_type": "Disease Outbreak Start",
-      "relation_phrases": [
-        "is part of"
-      ],
-      "phrase_directions": {
-        "is part of": "as_is"
-      },
-      "evidence": [
-        [
-          "The current outbreak of Ebola in DR Congo began in May, though transmission had been going undetected for some time."
-        ]
-      ],
-      "confidence": 0.9,
-      "grounding": {
-        "evidence_status": "found",
-        "evidence_detail": {
-          "n_quotes": 1,
-          "found": 1,
-          "partial": 0,
-          "missing": 0,
-          "worst_ratio": 1.0
-        },
-        "evidence_resolved": [
-          {
-            "quote": "The current outbreak of Ebola in DR Congo began in May, though transmission had been going undetected for some time.",
-            "status": "found",
-            "ratio": 1.0,
-            "start": 1371,
-            "end": 1487,
-            "matched_text": "The current outbreak of Ebola in DR Congo began in May, though transmission had been going undetected for some time.",
-            "sentence": "The current outbreak of Ebola in DR Congo began in May, though transmission had been going undetected for some time.\nThe situation has been declared a public health emergency by the WHO, which says there have been 1,460 confirmed cases in DR Congo, with 150 suspected cases and 452 deaths, as of 1July."
-          }
-        ],
-        "orphaned": false,
-        "supported": true,
-        "failure_type": null,
-        "note": "",
-        "quote": "The current outbreak of Ebola in DR Congo began in May, though transmission had been going undetected for some time.",
+        "quote": "an individual suspected of having Ebola reportedly fled from an isolation unit in Ituri",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -4749,7 +4412,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "DR Congo's health ministry said it has improved diagnosis across the affected region. Previously, four laboratories were testing for Ebola, but that number has now increased to 10.",
+        "quote": "Previously, four laboratories were testing for Ebola, but that number has now increased to 10.",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -4806,10 +4469,10 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Tedros said: 'Even without approved therapeutics, people are recovering from this disease, but of course, we could save many more lives with safe and effective therapeutics in our toolkit.'",
-        "quote_status": "partial",
-        "quote_ratio": 0.942,
-        "citation_match": false,
+        "quote": "Tedros said on Thursday.",
+        "quote_status": "missing",
+        "quote_ratio": 0.792,
+        "citation_match": true,
         "grounded": true
       }
     },
@@ -4863,9 +4526,9 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Speaking to reporters from the WHO headquarters in Geneva on Thursday, Tedros said: 'Even without approved therapeutics, people are recovering from this disease, but of course, we could save many more lives with safe and effective therapeutics in our toolkit.'",
-        "quote_status": "partial",
-        "quote_ratio": 0.935,
+        "quote": "Speaking to reporters from the WHO headquarters in Geneva on Thursday, Tedros said:",
+        "quote_status": "found",
+        "quote_ratio": 1.0,
         "citation_match": true,
         "grounded": true
       }
@@ -5034,9 +4697,9 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "According to the WHO, 1,460 confirmed cases in DR Congo, with 150 suspected cases and 452 deaths, as of 1 July.",
-        "quote_status": "partial",
-        "quote_ratio": 0.856,
+        "quote": "which says there have been 1,460 confirmed cases in DR Congo, with 150 suspected cases and 452 deaths, as of 1July.",
+        "quote_status": "found",
+        "quote_ratio": 1.0,
         "citation_match": true,
         "grounded": true
       }
@@ -5091,9 +4754,9 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "According to the WHO, 1,460 confirmed cases in DR Congo, with 150 suspected cases and 452 deaths, as of 1 July.",
-        "quote_status": "partial",
-        "quote_ratio": 0.856,
+        "quote": "which says there have been 1,460 confirmed cases in DR Congo, with 150 suspected cases and 452 deaths, as of 1July.",
+        "quote_status": "found",
+        "quote_ratio": 1.0,
         "citation_match": true,
         "grounded": true
       }
@@ -5148,9 +4811,9 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "According to the WHO, 1,460 confirmed cases in DR Congo, with 150 suspected cases and 452 deaths, as of 1 July.",
-        "quote_status": "partial",
-        "quote_ratio": 0.856,
+        "quote": "which says there have been 1,460 confirmed cases in DR Congo, with 150 suspected cases and 452 deaths, as of 1July.",
+        "quote_status": "found",
+        "quote_ratio": 1.0,
         "citation_match": true,
         "grounded": true
       }
@@ -5262,7 +4925,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "There have also been 20 confirmed cases in Uganda, leading to two deaths, and one confirmed case in France, as of 1 July.",
+        "quote": "There have also been 20 confirmed cases in Uganda, leading to two deaths",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -5319,7 +4982,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "There have also been 20 confirmed cases in Uganda, leading to two deaths, and one confirmed case in France, as of 1 July.",
+        "quote": "and one confirmed case in France, as of 1 July.",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -5453,10 +5116,10 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "According to the WHO, 1,460 confirmed cases in DR Congo, with 150 suspected cases and 452 deaths, as of 1 July.",
-        "quote_status": "partial",
-        "quote_ratio": 0.856,
-        "citation_match": false,
+        "quote": "which says there have been 1,460 confirmed cases in DR Congo, with 150 suspected cases and 452 deaths, as of 1July.",
+        "quote_status": "found",
+        "quote_ratio": 1.0,
+        "citation_match": true,
         "grounded": true
       }
     },
@@ -5577,10 +5240,10 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "More than 1,400 cases and 438 deaths have been confirmed in the country, according to the WHO.",
+        "quote": "which says there have been 1,460 confirmed cases in DR Congo, with 150 suspected cases and 452 deaths, as of 1July.",
         "quote_status": "found",
         "quote_ratio": 1.0,
-        "citation_match": true,
+        "citation_match": false,
         "grounded": true
       }
     },
@@ -5634,7 +5297,64 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "The Reuters and AFP news agencies report that the body of a pregnant woman tested positive for Ebola in the neighbouring Tshopo province.",
+        "quote": "Reuters and AFP news agencies report that the body of a pregnant woman tested positive for Ebola in the neighbouring Tshopo province.",
+        "quote_status": "found",
+        "quote_ratio": 1.0,
+        "citation_match": true,
+        "grounded": true
+      }
+    },
+    {
+      "subject_id": "OBS2",
+      "subject_text": "No approved treatments for Bundibugyo virus",
+      "subject_type": "Lack of Approved Treatments",
+      "property": "about",
+      "property_source": "schema.org",
+      "vocab_id": null,
+      "property_is_new_to_vocab": false,
+      "property_definition": null,
+      "property_parent": null,
+      "property_justification": "The subject (CreativeWork/MedicalCondition) is about the object (Thing), and 'concerns' is explicitly mentioned in the definition of 'about'.",
+      "object_id": "E11",
+      "object_text": "approved vaccines",
+      "object_type": "DrugClass",
+      "relation_phrases": [
+        "concerns"
+      ],
+      "phrase_directions": {
+        "concerns": "as_is"
+      },
+      "evidence": [
+        [
+          "no approved vaccines or treatments"
+        ]
+      ],
+      "confidence": 0.9,
+      "grounding": {
+        "evidence_status": "found",
+        "evidence_detail": {
+          "n_quotes": 1,
+          "found": 1,
+          "partial": 0,
+          "missing": 0,
+          "worst_ratio": 1.0
+        },
+        "evidence_resolved": [
+          {
+            "quote": "no approved vaccines or treatments",
+            "status": "found",
+            "ratio": 1.0,
+            "start": 534,
+            "end": 568,
+            "matched_text": "no approved vaccines or treatments",
+            "sentence": "There are currently no approved vaccines or treatments for the Bundibugyo virus species of the disease, which is highly infectious."
+          }
+        ],
+        "orphaned": false,
+        "supported": true,
+        "failure_type": null,
+        "note": "",
+        "quote": "There are currently no approved vaccines or treatments for the Bundibugyo virus species of the disease",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -5690,8 +5410,8 @@
         "orphaned": false,
         "supported": true,
         "failure_type": null,
-        "note": "The article explicitly states there are no approved treatments for the Bundibugyo virus species.",
-        "quote": "There are currently no approved vaccines or treatments for the Bundibugyo virus species of the disease, which is highly infectious.",
+        "note": "",
+        "quote": "There are currently no approved vaccines or treatments for the Bundibugyo virus species of the disease",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -5747,7 +5467,7 @@
         "orphaned": false,
         "supported": true,
         "failure_type": null,
-        "note": "The article directly mentions Tedros discussing therapeutics.",
+        "note": "",
         "quote": "Even without approved therapeutics, people are recovering from this disease, but of course, we could save many more lives with safe and effective therapeutics in our toolkit.",
         "quote_status": "found",
         "quote_ratio": 1.0,
@@ -5804,7 +5524,7 @@
         "orphaned": false,
         "supported": true,
         "failure_type": null,
-        "note": "The article states Tedros's statement about people recovering.",
+        "note": "",
         "quote": "Even without approved therapeutics, people are recovering from this disease, but of course, we could save many more lives with safe and effective therapeutics in our toolkit.",
         "quote_status": "found",
         "quote_ratio": 1.0,
@@ -5861,7 +5581,7 @@
         "orphaned": false,
         "supported": true,
         "failure_type": null,
-        "note": "The article links Tedros's statement to the Ebola context.",
+        "note": "",
         "quote": "Even without approved therapeutics, people are recovering from this disease, but of course, we could save many more lives with safe and effective therapeutics in our toolkit.",
         "quote_status": "found",
         "quote_ratio": 1.0,
@@ -5918,11 +5638,11 @@
         "orphaned": false,
         "supported": true,
         "failure_type": null,
-        "note": "The article explicitly mentions Kamba's statement about the trial launch.",
-        "quote": "DR Congo's Health Minister Dr Samuel Roger Kamba said the launch \"represents a significant step forward, offering renewed hope to patients, their families, and affected communities\".",
+        "note": "",
+        "quote": "the launch \"represents a significant step forward, offering renewed hope to patients, their families, and affected communities\".",
         "quote_status": "found",
         "quote_ratio": 1.0,
-        "citation_match": true,
+        "citation_match": false,
         "grounded": true
       }
     },
@@ -5985,8 +5705,8 @@
         "orphaned": false,
         "supported": true,
         "failure_type": null,
-        "note": "The article states the WHO declared a public health emergency for the current outbreak.",
-        "quote": "The situation has been declared a public health emergency by the WHO, which says there have been 1,460 confirmed cases in DR Congo, with 150 suspected cases and 452 deaths, as of 1July.",
+        "note": "",
+        "quote": "The situation has been declared a public health emergency by the WHO, which says there have been 1,460 confirmed cases in DR Congo...",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -6042,8 +5762,8 @@
         "orphaned": false,
         "supported": true,
         "failure_type": null,
-        "note": "The article explicitly states public gatherings were banned.",
-        "quote": "public gatherings were banned in both these provinces, along with neighbouring Bas-Uele and the capital, Kinshsasa, in order to prevent the spread of Ebola.",
+        "note": "",
+        "quote": "public gatherings were banned in both these provinces, along with neighbouring Bas-Uele and the capital, Kinshsasa",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -6099,7 +5819,7 @@
         "orphaned": false,
         "supported": true,
         "failure_type": null,
-        "note": "The article discusses contagion and symptom appearance for people with Ebola.",
+        "note": "",
         "quote": "People with Ebola usually only become contagious after developing symptoms, and it takes two to 21 days for symptoms to appear.",
         "quote_status": "found",
         "quote_ratio": 1.0,
@@ -6156,7 +5876,7 @@
         "orphaned": false,
         "supported": true,
         "failure_type": null,
-        "note": "The article mentions the increase from four to ten laboratories.",
+        "note": "",
         "quote": "Previously, four laboratories were testing for Ebola, but that number has now increased to 10.",
         "quote_status": "found",
         "quote_ratio": 1.0,
@@ -6213,11 +5933,11 @@
         "orphaned": false,
         "supported": true,
         "failure_type": null,
-        "note": "The article states the outbreak spread undetected for weeks.",
-        "quote": "the outbreak has the potential to be one of the largest ever, because it was spreading for weeks before it was confirmed to be Ebola.",
-        "quote_status": "partial",
-        "quote_ratio": 0.917,
-        "citation_match": true,
+        "note": "",
+        "quote": "the current outbreak ... was spreading for weeks before it was confirmed to be Ebola.",
+        "quote_status": "missing",
+        "quote_ratio": 0.0,
+        "citation_match": false,
         "grounded": true
       }
     },
@@ -6270,7 +5990,7 @@
         "orphaned": false,
         "supported": true,
         "failure_type": null,
-        "note": "The article explicitly states M23 rebel group controls parts of Kivu.",
+        "note": "",
         "quote": "The M23 rebel group is in control of large parts of both North and South Kivu.",
         "quote_status": "found",
         "quote_ratio": 1.0,
@@ -6327,11 +6047,11 @@
         "orphaned": false,
         "supported": true,
         "failure_type": null,
-        "note": "The article discusses the need for vaccines per species, implying no approved vaccines for some.",
-        "quote": "Vaccines must be developed for each individual species of Ebola, of which there are six, but only three are known to cause outbreaks.",
+        "note": "",
+        "quote": "There are currently no approved vaccines or treatments for the Bundibugyo virus species of the disease.",
         "quote_status": "found",
         "quote_ratio": 1.0,
-        "citation_match": true,
+        "citation_match": false,
         "grounded": true
       }
     },
@@ -6384,8 +6104,8 @@
         "orphaned": false,
         "supported": true,
         "failure_type": null,
-        "note": "The article explicitly states no approved treatments for Bundibugyo virus species.",
-        "quote": "There are currently no approved vaccines or treatments for the Bundibugyo virus species of the disease, which is highly infectious.",
+        "note": "",
+        "quote": "There are currently no approved vaccines or treatments for the Bundibugyo virus species of the disease.",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -6441,10 +6161,10 @@
         "orphaned": false,
         "supported": true,
         "failure_type": null,
-        "note": "The article refers to the Bundibugyo virus as a species of the disease (Ebola).",
-        "quote": "the species of virus behind the current deadly Ebola outbreak... Bundibugyo virus species of the disease",
-        "quote_status": "missing",
-        "quote_ratio": 0.0,
+        "note": "",
+        "quote": "There are currently no approved vaccines or treatments for the Bundibugyo virus species of the disease.",
+        "quote_status": "found",
+        "quote_ratio": 1.0,
         "citation_match": true,
         "grounded": true
       }
@@ -6498,7 +6218,7 @@
         "orphaned": false,
         "supported": true,
         "failure_type": null,
-        "note": "The article states the trial is sponsored by the WHO.",
+        "note": "",
         "quote": "The current trial is sponsored by the WHO",
         "quote_status": "found",
         "quote_ratio": 1.0,
@@ -6555,8 +6275,8 @@
         "orphaned": false,
         "supported": true,
         "failure_type": null,
-        "note": "The article states scientists are affiliated with the Institut National de Recherche Biomédicale.",
-        "quote": "is being co-ordinated by scientists at the Institut National de Recherche Biomédicale in DR Congo",
+        "note": "",
+        "quote": "scientists at the Institut National de Recherche Biomédicale in DR Congo",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -6612,10 +6332,10 @@
         "orphaned": false,
         "supported": true,
         "failure_type": null,
-        "note": "The article states scientists are affiliated with the Institute of Tropical Medicine.",
-        "quote": "is being co-ordinated by scientists at... the Institute of Tropical Medicine in Belgium",
-        "quote_status": "partial",
-        "quote_ratio": 1.0,
+        "note": "",
+        "quote": "scientists at the Institute of Tropical Medicine in Belgium",
+        "quote_status": "missing",
+        "quote_ratio": 0.814,
         "citation_match": true,
         "grounded": true
       }
@@ -6669,10 +6389,10 @@
         "orphaned": false,
         "supported": true,
         "failure_type": null,
-        "note": "The article states scientists are affiliated with the University of Oxford.",
-        "quote": "is being co-ordinated by scientists at... the University of Oxford in the UK",
-        "quote_status": "partial",
-        "quote_ratio": 1.0,
+        "note": "",
+        "quote": "scientists at the University of Oxford in the UK",
+        "quote_status": "missing",
+        "quote_ratio": 0.792,
         "citation_match": false,
         "grounded": true
       }
@@ -6726,9 +6446,9 @@
         "orphaned": false,
         "supported": true,
         "failure_type": null,
-        "note": "The article's title and content refer to the same trial.",
-        "quote": "Ebola treatments trial begins in DR Congo... The first patient has been enrolled in DR Congo",
-        "quote_status": "partial",
+        "note": "",
+        "quote": "Ebola treatments trial begins in DR Congo",
+        "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": false,
         "grounded": true
@@ -6784,7 +6504,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "The current outbreak of Ebola in DR Congo began in May...",
+        "quote": "The current outbreak of Ebola in DR Congo began in May",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -6955,7 +6675,178 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Speaking to reporters from the WHO headquarters in Geneva...",
+        "quote": "Speaking to reporters from the WHO headquarters in Geneva on Thursday, Tedros said:",
+        "quote_status": "found",
+        "quote_ratio": 1.0,
+        "citation_match": true,
+        "grounded": true
+      }
+    },
+    {
+      "subject_id": "CL5",
+      "subject_text": "Kamba statement on trial launch",
+      "subject_type": "Statement",
+      "property": "providesAssistance",
+      "property_source": "vocab",
+      "vocab_id": "P0099",
+      "property_is_new_to_vocab": true,
+      "property_definition": "Indicates that a subject provides assistance, support, or improvement to an object.",
+      "property_parent": "provider",
+      "property_justification": "No suitable schema.org property found for this specific emotional/social impact relation; minted a new property.",
+      "object_id": "E24",
+      "object_text": "Patients",
+      "object_type": "Patient",
+      "relation_phrases": [
+        "offers hope to"
+      ],
+      "phrase_directions": {
+        "offers hope to": "as_is"
+      },
+      "evidence": [
+        [
+          "offering renewed hope to patients"
+        ]
+      ],
+      "confidence": 0.9,
+      "grounding": {
+        "evidence_status": "found",
+        "evidence_detail": {
+          "n_quotes": 1,
+          "found": 1,
+          "partial": 0,
+          "missing": 0,
+          "worst_ratio": 1.0
+        },
+        "evidence_resolved": [
+          {
+            "quote": "offering renewed hope to patients",
+            "status": "found",
+            "ratio": 1.0,
+            "start": 1293,
+            "end": 1326,
+            "matched_text": "offering renewed hope to patients",
+            "sentence": "\"\nDR Congo's Health Minister Dr Samuel Roger Kamba said the launch \"represents a significant step forward, offering renewed hope to patients, their families, and affected communities\"."
+          }
+        ],
+        "orphaned": false,
+        "supported": true,
+        "failure_type": null,
+        "note": "",
+        "quote": "offering renewed hope to patients, their families, and affected communities",
+        "quote_status": "found",
+        "quote_ratio": 1.0,
+        "citation_match": true,
+        "grounded": true
+      }
+    },
+    {
+      "subject_id": "CL5",
+      "subject_text": "Kamba statement on trial launch",
+      "subject_type": "Statement",
+      "property": "providesAssistance",
+      "property_source": "vocab",
+      "vocab_id": "P0099",
+      "property_is_new_to_vocab": true,
+      "property_definition": "Indicates that a subject provides assistance, support, or improvement to an object.",
+      "property_parent": "provider",
+      "property_justification": "No suitable schema.org property found for this specific emotional/social impact relation; minted a new property.",
+      "object_id": "E48",
+      "object_text": "families",
+      "object_type": "SocialGroup",
+      "relation_phrases": [
+        "offers hope to"
+      ],
+      "phrase_directions": {
+        "offers hope to": "as_is"
+      },
+      "evidence": [
+        [
+          "their families"
+        ]
+      ],
+      "confidence": 0.9,
+      "grounding": {
+        "evidence_status": "found",
+        "evidence_detail": {
+          "n_quotes": 1,
+          "found": 1,
+          "partial": 0,
+          "missing": 0,
+          "worst_ratio": 1.0
+        },
+        "evidence_resolved": [
+          {
+            "quote": "their families",
+            "status": "found",
+            "ratio": 1.0,
+            "start": 1328,
+            "end": 1342,
+            "matched_text": "their families",
+            "sentence": "\"\nDR Congo's Health Minister Dr Samuel Roger Kamba said the launch \"represents a significant step forward, offering renewed hope to patients, their families, and affected communities\"."
+          }
+        ],
+        "orphaned": false,
+        "supported": true,
+        "failure_type": null,
+        "note": "",
+        "quote": "offering renewed hope to patients, their families, and affected communities",
+        "quote_status": "found",
+        "quote_ratio": 1.0,
+        "citation_match": true,
+        "grounded": true
+      }
+    },
+    {
+      "subject_id": "CL5",
+      "subject_text": "Kamba statement on trial launch",
+      "subject_type": "Statement",
+      "property": "providesAssistance",
+      "property_source": "vocab",
+      "vocab_id": "P0099",
+      "property_is_new_to_vocab": true,
+      "property_definition": "Indicates that a subject provides assistance, support, or improvement to an object.",
+      "property_parent": "provider",
+      "property_justification": "No suitable schema.org property found for this specific emotional/social impact relation; minted a new property.",
+      "object_id": "E49",
+      "object_text": "affected communities",
+      "object_type": "SocialGroup",
+      "relation_phrases": [
+        "offers hope to"
+      ],
+      "phrase_directions": {
+        "offers hope to": "as_is"
+      },
+      "evidence": [
+        [
+          "affected communities"
+        ]
+      ],
+      "confidence": 0.9,
+      "grounding": {
+        "evidence_status": "found",
+        "evidence_detail": {
+          "n_quotes": 1,
+          "found": 1,
+          "partial": 0,
+          "missing": 0,
+          "worst_ratio": 1.0
+        },
+        "evidence_resolved": [
+          {
+            "quote": "affected communities",
+            "status": "found",
+            "ratio": 1.0,
+            "start": 1348,
+            "end": 1368,
+            "matched_text": "affected communities",
+            "sentence": "\"\nDR Congo's Health Minister Dr Samuel Roger Kamba said the launch \"represents a significant step forward, offering renewed hope to patients, their families, and affected communities\"."
+          }
+        ],
+        "orphaned": false,
+        "supported": true,
+        "failure_type": null,
+        "note": "",
+        "quote": "offering renewed hope to patients, their families, and affected communities",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -7012,7 +6903,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "The current outbreak of Ebola in DR Congo began in May...",
+        "quote": "The current outbreak of Ebola in DR Congo began in May",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -7069,10 +6960,10 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "transmission had been going undetected for some time",
+        "quote": "though transmission had been going undetected for some time.",
         "quote_status": "found",
         "quote_ratio": 1.0,
-        "citation_match": false,
+        "citation_match": true,
         "grounded": true
       }
     },
@@ -7126,7 +7017,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "it takes two to 21 days for symptoms to appear",
+        "quote": "it takes two to 21 days for symptoms to appear.",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -7411,7 +7302,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "two deaths",
+        "quote": "leading to two deaths",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -7476,187 +7367,6 @@
       }
     },
     {
-      "subject_id": "E59",
-      "subject_text": "virus",
-      "subject_type": "InfectiousAgentClass",
-      "property": "causeOf",
-      "property_source": "schema.org",
-      "vocab_id": null,
-      "property_is_new_to_vocab": false,
-      "property_definition": null,
-      "property_parent": null,
-      "property_justification": "The object (InfectiousAgentClass) causes the subject (Virus Attack), so 'causeOf' is used in the inverse direction.",
-      "object_id": "EV4",
-      "object_text": "Ebola virus attacks body systems",
-      "object_type": "Virus Attack",
-      "relation_phrases": [
-        "is effect of"
-      ],
-      "phrase_directions": {
-        "is effect of": "inverse"
-      },
-      "evidence": [
-        [
-          "a virus which attacks the body's immune system and organs.",
-          "Ebola is caused by a virus which attacks the body's immune system and organs."
-        ]
-      ],
-      "confidence": 0.9,
-      "grounding": {
-        "evidence_status": "found",
-        "evidence_detail": {
-          "n_quotes": 2,
-          "found": 2,
-          "partial": 0,
-          "missing": 0,
-          "worst_ratio": 1.0
-        },
-        "evidence_resolved": [
-          {
-            "quote": "a virus which attacks the body's immune system and organs.",
-            "status": "found",
-            "ratio": 1.0,
-            "start": 1864,
-            "end": 1922,
-            "matched_text": "a virus which attacks the body's immune system and organs.",
-            "sentence": "Ebola is caused by a virus which attacks the body's immune system and organs.\nIt normally infects animals, typically fruit bats, but outbreaks among humans can sometimes start when people handle infected animals."
-          },
-          {
-            "quote": "Ebola is caused by a virus which attacks the body's immune system and organs.",
-            "status": "found",
-            "ratio": 1.0,
-            "start": 1845,
-            "end": 1922,
-            "matched_text": "Ebola is caused by a virus which attacks the body's immune system and organs.",
-            "sentence": "Ebola is caused by a virus which attacks the body's immune system and organs.\nIt normally infects animals, typically fruit bats, but outbreaks among humans can sometimes start when people handle infected animals."
-          }
-        ],
-        "orphaned": false,
-        "supported": true,
-        "failure_type": null,
-        "note": "",
-        "quote": "attacks the body's immune system and organs",
-        "quote_status": "found",
-        "quote_ratio": 1.0,
-        "citation_match": true,
-        "grounded": true
-      }
-    },
-    {
-      "subject_id": "EV4",
-      "subject_text": "Ebola virus attacks body systems",
-      "subject_type": "Virus Attack",
-      "property": "object",
-      "property_source": "schema.org",
-      "vocab_id": null,
-      "property_is_new_to_vocab": false,
-      "property_definition": null,
-      "property_parent": null,
-      "property_justification": "The Virus Attack (Action) is carried out upon the AnatomicalSystem/AnatomicalStructure (Thing), fitting the 'object' property.",
-      "object_id": "E60",
-      "object_text": "body's immune system",
-      "object_type": "AnatomicalSystem",
-      "relation_phrases": [
-        "attacks"
-      ],
-      "phrase_directions": {
-        "attacks": "as_is"
-      },
-      "evidence": [
-        [
-          "attacks the body's immune system"
-        ]
-      ],
-      "confidence": 0.9,
-      "grounding": {
-        "evidence_status": "found",
-        "evidence_detail": {
-          "n_quotes": 1,
-          "found": 1,
-          "partial": 0,
-          "missing": 0,
-          "worst_ratio": 1.0
-        },
-        "evidence_resolved": [
-          {
-            "quote": "attacks the body's immune system",
-            "status": "found",
-            "ratio": 1.0,
-            "start": 1878,
-            "end": 1910,
-            "matched_text": "attacks the body's immune system",
-            "sentence": "Ebola is caused by a virus which attacks the body's immune system and organs."
-          }
-        ],
-        "orphaned": false,
-        "supported": true,
-        "failure_type": null,
-        "note": "",
-        "quote": "attacks the body's immune system and organs",
-        "quote_status": "found",
-        "quote_ratio": 1.0,
-        "citation_match": true,
-        "grounded": true
-      }
-    },
-    {
-      "subject_id": "EV4",
-      "subject_text": "Ebola virus attacks body systems",
-      "subject_type": "Virus Attack",
-      "property": "object",
-      "property_source": "schema.org",
-      "vocab_id": null,
-      "property_is_new_to_vocab": false,
-      "property_definition": null,
-      "property_parent": null,
-      "property_justification": "The Virus Attack (Action) is carried out upon the AnatomicalSystem/AnatomicalStructure (Thing), fitting the 'object' property.",
-      "object_id": "E61",
-      "object_text": "organs",
-      "object_type": "AnatomicalStructure",
-      "relation_phrases": [
-        "attacks"
-      ],
-      "phrase_directions": {
-        "attacks": "as_is"
-      },
-      "evidence": [
-        [
-          "attacks ... organs."
-        ]
-      ],
-      "confidence": 0.9,
-      "grounding": {
-        "evidence_status": "partial",
-        "evidence_detail": {
-          "n_quotes": 1,
-          "found": 0,
-          "partial": 1,
-          "missing": 0,
-          "worst_ratio": 1.0
-        },
-        "evidence_resolved": [
-          {
-            "quote": "attacks ... organs.",
-            "status": "partial",
-            "ratio": 1.0,
-            "start": 1878,
-            "end": 1922,
-            "matched_text": "attacks the body's immune system and organs.",
-            "sentence": "Ebola is caused by a virus which attacks the body's immune system and organs.\nIt normally infects animals, typically fruit bats, but outbreaks among humans can sometimes start when people handle infected animals."
-          }
-        ],
-        "orphaned": false,
-        "supported": true,
-        "failure_type": null,
-        "note": "",
-        "quote": "attacks the body's immune system and organs",
-        "quote_status": "found",
-        "quote_ratio": 1.0,
-        "citation_match": false,
-        "grounded": true
-      }
-    },
-    {
       "subject_id": "E64",
       "subject_text": "bodily fluids",
       "subject_type": "BioChemEntity",
@@ -7706,10 +7416,10 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "It is spread through bodily fluids like blood.",
+        "quote": "bodily fluids like blood",
         "quote_status": "found",
         "quote_ratio": 1.0,
-        "citation_match": true,
+        "citation_match": false,
         "grounded": true
       }
     },
@@ -7763,7 +7473,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "They come on suddenly and start like flu or malaria with fever, headache and tiredness.",
+        "quote": "with fever, headache and tiredness.",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -7820,7 +7530,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "They come on suddenly and start like flu or malaria with fever, headache and tiredness.",
+        "quote": "with fever, headache and tiredness.",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -7877,7 +7587,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "They come on suddenly and start like flu or malaria with fever, headache and tiredness.",
+        "quote": "with fever, headache and tiredness.",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -7934,7 +7644,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "It normally infects animals, typically fruit bats, but outbreaks among humans can sometimes start when people handle infected animals.",
+        "quote": "animals, typically fruit bats",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -7991,7 +7701,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Congolese health authorities have said the outbreak is currently restricted to three eastern provinces - South Kivu, North Kivu and Ituri.",
+        "quote": "three eastern provinces - South Kivu, North Kivu and Ituri",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -8048,7 +7758,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Congolese health authorities have said the outbreak is currently restricted to three eastern provinces - South Kivu, North Kivu and Ituri.",
+        "quote": "three eastern provinces - South Kivu, North Kivu and Ituri",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -8105,7 +7815,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Congolese health authorities have said the outbreak is currently restricted to three eastern provinces - South Kivu, North Kivu and Ituri.",
+        "quote": "three eastern provinces - South Kivu, North Kivu and Ituri",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -8162,121 +7872,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "It normally infects animals, typically fruit bats, but outbreaks among humans can sometimes start when people handle infected animals.",
-        "quote_status": "found",
-        "quote_ratio": 1.0,
-        "citation_match": true,
-        "grounded": true
-      }
-    },
-    {
-      "subject_id": "EV6",
-      "subject_text": "Human outbreaks start from animal handling",
-      "subject_type": "Human Outbreak Start",
-      "property": "causeOf",
-      "property_source": "schema.org",
-      "vocab_id": null,
-      "property_is_new_to_vocab": false,
-      "property_definition": null,
-      "property_parent": null,
-      "property_justification": "The Human Outbreak Start (MedicalCause) leads to the DiseaseOutbreak (MedicalEntity), fitting the 'causeOf' property.",
-      "object_id": "E19",
-      "object_text": "outbreaks",
-      "object_type": "DiseaseOutbreak",
-      "relation_phrases": [
-        "leads to"
-      ],
-      "phrase_directions": {
-        "leads to": "as_is"
-      },
-      "evidence": [
-        [
-          "outbreaks among humans can sometimes start"
-        ]
-      ],
-      "confidence": 0.9,
-      "grounding": {
-        "evidence_status": "found",
-        "evidence_detail": {
-          "n_quotes": 1,
-          "found": 1,
-          "partial": 0,
-          "missing": 0,
-          "worst_ratio": 1.0
-        },
-        "evidence_resolved": [
-          {
-            "quote": "outbreaks among humans can sometimes start",
-            "status": "found",
-            "ratio": 1.0,
-            "start": 1978,
-            "end": 2020,
-            "matched_text": "outbreaks among humans can sometimes start",
-            "sentence": "It normally infects animals, typically fruit bats, but outbreaks among humans can sometimes start when people handle infected animals."
-          }
-        ],
-        "orphaned": false,
-        "supported": true,
-        "failure_type": null,
-        "note": "",
-        "quote": "It normally infects animals, typically fruit bats, but outbreaks among humans can sometimes start when people handle infected animals.",
-        "quote_status": "found",
-        "quote_ratio": 1.0,
-        "citation_match": true,
-        "grounded": true
-      }
-    },
-    {
-      "subject_id": "EV7",
-      "subject_text": "Ebola spread mechanism",
-      "subject_type": "Disease Transmission",
-      "property": "instrument",
-      "property_source": "schema.org",
-      "vocab_id": null,
-      "property_is_new_to_vocab": false,
-      "property_definition": null,
-      "property_parent": null,
-      "property_justification": "The Disease Transmission (Action) uses the BioChemEntity (Thing) as a means, fitting the 'instrument' property.",
-      "object_id": "E64",
-      "object_text": "bodily fluids",
-      "object_type": "BioChemEntity",
-      "relation_phrases": [
-        "spreads via"
-      ],
-      "phrase_directions": {
-        "spreads via": "as_is"
-      },
-      "evidence": [
-        [
-          "It is spread through bodily fluids"
-        ]
-      ],
-      "confidence": 0.9,
-      "grounding": {
-        "evidence_status": "found",
-        "evidence_detail": {
-          "n_quotes": 1,
-          "found": 1,
-          "partial": 0,
-          "missing": 0,
-          "worst_ratio": 1.0
-        },
-        "evidence_resolved": [
-          {
-            "quote": "It is spread through bodily fluids",
-            "status": "found",
-            "ratio": 1.0,
-            "start": 2058,
-            "end": 2092,
-            "matched_text": "It is spread through bodily fluids",
-            "sentence": "It is spread through bodily fluids like blood."
-          }
-        ],
-        "orphaned": false,
-        "supported": true,
-        "failure_type": null,
-        "note": "",
-        "quote": "It is spread through bodily fluids like blood.",
+        "quote": "when people handle infected animals",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -8333,10 +7929,10 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Congolese health authorities have said the outbreak is currently restricted to three eastern provinces - South Kivu, North Kivu and Ituri.",
+        "quote": "outbreak is currently restricted to three eastern provinces - South Kivu, North Kivu and Ituri",
         "quote_status": "found",
         "quote_ratio": 1.0,
-        "citation_match": true,
+        "citation_match": false,
         "grounded": true
       }
     },
@@ -8390,7 +7986,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "The body of a pregnant woman tested positive for Ebola in the neighbouring Tshopo province. The woman reportedly died in Ituri, before her body was transported by motorbike to Tshopo's main city, Kisangani, which has a population of about 1.5 million people.",
+        "quote": "body of a pregnant woman tested positive for Ebola",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -8447,7 +8043,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "The woman reportedly died in Ituri, before her body was transported by motorbike to Tshopo's main city, Kisangani, which has a population of about 1.5 million people.",
+        "quote": "The woman reportedly died in Ituri",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -8504,7 +8100,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "before her body was transported by motorbike to Tshopo's main city, Kisangani, which has a population of about 1.5 million people.",
+        "quote": "transported by motorbike",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -8561,7 +8157,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "before her body was transported by motorbike to Tshopo's main city, Kisangani, which has a population of about 1.5 million people.",
+        "quote": "to Tshopo's main city, Kisangani",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -8618,7 +8214,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "before her body was transported by motorbike to Tshopo's main city, Kisangani, which has a population of about 1.5 million people.",
+        "quote": "to Tshopo's main city, Kisangani",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -8674,8 +8270,8 @@
         "orphaned": false,
         "supported": true,
         "failure_type": null,
-        "note": "The article states the individual fled from an isolation unit in Ituri and tested positive in Haut-Uele.",
-        "quote": "an individual suspected of having Ebola reportedly fled from an isolation unit in Ituri and later tested positive in the nearby Haut-Uele province",
+        "note": "",
+        "quote": "fled from an isolation unit in Ituri",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -8731,8 +8327,8 @@
         "orphaned": false,
         "supported": true,
         "failure_type": null,
-        "note": "The article confirms the individual tested positive in Haut-Uele province.",
-        "quote": "later tested positive in the nearby Haut-Uele province",
+        "note": "",
+        "quote": "tested positive in the nearby Haut-Uele province",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -8788,8 +8384,8 @@
         "orphaned": false,
         "supported": true,
         "failure_type": null,
-        "note": "The article states authorities launched contact-tracing efforts in Tshopo and Haut-Uele.",
-        "quote": "Authorities are said to have launched contact-tracing efforts across Tshopo and Haut-Uele",
+        "note": "",
+        "quote": "Authorities are said to have launched contact-tracing efforts",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -8845,7 +8441,7 @@
         "orphaned": false,
         "supported": true,
         "failure_type": null,
-        "note": "The article explicitly mentions public gatherings banned in Tshopo province.",
+        "note": "",
         "quote": "public gatherings were banned in both these provinces, along with neighbouring Bas-Uele and the capital, Kinshsasa",
         "quote_status": "found",
         "quote_ratio": 1.0,
@@ -8902,7 +8498,7 @@
         "orphaned": false,
         "supported": true,
         "failure_type": null,
-        "note": "The article confirms public gatherings were banned in Haut-Uele province.",
+        "note": "",
         "quote": "public gatherings were banned in both these provinces, along with neighbouring Bas-Uele and the capital, Kinshsasa",
         "quote_status": "found",
         "quote_ratio": 1.0,
@@ -8959,7 +8555,7 @@
         "orphaned": false,
         "supported": true,
         "failure_type": null,
-        "note": "The article explicitly names Bas-Uele as a location where public gatherings were banned.",
+        "note": "",
         "quote": "public gatherings were banned in both these provinces, along with neighbouring Bas-Uele and the capital, Kinshsasa",
         "quote_status": "found",
         "quote_ratio": 1.0,
@@ -9016,7 +8612,7 @@
         "orphaned": false,
         "supported": true,
         "failure_type": null,
-        "note": "The article states Kinshsasa was included in the ban on public gatherings.",
+        "note": "",
         "quote": "public gatherings were banned in both these provinces, along with neighbouring Bas-Uele and the capital, Kinshsasa",
         "quote_status": "found",
         "quote_ratio": 1.0,
@@ -9073,122 +8669,8 @@
         "orphaned": false,
         "supported": true,
         "failure_type": null,
-        "note": "The article specifies the ban occurred 'Earlier this week'.",
-        "quote": "Earlier this week, public gatherings were banned in both these provinces, along with neighbouring Bas-Uele and the capital, Kinshsasa",
-        "quote_status": "found",
-        "quote_ratio": 1.0,
-        "citation_match": true,
-        "grounded": true
-      }
-    },
-    {
-      "subject_id": "E88",
-      "subject_text": "People with Ebola",
-      "subject_type": "MedicalAudienceType",
-      "property": "occursAfter",
-      "property_source": "vocab",
-      "vocab_id": "P0236",
-      "property_is_new_to_vocab": true,
-      "property_definition": "Indicates that the subject event occurs chronologically after the object event.",
-      "property_parent": null,
-      "property_justification": "No suitable schema.org property found for a MedicalAudienceType becoming contagious after a MedicalSymptom; minted a new property.",
-      "object_id": "E89",
-      "object_text": "symptoms",
-      "object_type": "MedicalSymptom",
-      "relation_phrases": [
-        "become contagious after"
-      ],
-      "phrase_directions": {
-        "become contagious after": "as_is"
-      },
-      "evidence": [
-        [
-          "become contagious after developing symptoms"
-        ]
-      ],
-      "confidence": 0.9,
-      "grounding": {
-        "evidence_status": "found",
-        "evidence_detail": {
-          "n_quotes": 1,
-          "found": 1,
-          "partial": 0,
-          "missing": 0,
-          "worst_ratio": 1.0
-        },
-        "evidence_resolved": [
-          {
-            "quote": "become contagious after developing symptoms",
-            "status": "found",
-            "ratio": 1.0,
-            "start": 3018,
-            "end": 3061,
-            "matched_text": "become contagious after developing symptoms",
-            "sentence": "People with Ebola usually only become contagious after developing symptoms, and it takes two to 21 days for symptoms to appear."
-          }
-        ],
-        "orphaned": false,
-        "supported": true,
-        "failure_type": null,
-        "note": "The article states people become contagious after developing symptoms.",
-        "quote": "People with Ebola usually only become contagious after developing symptoms",
-        "quote_status": "found",
-        "quote_ratio": 1.0,
-        "citation_match": true,
-        "grounded": true
-      }
-    },
-    {
-      "subject_id": "OBS7",
-      "subject_text": "Ebola symptom characteristics",
-      "subject_type": "Ebola Symptom Description",
-      "property": "mainEntity",
-      "property_source": "schema.org",
-      "vocab_id": null,
-      "property_is_new_to_vocab": false,
-      "property_definition": null,
-      "property_parent": null,
-      "property_justification": "The CreativeWork (Ebola Symptom Description) describes the MedicalSymptom (Thing) as its primary entity, fitting 'mainEntity'.",
-      "object_id": "E89",
-      "object_text": "symptoms",
-      "object_type": "MedicalSymptom",
-      "relation_phrases": [
-        "describes"
-      ],
-      "phrase_directions": {
-        "describes": "as_is"
-      },
-      "evidence": [
-        [
-          "They come on suddenly and start like flu or malaria with fever, headache and tiredness."
-        ]
-      ],
-      "confidence": 0.9,
-      "grounding": {
-        "evidence_status": "found",
-        "evidence_detail": {
-          "n_quotes": 1,
-          "found": 1,
-          "partial": 0,
-          "missing": 0,
-          "worst_ratio": 1.0
-        },
-        "evidence_resolved": [
-          {
-            "quote": "They come on suddenly and start like flu or malaria with fever, headache and tiredness.",
-            "status": "found",
-            "ratio": 1.0,
-            "start": 3115,
-            "end": 3202,
-            "matched_text": "They come on suddenly and start like flu or malaria with fever, headache and tiredness.",
-            "sentence": "They come on suddenly and start like flu or malaria with fever, headache and tiredness.\nDR Congo's health ministry said it has improved diagnosis across the affected region."
-          }
-        ],
-        "orphaned": false,
-        "supported": true,
-        "failure_type": null,
-        "note": "The article describes symptoms as the main entity of Ebola's characteristics.",
-        "quote": "They come on suddenly and start like flu or malaria with fever, headache and tiredness",
+        "note": "",
+        "quote": "Earlier this week, public gatherings were banned",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -9244,8 +8726,8 @@
         "orphaned": false,
         "supported": true,
         "failure_type": null,
-        "note": "The article states symptoms start like flu or malaria.",
-        "quote": "They come on suddenly and start like flu or malaria with fever, headache and tiredness",
+        "note": "",
+        "quote": "start like flu or malaria",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -9301,8 +8783,8 @@
         "orphaned": false,
         "supported": true,
         "failure_type": null,
-        "note": "The article explicitly compares symptoms to malaria.",
-        "quote": "They come on suddenly and start like flu or malaria with fever, headache and tiredness",
+        "note": "",
+        "quote": "start like flu or malaria",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -9358,7 +8840,7 @@
         "orphaned": false,
         "supported": true,
         "failure_type": null,
-        "note": "The article states DR Congo's health ministry improved diagnosis.",
+        "note": "",
         "quote": "DR Congo's health ministry said it has improved diagnosis across the affected region",
         "quote_status": "found",
         "quote_ratio": 1.0,
@@ -9415,10 +8897,10 @@
         "orphaned": false,
         "supported": true,
         "failure_type": null,
-        "note": "The article confirms the increase in testing laboratories to 10.",
-        "quote": "the number has now increased to 10",
-        "quote_status": "partial",
-        "quote_ratio": 0.882,
+        "note": "",
+        "quote": "that number has now increased to 10",
+        "quote_status": "found",
+        "quote_ratio": 1.0,
         "citation_match": true,
         "grounded": true
       }
@@ -9472,11 +8954,68 @@
         "orphaned": false,
         "supported": true,
         "failure_type": null,
-        "note": "The article states Africa CDC and US authorities warned about the current outbreak.",
-        "quote": "According to both Africa CDC and US public health authorities, the current outbreak has the potential to be one of the largest ever",
+        "note": "",
+        "quote": "According to both Africa CDC and US public health authorities, the current outbreak has the potential to be one of the largest ever,",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
+        "grounded": true
+      }
+    },
+    {
+      "subject_id": "CL12",
+      "subject_text": "International organizations warned conflict hinders response",
+      "subject_type": "Warning",
+      "property": "about",
+      "property_source": "schema.org",
+      "vocab_id": null,
+      "property_is_new_to_vocab": false,
+      "property_definition": null,
+      "property_parent": null,
+      "property_justification": "The CreativeWork (Warning) is about the DiseaseOutbreak/Event (Thing), fitting the 'about' property.",
+      "object_id": "E101",
+      "object_text": "conflict",
+      "object_type": "Event",
+      "relation_phrases": [
+        "warns"
+      ],
+      "phrase_directions": {
+        "warns": "as_is"
+      },
+      "evidence": [
+        [
+          "conflict in eastern DR Congo is making it more difficult to tackle the outbreak."
+        ]
+      ],
+      "confidence": 0.9,
+      "grounding": {
+        "evidence_status": "found",
+        "evidence_detail": {
+          "n_quotes": 1,
+          "found": 1,
+          "partial": 0,
+          "missing": 0,
+          "worst_ratio": 1.0
+        },
+        "evidence_resolved": [
+          {
+            "quote": "conflict in eastern DR Congo is making it more difficult to tackle the outbreak.",
+            "status": "found",
+            "ratio": 1.0,
+            "start": 3632,
+            "end": 3712,
+            "matched_text": "conflict in eastern DR Congo is making it more difficult to tackle the outbreak.",
+            "sentence": "International organisations also warn that conflict in eastern DR Congo is making it more difficult to tackle the outbreak. The M23 rebel group is in control of large parts of both North and South Kivu."
+          }
+        ],
+        "orphaned": false,
+        "supported": true,
+        "failure_type": null,
+        "note": "",
+        "quote": "International organisations also warn that conflict in eastern DR Congo is making it more difficult to tackle the outbreak",
+        "quote_status": "found",
+        "quote_ratio": 1.0,
+        "citation_match": false,
         "grounded": true
       }
     },
@@ -9529,10 +9068,10 @@
         "orphaned": false,
         "supported": true,
         "failure_type": null,
-        "note": "The article explicitly mentions the outbreak spread undetected for weeks.",
-        "quote": "the outbreak was spreading for weeks before it was confirmed to be Ebola",
-        "quote_status": "missing",
-        "quote_ratio": 0.819,
+        "note": "",
+        "quote": "it was spreading for weeks before it was confirmed to be Ebola",
+        "quote_status": "found",
+        "quote_ratio": 1.0,
         "citation_match": true,
         "grounded": true
       }
@@ -9586,11 +9125,68 @@
         "orphaned": false,
         "supported": true,
         "failure_type": null,
-        "note": "The article states the outbreak spread undetected for weeks.",
-        "quote": "the outbreak was spreading for weeks before it was confirmed to be Ebola",
-        "quote_status": "missing",
-        "quote_ratio": 0.819,
+        "note": "",
+        "quote": "spreading for weeks",
+        "quote_status": "found",
+        "quote_ratio": 1.0,
         "citation_match": true,
+        "grounded": true
+      }
+    },
+    {
+      "subject_id": "OBS9",
+      "subject_text": "Outbreak spread undetected for weeks",
+      "subject_type": "Undetected Outbreak Spread",
+      "property": "occurredAtTime",
+      "property_source": "vocab",
+      "vocab_id": "P0558",
+      "property_is_new_to_vocab": true,
+      "property_definition": "Specifies the time, period, or event during which something happened.",
+      "property_parent": null,
+      "property_justification": "No suitable schema.org property found for a temporal 'before' relation between two Events; minted a new property.",
+      "object_id": "E21",
+      "object_text": "current outbreak",
+      "object_type": "DiseaseOutbreak",
+      "relation_phrases": [
+        "before"
+      ],
+      "phrase_directions": {
+        "before": "as_is"
+      },
+      "evidence": [
+        [
+          "before it was confirmed to be Ebola."
+        ]
+      ],
+      "confidence": 0.9,
+      "grounding": {
+        "evidence_status": "found",
+        "evidence_detail": {
+          "n_quotes": 1,
+          "found": 1,
+          "partial": 0,
+          "missing": 0,
+          "worst_ratio": 1.0
+        },
+        "evidence_resolved": [
+          {
+            "quote": "before it was confirmed to be Ebola.",
+            "status": "found",
+            "ratio": 1.0,
+            "start": 3552,
+            "end": 3588,
+            "matched_text": "before it was confirmed to be Ebola.",
+            "sentence": "According to both Africa CDC and US public health authorities, the current outbreak has the potential to be one of the largest ever, because it was spreading for weeks before it was confirmed to be Ebola.\nInternational organisations also warn that conflict in eastern DR Congo is making it more difficult to tackle the outbreak."
+          }
+        ],
+        "orphaned": false,
+        "supported": true,
+        "failure_type": null,
+        "note": "",
+        "quote": "it was spreading for weeks before it was confirmed to be Ebola",
+        "quote_status": "found",
+        "quote_ratio": 1.0,
+        "citation_match": false,
         "grounded": true
       }
     },
@@ -9643,65 +9239,8 @@
         "orphaned": false,
         "supported": true,
         "failure_type": null,
-        "note": "article refers to the outbreak as an 'Ebola' outbreak",
-        "quote": "the current deadly Ebola outbreak in the Democratic Republic of Congo",
-        "quote_status": "found",
-        "quote_ratio": 1.0,
-        "citation_match": false,
-        "grounded": true
-      }
-    },
-    {
-      "subject_id": "E101",
-      "subject_text": "conflict",
-      "subject_type": "Event",
-      "property": "object",
-      "property_source": "schema.org",
-      "vocab_id": null,
-      "property_is_new_to_vocab": false,
-      "property_definition": null,
-      "property_parent": null,
-      "property_justification": "The Event (Action) acts upon the DiseaseOutbreak (Thing), fitting the 'object' property.",
-      "object_id": "E20",
-      "object_text": "outbreak",
-      "object_type": "DiseaseOutbreak",
-      "relation_phrases": [
-        "hinders"
-      ],
-      "phrase_directions": {
-        "hinders": "as_is"
-      },
-      "evidence": [
-        [
-          "making it more difficult to tackle the outbreak."
-        ]
-      ],
-      "confidence": 0.9,
-      "grounding": {
-        "evidence_status": "found",
-        "evidence_detail": {
-          "n_quotes": 1,
-          "found": 1,
-          "partial": 0,
-          "missing": 0,
-          "worst_ratio": 1.0
-        },
-        "evidence_resolved": [
-          {
-            "quote": "making it more difficult to tackle the outbreak.",
-            "status": "found",
-            "ratio": 1.0,
-            "start": 3664,
-            "end": 3712,
-            "matched_text": "making it more difficult to tackle the outbreak.",
-            "sentence": "International organisations also warn that conflict in eastern DR Congo is making it more difficult to tackle the outbreak. The M23 rebel group is in control of large parts of both North and South Kivu."
-          }
-        ],
-        "orphaned": false,
-        "supported": true,
-        "failure_type": null,
-        "note": "article states conflict hinders response",
-        "quote": "International organisations also warn that conflict in eastern DR Congo is making it more difficult to tackle the outbreak",
+        "note": "",
+        "quote": "current outbreak of Ebola",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": false,
@@ -9757,7 +9296,7 @@
         "orphaned": false,
         "supported": true,
         "failure_type": null,
-        "note": "article explicitly states M23 controls North Kivu",
+        "note": "",
         "quote": "The M23 rebel group is in control of large parts of both North and South Kivu",
         "quote_status": "found",
         "quote_ratio": 1.0,
@@ -9814,68 +9353,11 @@
         "orphaned": false,
         "supported": true,
         "failure_type": null,
-        "note": "article explicitly states M23 controls South Kivu",
+        "note": "",
         "quote": "The M23 rebel group is in control of large parts of both North and South Kivu",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": false,
-        "grounded": true
-      }
-    },
-    {
-      "subject_id": "OBS11",
-      "subject_text": "Ebola species and outbreak potential",
-      "subject_type": "Ebola Species Characteristics",
-      "property": "target",
-      "property_source": "schema.org",
-      "vocab_id": null,
-      "property_is_new_to_vocab": true,
-      "property_definition": null,
-      "property_parent": null,
-      "property_justification": "No suitable schema.org property found for a CreativeWork indicating development requirements for a Taxon; minted a new property.",
-      "object_id": "E17",
-      "object_text": "species of Ebola",
-      "object_type": "Taxon",
-      "relation_phrases": [
-        "must be developed for"
-      ],
-      "phrase_directions": {
-        "must be developed for": "as_is"
-      },
-      "evidence": [
-        [
-          "Vaccines must be developed for each individual species of Ebola"
-        ]
-      ],
-      "confidence": 0.9,
-      "grounding": {
-        "evidence_status": "found",
-        "evidence_detail": {
-          "n_quotes": 1,
-          "found": 1,
-          "partial": 0,
-          "missing": 0,
-          "worst_ratio": 1.0
-        },
-        "evidence_resolved": [
-          {
-            "quote": "Vaccines must be developed for each individual species of Ebola",
-            "status": "found",
-            "ratio": 1.0,
-            "start": 3792,
-            "end": 3855,
-            "matched_text": "Vaccines must be developed for each individual species of Ebola",
-            "sentence": "Vaccines must be developed for each individual species of Ebola, of which there are six, but only three are known to cause outbreaks."
-          }
-        ],
-        "orphaned": false,
-        "supported": true,
-        "failure_type": null,
-        "note": "article discusses species and outbreak potential",
-        "quote": "Vaccines must be developed for each individual species of Ebola, of which there are six, but only three are known to cause outbreaks",
-        "quote_status": "found",
-        "quote_ratio": 1.0,
-        "citation_match": true,
         "grounded": true
       }
     },
@@ -9928,8 +9410,8 @@
         "orphaned": false,
         "supported": true,
         "failure_type": null,
-        "note": "article states six species exist",
-        "quote": "of which there are six",
+        "note": "",
+        "quote": "there are six",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -9985,8 +9467,8 @@
         "orphaned": false,
         "supported": true,
         "failure_type": null,
-        "note": "article states three species cause outbreaks",
-        "quote": "but only three are known to cause outbreaks",
+        "note": "",
+        "quote": "only three are known to cause outbreaks",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -9997,28 +9479,29 @@
   "prune_report": {
     "nary_nodes": {
       "before": 33,
-      "after": 33,
-      "removed": 0,
-      "kept_rate": 1.0
+      "after": 29,
+      "removed": 4,
+      "kept_rate": 0.879
     },
     "relations": {
       "before": 151,
-      "after": 134,
-      "removed": 17,
-      "kept_rate": 0.887
+      "after": 128,
+      "removed": 23,
+      "kept_rate": 0.848
     },
     "entities": {
       "before": 102,
-      "after": 95,
-      "removed": 7,
-      "kept_rate": 0.931
+      "after": 94,
+      "removed": 8,
+      "kept_rate": 0.922
     },
     "unjudged_kept": 0,
     "drop_unjudged": false,
     "drop_orphan_entities": true,
     "removed_by_failure_type": {
-      "intrinsic": 10,
-      "extrinsic": 7
+      "extrinsic": 14,
+      "orphan": 8,
+      "intrinsic": 5
     }
   }
 }

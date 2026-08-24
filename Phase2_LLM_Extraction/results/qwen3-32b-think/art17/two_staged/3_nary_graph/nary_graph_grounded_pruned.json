@@ -7,72 +7,65 @@
   "grounding_report": {
     "nary_nodes": {
       "total": 8,
-      "grounded": 7,
-      "rate": 0.875,
-      "failures": {
-        "extrinsic": 1
-      },
+      "grounded": 8,
+      "rate": 1.0,
+      "failures": {},
       "citation_status": {
         "found": 6,
         "missing": 2
       },
       "citation_precision": {
-        "n": 7,
-        "matched": 5,
-        "rate": 0.714
+        "n": 8,
+        "matched": 6,
+        "rate": 0.75
       },
       "judge_quote_status": {
-        "partial": 1,
-        "found": 6
+        "found": 8
       }
     },
     "relations": {
       "total": 18,
-      "grounded": 12,
-      "rate": 0.667,
+      "grounded": 8,
+      "rate": 0.444,
       "failures": {
-        "intrinsic": 1,
-        "orphan": 3,
-        "extrinsic": 2
+        "extrinsic": 9,
+        "intrinsic": 1
       },
       "citation_status": {
         "found": 11,
         "missing": 7
       },
       "citation_precision": {
-        "n": 12,
-        "matched": 4,
-        "rate": 0.333
+        "n": 8,
+        "matched": 6,
+        "rate": 0.75
       },
       "judge_quote_status": {
-        "partial": 3,
-        "found": 7,
-        "missing": 2
+        "found": 8
       }
     },
     "relations_by_property_source": {
       "schema.org": {
         "total": 18,
-        "grounded": 12,
-        "rate": 0.667
+        "grounded": 8,
+        "rate": 0.444
       }
     },
     "nodes_by_type_source": {
       "not_canonicalized": {
         "total": 8,
-        "grounded": 7,
-        "rate": 0.875
+        "grounded": 8,
+        "rate": 1.0
       }
     }
   },
   "grounding_config": {
     "method": "full_article",
-    "judge_backend": "qwen3-32b-think",
-    "judge_model": "qwen3-32b",
-    "judge_batch": 20,
-    "prompt_sha1": "67305d45abb6",
+    "backend": "gpt-oss-120b",
+    "model": "accounts/fireworks/models/gpt-oss-120b",
+    "judge_batch": 60,
     "graph": "nary_graph_dedup_main_val_r1_extended_consolidated.json",
-    "self_judged": true
+    "prompt_sha1": "67305d45abb6"
   },
   "entities": [
     {
@@ -85,26 +78,8 @@
       "type_vocab_id": null
     },
     {
-      "id": "E3",
-      "text": "Thierry Henry",
-      "type": "Person",
-      "aliases": [],
-      "type_source": "schema.org",
-      "type_parent": null,
-      "type_vocab_id": null
-    },
-    {
-      "id": "E4",
-      "text": "Zlatan Ibrahimović",
-      "type": "Person",
-      "aliases": [],
-      "type_source": "schema.org",
-      "type_parent": null,
-      "type_vocab_id": null
-    },
-    {
-      "id": "E5",
-      "text": "Brazil",
+      "id": "E6",
+      "text": "Norway",
       "type": "Country",
       "aliases": [],
       "type_source": "schema.org",
@@ -120,6 +95,24 @@
       "type_parent": "Date",
       "type_vocab_id": "T0023",
       "type_definition": "A specific year in the Gregorian calendar as a unit of time."
+    },
+    {
+      "id": "E19",
+      "text": "Miami Stadium",
+      "type": "StadiumOrArena",
+      "aliases": [],
+      "type_source": "schema.org",
+      "type_parent": null,
+      "type_vocab_id": null
+    },
+    {
+      "id": "E20",
+      "text": "July 11",
+      "type": "Date",
+      "aliases": [],
+      "type_source": "schema.org",
+      "type_parent": null,
+      "type_vocab_id": null
     },
     {
       "id": "E22",
@@ -176,9 +169,9 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Brazil Star Neymar Announces International Retirement: 'It Is Now Over'\n\nFollowing Brazil's 2-1 loss to Norway in the round of 16, Brazilian icon Neymar announced his international retirement.",
-        "quote_status": "partial",
-        "quote_ratio": 0.853,
+        "quote": "Brazilian icon Neymar announced his international retirement.",
+        "quote_status": "found",
+        "quote_ratio": 1.0,
         "citation_match": true,
         "grounded": true
       }
@@ -306,7 +299,10 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Neymar made his senior international debut in 2010 and appeared in four World Cup tournaments.",
+        "quote": [
+          "Neymar made his senior international debut in 2010 and appeared in four World Cup tournaments.",
+          "The Brazilian forward made two appearances, both as a substitute, at the 2026 World Cup."
+        ],
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -386,7 +382,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Shortly after the news broke, Thierry Henry praised Neymar and wanted to focus his comments on his overall career.",
+        "quote": "\"Thank you. This is a guy I would've paid to watch. Simple as that,\" Henry said on FOX Sports \"World Cup Today.\"",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": false,
@@ -426,19 +422,59 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Zlatan Ibrahimović also had high praise for Neymar.",
+        "quote": "\"He will be remembered as the great footballer that came over to Europe, and before he came over to Europe, he was doing his thing in Brazil,\" Ibrahimović said.",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": false,
+        "grounded": true
+      }
+    },
+    {
+      "id": "EV3",
+      "node_kind": "Event",
+      "type": "TournamentMatch",
+      "label": "Norway's Quarterfinal Match",
+      "is_main": false,
+      "evidence": [
+        "Norway moves on to the quarterfinals where they will face the winner of the round of 16 match"
+      ],
+      "confidence": 0.8,
+      "grounding": {
+        "evidence_status": "found",
+        "evidence_detail": {
+          "n_quotes": 1,
+          "found": 1,
+          "partial": 0,
+          "missing": 0,
+          "worst_ratio": 1.0
+        },
+        "evidence_resolved": [
+          {
+            "quote": "Norway moves on to the quarterfinals where they will face the winner of the round of 16 match",
+            "status": "found",
+            "ratio": 1.0,
+            "start": 2370,
+            "end": 2463,
+            "matched_text": "Norway moves on to the quarterfinals where they will face the winner of the round of 16 match",
+            "sentence": "\"\nNorway moves on to the quarterfinals where they will face the winner of the round of 16 match between Mexico and England at Miami Stadium on July 11."
+          }
+        ],
+        "supported": true,
+        "failure_type": null,
+        "note": "",
+        "quote": "Norway moves on to the quarterfinals where they will face the winner of the round of 16 match between Mexico and England at Miami Stadium on July 11.",
+        "quote_status": "found",
+        "quote_ratio": 1.0,
+        "citation_match": true,
         "grounded": true
       }
     }
   ],
   "relations": [
     {
-      "subject_id": "EV2",
-      "subject_text": "Brazil vs Norway Round of 16 Match",
-      "subject_type": "InternationalMatch",
+      "subject_id": "EV1",
+      "subject_text": "Neymar Announces International Retirement",
+      "subject_type": "InternationalRetirementAnnouncement",
       "property": "attendee",
       "property_source": "schema.org",
       "vocab_id": null,
@@ -456,37 +492,37 @@
         "participant": "inverse"
       },
       "evidence": [
-        "Neymar scored the tournament's lone goal against Norway in stoppage time"
+        "Neymar announced his international retirement"
       ],
-      "confidence": 0.9,
+      "confidence": 0.95,
       "grounding": {
-        "evidence_status": "missing",
+        "evidence_status": "found",
         "evidence_detail": {
           "n_quotes": 1,
-          "found": 0,
+          "found": 1,
           "partial": 0,
-          "missing": 1,
-          "worst_ratio": 0.597
+          "missing": 0,
+          "worst_ratio": 1.0
         },
         "evidence_resolved": [
           {
-            "quote": "Neymar scored the tournament's lone goal against Norway in stoppage time",
-            "status": "missing",
-            "ratio": 0.597,
-            "start": null,
-            "end": null,
-            "matched_text": null,
-            "sentence": null
+            "quote": "Neymar announced his international retirement",
+            "status": "found",
+            "ratio": 1.0,
+            "start": 282,
+            "end": 327,
+            "matched_text": "Neymar announced his international retirement",
+            "sentence": "com/stories/soccer/brazil-star-neymar-announces-international-retirement-it-now-over\nDate: 05/07/2026\n\nFollowing Brazil's 2-1 loss to Norway in the round of 16, Brazilian icon Neymar announced his international retirement."
           }
         ],
         "orphaned": false,
         "supported": true,
         "failure_type": null,
-        "note": "Neymar played in the match",
-        "quote": "He made two appearances, both as a substitute, at the 2026 World Cup. He made a cameo appearance in the second half against Scotland during the group stage before he scored his lone goal of the tournament from the penalty spot in stoppage time against Norway.",
-        "quote_status": "partial",
-        "quote_ratio": 0.954,
-        "citation_match": false,
+        "note": "",
+        "quote": "Following Brazil's 2-1 loss to Norway in the round of 16, Brazilian icon Neymar announced his international retirement.",
+        "quote_status": "found",
+        "quote_ratio": 1.0,
+        "citation_match": true,
         "grounded": true
       }
     },
@@ -537,10 +573,10 @@
         "orphaned": false,
         "supported": true,
         "failure_type": null,
-        "note": "Neymar participated in the 2026 World Cup",
-        "quote": "He made two appearances, both as a substitute, at the 2026 World Cup.",
-        "quote_status": "partial",
-        "quote_ratio": 0.971,
+        "note": "",
+        "quote": "The Brazilian forward made two appearances, both as a substitute, at the 2026 World Cup.",
+        "quote_status": "found",
+        "quote_ratio": 1.0,
         "citation_match": false,
         "grounded": true
       }
@@ -592,7 +628,7 @@
         "orphaned": false,
         "supported": true,
         "failure_type": null,
-        "note": "Neymar competed in two Olympic tournaments",
+        "note": "",
         "quote": "He also competed in two Olympic tournaments, winning a silver medal in 2012 and leading Brazil to a gold medal in 2016.",
         "quote_status": "found",
         "quote_ratio": 1.0,
@@ -601,54 +637,54 @@
       }
     },
     {
-      "subject_id": "EV2",
-      "subject_text": "Brazil vs Norway Round of 16 Match",
-      "subject_type": "InternationalMatch",
-      "property": "source",
+      "subject_id": "EV3",
+      "subject_text": "Norway's Quarterfinal Match",
+      "subject_type": "TournamentMatch",
+      "property": "attendee",
       "property_source": "schema.org",
       "vocab_id": null,
       "property_is_new_to_vocab": false,
       "property_definition": null,
       "property_parent": null,
-      "property_justification": "The 'source' property (InstantaneousEvent → Thing) matches the InternationalMatch → InternationalRetirementAnnouncement pairing as a causal originator.",
-      "object_id": "EV1",
-      "object_text": "Neymar Announces International Retirement",
-      "object_type": "InternationalRetirementAnnouncement",
+      "property_justification": "The inverse of 'attendee' (Event → Person/Organization) fits the observed Person → Event pairs where the participant is involved in the event, even though schema.org's 'attendee' typically denotes presence. No as_is candidate aligns with the phrase's direction.",
+      "object_id": "E6",
+      "object_text": "Norway",
+      "object_type": "Country",
       "relation_phrases": [
-        "cause"
+        "participant"
       ],
       "phrase_directions": {
-        "cause": "as_is"
+        "participant": "inverse"
       },
       "evidence": [
-        "Following Brazil's 2-1 loss to Norway in the round of 16, Neymar announced his retirement"
+        "Norway moves on to the quarterfinals"
       ],
-      "confidence": 0.9,
+      "confidence": 0.8,
       "grounding": {
-        "evidence_status": "missing",
+        "evidence_status": "found",
         "evidence_detail": {
           "n_quotes": 1,
-          "found": 0,
+          "found": 1,
           "partial": 0,
-          "missing": 1,
-          "worst_ratio": 0.787
+          "missing": 0,
+          "worst_ratio": 1.0
         },
         "evidence_resolved": [
           {
-            "quote": "Following Brazil's 2-1 loss to Norway in the round of 16, Neymar announced his retirement",
-            "status": "missing",
-            "ratio": 0.787,
-            "start": null,
-            "end": null,
-            "matched_text": null,
-            "sentence": null
+            "quote": "Norway moves on to the quarterfinals",
+            "status": "found",
+            "ratio": 1.0,
+            "start": 2370,
+            "end": 2406,
+            "matched_text": "Norway moves on to the quarterfinals",
+            "sentence": "\"\nNorway moves on to the quarterfinals where they will face the winner of the round of 16 match between Mexico and England at Miami Stadium on July 11."
           }
         ],
         "orphaned": false,
         "supported": true,
         "failure_type": null,
-        "note": "The announcement was made after the match",
-        "quote": "Following Brazil's 2-1 loss to Norway in the round of 16, Brazilian icon Neymar announced his international retirement.",
+        "note": "",
+        "quote": "Norway moves on to the quarterfinals where they will face the winner of the round of 16 match between Mexico and England at Miami Stadium on July 11.",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -656,29 +692,29 @@
       }
     },
     {
-      "subject_id": "E1",
-      "subject_text": "Neymar",
-      "subject_type": "Person",
-      "property": "hasCredential",
+      "subject_id": "EV3",
+      "subject_text": "Norway's Quarterfinal Match",
+      "subject_type": "TournamentMatch",
+      "property": "location",
       "property_source": "schema.org",
       "vocab_id": null,
       "property_is_new_to_vocab": false,
       "property_definition": null,
       "property_parent": null,
-      "property_justification": "The 'hasCredential' property (Organization/Person → Credential) fits the Person → CareerStatistics pairing as a career-related credential.",
-      "object_id": "OBS1",
-      "object_text": "Neymar's Career Stats",
-      "object_type": "CareerStatistics",
+      "property_justification": "The 'location' property (Action/Event → Place/Text) matches both TournamentMatch → StadiumOrArena and InternationalMatch → Country pairs as geographic locations of events.",
+      "object_id": "E19",
+      "object_text": "Miami Stadium",
+      "object_type": "StadiumOrArena",
       "relation_phrases": [
-        "has_career_statistic"
+        "location"
       ],
       "phrase_directions": {
-        "has_career_statistic": "as_is"
+        "location": "as_is"
       },
       "evidence": [
-        "80 goals in 129 appearances"
+        "at Miami Stadium"
       ],
-      "confidence": 0.85,
+      "confidence": 0.8,
       "grounding": {
         "evidence_status": "found",
         "evidence_detail": {
@@ -690,20 +726,20 @@
         },
         "evidence_resolved": [
           {
-            "quote": "80 goals in 129 appearances",
+            "quote": "at Miami Stadium",
             "status": "found",
             "ratio": 1.0,
-            "start": 452,
-            "end": 479,
-            "matched_text": "80 goals in 129 appearances",
-            "sentence": "The 34-year-old forward finishes his career as the top goalscorer in the history of the Brazilian men's national team with 80 goals in 129 appearances."
+            "start": 2491,
+            "end": 2507,
+            "matched_text": "at Miami Stadium",
+            "sentence": "\"\nNorway moves on to the quarterfinals where they will face the winner of the round of 16 match between Mexico and England at Miami Stadium on July 11."
           }
         ],
         "orphaned": false,
         "supported": true,
         "failure_type": null,
-        "note": "The article provides his career statistics",
-        "quote": "The 34-year-old forward finishes his career as the top goalscorer in the history of the Brazilian men's national team with 80 goals in 129 appearances.",
+        "note": "",
+        "quote": "at Miami Stadium on July 11.",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -711,29 +747,29 @@
       }
     },
     {
-      "subject_id": "E3",
-      "subject_text": "Thierry Henry",
-      "subject_type": "Person",
-      "property": "sender",
+      "subject_id": "EV3",
+      "subject_text": "Norway's Quarterfinal Match",
+      "subject_type": "TournamentMatch",
+      "property": "scheduledTime",
       "property_source": "schema.org",
       "vocab_id": null,
       "property_is_new_to_vocab": false,
       "property_definition": null,
       "property_parent": null,
-      "property_justification": "The 'sender' property (Message/ReceiveAction → Audience/Organization/Person) aligns with the Person → PlayerPraise pairing as the originator of the claim.",
-      "object_id": "CL1",
-      "object_text": "Thierry Henry Praises Neymar",
-      "object_type": "PlayerPraise",
+      "property_justification": "The 'scheduledTime' property (PlanAction → Date) fits the TournamentMatch → Date pairing as a scheduled date, though the object is a Year.",
+      "object_id": "E20",
+      "object_text": "July 11",
+      "object_type": "Date",
       "relation_phrases": [
-        "source_of_claim"
+        "scheduled_on"
       ],
       "phrase_directions": {
-        "source_of_claim": "as_is"
+        "scheduled_on": "as_is"
       },
       "evidence": [
-        "Thierry Henry praised Neymar"
+        "on July 11"
       ],
-      "confidence": 0.75,
+      "confidence": 0.8,
       "grounding": {
         "evidence_status": "found",
         "evidence_detail": {
@@ -745,188 +781,23 @@
         },
         "evidence_resolved": [
           {
-            "quote": "Thierry Henry praised Neymar",
+            "quote": "on July 11",
             "status": "found",
             "ratio": 1.0,
-            "start": 1005,
-            "end": 1033,
-            "matched_text": "Thierry Henry praised Neymar",
-            "sentence": "Shortly after the news broke, Thierry Henry praised Neymar and wanted to focus his comments on his overall career."
+            "start": 2508,
+            "end": 2518,
+            "matched_text": "on July 11",
+            "sentence": "\"\nNorway moves on to the quarterfinals where they will face the winner of the round of 16 match between Mexico and England at Miami Stadium on July 11."
           }
         ],
         "orphaned": false,
         "supported": true,
         "failure_type": null,
-        "note": "Thierry Henry praised Neymar directly",
-        "quote": "Thank you. This is a guy I would've paid to watch...",
+        "note": "",
+        "quote": "July 11",
         "quote_status": "found",
         "quote_ratio": 1.0,
-        "citation_match": false,
-        "grounded": true
-      }
-    },
-    {
-      "subject_id": "E4",
-      "subject_text": "Zlatan Ibrahimović",
-      "subject_type": "Person",
-      "property": "sender",
-      "property_source": "schema.org",
-      "vocab_id": null,
-      "property_is_new_to_vocab": false,
-      "property_definition": null,
-      "property_parent": null,
-      "property_justification": "The 'sender' property (Message/ReceiveAction → Audience/Organization/Person) aligns with the Person → PlayerPraise pairing as the originator of the claim.",
-      "object_id": "CL2",
-      "object_text": "Zlatan Ibrahimović Praises Neymar",
-      "object_type": "PlayerPraise",
-      "relation_phrases": [
-        "source_of_claim"
-      ],
-      "phrase_directions": {
-        "source_of_claim": "as_is"
-      },
-      "evidence": [
-        "Zlatan Ibrahimović also had high praise for Neymar"
-      ],
-      "confidence": 0.75,
-      "grounding": {
-        "evidence_status": "found",
-        "evidence_detail": {
-          "n_quotes": 1,
-          "found": 1,
-          "partial": 0,
-          "missing": 0,
-          "worst_ratio": 1.0
-        },
-        "evidence_resolved": [
-          {
-            "quote": "Zlatan Ibrahimović also had high praise for Neymar",
-            "status": "found",
-            "ratio": 1.0,
-            "start": 1821,
-            "end": 1871,
-            "matched_text": "Zlatan Ibrahimović also had high praise for Neymar",
-            "sentence": "\"\nZlatan Ibrahimović also had high praise for Neymar."
-          }
-        ],
-        "orphaned": false,
-        "supported": true,
-        "failure_type": null,
-        "note": "Zlatan Ibrahimović praised Neymar directly",
-        "quote": "He will be remembered as the great footballer that came over to Europe...",
-        "quote_status": "found",
-        "quote_ratio": 1.0,
-        "citation_match": false,
-        "grounded": true
-      }
-    },
-    {
-      "subject_id": "CL1",
-      "subject_text": "Thierry Henry Praises Neymar",
-      "subject_type": "PlayerPraise",
-      "property": "relatedLink",
-      "property_source": "schema.org",
-      "vocab_id": null,
-      "property_is_new_to_vocab": false,
-      "property_definition": null,
-      "property_parent": null,
-      "property_justification": "The 'relatedLink' property (WebPage → URL) fits the PlayerPraise → InternationalRetirementAnnouncement pairing as an associated link, though the object is an event.",
-      "object_id": "EV1",
-      "object_text": "Neymar Announces International Retirement",
-      "object_type": "InternationalRetirementAnnouncement",
-      "relation_phrases": [
-        "related_to"
-      ],
-      "phrase_directions": {
-        "related_to": "as_is"
-      },
-      "evidence": [
-        "Henry's comments were about Neymar's career"
-      ],
-      "confidence": 0.75,
-      "grounding": {
-        "evidence_status": "missing",
-        "evidence_detail": {
-          "n_quotes": 1,
-          "found": 0,
-          "partial": 0,
-          "missing": 1,
-          "worst_ratio": 0.512
-        },
-        "evidence_resolved": [
-          {
-            "quote": "Henry's comments were about Neymar's career",
-            "status": "missing",
-            "ratio": 0.512,
-            "start": null,
-            "end": null,
-            "matched_text": null,
-            "sentence": null
-          }
-        ],
-        "orphaned": false,
-        "supported": true,
-        "failure_type": null,
-        "note": "The praise occurred after the retirement announcement",
-        "quote": "Following Brazil's 2-1 loss to Norway in the round of 16, Brazilian icon Neymar announced his international retirement. Shortly after the news broke, Thierry Henry praised Neymar...",
-        "quote_status": "missing",
-        "quote_ratio": 0.707,
-        "citation_match": false,
-        "grounded": true
-      }
-    },
-    {
-      "subject_id": "CL2",
-      "subject_text": "Zlatan Ibrahimović Praises Neymar",
-      "subject_type": "PlayerPraise",
-      "property": "relatedLink",
-      "property_source": "schema.org",
-      "vocab_id": null,
-      "property_is_new_to_vocab": false,
-      "property_definition": null,
-      "property_parent": null,
-      "property_justification": "The 'relatedLink' property (WebPage → URL) fits the PlayerPraise → InternationalRetirementAnnouncement pairing as an associated link, though the object is an event.",
-      "object_id": "EV1",
-      "object_text": "Neymar Announces International Retirement",
-      "object_type": "InternationalRetirementAnnouncement",
-      "relation_phrases": [
-        "related_to"
-      ],
-      "phrase_directions": {
-        "related_to": "as_is"
-      },
-      "evidence": [
-        "Ibrahimović's comments were about Neymar's career"
-      ],
-      "confidence": 0.75,
-      "grounding": {
-        "evidence_status": "missing",
-        "evidence_detail": {
-          "n_quotes": 1,
-          "found": 0,
-          "partial": 0,
-          "missing": 1,
-          "worst_ratio": 0.51
-        },
-        "evidence_resolved": [
-          {
-            "quote": "Ibrahimović's comments were about Neymar's career",
-            "status": "missing",
-            "ratio": 0.51,
-            "start": null,
-            "end": null,
-            "matched_text": null,
-            "sentence": null
-          }
-        ],
-        "orphaned": false,
-        "supported": true,
-        "failure_type": null,
-        "note": "The praise occurred after the retirement announcement",
-        "quote": "Following Brazil's 2-1 loss to Norway in the round of 16, Brazilian icon Neymar announced his international retirement. Shortly after the news broke, Zlatan Ibrahimović also had high praise for Neymar...",
-        "quote_status": "missing",
-        "quote_ratio": 0.606,
-        "citation_match": false,
+        "citation_match": true,
         "grounded": true
       }
     },
@@ -977,66 +848,11 @@
         "orphaned": false,
         "supported": true,
         "failure_type": null,
-        "note": "Neymar participated in the 2026 World Cup",
-        "quote": "He made two appearances, both as a substitute, at the 2026 World Cup.",
-        "quote_status": "partial",
-        "quote_ratio": 0.971,
-        "citation_match": false,
-        "grounded": true
-      }
-    },
-    {
-      "subject_id": "OBS3",
-      "subject_text": "Neymar's Olympic Achievements",
-      "subject_type": "OlympicMedal",
-      "property": "award",
-      "property_source": "schema.org",
-      "vocab_id": null,
-      "property_is_new_to_vocab": false,
-      "property_definition": null,
-      "property_parent": null,
-      "property_justification": "The 'award' property (CreativeWork/Person → Text) fits the OlympicMedal → Country pairing as a recognition won by the country.",
-      "object_id": "E5",
-      "object_text": "Brazil",
-      "object_type": "Country",
-      "relation_phrases": [
-        "won_medal"
-      ],
-      "phrase_directions": {
-        "won_medal": "as_is"
-      },
-      "evidence": [
-        "leading Brazil to a gold medal in 2016"
-      ],
-      "confidence": 0.8,
-      "grounding": {
-        "evidence_status": "found",
-        "evidence_detail": {
-          "n_quotes": 1,
-          "found": 1,
-          "partial": 0,
-          "missing": 0,
-          "worst_ratio": 1.0
-        },
-        "evidence_resolved": [
-          {
-            "quote": "leading Brazil to a gold medal in 2016",
-            "status": "found",
-            "ratio": 1.0,
-            "start": 656,
-            "end": 694,
-            "matched_text": "leading Brazil to a gold medal in 2016",
-            "sentence": "He also competed in two Olympic tournaments, winning a silver medal in 2012 and leading Brazil to a gold medal in 2016."
-          }
-        ],
-        "orphaned": false,
-        "supported": true,
-        "failure_type": null,
-        "note": "Neymar earned Olympic medals for Brazil",
-        "quote": "He also competed in two Olympic tournaments, winning a silver medal in 2012 and leading Brazil to a gold medal in 2016.",
+        "note": "",
+        "quote": "at the 2026 World Cup",
         "quote_status": "found",
         "quote_ratio": 1.0,
-        "citation_match": true,
+        "citation_match": false,
         "grounded": true
       }
     },
@@ -1089,11 +905,11 @@
         "orphaned": false,
         "supported": true,
         "failure_type": null,
-        "note": "The event is explicitly named as the 2026 World Cup",
-        "quote": "The 2026 World Cup.",
+        "note": "",
+        "quote": "2026 World Cup",
         "quote_status": "found",
         "quote_ratio": 1.0,
-        "citation_match": false,
+        "citation_match": true,
         "grounded": true
       }
     }
@@ -1101,15 +917,15 @@
   "prune_report": {
     "nary_nodes": {
       "before": 8,
-      "after": 7,
-      "removed": 1,
-      "kept_rate": 0.875
+      "after": 8,
+      "removed": 0,
+      "kept_rate": 1.0
     },
     "relations": {
       "before": 18,
-      "after": 12,
-      "removed": 6,
-      "kept_rate": 0.667
+      "after": 8,
+      "removed": 10,
+      "kept_rate": 0.444
     },
     "entities": {
       "before": 22,
@@ -1121,9 +937,8 @@
     "drop_unjudged": false,
     "drop_orphan_entities": true,
     "removed_by_failure_type": {
-      "extrinsic": 3,
-      "intrinsic": 1,
-      "orphan": 3
+      "extrinsic": 9,
+      "intrinsic": 1
     }
   }
 }

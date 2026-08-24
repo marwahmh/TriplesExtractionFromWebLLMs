@@ -7,30 +7,31 @@
   "grounding_report": {
     "nary_nodes": {
       "total": 66,
-      "grounded": 66,
-      "rate": 1.0,
-      "failures": {},
+      "grounded": 63,
+      "rate": 0.955,
+      "failures": {
+        "extrinsic": 3
+      },
       "citation_status": {
         "found": 66
       },
       "citation_precision": {
-        "n": 66,
-        "matched": 60,
-        "rate": 0.909
+        "n": 63,
+        "matched": 58,
+        "rate": 0.921
       },
       "judge_quote_status": {
-        "found": 54,
-        "partial": 9,
-        "missing": 3
+        "found": 61,
+        "missing": 2
       }
     },
     "relations": {
       "total": 188,
-      "grounded": 182,
-      "rate": 0.968,
+      "grounded": 175,
+      "rate": 0.931,
       "failures": {
-        "intrinsic": 5,
-        "extrinsic": 1
+        "orphan": 3,
+        "extrinsic": 10
       },
       "citation_status": {
         "found": 184,
@@ -38,44 +39,43 @@
         "partial": 2
       },
       "citation_precision": {
-        "n": 182,
-        "matched": 149,
-        "rate": 0.819
+        "n": 175,
+        "matched": 162,
+        "rate": 0.926
       },
       "judge_quote_status": {
-        "found": 151,
-        "missing": 10,
-        "partial": 21
+        "found": 159,
+        "partial": 13,
+        "missing": 3
       }
     },
     "relations_by_property_source": {
       "schema.org": {
         "total": 122,
-        "grounded": 118,
-        "rate": 0.967
+        "grounded": 115,
+        "rate": 0.943
       },
       "vocab": {
         "total": 66,
-        "grounded": 64,
-        "rate": 0.97
+        "grounded": 60,
+        "rate": 0.909
       }
     },
     "nodes_by_type_source": {
       "not_canonicalized": {
         "total": 66,
-        "grounded": 66,
-        "rate": 1.0
+        "grounded": 63,
+        "rate": 0.955
       }
     }
   },
   "grounding_config": {
     "method": "full_article",
-    "judge_backend": "qwen3-32b-think",
-    "judge_model": "qwen3-32b",
-    "judge_batch": 20,
-    "prompt_sha1": "67305d45abb6",
+    "backend": "gpt-oss-120b",
+    "model": "accounts/fireworks/models/gpt-oss-120b",
+    "judge_batch": 60,
     "graph": "nary_graph_dedup_main_val_r1_extended_consolidated.json",
-    "self_judged": false
+    "prompt_sha1": "67305d45abb6"
   },
   "entities": [
     {
@@ -358,6 +358,15 @@
     {
       "id": "E32",
       "text": "four people",
+      "type": "CountOfPeople",
+      "aliases": [],
+      "type_source": "vocab",
+      "type_parent": "Quantity",
+      "type_vocab_id": "T0286"
+    },
+    {
+      "id": "E33",
+      "text": "11 people",
       "type": "CountOfPeople",
       "aliases": [],
       "type_source": "vocab",
@@ -680,6 +689,15 @@
       "type_vocab_id": "T0298"
     },
     {
+      "id": "E74",
+      "text": "four fires",
+      "type": "CountOfEvents",
+      "aliases": [],
+      "type_source": "vocab",
+      "type_parent": "Quantity",
+      "type_vocab_id": "T0299"
+    },
+    {
       "id": "E75",
       "text": "site",
       "type": "Place",
@@ -942,7 +960,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Ukraine said it has hit two oil refineries in multiple strikes deep inside Russia...",
+        "quote": "Ukraine said it has hit two oil refineries in multiple strikes deep inside Russia",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -992,50 +1010,10 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "two military patrol boats and shadow fleet vessels were hit in the Black Sea...",
-        "quote_status": "partial",
-        "quote_ratio": 0.911,
-        "citation_match": false,
-        "grounded": true
-      }
-    },
-    {
-      "id": "EV3",
-      "node_kind": "Event",
-      "type": "War Financing",
-      "label": "Moscow finances war",
-      "is_main": false,
-      "evidence": [
-        "Moscow \"uses to finance\" its war"
-      ],
-      "confidence": 0.9,
-      "grounding": {
-        "evidence_status": "found",
-        "evidence_detail": {
-          "n_quotes": 1,
-          "found": 1,
-          "partial": 0,
-          "missing": 0,
-          "worst_ratio": 1.0
-        },
-        "evidence_resolved": [
-          {
-            "quote": "Moscow \"uses to finance\" its war",
-            "status": "found",
-            "ratio": 1.0,
-            "start": 422,
-            "end": 454,
-            "matched_text": "Moscow \"uses to finance\" its war",
-            "sentence": "President Volodymyr Zelensky said the Bashneft-Novoil and Slavneft-Yanos refineries were struck in the attacks aimed at limiting oil revenues Moscow \"uses to finance\" its war."
-          }
-        ],
-        "supported": true,
-        "failure_type": null,
-        "note": "",
-        "quote": "aimed at limiting oil revenues Moscow \"uses to finance\" its war.",
+        "quote": "The Ukrainian president also said that \"two military patrol boats and shadow fleet vessels were hit\" in the Black Sea",
         "quote_status": "found",
         "quote_ratio": 1.0,
-        "citation_match": true,
+        "citation_match": false,
         "grounded": true
       }
     },
@@ -1072,7 +1050,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Slavneft-Yanos was on fire after what he called the \"largest enemy drone attack\".",
+        "quote": "Yaroslavl regional governor Mikhail Evraev said Slavneft-Yanos was on fire",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -1112,9 +1090,9 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "the largest enemy drone attack",
-        "quote_status": "partial",
-        "quote_ratio": 0.933,
+        "quote": "after what he called the \"largest enemy drone attack\"",
+        "quote_status": "found",
+        "quote_ratio": 1.0,
         "citation_match": true,
         "grounded": true
       }
@@ -1162,7 +1140,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "at least 11 people were killed in Russian attacks...",
+        "quote": "Ukraine said at least 11 people were killed in Russian attacks",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -1202,7 +1180,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "the southern city of Kherson reported a total blackout.",
+        "quote": "the southern city of Kherson reported a total blackout",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -1242,7 +1220,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Russia said it targeted fuel, energy and transport facilities.",
+        "quote": "Russia said it targeted fuel, energy and transport facilities",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -1282,7 +1260,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Both Russia and Ukraine have in recent weeks intensified attacks on major cities...",
+        "quote": "Both Russia and Ukraine have in recent weeks intensified attacks on major cities, energy facilities and warehouses",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -1322,7 +1300,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "the vast front line remains virtually static",
+        "quote": "as the vast front line remains virtually static",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -1362,7 +1340,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "all mediation efforts to end the war have brought no breakthrough.",
+        "quote": "all mediation efforts to end the war have brought no breakthrough",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -1402,97 +1380,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Russian President Vladimir Putin launched a full-scale invasion of Ukraine in February 2022.",
-        "quote_status": "found",
-        "quote_ratio": 1.0,
-        "citation_match": true,
-        "grounded": true
-      }
-    },
-    {
-      "id": "EV13",
-      "node_kind": "Event",
-      "type": "Illegal Oil Export",
-      "label": "Russia illegally exports sanctioned oil",
-      "is_main": false,
-      "evidence": [
-        "tankers used by Russia to illegally export sanctioned oil"
-      ],
-      "confidence": 0.9,
-      "grounding": {
-        "evidence_status": "found",
-        "evidence_detail": {
-          "n_quotes": 1,
-          "found": 1,
-          "partial": 0,
-          "missing": 0,
-          "worst_ratio": 1.0
-        },
-        "evidence_resolved": [
-          {
-            "quote": "tankers used by Russia to illegally export sanctioned oil",
-            "status": "found",
-            "ratio": 1.0,
-            "start": 1495,
-            "end": 1552,
-            "matched_text": "tankers used by Russia to illegally export sanctioned oil",
-            "sentence": "The Ukrainian president also said that \"two military patrol boats and shadow fleet vessels were hit\" in the Black Sea, referring to tankers used by Russia to illegally export sanctioned oil."
-          }
-        ],
-        "supported": true,
-        "failure_type": null,
-        "note": "",
-        "quote": "referring to tankers used by Russia to illegally export sanctioned oil.",
-        "quote_status": "found",
-        "quote_ratio": 1.0,
-        "citation_match": true,
-        "grounded": true
-      }
-    },
-    {
-      "id": "EV14",
-      "node_kind": "Event",
-      "type": "Ukrainian Attacks",
-      "label": "Ukrainian attacks strengthening diplomacy",
-      "is_main": false,
-      "evidence": [
-        "Ukrainian attacks were \"strengthening chances for diplomacy\"",
-        "Zelensky said, adding that Ukrainian attacks were \"strengthening chances for diplomacy\"."
-      ],
-      "confidence": 0.9,
-      "grounding": {
-        "evidence_status": "found",
-        "evidence_detail": {
-          "n_quotes": 2,
-          "found": 2,
-          "partial": 0,
-          "missing": 0,
-          "worst_ratio": 1.0
-        },
-        "evidence_resolved": [
-          {
-            "quote": "Ukrainian attacks were \"strengthening chances for diplomacy\"",
-            "status": "found",
-            "ratio": 1.0,
-            "start": 1609,
-            "end": 1669,
-            "matched_text": "Ukrainian attacks were \"strengthening chances for diplomacy\"",
-            "sentence": "\"Russia must choose peace,\" Zelensky said, adding that Ukrainian attacks were \"strengthening chances for diplomacy\"."
-          },
-          {
-            "quote": "Zelensky said, adding that Ukrainian attacks were \"strengthening chances for diplomacy\".",
-            "status": "found",
-            "ratio": 1.0,
-            "start": 1582,
-            "end": 1670,
-            "matched_text": "Zelensky said, adding that Ukrainian attacks were \"strengthening chances for diplomacy\".",
-            "sentence": "\"Russia must choose peace,\" Zelensky said, adding that Ukrainian attacks were \"strengthening chances for diplomacy\".\nEvraev said 93 drones were shot down over Yaroslavl region overnight."
-          }
-        ],
-        "supported": true,
-        "failure_type": null,
-        "note": "",
-        "quote": "Ukrainian attacks were \"strengthening chances for diplomacy\".",
+        "quote": "Russian President Vladimir Putin launched a full-scale invasion of Ukraine in February 2022",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -1532,7 +1420,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Falling debris hit the oil refinery's storage tanks.",
+        "quote": "Falling debris hit the oil refinery's storage tanks",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -1612,7 +1500,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "huge smoke plumes rising from the refinery.",
+        "quote": "BBC Verify confirmed multiple videos and images shared on social media showing huge smoke plumes rising from the refinery",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -1652,7 +1540,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Energy-generating infrastructure in Yaroslavl has been targeted a number of times by Ukraine.",
+        "quote": "Energy-generating infrastructure in Yaroslavl has been targeted a number of times by Ukraine",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -1702,7 +1590,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "in the town of Balakliya, Kharkiv region, in an overnight Russian drone attack",
+        "quote": "three people were killed in the town of Balakliya, Kharkiv region, in an overnight Russian drone attack",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -1762,7 +1650,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "fires reported in two buildings.",
+        "quote": "with fires reported in two buildings",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -1802,7 +1690,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "another two people were killed when drones attacked the train station in Lozova.",
+        "quote": "another two people were killed when drones attacked the train station in Lozova",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -1882,9 +1770,9 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "the entire city of Kherson lost electricity after a 'critical infrastructure facility' was hit overnight",
-        "quote_status": "partial",
-        "quote_ratio": 0.962,
+        "quote": "the entire city of Kherson lost electricity",
+        "quote_status": "found",
+        "quote_ratio": 1.0,
         "citation_match": true,
         "grounded": true
       }
@@ -1932,9 +1820,9 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "a 'critical infrastructure facility' was hit overnight",
-        "quote_status": "partial",
-        "quote_ratio": 0.907,
+        "quote": "after a \"critical infrastructure facility\" was hit overnight",
+        "quote_status": "found",
+        "quote_ratio": 1.0,
         "citation_match": true,
         "grounded": true
       }
@@ -1972,10 +1860,10 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "connectivity did not fall to zero in part due to the use of 'generators and backup supplies' in Kherson",
-        "quote_status": "partial",
-        "quote_ratio": 0.883,
-        "citation_match": false,
+        "quote": "connectivity did not fall to zero in part due to the use of \"generators and backup supplies\" in Kherson",
+        "quote_status": "found",
+        "quote_ratio": 1.0,
+        "citation_match": true,
         "grounded": true
       }
     },
@@ -2022,7 +1910,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Russia hit two dry cargo ships",
+        "quote": "one person was killed when Russia hit two dry cargo ships",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -2062,7 +1950,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "struck Ukraine's fuel, energy and transport facilities, as well as drone storage sites",
+        "quote": "the military said it struck Ukraine's fuel, energy and transport facilities, as well as drone storage sites",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -2122,7 +2010,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "four people were injured",
+        "quote": "He said four people were injured",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -2162,7 +2050,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "at least 11 people were killed in Russian attacks",
+        "quote": "Ukraine said at least 11 people were killed in Russian attacks",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -2202,10 +2090,10 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "the struck Bashneft-Novoil refinery in Russia's Bashkortostan republic was about 1,300km (808 miles) from the Ukrainian border",
-        "quote_status": "found",
-        "quote_ratio": 1.0,
-        "citation_match": true,
+        "quote": "Zelensky said the Bashneft-Novoil refinery ... was about 1,300km (808 miles) from the Ukrainian border",
+        "quote_status": "missing",
+        "quote_ratio": 0.667,
+        "citation_match": false,
         "grounded": true
       }
     },
@@ -2252,7 +2140,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Slavneft-Yanos was almost 700km (435 miles) away",
+        "quote": "whereas Slavneft-Yanos was almost 700km (435 miles) away",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -2292,7 +2180,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "93 drones were shot down over Yaroslavl region overnight",
+        "quote": "Evraev said 93 drones were shot down over Yaroslavl region overnight",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -2332,7 +2220,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "there appear to be at least four fires at the site",
+        "quote": "In one of the verified images there appear to be at least four fires at the site",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -2372,7 +2260,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "three people were killed in the town of Balakliya, Kharkiv region, in an overnight Russian drone attack",
+        "quote": "three people were killed in the town of Balakliya",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -2472,7 +2360,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "another eight people were injured",
+        "quote": "Another eight people were injured",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -2552,9 +2440,9 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "deep disruption to connectivity in the Kherson region",
-        "quote_status": "partial",
-        "quote_ratio": 0.906,
+        "quote": "NetBlocks told BBC Verify it had observed \"deep disruption\" to connectivity in the Kherson region",
+        "quote_status": "found",
+        "quote_ratio": 1.0,
         "citation_match": true,
         "grounded": true
       }
@@ -2592,7 +2480,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "connectivity fell to about 31% at its lowest overnight",
+        "quote": "internet connectivity fell to about 31% at its lowest overnight",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -2672,10 +2560,10 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Last year, it was reported that 66,000 people live in Kherson - about 25% of its pre-war population.",
+        "quote": "Last year, it was reported that 66,000 people live in Kherson",
         "quote_status": "found",
         "quote_ratio": 1.0,
-        "citation_match": true,
+        "citation_match": false,
         "grounded": true
       }
     },
@@ -2712,7 +2600,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "In Ukraine's Black Sea port of Odesa, one person was killed when Russia hit two dry cargo ships.",
+        "quote": "one person was killed when Russia hit two dry cargo ships",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -2762,7 +2650,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "the Russian military said its forces intercepted or shot down 605 Ukrainian drones overnight over a number of regions.",
+        "quote": "its forces intercepted or shot down 605 Ukrainian drones overnight",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -2802,7 +2690,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Ukraine said it has hit two oil refineries in multiple strikes deep inside Russia with patrol boats and other vessels in the Black Sea also hit.",
+        "quote": "Ukraine said it has hit two oil refineries in multiple strikes deep inside Russia with patrol boats and other vessels in the Black Sea also hit",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -2842,10 +2730,10 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "President Volodymyr Zelensky said [...] were struck in the attacks aimed at limiting oil revenues Moscow 'uses to finance' its war.",
-        "quote_status": "missing",
-        "quote_ratio": 0.71,
-        "citation_match": false,
+        "quote": "Zelensky said the Bashneft-Novoil and Slavneft-Yanos refineries were struck in the attacks aimed at limiting oil revenues Moscow \"uses to finance\" its war",
+        "quote_status": "found",
+        "quote_ratio": 1.0,
+        "citation_match": true,
         "grounded": true
       }
     },
@@ -2882,9 +2770,9 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Yaroslavl regional governor Mikhail Evraev said Slavneft-Yanos was on fire after what he called the 'largest enemy drone attack'.",
-        "quote_status": "partial",
-        "quote_ratio": 0.938,
+        "quote": "Evraev said Slavneft-Yanos was on fire after what he called the \"largest enemy drone attack\"",
+        "quote_status": "found",
+        "quote_ratio": 1.0,
         "citation_match": true,
         "grounded": true
       }
@@ -2922,7 +2810,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "He said four people were injured.",
+        "quote": "He said four people were injured",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -2962,7 +2850,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Ukraine said at least 11 people were killed in Russian attacks.",
+        "quote": "Ukraine said at least 11 people were killed in Russian attacks",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -3002,7 +2890,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "The southern city of Kherson reported a total blackout.",
+        "quote": "the southern city of Kherson reported a total blackout",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -3042,7 +2930,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Russia said it targeted fuel, energy and transport facilities.",
+        "quote": "Russia said it targeted fuel, energy and transport facilities",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -3082,9 +2970,9 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Zelensky said [...] Bashneft-Novoil [...] was about 1,300km [...] from the Ukrainian border, whereas Slavneft-Yanos was almost 700km [...] away.",
+        "quote": "Zelensky said ... Bashneft-Novoil ... about 1,300km ... Slavneft-Yanos ... almost 700km",
         "quote_status": "missing",
-        "quote_ratio": 0.694,
+        "quote_ratio": 0.0,
         "citation_match": false,
         "grounded": true
       }
@@ -3122,10 +3010,10 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "two military patrol boats and shadow fleet vessels were hit in the Black Sea",
-        "quote_status": "partial",
-        "quote_ratio": 0.947,
-        "citation_match": false,
+        "quote": "The Ukrainian president also said that \"two military patrol boats and shadow fleet vessels were hit\" in the Black Sea",
+        "quote_status": "found",
+        "quote_ratio": 1.0,
+        "citation_match": true,
         "grounded": true
       }
     },
@@ -3162,7 +3050,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Russia must choose peace",
+        "quote": "\"Russia must choose peace,\" Zelensky said",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -3202,9 +3090,9 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Ukrainian attacks were 'strengthening chances for diplomacy'",
-        "quote_status": "partial",
-        "quote_ratio": 0.933,
+        "quote": "Ukrainian attacks were \"strengthening chances for diplomacy\"",
+        "quote_status": "found",
+        "quote_ratio": 1.0,
         "citation_match": true,
         "grounded": true
       }
@@ -3242,7 +3130,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Evraev said 93 drones were shot down over Yaroslavl region overnight.",
+        "quote": "Evraev said 93 drones were shot down over Yaroslavl region overnight",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -3282,7 +3170,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Falling debris hit the oil refinery's storage tanks. Emergency services are working to extinguish the fire.",
+        "quote": "\"Falling debris hit the oil refinery's storage tanks. Emergency services are working to extinguish the fire,\" he said",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -3322,7 +3210,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "BBC Verify confirmed multiple videos and images shared on social media showing huge smoke plumes rising from the refinery.",
+        "quote": "BBC Verify confirmed multiple videos and images shared on social media showing huge smoke plumes rising from the refinery",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -3362,9 +3250,9 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "In Ukraine, three people were killed in the town of Balakliya [...] private residential houses were targeted, with fires reported in two buildings.",
-        "quote_status": "missing",
-        "quote_ratio": 0.633,
+        "quote": "three people were killed in the town of Balakliya, Kharkiv region, in an overnight Russian drone attack, the country's state emergencies service DSNS said",
+        "quote_status": "found",
+        "quote_ratio": 1.0,
         "citation_match": false,
         "grounded": true
       }
@@ -3402,7 +3290,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "private residential houses were targeted, with fires reported in two buildings.",
+        "quote": "It said private residential houses were targeted, with fires reported in two buildings",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -3442,7 +3330,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "another two people were killed when drones attacked the train station in Lozova. Another eight people were injured.",
+        "quote": "Kharkiv regional head Oleh Synehubov later said that another two people were killed when drones attacked the train station in Lozova. Another eight people were injured",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -3739,7 +3627,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Ukraine said it has hit two oil refineries in multiple strikes deep inside Russia with patrol boats and other vessels in the Black Sea also hit.",
+        "quote": "Ukraine said it has hit two oil refineries",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -4364,6 +4252,116 @@
       }
     },
     {
+      "subject_id": "E5",
+      "subject_text": "Russia",
+      "subject_type": "Country",
+      "property": "agent",
+      "property_source": "schema.org",
+      "vocab_id": null,
+      "property_is_new_to_vocab": false,
+      "property_definition": null,
+      "property_parent": null,
+      "property_justification": "The 'agent' property correctly identifies the performer of an action, and the types align (Country/GovernmentOrganization as Organization, Attacks/Strikes as Action).",
+      "object_id": "EV9",
+      "object_text": "Intensified attacks by Russia and Ukraine",
+      "object_type": "Intensified Attacks",
+      "relation_phrases": [
+        "performed"
+      ],
+      "phrase_directions": {
+        "performed": "as_is"
+      },
+      "evidence": [
+        "Both Russia and Ukraine have in recent weeks intensified attacks"
+      ],
+      "confidence": 0.9,
+      "grounding": {
+        "evidence_status": "found",
+        "evidence_detail": {
+          "n_quotes": 1,
+          "found": 1,
+          "partial": 0,
+          "missing": 0,
+          "worst_ratio": 1.0
+        },
+        "evidence_resolved": [
+          {
+            "quote": "Both Russia and Ukraine have in recent weeks intensified attacks",
+            "status": "found",
+            "ratio": 1.0,
+            "start": 818,
+            "end": 882,
+            "matched_text": "Both Russia and Ukraine have in recent weeks intensified attacks",
+            "sentence": "Both Russia and Ukraine have in recent weeks intensified attacks on major cities, energy facilities and warehouses, as the vast front line remains virtually static and all mediation efforts to end the war have brought no breakthrough."
+          }
+        ],
+        "orphaned": false,
+        "supported": true,
+        "failure_type": null,
+        "note": "",
+        "quote": "Both Russia and Ukraine have in recent weeks intensified attacks on major cities, energy facilities and warehouses",
+        "quote_status": "found",
+        "quote_ratio": 1.0,
+        "citation_match": true,
+        "grounded": true
+      }
+    },
+    {
+      "subject_id": "E4",
+      "subject_text": "Ukraine",
+      "subject_type": "Country",
+      "property": "agent",
+      "property_source": "schema.org",
+      "vocab_id": null,
+      "property_is_new_to_vocab": false,
+      "property_definition": null,
+      "property_parent": null,
+      "property_justification": "The 'agent' property correctly identifies the performer of an action, and the types align (Country/GovernmentOrganization as Organization, Attacks/Strikes as Action).",
+      "object_id": "EV9",
+      "object_text": "Intensified attacks by Russia and Ukraine",
+      "object_type": "Intensified Attacks",
+      "relation_phrases": [
+        "performed"
+      ],
+      "phrase_directions": {
+        "performed": "as_is"
+      },
+      "evidence": [
+        "Both Russia and Ukraine have in recent weeks intensified attacks"
+      ],
+      "confidence": 0.9,
+      "grounding": {
+        "evidence_status": "found",
+        "evidence_detail": {
+          "n_quotes": 1,
+          "found": 1,
+          "partial": 0,
+          "missing": 0,
+          "worst_ratio": 1.0
+        },
+        "evidence_resolved": [
+          {
+            "quote": "Both Russia and Ukraine have in recent weeks intensified attacks",
+            "status": "found",
+            "ratio": 1.0,
+            "start": 818,
+            "end": 882,
+            "matched_text": "Both Russia and Ukraine have in recent weeks intensified attacks",
+            "sentence": "Both Russia and Ukraine have in recent weeks intensified attacks on major cities, energy facilities and warehouses, as the vast front line remains virtually static and all mediation efforts to end the war have brought no breakthrough."
+          }
+        ],
+        "orphaned": false,
+        "supported": true,
+        "failure_type": null,
+        "note": "",
+        "quote": "Both Russia and Ukraine have in recent weeks intensified attacks on major cities, energy facilities and warehouses",
+        "quote_status": "found",
+        "quote_ratio": 1.0,
+        "citation_match": true,
+        "grounded": true
+      }
+    },
+    {
       "subject_id": "E4",
       "subject_text": "Ukraine",
       "subject_type": "Country",
@@ -4466,67 +4464,10 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "the Russian military said its forces intercepted or shot down 605 Ukrainian drones overnight over a number of regions. In its latest operational update, the military said it struck Ukraine's fuel, energy and transport facilities, as well as drone storage sites.",
+        "quote": "the military said it struck Ukraine's fuel, energy and transport facilities, as well as drone storage sites.",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
-        "grounded": true
-      }
-    },
-    {
-      "subject_id": "E4",
-      "subject_text": "Ukraine",
-      "subject_type": "Country",
-      "property": "agent",
-      "property_source": "schema.org",
-      "vocab_id": null,
-      "property_is_new_to_vocab": false,
-      "property_definition": null,
-      "property_parent": null,
-      "property_justification": "The 'agent' property correctly identifies the performer of an action, and the types align (Country/GovernmentOrganization as Organization, Attacks/Strikes as Action).",
-      "object_id": "EV14",
-      "object_text": "Ukrainian attacks strengthening diplomacy",
-      "object_type": "Ukrainian Attacks",
-      "relation_phrases": [
-        "performed"
-      ],
-      "phrase_directions": {
-        "performed": "as_is"
-      },
-      "evidence": [
-        [
-          "Ukrainian attacks were \"strengthening chances for diplomacy\""
-        ]
-      ],
-      "confidence": 1.0,
-      "grounding": {
-        "evidence_status": "found",
-        "evidence_detail": {
-          "n_quotes": 1,
-          "found": 1,
-          "partial": 0,
-          "missing": 0,
-          "worst_ratio": 1.0
-        },
-        "evidence_resolved": [
-          {
-            "quote": "Ukrainian attacks were \"strengthening chances for diplomacy\"",
-            "status": "found",
-            "ratio": 1.0,
-            "start": 1609,
-            "end": 1669,
-            "matched_text": "Ukrainian attacks were \"strengthening chances for diplomacy\"",
-            "sentence": "\"Russia must choose peace,\" Zelensky said, adding that Ukrainian attacks were \"strengthening chances for diplomacy\"."
-          }
-        ],
-        "orphaned": false,
-        "supported": true,
-        "failure_type": null,
-        "note": "",
-        "quote": "Zelensky said on Thursday that the struck Bashneft-Novoil refinery ... Ukrainian attacks were 'strengthening chances for diplomacy'.",
-        "quote_status": "missing",
-        "quote_ratio": 0.606,
-        "citation_match": false,
         "grounded": true
       }
     },
@@ -4578,7 +4519,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Ukraine said it has hit two oil refineries in multiple strikes deep inside Russia",
+        "quote": "Ukraine said it has hit two oil refineries",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -4633,10 +4574,10 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Ukraine said it has hit two oil refineries in multiple strikes deep inside Russia with patrol boats and other vessels in the Black Sea also hit.",
+        "quote": "two military patrol boats and shadow fleet vessels were hit",
         "quote_status": "found",
         "quote_ratio": 1.0,
-        "citation_match": true,
+        "citation_match": false,
         "grounded": true
       }
     },
@@ -4688,7 +4629,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Ukraine said it has hit two oil refineries in multiple strikes deep inside Russia with patrol boats and other vessels in the Black Sea also hit.",
+        "quote": "patrol boats and other vessels",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -5335,7 +5276,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "President Volodymyr Zelensky said the Bashneft-Novoil and Slavneft-Yanos refineries were struck",
+        "quote": "Bashneft-Novoil",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -5390,7 +5331,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "President Volodymyr Zelensky said the Bashneft-Novoil and Slavneft-Yanos refineries were struck",
+        "quote": "Slavneft-Yanos",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -5445,9 +5386,9 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Yaroslavl regional governor Mikhail Evraev said Slavneft-Yanos was on fire after what he called the 'largest enemy drone attack'",
-        "quote_status": "partial",
-        "quote_ratio": 0.938,
+        "quote": "Slavneft-Yanos was on fire after what he called the \"largest enemy drone attack\".",
+        "quote_status": "found",
+        "quote_ratio": 1.0,
         "citation_match": true,
         "grounded": true
       }
@@ -5500,10 +5441,10 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "the Russian military said it struck Ukraine's fuel, energy and transport facilities, as well as drone storage sites",
-        "quote_status": "missing",
-        "quote_ratio": 0.765,
-        "citation_match": false,
+        "quote": "Russia said it targeted fuel, energy and transport facilities.",
+        "quote_status": "found",
+        "quote_ratio": 1.0,
+        "citation_match": true,
         "grounded": true
       }
     },
@@ -5555,7 +5496,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Both Russia and Ukraine have in recent weeks intensified attacks on major cities, energy facilities and warehouses",
+        "quote": "intensified attacks on major cities, energy facilities and warehouses",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -5610,7 +5551,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Both Russia and Ukraine have in recent weeks intensified attacks on major cities, energy facilities and warehouses",
+        "quote": "intensified attacks on major cities, energy facilities and warehouses",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -5665,7 +5606,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Both Russia and Ukraine have in recent weeks intensified attacks on major cities, energy facilities and warehouses",
+        "quote": "intensified attacks on major cities, energy facilities and warehouses",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -5775,8 +5716,8 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Zelensky said on Thursday that the struck Bashneft-Novoil refinery ... two military patrol boats and shadow fleet vessels were hit",
-        "quote_status": "partial",
+        "quote": "two military patrol boats",
+        "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
         "grounded": true
@@ -5830,8 +5771,8 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Zelensky said on Thursday that the struck Bashneft-Novoil refinery ... two military patrol boats and shadow fleet vessels were hit",
-        "quote_status": "partial",
+        "quote": "shadow fleet vessels",
+        "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
         "grounded": true
@@ -5940,7 +5881,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Energy-generating infrastructure in Yaroslavl has been targeted a number of times by Ukraine",
+        "quote": "Energy-generating infrastructure in Yaroslavl has been targeted a number of times by Ukraine.",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -5995,7 +5936,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "private residential houses were targeted, with fires reported in two buildings",
+        "quote": "It said private residential houses were targeted",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -6050,10 +5991,10 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "another two people were killed when drones attacked the train station in Lozova",
+        "quote": "drones attacked the train station in Lozova",
         "quote_status": "found",
         "quote_ratio": 1.0,
-        "citation_match": false,
+        "citation_match": true,
         "grounded": true
       }
     },
@@ -6105,7 +6046,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "a \"critical infrastructure facility\" was hit overnight",
+        "quote": "\"critical infrastructure facility\" was hit",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -6215,7 +6156,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "struck Ukraine's fuel, energy and transport facilities, as well as drone storage sites",
+        "quote": "as well as drone storage sites",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -6270,7 +6211,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Ukraine said it has hit two oil refineries in multiple strikes deep inside Russia",
+        "quote": "deep inside Russia",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -6325,10 +6266,10 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "two military patrol boats and shadow fleet vessels were hit in the Black Sea",
-        "quote_status": "partial",
-        "quote_ratio": 0.947,
-        "citation_match": false,
+        "quote": "Black Sea",
+        "quote_status": "found",
+        "quote_ratio": 1.0,
+        "citation_match": true,
         "grounded": true
       }
     },
@@ -6380,10 +6321,10 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "the southern city of Kherson reported a total blackout",
+        "quote": "the entire city of Kherson lost electricity after a \"critical infrastructure facility\" was hit overnight",
         "quote_status": "found",
         "quote_ratio": 1.0,
-        "citation_match": true,
+        "citation_match": false,
         "grounded": true
       }
     },
@@ -6435,9 +6376,9 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "the Bashneft-Novoil refinery in Russia's Bashkortostan republic",
-        "quote_status": "partial",
-        "quote_ratio": 0.952,
+        "quote": "Bashneft-Novoil refinery in Russia's Bashkortostan republic",
+        "quote_status": "found",
+        "quote_ratio": 1.0,
         "citation_match": true,
         "grounded": true
       }
@@ -6490,7 +6431,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Energy-generating infrastructure in Yaroslavl has been targeted a number of times by Ukraine",
+        "quote": "Energy-generating infrastructure in Yaroslavl",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -6545,9 +6486,9 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "the Bashneft-Novoil refinery in Russia's Bashkortostan republic",
-        "quote_status": "partial",
-        "quote_ratio": 0.952,
+        "quote": "Bashneft-Novoil refinery in Russia's Bashkortostan republic",
+        "quote_status": "found",
+        "quote_ratio": 1.0,
         "citation_match": false,
         "grounded": true
       }
@@ -6600,7 +6541,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "three people were killed in the town of Balakliya, Kharkiv region",
+        "quote": "three people were killed in the town of Balakliya",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -6655,7 +6596,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "three people were killed in the town of Balakliya, Kharkiv region",
+        "quote": "Balakliya, Kharkiv region",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -6765,10 +6706,10 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "another two people were killed when drones attacked the train station in Lozova",
+        "quote": "train station in Lozova",
         "quote_status": "found",
         "quote_ratio": 1.0,
-        "citation_match": false,
+        "citation_match": true,
         "grounded": true
       }
     },
@@ -6820,7 +6761,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "another eight people were injured",
+        "quote": "Another eight people were injured.",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -6930,7 +6871,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "five people were killed in Russian strikes on the central Dnipropetrovsk region",
+        "quote": "Russian strikes on the central Dnipropetrovsk region",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -6985,7 +6926,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "In the south, the entire city of Kherson lost electricity after a \"critical infrastructure facility\" was hit overnight, regional head Oleksandr Prokudin said.",
+        "quote": "In the south, the entire city of Kherson lost electricity",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -7040,7 +6981,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "In the south, the entire city of Kherson lost electricity after a \"critical infrastructure facility\" was hit overnight, regional head Oleksandr Prokudin said.",
+        "quote": "the entire city of Kherson lost electricity",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -7095,10 +7036,10 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Internet monitoring group NetBlocks told BBC Verify it had observed \"deep disruption\" to connectivity in the Kherson region.",
-        "quote_status": "found",
-        "quote_ratio": 1.0,
-        "citation_match": true,
+        "quote": "deep disruption to connectivity in the Kherson region",
+        "quote_status": "partial",
+        "quote_ratio": 0.906,
+        "citation_match": false,
         "grounded": true
       }
     },
@@ -7150,10 +7091,10 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "NetBlocks' head of research Isik Mater said connectivity did not fall to zero in part due to the use of \"generators and backup supplies\" in Kherson.",
-        "quote_status": "found",
-        "quote_ratio": 1.0,
-        "citation_match": true,
+        "quote": "Use of generators and backup supplies in Kherson",
+        "quote_status": "partial",
+        "quote_ratio": 0.938,
+        "citation_match": false,
         "grounded": true
       }
     },
@@ -7205,7 +7146,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Last year, it was reported that 66,000 people live in Kherson - about 25% of its pre-war population.",
+        "quote": "66,000 people live in Kherson",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -7260,7 +7201,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "In Ukraine's Black Sea port of Odesa, one person was killed when Russia hit two dry cargo ships.",
+        "quote": "In Ukraine's Black Sea port of Odesa, one person was killed",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -7315,10 +7256,10 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "In Ukraine's Black Sea port of Odesa, one person was killed when Russia hit two dry cargo ships.",
+        "quote": "one person was killed when Russia hit two dry cargo ships",
         "quote_status": "found",
         "quote_ratio": 1.0,
-        "citation_match": true,
+        "citation_match": false,
         "grounded": true
       }
     },
@@ -7370,8 +7311,8 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Ukraine said it has hit two oil refineries in multiple strikes deep inside Russia with patrol boats and other vessels in the Black Sea also hit.",
-        "quote_status": "found",
+        "quote": "Ukraine said it has hit two oil refineries ... with patrol boats and other vessels in the Black Sea also hit.",
+        "quote_status": "partial",
         "quote_ratio": 1.0,
         "citation_match": true,
         "grounded": true
@@ -7425,8 +7366,8 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Ukraine said it has hit two oil refineries in multiple strikes deep inside Russia with patrol boats and other vessels in the Black Sea also hit.",
-        "quote_status": "found",
+        "quote": "Ukraine said it has hit two oil refineries ... with patrol boats and other vessels in the Black Sea also hit.",
+        "quote_status": "partial",
         "quote_ratio": 1.0,
         "citation_match": true,
         "grounded": true
@@ -7480,8 +7421,8 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Ukraine said it has hit two oil refineries in multiple strikes deep inside Russia with patrol boats and other vessels in the Black Sea also hit.",
-        "quote_status": "found",
+        "quote": "Ukraine said it has hit two oil refineries ... with patrol boats and other vessels in the Black Sea also hit.",
+        "quote_status": "partial",
         "quote_ratio": 1.0,
         "citation_match": true,
         "grounded": true
@@ -7535,8 +7476,8 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "President Volodymyr Zelensky said the Bashneft-Novoil and Slavneft-Yanos refineries were struck in the attacks aimed at limiting oil revenues Moscow \"uses to finance\" its war.",
-        "quote_status": "found",
+        "quote": "Zelensky said the Bashneft-Novoil and Slavneft-Yanos refineries were struck ... aimed at limiting oil revenues Moscow \"uses to finance\" its war.",
+        "quote_status": "partial",
         "quote_ratio": 1.0,
         "citation_match": true,
         "grounded": true
@@ -7590,7 +7531,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Yaroslavl regional governor Mikhail Evraev said Slavneft-Yanos was on fire after what he called the \"largest enemy drone attack\".",
+        "quote": "Evraev said Slavneft-Yanos was on fire after what he called the \"largest enemy drone attack\".",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -7645,7 +7586,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Yaroslavl regional governor Mikhail Evraev said Slavneft-Yanos was on fire after what he called the \"largest enemy drone attack\". He said four people were injured.",
+        "quote": "He said four people were injured.",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -7700,7 +7641,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Ukraine said at least 11 people were killed in Russian attacks, and the southern city of Kherson reported a total blackout.",
+        "quote": "Ukraine said at least 11 people were killed in Russian attacks",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -7755,7 +7696,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "In the south, the entire city of Kherson lost electricity after a \"critical infrastructure facility\" was hit overnight, regional head Oleksandr Prokudin said.",
+        "quote": "the southern city of Kherson reported a total blackout",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": false,
@@ -7865,10 +7806,10 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Zelensky said on Thursday that the struck Bashneft-Novoil refinery in Russia's Bashkortostan republic was about 1,300km (808 miles) from the Ukrainian border, whereas Slavneft-Yanos was almost 700km (435 miles) away.",
-        "quote_status": "found",
-        "quote_ratio": 1.0,
-        "citation_match": true,
+        "quote": "Zelensky said the Bashneft-Novoil refinery ... was about 1,300km ... from the Ukrainian border",
+        "quote_status": "missing",
+        "quote_ratio": 0.596,
+        "citation_match": false,
         "grounded": true
       }
     },
@@ -7920,10 +7861,10 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Zelensky said on Thursday that the struck Bashneft-Novoil refinery in Russia's Bashkortostan republic was about 1,300km (808 miles) from the Ukrainian border, whereas Slavneft-Yanos was almost 700km (435 miles) away.",
-        "quote_status": "found",
-        "quote_ratio": 1.0,
-        "citation_match": true,
+        "quote": "Zelensky said Slavneft-Yanos was almost 700km ... away",
+        "quote_status": "missing",
+        "quote_ratio": 0.685,
+        "citation_match": false,
         "grounded": true
       }
     },
@@ -7975,9 +7916,9 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "\"Two military patrol boats and shadow fleet vessels were hit\" in the Black Sea, referring to tankers used by Russia to illegally export sanctioned oil.",
-        "quote_status": "found",
-        "quote_ratio": 1.0,
+        "quote": "Zelensky said that \"two military patrol boats and shadow fleet vessels were hit\"",
+        "quote_status": "partial",
+        "quote_ratio": 0.912,
         "citation_match": true,
         "grounded": true
       }
@@ -8085,7 +8026,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Falling debris hit the oil refinery's storage tanks. Emergency services are working to extinguish the fire.",
+        "quote": "Falling debris hit the oil refinery's storage tanks.",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -8140,7 +8081,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Falling debris hit the oil refinery's storage tanks. Emergency services are working to extinguish the fire.",
+        "quote": "Falling debris hit the oil refinery's storage tanks. Emergency services are working to extinguish the fire,\" he said.",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -8305,7 +8246,10 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "It said private residential houses were targeted, with fires reported in two buildings.",
+        "quote": [
+          "In Ukraine, three people were killed in the town of Balakliya, Kharkiv region, in an overnight Russian drone attack, the country's state emergencies service DSNS said.",
+          "It said private residential houses were targeted, with fires reported in two buildings."
+        ],
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -8415,7 +8359,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Kharkiv regional head Oleh Synehubov later said that another two people were killed when drones attacked the train station in Lozova. Another eight people were injured.",
+        "quote": "Kharkiv regional head Oleh Synehubov later said that another two people were killed when drones attacked the train station in Lozova.",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -8690,7 +8634,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "The Russian military said its forces intercepted or shot down 605 Ukrainian drones overnight over a number of regions.",
+        "quote": "the Russian military said its forces intercepted or shot down 605 Ukrainian drones overnight over a number of regions.",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -8800,8 +8744,8 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "President Volodymyr Zelensky said the Bashneft-Novoil and Slavneft-Yanos refineries were struck in the attacks aimed at limiting oil revenues Moscow \"uses to finance\" its war.",
-        "quote_status": "found",
+        "quote": "President Volodymyr Zelensky said the Bashneft-Novoil and Slavneft-Yanos refineries were struck ... aimed at limiting oil revenues Moscow \"uses to finance\" its war.",
+        "quote_status": "partial",
         "quote_ratio": 1.0,
         "citation_match": true,
         "grounded": true
@@ -8965,7 +8909,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Ukraine said at least 11 people were killed in Russian attacks,",
+        "quote": "Ukraine said at least 11 people were killed in Russian attacks.",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -9075,8 +9019,8 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Zelensky said on Thursday that the struck Bashneft-Novoil refinery in Russia's Bashkortostan republic was about 1,300km (808 miles) from the Ukrainian border, whereas Slavneft-Yanos was almost 700km (435 miles) away.",
-        "quote_status": "found",
+        "quote": "Zelensky said on Thursday that the struck Bashneft-Novoil refinery ... was about 1,300km ... whereas Slavneft-Yanos was almost 700km ...",
+        "quote_status": "partial",
         "quote_ratio": 1.0,
         "citation_match": true,
         "grounded": true
@@ -9130,10 +9074,10 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "\"two military patrol boats and shadow fleet vessels were hit\" in the Black Sea, referring to tankers used by Russia to illegally export sanctioned oil.",
+        "quote": "The Ukrainian president also said that \"two military patrol boats and shadow fleet vessels were hit\" in the Black Sea.",
         "quote_status": "found",
         "quote_ratio": 1.0,
-        "citation_match": false,
+        "citation_match": true,
         "grounded": true
       }
     },
@@ -9185,7 +9129,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Russia must choose peace",
+        "quote": "\"Russia must choose peace,\" Zelensky said.",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -9240,7 +9184,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "strengthening chances for diplomacy",
+        "quote": "Ukrainian attacks were \"strengthening chances for diplomacy\".",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -9295,7 +9239,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "93 drones were shot down over Yaroslavl region overnight",
+        "quote": "Evraev said 93 drones were shot down over Yaroslavl region overnight.",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -9350,7 +9294,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Falling debris hit the oil refinery's storage tanks. Emergency services are working to extinguish the fire",
+        "quote": "Falling debris hit the oil refinery's storage tanks. Emergency services are working to extinguish the fire,\" he said.",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -9405,10 +9349,10 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "three people were killed in the town of Balakliya",
+        "quote": "the country's state emergencies service DSNS said",
         "quote_status": "found",
         "quote_ratio": 1.0,
-        "citation_match": false,
+        "citation_match": true,
         "grounded": true
       }
     },
@@ -9460,7 +9404,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "private residential houses were targeted, with fires reported in two buildings",
+        "quote": "It said private residential houses were targeted, with fires reported in two buildings.",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -9515,7 +9459,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "another two people were killed when drones attacked the train station in Lozova. Another eight people were injured",
+        "quote": "Kharkiv regional head Oleh Synehubov later said that another two people were killed when drones attacked the train station in Lozova. Another eight people were injured.",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -9570,10 +9514,10 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "five people were killed in Russian strikes on the central Dnipropetrovsk region",
+        "quote": "Later on Thursday, five people were killed in Russian strikes on the central Dnipropetrovsk region, local officials said.",
         "quote_status": "found",
         "quote_ratio": 1.0,
-        "citation_match": false,
+        "citation_match": true,
         "grounded": true
       }
     },
@@ -9625,10 +9569,10 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "the entire city of Kherson lost electricity",
+        "quote": "regional head Oleksandr Prokudin said",
         "quote_status": "found",
         "quote_ratio": 1.0,
-        "citation_match": false,
+        "citation_match": true,
         "grounded": true
       }
     },
@@ -9680,10 +9624,10 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "connectivity did not fall to zero in part due to the use of generators and backup supplies",
-        "quote_status": "partial",
-        "quote_ratio": 0.956,
-        "citation_match": false,
+        "quote": "NetBlocks' head of research Isik Mater said connectivity did not fall to zero in part due to the use of \"generators and backup supplies\" in Kherson.",
+        "quote_status": "found",
+        "quote_ratio": 1.0,
+        "citation_match": true,
         "grounded": true
       }
     },
@@ -9735,7 +9679,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "intercepted or shot down 605 Ukrainian drones overnight",
+        "quote": "the Russian military said its forces intercepted or shot down 605 Ukrainian drones overnight over a number of regions.",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -9790,7 +9734,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "struck Ukraine's fuel, energy and transport facilities, as well as drone storage sites",
+        "quote": "In its latest operational update, the military said it struck Ukraine's fuel, energy and transport facilities, as well as drone storage sites.",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -9845,63 +9789,8 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "aimed at limiting oil revenues Moscow \"uses to finance\" its war",
-        "quote_status": "found",
-        "quote_ratio": 1.0,
-        "citation_match": true,
-        "grounded": true
-      }
-    },
-    {
-      "subject_id": "CL2",
-      "subject_text": "Zelensky states refineries struck to limit oil revenues",
-      "subject_type": "Attack Purpose Statement",
-      "property": "statesPurposeOf",
-      "property_source": "vocab",
-      "vocab_id": "P0424",
-      "property_is_new_to_vocab": true,
-      "property_definition": "Indicates the action or event whose purpose is described by a statement.",
-      "property_parent": null,
-      "property_justification": "No schema.org property directly links a statement about purpose to the action or event it describes.",
-      "object_id": "EV3",
-      "object_text": "Moscow finances war",
-      "object_type": "War Financing",
-      "relation_phrases": [
-        "states purpose of"
-      ],
-      "phrase_directions": {
-        "states purpose of": "as_is"
-      },
-      "evidence": [
-        "Moscow \"uses to finance\" its war"
-      ],
-      "confidence": 0.9,
-      "grounding": {
-        "evidence_status": "found",
-        "evidence_detail": {
-          "n_quotes": 1,
-          "found": 1,
-          "partial": 0,
-          "missing": 0,
-          "worst_ratio": 1.0
-        },
-        "evidence_resolved": [
-          {
-            "quote": "Moscow \"uses to finance\" its war",
-            "status": "found",
-            "ratio": 1.0,
-            "start": 422,
-            "end": 454,
-            "matched_text": "Moscow \"uses to finance\" its war",
-            "sentence": "President Volodymyr Zelensky said the Bashneft-Novoil and Slavneft-Yanos refineries were struck in the attacks aimed at limiting oil revenues Moscow \"uses to finance\" its war."
-          }
-        ],
-        "orphaned": false,
-        "supported": true,
-        "failure_type": null,
-        "note": "",
-        "quote": "aimed at limiting oil revenues Moscow \"uses to finance\" its war",
-        "quote_status": "found",
+        "quote": "President Volodymyr Zelensky said the Bashneft-Novoil and Slavneft-Yanos refineries were struck ... aimed at limiting oil revenues Moscow \"uses to finance\" its war.",
+        "quote_status": "partial",
         "quote_ratio": 1.0,
         "citation_match": true,
         "grounded": true
@@ -9955,7 +9844,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "uses to finance\" its war",
+        "quote": "Moscow \"uses to finance\" its war.",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -10065,7 +9954,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "at least four fires at the site",
+        "quote": "there appear to be at least four fires at the site",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": false,
@@ -10120,120 +10009,10 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "enemy drone attack",
+        "quote": "Slavneft-Yanos was on fire after what he called the \"largest enemy drone attack\".",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
-        "grounded": true
-      }
-    },
-    {
-      "subject_id": "EV15",
-      "subject_text": "Falling debris hit storage tanks",
-      "subject_type": "Debris Impact",
-      "property": "source",
-      "property_source": "schema.org",
-      "vocab_id": null,
-      "property_is_new_to_vocab": false,
-      "property_definition": null,
-      "property_parent": null,
-      "property_justification": "The 'source' property correctly identifies the cause of an instantaneous event, and the types align (Events as InstantaneousEvent, other Events as Thing).",
-      "object_id": "EV5",
-      "object_text": "Enemy drone attack on Slavneft-Yanos",
-      "object_type": "Drone Attack",
-      "relation_phrases": [
-        "caused by"
-      ],
-      "phrase_directions": {
-        "caused by": "as_is"
-      },
-      "evidence": [
-        "Falling debris hit the oil refinery's storage tanks."
-      ],
-      "confidence": 0.9,
-      "grounding": {
-        "evidence_status": "found",
-        "evidence_detail": {
-          "n_quotes": 1,
-          "found": 1,
-          "partial": 0,
-          "missing": 0,
-          "worst_ratio": 1.0
-        },
-        "evidence_resolved": [
-          {
-            "quote": "Falling debris hit the oil refinery's storage tanks.",
-            "status": "found",
-            "ratio": 1.0,
-            "start": 1742,
-            "end": 1794,
-            "matched_text": "Falling debris hit the oil refinery's storage tanks.",
-            "sentence": "\"Falling debris hit the oil refinery's storage tanks. Emergency services are working to extinguish the fire,\" he said."
-          }
-        ],
-        "orphaned": false,
-        "supported": true,
-        "failure_type": null,
-        "note": "",
-        "quote": "enemy drone attack",
-        "quote_status": "found",
-        "quote_ratio": 1.0,
-        "citation_match": false,
-        "grounded": true
-      }
-    },
-    {
-      "subject_id": "EV20",
-      "subject_text": "Fires in two buildings in Balakliya",
-      "subject_type": "Building Fires",
-      "property": "source",
-      "property_source": "schema.org",
-      "vocab_id": null,
-      "property_is_new_to_vocab": false,
-      "property_definition": null,
-      "property_parent": null,
-      "property_justification": "The 'source' property correctly identifies the cause of an instantaneous event, and the types align (Events as InstantaneousEvent, other Events as Thing).",
-      "object_id": "EV19",
-      "object_text": "Russian drone attack in Balakliya",
-      "object_type": "Russian Drone Attack",
-      "relation_phrases": [
-        "caused by"
-      ],
-      "phrase_directions": {
-        "caused by": "as_is"
-      },
-      "evidence": [
-        "fires reported in two buildings."
-      ],
-      "confidence": 0.9,
-      "grounding": {
-        "evidence_status": "found",
-        "evidence_detail": {
-          "n_quotes": 1,
-          "found": 1,
-          "partial": 0,
-          "missing": 0,
-          "worst_ratio": 1.0
-        },
-        "evidence_resolved": [
-          {
-            "quote": "fires reported in two buildings.",
-            "status": "found",
-            "ratio": 1.0,
-            "start": 2521,
-            "end": 2553,
-            "matched_text": "fires reported in two buildings.",
-            "sentence": "It said private residential houses were targeted, with fires reported in two buildings.\nKharkiv regional head Oleh Synehubov later said that another two people were killed when drones attacked the train station in Lozova."
-          }
-        ],
-        "orphaned": false,
-        "supported": true,
-        "failure_type": null,
-        "note": "",
-        "quote": "Russian drone attack in Balakliya",
-        "quote_status": "missing",
-        "quote_ratio": 0.697,
-        "citation_match": false,
         "grounded": true
       }
     },
@@ -10285,7 +10064,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "In the south, the entire city of Kherson lost electricity after a \"critical infrastructure facility\" was hit overnight...",
+        "quote": "the entire city of Kherson lost electricity after a \"critical infrastructure facility\" was hit overnight",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -10348,6 +10127,61 @@
       }
     },
     {
+      "subject_id": "OBS2",
+      "subject_text": "11 people killed in Russian attacks",
+      "subject_type": "Fatality Count",
+      "property": "counts",
+      "property_source": "vocab",
+      "vocab_id": "P0426",
+      "property_is_new_to_vocab": true,
+      "property_definition": "Indicates the type of entity or event that is being enumerated by a count.",
+      "property_parent": null,
+      "property_justification": "No schema.org property directly links a 'Count' entity to the specific type of thing being counted. 'observationAbout' is a suitable parent.",
+      "object_id": "E33",
+      "object_text": "11 people",
+      "object_type": "CountOfPeople",
+      "relation_phrases": [
+        "count"
+      ],
+      "phrase_directions": {
+        "count": "as_is"
+      },
+      "evidence": [
+        "at least 11 people were killed"
+      ],
+      "confidence": 0.9,
+      "grounding": {
+        "evidence_status": "found",
+        "evidence_detail": {
+          "n_quotes": 1,
+          "found": 1,
+          "partial": 0,
+          "missing": 0,
+          "worst_ratio": 1.0
+        },
+        "evidence_resolved": [
+          {
+            "quote": "at least 11 people were killed",
+            "status": "found",
+            "ratio": 1.0,
+            "start": 644,
+            "end": 674,
+            "matched_text": "at least 11 people were killed",
+            "sentence": "Meanwhile, Ukraine said at least 11 people were killed in Russian attacks, and the southern city of Kherson reported a total blackout."
+          }
+        ],
+        "orphaned": false,
+        "supported": true,
+        "failure_type": null,
+        "note": "",
+        "quote": "at least 11 people were killed in Russian attacks",
+        "quote_status": "found",
+        "quote_ratio": 1.0,
+        "citation_match": true,
+        "grounded": true
+      }
+    },
+    {
       "subject_id": "OBS5",
       "subject_text": "93 drones shot down over Yaroslavl",
       "subject_type": "Drone Interception Count",
@@ -10395,7 +10229,62 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Evraev said 93 drones were shot down over Yaroslavl region overnight.",
+        "quote": "93 drones were shot down over Yaroslavl region overnight",
+        "quote_status": "found",
+        "quote_ratio": 1.0,
+        "citation_match": true,
+        "grounded": true
+      }
+    },
+    {
+      "subject_id": "OBS6",
+      "subject_text": "Four fires at refinery site",
+      "subject_type": "Fire Count",
+      "property": "counts",
+      "property_source": "vocab",
+      "vocab_id": "P0426",
+      "property_is_new_to_vocab": true,
+      "property_definition": "Indicates the type of entity or event that is being enumerated by a count.",
+      "property_parent": null,
+      "property_justification": "No schema.org property directly links a 'Count' entity to the specific type of thing being counted. 'observationAbout' is a suitable parent.",
+      "object_id": "E74",
+      "object_text": "four fires",
+      "object_type": "CountOfEvents",
+      "relation_phrases": [
+        "count"
+      ],
+      "phrase_directions": {
+        "count": "as_is"
+      },
+      "evidence": [
+        "at least four fires at the site."
+      ],
+      "confidence": 0.9,
+      "grounding": {
+        "evidence_status": "found",
+        "evidence_detail": {
+          "n_quotes": 1,
+          "found": 1,
+          "partial": 0,
+          "missing": 0,
+          "worst_ratio": 1.0
+        },
+        "evidence_resolved": [
+          {
+            "quote": "at least four fires at the site.",
+            "status": "found",
+            "ratio": 1.0,
+            "start": 2032,
+            "end": 2064,
+            "matched_text": "at least four fires at the site.",
+            "sentence": "In one of the verified images there appear to be at least four fires at the site.\nEnergy-generating infrastructure in Yaroslavl has been targeted a number of times by Ukraine."
+          }
+        ],
+        "orphaned": false,
+        "supported": true,
+        "failure_type": null,
+        "note": "",
+        "quote": "at least four fires at the site",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -10450,7 +10339,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "In Ukraine, three people were killed in the town of Balakliya...",
+        "quote": "three people were killed in the town of Balakliya",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -10505,7 +10394,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "fires reported in two buildings.",
+        "quote": "fires reported in two buildings",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -10560,7 +10449,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "another two people were killed when drones attacked the train station in Lozova.",
+        "quote": "another two people were killed",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -10670,7 +10559,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "five people were killed in Russian strikes on the central Dnipropetrovsk region.",
+        "quote": "five people were killed in Russian strikes on the central Dnipropetrovsk region",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -10725,7 +10614,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Last year, it was reported that 66,000 people live in Kherson...",
+        "quote": "66,000 people live in Kherson",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -10780,9 +10669,9 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "one person was killed when Russia hit two dry cargo ships.",
-        "quote_status": "found",
-        "quote_ratio": 1.0,
+        "quote": "one person was killed when Russia hit two dry cargo ships in Odesa",
+        "quote_status": "partial",
+        "quote_ratio": 0.894,
         "citation_match": true,
         "grounded": true
       }
@@ -10835,119 +10724,9 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "the Russian military said its forces intercepted or shot down 605 Ukrainian drones...",
-        "quote_status": "found",
-        "quote_ratio": 1.0,
-        "citation_match": true,
-        "grounded": true
-      }
-    },
-    {
-      "subject_id": "OBS1",
-      "subject_text": "Four people injured in Yaroslavl",
-      "subject_type": "Injury Count",
-      "property": "occurredInEvent",
-      "property_source": "vocab",
-      "vocab_id": "P0427",
-      "property_is_new_to_vocab": true,
-      "property_definition": "Indicates the event in which injuries or fatalities occurred.",
-      "property_parent": null,
-      "property_justification": "No schema.org property directly links an Injury Count to the event where the injuries occurred. 'event' is too broad for this specific causal/locative context.",
-      "object_id": "EV5",
-      "object_text": "Enemy drone attack on Slavneft-Yanos",
-      "object_type": "Drone Attack",
-      "relation_phrases": [
-        "are injured in"
-      ],
-      "phrase_directions": {
-        "are injured in": "as_is"
-      },
-      "evidence": [
-        "four people were injured"
-      ],
-      "confidence": 0.9,
-      "grounding": {
-        "evidence_status": "found",
-        "evidence_detail": {
-          "n_quotes": 1,
-          "found": 1,
-          "partial": 0,
-          "missing": 0,
-          "worst_ratio": 1.0
-        },
-        "evidence_resolved": [
-          {
-            "quote": "four people were injured",
-            "status": "found",
-            "ratio": 1.0,
-            "start": 594,
-            "end": 618,
-            "matched_text": "four people were injured",
-            "sentence": "He said four people were injured."
-          }
-        ],
-        "orphaned": false,
-        "supported": true,
-        "failure_type": null,
-        "note": "",
-        "quote": "He said four people were injured.",
-        "quote_status": "found",
-        "quote_ratio": 1.0,
-        "citation_match": true,
-        "grounded": true
-      }
-    },
-    {
-      "subject_id": "OBS9",
-      "subject_text": "Eight people injured in Lozova",
-      "subject_type": "Injury Count",
-      "property": "occurredInEvent",
-      "property_source": "vocab",
-      "vocab_id": "P0427",
-      "property_is_new_to_vocab": true,
-      "property_definition": "Indicates the event in which injuries or fatalities occurred.",
-      "property_parent": null,
-      "property_justification": "No schema.org property directly links an Injury Count to the event where the injuries occurred. 'event' is too broad for this specific causal/locative context.",
-      "object_id": "EV21",
-      "object_text": "Drones attacked train station in Lozova",
-      "object_type": "Drone Attack",
-      "relation_phrases": [
-        "are injured in"
-      ],
-      "phrase_directions": {
-        "are injured in": "as_is"
-      },
-      "evidence": [
-        "Another eight people were injured."
-      ],
-      "confidence": 0.9,
-      "grounding": {
-        "evidence_status": "found",
-        "evidence_detail": {
-          "n_quotes": 1,
-          "found": 1,
-          "partial": 0,
-          "missing": 0,
-          "worst_ratio": 1.0
-        },
-        "evidence_resolved": [
-          {
-            "quote": "Another eight people were injured.",
-            "status": "found",
-            "ratio": 1.0,
-            "start": 2688,
-            "end": 2722,
-            "matched_text": "Another eight people were injured.",
-            "sentence": "Another eight people were injured.\nLater on Thursday, five people were killed in Russian strikes on the central Dnipropetrovsk region, local officials said."
-          }
-        ],
-        "orphaned": false,
-        "supported": true,
-        "failure_type": null,
-        "note": "",
-        "quote": "Another eight people were injured.",
-        "quote_status": "found",
-        "quote_ratio": 1.0,
+        "quote": "605 Ukrainian drones intercepted",
+        "quote_status": "missing",
+        "quote_ratio": 0.719,
         "citation_match": true,
         "grounded": true
       }
@@ -11000,7 +10779,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Ukraine said at least 11 people were killed in Russian attacks...",
+        "quote": "11 people were killed in Russian attacks",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -11055,10 +10834,10 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "In Ukraine, three people were killed in the town of Balakliya...",
-        "quote_status": "found",
+        "quote": "three people were killed ... in an overnight Russian drone attack",
+        "quote_status": "partial",
         "quote_ratio": 1.0,
-        "citation_match": false,
+        "citation_match": true,
         "grounded": true
       }
     },
@@ -11110,7 +10889,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "another two people were killed when drones attacked the train station in Lozova.",
+        "quote": "another two people were killed when drones attacked the train station in Lozova",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -11165,7 +10944,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "five people were killed in Russian strikes on the central Dnipropetrovsk region.",
+        "quote": "five people were killed in Russian strikes on the central Dnipropetrovsk region",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -11220,9 +10999,9 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "one person was killed when Russia hit two dry cargo ships.",
-        "quote_status": "found",
-        "quote_ratio": 1.0,
+        "quote": "one person was killed when Russia hit two dry cargo ships in Odesa",
+        "quote_status": "partial",
+        "quote_ratio": 0.894,
         "citation_match": true,
         "grounded": true
       }
@@ -11275,10 +11054,10 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Ukraine said it has hit two oil refineries in multiple strikes deep inside Russia with patrol boats and other vessels in the Black Sea also hit.",
+        "quote": "Russian attacks",
         "quote_status": "found",
         "quote_ratio": 1.0,
-        "citation_match": false,
+        "citation_match": true,
         "grounded": true
       }
     },
@@ -11448,73 +11227,6 @@
       }
     },
     {
-      "subject_id": "EV5",
-      "subject_text": "Enemy drone attack on Slavneft-Yanos",
-      "subject_type": "Drone Attack",
-      "property": "agent",
-      "property_source": "schema.org",
-      "vocab_id": null,
-      "property_is_new_to_vocab": false,
-      "property_definition": null,
-      "property_parent": null,
-      "property_justification": "The 'agent' property correctly identifies the performer of an action, and the types align (various Actions as Action, Country as Organization).",
-      "object_id": "E4",
-      "object_text": "Ukraine",
-      "object_type": "Country",
-      "relation_phrases": [
-        "performed by"
-      ],
-      "phrase_directions": {
-        "performed by": "as_is"
-      },
-      "evidence": [
-        [
-          "President Volodymyr Zelensky said the Bashneft-Novoil and Slavneft-Yanos refineries were struck in the attacks aimed at limiting oil revenues Moscow \"uses to finance\" its war.",
-          "Yaroslavl regional governor Mikhail Evraev said Slavneft-Yanos was on fire after what he called the \"largest enemy drone attack\"."
-        ]
-      ],
-      "confidence": 1.0,
-      "grounding": {
-        "evidence_status": "found",
-        "evidence_detail": {
-          "n_quotes": 2,
-          "found": 2,
-          "partial": 0,
-          "missing": 0,
-          "worst_ratio": 1.0
-        },
-        "evidence_resolved": [
-          {
-            "quote": "President Volodymyr Zelensky said the Bashneft-Novoil and Slavneft-Yanos refineries were struck in the attacks aimed at limiting oil revenues Moscow \"uses to finance\" its war.",
-            "status": "found",
-            "ratio": 1.0,
-            "start": 280,
-            "end": 455,
-            "matched_text": "President Volodymyr Zelensky said the Bashneft-Novoil and Slavneft-Yanos refineries were struck in the attacks aimed at limiting oil revenues Moscow \"uses to finance\" its war.",
-            "sentence": "President Volodymyr Zelensky said the Bashneft-Novoil and Slavneft-Yanos refineries were struck in the attacks aimed at limiting oil revenues Moscow \"uses to finance\" its war.\nYaroslavl regional governor Mikhail Evraev said Slavneft-Yanos was on fire after what he called the \"largest enemy drone attack\"."
-          },
-          {
-            "quote": "Yaroslavl regional governor Mikhail Evraev said Slavneft-Yanos was on fire after what he called the \"largest enemy drone attack\".",
-            "status": "found",
-            "ratio": 1.0,
-            "start": 456,
-            "end": 585,
-            "matched_text": "Yaroslavl regional governor Mikhail Evraev said Slavneft-Yanos was on fire after what he called the \"largest enemy drone attack\".",
-            "sentence": "Yaroslavl regional governor Mikhail Evraev said Slavneft-Yanos was on fire after what he called the \"largest enemy drone attack\". He said four people were injured."
-          }
-        ],
-        "orphaned": false,
-        "supported": true,
-        "failure_type": null,
-        "note": "",
-        "quote": "Yaroslavl regional governor Mikhail Evraev said Slavneft-Yanos was on fire after what he called the 'largest enemy drone attack'.",
-        "quote_status": "partial",
-        "quote_ratio": 0.938,
-        "citation_match": true,
-        "grounded": true
-      }
-    },
-    {
       "subject_id": "CL6",
       "subject_text": "Kherson reports total blackout",
       "subject_type": "Blackout Report",
@@ -11562,10 +11274,10 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "In the south, the entire city of Kherson lost electricity after a 'critical infrastructure facility' was hit overnight.",
-        "quote_status": "partial",
-        "quote_ratio": 0.966,
-        "citation_match": false,
+        "quote": "the southern city of Kherson reported a total blackout",
+        "quote_status": "found",
+        "quote_ratio": 1.0,
+        "citation_match": true,
         "grounded": true
       }
     },
@@ -11617,10 +11329,10 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "In the south, the entire city of Kherson lost electricity after a 'critical infrastructure facility' was hit overnight.",
-        "quote_status": "partial",
-        "quote_ratio": 0.966,
-        "citation_match": false,
+        "quote": "total blackout",
+        "quote_status": "found",
+        "quote_ratio": 1.0,
+        "citation_match": true,
         "grounded": true
       }
     },
@@ -11727,10 +11439,10 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "In Ukraine, three people were killed in the town of Balakliya, Kharkiv region, in an overnight Russian drone attack, the country's state emergencies service DSNS said.",
+        "quote": "It said private residential houses were targeted, with fires reported in two buildings.",
         "quote_status": "found",
         "quote_ratio": 1.0,
-        "citation_match": false,
+        "citation_match": true,
         "grounded": true
       }
     },
@@ -11782,9 +11494,9 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "In the south, the entire city of Kherson lost electricity after a 'critical infrastructure facility' was hit overnight.",
-        "quote_status": "partial",
-        "quote_ratio": 0.966,
+        "quote": "The entire city of Kherson lost electricity after a \"critical infrastructure facility\" was hit overnight, regional head Oleksandr Prokudin said.",
+        "quote_status": "found",
+        "quote_ratio": 1.0,
         "citation_match": true,
         "grounded": true
       }
@@ -11837,10 +11549,10 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Internet monitoring group NetBlocks told BBC Verify it had observed 'deep disruption' to connectivity in the Kherson region.",
-        "quote_status": "partial",
-        "quote_ratio": 0.952,
-        "citation_match": false,
+        "quote": "NetBlocks told BBC Verify it had observed \"deep disruption\" to connectivity in the Kherson region.",
+        "quote_status": "found",
+        "quote_ratio": 1.0,
+        "citation_match": true,
         "grounded": true
       }
     },
@@ -11892,10 +11604,10 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Internet monitoring group NetBlocks told BBC Verify it had observed 'deep disruption' to connectivity in the Kherson region.",
-        "quote_status": "partial",
-        "quote_ratio": 0.952,
-        "citation_match": false,
+        "quote": "The situation was ongoing and connectivity was about 69% as of 12:00 GMT.",
+        "quote_status": "found",
+        "quote_ratio": 1.0,
+        "citation_match": true,
         "grounded": true
       }
     },
@@ -12002,7 +11714,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Both Russia and Ukraine have in recent weeks intensified attacks on major cities, energy facilities and warehouses, as the vast front line remains virtually static and all mediation efforts to end the war have brought no breakthrough.",
+        "quote": "the vast front line remains virtually static",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -12167,7 +11879,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Both Russia and Ukraine have in recent weeks intensified attacks on major cities, energy facilities and warehouses, as the vast front line remains virtually static and all mediation efforts to end the war have brought no breakthrough.",
+        "quote": "all mediation efforts to end the war have brought no breakthrough",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -12222,117 +11934,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Both Russia and Ukraine have in recent weeks intensified attacks on major cities, energy facilities and warehouses, as the vast front line remains virtually static and all mediation efforts to end the war have brought no breakthrough.",
-        "quote_status": "found",
-        "quote_ratio": 1.0,
-        "citation_match": true,
-        "grounded": true
-      }
-    },
-    {
-      "subject_id": "OBS5",
-      "subject_text": "93 drones shot down over Yaroslavl",
-      "subject_type": "Drone Interception Count",
-      "property": "relatedTo",
-      "property_source": "vocab",
-      "vocab_id": "P0431",
-      "property_is_new_to_vocab": true,
-      "property_definition": "Indicates a general association or connection between two entities.",
-      "property_parent": null,
-      "property_justification": "Existing schema.org 'isRelatedTo' and 'relatedTo' are too specific in their domain/range. Minting a general 'relatedTo' property.",
-      "object_id": "EV5",
-      "object_text": "Enemy drone attack on Slavneft-Yanos",
-      "object_type": "Drone Attack",
-      "relation_phrases": [
-        "related to"
-      ],
-      "phrase_directions": {
-        "related to": "as_is"
-      },
-      "evidence": [
-        "93 drones were shot down over Yaroslavl region overnight."
-      ],
-      "confidence": 0.9,
-      "grounding": {
-        "evidence_status": "found",
-        "evidence_detail": {
-          "n_quotes": 1,
-          "found": 1,
-          "partial": 0,
-          "missing": 0,
-          "worst_ratio": 1.0
-        },
-        "evidence_resolved": [
-          {
-            "quote": "93 drones were shot down over Yaroslavl region overnight.",
-            "status": "found",
-            "ratio": 1.0,
-            "start": 1683,
-            "end": 1740,
-            "matched_text": "93 drones were shot down over Yaroslavl region overnight.",
-            "sentence": "Evraev said 93 drones were shot down over Yaroslavl region overnight.\n\"Falling debris hit the oil refinery's storage tanks."
-          }
-        ],
-        "orphaned": false,
-        "supported": true,
-        "failure_type": null,
-        "note": "",
-        "quote": "Evraev said 93 drones were shot down over Yaroslavl region overnight.",
-        "quote_status": "found",
-        "quote_ratio": 1.0,
-        "citation_match": true,
-        "grounded": true
-      }
-    },
-    {
-      "subject_id": "OBS6",
-      "subject_text": "Four fires at refinery site",
-      "subject_type": "Fire Count",
-      "property": "relatedTo",
-      "property_source": "vocab",
-      "vocab_id": "P0431",
-      "property_is_new_to_vocab": true,
-      "property_definition": "Indicates a general association or connection between two entities.",
-      "property_parent": null,
-      "property_justification": "Existing schema.org 'isRelatedTo' and 'relatedTo' are too specific in their domain/range. Minting a general 'relatedTo' property.",
-      "object_id": "EV4",
-      "object_text": "Slavneft-Yanos refinery on fire",
-      "object_type": "Fire",
-      "relation_phrases": [
-        "related to"
-      ],
-      "phrase_directions": {
-        "related to": "as_is"
-      },
-      "evidence": [
-        "at least four fires at the site."
-      ],
-      "confidence": 0.9,
-      "grounding": {
-        "evidence_status": "found",
-        "evidence_detail": {
-          "n_quotes": 1,
-          "found": 1,
-          "partial": 0,
-          "missing": 0,
-          "worst_ratio": 1.0
-        },
-        "evidence_resolved": [
-          {
-            "quote": "at least four fires at the site.",
-            "status": "found",
-            "ratio": 1.0,
-            "start": 2032,
-            "end": 2064,
-            "matched_text": "at least four fires at the site.",
-            "sentence": "In one of the verified images there appear to be at least four fires at the site.\nEnergy-generating infrastructure in Yaroslavl has been targeted a number of times by Ukraine."
-          }
-        ],
-        "orphaned": false,
-        "supported": true,
-        "failure_type": null,
-        "note": "",
-        "quote": "BBC Verify confirmed multiple videos and images shared on social media showing huge smoke plumes rising from the refinery. In one of the verified images there appear to be at least four fires at the site.",
+        "quote": "mediation efforts to end the war",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -12497,9 +12099,9 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Ukraine said it has hit two oil refineries in multiple strikes... on 5 August.",
-        "quote_status": "missing",
-        "quote_ratio": 0.0,
+        "quote": "The authorities in Bashkortostan have not publicly commented on the reported Ukrainian attack on the Bashneft-Novoil refinery on 5 August.",
+        "quote_status": "found",
+        "quote_ratio": 1.0,
         "citation_match": true,
         "grounded": true
       }
@@ -12552,9 +12154,9 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Zelensky said on Thursday that the struck Bashneft-Novoil refinery... 1,300km (808 miles) from the Ukrainian border.",
-        "quote_status": "missing",
-        "quote_ratio": 0.638,
+        "quote": "Zelensky said on Thursday",
+        "quote_status": "found",
+        "quote_ratio": 1.0,
         "citation_match": true,
         "grounded": true
       }
@@ -12607,10 +12209,10 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Zelensky said on Thursday that the struck Bashneft-Novoil refinery... 1,300km (808 miles) from the Ukrainian border.",
-        "quote_status": "missing",
-        "quote_ratio": 0.638,
-        "citation_match": false,
+        "quote": "about 1,300km (808 miles) from the Ukrainian border",
+        "quote_status": "found",
+        "quote_ratio": 1.0,
+        "citation_match": true,
         "grounded": true
       }
     },
@@ -12662,8 +12264,8 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Zelensky said on Thursday that... Slavneft-Yanos was almost 700km (435 miles) away.",
-        "quote_status": "partial",
+        "quote": "almost 700km (435 miles) away",
+        "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
         "grounded": true
@@ -12717,7 +12319,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Internet connectivity fell to about 31% at its lowest overnight.",
+        "quote": "internet connectivity fell to about 31% at its lowest overnight",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -12772,7 +12374,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "connectivity was about 69% as of 12:00 GMT.",
+        "quote": "connectivity was about 69% as of 12:00 GMT",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -12827,7 +12429,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Internet connectivity fell to about 31% at its lowest overnight.",
+        "quote": "internet connectivity fell to about 31% at its lowest overnight",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -12882,7 +12484,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "connectivity was about 69% as of 12:00 GMT.",
+        "quote": "connectivity was about 69% as of 12:00 GMT",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -12937,9 +12539,9 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Zelensky said on Thursday that the struck Bashneft-Novoil refinery... 1,300km (808 miles) from the Ukrainian border.",
-        "quote_status": "missing",
-        "quote_ratio": 0.638,
+        "quote": "Bashneft-Novoil refinery",
+        "quote_status": "found",
+        "quote_ratio": 1.0,
         "citation_match": true,
         "grounded": true
       }
@@ -12992,8 +12594,8 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Zelensky said on Thursday that... Slavneft-Yanos was almost 700km (435 miles) away.",
-        "quote_status": "partial",
+        "quote": "Slavneft-Yanos",
+        "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
         "grounded": true
@@ -13047,9 +12649,9 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Zelensky said on Thursday that the struck Bashneft-Novoil refinery... 1,300km (808 miles) from the Ukrainian border.",
-        "quote_status": "missing",
-        "quote_ratio": 0.638,
+        "quote": "from the Ukrainian border",
+        "quote_status": "found",
+        "quote_ratio": 1.0,
         "citation_match": true,
         "grounded": true
       }
@@ -13102,62 +12704,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Zelensky said on Thursday that... Slavneft-Yanos was almost 700km (435 miles) away.",
-        "quote_status": "partial",
-        "quote_ratio": 1.0,
-        "citation_match": false,
-        "grounded": true
-      }
-    },
-    {
-      "subject_id": "EV13",
-      "subject_text": "Russia illegally exports sanctioned oil",
-      "subject_type": "Illegal Oil Export",
-      "property": "instrument",
-      "property_source": "schema.org",
-      "vocab_id": null,
-      "property_is_new_to_vocab": false,
-      "property_definition": null,
-      "property_parent": null,
-      "property_justification": "The 'instrument' property correctly identifies the tool used for an action, but in the inverse direction (Action -> Instrument). Flipped to inverse.",
-      "object_id": "E13",
-      "object_text": "shadow fleet vessels",
-      "object_type": "Vehicle",
-      "relation_phrases": [
-        "are used for"
-      ],
-      "phrase_directions": {
-        "are used for": "inverse"
-      },
-      "evidence": [
-        "tankers used by Russia to illegally export sanctioned oil"
-      ],
-      "confidence": 0.9,
-      "grounding": {
-        "evidence_status": "found",
-        "evidence_detail": {
-          "n_quotes": 1,
-          "found": 1,
-          "partial": 0,
-          "missing": 0,
-          "worst_ratio": 1.0
-        },
-        "evidence_resolved": [
-          {
-            "quote": "tankers used by Russia to illegally export sanctioned oil",
-            "status": "found",
-            "ratio": 1.0,
-            "start": 1495,
-            "end": 1552,
-            "matched_text": "tankers used by Russia to illegally export sanctioned oil",
-            "sentence": "The Ukrainian president also said that \"two military patrol boats and shadow fleet vessels were hit\" in the Black Sea, referring to tankers used by Russia to illegally export sanctioned oil."
-          }
-        ],
-        "orphaned": false,
-        "supported": true,
-        "failure_type": null,
-        "note": "",
-        "quote": "referring to tankers used by Russia to illegally export sanctioned oil.",
+        "quote": "from the Ukrainian border",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -13212,7 +12759,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "referring to tankers used by Russia to illegally export sanctioned oil.",
+        "quote": "tankers used by Russia to illegally export sanctioned oil",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -13267,7 +12814,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Russia must choose peace,",
+        "quote": "Russia must choose peace",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -13322,7 +12869,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Russia must choose peace,",
+        "quote": "peace",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -13487,7 +13034,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "three people were killed in the town of Balakliya, Kharkiv region, in an overnight Russian drone attack",
+        "quote": "In Ukraine, three people were killed in the town of Balakliya, Kharkiv region, in an overnight Russian drone attack, the country's state emergencies service DSNS said.",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -13542,7 +13089,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Later on Thursday, five people were killed in Russian strikes on the central Dnipropetrovsk region",
+        "quote": "Later on Thursday, five people were killed in Russian strikes on the central Dnipropetrovsk region, local officials said.",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -13597,7 +13144,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "the entire city of Kherson lost electricity after a \"critical infrastructure facility\" was hit overnight",
+        "quote": "\"critical infrastructure facility\" was hit overnight",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -13652,10 +13199,10 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "connectivity fell to about 31% at its lowest overnight",
+        "quote": "at its lowest overnight",
         "quote_status": "found",
         "quote_ratio": 1.0,
-        "citation_match": false,
+        "citation_match": true,
         "grounded": true
       }
     },
@@ -13762,7 +13309,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Falling debris hit the oil refinery's storage tanks",
+        "quote": "Falling debris hit the oil refinery's storage tanks.",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -13872,7 +13419,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "BBC Verify confirmed multiple videos and images shared on social media showing huge smoke plumes rising from the refinery",
+        "quote": "BBC Verify confirmed multiple videos and images shared on social media showing huge smoke plumes rising from the refinery.",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -13927,7 +13474,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "huge smoke plumes rising from the refinery",
+        "quote": "smoke plumes rising from the refinery",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -13982,10 +13529,10 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "confirmed multiple videos and images shared on social media",
+        "quote": "BBC Verify confirmed multiple videos and images shared on social media showing huge smoke plumes rising from the refinery.",
         "quote_status": "found",
         "quote_ratio": 1.0,
-        "citation_match": false,
+        "citation_match": true,
         "grounded": true
       }
     },
@@ -14037,10 +13584,10 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "according to telemetry data, internet connectivity fell to about 31%",
+        "quote": "internet connectivity fell to about 31% at its lowest overnight",
         "quote_status": "found",
         "quote_ratio": 1.0,
-        "citation_match": true,
+        "citation_match": false,
         "grounded": true
       }
     },
@@ -14100,27 +13647,27 @@
       }
     },
     {
-      "subject_id": "OBS6",
-      "subject_text": "Four fires at refinery site",
-      "subject_type": "Fire Count",
-      "property": "appearance",
+      "subject_id": "E83",
+      "subject_text": "Internet monitoring group NetBlocks",
+      "subject_type": "ResearchOrganization",
+      "property": "recipient",
       "property_source": "schema.org",
       "vocab_id": null,
       "property_is_new_to_vocab": false,
       "property_definition": null,
       "property_parent": null,
-      "property_justification": "The 'appearance' property correctly identifies the creative work (MediaObject) where a claim/observation (Fire Count) is found or occurs.",
-      "object_id": "E71",
-      "object_text": "multiple videos and images",
-      "object_type": "MediaObject",
+      "property_justification": "The 'recipient' property correctly identifies the organization receiving a communication (told), and types align (NewsMediaOrganization as Organization).",
+      "object_id": "E70",
+      "object_text": "BBC Verify",
+      "object_type": "NewsMediaOrganization",
       "relation_phrases": [
-        "is observed in"
+        "told"
       ],
       "phrase_directions": {
-        "is observed in": "as_is"
+        "told": "as_is"
       },
       "evidence": [
-        "In one of the verified images there appear to be at least four fires at the site."
+        "Internet monitoring group NetBlocks told BBC Verify"
       ],
       "confidence": 0.9,
       "grounding": {
@@ -14134,20 +13681,20 @@
         },
         "evidence_resolved": [
           {
-            "quote": "In one of the verified images there appear to be at least four fires at the site.",
+            "quote": "Internet monitoring group NetBlocks told BBC Verify",
             "status": "found",
             "ratio": 1.0,
-            "start": 1983,
-            "end": 2064,
-            "matched_text": "In one of the verified images there appear to be at least four fires at the site.",
-            "sentence": "In one of the verified images there appear to be at least four fires at the site.\nEnergy-generating infrastructure in Yaroslavl has been targeted a number of times by Ukraine."
+            "start": 3004,
+            "end": 3055,
+            "matched_text": "Internet monitoring group NetBlocks told BBC Verify",
+            "sentence": "Internet monitoring group NetBlocks told BBC Verify it had observed \"deep disruption\" to connectivity in the Kherson region."
           }
         ],
         "orphaned": false,
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "at least four fires at the site",
+        "quote": "NetBlocks told BBC Verify",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -14202,10 +13749,10 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "NetBlocks told BBC Verify it had observed \"deep disruption\" to connectivity in the Kherson region",
+        "quote": "NetBlocks told BBC Verify it had observed \"deep disruption\" to connectivity in the Kherson region.",
         "quote_status": "found",
         "quote_ratio": 1.0,
-        "citation_match": false,
+        "citation_match": true,
         "grounded": true
       }
     },
@@ -14257,10 +13804,10 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "deep disruption to connectivity in the Kherson region",
-        "quote_status": "partial",
-        "quote_ratio": 0.906,
-        "citation_match": false,
+        "quote": "deep disruption\" to connectivity",
+        "quote_status": "found",
+        "quote_ratio": 1.0,
+        "citation_match": true,
         "grounded": true
       }
     },
@@ -14312,7 +13859,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "in its latest operational update, the military said it struck Ukraine's fuel, energy and transport facilities",
+        "quote": "In its latest operational update, the military said it struck Ukraine's fuel, energy and transport facilities...",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -14367,7 +13914,10 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "connectivity fell to about 31% at its lowest overnight",
+        "quote": [
+          "NetBlocks told BBC Verify it had observed \"deep disruption\" to connectivity in the Kherson region.",
+          "internet connectivity fell to about 31% at its lowest overnight"
+        ],
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -14422,7 +13972,10 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "connectivity was about 69% as of 12:00 GMT",
+        "quote": [
+          "NetBlocks told BBC Verify it had observed \"deep disruption\" to connectivity in the Kherson region.",
+          "connectivity was about 69% as of 12:00 GMT"
+        ],
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -14477,64 +14030,9 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Internet connectivity was about 69% as of 12:00 GMT.",
-        "quote_status": "missing",
-        "quote_ratio": 0.846,
-        "citation_match": true,
-        "grounded": true
-      }
-    },
-    {
-      "subject_id": "CL22",
-      "subject_text": "Isik Mater states reason for non-zero connectivity",
-      "subject_type": "Connectivity Explanation",
-      "property": "isDueTo",
-      "property_source": "vocab",
-      "vocab_id": "P0014",
-      "property_is_new_to_vocab": true,
-      "property_definition": "Indicates the reason or cause for a subject.",
-      "property_parent": "about",
-      "property_justification": "No schema.org property directly links an explanation to the event/condition whose cause it explains. 'cause' and 'source' are for the actual cause, not a statement about it.",
-      "object_id": "OBS11",
-      "object_text": "Deep disruption to connectivity in Kherson",
-      "object_type": "Connectivity Disruption",
-      "relation_phrases": [
-        "states cause of"
-      ],
-      "phrase_directions": {
-        "states cause of": "as_is"
-      },
-      "evidence": [
-        "connectivity did not fall to zero in part due to the use of \"generators and backup supplies\" in Kherson."
-      ],
-      "confidence": 0.9,
-      "grounding": {
-        "evidence_status": "found",
-        "evidence_detail": {
-          "n_quotes": 1,
-          "found": 1,
-          "partial": 0,
-          "missing": 0,
-          "worst_ratio": 1.0
-        },
-        "evidence_resolved": [
-          {
-            "quote": "connectivity did not fall to zero in part due to the use of \"generators and backup supplies\" in Kherson.",
-            "status": "found",
-            "ratio": 1.0,
-            "start": 3341,
-            "end": 3445,
-            "matched_text": "connectivity did not fall to zero in part due to the use of \"generators and backup supplies\" in Kherson.",
-            "sentence": "NetBlocks' head of research Isik Mater said connectivity did not fall to zero in part due to the use of \"generators and backup supplies\" in Kherson.\nLast year, it was reported that 66,000 people live in Kherson - about 25% of its pre-war population."
-          }
-        ],
-        "orphaned": false,
-        "supported": true,
-        "failure_type": null,
-        "note": "",
-        "quote": "Isik Mater said connectivity did not fall to zero in part due to the use of 'generators and backup supplies' in Kherson.",
-        "quote_status": "partial",
-        "quote_ratio": 0.933,
+        "quote": "as of 12:00 GMT",
+        "quote_status": "found",
+        "quote_ratio": 1.0,
         "citation_match": true,
         "grounded": true
       }
@@ -14587,10 +14085,10 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Isik Mater said connectivity did not fall to zero in part due to the use of 'generators and backup supplies' in Kherson.",
-        "quote_status": "partial",
-        "quote_ratio": 0.933,
-        "citation_match": false,
+        "quote": "use of \"generators and backup supplies\" in Kherson",
+        "quote_status": "found",
+        "quote_ratio": 1.0,
+        "citation_match": true,
         "grounded": true
       }
     },
@@ -14642,10 +14140,10 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Isik Mater said connectivity did not fall to zero in part due to the use of 'generators and backup supplies' in Kherson.",
-        "quote_status": "partial",
-        "quote_ratio": 0.933,
-        "citation_match": false,
+        "quote": "connectivity did not fall to zero in part due to the use of \"generators and backup supplies\" in Kherson.",
+        "quote_status": "found",
+        "quote_ratio": 1.0,
+        "citation_match": true,
         "grounded": true
       }
     },
@@ -14697,10 +14195,10 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Isik Mater said connectivity did not fall to zero in part due to the use of 'generators and backup supplies' in Kherson.",
-        "quote_status": "partial",
-        "quote_ratio": 0.933,
-        "citation_match": false,
+        "quote": "connectivity did not fall to zero in part due to the use of \"generators and backup supplies\" in Kherson.",
+        "quote_status": "found",
+        "quote_ratio": 1.0,
+        "citation_match": true,
         "grounded": true
       }
     },
@@ -14752,7 +14250,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Last year, it was reported that 66,000 people live in Kherson - about 25% of its pre-war population.",
+        "quote": "66,000 people live in Kherson - about 25% of its pre-war population.",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -14807,9 +14305,9 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "the Russian military said it intercepted or shot down 605 Ukrainian drones overnight over a number of regions.",
-        "quote_status": "missing",
-        "quote_ratio": 0.845,
+        "quote": "intercepted or shot down 605 Ukrainian drones overnight over a number of regions.",
+        "quote_status": "found",
+        "quote_ratio": 1.0,
         "citation_match": true,
         "grounded": true
       }
@@ -14864,7 +14362,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Last year, it was reported that 66,000 people live in Kherson - about 25% of its pre-war population.",
+        "quote": "Last year, it was reported that 66,000 people live in Kherson...",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -14875,28 +14373,28 @@
   "prune_report": {
     "nary_nodes": {
       "before": 66,
-      "after": 66,
-      "removed": 0,
-      "kept_rate": 1.0
+      "after": 63,
+      "removed": 3,
+      "kept_rate": 0.955
     },
     "relations": {
       "before": 188,
-      "after": 182,
-      "removed": 6,
-      "kept_rate": 0.968
+      "after": 175,
+      "removed": 13,
+      "kept_rate": 0.931
     },
     "entities": {
       "before": 99,
-      "after": 91,
-      "removed": 8,
-      "kept_rate": 0.919
+      "after": 93,
+      "removed": 6,
+      "kept_rate": 0.939
     },
     "unjudged_kept": 0,
     "drop_unjudged": false,
     "drop_orphan_entities": true,
     "removed_by_failure_type": {
-      "intrinsic": 5,
-      "extrinsic": 1
+      "extrinsic": 13,
+      "orphan": 3
     }
   }
 }

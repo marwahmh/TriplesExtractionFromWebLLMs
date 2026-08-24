@@ -7,31 +7,30 @@
   "grounding_report": {
     "nary_nodes": {
       "total": 14,
-      "grounded": 13,
-      "rate": 0.929,
-      "failures": {
-        "intrinsic": 1
-      },
+      "grounded": 14,
+      "rate": 1.0,
+      "failures": {},
       "citation_status": {
         "found": 12,
         "missing": 2
       },
       "citation_precision": {
-        "n": 13,
-        "matched": 10,
-        "rate": 0.769
+        "n": 14,
+        "matched": 8,
+        "rate": 0.571
       },
       "judge_quote_status": {
-        "found": 13
+        "found": 11,
+        "partial": 3
       }
     },
     "relations": {
       "total": 27,
-      "grounded": 25,
-      "rate": 0.926,
+      "grounded": 21,
+      "rate": 0.778,
       "failures": {
-        "orphan": 1,
-        "extrinsic": 1
+        "extrinsic": 5,
+        "intrinsic": 1
       },
       "citation_status": {
         "found": 11,
@@ -39,19 +38,20 @@
         "partial": 2
       },
       "citation_precision": {
-        "n": 25,
-        "matched": 11,
-        "rate": 0.44
+        "n": 21,
+        "matched": 9,
+        "rate": 0.429
       },
       "judge_quote_status": {
-        "found": 25
+        "found": 17,
+        "partial": 4
       }
     },
     "relations_by_property_source": {
       "schema.org": {
         "total": 23,
-        "grounded": 22,
-        "rate": 0.957
+        "grounded": 18,
+        "rate": 0.783
       },
       "vocab": {
         "total": 4,
@@ -62,19 +62,18 @@
     "nodes_by_type_source": {
       "not_canonicalized": {
         "total": 14,
-        "grounded": 13,
-        "rate": 0.929
+        "grounded": 14,
+        "rate": 1.0
       }
     }
   },
   "grounding_config": {
     "method": "full_article",
-    "judge_backend": "qwen3-32b-think",
-    "judge_model": "qwen3-32b",
-    "judge_batch": 20,
-    "prompt_sha1": "67305d45abb6",
+    "backend": "gpt-oss-120b",
+    "model": "accounts/fireworks/models/gpt-oss-120b",
+    "judge_batch": 60,
     "graph": "nary_graph_dedup_main_val_r1_extended_consolidated.json",
-    "self_judged": true
+    "prompt_sha1": "67305d45abb6"
   },
   "entities": [
     {
@@ -184,17 +183,6 @@
       "type_source": "schema.org",
       "type_parent": null,
       "type_vocab_id": null
-    },
-    {
-      "id": "E22",
-      "text": "Sunday",
-      "type": "DayOfWeek",
-      "aliases": [
-        "Saturday"
-      ],
-      "type_source": "schema.org",
-      "type_parent": null,
-      "type_vocab_id": null
     }
   ],
   "nary_nodes": [
@@ -251,7 +239,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Title: Wildfires spread in France and Spain forcing more to flee",
+        "quote": "Massive wildfires in France and Spain continued to gather strength overnight",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -301,7 +289,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "French Interior Minister Laurent Nunez on Sunday said that the blaze raging in the Gironde region near popular Bordeaux had become \"extremely intense and unpredictable again\" overnight.",
+        "quote": "the blaze raging in the Gironde region near popular Bordeaux had become \"extremely intense and unpredictable again\" overnight",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -351,7 +339,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "A new fire outside the Spanish coastal town of Valencia claimed one life and forced residents to flee.",
+        "quote": "A new fire outside the Spanish coastal town of Valencia claimed one life",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -401,7 +389,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "firefighters are battling an active fire in the southern Var region, where 3,000 people have been evacuated.",
+        "quote": "firefighters are battling an active fire in the southern Var region",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -441,7 +429,47 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "authorities ordered the evacuation of eight municipalities near Toledo",
+        "quote": "authorities ordered the evacuation of eight municipalities near Toledo.",
+        "quote_status": "found",
+        "quote_ratio": 1.0,
+        "citation_match": true,
+        "grounded": true
+      }
+    },
+    {
+      "id": "OBS1",
+      "node_kind": "Observation",
+      "type": "EvacuationCount",
+      "label": "220,000 evacuees in France",
+      "is_main": false,
+      "evidence": [
+        "New overnight evacuations brought the total number of displacements in France to over 220,000"
+      ],
+      "confidence": 0.9,
+      "grounding": {
+        "evidence_status": "found",
+        "evidence_detail": {
+          "n_quotes": 1,
+          "found": 1,
+          "partial": 0,
+          "missing": 0,
+          "worst_ratio": 1.0
+        },
+        "evidence_resolved": [
+          {
+            "quote": "New overnight evacuations brought the total number of displacements in France to over 220,000",
+            "status": "found",
+            "ratio": 1.0,
+            "start": 755,
+            "end": 848,
+            "matched_text": "New overnight evacuations brought the total number of displacements in France to over 220,000",
+            "sentence": "New overnight evacuations brought the total number of displacements in France to over 220,000."
+          }
+        ],
+        "supported": true,
+        "failure_type": null,
+        "note": "",
+        "quote": "New overnight evacuations brought the total number of displacements in France to over 220,000.",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -481,7 +509,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "fires have consumed some 42,000 hectares (103,000 acres)",
+        "quote": "the fires have consumed some 42,000 hectares",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -521,10 +549,10 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Some 2,500 firefighters as well as 1,500 military personnel and 1,200 police have been deployed to the region.",
-        "quote_status": "found",
+        "quote": "Some 2,500 firefighters ... have been deployed to the region.",
+        "quote_status": "partial",
         "quote_ratio": 1.0,
-        "citation_match": true,
+        "citation_match": false,
         "grounded": true
       }
     },
@@ -561,10 +589,10 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Some 2,500 firefighters as well as 1,500 military personnel and 1,200 police have been deployed to the region.",
-        "quote_status": "found",
+        "quote": "1,500 military personnel ... have been deployed to the region.",
+        "quote_status": "partial",
         "quote_ratio": 1.0,
-        "citation_match": true,
+        "citation_match": false,
         "grounded": true
       }
     },
@@ -601,10 +629,10 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Some 2,500 firefighters as well as 1,500 military personnel and 1,200 police have been deployed to the region.",
-        "quote_status": "found",
+        "quote": "1,200 police ... have been deployed to the region.",
+        "quote_status": "partial",
         "quote_ratio": 1.0,
-        "citation_match": true,
+        "citation_match": false,
         "grounded": true
       }
     },
@@ -641,7 +669,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "where 3,000 people have been evacuated",
+        "quote": "where 3,000 people have been evacuated.",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -828,7 +856,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Massive wildfires in France and Spain continued to gather strength overnight with yet more evacuations for residents near France's western Bordeaux and Spain's capital Madrid.",
+        "quote": "Massive wildfires in France and Spain continued to gather strength overnight",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -883,7 +911,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Massive wildfires in France and Spain continued to gather strength overnight with yet more evacuations for residents near France's western Bordeaux and Spain's capital Madrid.",
+        "quote": "Massive wildfires in France and Spain continued to gather strength overnight",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": false,
@@ -938,7 +966,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "French Interior Minister Laurent Nunez on Sunday said that the blaze raging in the Gironde region near popular Bordeaux had become \"extremely intense and unpredictable again\" overnight.",
+        "quote": "blaze raging in the Gironde region near popular Bordeaux",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -993,7 +1021,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "A new fire outside the Spanish coastal town of Valencia claimed one life and forced residents to flee.",
+        "quote": "A new fire outside the Spanish coastal town of Valencia claimed one life",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": false,
@@ -1048,10 +1076,10 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "In neighboring Spain, fires continued to consume areas west and north of the capital Madrid, where tens of thousands of people have been forced to flee their homes.",
+        "quote": "firefighters are battling an active fire in the southern Var region",
         "quote_status": "found",
         "quote_ratio": 1.0,
-        "citation_match": false,
+        "citation_match": true,
         "grounded": true
       }
     },
@@ -1103,227 +1131,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "On Saturday, authorities ordered the evacuation of eight municipalities near Toledo.",
-        "quote_status": "found",
-        "quote_ratio": 1.0,
-        "citation_match": true,
-        "grounded": true
-      }
-    },
-    {
-      "subject_id": "EV2",
-      "subject_text": "Wildfire in Gironde region near Bordeaux",
-      "subject_type": "Wildfire",
-      "property": "subEvent",
-      "property_source": "schema.org",
-      "vocab_id": null,
-      "property_is_new_to_vocab": false,
-      "property_definition": null,
-      "property_parent": null,
-      "property_justification": "The schema.org 'subEvent' property aligns with the hierarchical event-to-event relation where smaller events are parts of larger ones.",
-      "object_id": "EV1",
-      "object_text": "Wildfires in France and Spain",
-      "object_type": "WildfireSpread",
-      "relation_phrases": [
-        "part of"
-      ],
-      "phrase_directions": {
-        "part of": "as_is"
-      },
-      "evidence": [
-        "wildfires in France and Spain"
-      ],
-      "confidence": 0.9,
-      "grounding": {
-        "evidence_status": "found",
-        "evidence_detail": {
-          "n_quotes": 1,
-          "found": 1,
-          "partial": 0,
-          "missing": 0,
-          "worst_ratio": 1.0
-        },
-        "evidence_resolved": [
-          {
-            "quote": "wildfires in France and Spain",
-            "status": "found",
-            "ratio": 1.0,
-            "start": 187,
-            "end": 216,
-            "matched_text": "wildfires in France and Spain",
-            "sentence": "com/en/wildfires-spread-in-france-and-spain-forcing-more-to-flee/a-78119908\nDate: 26/07/2026\n\nMassive wildfires in France and Spain continued to gather strength overnight with yet more evacuations for residents near France's western Bordeaux and Spain's capital Madrid."
-          }
-        ],
-        "orphaned": false,
-        "supported": true,
-        "failure_type": null,
-        "note": "",
-        "quote": "Massive wildfires in France and Spain continued to gather strength overnight with yet more evacuations for residents near France's western Bordeaux and Spain's capital Madrid.",
-        "quote_status": "found",
-        "quote_ratio": 1.0,
-        "citation_match": true,
-        "grounded": true
-      }
-    },
-    {
-      "subject_id": "EV3",
-      "subject_text": "Wildfire in Valencia area",
-      "subject_type": "Wildfire",
-      "property": "subEvent",
-      "property_source": "schema.org",
-      "vocab_id": null,
-      "property_is_new_to_vocab": false,
-      "property_definition": null,
-      "property_parent": null,
-      "property_justification": "The schema.org 'subEvent' property aligns with the hierarchical event-to-event relation where smaller events are parts of larger ones.",
-      "object_id": "EV1",
-      "object_text": "Wildfires in France and Spain",
-      "object_type": "WildfireSpread",
-      "relation_phrases": [
-        "part of"
-      ],
-      "phrase_directions": {
-        "part of": "as_is"
-      },
-      "evidence": [
-        "wildfires in France and Spain"
-      ],
-      "confidence": 0.9,
-      "grounding": {
-        "evidence_status": "found",
-        "evidence_detail": {
-          "n_quotes": 1,
-          "found": 1,
-          "partial": 0,
-          "missing": 0,
-          "worst_ratio": 1.0
-        },
-        "evidence_resolved": [
-          {
-            "quote": "wildfires in France and Spain",
-            "status": "found",
-            "ratio": 1.0,
-            "start": 187,
-            "end": 216,
-            "matched_text": "wildfires in France and Spain",
-            "sentence": "com/en/wildfires-spread-in-france-and-spain-forcing-more-to-flee/a-78119908\nDate: 26/07/2026\n\nMassive wildfires in France and Spain continued to gather strength overnight with yet more evacuations for residents near France's western Bordeaux and Spain's capital Madrid."
-          }
-        ],
-        "orphaned": false,
-        "supported": true,
-        "failure_type": null,
-        "note": "",
-        "quote": "Massive wildfires in France and Spain continued to gather strength overnight with yet more evacuations for residents near France's western Bordeaux and Spain's capital Madrid.",
-        "quote_status": "found",
-        "quote_ratio": 1.0,
-        "citation_match": true,
-        "grounded": true
-      }
-    },
-    {
-      "subject_id": "EV4",
-      "subject_text": "Wildfire in Var region",
-      "subject_type": "Wildfire",
-      "property": "subEvent",
-      "property_source": "schema.org",
-      "vocab_id": null,
-      "property_is_new_to_vocab": false,
-      "property_definition": null,
-      "property_parent": null,
-      "property_justification": "The schema.org 'subEvent' property aligns with the hierarchical event-to-event relation where smaller events are parts of larger ones.",
-      "object_id": "EV1",
-      "object_text": "Wildfires in France and Spain",
-      "object_type": "WildfireSpread",
-      "relation_phrases": [
-        "part of"
-      ],
-      "phrase_directions": {
-        "part of": "as_is"
-      },
-      "evidence": [
-        "wildfires in France and Spain"
-      ],
-      "confidence": 0.85,
-      "grounding": {
-        "evidence_status": "found",
-        "evidence_detail": {
-          "n_quotes": 1,
-          "found": 1,
-          "partial": 0,
-          "missing": 0,
-          "worst_ratio": 1.0
-        },
-        "evidence_resolved": [
-          {
-            "quote": "wildfires in France and Spain",
-            "status": "found",
-            "ratio": 1.0,
-            "start": 187,
-            "end": 216,
-            "matched_text": "wildfires in France and Spain",
-            "sentence": "com/en/wildfires-spread-in-france-and-spain-forcing-more-to-flee/a-78119908\nDate: 26/07/2026\n\nMassive wildfires in France and Spain continued to gather strength overnight with yet more evacuations for residents near France's western Bordeaux and Spain's capital Madrid."
-          }
-        ],
-        "orphaned": false,
-        "supported": true,
-        "failure_type": null,
-        "note": "",
-        "quote": "In neighboring Spain, fires continued to consume areas west and north of the capital Madrid, where tens of thousands of people have been forced to flee their homes.",
-        "quote_status": "found",
-        "quote_ratio": 1.0,
-        "citation_match": false,
-        "grounded": true
-      }
-    },
-    {
-      "subject_id": "EV5",
-      "subject_text": "Evacuation of eight municipalities near Toledo",
-      "subject_type": "Evacuation",
-      "property": "subEvent",
-      "property_source": "schema.org",
-      "vocab_id": null,
-      "property_is_new_to_vocab": false,
-      "property_definition": null,
-      "property_parent": null,
-      "property_justification": "The schema.org 'subEvent' property aligns with the hierarchical event-to-event relation where smaller events are parts of larger ones.",
-      "object_id": "EV1",
-      "object_text": "Wildfires in France and Spain",
-      "object_type": "WildfireSpread",
-      "relation_phrases": [
-        "part of"
-      ],
-      "phrase_directions": {
-        "part of": "as_is"
-      },
-      "evidence": [
-        "wildfires in France and Spain"
-      ],
-      "confidence": 0.8,
-      "grounding": {
-        "evidence_status": "found",
-        "evidence_detail": {
-          "n_quotes": 1,
-          "found": 1,
-          "partial": 0,
-          "missing": 0,
-          "worst_ratio": 1.0
-        },
-        "evidence_resolved": [
-          {
-            "quote": "wildfires in France and Spain",
-            "status": "found",
-            "ratio": 1.0,
-            "start": 187,
-            "end": 216,
-            "matched_text": "wildfires in France and Spain",
-            "sentence": "com/en/wildfires-spread-in-france-and-spain-forcing-more-to-flee/a-78119908\nDate: 26/07/2026\n\nMassive wildfires in France and Spain continued to gather strength overnight with yet more evacuations for residents near France's western Bordeaux and Spain's capital Madrid."
-          }
-        ],
-        "orphaned": false,
-        "supported": true,
-        "failure_type": null,
-        "note": "",
-        "quote": "Massive wildfires in France and Spain continued to gather strength overnight with yet more evacuations for residents near France's western Bordeaux and Spain's capital Madrid.",
+        "quote": "authorities ordered the evacuation of eight municipalities near Toledo",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -1540,7 +1348,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "A new fire raging outside the seaside town of Valencia killed one individual before firefighters could get it under control.",
+        "quote": "A new fire outside the Spanish coastal town of Valencia claimed one life",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -1595,10 +1403,65 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Separately, firefighters are battling an active fire in the southern Var region, where 3,000 people have been evacuated.",
+        "quote": "where 3,000 people have been evacuated",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
+        "grounded": true
+      }
+    },
+    {
+      "subject_id": "EV1",
+      "subject_text": "Wildfires in France and Spain",
+      "subject_type": "WildfireSpread",
+      "property": "evacuationCount",
+      "property_source": "vocab",
+      "vocab_id": "P0017",
+      "property_is_new_to_vocab": true,
+      "property_definition": "The total number of evacuees associated with an event or wildfire spread.",
+      "property_parent": null,
+      "property_justification": "No schema.org property directly represents the cumulative evacuee count for wildfires; 'evacuationCount' is minted to capture this specific relation.",
+      "object_id": "OBS1",
+      "object_text": "220,000 evacuees in France",
+      "object_type": "EvacuationCount",
+      "relation_phrases": [
+        "total evacuees"
+      ],
+      "phrase_directions": {
+        "total evacuees": "as_is"
+      },
+      "evidence": [
+        "220,000 evacuees in France"
+      ],
+      "confidence": 0.9,
+      "grounding": {
+        "evidence_status": "missing",
+        "evidence_detail": {
+          "n_quotes": 1,
+          "found": 0,
+          "partial": 0,
+          "missing": 1,
+          "worst_ratio": 0.577
+        },
+        "evidence_resolved": [
+          {
+            "quote": "220,000 evacuees in France",
+            "status": "missing",
+            "ratio": 0.577,
+            "start": null,
+            "end": null,
+            "matched_text": null,
+            "sentence": null
+          }
+        ],
+        "orphaned": false,
+        "supported": true,
+        "failure_type": null,
+        "note": "",
+        "quote": "New overnight evacuations brought the total number of displacements in France to over 220,000.",
+        "quote_status": "found",
+        "quote_ratio": 1.0,
+        "citation_match": false,
         "grounded": true
       }
     },
@@ -1650,7 +1513,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "In all, the fires have consumed some 42,000 hectares (103,000 acres) — an area four times the size of Paris, or seven times the size of Manhattan — laying waste to more land than at any time since 1949, when fires destroyed 50,000 hectares.",
+        "quote": "In all, the fires have consumed some 42,000 hectares",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": false,
@@ -1705,8 +1568,8 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Some 2,500 firefighters as well as 1,500 military personnel and 1,200 police have been deployed to the region.",
-        "quote_status": "found",
+        "quote": "Some 2,500 firefighters ... have been deployed to the region.",
+        "quote_status": "partial",
         "quote_ratio": 1.0,
         "citation_match": false,
         "grounded": true
@@ -1760,8 +1623,8 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Some 2,500 firefighters as well as 1,500 military personnel and 1,200 police have been deployed to the region.",
-        "quote_status": "found",
+        "quote": "1,500 military personnel ... have been deployed to the region.",
+        "quote_status": "partial",
         "quote_ratio": 1.0,
         "citation_match": false,
         "grounded": true
@@ -1815,7 +1678,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Some 2,500 firefighters as well as 1,500 military personnel and 1,200 police have been deployed to the region.",
+        "quote": "1,200 police have been deployed to the region.",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": false,
@@ -1870,62 +1733,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "French Interior Minister Laurent Nunez on Sunday said that the blaze raging in the Gironde region near popular Bordeaux had become \"extremely intense and unpredictable again\" overnight.",
-        "quote_status": "found",
-        "quote_ratio": 1.0,
-        "citation_match": true,
-        "grounded": true
-      }
-    },
-    {
-      "subject_id": "EV2",
-      "subject_text": "Wildfire in Gironde region near Bordeaux",
-      "subject_type": "Wildfire",
-      "property": "eventDay",
-      "property_source": "vocab",
-      "vocab_id": "P0019",
-      "property_is_new_to_vocab": true,
-      "property_definition": "The day of the week on which an event occurs.",
-      "property_parent": "timeOfDay",
-      "property_justification": "No schema.org property directly links an event to a specific day of the week; 'eventDay' is minted for this purpose.",
-      "object_id": "E22",
-      "object_text": "Sunday",
-      "object_type": "DayOfWeek",
-      "relation_phrases": [
-        "time"
-      ],
-      "phrase_directions": {
-        "time": "as_is"
-      },
-      "evidence": [
-        "on Sunday"
-      ],
-      "confidence": 0.9,
-      "grounding": {
-        "evidence_status": "found",
-        "evidence_detail": {
-          "n_quotes": 1,
-          "found": 1,
-          "partial": 0,
-          "missing": 0,
-          "worst_ratio": 1.0
-        },
-        "evidence_resolved": [
-          {
-            "quote": "on Sunday",
-            "status": "found",
-            "ratio": 1.0,
-            "start": 497,
-            "end": 506,
-            "matched_text": "on Sunday",
-            "sentence": "French Interior Minister Laurent Nunez on Sunday said that the blaze raging in the Gironde region near popular Bordeaux had become \"extremely intense and unpredictable again\" overnight."
-          }
-        ],
-        "orphaned": false,
-        "supported": true,
-        "failure_type": null,
-        "note": "",
-        "quote": "French Interior Minister Laurent Nunez on Sunday said that the blaze raging in the Gironde region near popular Bordeaux had become \"extremely intense and unpredictable again\" overnight.",
+        "quote": "had become \"extremely intense and unpredictable again\" overnight.",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -1980,10 +1788,10 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "French Interior Minister Laurent Nunez on Sunday said that the blaze raging in the Gironde region near popular Bordeaux had become \"extremely intense and unpredictable again\" overnight.",
+        "quote": "French Interior Minister Laurent Nunez on Sunday said",
         "quote_status": "found",
         "quote_ratio": 1.0,
-        "citation_match": false,
+        "citation_match": true,
         "grounded": true
       }
     },
@@ -2090,7 +1898,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "French Interior Minister Laurent Nunez on Sunday said that the blaze raging in the Gironde region near popular Bordeaux had become \"extremely intense and unpredictable again\"",
+        "quote": "blaze raging in the Gironde region near popular Bordeaux",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": false,
@@ -2512,8 +2320,8 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Some 2,500 firefighters as well as 1,500 military personnel and 1,200 police have been deployed to the region",
-        "quote_status": "found",
+        "quote": "Some 2,500 firefighters ... have been deployed to the region.",
+        "quote_status": "partial",
         "quote_ratio": 1.0,
         "citation_match": false,
         "grounded": true
@@ -2567,8 +2375,8 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Some 2,500 firefighters as well as 1,500 military personnel and 1,200 police have been deployed to the region",
-        "quote_status": "found",
+        "quote": "1,500 military personnel ... have been deployed to the region.",
+        "quote_status": "partial",
         "quote_ratio": 1.0,
         "citation_match": false,
         "grounded": true
@@ -2622,7 +2430,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Some 2,500 firefighters as well as 1,500 military personnel and 1,200 police have been deployed to the region",
+        "quote": "1,200 police have been deployed to the region.",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": false,
@@ -2633,29 +2441,28 @@
   "prune_report": {
     "nary_nodes": {
       "before": 14,
-      "after": 13,
-      "removed": 1,
-      "kept_rate": 0.929
+      "after": 14,
+      "removed": 0,
+      "kept_rate": 1.0
     },
     "relations": {
       "before": 27,
-      "after": 25,
-      "removed": 2,
-      "kept_rate": 0.926
+      "after": 21,
+      "removed": 6,
+      "kept_rate": 0.778
     },
     "entities": {
       "before": 22,
-      "after": 13,
-      "removed": 9,
-      "kept_rate": 0.591
+      "after": 12,
+      "removed": 10,
+      "kept_rate": 0.545
     },
     "unjudged_kept": 0,
     "drop_unjudged": false,
     "drop_orphan_entities": true,
     "removed_by_failure_type": {
-      "intrinsic": 1,
-      "orphan": 1,
-      "extrinsic": 1
+      "extrinsic": 5,
+      "intrinsic": 1
     }
   }
 }

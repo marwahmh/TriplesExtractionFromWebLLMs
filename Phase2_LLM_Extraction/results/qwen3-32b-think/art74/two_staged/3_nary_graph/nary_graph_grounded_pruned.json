@@ -7,30 +7,31 @@
   "grounding_report": {
     "nary_nodes": {
       "total": 7,
-      "grounded": 7,
-      "rate": 1.0,
-      "failures": {},
+      "grounded": 6,
+      "rate": 0.857,
+      "failures": {
+        "extrinsic": 1
+      },
       "citation_status": {
         "found": 3,
         "partial": 4
       },
       "citation_precision": {
-        "n": 7,
-        "matched": 7,
-        "rate": 1.0
+        "n": 6,
+        "matched": 5,
+        "rate": 0.833
       },
       "judge_quote_status": {
-        "found": 3,
-        "partial": 4
+        "found": 6
       }
     },
     "relations": {
       "total": 31,
-      "grounded": 29,
-      "rate": 0.935,
+      "grounded": 24,
+      "rate": 0.774,
       "failures": {
-        "extrinsic": 1,
-        "intrinsic": 1
+        "orphan": 5,
+        "extrinsic": 2
       },
       "citation_status": {
         "found": 9,
@@ -38,43 +39,42 @@
         "partial": 3
       },
       "citation_precision": {
-        "n": 29,
-        "matched": 21,
-        "rate": 0.724
+        "n": 24,
+        "matched": 18,
+        "rate": 0.75
       },
       "judge_quote_status": {
-        "found": 28,
+        "found": 23,
         "partial": 1
       }
     },
     "relations_by_property_source": {
       "schema.org": {
         "total": 23,
-        "grounded": 21,
-        "rate": 0.913
+        "grounded": 17,
+        "rate": 0.739
       },
       "vocab": {
         "total": 8,
-        "grounded": 8,
-        "rate": 1.0
+        "grounded": 7,
+        "rate": 0.875
       }
     },
     "nodes_by_type_source": {
       "not_canonicalized": {
         "total": 7,
-        "grounded": 7,
-        "rate": 1.0
+        "grounded": 6,
+        "rate": 0.857
       }
     }
   },
   "grounding_config": {
     "method": "full_article",
-    "judge_backend": "qwen3-32b-think",
-    "judge_model": "qwen3-32b",
-    "judge_batch": 20,
-    "prompt_sha1": "67305d45abb6",
+    "backend": "gpt-oss-120b",
+    "model": "accounts/fireworks/models/gpt-oss-120b",
+    "judge_batch": 60,
     "graph": "nary_graph_dedup_main_val_r1_extended_consolidated.json",
-    "self_judged": true
+    "prompt_sha1": "67305d45abb6"
   },
   "entities": [
     {
@@ -122,25 +122,6 @@
       "type_parent": "Award",
       "type_vocab_id": "T0067",
       "type_definition": "A prize awarded for excellence in the confectionery field"
-    },
-    {
-      "id": "E6",
-      "text": "July 14",
-      "type": "RelativeDate",
-      "aliases": [],
-      "type_source": "vocab",
-      "type_parent": "Date",
-      "type_vocab_id": "T0068",
-      "type_definition": "A date expressed as a relative time period rather than an absolute calendar date"
-    },
-    {
-      "id": "E8",
-      "text": "Singapore",
-      "type": "City",
-      "aliases": [],
-      "type_source": "schema.org",
-      "type_parent": null,
-      "type_vocab_id": null
     },
     {
       "id": "E9",
@@ -280,46 +261,6 @@
   ],
   "nary_nodes": [
     {
-      "id": "EV1",
-      "node_kind": "Event",
-      "type": "ProfessionalAward",
-      "label": "Benoît Castel awarded World Confectioner of the Year",
-      "is_main": true,
-      "evidence": [
-        "The International Union of Bakers and Confectioners (UIBC) named him World Confectioner of the Year last month."
-      ],
-      "confidence": 1.0,
-      "grounding": {
-        "evidence_status": "found",
-        "evidence_detail": {
-          "n_quotes": 1,
-          "found": 1,
-          "partial": 0,
-          "missing": 0,
-          "worst_ratio": 1.0
-        },
-        "evidence_resolved": [
-          {
-            "quote": "The International Union of Bakers and Confectioners (UIBC) named him World Confectioner of the Year last month.",
-            "status": "found",
-            "ratio": 1.0,
-            "start": 538,
-            "end": 649,
-            "matched_text": "the International Union of Bakers and Confectioners (UIBC) named him World Confectioner of the Year last month.",
-            "sentence": "His fingers covered in cookie dough, the 54-year-old with salt-and-pepper hair had returned to his usual routine as an \"artisan-retailer\" after the International Union of Bakers and Confectioners (UIBC) named him World Confectioner of the Year last month.\n\"I have a mission: to be the world champion every day in my shop for my customers,\" he said, eyes twinkling."
-          }
-        ],
-        "supported": true,
-        "failure_type": null,
-        "note": "",
-        "quote": "the International Union of Bakers and Confectioners (UIBC) named him World Confectioner of the Year last month",
-        "quote_status": "found",
-        "quote_ratio": 1.0,
-        "citation_match": true,
-        "grounded": true
-      }
-    },
-    {
       "id": "OBS1",
       "node_kind": "Observation",
       "type": "BusinessExpansion",
@@ -352,7 +293,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "alongside his daughter Margot, he is set to open a new venue in Paris in September",
+        "quote": "Alongside his daughter Margot, he is set to open a new venue in Paris in September a cross between a caf, a restaurant and a bakery-patisserie.",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -392,7 +333,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "he tastes the freshly made sourdough, prepared with flour milled a few months earlier",
+        "quote": "With a finger, he tastes the freshly made sourdough, prepared with flour milled a few months earlier in the back room.",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -442,10 +383,10 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "'He's there alongside his workers every day and loves to pass things on,' he added",
-        "quote_status": "partial",
-        "quote_ratio": 0.89,
-        "citation_match": true,
+        "quote": "The pastry chef is \"demanding, he has this slightly perfectionist side we're very fond of\", said Montbabut, who has been working with him for six years. \"He's there alongside his workers every day and loves to pass things on,\" he added.",
+        "quote_status": "found",
+        "quote_ratio": 1.0,
+        "citation_match": false,
         "grounded": true
       }
     },
@@ -482,9 +423,9 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "'I have a mission: to be the world champion every day in my shop for my customers,' he said",
-        "quote_status": "partial",
-        "quote_ratio": 0.868,
+        "quote": "\"I have a mission: to be the world champion every day in my shop for my customers,\" he said.",
+        "quote_status": "found",
+        "quote_ratio": 1.0,
         "citation_match": true,
         "grounded": true
       }
@@ -522,9 +463,9 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "the bread of yesterday and tomorrow, made from the previous day's unsold stock as part of an anti-waste initiative",
-        "quote_status": "partial",
-        "quote_ratio": 0.895,
+        "quote": "\"the bread of yesterday and tomorrow\", made from the previous day's unsold stock as part of an anti-waste initiative.",
+        "quote_status": "found",
+        "quote_ratio": 1.0,
         "citation_match": true,
         "grounded": true
       }
@@ -562,70 +503,15 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "he created his famous 'pain du coin', made from a variety of flours",
-        "quote_status": "partial",
-        "quote_ratio": 0.896,
+        "quote": "he created his famous \"pain du coin\", made from a variety of flours, natural quince sourdough starter, honey and Salish salt from the US Pacific Northwest.",
+        "quote_status": "found",
+        "quote_ratio": 1.0,
         "citation_match": true,
         "grounded": true
       }
     }
   ],
   "relations": [
-    {
-      "subject_id": "EV1",
-      "subject_text": "Benoît Castel awarded World Confectioner of the Year",
-      "subject_type": "ProfessionalAward",
-      "property": "recognizedBy",
-      "property_source": "schema.org",
-      "vocab_id": null,
-      "property_is_new_to_vocab": false,
-      "property_definition": null,
-      "property_parent": null,
-      "property_justification": "The ProfessionalAward is a Credential, and 'recognizedBy' links Credential to Organization, matching the observed signature.",
-      "object_id": "E4",
-      "object_text": "International Union of Bakers and Confectioners (UIBC)",
-      "object_type": "Organization",
-      "relation_phrases": [
-        "awarded by"
-      ],
-      "phrase_directions": {
-        "awarded by": "as_is"
-      },
-      "evidence": [
-        "The International Union of Bakers and Confectioners (UIBC) named him World Confectioner of the Year"
-      ],
-      "confidence": 1.0,
-      "grounding": {
-        "evidence_status": "found",
-        "evidence_detail": {
-          "n_quotes": 1,
-          "found": 1,
-          "partial": 0,
-          "missing": 0,
-          "worst_ratio": 1.0
-        },
-        "evidence_resolved": [
-          {
-            "quote": "The International Union of Bakers and Confectioners (UIBC) named him World Confectioner of the Year",
-            "status": "found",
-            "ratio": 1.0,
-            "start": 538,
-            "end": 637,
-            "matched_text": "the International Union of Bakers and Confectioners (UIBC) named him World Confectioner of the Year",
-            "sentence": "His fingers covered in cookie dough, the 54-year-old with salt-and-pepper hair had returned to his usual routine as an \"artisan-retailer\" after the International Union of Bakers and Confectioners (UIBC) named him World Confectioner of the Year last month."
-          }
-        ],
-        "orphaned": false,
-        "supported": true,
-        "failure_type": null,
-        "note": "",
-        "quote": "His fingers covered in cookie dough, the 54-year-old with salt-and-pepper hair had returned to his usual routine as an \"artisan-retailer\" after the International Union of Bakers and Confectioners (UIBC) named him World Confectioner of the Year last month.",
-        "quote_status": "found",
-        "quote_ratio": 1.0,
-        "citation_match": true,
-        "grounded": true
-      }
-    },
     {
       "subject_id": "E4",
       "subject_text": "International Union of Bakers and Confectioners (UIBC)",
@@ -1546,526 +1432,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Three years after fellow French pastry chef Nina Mtayer was crowned champion, Castel received the UIBC award presented annually to a leading figure in the profession in recognition of their career and contribution to the trade on July 14 in Singapore.",
-        "quote_status": "found",
-        "quote_ratio": 1.0,
-        "citation_match": true,
-        "grounded": true
-      }
-    },
-    {
-      "subject_id": "E1",
-      "subject_text": "Benoît Castel",
-      "subject_type": "Person",
-      "property": "hasCredential",
-      "property_source": "schema.org",
-      "vocab_id": null,
-      "property_is_new_to_vocab": false,
-      "property_definition": null,
-      "property_parent": null,
-      "property_justification": "The Person 'hasCredential' a ProfessionalAward, matching the observed signature and schema.org's 'hasCredential' domain/range.",
-      "object_id": "EV1",
-      "object_text": "Benoît Castel awarded World Confectioner of the Year",
-      "object_type": "ProfessionalAward",
-      "relation_phrases": [
-        "received award"
-      ],
-      "phrase_directions": {
-        "received award": "as_is"
-      },
-      "evidence": [
-        "named him World Confectioner of the Year"
-      ],
-      "confidence": 1.0,
-      "grounding": {
-        "evidence_status": "found",
-        "evidence_detail": {
-          "n_quotes": 1,
-          "found": 1,
-          "partial": 0,
-          "missing": 0,
-          "worst_ratio": 1.0
-        },
-        "evidence_resolved": [
-          {
-            "quote": "named him World Confectioner of the Year",
-            "status": "found",
-            "ratio": 1.0,
-            "start": 597,
-            "end": 637,
-            "matched_text": "named him World Confectioner of the Year",
-            "sentence": "His fingers covered in cookie dough, the 54-year-old with salt-and-pepper hair had returned to his usual routine as an \"artisan-retailer\" after the International Union of Bakers and Confectioners (UIBC) named him World Confectioner of the Year last month."
-          }
-        ],
-        "orphaned": false,
-        "supported": true,
-        "failure_type": null,
-        "note": "",
-        "quote": "His fingers covered in cookie dough, the 54-year-old with salt-and-pepper hair had returned to his usual routine as an \"artisan-retailer\" after the International Union of Bakers and Confectioners (UIBC) named him World Confectioner of the Year last month.",
-        "quote_status": "found",
-        "quote_ratio": 1.0,
-        "citation_match": true,
-        "grounded": true
-      }
-    },
-    {
-      "subject_id": "EV1",
-      "subject_text": "Benoît Castel awarded World Confectioner of the Year",
-      "subject_type": "ProfessionalAward",
-      "property": "awardedOnDate",
-      "property_source": "vocab",
-      "vocab_id": "P0042",
-      "property_is_new_to_vocab": true,
-      "property_definition": "The date on which an award is formally given.",
-      "property_parent": "award",
-      "property_justification": "No existing schema.org property directly links an award to a date in this context.",
-      "object_id": "E6",
-      "object_text": "July 14",
-      "object_type": "RelativeDate",
-      "relation_phrases": [
-        "awarded on"
-      ],
-      "phrase_directions": {
-        "awarded on": "as_is"
-      },
-      "evidence": [
-        [
-          "o",
-          "n",
-          " ",
-          "J",
-          "u",
-          "l",
-          "y",
-          " ",
-          "1",
-          "4",
-          " ",
-          "i",
-          "n",
-          " ",
-          "S",
-          "i",
-          "n",
-          "g",
-          "a",
-          "p",
-          "o",
-          "r",
-          "e",
-          "Benoît Castel was awarded on July 14 in Singapore"
-        ]
-      ],
-      "confidence": 1.0,
-      "grounding": {
-        "evidence_status": "missing",
-        "evidence_detail": {
-          "n_quotes": 24,
-          "found": 19,
-          "partial": 0,
-          "missing": 5,
-          "worst_ratio": 0.0
-        },
-        "evidence_resolved": [
-          {
-            "quote": "o",
-            "status": "found",
-            "ratio": 1.0,
-            "start": 28,
-            "end": 29,
-            "matched_text": "o",
-            "sentence": "Title: French pastry chef crowned world's best aims 'to be world champion every day'\nURL: https://www."
-          },
-          {
-            "quote": "n",
-            "status": "found",
-            "ratio": 1.0,
-            "start": 10,
-            "end": 11,
-            "matched_text": "n",
-            "sentence": "Title: French pastry chef crowned world's best aims 'to be world champion every day'\nURL: https://www."
-          },
-          {
-            "quote": " ",
-            "status": "missing",
-            "ratio": 0.0,
-            "start": null,
-            "end": null,
-            "matched_text": null,
-            "sentence": null
-          },
-          {
-            "quote": "J",
-            "status": "found",
-            "ratio": 1.0,
-            "start": 1108,
-            "end": 1109,
-            "matched_text": "J",
-            "sentence": "\"\nThree years after fellow French pastry chef Nina Mtayer was crowned champion, Castel received the UIBC award presented annually to a leading figure in the profession in recognition of their career and contribution to the trade on July 14 in Singapore."
-          },
-          {
-            "quote": "u",
-            "status": "found",
-            "ratio": 1.0,
-            "start": 85,
-            "end": 86,
-            "matched_text": "U",
-            "sentence": "Title: French pastry chef crowned world's best aims 'to be world champion every day'\nURL: https://www."
-          },
-          {
-            "quote": "l",
-            "status": "found",
-            "ratio": 1.0,
-            "start": 3,
-            "end": 4,
-            "matched_text": "l",
-            "sentence": "Title: French pastry chef crowned world's best aims 'to be world champion every day'\nURL: https://www."
-          },
-          {
-            "quote": "y",
-            "status": "found",
-            "ratio": 1.0,
-            "start": 19,
-            "end": 20,
-            "matched_text": "y",
-            "sentence": "Title: French pastry chef crowned world's best aims 'to be world champion every day'\nURL: https://www."
-          },
-          {
-            "quote": " ",
-            "status": "missing",
-            "ratio": 0.0,
-            "start": null,
-            "end": null,
-            "matched_text": null,
-            "sentence": null
-          },
-          {
-            "quote": "1",
-            "status": "found",
-            "ratio": 1.0,
-            "start": 131,
-            "end": 132,
-            "matched_text": "1",
-            "sentence": "com/en/france/20260811-newly-crowned-world-s-best-pastry-chef-stays-true-to-artisan-roots\nDate: 11/08/2026\n\nThe smell of warm bread hangs in the air at one of Benot Castel's patisseries in Paris, where the newly crowned world's best pastry chef was hard at work testing new recipes."
-          },
-          {
-            "quote": "4",
-            "status": "found",
-            "ratio": 1.0,
-            "start": 109,
-            "end": 110,
-            "matched_text": "4",
-            "sentence": "france24."
-          },
-          {
-            "quote": " ",
-            "status": "missing",
-            "ratio": 0.0,
-            "start": null,
-            "end": null,
-            "matched_text": null,
-            "sentence": null
-          },
-          {
-            "quote": "i",
-            "status": "found",
-            "ratio": 1.0,
-            "start": 1,
-            "end": 2,
-            "matched_text": "i",
-            "sentence": "Title: French pastry chef crowned world's best aims 'to be world champion every day'\nURL: https://www."
-          },
-          {
-            "quote": "n",
-            "status": "found",
-            "ratio": 1.0,
-            "start": 10,
-            "end": 11,
-            "matched_text": "n",
-            "sentence": "Title: French pastry chef crowned world's best aims 'to be world champion every day'\nURL: https://www."
-          },
-          {
-            "quote": " ",
-            "status": "missing",
-            "ratio": 0.0,
-            "start": null,
-            "end": null,
-            "matched_text": null,
-            "sentence": null
-          },
-          {
-            "quote": "S",
-            "status": "found",
-            "ratio": 1.0,
-            "start": 16,
-            "end": 17,
-            "matched_text": "s",
-            "sentence": "Title: French pastry chef crowned world's best aims 'to be world champion every day'\nURL: https://www."
-          },
-          {
-            "quote": "i",
-            "status": "found",
-            "ratio": 1.0,
-            "start": 1,
-            "end": 2,
-            "matched_text": "i",
-            "sentence": "Title: French pastry chef crowned world's best aims 'to be world champion every day'\nURL: https://www."
-          },
-          {
-            "quote": "n",
-            "status": "found",
-            "ratio": 1.0,
-            "start": 10,
-            "end": 11,
-            "matched_text": "n",
-            "sentence": "Title: French pastry chef crowned world's best aims 'to be world champion every day'\nURL: https://www."
-          },
-          {
-            "quote": "g",
-            "status": "found",
-            "ratio": 1.0,
-            "start": 246,
-            "end": 247,
-            "matched_text": "g",
-            "sentence": "com/en/france/20260811-newly-crowned-world-s-best-pastry-chef-stays-true-to-artisan-roots\nDate: 11/08/2026\n\nThe smell of warm bread hangs in the air at one of Benot Castel's patisseries in Paris, where the newly crowned world's best pastry chef was hard at work testing new recipes."
-          },
-          {
-            "quote": "a",
-            "status": "found",
-            "ratio": 1.0,
-            "start": 15,
-            "end": 16,
-            "matched_text": "a",
-            "sentence": "Title: French pastry chef crowned world's best aims 'to be world champion every day'\nURL: https://www."
-          },
-          {
-            "quote": "p",
-            "status": "found",
-            "ratio": 1.0,
-            "start": 14,
-            "end": 15,
-            "matched_text": "p",
-            "sentence": "Title: French pastry chef crowned world's best aims 'to be world champion every day'\nURL: https://www."
-          },
-          {
-            "quote": "o",
-            "status": "found",
-            "ratio": 1.0,
-            "start": 28,
-            "end": 29,
-            "matched_text": "o",
-            "sentence": "Title: French pastry chef crowned world's best aims 'to be world champion every day'\nURL: https://www."
-          },
-          {
-            "quote": "r",
-            "status": "found",
-            "ratio": 1.0,
-            "start": 8,
-            "end": 9,
-            "matched_text": "r",
-            "sentence": "Title: French pastry chef crowned world's best aims 'to be world champion every day'\nURL: https://www."
-          },
-          {
-            "quote": "e",
-            "status": "found",
-            "ratio": 1.0,
-            "start": 4,
-            "end": 5,
-            "matched_text": "e",
-            "sentence": "Title: French pastry chef crowned world's best aims 'to be world champion every day'\nURL: https://www."
-          },
-          {
-            "quote": "Benoît Castel was awarded on July 14 in Singapore",
-            "status": "missing",
-            "ratio": 0.612,
-            "start": null,
-            "end": null,
-            "matched_text": null,
-            "sentence": null
-          }
-        ],
-        "orphaned": false,
-        "supported": true,
-        "failure_type": null,
-        "note": "",
-        "quote": "Three years after fellow French pastry chef Nina Mtayer was crowned champion, Castel received the UIBC award presented annually to a leading figure in the profession in recognition of their career and contribution to the trade on July 14 in Singapore.",
-        "quote_status": "found",
-        "quote_ratio": 1.0,
-        "citation_match": true,
-        "grounded": true
-      }
-    },
-    {
-      "subject_id": "EV1",
-      "subject_text": "Benoît Castel awarded World Confectioner of the Year",
-      "subject_type": "ProfessionalAward",
-      "property": "location",
-      "property_source": "schema.org",
-      "vocab_id": null,
-      "property_is_new_to_vocab": false,
-      "property_definition": null,
-      "property_parent": null,
-      "property_justification": "The ProfessionalAward's location is a Place (City), aligning with schema.org's 'location' property for Action/Event/Organization.",
-      "object_id": "E8",
-      "object_text": "Singapore",
-      "object_type": "City",
-      "relation_phrases": [
-        "awarded at location"
-      ],
-      "phrase_directions": {
-        "awarded at location": "as_is"
-      },
-      "evidence": [
-        [
-          "i",
-          "n",
-          " ",
-          "S",
-          "i",
-          "n",
-          "g",
-          "a",
-          "p",
-          "o",
-          "r",
-          "e",
-          "Benoît Castel was awarded in Singapore"
-        ]
-      ],
-      "confidence": 1.0,
-      "grounding": {
-        "evidence_status": "missing",
-        "evidence_detail": {
-          "n_quotes": 13,
-          "found": 11,
-          "partial": 0,
-          "missing": 2,
-          "worst_ratio": 0.0
-        },
-        "evidence_resolved": [
-          {
-            "quote": "i",
-            "status": "found",
-            "ratio": 1.0,
-            "start": 1,
-            "end": 2,
-            "matched_text": "i",
-            "sentence": "Title: French pastry chef crowned world's best aims 'to be world champion every day'\nURL: https://www."
-          },
-          {
-            "quote": "n",
-            "status": "found",
-            "ratio": 1.0,
-            "start": 10,
-            "end": 11,
-            "matched_text": "n",
-            "sentence": "Title: French pastry chef crowned world's best aims 'to be world champion every day'\nURL: https://www."
-          },
-          {
-            "quote": " ",
-            "status": "missing",
-            "ratio": 0.0,
-            "start": null,
-            "end": null,
-            "matched_text": null,
-            "sentence": null
-          },
-          {
-            "quote": "S",
-            "status": "found",
-            "ratio": 1.0,
-            "start": 16,
-            "end": 17,
-            "matched_text": "s",
-            "sentence": "Title: French pastry chef crowned world's best aims 'to be world champion every day'\nURL: https://www."
-          },
-          {
-            "quote": "i",
-            "status": "found",
-            "ratio": 1.0,
-            "start": 1,
-            "end": 2,
-            "matched_text": "i",
-            "sentence": "Title: French pastry chef crowned world's best aims 'to be world champion every day'\nURL: https://www."
-          },
-          {
-            "quote": "n",
-            "status": "found",
-            "ratio": 1.0,
-            "start": 10,
-            "end": 11,
-            "matched_text": "n",
-            "sentence": "Title: French pastry chef crowned world's best aims 'to be world champion every day'\nURL: https://www."
-          },
-          {
-            "quote": "g",
-            "status": "found",
-            "ratio": 1.0,
-            "start": 246,
-            "end": 247,
-            "matched_text": "g",
-            "sentence": "com/en/france/20260811-newly-crowned-world-s-best-pastry-chef-stays-true-to-artisan-roots\nDate: 11/08/2026\n\nThe smell of warm bread hangs in the air at one of Benot Castel's patisseries in Paris, where the newly crowned world's best pastry chef was hard at work testing new recipes."
-          },
-          {
-            "quote": "a",
-            "status": "found",
-            "ratio": 1.0,
-            "start": 15,
-            "end": 16,
-            "matched_text": "a",
-            "sentence": "Title: French pastry chef crowned world's best aims 'to be world champion every day'\nURL: https://www."
-          },
-          {
-            "quote": "p",
-            "status": "found",
-            "ratio": 1.0,
-            "start": 14,
-            "end": 15,
-            "matched_text": "p",
-            "sentence": "Title: French pastry chef crowned world's best aims 'to be world champion every day'\nURL: https://www."
-          },
-          {
-            "quote": "o",
-            "status": "found",
-            "ratio": 1.0,
-            "start": 28,
-            "end": 29,
-            "matched_text": "o",
-            "sentence": "Title: French pastry chef crowned world's best aims 'to be world champion every day'\nURL: https://www."
-          },
-          {
-            "quote": "r",
-            "status": "found",
-            "ratio": 1.0,
-            "start": 8,
-            "end": 9,
-            "matched_text": "r",
-            "sentence": "Title: French pastry chef crowned world's best aims 'to be world champion every day'\nURL: https://www."
-          },
-          {
-            "quote": "e",
-            "status": "found",
-            "ratio": 1.0,
-            "start": 4,
-            "end": 5,
-            "matched_text": "e",
-            "sentence": "Title: French pastry chef crowned world's best aims 'to be world champion every day'\nURL: https://www."
-          },
-          {
-            "quote": "Benoît Castel was awarded in Singapore",
-            "status": "missing",
-            "ratio": 0.553,
-            "start": null,
-            "end": null,
-            "matched_text": null,
-            "sentence": null
-          }
-        ],
-        "orphaned": false,
-        "supported": true,
-        "failure_type": null,
-        "note": "",
-        "quote": "Three years after fellow French pastry chef Nina Mtayer was crowned champion, Castel received the UIBC award presented annually to a leading figure in the profession in recognition of their career and contribution to the trade on July 14 in Singapore.",
+        "quote": "after the International Union of Bakers and Confectioners (UIBC) named him World Confectioner of the Year last month.",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -2120,7 +1487,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Dressed in his white pastry chef's jacket embroidered with his name, he works with Romain Montbabut, his head baker, with whom he regularly tests new recipes.",
+        "quote": "he works with Romain Montbabut, his head baker, with whom he regularly tests new recipes.",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -2175,9 +1542,9 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "\"The pastry chef is demanding, he has this slightly perfectionist side we're very fond of\", said Montbabut, who has been working with him for six years.",
+        "quote": "The pastry chef is 'demanding, he has this slightly perfectionist side we're very fond of', said Montbabut, who has been working with him for six years.",
         "quote_status": "partial",
-        "quote_ratio": 0.875,
+        "quote_ratio": 0.862,
         "citation_match": false,
         "grounded": true
       }
@@ -2647,7 +2014,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "When Castel set out on his own in 2012 after working with chef Hlne Darroze, at the prestigious Hotel Costes and La Grande Epicerie de Paris, he discovered the art of breadmaking.",
+        "quote": "As a novice, he created his famous \"pain du coin\", made from a variety of flours, natural quince sourdough starter, honey and Salish salt from the US Pacific Northwest.",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -3739,10 +3106,10 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "When Castel set out on his own in 2012 after working with chef Hlne Darroze, at the prestigious Hotel Costes and La Grande Epicerie de Paris, he discovered the art of breadmaking.",
+        "quote": "As a novice, he created his famous \"pain du coin\", made from a variety of flours, natural quince sourdough starter, honey and Salish salt from the US Pacific Northwest.",
         "quote_status": "found",
         "quote_ratio": 1.0,
-        "citation_match": false,
+        "citation_match": true,
         "grounded": true
       }
     },
@@ -3794,7 +3161,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "This was followed by \"the bread of yesterday and tomorrow\", made from the previous day's unsold stock as part of an anti-waste initiative.",
+        "quote": "As a novice, he created his famous \"pain du coin\", made from a variety of flours, natural quince sourdough starter, honey and Salish salt from the US Pacific Northwest.",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": false,
@@ -3849,7 +3216,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "When Castel set out on his own in 2012 after working with chef Hlne Darroze, at the prestigious Hotel Costes and La Grande Epicerie de Paris, he discovered the art of breadmaking.",
+        "quote": "As a novice, he created his famous \"pain du coin\", made from a variety of flours, natural quince sourdough starter, honey and Salish salt from the US Pacific Northwest.",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": false,
@@ -6335,7 +5702,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Our work is no trivial matter, every day we make things that people put into their bodies,\" said Castel, who hails from Brittany in western France.",
+        "quote": "who hails from Brittany in western France.",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -6897,7 +6264,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Alongside his daughter Margot, he is set to open a new venue in Paris in September  a cross between a caf, a restaurant and a bakery-patisserie.",
+        "quote": "Alongside his daughter Margot, he is set to open a new venue in Paris in September a cross between a caf, a restaurant and a bakery-patisserie.",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -7244,7 +6611,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Alongside his daughter Margot, he is set to open a new venue in Paris in September  a cross between a caf, a restaurant and a bakery-patisserie.",
+        "quote": "Alongside his daughter Margot, he is set to open a new venue in Paris in September a cross between a caf, a restaurant and a bakery-patisserie.",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -7299,7 +6666,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Dressed in his white pastry chef's jacket embroidered with his name, he works with Romain Montbabut, his head baker, with whom he regularly tests new recipes.",
+        "quote": "he works with Romain Montbabut, his head baker, with whom he regularly tests new recipes.",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -7861,7 +7228,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Alongside his daughter Margot, he is set to open a new venue in Paris in September",
+        "quote": "Alongside his daughter Margot, he is set to open a new venue in Paris in September a cross between a caf, a restaurant and a bakery-patisserie.",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": false,
@@ -8348,7 +7715,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "The pastry shop's glass cases are arrayed with blueberry and raspberry tartlets, cherry clafoutis and vanilla flans, but his best-seller is a chocolate choux pastry.\n\"If we stopped making it, there'd be protests,\" he said.",
+        "quote": "but his best-seller is a chocolate choux pastry.",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -9015,7 +8382,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "The pastry shop's glass cases are arrayed with blueberry and raspberry tartlets",
+        "quote": "The pastry shop's glass cases are arrayed with blueberry and raspberry tartlets, cherry clafoutis and vanilla flans, but his best-seller is a chocolate choux pastry.",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -9232,7 +8599,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "The pastry shop's glass cases are arrayed with blueberry and raspberry tartlets, cherry clafoutis and vanilla flans",
+        "quote": "The pastry shop's glass cases are arrayed with blueberry and raspberry tartlets, cherry clafoutis and vanilla flans, but his best-seller is a chocolate choux pastry.",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -9419,7 +8786,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "The pastry shop's glass cases are arrayed with blueberry and raspberry tartlets, cherry clafoutis and vanilla flans",
+        "quote": "The pastry shop's glass cases are arrayed with blueberry and raspberry tartlets, cherry clafoutis and vanilla flans, but his best-seller is a chocolate choux pastry.",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -9916,67 +9283,10 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Each of his pastries is decorated with a small, scalloped shortbread biscuit",
+        "quote": "Each of his pastries is decorated with a small, scalloped shortbread biscuit a nod to his home region whereas colouring or bits of gold or silver leaf are eschewed.",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
-        "grounded": true
-      }
-    },
-    {
-      "subject_id": "EV1",
-      "subject_text": "Benoît Castel awarded World Confectioner of the Year",
-      "subject_type": "ProfessionalAward",
-      "property": "award",
-      "property_source": "schema.org",
-      "vocab_id": null,
-      "property_is_new_to_vocab": true,
-      "property_definition": null,
-      "property_parent": null,
-      "property_justification": "No existing schema.org property captures this specific award-to-award relationship.",
-      "object_id": "E5",
-      "object_text": "World Confectioner of the Year",
-      "object_type": "ConfectionerAward",
-      "relation_phrases": [
-        "awarded award"
-      ],
-      "phrase_directions": {
-        "awarded award": "as_is"
-      },
-      "evidence": [
-        [
-          "The International Union of Bakers and Confectioners (UIBC) named him World Confectioner of the Year last month."
-        ]
-      ],
-      "confidence": 1.0,
-      "grounding": {
-        "evidence_status": "found",
-        "evidence_detail": {
-          "n_quotes": 1,
-          "found": 1,
-          "partial": 0,
-          "missing": 0,
-          "worst_ratio": 1.0
-        },
-        "evidence_resolved": [
-          {
-            "quote": "The International Union of Bakers and Confectioners (UIBC) named him World Confectioner of the Year last month.",
-            "status": "found",
-            "ratio": 1.0,
-            "start": 538,
-            "end": 649,
-            "matched_text": "the International Union of Bakers and Confectioners (UIBC) named him World Confectioner of the Year last month.",
-            "sentence": "His fingers covered in cookie dough, the 54-year-old with salt-and-pepper hair had returned to his usual routine as an \"artisan-retailer\" after the International Union of Bakers and Confectioners (UIBC) named him World Confectioner of the Year last month.\n\"I have a mission: to be the world champion every day in my shop for my customers,\" he said, eyes twinkling."
-          }
-        ],
-        "orphaned": false,
-        "supported": true,
-        "failure_type": null,
-        "note": "",
-        "quote": "Three years after fellow French pastry chef Nina Mtayer was crowned champion, Castel received the UIBC award presented annually to a leading figure in the profession in recognition of their career and contribution to the trade on July 14 in Singapore.",
-        "quote_status": "found",
-        "quote_ratio": 1.0,
-        "citation_match": false,
         "grounded": true
       }
     }
@@ -9984,28 +9294,28 @@
   "prune_report": {
     "nary_nodes": {
       "before": 7,
-      "after": 7,
-      "removed": 0,
-      "kept_rate": 1.0
+      "after": 6,
+      "removed": 1,
+      "kept_rate": 0.857
     },
     "relations": {
       "before": 31,
-      "after": 29,
-      "removed": 2,
-      "kept_rate": 0.935
+      "after": 24,
+      "removed": 7,
+      "kept_rate": 0.774
     },
     "entities": {
       "before": 24,
-      "after": 21,
-      "removed": 3,
-      "kept_rate": 0.875
+      "after": 19,
+      "removed": 5,
+      "kept_rate": 0.792
     },
     "unjudged_kept": 0,
     "drop_unjudged": false,
     "drop_orphan_entities": true,
     "removed_by_failure_type": {
-      "extrinsic": 1,
-      "intrinsic": 1
+      "extrinsic": 3,
+      "orphan": 5
     }
   }
 }

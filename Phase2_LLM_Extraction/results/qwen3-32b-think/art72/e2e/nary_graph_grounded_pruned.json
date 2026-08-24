@@ -7,30 +7,32 @@
   "grounding_report": {
     "nary_nodes": {
       "total": 8,
-      "grounded": 8,
-      "rate": 1.0,
-      "failures": {},
+      "grounded": 6,
+      "rate": 0.75,
+      "failures": {
+        "extrinsic": 2
+      },
       "citation_status": {
         "found": 7,
         "partial": 1
       },
       "citation_precision": {
-        "n": 8,
-        "matched": 3,
-        "rate": 0.375
+        "n": 6,
+        "matched": 5,
+        "rate": 0.833
       },
       "judge_quote_status": {
-        "found": 2,
-        "missing": 5,
-        "partial": 1
+        "found": 6
       }
     },
     "relations": {
       "total": 25,
-      "grounded": 24,
-      "rate": 0.96,
+      "grounded": 18,
+      "rate": 0.72,
       "failures": {
-        "intrinsic": 1
+        "intrinsic": 1,
+        "extrinsic": 4,
+        "orphan": 2
       },
       "citation_status": {
         "found": 21,
@@ -38,26 +40,24 @@
         "missing": 1
       },
       "citation_precision": {
-        "n": 24,
-        "matched": 6,
-        "rate": 0.25
+        "n": 18,
+        "matched": 8,
+        "rate": 0.444
       },
       "judge_quote_status": {
-        "found": 22,
-        "partial": 1,
-        "missing": 1
+        "found": 18
       }
     },
     "relations_by_property_source": {
       "vocab": {
         "total": 8,
-        "grounded": 7,
-        "rate": 0.875
+        "grounded": 5,
+        "rate": 0.625
       },
       "schema.org": {
         "total": 17,
-        "grounded": 17,
-        "rate": 1.0
+        "grounded": 13,
+        "rate": 0.765
       }
     },
     "nodes_by_type_source": {
@@ -68,19 +68,18 @@
       },
       "not_canonicalized": {
         "total": 7,
-        "grounded": 7,
-        "rate": 1.0
+        "grounded": 5,
+        "rate": 0.714
       }
     }
   },
   "grounding_config": {
     "method": "full_article",
-    "judge_backend": "qwen3-32b-think",
-    "judge_model": "qwen3-32b",
-    "judge_batch": 20,
-    "prompt_sha1": "67305d45abb6",
+    "backend": "gpt-oss-120b",
+    "model": "accounts/fireworks/models/gpt-oss-120b",
+    "judge_batch": 60,
     "graph": "nary_graph_dedup_main_val_r1_extended_consolidated.json",
-    "self_judged": true
+    "prompt_sha1": "67305d45abb6"
   },
   "entities": [
     {
@@ -249,41 +248,6 @@
       "type_justification": "Mentions like 'Cali' and 'Bogotá' correspond to schema.org City's definition of urban settlements."
     },
     {
-      "id": "E14",
-      "text": "Abelardo de la Espriella",
-      "type": "Person",
-      "aliases": [
-        "Colombia's President",
-        "President de la Espriella"
-      ],
-      "normalized_value": null,
-      "normalized_end": null,
-      "confidence": 1.0,
-      "type_oie": "Person",
-      "type_source": "schema.org",
-      "type_vocab_id": null,
-      "type_is_new_to_vocab": false,
-      "type_definition": null,
-      "type_parent": null,
-      "type_justification": "Mentions are distinct human names, fitting schema.org Person's individual human definition."
-    },
-    {
-      "id": "E16",
-      "text": "6,300",
-      "type": "Number",
-      "aliases": [],
-      "normalized_value": null,
-      "normalized_end": null,
-      "confidence": 1.0,
-      "type_oie": "Quantity",
-      "type_source": "schema.org",
-      "type_vocab_id": null,
-      "type_is_new_to_vocab": false,
-      "type_definition": null,
-      "type_parent": null,
-      "type_justification": "Mentions are pure numerical values without units, matching schema.org Number's representation of numeric values."
-    },
-    {
       "id": "E17",
       "text": "Marco Rubio",
       "type": "Person",
@@ -355,56 +319,6 @@
       "type_definition": "A small administrative region or human settlement, typically rural.",
       "type_parent": "Place",
       "type_justification": "No schema.org candidate matches a village; minted as a specific administrative settlement type."
-    },
-    {
-      "id": "E27",
-      "text": "US Geological Survey",
-      "type": "GovernmentOrganization",
-      "aliases": [],
-      "normalized_value": null,
-      "normalized_end": null,
-      "confidence": 1.0,
-      "type_oie": "Organization",
-      "type_source": "vocab",
-      "type_vocab_id": "T0057",
-      "type_is_new_to_vocab": false,
-      "type_definition": "An organization responsible for public services or governance.",
-      "type_parent": "Organization",
-      "type_justification": "Mentions like 'US Geological Survey' align with schema.org GovernmentOrganization's public sector entity definition."
-    },
-    {
-      "id": "E29",
-      "text": "Venezuela's twin earthquakes",
-      "type": "NaturalDisaster",
-      "aliases": [],
-      "normalized_value": null,
-      "normalized_end": null,
-      "confidence": 1.0,
-      "type_oie": "NaturalDisaster",
-      "type_source": "vocab",
-      "type_vocab_id": "T0073",
-      "type_is_new_to_vocab": true,
-      "type_definition": "A catastrophic event caused by natural processes such as seismic activity, volcanic eruptions, or severe weather.",
-      "type_parent": "Event",
-      "type_justification": "No schema.org Event class matches natural disasters; minted as a specific event type."
-    },
-    {
-      "id": "E30",
-      "text": "National Disaster Declaration",
-      "type": "GovernmentBenefitsType",
-      "aliases": [
-        "state of emergency"
-      ],
-      "normalized_value": null,
-      "normalized_end": null,
-      "confidence": 1.0,
-      "type_oie": "GovernmentAction",
-      "type_source": "schema.org",
-      "type_vocab_id": null,
-      "type_is_new_to_vocab": false,
-      "type_definition": null,
-      "type_parent": null,
-      "type_justification": "fallback: top candidate"
     }
   ],
   "nary_nodes": [
@@ -468,59 +382,9 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "At least 169 people are dead and a state of emergency has been declared after Colombia was hit by one of its largest earthquakes in years.",
+        "quote": "Colombia was hit by one of its largest earthquakes in years.",
         "quote_status": "found",
         "quote_ratio": 1.0,
-        "citation_match": true,
-        "grounded": true
-      }
-    },
-    {
-      "id": "CL1",
-      "node_kind": "Claim",
-      "type": "CasualtyReport",
-      "label": "169 confirmed deaths",
-      "is_main": false,
-      "evidence": [
-        "At least 169 people are dead...",
-        "According to Asocapitales, most of the fatalities where in cities."
-      ],
-      "confidence": 0.95,
-      "grounding": {
-        "evidence_status": "found",
-        "evidence_detail": {
-          "n_quotes": 2,
-          "found": 2,
-          "partial": 0,
-          "missing": 0,
-          "worst_ratio": 1.0
-        },
-        "evidence_resolved": [
-          {
-            "quote": "At least 169 people are dead...",
-            "status": "found",
-            "ratio": 1.0,
-            "start": 139,
-            "end": 167,
-            "matched_text": "At least 169 people are dead",
-            "sentence": "com/news/articles/c20e360lx0vo\nDate: 11/08/2026\n\nAt least 169 people are dead and a state of emergency has been declared after Colombia was hit by one of its largest earthquakes in years."
-          },
-          {
-            "quote": "According to Asocapitales, most of the fatalities where in cities.",
-            "status": "found",
-            "ratio": 1.0,
-            "start": 1061,
-            "end": 1127,
-            "matched_text": "According to Asocapitales, most of the fatalities where in cities.",
-            "sentence": "According to Asocapitales, most of the fatalities where in cities.\nCali, located about 200km from the epicentre, was the worst affected with 85 dead."
-          }
-        ],
-        "supported": true,
-        "failure_type": null,
-        "note": "",
-        "quote": "At least 169 people are dead... The death toll is likely to rise.",
-        "quote_status": "missing",
-        "quote_ratio": 0.677,
         "citation_match": true,
         "grounded": true
       }
@@ -558,10 +422,10 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Cali... was the worst affected with 85 dead.",
-        "quote_status": "missing",
-        "quote_ratio": 0.0,
-        "citation_match": false,
+        "quote": "Cali, located about 200km from the epicentre, was the worst affected with 85 dead.",
+        "quote_status": "found",
+        "quote_ratio": 1.0,
+        "citation_match": true,
         "grounded": true
       }
     },
@@ -598,47 +462,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "In Pereira... 66 people died.",
-        "quote_status": "partial",
-        "quote_ratio": 1.0,
-        "citation_match": false,
-        "grounded": true
-      }
-    },
-    {
-      "id": "CL4",
-      "node_kind": "Claim",
-      "type": "CasualtyReport",
-      "label": "5 deaths in Manizales",
-      "is_main": false,
-      "evidence": [
-        "At least five people also died in Manizales..."
-      ],
-      "confidence": 0.95,
-      "grounding": {
-        "evidence_status": "found",
-        "evidence_detail": {
-          "n_quotes": 1,
-          "found": 1,
-          "partial": 0,
-          "missing": 0,
-          "worst_ratio": 1.0
-        },
-        "evidence_resolved": [
-          {
-            "quote": "At least five people also died in Manizales...",
-            "status": "found",
-            "ratio": 1.0,
-            "start": 1879,
-            "end": 1922,
-            "matched_text": "At least five people also died in Manizales",
-            "sentence": "At least five people also died in Manizales, another city in the coffee-growing region, which is popular with local and foreign tourists."
-          }
-        ],
-        "supported": true,
-        "failure_type": null,
-        "note": "",
-        "quote": "At least five people also died in Manizales...",
+        "quote": "In Pereira, in Colombia's coffee-growing region, 66 people died.",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -678,10 +502,10 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Colombia's President... has declared a national disaster situation.",
-        "quote_status": "missing",
-        "quote_ratio": 0.716,
-        "citation_match": false,
+        "quote": "Colombia's President Abelardo de la Espriella has declared a national disaster situation",
+        "quote_status": "found",
+        "quote_ratio": 1.0,
+        "citation_match": true,
         "grounded": true
       }
     },
@@ -748,9 +572,9 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "World leaders have come forward to offer support... US Secretary of State... EU chief... President of El Salvador...",
-        "quote_status": "missing",
-        "quote_ratio": 0.0,
+        "quote": "US Secretary of State Marco Rubio said the US was \"closely monitoring\" the earthquake, and stood \"ready to support\"",
+        "quote_status": "found",
+        "quote_ratio": 1.0,
         "citation_match": false,
         "grounded": true
       }
@@ -798,10 +622,10 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "According to the US Geological Survey... deep earthquakes... are usually less dangerous... can release energy in a way which is damaging to buildings.",
-        "quote_status": "missing",
-        "quote_ratio": 0.553,
-        "citation_match": false,
+        "quote": "According to the US Geological Survey, an estimated 1.5 million people felt shaking close to magnitude seven. It stated that deep earthquakes, like the one which hit on Monday, are usually less dangerous than earthquakes which break closer to the Earth's surface.",
+        "quote_status": "found",
+        "quote_ratio": 1.0,
+        "citation_match": true,
         "grounded": true
       }
     }
@@ -858,63 +682,6 @@
         "failure_type": null,
         "note": "",
         "quote": "At least 169 people are dead and a state of emergency has been declared after Colombia was hit by one of its largest earthquakes in years.",
-        "quote_status": "found",
-        "quote_ratio": 1.0,
-        "citation_match": false,
-        "grounded": true
-      }
-    },
-    {
-      "subject_id": "E29",
-      "subject_text": "Venezuela's twin earthquakes",
-      "subject_type": "NaturalDisaster",
-      "property": "numOfVictims",
-      "property_source": "vocab",
-      "vocab_id": "P0042",
-      "property_is_new_to_vocab": true,
-      "property_definition": "The number of victims caused by an event or natural disaster.",
-      "property_parent": null,
-      "property_justification": "No existing schema.org property fits the Event/NaturalDisaster → Number relation.",
-      "object_id": "E16",
-      "object_text": "6,300",
-      "object_type": "Number",
-      "relation_phrases": [
-        "killed"
-      ],
-      "phrase_directions": {
-        "killed": "as_is"
-      },
-      "evidence": [
-        [
-          "...killing more than 6,300 people."
-        ]
-      ],
-      "confidence": 0.97,
-      "grounding": {
-        "evidence_status": "found",
-        "evidence_detail": {
-          "n_quotes": 1,
-          "found": 1,
-          "partial": 0,
-          "missing": 0,
-          "worst_ratio": 1.0
-        },
-        "evidence_resolved": [
-          {
-            "quote": "...killing more than 6,300 people.",
-            "status": "found",
-            "ratio": 1.0,
-            "start": 3295,
-            "end": 3325,
-            "matched_text": "killing more than 6,300 people",
-            "sentence": "The quake comes less than two months after twin quakes devastated the north of Venezuela, killing more than 6,300 people."
-          }
-        ],
-        "orphaned": false,
-        "supported": true,
-        "failure_type": null,
-        "note": "",
-        "quote": "The quake comes less than two months after twin quakes devastated the north of Venezuela, killing more than 6,300 people.",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": false,
@@ -1028,10 +795,10 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "The magnitude 7.4 quake struck at 07:34 (12:34 GMT) at a depth of 103km (64 miles) in Chocó province",
+        "quote": "The magnitude 7.4 quake struck at 07:34 (12:34 GMT)",
         "quote_status": "found",
         "quote_ratio": 1.0,
-        "citation_match": false,
+        "citation_match": true,
         "grounded": true
       }
     },
@@ -1085,10 +852,10 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "The epicentre of the quake was near the village of San José del Palmar, in Chocó province",
+        "quote": "The magnitude 7.4 quake struck at 07:34 (12:34 GMT) at a depth of 103km (64 miles) in Chocó province, the country's geological service said.",
         "quote_status": "found",
         "quote_ratio": 1.0,
-        "citation_match": true,
+        "citation_match": false,
         "grounded": true
       }
     },
@@ -1199,10 +966,10 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Many of the deaths have been concentrated in Cali, Colombia's third most populous city",
+        "quote": "Cali, located about 200km from the epicentre, was the worst affected with 85 dead.",
         "quote_status": "found",
         "quote_ratio": 1.0,
-        "citation_match": false,
+        "citation_match": true,
         "grounded": true
       }
     },
@@ -1256,7 +1023,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "In Pereira, in Colombia's coffee-growing region, 66 people died",
+        "quote": "In Pereira, in Colombia's coffee-growing region, 66 people died.",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -1370,10 +1137,10 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "the country's geological service said. It was felt across an enormous area, stretching for hundreds of miles across western Colombia",
+        "quote": "after Colombia was hit by one of its largest earthquakes in years.",
         "quote_status": "found",
         "quote_ratio": 1.0,
-        "citation_match": false,
+        "citation_match": true,
         "grounded": true
       }
     },
@@ -1427,9 +1194,9 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "US Secretary of State Marco Rubio said the US was 'closely monitoring' the earthquake, and stood 'ready to support'",
-        "quote_status": "partial",
-        "quote_ratio": 0.948,
+        "quote": "US Secretary of State Marco Rubio said the US was \"closely monitoring\" the earthquake, and stood \"ready to support\"",
+        "quote_status": "found",
+        "quote_ratio": 1.0,
         "citation_match": false,
         "grounded": true
       }
@@ -1484,7 +1251,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "EU chief Ursula von der Leyen said the EU's Copernicus satellite was being used in the rescue operation",
+        "quote": "EU chief Ursula von der Leyen said the EU's Copernicus satellite was being used in the rescue operation.",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -1541,64 +1308,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "The president of El Salvador, Nayib Bukele, sent a message of solidarity to the Colombian people and offered personnel and equipment for rescue efforts",
-        "quote_status": "found",
-        "quote_ratio": 1.0,
-        "citation_match": false,
-        "grounded": true
-      }
-    },
-    {
-      "subject_id": "E27",
-      "subject_text": "US Geological Survey",
-      "subject_type": "GovernmentOrganization",
-      "property": "analyzedBy",
-      "property_source": "vocab",
-      "vocab_id": "P0046",
-      "property_is_new_to_vocab": true,
-      "property_definition": "A scientific analysis performed by an organization.",
-      "property_parent": null,
-      "property_justification": "No existing schema.org property fits the GovernmentOrganization → ScientificAnalysis relation.",
-      "object_id": "CL7",
-      "object_text": "USGS explains quake characteristics",
-      "object_type": "ScientificAnalysis",
-      "relation_phrases": [
-        "analyzed"
-      ],
-      "phrase_directions": {
-        "analyzed": "as_is"
-      },
-      "evidence": [
-        [
-          "According to the US Geological Survey..."
-        ]
-      ],
-      "confidence": 0.96,
-      "grounding": {
-        "evidence_status": "found",
-        "evidence_detail": {
-          "n_quotes": 1,
-          "found": 1,
-          "partial": 0,
-          "missing": 0,
-          "worst_ratio": 1.0
-        },
-        "evidence_resolved": [
-          {
-            "quote": "According to the US Geological Survey...",
-            "status": "found",
-            "ratio": 1.0,
-            "start": 4216,
-            "end": 4253,
-            "matched_text": "According to the US Geological Survey",
-            "sentence": "According to the US Geological Survey, an estimated 1."
-          }
-        ],
-        "orphaned": false,
-        "supported": true,
-        "failure_type": null,
-        "note": "",
-        "quote": "According to the US Geological Survey, an estimated 1.5 million people felt shaking close to magnitude seven",
+        "quote": "The president of El Salvador, Nayib Bukele, sent a message of solidarity to the Colombian people and offered personnel and equipment for rescue efforts.",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": false,
@@ -1665,9 +1375,9 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Tremors were felt as far away as... Bogotá",
-        "quote_status": "missing",
-        "quote_ratio": 0.786,
+        "quote": "In the capital, Bogotá, trees and traffic lights shook violently, with reports of cracks in buildings but so far none of any serious damage to the city's infrastructure.",
+        "quote_status": "found",
+        "quote_ratio": 1.0,
         "citation_match": false,
         "grounded": true
       }
@@ -1722,64 +1432,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "It was felt across an enormous area, stretching for hundreds of miles across western Colombia",
-        "quote_status": "found",
-        "quote_ratio": 1.0,
-        "citation_match": false,
-        "grounded": true
-      }
-    },
-    {
-      "subject_id": "CL1",
-      "subject_text": "169 confirmed deaths",
-      "subject_type": "CasualtyReport",
-      "property": "about",
-      "property_source": "schema.org",
-      "vocab_id": null,
-      "property_is_new_to_vocab": false,
-      "property_definition": null,
-      "property_parent": null,
-      "property_justification": "about fits all instances (CasualtyReport, OfficialStatement, etc.) → Event as per schema.org definition.",
-      "object_id": "EV1",
-      "object_text": "Colombian earthquake",
-      "object_type": "Event",
-      "relation_phrases": [
-        "about"
-      ],
-      "phrase_directions": {
-        "about": "as_is"
-      },
-      "evidence": [
-        [
-          "At least 169 people are dead..."
-        ]
-      ],
-      "confidence": 0.95,
-      "grounding": {
-        "evidence_status": "found",
-        "evidence_detail": {
-          "n_quotes": 1,
-          "found": 1,
-          "partial": 0,
-          "missing": 0,
-          "worst_ratio": 1.0
-        },
-        "evidence_resolved": [
-          {
-            "quote": "At least 169 people are dead...",
-            "status": "found",
-            "ratio": 1.0,
-            "start": 139,
-            "end": 167,
-            "matched_text": "At least 169 people are dead",
-            "sentence": "com/news/articles/c20e360lx0vo\nDate: 11/08/2026\n\nAt least 169 people are dead and a state of emergency has been declared after Colombia was hit by one of its largest earthquakes in years."
-          }
-        ],
-        "orphaned": false,
-        "supported": true,
-        "failure_type": null,
-        "note": "",
-        "quote": "At least 169 people are dead and a state of emergency has been declared after Colombia was hit by one of its largest earthquakes in years",
+        "quote": "It was felt across an enormous area, stretching for hundreds of miles across western Colombia.",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": false,
@@ -1836,7 +1489,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Cali, located about 200km from the epicentre, was the worst affected with 85 dead",
+        "quote": "Cali, located about 200km from the epicentre, was the worst affected with 85 dead.",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -1893,67 +1546,10 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "In Pereira, in Colombia's coffee-growing region, 66 people died",
+        "quote": "In Pereira, in Colombia's coffee-growing region, 66 people died.",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
-        "grounded": true
-      }
-    },
-    {
-      "subject_id": "CL4",
-      "subject_text": "5 deaths in Manizales",
-      "subject_type": "CasualtyReport",
-      "property": "about",
-      "property_source": "schema.org",
-      "vocab_id": null,
-      "property_is_new_to_vocab": false,
-      "property_definition": null,
-      "property_parent": null,
-      "property_justification": "about fits all instances (CasualtyReport, OfficialStatement, etc.) → Event as per schema.org definition.",
-      "object_id": "EV1",
-      "object_text": "Colombian earthquake",
-      "object_type": "Event",
-      "relation_phrases": [
-        "about"
-      ],
-      "phrase_directions": {
-        "about": "as_is"
-      },
-      "evidence": [
-        [
-          "At least five people also died in Manizales..."
-        ]
-      ],
-      "confidence": 0.95,
-      "grounding": {
-        "evidence_status": "found",
-        "evidence_detail": {
-          "n_quotes": 1,
-          "found": 1,
-          "partial": 0,
-          "missing": 0,
-          "worst_ratio": 1.0
-        },
-        "evidence_resolved": [
-          {
-            "quote": "At least five people also died in Manizales...",
-            "status": "found",
-            "ratio": 1.0,
-            "start": 1879,
-            "end": 1922,
-            "matched_text": "At least five people also died in Manizales",
-            "sentence": "At least five people also died in Manizales, another city in the coffee-growing region, which is popular with local and foreign tourists."
-          }
-        ],
-        "orphaned": false,
-        "supported": true,
-        "failure_type": null,
-        "note": "",
-        "quote": "At least five people also died in Manizales, another city in the coffee-growing region, which is popular with local and foreign tourists.",
-        "quote_status": "found",
-        "quote_ratio": 1.0,
-        "citation_match": false,
         "grounded": true
       }
     },
@@ -2064,121 +1660,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "A spokesman for Pope Leo XIV said the pontiff was \"deeply saddened to learn the painful news of the earthquake\". US Secretary of State Marco Rubio said the US was \"closely monitoring\" the earthquake, and stood \"ready to support\", while EU chief Ursula von der Leyen said the EU's Copernicus satellite was being used in the rescue operation. The president of El Salvador, Nayib Bukele, sent a message of solidarity to the Colombian people and offered personnel and equipment for rescue efforts.",
-        "quote_status": "found",
-        "quote_ratio": 1.0,
-        "citation_match": false,
-        "grounded": true
-      }
-    },
-    {
-      "subject_id": "CL7",
-      "subject_text": "USGS explains quake characteristics",
-      "subject_type": "ScientificAnalysis",
-      "property": "about",
-      "property_source": "schema.org",
-      "vocab_id": null,
-      "property_is_new_to_vocab": false,
-      "property_definition": null,
-      "property_parent": null,
-      "property_justification": "about fits all instances (CasualtyReport, OfficialStatement, etc.) → Event as per schema.org definition.",
-      "object_id": "EV1",
-      "object_text": "Colombian earthquake",
-      "object_type": "Event",
-      "relation_phrases": [
-        "about"
-      ],
-      "phrase_directions": {
-        "about": "as_is"
-      },
-      "evidence": [
-        [
-          "According to the US Geological Survey..."
-        ]
-      ],
-      "confidence": 0.96,
-      "grounding": {
-        "evidence_status": "found",
-        "evidence_detail": {
-          "n_quotes": 1,
-          "found": 1,
-          "partial": 0,
-          "missing": 0,
-          "worst_ratio": 1.0
-        },
-        "evidence_resolved": [
-          {
-            "quote": "According to the US Geological Survey...",
-            "status": "found",
-            "ratio": 1.0,
-            "start": 4216,
-            "end": 4253,
-            "matched_text": "According to the US Geological Survey",
-            "sentence": "According to the US Geological Survey, an estimated 1."
-          }
-        ],
-        "orphaned": false,
-        "supported": true,
-        "failure_type": null,
-        "note": "",
-        "quote": "According to the US Geological Survey, an estimated 1.5 million people felt shaking close to magnitude seven. It stated that deep earthquakes, like the one which hit on Monday, are usually less dangerous than earthquakes which break closer to the Earth's surface. But they can release energy in a way which is damaging to buildings, with fewer but potentially stronger aftershocks.",
-        "quote_status": "found",
-        "quote_ratio": 1.0,
-        "citation_match": false,
-        "grounded": true
-      }
-    },
-    {
-      "subject_id": "E14",
-      "subject_text": "Abelardo de la Espriella",
-      "subject_type": "Person",
-      "property": "owns",
-      "property_source": "schema.org",
-      "vocab_id": null,
-      "property_is_new_to_vocab": false,
-      "property_definition": null,
-      "property_parent": null,
-      "property_justification": "owns fits Person → GovernmentBenefitsType with examples like 'John owns a car'.",
-      "object_id": "E30",
-      "object_text": "National Disaster Declaration",
-      "object_type": "GovernmentBenefitsType",
-      "relation_phrases": [
-        "declared"
-      ],
-      "phrase_directions": {
-        "declared": "as_is"
-      },
-      "evidence": [
-        [
-          "Colombia's President Abelardo de la Espriella has declared a national disaster situation..."
-        ]
-      ],
-      "confidence": 1.0,
-      "grounding": {
-        "evidence_status": "found",
-        "evidence_detail": {
-          "n_quotes": 1,
-          "found": 1,
-          "partial": 0,
-          "missing": 0,
-          "worst_ratio": 1.0
-        },
-        "evidence_resolved": [
-          {
-            "quote": "Colombia's President Abelardo de la Espriella has declared a national disaster situation...",
-            "status": "found",
-            "ratio": 1.0,
-            "start": 3327,
-            "end": 3415,
-            "matched_text": "Colombia's President Abelardo de la Espriella has declared a national disaster situation",
-            "sentence": "Colombia's President Abelardo de la Espriella has declared a national disaster situation, creating special powers to react to the emergency, including to reallocate budgets."
-          }
-        ],
-        "orphaned": false,
-        "supported": true,
-        "failure_type": null,
-        "note": "",
-        "quote": "Colombia's President Abelardo de la Espriella has declared a national disaster situation, creating special powers to react to the emergency, including to reallocate budgets.",
+        "quote": "As the extent of the damage has begun to emerge, world leaders have come forward to offer support.",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": false,
@@ -2189,27 +1671,29 @@
   "prune_report": {
     "nary_nodes": {
       "before": 8,
-      "after": 8,
-      "removed": 0,
-      "kept_rate": 1.0
+      "after": 6,
+      "removed": 2,
+      "kept_rate": 0.75
     },
     "relations": {
       "before": 25,
-      "after": 24,
-      "removed": 1,
-      "kept_rate": 0.96
+      "after": 18,
+      "removed": 7,
+      "kept_rate": 0.72
     },
     "entities": {
       "before": 30,
-      "after": 18,
-      "removed": 12,
-      "kept_rate": 0.6
+      "after": 13,
+      "removed": 17,
+      "kept_rate": 0.433
     },
     "unjudged_kept": 0,
     "drop_unjudged": false,
     "drop_orphan_entities": true,
     "removed_by_failure_type": {
-      "intrinsic": 1
+      "extrinsic": 6,
+      "intrinsic": 1,
+      "orphan": 2
     }
   }
 }

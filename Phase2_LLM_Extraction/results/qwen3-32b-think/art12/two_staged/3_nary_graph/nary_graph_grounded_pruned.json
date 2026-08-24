@@ -7,10 +7,11 @@
   "grounding_report": {
     "nary_nodes": {
       "total": 13,
-      "grounded": 11,
-      "rate": 0.846,
+      "grounded": 10,
+      "rate": 0.769,
       "failures": {
-        "intrinsic": 2
+        "extrinsic": 2,
+        "intrinsic": 1
       },
       "citation_status": {
         "partial": 6,
@@ -18,43 +19,40 @@
         "missing": 1
       },
       "citation_precision": {
-        "n": 11,
-        "matched": 6,
-        "rate": 0.545
+        "n": 10,
+        "matched": 5,
+        "rate": 0.5
       },
       "judge_quote_status": {
-        "partial": 6,
-        "missing": 2,
-        "found": 3
+        "found": 10
       }
     },
     "relations": {
       "total": 21,
-      "grounded": 18,
-      "rate": 0.857,
+      "grounded": 16,
+      "rate": 0.762,
       "failures": {
-        "orphan": 2,
-        "intrinsic": 1
+        "orphan": 3,
+        "extrinsic": 2
       },
       "citation_status": {
         "found": 8,
         "missing": 13
       },
       "citation_precision": {
-        "n": 18,
+        "n": 16,
         "matched": 6,
-        "rate": 0.333
+        "rate": 0.375
       },
       "judge_quote_status": {
-        "found": 17,
-        "partial": 1
+        "found": 16
       }
     },
     "relations_by_property_source": {
       "schema.org": {
         "total": 20,
-        "grounded": 17,
-        "rate": 0.85
+        "grounded": 15,
+        "rate": 0.75
       },
       "vocab": {
         "total": 1,
@@ -65,19 +63,18 @@
     "nodes_by_type_source": {
       "not_canonicalized": {
         "total": 13,
-        "grounded": 11,
-        "rate": 0.846
+        "grounded": 10,
+        "rate": 0.769
       }
     }
   },
   "grounding_config": {
     "method": "full_article",
-    "judge_backend": "qwen3-32b-think",
-    "judge_model": "qwen3-32b",
-    "judge_batch": 20,
-    "prompt_sha1": "67305d45abb6",
+    "backend": "gpt-oss-120b",
+    "model": "accounts/fireworks/models/gpt-oss-120b",
+    "judge_batch": 60,
     "graph": "nary_graph_dedup_main_val_r1_extended_consolidated.json",
-    "self_judged": true
+    "prompt_sha1": "67305d45abb6"
   },
   "entities": [
     {
@@ -237,8 +234,8 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Ukraine’s capital Kyiv came under a deadly Russian attack early Monday morning... ballistic missiles and drones hammered parts of the city",
-        "quote_status": "partial",
+        "quote": "Ukraine’s capital Kyiv came under a deadly Russian attack early Monday morning",
+        "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
         "grounded": true
@@ -297,10 +294,10 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "NATO summit in Turkey... Ankara",
-        "quote_status": "missing",
-        "quote_ratio": 0.0,
-        "citation_match": false,
+        "quote": "critical NATO summit in Turkey",
+        "quote_status": "found",
+        "quote_ratio": 1.0,
+        "citation_match": true,
         "grounded": true
       }
     },
@@ -347,57 +344,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Trump and Putin held ‘businesslike’ 90-minute July 4 call",
-        "quote_status": "missing",
-        "quote_ratio": 0.825,
-        "citation_match": false,
-        "grounded": true
-      }
-    },
-    {
-      "id": "OBS2",
-      "node_kind": "Observation",
-      "type": "MilitaryAssetLaunch",
-      "label": "29 missiles and 18 drones launched at Kyiv",
-      "is_main": false,
-      "evidence": [
-        "29 ballistic missiles and 18 attack drones had struck 34 locations across the country",
-        "More than 350 drones and 66 missiles were launched toward Ukraine"
-      ],
-      "confidence": 0.85,
-      "grounding": {
-        "evidence_status": "found",
-        "evidence_detail": {
-          "n_quotes": 2,
-          "found": 2,
-          "partial": 0,
-          "missing": 0,
-          "worst_ratio": 1.0
-        },
-        "evidence_resolved": [
-          {
-            "quote": "29 ballistic missiles and 18 attack drones had struck 34 locations across the country",
-            "status": "found",
-            "ratio": 1.0,
-            "start": 2340,
-            "end": 2425,
-            "matched_text": "29 ballistic missiles and 18 attack drones had struck 34 locations across the country",
-            "sentence": "None of the ballistic missiles fired at Ukraine on Monday were shot down by air defenses, according to data from its air force, which said 29 ballistic missiles and 18 attack drones had struck 34 locations across the country."
-          },
-          {
-            "quote": "More than 350 drones and 66 missiles were launched toward Ukraine",
-            "status": "found",
-            "ratio": 1.0,
-            "start": 2427,
-            "end": 2492,
-            "matched_text": "More than 350 drones and 66 missiles were launched toward Ukraine",
-            "sentence": "More than 350 drones and 66 missiles were launched toward Ukraine, with Kyiv the main target, it said."
-          }
-        ],
-        "supported": true,
-        "failure_type": null,
-        "note": "",
-        "quote": "29 ballistic missiles and 18 attack drones had struck 34 locations across the country",
+        "quote": "Putin and Trump held ‘businesslike’ 90-minute July 4 call, Moscow says",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -437,7 +384,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "power outages across a number of regions in Ukraine, including Kyiv",
+        "quote": "Monday’s attacks led to power outages across a number of regions in Ukraine, including Kyiv, Sumy, Kharkiv and Dnipropetrovsk",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -477,7 +424,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Geran-4 UAV’s were used in both Monday and last Thursday’s attacks",
+        "quote": "Geran-4 UAV’s were used in both Monday and last Thursday’s attacks.",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": false,
@@ -517,9 +464,9 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Zelensky had warned just hours earlier that Moscow was 'preparing a new massive strike'",
-        "quote_status": "partial",
-        "quote_ratio": 0.897,
+        "quote": "Ukrainian President Volodymyr Zelensky had warned just hours earlier that Moscow was “preparing a new massive strike,”",
+        "quote_status": "found",
+        "quote_ratio": 1.0,
         "citation_match": true,
         "grounded": true
       }
@@ -557,8 +504,8 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Russia’s defense ministry said it used... attacks were in response to Ukrainian attacks on civilian infrastructure",
-        "quote_status": "partial",
+        "quote": "Russia’s defense ministry said it used “high-precision, long-range weapons” to target military-industrial facilities and fuel and energy sites in Kyiv on Monday.",
+        "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": false,
         "grounded": true
@@ -607,8 +554,8 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Zelensky is using the attacks... supply Ukraine with missiles for Patriot systems",
-        "quote_status": "partial",
+        "quote": "Ahead of the summit, Zelensky is using the attacks on Kyiv to renew his plea for allies to supply Ukraine with missiles for Patriot systems.",
+        "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": false,
         "grounded": true
@@ -647,10 +594,10 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Civilian casualties in 2026 are 'significantly higher' than during the same period in 2025",
-        "quote_status": "partial",
-        "quote_ratio": 0.933,
-        "citation_match": true,
+        "quote": "Civilian casualties in 2026 are “significantly higher” than during the same period in 2025, the UN Human Rights Monitoring Mission in Ukraine said",
+        "quote_status": "found",
+        "quote_ratio": 1.0,
+        "citation_match": false,
         "grounded": true
       }
     },
@@ -687,10 +634,10 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "European Commission President Ursula von der Leyen said that the country 'urgently needs more air defence'",
-        "quote_status": "partial",
-        "quote_ratio": 0.868,
-        "citation_match": true,
+        "quote": "Ursula von der Leyen said that the country “urgently needs more air defence. We will discuss it this week in Ankara at the @NATO Summit.”",
+        "quote_status": "found",
+        "quote_ratio": 1.0,
+        "citation_match": false,
         "grounded": true
       }
     }
@@ -744,7 +691,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Ukraine’s capital Kyiv came under a deadly Russian attack early Monday morning...",
+        "quote": "deadly Russian attack early Monday morning",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": false,
@@ -799,7 +746,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Monday’s attacks led to power outages across a number of regions in Ukraine, including Kyiv...",
+        "quote": "Monday’s attacks led to power outages across a number of regions in Ukraine, including Kyiv, Sumy, Kharkiv and Dnipropetrovsk",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -854,7 +801,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Massive explosions lit up the night sky as ballistic missiles and drones hammered parts of the city...",
+        "quote": "ballistic missiles and drones hammered parts of the city",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -909,62 +856,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Massive explosions lit up the night sky as ballistic missiles and drones hammered parts of the city...",
-        "quote_status": "found",
-        "quote_ratio": 1.0,
-        "citation_match": true,
-        "grounded": true
-      }
-    },
-    {
-      "subject_id": "EV1",
-      "subject_text": "Russian strikes on Kyiv",
-      "subject_type": "MilitaryAttack",
-      "property": "previousStartDate",
-      "property_source": "schema.org",
-      "vocab_id": null,
-      "property_is_new_to_vocab": false,
-      "property_definition": null,
-      "property_parent": null,
-      "property_justification": "Reused schema.org 'previousStartDate' for MilitaryAttack → NATOEvent, matching Event → Date/DateTime.",
-      "object_id": "EV3",
-      "object_text": "NATO summit in Ankara",
-      "object_type": "NATOEvent",
-      "relation_phrases": [
-        "occurred on eve of"
-      ],
-      "phrase_directions": {
-        "occurred on eve of": "as_is"
-      },
-      "evidence": [
-        "on the eve of a critical NATO summit in Turkey"
-      ],
-      "confidence": 0.9,
-      "grounding": {
-        "evidence_status": "found",
-        "evidence_detail": {
-          "n_quotes": 1,
-          "found": 1,
-          "partial": 0,
-          "missing": 0,
-          "worst_ratio": 1.0
-        },
-        "evidence_resolved": [
-          {
-            "quote": "on the eve of a critical NATO summit in Turkey",
-            "status": "found",
-            "ratio": 1.0,
-            "start": 278,
-            "end": 324,
-            "matched_text": "on the eve of a critical NATO summit in Turkey",
-            "sentence": "com/2026/07/05/europe/kyiv-ballistic-missile-attack-july-6-intl-hnk\nDate: 06/07/2026\n\nUkraine’s capital Kyiv came under a deadly Russian attack early Monday morning, on the eve of a critical NATO summit in Turkey that US President Donald Trump plans to attend."
-          }
-        ],
-        "orphaned": false,
-        "supported": true,
-        "failure_type": null,
-        "note": "",
-        "quote": "Ukraine’s capital Kyiv came under a deadly Russian attack early Monday morning, on the eve of a critical NATO summit in Turkey...",
+        "quote": "ballistic missiles and drones hammered parts of the city",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -1019,10 +911,10 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Ukraine’s capital Kyiv came under a deadly Russian attack early Monday morning, on the eve of a critical NATO summit in Turkey that US President Donald Trump plans to attend.",
+        "quote": "US President Donald Trump plans to attend",
         "quote_status": "found",
         "quote_ratio": 1.0,
-        "citation_match": false,
+        "citation_match": true,
         "grounded": true
       }
     },
@@ -1184,62 +1076,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Ukrainian President Volodymyr Zelensky had warned just hours earlier that Moscow was “preparing a new massive strike,”...",
-        "quote_status": "found",
-        "quote_ratio": 1.0,
-        "citation_match": false,
-        "grounded": true
-      }
-    },
-    {
-      "subject_id": "E9",
-      "subject_text": "Vladimir Putin",
-      "subject_type": "Person",
-      "property": "interpretedAsClaim",
-      "property_source": "schema.org",
-      "vocab_id": null,
-      "property_is_new_to_vocab": false,
-      "property_definition": null,
-      "property_parent": null,
-      "property_justification": "Reused schema.org 'interpretedAsClaim' for Person → MilitaryWarning/DefenseRequest/DiplomaticStatement, matching CreativeWork → Claim.",
-      "object_id": "CL2",
-      "object_text": "Russian defense ministry claims justification for Kyiv strikes",
-      "object_type": "MilitaryJustification",
-      "relation_phrases": [
-        "made claim"
-      ],
-      "phrase_directions": {
-        "made claim": "as_is"
-      },
-      "evidence": [
-        "Russian defense ministry claimed justification"
-      ],
-      "confidence": 0.8,
-      "grounding": {
-        "evidence_status": "missing",
-        "evidence_detail": {
-          "n_quotes": 1,
-          "found": 0,
-          "partial": 0,
-          "missing": 1,
-          "worst_ratio": 0.652
-        },
-        "evidence_resolved": [
-          {
-            "quote": "Russian defense ministry claimed justification",
-            "status": "missing",
-            "ratio": 0.652,
-            "start": null,
-            "end": null,
-            "matched_text": null,
-            "sentence": null
-          }
-        ],
-        "orphaned": false,
-        "supported": true,
-        "failure_type": null,
-        "note": "",
-        "quote": "Russia’s defense ministry said it used “high-precision, long-range weapons” to target military-industrial facilities and fuel and energy sites in Kyiv on Monday. It said the attacks were in response to Ukrainian attacks on civilian infrastructure in Russian territory.",
+        "quote": "Ukrainian President Volodymyr Zelensky had warned just hours earlier that Moscow was “preparing a new massive strike,”",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": false,
@@ -1294,7 +1131,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Zelensky is using the attacks on Kyiv to renew his plea for allies to supply Ukraine with missiles for Patriot systems.",
+        "quote": "Ahead of the summit, Zelensky is using the attacks on Kyiv to renew his plea for allies to supply Ukraine with missiles for Patriot systems.",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": false,
@@ -1349,7 +1186,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "European Commission President Ursula von der Leyen said that the country “urgently needs more air defence. We will discuss it this week in Ankara at the @NATO Summit.”",
+        "quote": "European Commission President Ursula von der Leyen said that the country “urgently needs more air defence.",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": false,
@@ -1459,7 +1296,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "There was “destruction and damage” in four districts of the city, Kyiv Mayor Vitali Klitschko said, adding that the Podilsky district was hit the hardest.",
+        "quote": "adding that the Podilsky district was hit the hardest.",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -1916,8 +1753,8 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Residential buildings in Kyiv’s southeastern Darnytskyi district... were also badly damaged in the Monday strikes.",
-        "quote_status": "partial",
+        "quote": "Residential buildings in Kyiv’s southeastern Darnytskyi district, an area of the city that suffered significant damage last week, were also badly damaged in the Monday strikes.",
+        "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
         "grounded": true
@@ -2026,7 +1863,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Massive explosions lit up the night sky as ballistic missiles and drones hammered parts of the city...",
+        "quote": "ballistic missiles and drones hammered parts of the city",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": false,
@@ -2081,7 +1918,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Massive explosions lit up the night sky as ballistic missiles and drones hammered parts of the city...",
+        "quote": "ballistic missiles and drones hammered parts of the city",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": false,
@@ -2092,15 +1929,15 @@
   "prune_report": {
     "nary_nodes": {
       "before": 13,
-      "after": 11,
-      "removed": 2,
-      "kept_rate": 0.846
+      "after": 10,
+      "removed": 3,
+      "kept_rate": 0.769
     },
     "relations": {
       "before": 21,
-      "after": 18,
-      "removed": 3,
-      "kept_rate": 0.857
+      "after": 16,
+      "removed": 5,
+      "kept_rate": 0.762
     },
     "entities": {
       "before": 25,
@@ -2112,8 +1949,9 @@
     "drop_unjudged": false,
     "drop_orphan_entities": true,
     "removed_by_failure_type": {
-      "intrinsic": 3,
-      "orphan": 2
+      "extrinsic": 4,
+      "intrinsic": 1,
+      "orphan": 3
     }
   }
 }

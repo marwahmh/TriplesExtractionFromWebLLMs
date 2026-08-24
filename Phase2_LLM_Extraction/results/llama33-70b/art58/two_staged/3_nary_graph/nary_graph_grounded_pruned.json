@@ -19,37 +19,38 @@
         "rate": 0.4
       },
       "judge_quote_status": {
-        "found": 4,
-        "partial": 1
+        "missing": 1,
+        "partial": 1,
+        "found": 3
       }
     },
     "relations": {
       "total": 17,
-      "grounded": 11,
-      "rate": 0.647,
+      "grounded": 10,
+      "rate": 0.588,
       "failures": {
-        "intrinsic": 3,
-        "extrinsic": 3
+        "extrinsic": 5,
+        "intrinsic": 2
       },
       "citation_status": {
         "found": 14,
         "partial": 3
       },
       "citation_precision": {
-        "n": 11,
-        "matched": 9,
-        "rate": 0.818
+        "n": 10,
+        "matched": 10,
+        "rate": 1.0
       },
       "judge_quote_status": {
-        "found": 8,
+        "found": 7,
         "partial": 3
       }
     },
     "relations_by_property_source": {
       "vocab": {
         "total": 9,
-        "grounded": 6,
-        "rate": 0.667
+        "grounded": 5,
+        "rate": 0.556
       },
       "schema.org": {
         "total": 8,
@@ -67,12 +68,11 @@
   },
   "grounding_config": {
     "method": "full_article",
-    "judge_backend": "qwen3-32b-think",
-    "judge_model": "qwen3-32b",
-    "judge_batch": 20,
-    "prompt_sha1": "67305d45abb6",
+    "backend": "gpt-oss-120b",
+    "model": "accounts/fireworks/models/gpt-oss-120b",
+    "judge_batch": 60,
     "graph": "nary_graph_dedup_main_val_r1_extended_consolidated.json",
-    "self_judged": false
+    "prompt_sha1": "67305d45abb6"
   },
   "entities": [
     {
@@ -102,6 +102,36 @@
       "type_parent": "Thing",
       "type_vocab_id": "T0012",
       "type_definition": "A computer model that uses artificial intelligence to perform tasks"
+    },
+    {
+      "id": "E4",
+      "text": "Google Earth",
+      "type": "GeospatialPlatform",
+      "aliases": [],
+      "type_source": "vocab",
+      "type_parent": "SoftwareApplication",
+      "type_vocab_id": "T0077",
+      "type_definition": "A software platform that provides geographic information and mapping capabilities"
+    },
+    {
+      "id": "E11",
+      "text": "Gemini chatbot app",
+      "type": "AIModel",
+      "aliases": [],
+      "type_source": "vocab",
+      "type_parent": "Thing",
+      "type_vocab_id": "T0012",
+      "type_definition": "A computer model that uses artificial intelligence to perform tasks"
+    },
+    {
+      "id": "E12",
+      "text": "Lens feature",
+      "type": "ImageAnalysisSoftware",
+      "aliases": [],
+      "type_source": "vocab",
+      "type_parent": "SoftwareApplication",
+      "type_vocab_id": "T0080",
+      "type_definition": "A software program that analyzes and interprets image data"
     },
     {
       "id": "E14",
@@ -167,9 +197,9 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "which initially launched on Thursday.",
-        "quote_status": "found",
-        "quote_ratio": 1.0,
+        "quote": "the feature initially launched on Thursday.",
+        "quote_status": "missing",
+        "quote_ratio": 0.837,
         "citation_match": false,
         "grounded": true
       }
@@ -217,7 +247,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Google has rolled back its new AI tool... following a BBC Verify report... it said it was pausing the feature",
+        "quote": "Google has rolled back its new AI tool ... it said it was pausing the feature",
         "quote_status": "partial",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -267,10 +297,10 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "experts raised concerns about misuse and the potential to spread misinformation",
+        "quote": "Experts told BBC Verify the tool could be used to spread misinformation",
         "quote_status": "found",
         "quote_ratio": 1.0,
-        "citation_match": true,
+        "citation_match": false,
         "grounded": true
       }
     },
@@ -307,10 +337,10 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Experts told BBC Verify the tool could be used to spread misinformation with the appearance of Google's legitimacy",
+        "quote": "AI and misinformation expert Henk van Ess highlighted the risks the feature posed",
         "quote_status": "found",
         "quote_ratio": 1.0,
-        "citation_match": false,
+        "citation_match": true,
         "grounded": true
       }
     },
@@ -367,140 +397,6 @@
   ],
   "relations": [
     {
-      "subject_id": "E1",
-      "subject_text": "Google",
-      "subject_type": "Corporation",
-      "property": "launches",
-      "property_source": "vocab",
-      "vocab_id": "P0115",
-      "property_is_new_to_vocab": true,
-      "property_definition": "to introduce a new product or service",
-      "property_parent": null,
-      "property_justification": "No existing schema.org property fits the relation phrase and instances.",
-      "object_id": "EV1",
-      "object_text": "Google Earth AI Tool Launch",
-      "object_type": "ProductLaunch",
-      "relation_phrases": [
-        "launches"
-      ],
-      "phrase_directions": {
-        "launches": "as_is"
-      },
-      "evidence": [
-        [
-          "Google has rolled back its new AI tool",
-          "Less than 48 hours after the tech giant announced the integration of its AI image generator Nano Banana 2 into Google Earth"
-        ]
-      ],
-      "confidence": 1.0,
-      "grounding": {
-        "evidence_status": "found",
-        "evidence_detail": {
-          "n_quotes": 2,
-          "found": 2,
-          "partial": 0,
-          "missing": 0,
-          "worst_ratio": 1.0
-        },
-        "evidence_resolved": [
-          {
-            "quote": "Google has rolled back its new AI tool",
-            "status": "found",
-            "ratio": 1.0,
-            "start": 153,
-            "end": 191,
-            "matched_text": "Google has rolled back its new AI tool",
-            "sentence": "com/news/articles/c9349yx2ydvo\nDate: 31/07/2026\n\nGoogle has rolled back its new AI tool that allowed people to create fake images on top of its satellite imagery, following a BBC Verify report in which experts raised concerns about misuse and the potential to spread misinformation."
-          },
-          {
-            "quote": "Less than 48 hours after the tech giant announced the integration of its AI image generator Nano Banana 2 into Google Earth",
-            "status": "found",
-            "ratio": 1.0,
-            "start": 387,
-            "end": 510,
-            "matched_text": "Less than 48 hours after the tech giant announced the integration of its AI image generator Nano Banana 2 into Google Earth",
-            "sentence": "Less than 48 hours after the tech giant announced the integration of its AI image generator Nano Banana 2 into Google Earth, it said it was pausing the feature \"while we work on implementing stronger guardrails\"."
-          }
-        ],
-        "orphaned": false,
-        "supported": true,
-        "failure_type": null,
-        "note": "",
-        "quote": "Google has rolled back its new AI tool that allowed people to create fake images on top of its satellite imagery, following a BBC Verify report in which experts raised concerns about misuse and the potential to spread misinformation.",
-        "quote_status": "found",
-        "quote_ratio": 1.0,
-        "citation_match": true,
-        "grounded": true
-      }
-    },
-    {
-      "subject_id": "E1",
-      "subject_text": "Google",
-      "subject_type": "Corporation",
-      "property": "retracts",
-      "property_source": "vocab",
-      "vocab_id": "P0116",
-      "property_is_new_to_vocab": true,
-      "property_definition": "to withdraw or remove a product or service",
-      "property_parent": null,
-      "property_justification": "No existing schema.org property fits the relation phrase and instances.",
-      "object_id": "EV2",
-      "object_text": "Google Earth AI Tool Retraction",
-      "object_type": "ProductRetraction",
-      "relation_phrases": [
-        "retracts"
-      ],
-      "phrase_directions": {
-        "retracts": "as_is"
-      },
-      "evidence": [
-        [
-          "Google has rolled back its new AI tool",
-          "it said it was pausing the feature"
-        ]
-      ],
-      "confidence": 1.0,
-      "grounding": {
-        "evidence_status": "found",
-        "evidence_detail": {
-          "n_quotes": 2,
-          "found": 2,
-          "partial": 0,
-          "missing": 0,
-          "worst_ratio": 1.0
-        },
-        "evidence_resolved": [
-          {
-            "quote": "Google has rolled back its new AI tool",
-            "status": "found",
-            "ratio": 1.0,
-            "start": 153,
-            "end": 191,
-            "matched_text": "Google has rolled back its new AI tool",
-            "sentence": "com/news/articles/c9349yx2ydvo\nDate: 31/07/2026\n\nGoogle has rolled back its new AI tool that allowed people to create fake images on top of its satellite imagery, following a BBC Verify report in which experts raised concerns about misuse and the potential to spread misinformation."
-          },
-          {
-            "quote": "it said it was pausing the feature",
-            "status": "found",
-            "ratio": 1.0,
-            "start": 512,
-            "end": 546,
-            "matched_text": "it said it was pausing the feature",
-            "sentence": "Less than 48 hours after the tech giant announced the integration of its AI image generator Nano Banana 2 into Google Earth, it said it was pausing the feature \"while we work on implementing stronger guardrails\"."
-          }
-        ],
-        "orphaned": false,
-        "supported": true,
-        "failure_type": null,
-        "note": "",
-        "quote": "it said it was pausing the feature 'while we work on implementing stronger guardrails'.",
-        "quote_status": "partial",
-        "quote_ratio": 0.908,
-        "citation_match": true,
-        "grounded": true
-      }
-    },
-    {
       "subject_id": "EV1",
       "subject_text": "Google Earth AI Tool Launch",
       "subject_type": "ProductLaunch",
@@ -550,7 +446,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "integration of its AI image generator Nano Banana 2 into Google Earth",
+        "quote": "Less than 48 hours after the tech giant announced the integration of its AI image generator Nano Banana 2 into Google Earth",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -607,8 +503,8 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "experts raised concerns about misuse and the potential to spread misinformation",
-        "quote_status": "found",
+        "quote": "Google has rolled back its new AI tool ... following a BBC Verify report in which experts raised concerns about misuse and the potential to spread misinformation.",
+        "quote_status": "partial",
         "quote_ratio": 1.0,
         "citation_match": true,
         "grounded": true
@@ -674,8 +570,8 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "following a BBC Verify report in which experts raised concerns about misuse and the potential to spread misinformation",
-        "quote_status": "found",
+        "quote": "Google has rolled back its new AI tool ... following a BBC Verify report",
+        "quote_status": "partial",
         "quote_ratio": 1.0,
         "citation_match": true,
         "grounded": true
@@ -741,67 +637,10 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "BBC Verify's tests found this is effective with images generated by the new feature. But we also found it was possible to circumnavigate these checks and trick Gemini into saying these fake Google Earth images are real.",
+        "quote": "Generally, BBC Verify's tests found this is effective with images generated by the new feature.",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
-        "grounded": true
-      }
-    },
-    {
-      "subject_id": "CL1",
-      "subject_text": "Expert Warning",
-      "subject_type": "ExpertWarning",
-      "property": "warnsAbout",
-      "property_source": "vocab",
-      "vocab_id": "P0118",
-      "property_is_new_to_vocab": true,
-      "property_definition": "to caution or advise against something",
-      "property_parent": null,
-      "property_justification": "No existing schema.org property fits the relation phrase and instances.",
-      "object_id": "OBS1",
-      "object_text": "Misinformation Risk",
-      "object_type": "MisinformationRisk",
-      "relation_phrases": [
-        "warns about"
-      ],
-      "phrase_directions": {
-        "warns about": "as_is"
-      },
-      "evidence": [
-        [
-          "Henk van Ess highlighted the risks the feature posed"
-        ]
-      ],
-      "confidence": 1.0,
-      "grounding": {
-        "evidence_status": "found",
-        "evidence_detail": {
-          "n_quotes": 1,
-          "found": 1,
-          "partial": 0,
-          "missing": 0,
-          "worst_ratio": 1.0
-        },
-        "evidence_resolved": [
-          {
-            "quote": "Henk van Ess highlighted the risks the feature posed",
-            "status": "found",
-            "ratio": 1.0,
-            "start": 1499,
-            "end": 1551,
-            "matched_text": "Henk van Ess highlighted the risks the feature posed",
-            "sentence": "Before it was paused, AI and misinformation expert Henk van Ess highlighted the risks the feature posed, by creating fake images of a non-existent nuclear power plant in Iran, a refugee camp on the US-Mexico border and a fake hospital in Gaza with a bomb crater next to it."
-          }
-        ],
-        "orphaned": false,
-        "supported": true,
-        "failure_type": null,
-        "note": "",
-        "quote": "Experts told BBC Verify the tool could be used to spread misinformation with the appearance of Google's legitimacy",
-        "quote_status": "found",
-        "quote_ratio": 1.0,
-        "citation_match": false,
         "grounded": true
       }
     },
@@ -865,9 +704,9 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "AI-detection researcher Henry Ajder told BBC Verify the creation of fake imagery in conflict zones could prove particularly 'destabilising'",
-        "quote_status": "partial",
-        "quote_ratio": 0.986,
+        "quote": "AI-detection researcher Henry Ajder told BBC Verify the creation of fake imagery in conflict zones could prove particularly \"destabilising\" when events are fast-moving and information is scarce.",
+        "quote_status": "found",
+        "quote_ratio": 1.0,
         "citation_match": true,
         "grounded": true
       }
@@ -932,10 +771,10 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Bill Greer... told BBC Verify... further erode trust",
+        "quote": "\"This is potentially particularly damaging to public trust because satellite imagery has historically been seen as an especially trustworthy source of data,\" Bill Greer ... told BBC Verify.",
         "quote_status": "partial",
         "quote_ratio": 1.0,
-        "citation_match": false,
+        "citation_match": true,
         "grounded": true
       }
     },
@@ -989,7 +828,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "integration of its AI image generator Nano Banana 2 into Google Earth",
+        "quote": "Less than 48 hours after the tech giant announced the integration of its AI image generator Nano Banana 2 into Google Earth",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -1046,7 +885,121 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "BBC Verify's tests found this is effective with images generated by the new feature. But we also found it was possible to circumnavigate these checks and trick Gemini into saying these fake Google Earth images are real.",
+        "quote": "Generally, BBC Verify's tests found this is effective with images generated by the new feature.",
+        "quote_status": "found",
+        "quote_ratio": 1.0,
+        "citation_match": true,
+        "grounded": true
+      }
+    },
+    {
+      "subject_id": "E11",
+      "subject_text": "Gemini chatbot app",
+      "subject_type": "AIChatbot",
+      "property": "checks",
+      "property_source": "vocab",
+      "vocab_id": "P0122",
+      "property_is_new_to_vocab": true,
+      "property_definition": "to examine or inspect something",
+      "property_parent": null,
+      "property_justification": "No existing schema.org property fits the relation phrase and instances.",
+      "object_id": "E4",
+      "object_text": "Google Earth",
+      "object_type": "GeospatialPlatform",
+      "relation_phrases": [
+        "checks"
+      ],
+      "phrase_directions": {
+        "checks": "as_is"
+      },
+      "evidence": [
+        [
+          "anyone who is 'unsure about an image' can check it using the Gemini chatbot app"
+        ]
+      ],
+      "confidence": 1.0,
+      "grounding": {
+        "evidence_status": "partial",
+        "evidence_detail": {
+          "n_quotes": 1,
+          "found": 0,
+          "partial": 1,
+          "missing": 0,
+          "worst_ratio": 0.937
+        },
+        "evidence_resolved": [
+          {
+            "quote": "anyone who is 'unsure about an image' can check it using the Gemini chatbot app",
+            "status": "partial",
+            "ratio": 0.937,
+            "start": null,
+            "end": null,
+            "matched_text": null,
+            "sentence": null
+          }
+        ],
+        "orphaned": false,
+        "supported": true,
+        "failure_type": null,
+        "note": "",
+        "quote": "anyone who is \"unsure about an image\" can check it using the Gemini chatbot app",
+        "quote_status": "found",
+        "quote_ratio": 1.0,
+        "citation_match": true,
+        "grounded": true
+      }
+    },
+    {
+      "subject_id": "E12",
+      "subject_text": "Lens feature",
+      "subject_type": "ImageAnalysisSoftware",
+      "property": "analyzes",
+      "property_source": "vocab",
+      "vocab_id": "P0078",
+      "property_is_new_to_vocab": false,
+      "property_definition": "to examine or interpret in detail",
+      "property_parent": null,
+      "property_justification": "No existing schema.org property fits the relation phrase and instances.",
+      "object_id": "E4",
+      "object_text": "Google Earth",
+      "object_type": "GeospatialPlatform",
+      "relation_phrases": [
+        "analyzes"
+      ],
+      "phrase_directions": {
+        "analyzes": "as_is"
+      },
+      "evidence": [
+        [
+          "or use the Lens feature in its search"
+        ]
+      ],
+      "confidence": 1.0,
+      "grounding": {
+        "evidence_status": "found",
+        "evidence_detail": {
+          "n_quotes": 1,
+          "found": 1,
+          "partial": 0,
+          "missing": 0,
+          "worst_ratio": 1.0
+        },
+        "evidence_resolved": [
+          {
+            "quote": "or use the Lens feature in its search",
+            "status": "found",
+            "ratio": 1.0,
+            "start": 2174,
+            "end": 2211,
+            "matched_text": "or use the Lens feature in its search",
+            "sentence": "Google said AI content created by its tools contain invisible watermarks to indicate that they are fake or manipulated, adding that anyone who is \"unsure about an image\" can check it using the Gemini chatbot app or use the Lens feature in its search."
+          }
+        ],
+        "orphaned": false,
+        "supported": true,
+        "failure_type": null,
+        "note": "",
+        "quote": "anyone who is \"unsure about an image\" can check it using the Gemini chatbot app or use the Lens feature in its search.",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -1063,22 +1016,22 @@
     },
     "relations": {
       "before": 17,
-      "after": 11,
-      "removed": 6,
-      "kept_rate": 0.647
+      "after": 10,
+      "removed": 7,
+      "kept_rate": 0.588
     },
     "entities": {
       "before": 21,
-      "after": 5,
-      "removed": 16,
-      "kept_rate": 0.238
+      "after": 8,
+      "removed": 13,
+      "kept_rate": 0.381
     },
     "unjudged_kept": 0,
     "drop_unjudged": false,
     "drop_orphan_entities": true,
     "removed_by_failure_type": {
-      "intrinsic": 3,
-      "extrinsic": 3
+      "extrinsic": 5,
+      "intrinsic": 2
     }
   }
 }

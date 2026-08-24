@@ -19,41 +19,39 @@
         "rate": 0.8
       },
       "judge_quote_status": {
-        "found": 4,
-        "missing": 1
+        "found": 5
       }
     },
     "relations": {
       "total": 16,
-      "grounded": 13,
-      "rate": 0.812,
+      "grounded": 7,
+      "rate": 0.438,
       "failures": {
-        "intrinsic": 2,
-        "extrinsic": 1
+        "extrinsic": 7,
+        "intrinsic": 2
       },
       "citation_status": {
         "found": 16
       },
       "citation_precision": {
-        "n": 13,
-        "matched": 9,
-        "rate": 0.692
+        "n": 7,
+        "matched": 7,
+        "rate": 1.0
       },
       "judge_quote_status": {
-        "missing": 1,
-        "found": 12
+        "found": 7
       }
     },
     "relations_by_property_source": {
       "vocab": {
         "total": 9,
-        "grounded": 7,
-        "rate": 0.778
+        "grounded": 2,
+        "rate": 0.222
       },
       "schema.org": {
         "total": 7,
-        "grounded": 6,
-        "rate": 0.857
+        "grounded": 5,
+        "rate": 0.714
       }
     },
     "nodes_by_type_source": {
@@ -66,12 +64,11 @@
   },
   "grounding_config": {
     "method": "full_article",
-    "judge_backend": "qwen3-32b-think",
-    "judge_model": "qwen3-32b",
-    "judge_batch": 20,
-    "prompt_sha1": "67305d45abb6",
+    "backend": "gpt-oss-120b",
+    "model": "accounts/fireworks/models/gpt-oss-120b",
+    "judge_batch": 60,
     "graph": "nary_graph_dedup_main_val_r1_extended_consolidated.json",
-    "self_judged": false
+    "prompt_sha1": "67305d45abb6"
   },
   "entities": [
     {
@@ -111,15 +108,6 @@
       "type_vocab_id": null
     },
     {
-      "id": "E5",
-      "text": "United States",
-      "type": "Country",
-      "aliases": [],
-      "type_source": "schema.org",
-      "type_parent": null,
-      "type_vocab_id": null
-    },
-    {
       "id": "E6",
       "text": "Children's Hospital Los Angeles",
       "type": "Hospital",
@@ -127,6 +115,16 @@
       "type_source": "schema.org",
       "type_parent": null,
       "type_vocab_id": null
+    },
+    {
+      "id": "E8",
+      "text": "American Society for Nutrition",
+      "type": "ProfessionalOrganization",
+      "aliases": [],
+      "type_source": "vocab",
+      "type_parent": "Organization",
+      "type_vocab_id": "T0057",
+      "type_definition": "An organization of professionals with a common interest or goal"
     },
     {
       "id": "E11",
@@ -173,16 +171,6 @@
       "type_parent": "Duration",
       "type_vocab_id": "T0027",
       "type_definition": "A period of 365 or 366 days, often used as a unit of time for measuring events or periods"
-    },
-    {
-      "id": "E16",
-      "text": "Consumer Brands Association",
-      "type": "TradeAssociation",
-      "aliases": [],
-      "type_source": "vocab",
-      "type_parent": "Organization",
-      "type_vocab_id": "T0059",
-      "type_definition": "An organization that represents the interests of a particular industry or trade"
     },
     {
       "id": "E17",
@@ -298,7 +286,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Four out of five foods sold for toddlers in the United States are ultraprocessed, according to research that analyzed more than 2,700 products on grocery store shelves.",
+        "quote": "Four out of five foods sold for toddlers in the United States are ultraprocessed.",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -388,9 +376,9 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "We wanted to know what parents were seeing when they went to the grocery store... The answer is over 80% of the products are ultraprocessed.",
-        "quote_status": "missing",
-        "quote_ratio": 0.664,
+        "quote": "“The answer is over 80% of the products are ultraprocessed,” Hudson said.",
+        "quote_status": "found",
+        "quote_ratio": 1.0,
         "citation_match": false,
         "grounded": true
       }
@@ -428,7 +416,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "The problem isn’t just what’s in these high-sugar, high-salt ultraprocessed foods, it’s what they crowd out.",
+        "quote": "“The problem isn’t just what’s in these high-sugar, high-salt ultraprocessed foods, it’s what they crowd out,” said Jane Houlihan, research director for Healthy Babies Bright Futures.",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -438,361 +426,56 @@
   ],
   "relations": [
     {
-      "subject_id": "E1",
-      "subject_text": "Erin Hudson",
+      "subject_id": "E3",
+      "subject_text": "Marissa Burgermaster",
       "subject_type": "Person",
-      "property": "ledResearchStudy",
-      "property_source": "vocab",
-      "vocab_id": "P0095",
-      "property_is_new_to_vocab": true,
-      "property_definition": "The person who directed or supervised the research study.",
-      "property_parent": null,
-      "property_justification": "No existing schema.org property fits the relation.",
-      "object_id": "EV1",
-      "object_text": "Toddler Food Study",
-      "object_type": "ResearchStudy",
-      "relation_phrases": [
-        "led the research study"
-      ],
-      "phrase_directions": {
-        "led the research study": "as_is"
-      },
-      "evidence": [
-        [
-          "lead author Erin Hudson, a postdoctoral researcher at the department of pediatrics at Children’s Hospital Los Angeles.",
-          "Four out of five foods sold for toddlers in the United States are ultraprocessed, according to research that analyzed more than 2,700 products on grocery store shelves."
-        ]
-      ],
-      "confidence": 1.0,
-      "grounding": {
-        "evidence_status": "found",
-        "evidence_detail": {
-          "n_quotes": 2,
-          "found": 2,
-          "partial": 0,
-          "missing": 0,
-          "worst_ratio": 1.0
-        },
-        "evidence_resolved": [
-          {
-            "quote": "lead author Erin Hudson, a postdoctoral researcher at the department of pediatrics at Children’s Hospital Los Angeles.",
-            "status": "found",
-            "ratio": 1.0,
-            "start": 589,
-            "end": 707,
-            "matched_text": "lead author Erin Hudson, a postdoctoral researcher at the department of pediatrics at Children’s Hospital Los Angeles.",
-            "sentence": "“We wanted to know what parents were seeing when they went to the grocery store,” said lead author Erin Hudson, a postdoctoral researcher at the department of pediatrics at Children’s Hospital Los Angeles.\n“The answer is over 80% of the products are ultraprocessed,” Hudson said."
-          },
-          {
-            "quote": "Four out of five foods sold for toddlers in the United States are ultraprocessed, according to research that analyzed more than 2,700 products on grocery store shelves.",
-            "status": "found",
-            "ratio": 1.0,
-            "start": 200,
-            "end": 368,
-            "matched_text": "Four out of five foods sold for toddlers in the United States are ultraprocessed, according to research that analyzed more than 2,700 products on grocery store shelves.",
-            "sentence": "com/2026/07/28/health/toddler-foods-ultraprocessed-wellness\nDate: 30/07/2026\n\nFour out of five foods sold for toddlers in the United States are ultraprocessed, according to research that analyzed more than 2,700 products on grocery store shelves. Nearly half of those items also failed to meet at least one nutritional benchmark for children set by the World Health Organization."
-          }
-        ],
-        "orphaned": false,
-        "supported": true,
-        "failure_type": null,
-        "note": "",
-        "quote": "lead author Erin Hudson... presented the preliminary research findings on Sunday at the annual meeting of the American Society for Nutrition.",
-        "quote_status": "missing",
-        "quote_ratio": 0.0,
-        "citation_match": false,
-        "grounded": true
-      }
-    },
-    {
-      "subject_id": "EV1",
-      "subject_text": "Toddler Food Study",
-      "subject_type": "ResearchStudy",
-      "property": "discoveredFact",
-      "property_source": "vocab",
-      "vocab_id": "P0096",
-      "property_is_new_to_vocab": true,
-      "property_definition": "The research study discovered or determined a particular fact or result.",
-      "property_parent": null,
-      "property_justification": "No existing schema.org property fits the relation.",
-      "object_id": "OBS1",
-      "object_text": "Ultraprocessed Food Prevalence",
-      "object_type": "NutritionFact",
-      "relation_phrases": [
-        "found"
-      ],
-      "phrase_directions": {
-        "found": "as_is"
-      },
-      "evidence": [
-        [
-          "Four out of five foods sold for toddlers in the United States are ultraprocessed, according to research that analyzed more than 2,700 products on grocery store shelves."
-        ]
-      ],
-      "confidence": 1.0,
-      "grounding": {
-        "evidence_status": "found",
-        "evidence_detail": {
-          "n_quotes": 1,
-          "found": 1,
-          "partial": 0,
-          "missing": 0,
-          "worst_ratio": 1.0
-        },
-        "evidence_resolved": [
-          {
-            "quote": "Four out of five foods sold for toddlers in the United States are ultraprocessed, according to research that analyzed more than 2,700 products on grocery store shelves.",
-            "status": "found",
-            "ratio": 1.0,
-            "start": 200,
-            "end": 368,
-            "matched_text": "Four out of five foods sold for toddlers in the United States are ultraprocessed, according to research that analyzed more than 2,700 products on grocery store shelves.",
-            "sentence": "com/2026/07/28/health/toddler-foods-ultraprocessed-wellness\nDate: 30/07/2026\n\nFour out of five foods sold for toddlers in the United States are ultraprocessed, according to research that analyzed more than 2,700 products on grocery store shelves. Nearly half of those items also failed to meet at least one nutritional benchmark for children set by the World Health Organization."
-          }
-        ],
-        "orphaned": false,
-        "supported": true,
-        "failure_type": null,
-        "note": "",
-        "quote": "Four out of five foods sold for toddlers in the United States are ultraprocessed, according to research that analyzed more than 2,700 products on grocery store shelves.",
-        "quote_status": "found",
-        "quote_ratio": 1.0,
-        "citation_match": true,
-        "grounded": true
-      }
-    },
-    {
-      "subject_id": "EV1",
-      "subject_text": "Toddler Food Study",
-      "subject_type": "ResearchStudy",
-      "property": "discoveredFact",
-      "property_source": "vocab",
-      "vocab_id": "P0096",
-      "property_is_new_to_vocab": false,
-      "property_definition": "The research study discovered or determined a particular fact or result.",
-      "property_parent": null,
-      "property_justification": "No existing schema.org property fits the relation.",
-      "object_id": "OBS2",
-      "object_text": "Nutrition Standard Failure",
-      "object_type": "NutritionFact",
-      "relation_phrases": [
-        "discovered"
-      ],
-      "phrase_directions": {
-        "discovered": "as_is"
-      },
-      "evidence": [
-        [
-          "Nearly half of those items also failed to meet at least one nutritional benchmark for children set by the World Health Organization."
-        ]
-      ],
-      "confidence": 1.0,
-      "grounding": {
-        "evidence_status": "found",
-        "evidence_detail": {
-          "n_quotes": 1,
-          "found": 1,
-          "partial": 0,
-          "missing": 0,
-          "worst_ratio": 1.0
-        },
-        "evidence_resolved": [
-          {
-            "quote": "Nearly half of those items also failed to meet at least one nutritional benchmark for children set by the World Health Organization.",
-            "status": "found",
-            "ratio": 1.0,
-            "start": 369,
-            "end": 501,
-            "matched_text": "Nearly half of those items also failed to meet at least one nutritional benchmark for children set by the World Health Organization.",
-            "sentence": "Nearly half of those items also failed to meet at least one nutritional benchmark for children set by the World Health Organization.\n“We wanted to know what parents were seeing when they went to the grocery store,” said lead author Erin Hudson, a postdoctoral researcher at the department of pediatrics at Children’s Hospital Los Angeles."
-          }
-        ],
-        "orphaned": false,
-        "supported": true,
-        "failure_type": null,
-        "note": "",
-        "quote": "Nearly half of those items also failed to meet at least one nutritional benchmark for children set by the World Health Organization.",
-        "quote_status": "found",
-        "quote_ratio": 1.0,
-        "citation_match": true,
-        "grounded": true
-      }
-    },
-    {
-      "subject_id": "E1",
-      "subject_text": "Erin Hudson",
-      "subject_type": "Person",
-      "property": "statedOpinion",
-      "property_source": "vocab",
-      "vocab_id": "P0097",
-      "property_is_new_to_vocab": true,
-      "property_definition": "The person expressed or uttered a particular statement or opinion.",
-      "property_parent": null,
-      "property_justification": "No existing schema.org property fits the relation.",
-      "object_id": "CL1",
-      "object_text": "Erin Hudson's Statement",
-      "object_type": "ExpertStatement",
-      "relation_phrases": [
-        "stated"
-      ],
-      "phrase_directions": {
-        "stated": "as_is"
-      },
-      "evidence": [
-        [
-          "We wanted to know what parents were seeing when they went to the grocery store,"
-        ]
-      ],
-      "confidence": 1.0,
-      "grounding": {
-        "evidence_status": "found",
-        "evidence_detail": {
-          "n_quotes": 1,
-          "found": 1,
-          "partial": 0,
-          "missing": 0,
-          "worst_ratio": 1.0
-        },
-        "evidence_resolved": [
-          {
-            "quote": "We wanted to know what parents were seeing when they went to the grocery store,",
-            "status": "found",
-            "ratio": 1.0,
-            "start": 503,
-            "end": 582,
-            "matched_text": "We wanted to know what parents were seeing when they went to the grocery store,",
-            "sentence": "“We wanted to know what parents were seeing when they went to the grocery store,” said lead author Erin Hudson, a postdoctoral researcher at the department of pediatrics at Children’s Hospital Los Angeles."
-          }
-        ],
-        "orphaned": false,
-        "supported": true,
-        "failure_type": null,
-        "note": "",
-        "quote": "The answer is over 80% of the products are ultraprocessed,",
-        "quote_status": "found",
-        "quote_ratio": 1.0,
-        "citation_match": false,
-        "grounded": true
-      }
-    },
-    {
-      "subject_id": "E2",
-      "subject_text": "Jane Houlihan",
-      "subject_type": "Person",
-      "property": "statedOpinion",
-      "property_source": "vocab",
-      "vocab_id": "P0097",
-      "property_is_new_to_vocab": true,
-      "property_definition": "The person expressed or uttered a particular statement or opinion.",
-      "property_parent": null,
-      "property_justification": "No existing schema.org property fits the relation.",
-      "object_id": "CL2",
-      "object_text": "Jane Houlihan's Statement",
-      "object_type": "ExpertStatement",
-      "relation_phrases": [
-        "stated"
-      ],
-      "phrase_directions": {
-        "stated": "as_is"
-      },
-      "evidence": [
-        [
-          "The problem isn’t just what’s in these high-sugar, high-salt ultraprocessed foods, it’s what they crowd out,"
-        ]
-      ],
-      "confidence": 1.0,
-      "grounding": {
-        "evidence_status": "found",
-        "evidence_detail": {
-          "n_quotes": 1,
-          "found": 1,
-          "partial": 0,
-          "missing": 0,
-          "worst_ratio": 1.0
-        },
-        "evidence_resolved": [
-          {
-            "quote": "The problem isn’t just what’s in these high-sugar, high-salt ultraprocessed foods, it’s what they crowd out,",
-            "status": "found",
-            "ratio": 1.0,
-            "start": 1802,
-            "end": 1910,
-            "matched_text": "The problem isn’t just what’s in these high-sugar, high-salt ultraprocessed foods, it’s what they crowd out,",
-            "sentence": "“The problem isn’t just what’s in these high-sugar, high-salt ultraprocessed foods, it’s what they crowd out,” said Jane Houlihan, research director for Healthy Babies Bright Futures, an alliance of nonprofits, scientists and donors with a mission of reducing babies’ exposures to neurotoxic chemicals."
-          }
-        ],
-        "orphaned": false,
-        "supported": true,
-        "failure_type": null,
-        "note": "",
-        "quote": "The problem isn’t just what’s in these high-sugar, high-salt ultraprocessed foods, it’s what they crowd out,",
-        "quote_status": "found",
-        "quote_ratio": 1.0,
-        "citation_match": true,
-        "grounded": true
-      }
-    },
-    {
-      "subject_id": "EV1",
-      "subject_text": "Toddler Food Study",
-      "subject_type": "ResearchStudy",
-      "property": "studyLocation",
+      "property": "performerIn",
       "property_source": "schema.org",
       "vocab_id": null,
       "property_is_new_to_vocab": false,
       "property_definition": null,
       "property_parent": null,
-      "property_justification": "Flipped to inverse to match the property's direction.",
-      "object_id": "E5",
-      "object_text": "United States",
-      "object_type": "Country",
+      "property_justification": "Best fit among the candidates.",
+      "object_id": "E8",
+      "object_text": "American Society for Nutrition",
+      "object_type": "ProfessionalOrganization",
       "relation_phrases": [
-        "is location of"
+        "presented research findings at"
       ],
       "phrase_directions": {
-        "is location of": "inverse"
+        "presented research findings at": "as_is"
       },
       "evidence": [
         [
-          "Four out of five foods sold for toddlers in the United States are ultraprocessed, according to research that analyzed more than 2,700 products on grocery store shelves.",
-          "To do the research, Hudson and her team photographed foods marketed to children between 6 and 36 months at 21 grocery stores in Austin, Texas."
+          "Hudson, who presented the preliminary research findings on Sunday at the annual meeting of the American Society for Nutrition."
         ]
       ],
       "confidence": 1.0,
       "grounding": {
         "evidence_status": "found",
         "evidence_detail": {
-          "n_quotes": 2,
-          "found": 2,
+          "n_quotes": 1,
+          "found": 1,
           "partial": 0,
           "missing": 0,
           "worst_ratio": 1.0
         },
         "evidence_resolved": [
           {
-            "quote": "Four out of five foods sold for toddlers in the United States are ultraprocessed, according to research that analyzed more than 2,700 products on grocery store shelves.",
+            "quote": "Hudson, who presented the preliminary research findings on Sunday at the annual meeting of the American Society for Nutrition.",
             "status": "found",
             "ratio": 1.0,
-            "start": 200,
-            "end": 368,
-            "matched_text": "Four out of five foods sold for toddlers in the United States are ultraprocessed, according to research that analyzed more than 2,700 products on grocery store shelves.",
-            "sentence": "com/2026/07/28/health/toddler-foods-ultraprocessed-wellness\nDate: 30/07/2026\n\nFour out of five foods sold for toddlers in the United States are ultraprocessed, according to research that analyzed more than 2,700 products on grocery store shelves. Nearly half of those items also failed to meet at least one nutritional benchmark for children set by the World Health Organization."
-          },
-          {
-            "quote": "To do the research, Hudson and her team photographed foods marketed to children between 6 and 36 months at 21 grocery stores in Austin, Texas.",
-            "status": "found",
-            "ratio": 1.0,
-            "start": 4173,
-            "end": 4315,
-            "matched_text": "To do the research, Hudson and her team photographed foods marketed to children between 6 and 36 months at 21 grocery stores in Austin, Texas.",
-            "sentence": "”\nTo do the research, Hudson and her team photographed foods marketed to children between 6 and 36 months at 21 grocery stores in Austin, Texas. First foods, such as infant formula, drinks and purees, were excluded from the study."
+            "start": 1268,
+            "end": 1394,
+            "matched_text": "Hudson, who presented the preliminary research findings on Sunday at the annual meeting of the American Society for Nutrition.",
+            "sentence": "“We found toddler products which failed to meet WHO standards on sugar were four times as likely to be ultraprocessed,” said Hudson, who presented the preliminary research findings on Sunday at the annual meeting of the American Society for Nutrition.\n“Almost a quarter of the foods were higher in sodium than is recommended, and some were high in fat and calorie dense,” she added."
           }
         ],
         "orphaned": false,
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Four out of five foods sold for toddlers in the United States are ultraprocessed, according to research that analyzed more than 2,700 products on grocery store shelves.",
+        "quote": "who presented the preliminary research findings on Sunday at the annual meeting of the American Society for Nutrition.",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -906,7 +589,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Elizabeth Dunford, an adjunct assistant professor of nutrition at the University of North Carolina at Chapel Hill, told CNN previously.",
+        "quote": "Elizabeth Dunford, an adjunct assistant professor of nutrition at the University of North Carolina at Chapel Hill",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -1020,7 +703,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Jane Houlihan, research director for Healthy Babies Bright Futures, an alliance of nonprofits, scientists and donors with a mission of reducing babies’ exposures to neurotoxic chemicals.",
+        "quote": "Jane Houlihan, research director for Healthy Babies Bright Futures",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -1077,67 +760,10 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "The US Food and Drug Administration proposed a rule in 2025 for a mandatory, front-of-package labeling system for most packaged foods.",
+        "quote": "The US Food and Drug Administration proposed a rule in 2025 for a mandatory, front-of-package labeling system",
         "quote_status": "found",
         "quote_ratio": 1.0,
-        "citation_match": false,
-        "grounded": true
-      }
-    },
-    {
-      "subject_id": "E16",
-      "subject_text": "Consumer Brands Association",
-      "subject_type": "TradeAssociation",
-      "property": "nationality",
-      "property_source": "schema.org",
-      "vocab_id": null,
-      "property_is_new_to_vocab": false,
-      "property_definition": null,
-      "property_parent": null,
-      "property_justification": "Best fit among the candidates.",
-      "object_id": "E5",
-      "object_text": "United States",
-      "object_type": "Country",
-      "relation_phrases": [
-        "represents"
-      ],
-      "phrase_directions": {
-        "represents": "as_is"
-      },
-      "evidence": [
-        [
-          "The Consumer Brands Association, which represents industry, told CNN in an email that “America’s trusted household brands offer parents and caregivers a wide variety of safe, affordable and convenient product choices to meet different dietary needs, preferences and family budgets.”"
-        ]
-      ],
-      "confidence": 1.0,
-      "grounding": {
-        "evidence_status": "found",
-        "evidence_detail": {
-          "n_quotes": 1,
-          "found": 1,
-          "partial": 0,
-          "missing": 0,
-          "worst_ratio": 1.0
-        },
-        "evidence_resolved": [
-          {
-            "quote": "The Consumer Brands Association, which represents industry, told CNN in an email that “America’s trusted household brands offer parents and caregivers a wide variety of safe, affordable and convenient product choices to meet different dietary needs, preferences and family budgets.”",
-            "status": "found",
-            "ratio": 1.0,
-            "start": 3624,
-            "end": 3906,
-            "matched_text": "The Consumer Brands Association, which represents industry, told CNN in an email that “America’s trusted household brands offer parents and caregivers a wide variety of safe, affordable and convenient product choices to meet different dietary needs, preferences and family budgets.”",
-            "sentence": "The Consumer Brands Association, which represents industry, told CNN in an email that “America’s trusted household brands offer parents and caregivers a wide variety of safe, affordable and convenient product choices to meet different dietary needs, preferences and family budgets.”\nThere is currently no universally accepted scientific definition of the term ‘ultraprocessed’ food, a spokesperson said."
-          }
-        ],
-        "orphaned": false,
-        "supported": true,
-        "failure_type": null,
-        "note": "",
-        "quote": "The Consumer Brands Association, which represents industry, told CNN in an email that “America’s trusted household brands...",
-        "quote_status": "found",
-        "quote_ratio": 1.0,
-        "citation_match": false,
+        "citation_match": true,
         "grounded": true
       }
     },
@@ -1191,7 +817,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Hudson and her team photographed foods marketed to children between 6 and 36 months at 21 grocery stores in Austin, Texas.",
+        "quote": "To do the research, Hudson and her team photographed foods marketed to children between 6 and 36 months at 21 grocery stores in Austin, Texas.",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -1208,22 +834,22 @@
     },
     "relations": {
       "before": 16,
-      "after": 13,
-      "removed": 3,
-      "kept_rate": 0.812
+      "after": 7,
+      "removed": 9,
+      "kept_rate": 0.438
     },
     "entities": {
       "before": 18,
-      "after": 13,
-      "removed": 5,
-      "kept_rate": 0.722
+      "after": 12,
+      "removed": 6,
+      "kept_rate": 0.667
     },
     "unjudged_kept": 0,
     "drop_unjudged": false,
     "drop_orphan_entities": true,
     "removed_by_failure_type": {
-      "intrinsic": 2,
-      "extrinsic": 1
+      "extrinsic": 7,
+      "intrinsic": 2
     }
   }
 }

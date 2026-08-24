@@ -17,21 +17,22 @@
       },
       "citation_precision": {
         "n": 10,
-        "matched": 5,
-        "rate": 0.5
+        "matched": 6,
+        "rate": 0.6
       },
       "judge_quote_status": {
-        "found": 5,
-        "partial": 5
+        "found": 8,
+        "missing": 1,
+        "partial": 1
       }
     },
     "relations": {
       "total": 27,
-      "grounded": 18,
-      "rate": 0.667,
+      "grounded": 12,
+      "rate": 0.444,
       "failures": {
-        "intrinsic": 7,
-        "extrinsic": 2
+        "intrinsic": 5,
+        "extrinsic": 10
       },
       "citation_status": {
         "partial": 2,
@@ -39,25 +40,24 @@
         "missing": 2
       },
       "citation_precision": {
-        "n": 18,
-        "matched": 12,
-        "rate": 0.667
+        "n": 12,
+        "matched": 10,
+        "rate": 0.833
       },
       "judge_quote_status": {
-        "missing": 2,
-        "found": 16
+        "found": 12
       }
     },
     "relations_by_property_source": {
       "schema.org": {
         "total": 25,
-        "grounded": 17,
-        "rate": 0.68
+        "grounded": 12,
+        "rate": 0.48
       },
       "vocab": {
         "total": 2,
-        "grounded": 1,
-        "rate": 0.5
+        "grounded": 0,
+        "rate": 0.0
       }
     },
     "nodes_by_type_source": {
@@ -70,12 +70,11 @@
   },
   "grounding_config": {
     "method": "full_article",
-    "judge_backend": "qwen3-32b-think",
-    "judge_model": "qwen3-32b",
-    "judge_batch": 20,
-    "prompt_sha1": "67305d45abb6",
+    "backend": "gpt-oss-120b",
+    "model": "accounts/fireworks/models/gpt-oss-120b",
+    "judge_batch": 60,
     "graph": "nary_graph_dedup_main_val_r1_extended_consolidated.json",
-    "self_judged": true
+    "prompt_sha1": "67305d45abb6"
   },
   "entities": [
     {
@@ -151,15 +150,6 @@
       "type_vocab_id": null
     },
     {
-      "id": "E13",
-      "text": "Rodri",
-      "type": "Person",
-      "aliases": [],
-      "type_source": "schema.org",
-      "type_parent": null,
-      "type_vocab_id": null
-    },
-    {
       "id": "E15",
       "text": "Lionel Messi",
       "type": "Person",
@@ -167,16 +157,6 @@
       "type_source": "schema.org",
       "type_parent": null,
       "type_vocab_id": null
-    },
-    {
-      "id": "E17",
-      "text": "Castellana",
-      "type": "Street",
-      "aliases": [],
-      "type_source": "vocab",
-      "type_parent": "CivicStructure",
-      "type_vocab_id": "T0031",
-      "type_definition": "A public road in a city, often named and used for traffic and pedestrian access."
     },
     {
       "id": "E19",
@@ -197,15 +177,6 @@
       "type_parent": "Duration",
       "type_vocab_id": "T0032",
       "type_definition": "A period of 365 days in the Gregorian calendar, used to denote events in history."
-    },
-    {
-      "id": "E24",
-      "text": "around midnight",
-      "type": "Time",
-      "aliases": [],
-      "type_source": "schema.org",
-      "type_parent": null,
-      "type_vocab_id": null
     },
     {
       "id": "E26",
@@ -321,10 +292,10 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Spain's 1-0 victory over Argentina in New Jersey on Sunday, secured by a Ferran Torres strike in extra-time, has sparked an outpouring of national pride in the football-mad country, whose only other World Cup triumph came in 2010.",
+        "quote": "Spain's 1-0 victory over Argentina in New Jersey on Sunday, secured by a Ferran Torres strike in extra-time.",
         "quote_status": "found",
         "quote_ratio": 1.0,
-        "citation_match": false,
+        "citation_match": true,
         "grounded": true
       }
     },
@@ -401,9 +372,9 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Spain's 1-0 victory over Argentina in New Jersey on Sunday, secured by a Ferran Torres strike in extra-time, has sparked an outpouring of national pride in the football-mad country, whose only other World Cup triumph came in 2010.",
-        "quote_status": "found",
-        "quote_ratio": 1.0,
+        "quote": "Spain's 1-0 victory over Argentina ... has sparked an outpouring of national pride in the football-mad country.",
+        "quote_status": "missing",
+        "quote_ratio": 0.712,
         "citation_match": true,
         "grounded": true
       }
@@ -441,7 +412,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Spain's only other World Cup triumph came in 2010.",
+        "quote": "Spain’s only other World Cup triumph came in 2010.",
         "quote_status": "partial",
         "quote_ratio": 0.88,
         "citation_match": true,
@@ -481,9 +452,9 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "‘You have shown your grit, your resilience and your courage, always backed by your technical skill, your control and command of the game, combining head and heart,’ the king told La Roja’s stars.",
-        "quote_status": "partial",
-        "quote_ratio": 0.877,
+        "quote": "You have shown your grit, your resilience and your courage, always backed by your technical skill, your control and command of the game, combining head and heart,” the king told La Roja’s stars.",
+        "quote_status": "found",
+        "quote_ratio": 1.0,
         "citation_match": false,
         "grounded": true
       }
@@ -521,9 +492,9 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "‘It’s two for two,’ said Sanchez, of Spain’s record in World Cup finals. ‘Why not dream of a third in 2030, especially with Spain as hosts?’",
-        "quote_status": "partial",
-        "quote_ratio": 0.95,
+        "quote": "“It’s two for two,” said Sanchez, of Spain’s record in World Cup finals.",
+        "quote_status": "found",
+        "quote_ratio": 1.0,
         "citation_match": true,
         "grounded": true
       }
@@ -561,9 +532,9 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "‘I’ve always said it, winning with your country is the most beautiful thing there is, above all a World Cup,’ said Rodri.",
-        "quote_status": "partial",
-        "quote_ratio": 0.983,
+        "quote": "“I’ve always said it, winning with your country is the most beautiful thing there is, above all a World Cup,” said Rodri.",
+        "quote_status": "found",
+        "quote_ratio": 1.0,
         "citation_match": false,
         "grounded": true
       }
@@ -641,70 +612,15 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "‘The kings of all-time!’ wrote Marca, celebrating a ‘second star that will now be stitched onto the Spanish jersey after yet another masterclass in collective play’.",
-        "quote_status": "partial",
-        "quote_ratio": 0.909,
+        "quote": "“The kings of all-time!” wrote Marca, celebrating a “second star that will now be stitched onto the Spanish jersey after yet another masterclass in collective play”.",
+        "quote_status": "found",
+        "quote_ratio": 1.0,
         "citation_match": false,
         "grounded": true
       }
     }
   ],
   "relations": [
-    {
-      "subject_id": "EV1",
-      "subject_text": "Spain's World Cup victory parade in Madrid",
-      "subject_type": "WorldCupVictoryParade",
-      "property": "sportsEvent",
-      "property_source": "schema.org",
-      "vocab_id": null,
-      "property_is_new_to_vocab": false,
-      "property_definition": null,
-      "property_parent": null,
-      "property_justification": "fallback: top candidate",
-      "object_id": "EV2",
-      "object_text": "Spain's 1-0 World Cup final win over Argentina",
-      "object_type": "WorldCupFinalWin",
-      "relation_phrases": [
-        "celebrated_with"
-      ],
-      "phrase_directions": {
-        "celebrated_with": "as_is"
-      },
-      "evidence": [
-        "Spain's 1-0 victory over Argentina... has sparked an outpouring of national pride in the football-mad country"
-      ],
-      "confidence": 0.95,
-      "grounding": {
-        "evidence_status": "partial",
-        "evidence_detail": {
-          "n_quotes": 1,
-          "found": 0,
-          "partial": 1,
-          "missing": 0,
-          "worst_ratio": 1.0
-        },
-        "evidence_resolved": [
-          {
-            "quote": "Spain's 1-0 victory over Argentina... has sparked an outpouring of national pride in the football-mad country",
-            "status": "partial",
-            "ratio": 1.0,
-            "start": 1053,
-            "end": 1233,
-            "matched_text": "Spain's 1-0 victory over Argentina in New Jersey on Sunday, secured by a Ferran Torres strike in extra-time, has sparked an outpouring of national pride in the football-mad country",
-            "sentence": "Spain's 1-0 victory over Argentina in New Jersey on Sunday, secured by a Ferran Torres strike in extra-time, has sparked an outpouring of national pride in the football-mad country, whose only other World Cup triumph came in 2010."
-          }
-        ],
-        "orphaned": false,
-        "supported": true,
-        "failure_type": null,
-        "note": "",
-        "quote": "Spain's 1-0 victory over Argentina... has sparked an outpouring of national pride... before kicking off the parade.",
-        "quote_status": "missing",
-        "quote_ratio": 0.583,
-        "citation_match": false,
-        "grounded": true
-      }
-    },
     {
       "subject_id": "E11",
       "subject_text": "Spanish Prime Minister Pedro Sanchez",
@@ -753,62 +669,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "before kicking off the parade",
-        "quote_status": "found",
-        "quote_ratio": 1.0,
-        "citation_match": true,
-        "grounded": true
-      }
-    },
-    {
-      "subject_id": "E13",
-      "subject_text": "Rodri",
-      "subject_type": "Person",
-      "property": "athlete",
-      "property_source": "schema.org",
-      "vocab_id": null,
-      "property_is_new_to_vocab": false,
-      "property_definition": null,
-      "property_parent": null,
-      "property_justification": "fallback: top candidate",
-      "object_id": "EV1",
-      "object_text": "Spain's World Cup victory parade in Madrid",
-      "object_type": "WorldCupVictoryParade",
-      "relation_phrases": [
-        "held_trophy_aloft"
-      ],
-      "phrase_directions": {
-        "held_trophy_aloft": "as_is"
-      },
-      "evidence": [
-        "Spain captain Rodri held the World Cup trophy aloft"
-      ],
-      "confidence": 0.9,
-      "grounding": {
-        "evidence_status": "found",
-        "evidence_detail": {
-          "n_quotes": 1,
-          "found": 1,
-          "partial": 0,
-          "missing": 0,
-          "worst_ratio": 1.0
-        },
-        "evidence_resolved": [
-          {
-            "quote": "Spain captain Rodri held the World Cup trophy aloft",
-            "status": "found",
-            "ratio": 1.0,
-            "start": 1284,
-            "end": 1335,
-            "matched_text": "Spain captain Rodri held the World Cup trophy aloft",
-            "sentence": "Spain captain Rodri held the World Cup trophy aloft at the top of the stairs as he descended from the Iberia plane that flew the team home after clinching their second star."
-          }
-        ],
-        "orphaned": false,
-        "supported": true,
-        "failure_type": null,
-        "note": "",
-        "quote": "Spain captain Rodri held the World Cup trophy...",
+        "quote": "players were received by King Felipe VI and the royal family, and then Spanish Prime Minister Pedro Sanchez, before kicking off the parade.",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -863,7 +724,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "secured by a Ferran Torres strike in extra-time",
+        "quote": "Spain's 1-0 victory over Argentina in New Jersey on Sunday, secured by a Ferran Torres strike in extra-time",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -918,10 +779,10 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Spain's 1-0 victory over Argentina in New Jersey",
+        "quote": "Spain's 1-0 victory over Argentina in New Jersey on Sunday, secured by a Ferran Torres strike in extra-time",
         "quote_status": "found",
         "quote_ratio": 1.0,
-        "citation_match": false,
+        "citation_match": true,
         "grounded": true
       }
     },
@@ -973,214 +834,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "in the town of Ciudad Rodrigo",
-        "quote_status": "found",
-        "quote_ratio": 1.0,
-        "citation_match": true,
-        "grounded": true
-      }
-    },
-    {
-      "subject_id": "EV3",
-      "subject_text": "13-year-old boy killed during celebration in Ciudad Rodrigo",
-      "subject_type": "TragicIncident",
-      "property": "cause",
-      "property_source": "schema.org",
-      "vocab_id": null,
-      "property_is_new_to_vocab": false,
-      "property_definition": null,
-      "property_parent": null,
-      "property_justification": "fallback: top candidate",
-      "object_id": "E24",
-      "object_text": "around midnight",
-      "object_type": "Time",
-      "relation_phrases": [
-        "caused_by"
-      ],
-      "phrase_directions": {
-        "caused_by": "as_is"
-      },
-      "evidence": [
-        [
-          "a",
-          "r",
-          "o",
-          "u",
-          "n",
-          "d",
-          " ",
-          "m",
-          "i",
-          "d",
-          "n",
-          "i",
-          "g",
-          "h",
-          "t",
-          "A 13-year-old boy was killed around midnight in the town of Ciudad Rodrigo... after a fountain crumbled under the weight of supporters who had climbed onto it to celebrate."
-        ]
-      ],
-      "confidence": 0.8,
-      "grounding": {
-        "evidence_status": "missing",
-        "evidence_detail": {
-          "n_quotes": 16,
-          "found": 14,
-          "partial": 1,
-          "missing": 1,
-          "worst_ratio": 0.0
-        },
-        "evidence_resolved": [
-          {
-            "quote": "a",
-            "status": "found",
-            "ratio": 1.0,
-            "start": 9,
-            "end": 10,
-            "matched_text": "a",
-            "sentence": "Title: Spain's World Cup heroes celebrate with victory parade through Madrid\nURL: https://www."
-          },
-          {
-            "quote": "r",
-            "status": "found",
-            "ratio": 1.0,
-            "start": 17,
-            "end": 18,
-            "matched_text": "r",
-            "sentence": "Title: Spain's World Cup heroes celebrate with victory parade through Madrid\nURL: https://www."
-          },
-          {
-            "quote": "o",
-            "status": "found",
-            "ratio": 1.0,
-            "start": 16,
-            "end": 17,
-            "matched_text": "o",
-            "sentence": "Title: Spain's World Cup heroes celebrate with victory parade through Madrid\nURL: https://www."
-          },
-          {
-            "quote": "u",
-            "status": "found",
-            "ratio": 1.0,
-            "start": 22,
-            "end": 23,
-            "matched_text": "u",
-            "sentence": "Title: Spain's World Cup heroes celebrate with victory parade through Madrid\nURL: https://www."
-          },
-          {
-            "quote": "n",
-            "status": "found",
-            "ratio": 1.0,
-            "start": 11,
-            "end": 12,
-            "matched_text": "n",
-            "sentence": "Title: Spain's World Cup heroes celebrate with victory parade through Madrid\nURL: https://www."
-          },
-          {
-            "quote": "d",
-            "status": "found",
-            "ratio": 1.0,
-            "start": 19,
-            "end": 20,
-            "matched_text": "d",
-            "sentence": "Title: Spain's World Cup heroes celebrate with victory parade through Madrid\nURL: https://www."
-          },
-          {
-            "quote": " ",
-            "status": "missing",
-            "ratio": 0.0,
-            "start": null,
-            "end": null,
-            "matched_text": null,
-            "sentence": null
-          },
-          {
-            "quote": "m",
-            "status": "found",
-            "ratio": 1.0,
-            "start": 70,
-            "end": 71,
-            "matched_text": "M",
-            "sentence": "Title: Spain's World Cup heroes celebrate with victory parade through Madrid\nURL: https://www."
-          },
-          {
-            "quote": "i",
-            "status": "found",
-            "ratio": 1.0,
-            "start": 1,
-            "end": 2,
-            "matched_text": "i",
-            "sentence": "Title: Spain's World Cup heroes celebrate with victory parade through Madrid\nURL: https://www."
-          },
-          {
-            "quote": "d",
-            "status": "found",
-            "ratio": 1.0,
-            "start": 19,
-            "end": 20,
-            "matched_text": "d",
-            "sentence": "Title: Spain's World Cup heroes celebrate with victory parade through Madrid\nURL: https://www."
-          },
-          {
-            "quote": "n",
-            "status": "found",
-            "ratio": 1.0,
-            "start": 11,
-            "end": 12,
-            "matched_text": "n",
-            "sentence": "Title: Spain's World Cup heroes celebrate with victory parade through Madrid\nURL: https://www."
-          },
-          {
-            "quote": "i",
-            "status": "found",
-            "ratio": 1.0,
-            "start": 1,
-            "end": 2,
-            "matched_text": "i",
-            "sentence": "Title: Spain's World Cup heroes celebrate with victory parade through Madrid\nURL: https://www."
-          },
-          {
-            "quote": "g",
-            "status": "found",
-            "ratio": 1.0,
-            "start": 67,
-            "end": 68,
-            "matched_text": "g",
-            "sentence": "Title: Spain's World Cup heroes celebrate with victory parade through Madrid\nURL: https://www."
-          },
-          {
-            "quote": "h",
-            "status": "found",
-            "ratio": 1.0,
-            "start": 25,
-            "end": 26,
-            "matched_text": "h",
-            "sentence": "Title: Spain's World Cup heroes celebrate with victory parade through Madrid\nURL: https://www."
-          },
-          {
-            "quote": "t",
-            "status": "found",
-            "ratio": 1.0,
-            "start": 0,
-            "end": 1,
-            "matched_text": "T",
-            "sentence": "Title: Spain's World Cup heroes celebrate with victory parade through Madrid\nURL: https://www."
-          },
-          {
-            "quote": "A 13-year-old boy was killed around midnight in the town of Ciudad Rodrigo... after a fountain crumbled under the weight of supporters who had climbed onto it to celebrate.",
-            "status": "partial",
-            "ratio": 1.0,
-            "start": 2412,
-            "end": 2594,
-            "matched_text": "a 13-year-old boy was killed around midnight in the town of Ciudad Rodrigo in the west, after a fountain crumbled under the weight of supporters who had climbed onto it to celebrate.",
-            "sentence": "On a tragic note, a 13-year-old boy was killed around midnight in the town of Ciudad Rodrigo in the west, after a fountain crumbled under the weight of supporters who had climbed onto it to celebrate.\nSpain’s women’s side won the World Cup in 2023, meaning for the first time a country has both trophies at the same time."
-          }
-        ],
-        "orphaned": false,
-        "supported": true,
-        "failure_type": null,
-        "note": "",
-        "quote": "killed around midnight",
+        "quote": "a 13-year-old boy was killed around midnight in the town of Ciudad Rodrigo",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -1235,7 +889,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "In 2030, Spain will defend their crown...",
+        "quote": "In 2030, Spain will defend their crown on home soil, as one of the World Cup hosts",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -1290,10 +944,10 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "as one of the World Cup hosts along with Portugal and Morocco",
+        "quote": "In 2030, Spain will defend their crown on home soil, as one of the World Cup hosts",
         "quote_status": "found",
         "quote_ratio": 1.0,
-        "citation_match": true,
+        "citation_match": false,
         "grounded": true
       }
     },
@@ -1345,7 +999,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Spain's first World Cup in South Africa 16 years ago",
+        "quote": "Andres Iniesta's extra-time goal against the Netherlands secured Spain's first World Cup in South Africa 16 years ago.",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -1400,120 +1054,10 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Messi wrote on Instagram",
+        "quote": "Messi wrote on Instagram.",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
-        "grounded": true
-      }
-    },
-    {
-      "subject_id": "EV2",
-      "subject_text": "Spain's 1-0 World Cup final win over Argentina",
-      "subject_type": "WorldCupFinalWin",
-      "property": "previousItem",
-      "property_source": "schema.org",
-      "vocab_id": null,
-      "property_is_new_to_vocab": false,
-      "property_definition": null,
-      "property_parent": null,
-      "property_justification": "fallback: top candidate",
-      "object_id": "EV1",
-      "object_text": "Spain's World Cup victory parade in Madrid",
-      "object_type": "WorldCupVictoryParade",
-      "relation_phrases": [
-        "preceded_by"
-      ],
-      "phrase_directions": {
-        "preceded_by": "as_is"
-      },
-      "evidence": [
-        "after flying back from the United States to Madrid"
-      ],
-      "confidence": 0.85,
-      "grounding": {
-        "evidence_status": "found",
-        "evidence_detail": {
-          "n_quotes": 1,
-          "found": 1,
-          "partial": 0,
-          "missing": 0,
-          "worst_ratio": 1.0
-        },
-        "evidence_resolved": [
-          {
-            "quote": "after flying back from the United States to Madrid",
-            "status": "found",
-            "ratio": 1.0,
-            "start": 547,
-            "end": 597,
-            "matched_text": "After flying back from the United States to Madrid",
-            "sentence": "After flying back from the United States to Madrid, the players were received by King Felipe VI and the royal family, and then Spanish Prime Minister Pedro Sanchez, before kicking off the parade."
-          }
-        ],
-        "orphaned": false,
-        "supported": true,
-        "failure_type": null,
-        "note": "",
-        "quote": "before kicking off the parade",
-        "quote_status": "found",
-        "quote_ratio": 1.0,
-        "citation_match": false,
-        "grounded": true
-      }
-    },
-    {
-      "subject_id": "EV1",
-      "subject_text": "Spain's World Cup victory parade in Madrid",
-      "subject_type": "WorldCupVictoryParade",
-      "property": "location",
-      "property_source": "schema.org",
-      "vocab_id": null,
-      "property_is_new_to_vocab": false,
-      "property_definition": null,
-      "property_parent": null,
-      "property_justification": "fallback: top candidate",
-      "object_id": "E17",
-      "object_text": "Castellana",
-      "object_type": "Street",
-      "relation_phrases": [
-        "featured_location"
-      ],
-      "phrase_directions": {
-        "featured_location": "as_is"
-      },
-      "evidence": [
-        "along the main arteries in the city centre"
-      ],
-      "confidence": 0.9,
-      "grounding": {
-        "evidence_status": "found",
-        "evidence_detail": {
-          "n_quotes": 1,
-          "found": 1,
-          "partial": 0,
-          "missing": 0,
-          "worst_ratio": 1.0
-        },
-        "evidence_resolved": [
-          {
-            "quote": "along the main arteries in the city centre",
-            "status": "found",
-            "ratio": 1.0,
-            "start": 415,
-            "end": 457,
-            "matched_text": "along the main arteries in the city centre",
-            "sentence": "The players, some shirtless, others holding drinks, set off on their procession along the main arteries in the city centre where a sea of fans in red and yellow were waiting, with the destination Cibeles square."
-          }
-        ],
-        "orphaned": false,
-        "supported": true,
-        "failure_type": null,
-        "note": "",
-        "quote": "the Castellana, Madrid's main avenue",
-        "quote_status": "found",
-        "quote_ratio": 1.0,
-        "citation_match": false,
         "grounded": true
       }
     },
@@ -1565,7 +1109,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "the destination Cibeles square",
+        "quote": "destination Cibeles square",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -1620,62 +1164,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Spain's 1-0 World Cup final win over Argentina",
-        "quote_status": "missing",
-        "quote_ratio": 0.63,
-        "citation_match": false,
-        "grounded": true
-      }
-    },
-    {
-      "subject_id": "EV2",
-      "subject_text": "Spain's 1-0 World Cup final win over Argentina",
-      "subject_type": "WorldCupFinalWin",
-      "property": "follows",
-      "property_source": "vocab",
-      "vocab_id": "P0001",
-      "property_is_new_to_vocab": false,
-      "property_definition": "An event that is followed by another event in a sequence.",
-      "property_parent": null,
-      "property_justification": "fallback: top candidate",
-      "object_id": "OBS1",
-      "object_text": "Spain's national pride following World Cup win",
-      "object_type": "NationalPride",
-      "relation_phrases": [
-        "followed_by"
-      ],
-      "phrase_directions": {
-        "followed_by": "as_is"
-      },
-      "evidence": [
-        "has sparked an outpouring of national pride"
-      ],
-      "confidence": 0.85,
-      "grounding": {
-        "evidence_status": "found",
-        "evidence_detail": {
-          "n_quotes": 1,
-          "found": 1,
-          "partial": 0,
-          "missing": 0,
-          "worst_ratio": 1.0
-        },
-        "evidence_resolved": [
-          {
-            "quote": "has sparked an outpouring of national pride",
-            "status": "found",
-            "ratio": 1.0,
-            "start": 1162,
-            "end": 1205,
-            "matched_text": "has sparked an outpouring of national pride",
-            "sentence": "Spain's 1-0 victory over Argentina in New Jersey on Sunday, secured by a Ferran Torres strike in extra-time, has sparked an outpouring of national pride in the football-mad country, whose only other World Cup triumph came in 2010."
-          }
-        ],
-        "orphaned": false,
-        "supported": true,
-        "failure_type": null,
-        "note": "",
-        "quote": "has sparked an outpouring of national pride",
+        "quote": "Spain's 1-0 victory over Argentina",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -1729,8 +1218,8 @@
         "orphaned": false,
         "supported": true,
         "failure_type": null,
-        "note": "The article explicitly states the parade occurred in Madrid.",
-        "quote": "Spain's newly crowned World Cup champions were greeted by a million fans as the team arrived for the victory parade in Madrid.",
+        "note": "",
+        "quote": "victory parade in Madrid",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -1786,8 +1275,8 @@
         "orphaned": false,
         "supported": true,
         "failure_type": null,
-        "note": "The article states Spain won the 2026 World Cup.",
-        "quote": "Spain's 1-0 victory over Argentina in New Jersey on Sunday...",
+        "note": "",
+        "quote": "Spain's newly crowned World Cup champions",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": false,
@@ -1804,22 +1293,22 @@
     },
     "relations": {
       "before": 27,
-      "after": 18,
-      "removed": 9,
-      "kept_rate": 0.667
+      "after": 12,
+      "removed": 15,
+      "kept_rate": 0.444
     },
     "entities": {
       "before": 31,
-      "after": 17,
-      "removed": 14,
-      "kept_rate": 0.548
+      "after": 14,
+      "removed": 17,
+      "kept_rate": 0.452
     },
     "unjudged_kept": 0,
     "drop_unjudged": false,
     "drop_orphan_entities": true,
     "removed_by_failure_type": {
-      "intrinsic": 7,
-      "extrinsic": 2
+      "intrinsic": 5,
+      "extrinsic": 10
     }
   }
 }

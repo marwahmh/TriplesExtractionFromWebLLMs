@@ -19,21 +19,21 @@
       },
       "citation_precision": {
         "n": 6,
-        "matched": 1,
-        "rate": 0.167
+        "matched": 3,
+        "rate": 0.5
       },
       "judge_quote_status": {
-        "found": 2,
-        "missing": 4
+        "found": 6
       }
     },
     "relations": {
       "total": 35,
-      "grounded": 28,
-      "rate": 0.8,
+      "grounded": 25,
+      "rate": 0.714,
       "failures": {
-        "orphan": 3,
-        "extrinsic": 4
+        "intrinsic": 1,
+        "extrinsic": 8,
+        "orphan": 1
       },
       "citation_status": {
         "found": 29,
@@ -41,25 +41,25 @@
         "missing": 1
       },
       "citation_precision": {
-        "n": 28,
-        "matched": 7,
-        "rate": 0.25
+        "n": 25,
+        "matched": 10,
+        "rate": 0.4
       },
       "judge_quote_status": {
-        "found": 25,
-        "missing": 3
+        "found": 24,
+        "partial": 1
       }
     },
     "relations_by_property_source": {
       "schema.org": {
         "total": 33,
-        "grounded": 27,
-        "rate": 0.818
+        "grounded": 25,
+        "rate": 0.758
       },
       "vocab": {
         "total": 2,
-        "grounded": 1,
-        "rate": 0.5
+        "grounded": 0,
+        "rate": 0.0
       }
     },
     "nodes_by_type_source": {
@@ -72,12 +72,11 @@
   },
   "grounding_config": {
     "method": "full_article",
-    "judge_backend": "qwen3-32b-think",
-    "judge_model": "qwen3-32b",
-    "judge_batch": 20,
-    "prompt_sha1": "67305d45abb6",
+    "backend": "gpt-oss-120b",
+    "model": "accounts/fireworks/models/gpt-oss-120b",
+    "judge_batch": 60,
     "graph": "nary_graph_dedup_main_val_r1_extended_consolidated.json",
-    "self_judged": true
+    "prompt_sha1": "67305d45abb6"
   },
   "entities": [
     {
@@ -173,36 +172,9 @@
       "type_vocab_id": "T0005"
     },
     {
-      "id": "E18",
-      "text": "4 July weekend",
-      "type": "DateSpan",
-      "aliases": [],
-      "type_source": "vocab",
-      "type_parent": "Schedule",
-      "type_vocab_id": "T0005"
-    },
-    {
       "id": "E19",
       "text": "$26m (£19.4m)",
       "type": "MonetaryAmount",
-      "aliases": [],
-      "type_source": "schema.org",
-      "type_parent": null,
-      "type_vocab_id": null
-    },
-    {
-      "id": "E30",
-      "text": "America's 250th birthday",
-      "type": "Anniversary",
-      "aliases": [],
-      "type_source": "vocab",
-      "type_parent": "SpecialAnnouncement",
-      "type_vocab_id": "T0007"
-    },
-    {
-      "id": "E31",
-      "text": "World Cup",
-      "type": "SportsEvent",
       "aliases": [],
       "type_source": "schema.org",
       "type_parent": null,
@@ -254,15 +226,6 @@
       "type_vocab_id": "T0008"
     },
     {
-      "id": "E41",
-      "text": "Kansas City Chiefs",
-      "type": "SportsTeam",
-      "aliases": [],
-      "type_source": "schema.org",
-      "type_parent": null,
-      "type_vocab_id": null
-    },
-    {
       "id": "E42",
       "text": "Madison Square Garden",
       "type": "EventVenue",
@@ -293,15 +256,6 @@
       "id": "E45",
       "text": "Kansas City",
       "type": "City",
-      "aliases": [],
-      "type_source": "schema.org",
-      "type_parent": null,
-      "type_vocab_id": null
-    },
-    {
-      "id": "E49",
-      "text": "BBC News",
-      "type": "Organization",
       "aliases": [],
       "type_source": "schema.org",
       "type_parent": null,
@@ -360,6 +314,56 @@
       }
     },
     {
+      "id": "EV2",
+      "node_kind": "Event",
+      "type": "WeddingCelebration",
+      "label": "Taylor Swift and Travis Kelce wedding",
+      "is_main": true,
+      "evidence": [
+        "Media speculation has dubbed the event both a pre-party and possible rehearsal dinner.",
+        "Guests at the wedding will reportedly not be allowed to have their phones during the main ceremony."
+      ],
+      "confidence": 0.9,
+      "grounding": {
+        "evidence_status": "found",
+        "evidence_detail": {
+          "n_quotes": 2,
+          "found": 2,
+          "partial": 0,
+          "missing": 0,
+          "worst_ratio": 1.0
+        },
+        "evidence_resolved": [
+          {
+            "quote": "Media speculation has dubbed the event both a pre-party and possible rehearsal dinner.",
+            "status": "found",
+            "ratio": 1.0,
+            "start": 584,
+            "end": 670,
+            "matched_text": "Media speculation has dubbed the event both a pre-party and possible rehearsal dinner.",
+            "sentence": "Media speculation has dubbed the event both a pre-party and possible rehearsal dinner.\nAround 100 people were expected at the event on Thursday, ahead of a much larger celebration on Friday boasting up to 1,000 guests at the arena."
+          },
+          {
+            "quote": "Guests at the wedding will reportedly not be allowed to have their phones during the main ceremony.",
+            "status": "found",
+            "ratio": 1.0,
+            "start": 2504,
+            "end": 2602,
+            "matched_text": "Guests at the wedding will reportedly not be allowed to have their phones during the main ceremony",
+            "sentence": "Guests at the wedding will reportedly not be allowed to have their phones during the main ceremony, which is expected to begin with mid-afternoon cocktails before a reception going into the night."
+          }
+        ],
+        "supported": true,
+        "failure_type": null,
+        "note": "",
+        "quote": "Taylor Swift and her American football-player fiancé Travis Kelce have kicked off rumoured wedding celebrations at Madison Square Garden in New York City.",
+        "quote_status": "found",
+        "quote_ratio": 1.0,
+        "citation_match": false,
+        "grounded": true
+      }
+    },
+    {
       "id": "EV3",
       "node_kind": "Event",
       "type": "CharityDonation",
@@ -392,10 +396,10 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "On Thursday evening, the couple donated $26m (£19.4m) to charities... Swift's representatives... told BBC News the donation... was for 'charities across the United States'.",
-        "quote_status": "missing",
-        "quote_ratio": 0.465,
-        "citation_match": false,
+        "quote": "On Thursday evening, the couple donated $26m (£19.4m) to charities in the US close to their hearts, including organisations in New York, Nashville, where Swift started her music career and Kansas City, the home of Kelce's NFL team.",
+        "quote_status": "found",
+        "quote_ratio": 1.0,
+        "citation_match": true,
         "grounded": true
       }
     },
@@ -432,59 +436,9 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "A permit for the events on Thursday and Friday... said about 100 guests would start arriving around 17:30 ET for a 'pre-party night'.",
-        "quote_status": "missing",
-        "quote_ratio": 0.752,
-        "citation_match": false,
-        "grounded": true
-      }
-    },
-    {
-      "id": "CL1",
-      "node_kind": "Claim",
-      "type": "MediaSpeculation",
-      "label": "TMZ and Page Six call event a pre-party",
-      "is_main": false,
-      "evidence": [
-        "Media speculation has dubbed the event both a pre-party and possible rehearsal dinner.",
-        "US tabloid Page Six reported Bradley Cooper and Gigi Hadid, a longtime member of Swift's friend circle, had also arrived at the venue."
-      ],
-      "confidence": 0.8,
-      "grounding": {
-        "evidence_status": "found",
-        "evidence_detail": {
-          "n_quotes": 2,
-          "found": 2,
-          "partial": 0,
-          "missing": 0,
-          "worst_ratio": 1.0
-        },
-        "evidence_resolved": [
-          {
-            "quote": "Media speculation has dubbed the event both a pre-party and possible rehearsal dinner.",
-            "status": "found",
-            "ratio": 1.0,
-            "start": 584,
-            "end": 670,
-            "matched_text": "Media speculation has dubbed the event both a pre-party and possible rehearsal dinner.",
-            "sentence": "Media speculation has dubbed the event both a pre-party and possible rehearsal dinner.\nAround 100 people were expected at the event on Thursday, ahead of a much larger celebration on Friday boasting up to 1,000 guests at the arena."
-          },
-          {
-            "quote": "US tabloid Page Six reported Bradley Cooper and Gigi Hadid, a longtime member of Swift's friend circle, had also arrived at the venue.",
-            "status": "found",
-            "ratio": 1.0,
-            "start": 4981,
-            "end": 5115,
-            "matched_text": "US tabloid Page Six reported Bradley Cooper and Gigi Hadid, a longtime member of Swift's friend circle, had also arrived at the venue.",
-            "sentence": "US tabloid Page Six reported Bradley Cooper and Gigi Hadid, a longtime member of Swift's friend circle, had also arrived at the venue.\nPop star and actress Selena Gomez posted images of herself on Instagram wearing a black gown with gem earrings and heading to an unspecified event."
-          }
-        ],
-        "supported": true,
-        "failure_type": null,
-        "note": "",
-        "quote": "TMZ fired up a live feed... Page Six reported Bradley Cooper and Gigi Hadid... had also arrived at the venue.",
-        "quote_status": "missing",
-        "quote_ratio": 0.0,
+        "quote": "As crews were setting up on Thursday, the BBC confirmed a large white canopy tent sitting outside the venue was to be used for guest arrivals, though VIPs like Swift and Kelce still planned to use underground entry to the arena for added privacy.",
+        "quote_status": "found",
+        "quote_ratio": 1.0,
         "citation_match": false,
         "grounded": true
       }
@@ -562,10 +516,10 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "A permit for the events on Thursday and Friday... said about 100 guests would start arriving around 17:30 ET.",
-        "quote_status": "missing",
-        "quote_ratio": 0.697,
-        "citation_match": false,
+        "quote": "Around 100 people were expected at the event on Thursday, ahead of a much larger celebration on Friday boasting up to 1,000 guests at the arena.",
+        "quote_status": "found",
+        "quote_ratio": 1.0,
+        "citation_match": true,
         "grounded": true
       }
     }
@@ -619,10 +573,10 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Taylor Swift and her American football-player fiancé Travis Kelce have kicked off rumoured wedding celebrations at Madison Square Garden in New York City.",
+        "quote": "Swift reportedly left Thursday night's event at Madison Square Garden well after midnight, arriving home in the early hours of Friday morning.",
         "quote_status": "found",
         "quote_ratio": 1.0,
-        "citation_match": true,
+        "citation_match": false,
         "grounded": true
       }
     },
@@ -675,6 +629,116 @@
         "failure_type": null,
         "note": "",
         "quote": "Taylor Swift and her American football-player fiancé Travis Kelce have kicked off rumoured wedding celebrations at Madison Square Garden in New York City.",
+        "quote_status": "found",
+        "quote_ratio": 1.0,
+        "citation_match": false,
+        "grounded": true
+      }
+    },
+    {
+      "subject_id": "EV2",
+      "subject_text": "Taylor Swift and Travis Kelce wedding",
+      "subject_type": "WeddingCelebration",
+      "property": "attendee",
+      "property_source": "schema.org",
+      "vocab_id": null,
+      "property_is_new_to_vocab": false,
+      "property_definition": null,
+      "property_parent": null,
+      "property_justification": "Reused 'attendee' in inverse direction to align with Event → Person/organization.",
+      "object_id": "E1",
+      "object_text": "Taylor Swift",
+      "object_type": "Person",
+      "relation_phrases": [
+        "participant of"
+      ],
+      "phrase_directions": {
+        "participant of": "inverse"
+      },
+      "evidence": [
+        "Guests at the wedding will reportedly not be allowed to have their phones during the main ceremony..."
+      ],
+      "confidence": 0.9,
+      "grounding": {
+        "evidence_status": "found",
+        "evidence_detail": {
+          "n_quotes": 1,
+          "found": 1,
+          "partial": 0,
+          "missing": 0,
+          "worst_ratio": 1.0
+        },
+        "evidence_resolved": [
+          {
+            "quote": "Guests at the wedding will reportedly not be allowed to have their phones during the main ceremony...",
+            "status": "found",
+            "ratio": 1.0,
+            "start": 2504,
+            "end": 2602,
+            "matched_text": "Guests at the wedding will reportedly not be allowed to have their phones during the main ceremony",
+            "sentence": "Guests at the wedding will reportedly not be allowed to have their phones during the main ceremony, which is expected to begin with mid-afternoon cocktails before a reception going into the night."
+          }
+        ],
+        "orphaned": false,
+        "supported": true,
+        "failure_type": null,
+        "note": "",
+        "quote": "Guests at the wedding will reportedly not be allowed to have their phones during the main ceremony",
+        "quote_status": "found",
+        "quote_ratio": 1.0,
+        "citation_match": true,
+        "grounded": true
+      }
+    },
+    {
+      "subject_id": "EV2",
+      "subject_text": "Taylor Swift and Travis Kelce wedding",
+      "subject_type": "WeddingCelebration",
+      "property": "attendee",
+      "property_source": "schema.org",
+      "vocab_id": null,
+      "property_is_new_to_vocab": false,
+      "property_definition": null,
+      "property_parent": null,
+      "property_justification": "Reused 'attendee' in inverse direction to align with Event → Person/organization.",
+      "object_id": "E2",
+      "object_text": "Travis Kelce",
+      "object_type": "Person",
+      "relation_phrases": [
+        "participant of"
+      ],
+      "phrase_directions": {
+        "participant of": "inverse"
+      },
+      "evidence": [
+        "...her American football-player fiancé Travis Kelce have kicked off rumoured wedding celebrations..."
+      ],
+      "confidence": 0.9,
+      "grounding": {
+        "evidence_status": "found",
+        "evidence_detail": {
+          "n_quotes": 1,
+          "found": 1,
+          "partial": 0,
+          "missing": 0,
+          "worst_ratio": 1.0
+        },
+        "evidence_resolved": [
+          {
+            "quote": "...her American football-player fiancé Travis Kelce have kicked off rumoured wedding celebrations...",
+            "status": "found",
+            "ratio": 1.0,
+            "start": 178,
+            "end": 272,
+            "matched_text": "her American football-player fiancé Travis Kelce have kicked off rumoured wedding celebrations",
+            "sentence": "com/news/articles/crlw1eeez19o\nDate: 03/07/2026\n\nTaylor Swift and her American football-player fiancé Travis Kelce have kicked off rumoured wedding celebrations at Madison Square Garden in New York City."
+          }
+        ],
+        "orphaned": false,
+        "supported": true,
+        "failure_type": null,
+        "note": "",
+        "quote": "Guests at the wedding will reportedly not be allowed to have their phones during the main ceremony",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": false,
@@ -786,7 +850,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "a large sign near an entrance that warned those going inside the venue from 29 June - 3 July would be consenting to video and photos being taken inside the arena for an \"event\"",
+        "quote": "Cameras spotted a large sign near an entrance that warned those going inside the venue from 29 June - 3 July would be consenting to video and photos being taken inside the arena for an \"event\"",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": false,
@@ -951,9 +1015,9 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "High-profile friends of the couple, from actress Lena Dunham to frequent collaborator Jack Antonoff were spotted Thursday evening in formal attire.",
-        "quote_status": "found",
-        "quote_ratio": 1.0,
+        "quote": "High-profile friends of the couple, from actress Lena Dunham to frequent collaborator Jack Antonout were spotted Thursday evening in formal attire.",
+        "quote_status": "partial",
+        "quote_ratio": 0.925,
         "citation_match": false,
         "grounded": true
       }
@@ -1179,7 +1243,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Swift's longtime publicist, Tree Paine, wore a light blue dress",
+        "quote": "Swift's longtime publicist, Tree Paine, wore a light blue dress.",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -1234,7 +1298,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "organisations in New York, Nashville, where Swift started her music career and Kansas City, the home of Kelce's NFL team",
+        "quote": "including organisations in New York, Nashville, where Swift started her music career and Kansas City, the home of Kelce's NFL team.",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": false,
@@ -1289,7 +1353,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "organisations in New York, Nashville, where Swift started her music career and Kansas City, the home of Kelce's NFL team",
+        "quote": "including organisations in New York, Nashville, where Swift started her music career and Kansas City, the home of Kelce's NFL team.",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": false,
@@ -1344,7 +1408,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "organisations in New York, Nashville, where Swift started her music career and Kansas City, the home of Kelce's NFL team",
+        "quote": "including organisations in New York, Nashville, where Swift started her music career and Kansas City, the home of Kelce's NFL team.",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": false,
@@ -1399,7 +1463,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "donated $26m (£19.4m) to charities in the US",
+        "quote": "On Thursday evening, the couple donated $26m (£19.4m) to charities in the US close to their hearts",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": false,
@@ -1454,7 +1518,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "workers were seen rolling out a red carpet, which was hastily withdrawn",
+        "quote": "a large white canopy tent sitting outside the venue was to be used for guest arrivals",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": false,
@@ -1509,7 +1573,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "workers were seen rolling out a red carpet, which was hastily withdrawn",
+        "quote": "workers were seen rolling out a red carpet",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": false,
@@ -1564,10 +1628,10 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "workers were seen rolling out a red carpet, which was hastily withdrawn. For several days, media outlets have watched every move outside the arena. They spotted trucks with cryptic labels like \"GP\" and \"garden party\" on it and crews unloading tons of equipment and things like large white staircase prop and large mirror ball.",
-        "quote_status": "missing",
-        "quote_ratio": 0.617,
-        "citation_match": false,
+        "quote": "large white staircase prop",
+        "quote_status": "found",
+        "quote_ratio": 1.0,
+        "citation_match": true,
         "grounded": true
       }
     },
@@ -1619,10 +1683,10 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "workers were seen rolling out a red carpet, which was hastily withdrawn. For several days, media outlets have watched every move outside the arena. They spotted trucks with cryptic labels like \"GP\" and \"garden party\" on it and crews unloading tons of equipment and things like large white staircase prop and large mirror ball.",
-        "quote_status": "missing",
-        "quote_ratio": 0.617,
-        "citation_match": false,
+        "quote": "large mirror ball",
+        "quote_status": "found",
+        "quote_ratio": 1.0,
+        "citation_match": true,
         "grounded": true
       }
     },
@@ -1674,7 +1738,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "For several days, media outlets have watched every move outside the arena. They spotted trucks with cryptic labels like \"GP\" and \"garden party\" on it and crews unloading tons of equipment and things like large white staircase prop and large mirror ball.",
+        "quote": "trucks with cryptic labels like \"GP\"",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": false,
@@ -1729,119 +1793,9 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "For several days, media outlets have watched every move outside the arena. They spotted trucks with cryptic labels like \"GP\" and \"garden party\" on it and crews unloading tons of equipment and things like large white staircase prop and large mirror ball.",
+        "quote": "cryptic labels like \"GP\" and \"garden party\"",
         "quote_status": "found",
         "quote_ratio": 1.0,
-        "citation_match": false,
-        "grounded": true
-      }
-    },
-    {
-      "subject_id": "E49",
-      "subject_text": "BBC News",
-      "subject_type": "Organization",
-      "property": "reportNumber",
-      "property_source": "schema.org",
-      "vocab_id": null,
-      "property_is_new_to_vocab": false,
-      "property_definition": null,
-      "property_parent": null,
-      "property_justification": "fallback: top candidate",
-      "object_id": "EV3",
-      "object_text": "Taylor Swift and Travis Kelce $26m donation",
-      "object_type": "CharityDonation",
-      "relation_phrases": [
-        "reported"
-      ],
-      "phrase_directions": {
-        "reported": "as_is"
-      },
-      "evidence": [
-        "Swift's representatives, while not mentioning anything about a wedding, told BBC News the donation..."
-      ],
-      "confidence": 0.9,
-      "grounding": {
-        "evidence_status": "found",
-        "evidence_detail": {
-          "n_quotes": 1,
-          "found": 1,
-          "partial": 0,
-          "missing": 0,
-          "worst_ratio": 1.0
-        },
-        "evidence_resolved": [
-          {
-            "quote": "Swift's representatives, while not mentioning anything about a wedding, told BBC News the donation...",
-            "status": "found",
-            "ratio": 1.0,
-            "start": 2137,
-            "end": 2235,
-            "matched_text": "Swift's representatives, while not mentioning anything about a wedding, told BBC News the donation",
-            "sentence": "Swift's representatives, while not mentioning anything about a wedding, told BBC News the donation which included food banks, was for \"charities across the United States\"."
-          }
-        ],
-        "orphaned": false,
-        "supported": true,
-        "failure_type": null,
-        "note": "",
-        "quote": "Swift's representatives, while not mentioning anything about a wedding, told BBC News the donation which included food banks, was for \"charities across the United States\".",
-        "quote_status": "found",
-        "quote_ratio": 1.0,
-        "citation_match": false,
-        "grounded": true
-      }
-    },
-    {
-      "subject_id": "EV1",
-      "subject_text": "Taylor Swift and Travis Kelce pre-party",
-      "subject_type": "WeddingPreParty",
-      "property": "temporal",
-      "property_source": "schema.org",
-      "vocab_id": null,
-      "property_is_new_to_vocab": false,
-      "property_definition": null,
-      "property_parent": null,
-      "property_justification": "fallback: top candidate",
-      "object_id": "E18",
-      "object_text": "4 July weekend",
-      "object_type": "DateSpan",
-      "relation_phrases": [
-        "has time frame"
-      ],
-      "phrase_directions": {
-        "has time frame": "as_is"
-      },
-      "evidence": [
-        "This is not just any holiday weekend, it's 4 July weekend marking America's 250th birthday..."
-      ],
-      "confidence": 0.9,
-      "grounding": {
-        "evidence_status": "found",
-        "evidence_detail": {
-          "n_quotes": 1,
-          "found": 1,
-          "partial": 0,
-          "missing": 0,
-          "worst_ratio": 1.0
-        },
-        "evidence_resolved": [
-          {
-            "quote": "This is not just any holiday weekend, it's 4 July weekend marking America's 250th birthday...",
-            "status": "found",
-            "ratio": 1.0,
-            "start": 4357,
-            "end": 4447,
-            "matched_text": "this is not just any holiday weekend, it's 4 July weekend marking America's 250th birthday",
-            "sentence": "And this is not just any holiday weekend, it's 4 July weekend marking America's 250th birthday while the city also hosts the World Cup."
-          }
-        ],
-        "orphaned": false,
-        "supported": true,
-        "failure_type": null,
-        "note": "",
-        "quote": "But the city is not likely to have shut down Manhattan's busiest corridor on a holiday weekend on a day when it's 4 July weekend marking America's 250th birthday while the city also hosts the World Cup.",
-        "quote_status": "missing",
-        "quote_ratio": 0.515,
         "citation_match": false,
         "grounded": true
       }
@@ -1894,10 +1848,10 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Fans gathered outside, even after their mayor explicitly and repeatedly told them to please stay inside on a day when temperatures topped 100F (37C).",
+        "quote": "temperatures topped 100F (37C)",
         "quote_status": "found",
         "quote_ratio": 1.0,
-        "citation_match": false,
+        "citation_match": true,
         "grounded": true
       }
     },
@@ -1949,181 +1903,10 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "A permit for the events on Thursday and Friday obtained by the Associated Press said about 100 guests would start arriving around 17:30 ET for a \"pre-party night\".",
-        "quote_status": "found",
-        "quote_ratio": 1.0,
-        "citation_match": false,
-        "grounded": true
-      }
-    },
-    {
-      "subject_id": "E41",
-      "subject_text": "Kansas City Chiefs",
-      "subject_type": "SportsTeam",
-      "property": "location",
-      "property_source": "schema.org",
-      "vocab_id": null,
-      "property_is_new_to_vocab": false,
-      "property_definition": null,
-      "property_parent": null,
-      "property_justification": "Reused 'location' to describe the city where a team is based.",
-      "object_id": "E45",
-      "object_text": "Kansas City",
-      "object_type": "City",
-      "relation_phrases": [
-        "located in"
-      ],
-      "phrase_directions": {
-        "located in": "as_is"
-      },
-      "evidence": [
-        [
-          "...Kansas City, the home of Kelce's NFL team."
-        ]
-      ],
-      "confidence": 0.9,
-      "grounding": {
-        "evidence_status": "found",
-        "evidence_detail": {
-          "n_quotes": 1,
-          "found": 1,
-          "partial": 0,
-          "missing": 0,
-          "worst_ratio": 1.0
-        },
-        "evidence_resolved": [
-          {
-            "quote": "...Kansas City, the home of Kelce's NFL team.",
-            "status": "found",
-            "ratio": 1.0,
-            "start": 2094,
-            "end": 2135,
-            "matched_text": "Kansas City, the home of Kelce's NFL team",
-            "sentence": "4m) to charities in the US close to their hearts, including organisations in New York, Nashville, where Swift started her music career and Kansas City, the home of Kelce's NFL team."
-          }
-        ],
-        "orphaned": false,
-        "supported": true,
-        "failure_type": null,
-        "note": "",
-        "quote": "the home of Kelce's NFL team.",
+        "quote": "Around 100 people were expected at the event on Thursday",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
-        "grounded": true
-      }
-    },
-    {
-      "subject_id": "E18",
-      "subject_text": "4 July weekend",
-      "subject_type": "DateSpan",
-      "property": "startDate",
-      "property_source": "schema.org",
-      "vocab_id": null,
-      "property_is_new_to_vocab": false,
-      "property_definition": null,
-      "property_parent": null,
-      "property_justification": "Reused 'startDate' to indicate the time period marking an anniversary.",
-      "object_id": "E30",
-      "object_text": "America's 250th birthday",
-      "object_type": "Anniversary",
-      "relation_phrases": [
-        "marks"
-      ],
-      "phrase_directions": {
-        "marks": "as_is"
-      },
-      "evidence": [
-        [
-          "This is not just any holiday weekend, it's 4 July weekend marking America's 250th birthday..."
-        ]
-      ],
-      "confidence": 0.9,
-      "grounding": {
-        "evidence_status": "found",
-        "evidence_detail": {
-          "n_quotes": 1,
-          "found": 1,
-          "partial": 0,
-          "missing": 0,
-          "worst_ratio": 1.0
-        },
-        "evidence_resolved": [
-          {
-            "quote": "This is not just any holiday weekend, it's 4 July weekend marking America's 250th birthday...",
-            "status": "found",
-            "ratio": 1.0,
-            "start": 4357,
-            "end": 4447,
-            "matched_text": "this is not just any holiday weekend, it's 4 July weekend marking America's 250th birthday",
-            "sentence": "And this is not just any holiday weekend, it's 4 July weekend marking America's 250th birthday while the city also hosts the World Cup."
-          }
-        ],
-        "orphaned": false,
-        "supported": true,
-        "failure_type": null,
-        "note": "",
-        "quote": "it's 4 July weekend marking America's 250th birthday while the city also hosts the World Cup.",
-        "quote_status": "found",
-        "quote_ratio": 1.0,
-        "citation_match": false,
-        "grounded": true
-      }
-    },
-    {
-      "subject_id": "E18",
-      "subject_text": "4 July weekend",
-      "subject_type": "DateSpan",
-      "property": "hosts",
-      "property_source": "vocab",
-      "vocab_id": "P0002",
-      "property_is_new_to_vocab": true,
-      "property_definition": "A date span that hosts a sports event.",
-      "property_parent": null,
-      "property_justification": "Minted 'hosts' as no schema.org property supports DateSpan → SportsEvent.",
-      "object_id": "E31",
-      "object_text": "World Cup",
-      "object_type": "SportsEvent",
-      "relation_phrases": [
-        "hosts"
-      ],
-      "phrase_directions": {
-        "hosts": "as_is"
-      },
-      "evidence": [
-        [
-          "...while the city also hosts the World Cup."
-        ]
-      ],
-      "confidence": 0.9,
-      "grounding": {
-        "evidence_status": "found",
-        "evidence_detail": {
-          "n_quotes": 1,
-          "found": 1,
-          "partial": 0,
-          "missing": 0,
-          "worst_ratio": 1.0
-        },
-        "evidence_resolved": [
-          {
-            "quote": "...while the city also hosts the World Cup.",
-            "status": "found",
-            "ratio": 1.0,
-            "start": 4448,
-            "end": 4487,
-            "matched_text": "while the city also hosts the World Cup",
-            "sentence": "And this is not just any holiday weekend, it's 4 July weekend marking America's 250th birthday while the city also hosts the World Cup."
-          }
-        ],
-        "orphaned": false,
-        "supported": true,
-        "failure_type": null,
-        "note": "",
-        "quote": "it's 4 July weekend marking America's 250th birthday while the city also hosts the World Cup.",
-        "quote_status": "found",
-        "quote_ratio": 1.0,
-        "citation_match": false,
         "grounded": true
       }
     }
@@ -2137,22 +1920,23 @@
     },
     "relations": {
       "before": 35,
-      "after": 28,
-      "removed": 7,
-      "kept_rate": 0.8
+      "after": 25,
+      "removed": 10,
+      "kept_rate": 0.714
     },
     "entities": {
       "before": 51,
-      "after": 25,
-      "removed": 26,
-      "kept_rate": 0.49
+      "after": 20,
+      "removed": 31,
+      "kept_rate": 0.392
     },
     "unjudged_kept": 0,
     "drop_unjudged": false,
     "drop_orphan_entities": true,
     "removed_by_failure_type": {
-      "extrinsic": 5,
-      "orphan": 3
+      "extrinsic": 9,
+      "intrinsic": 1,
+      "orphan": 1
     }
   }
 }

@@ -7,73 +7,75 @@
   "grounding_report": {
     "nary_nodes": {
       "total": 55,
-      "grounded": 55,
-      "rate": 1.0,
-      "failures": {},
+      "grounded": 52,
+      "rate": 0.945,
+      "failures": {
+        "intrinsic": 3
+      },
       "citation_status": {
         "found": 55
       },
       "citation_precision": {
-        "n": 55,
-        "matched": 41,
-        "rate": 0.745
+        "n": 52,
+        "matched": 46,
+        "rate": 0.885
       },
       "judge_quote_status": {
-        "found": 45,
-        "partial": 9,
-        "missing": 1
+        "found": 49,
+        "partial": 1,
+        "missing": 2
       }
     },
     "relations": {
       "total": 167,
-      "grounded": 160,
-      "rate": 0.958,
+      "grounded": 139,
+      "rate": 0.832,
       "failures": {
-        "intrinsic": 5,
-        "extrinsic": 2
+        "extrinsic": 17,
+        "orphan": 7,
+        "intrinsic": 4
       },
       "citation_status": {
         "found": 167
       },
       "citation_precision": {
-        "n": 160,
-        "matched": 142,
-        "rate": 0.887
+        "n": 139,
+        "matched": 129,
+        "rate": 0.928
       },
       "judge_quote_status": {
-        "found": 136,
-        "partial": 14,
-        "missing": 11
+        "found": 131,
+        "partial": 4,
+        "missing": 4
       }
     },
     "relations_by_property_source": {
       "schema.org": {
         "total": 141,
-        "grounded": 138,
-        "rate": 0.979
+        "grounded": 119,
+        "rate": 0.844
       },
       "vocab": {
         "total": 26,
-        "grounded": 22,
-        "rate": 0.846
+        "grounded": 20,
+        "rate": 0.769
       }
     },
     "nodes_by_type_source": {
       "not_canonicalized": {
         "total": 55,
-        "grounded": 55,
-        "rate": 1.0
+        "grounded": 52,
+        "rate": 0.945
       }
     }
   },
   "grounding_config": {
     "method": "full_article",
-    "judge_backend": "qwen3-32b-think",
-    "judge_model": "qwen3-32b",
-    "judge_batch": 20,
-    "prompt_sha1": "67305d45abb6",
+    "backend": "gpt-oss-120b",
+    "model": "accounts/fireworks/models/gpt-oss-120b",
+    "judge_batch": 60,
     "graph": "nary_graph_dedup_main_val_r1_extended_consolidated.json",
-    "self_judged": false
+    "prompt_sha1": "67305d45abb6"
   },
   "entities": [
     {
@@ -140,26 +142,8 @@
       "type_vocab_id": null
     },
     {
-      "id": "E9",
-      "text": "the death toll",
-      "type": "Quantity",
-      "aliases": [],
-      "type_source": "schema.org",
-      "type_parent": null,
-      "type_vocab_id": null
-    },
-    {
       "id": "E10",
       "text": "1,222 excess deaths",
-      "type": "Quantity",
-      "aliases": [],
-      "type_source": "schema.org",
-      "type_parent": null,
-      "type_vocab_id": null
-    },
-    {
-      "id": "E11",
-      "text": "the number of deaths",
       "type": "Quantity",
       "aliases": [],
       "type_source": "schema.org",
@@ -196,15 +180,6 @@
     {
       "id": "E16",
       "text": "European heatwave",
-      "type": "WeatherEvent",
-      "aliases": [],
-      "type_source": "vocab",
-      "type_parent": "Event",
-      "type_vocab_id": "T0001"
-    },
-    {
-      "id": "E18",
-      "text": "a heatwave",
       "type": "WeatherEvent",
       "aliases": [],
       "type_source": "vocab",
@@ -779,15 +754,6 @@
       "type_vocab_id": null
     },
     {
-      "id": "E99",
-      "text": "more intense wildfires",
-      "type": "NaturalDisaster",
-      "aliases": [],
-      "type_source": "vocab",
-      "type_parent": "Event",
-      "type_vocab_id": "T0016"
-    },
-    {
       "id": "E100",
       "text": "forest fires",
       "type": "NaturalDisaster",
@@ -901,15 +867,6 @@
       "type_vocab_id": null
     },
     {
-      "id": "E112",
-      "text": "Drowning deaths",
-      "type": "MedicalCause",
-      "aliases": [],
-      "type_source": "schema.org",
-      "type_parent": null,
-      "type_vocab_id": null
-    },
-    {
       "id": "E113",
       "text": "72 people",
       "type": "Quantity",
@@ -944,6 +901,15 @@
       "type_source": "schema.org",
       "type_parent": null,
       "type_vocab_id": null
+    },
+    {
+      "id": "E117",
+      "text": "peaks of 36C to 37C",
+      "type": "TemperatureRange",
+      "aliases": [],
+      "type_source": "vocab",
+      "type_parent": "QuantitativeValue",
+      "type_vocab_id": "T0018"
     },
     {
       "id": "E118",
@@ -1061,7 +1027,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "France has said it recorded an increase of more than 2,000 deaths during the last week of a record-breaking European heatwave in June...",
+        "quote": "France has said it recorded an increase of more than 2,000 deaths during the last week of a record-breaking European heatwave in June",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -1101,7 +1067,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "France saw its hottest day ever on average country-wide on 24 June, with temperatures hitting almost 41C in Paris...",
+        "quote": "In France, the number of deaths recorded between 22 and 28 June increased by 2,025 - nearly 30%, the Public Health France agency announced on Friday.",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": false,
@@ -1141,7 +1107,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "forecasters warn of further extreme temperatures on the continent in the next few days.",
+        "quote": "forecasters warn of further extreme temperatures on the continent in the next few days",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -1181,7 +1147,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "parts of Europe, including the UK, braced for more searing temperatures from this weekend.",
+        "quote": "heat is forecast to climb across France and southern Britain",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": false,
@@ -1221,7 +1187,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Deaths rose 29% in the last week of June compared to the week before...",
+        "quote": "Deaths rose 29% in the last week of June compared to the week before",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -1261,9 +1227,9 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "French health minister Stéphanie Rist adding there had been a 'clear increase' in deaths among those over 45.",
-        "quote_status": "partial",
-        "quote_ratio": 0.862,
+        "quote": "French health minister Stéphanie Rist adding there had been a \"clear increase\" in deaths among those over 45",
+        "quote_status": "found",
+        "quote_ratio": 1.0,
         "citation_match": true,
         "grounded": true
       }
@@ -1301,9 +1267,9 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "a clear increase in deaths among those over 45.",
-        "quote_status": "partial",
-        "quote_ratio": 0.894,
+        "quote": "French health minister Stéphanie Rist adding there had been a \"clear increase\" in deaths among those over 45",
+        "quote_status": "found",
+        "quote_ratio": 1.0,
         "citation_match": true,
         "grounded": true
       }
@@ -1341,7 +1307,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "France saw its hottest day ever on average country-wide on 24 June...",
+        "quote": "France saw its hottest day ever on average country-wide on 24 June",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -1381,7 +1347,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "temperatures hitting almost 41C in Paris...",
+        "quote": "with temperatures hitting almost 41C in Paris",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -1421,7 +1387,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "half the nation placed under a red heat alert.",
+        "quote": "half the nation placed under a red heat alert",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -1461,7 +1427,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "parts of Europe, including the UK, braced for more searing temperatures from this weekend.",
+        "quote": "parts of Europe, including the UK, braced for more searing temperatures",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -1501,10 +1467,10 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "BBC Weather says a large area of high pressure is currently building from the Azores...",
+        "quote": "BBC Weather says a large area of high pressure is currently building from the Azores towards Portugal and Spain and that by the weekend, heat is forecast to climb",
         "quote_status": "found",
         "quote_ratio": 1.0,
-        "citation_match": false,
+        "citation_match": true,
         "grounded": true
       }
     },
@@ -1541,10 +1507,10 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "a large area of high pressure is currently building from the Azores...",
+        "quote": "high pressure is currently building from the Azores towards Portugal and Spain",
         "quote_status": "found",
         "quote_ratio": 1.0,
-        "citation_match": false,
+        "citation_match": true,
         "grounded": true
       }
     },
@@ -1581,7 +1547,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "heat is forecast to climb across France and southern Britain.",
+        "quote": "heat is forecast to climb",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -1621,10 +1587,10 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "millions of Americans... being affected by prolonged extreme heat...",
-        "quote_status": "partial",
+        "quote": "millions of Americans celebrating the July Fourth holiday weekend are already being affected by prolonged extreme heat and high humidity",
+        "quote_status": "found",
         "quote_ratio": 1.0,
-        "citation_match": false,
+        "citation_match": true,
         "grounded": true
       }
     },
@@ -1661,7 +1627,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Climate change is driving up temperatures around the world...",
+        "quote": "Climate change is driving up temperatures around the world",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -1701,10 +1667,10 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Europe... heating up twice as fast as the global average...",
-        "quote_status": "missing",
-        "quote_ratio": 0.0,
-        "citation_match": false,
+        "quote": "It is the fastest warming continent",
+        "quote_status": "found",
+        "quote_ratio": 1.0,
+        "citation_match": true,
         "grounded": true
       }
     },
@@ -1741,7 +1707,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "according to the Copernicus climate service...",
+        "quote": "according to the Copernicus climate service",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -1781,10 +1747,10 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "increased summer heatwaves...",
+        "quote": "This is causing increased summer heatwaves",
         "quote_status": "found",
         "quote_ratio": 1.0,
-        "citation_match": false,
+        "citation_match": true,
         "grounded": true
       }
     },
@@ -1821,7 +1787,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "greater pressure on Europe's water supply...",
+        "quote": "greater pressure on Europe's water supply",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -1861,7 +1827,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "This is causing increased summer heatwaves, greater pressure on Europe's water supply, and more intense wildfires.",
+        "quote": "more intense wildfires",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -1901,7 +1867,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "This summer's record-breaking temperatures have already proved particularly deadly.",
+        "quote": "This summer's record-breaking temperatures have already proved particularly deadly",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -1941,7 +1907,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Belgium recorded 1,222 excess deaths during the heatwave – 39% more than usual – with almost half being people aged 85 and over.",
+        "quote": "Belgium recorded 1,222 excess deaths during the heatwave",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -1981,50 +1947,10 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "The country's health ministry said the number of deaths during a heatwave was 'unprecedented'.",
-        "quote_status": "partial",
-        "quote_ratio": 0.947,
+        "quote": "The country's health ministry said the number of deaths during a heatwave was \"unprecedented\"",
+        "quote_status": "found",
+        "quote_ratio": 1.0,
         "citation_match": true,
-        "grounded": true
-      }
-    },
-    {
-      "id": "OBS6",
-      "node_kind": "Observation",
-      "type": "Mortality Assessment",
-      "label": "Deaths during heatwave unprecedented",
-      "is_main": false,
-      "evidence": [
-        "the number of deaths during a heatwave was \"unprecedented\""
-      ],
-      "confidence": 1.0,
-      "grounding": {
-        "evidence_status": "found",
-        "evidence_detail": {
-          "n_quotes": 1,
-          "found": 1,
-          "partial": 0,
-          "missing": 0,
-          "worst_ratio": 1.0
-        },
-        "evidence_resolved": [
-          {
-            "quote": "the number of deaths during a heatwave was \"unprecedented\"",
-            "status": "found",
-            "ratio": 1.0,
-            "start": 1880,
-            "end": 1938,
-            "matched_text": "the number of deaths during a heatwave was \"unprecedented\"",
-            "sentence": "The country's health ministry said the number of deaths during a heatwave was \"unprecedented\"."
-          }
-        ],
-        "supported": true,
-        "failure_type": null,
-        "note": "",
-        "quote": "The country's health ministry said the number of deaths during a heatwave was 'unprecedented'.",
-        "quote_status": "partial",
-        "quote_ratio": 0.947,
-        "citation_match": false,
         "grounded": true
       }
     },
@@ -2061,7 +1987,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "The number of deaths recorded between 22 and 28 June increased by 2,025 - nearly 30%, the Public Health France agency announced on Friday.",
+        "quote": "In France, the number of deaths recorded between 22 and 28 June increased by 2,025 - nearly 30%, the Public Health France agency announced on Friday.",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -2141,90 +2067,10 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "The French health ministry said the figure was likely an 'underestimate' and mortality would 'therefore be higher than these initial figures'.",
-        "quote_status": "partial",
-        "quote_ratio": 0.972,
+        "quote": "The French health ministry said the figure was likely an \"underestimate\"",
+        "quote_status": "found",
+        "quote_ratio": 1.0,
         "citation_match": true,
-        "grounded": true
-      }
-    },
-    {
-      "id": "OBS9",
-      "node_kind": "Observation",
-      "type": "Mortality Assessment",
-      "label": "Death figure likely underestimate",
-      "is_main": false,
-      "evidence": [
-        "the figure was likely an \"underestimate\""
-      ],
-      "confidence": 1.0,
-      "grounding": {
-        "evidence_status": "found",
-        "evidence_detail": {
-          "n_quotes": 1,
-          "found": 1,
-          "partial": 0,
-          "missing": 0,
-          "worst_ratio": 1.0
-        },
-        "evidence_resolved": [
-          {
-            "quote": "the figure was likely an \"underestimate\"",
-            "status": "found",
-            "ratio": 1.0,
-            "start": 2168,
-            "end": 2208,
-            "matched_text": "the figure was likely an \"underestimate\"",
-            "sentence": "The French health ministry said the figure was likely an \"underestimate\" and mortality would \"therefore be higher than these initial figures\"."
-          }
-        ],
-        "supported": true,
-        "failure_type": null,
-        "note": "",
-        "quote": "The French health ministry said the figure was likely an 'underestimate' and mortality would 'therefore be higher than these initial figures'.",
-        "quote_status": "partial",
-        "quote_ratio": 0.972,
-        "citation_match": false,
-        "grounded": true
-      }
-    },
-    {
-      "id": "OBS10",
-      "node_kind": "Observation",
-      "type": "Mortality Forecast",
-      "label": "Mortality would be higher",
-      "is_main": false,
-      "evidence": [
-        "mortality would \"therefore be higher than these initial figures\""
-      ],
-      "confidence": 1.0,
-      "grounding": {
-        "evidence_status": "found",
-        "evidence_detail": {
-          "n_quotes": 1,
-          "found": 1,
-          "partial": 0,
-          "missing": 0,
-          "worst_ratio": 1.0
-        },
-        "evidence_resolved": [
-          {
-            "quote": "mortality would \"therefore be higher than these initial figures\"",
-            "status": "found",
-            "ratio": 1.0,
-            "start": 2213,
-            "end": 2277,
-            "matched_text": "mortality would \"therefore be higher than these initial figures\"",
-            "sentence": "The French health ministry said the figure was likely an \"underestimate\" and mortality would \"therefore be higher than these initial figures\"."
-          }
-        ],
-        "supported": true,
-        "failure_type": null,
-        "note": "",
-        "quote": "The French health ministry said the figure was likely an 'underestimate' and mortality would 'therefore be higher than these initial figures'.",
-        "quote_status": "partial",
-        "quote_ratio": 0.972,
-        "citation_match": false,
         "grounded": true
       }
     },
@@ -2261,7 +2107,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Drowning deaths soared during the heatwave, with French Interior Minister Laurent Nuñez saying on Saturday that 72 people had died by drowning since 18 June.",
+        "quote": "Drowning deaths soared during the heatwave",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -2301,8 +2147,8 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "French Interior Minister Laurent Nuñez saying on Saturday that 72 people had died by drowning since 18 June.",
-        "quote_status": "found",
+        "quote": "French Interior Minister Laurent Nuñez ... that 72 people had died by drowning since 18 June",
+        "quote_status": "partial",
         "quote_ratio": 1.0,
         "citation_match": true,
         "grounded": true
@@ -2341,7 +2187,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "French Interior Minister Laurent Nuñez saying on Saturday that 72 people had died by drowning since 18 June.",
+        "quote": "72 people had died by drowning",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -2381,7 +2227,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Unprecedented heat in the Netherlands last week led to about 480 excess deaths, Dutch authorities said on Thursday - most of whom were aged 80 and older.",
+        "quote": "unprecedented heat in the Netherlands last week",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -2421,10 +2267,10 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Dutch authorities said on Thursday - most of whom were aged 80 and older.",
-        "quote_status": "found",
-        "quote_ratio": 1.0,
-        "citation_match": true,
+        "quote": "Dutch authorities said ... about 480 excess deaths",
+        "quote_status": "missing",
+        "quote_ratio": 0.6,
+        "citation_match": false,
         "grounded": true
       }
     },
@@ -2461,7 +2307,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Unprecedented heat in the Netherlands last week led to about 480 excess deaths, Dutch authorities said on Thursday - most of whom were aged 80 and older.",
+        "quote": "about 480 excess deaths",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -2501,7 +2347,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Temperatures reached almost 40C in parts of the country, with most of the deaths reported in the south and east of the Netherlands where temperatures were highest.",
+        "quote": "Temperatures reached almost 40C in parts of the country",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -2541,7 +2387,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Temperatures reached almost 40C in parts of the country, with most of the deaths reported in the south and east of the Netherlands where temperatures were highest.",
+        "quote": "most of the deaths reported in the south and east of the Netherlands where temperatures were highest",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -2581,7 +2427,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "While the Netherlands is expecting a cooler week ahead, hot weather is predicted again over the weekend elsewhere.",
+        "quote": "the Netherlands is expecting a cooler week ahead",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -2621,7 +2467,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "While the Netherlands is expecting a cooler week ahead, hot weather is predicted again over the weekend elsewhere.",
+        "quote": "hot weather is predicted again over the weekend elsewhere",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -2781,10 +2627,10 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "weather conditions meant the risk of an outbreak was 'very high' compared to summer norms",
-        "quote_status": "partial",
-        "quote_ratio": 0.899,
-        "citation_match": false,
+        "quote": "risk of an outbreak was \"very high\" compared to summer norms",
+        "quote_status": "found",
+        "quote_ratio": 1.0,
+        "citation_match": true,
         "grounded": true
       }
     },
@@ -2861,7 +2707,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "nearly 7,000 fires had broken out since the start of the summer season",
+        "quote": "nearly 7,000 fires had broken out",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -2941,7 +2787,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "nearly 3,000 people were evacuated after a wildfire ignited in the town of Sainte-Marie-la-Mer and spread to Canet-en-Roussillon",
+        "quote": "Nearly 3,000 people were evacuated after a wildfire ignited in the town of Sainte-Marie-la-Mer",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -2981,7 +2827,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "a wildfire ignited in the town of Sainte-Marie-la-Mer and spread to Canet-en-Roussillon",
+        "quote": "wildfire ignited in the town of Sainte-Marie-la-Mer and spread to Canet-en-Roussillon",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -3101,7 +2947,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Portugal's government declared a state of alert which will remain in place until midnight on Tuesday",
+        "quote": "Portugal's government declared a state of alert",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -3141,7 +2987,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Temperatures are forecast to exceed 40C in some areas, with overnight temperatures above 25C",
+        "quote": "Temperatures are forecast to exceed 40C in some areas",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -3181,9 +3027,9 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "areas of the southwest are on orange alert as 40C is expected in some parts",
-        "quote_status": "found",
-        "quote_ratio": 1.0,
+        "quote": "Spain ... are on orange alert",
+        "quote_status": "missing",
+        "quote_ratio": 0.0,
         "citation_match": false,
         "grounded": true
       }
@@ -3280,7 +3126,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "France has said it recorded an increase of more than 2,000 deaths during the last week of a record-breaking European heatwave in June...",
+        "quote": "France has said it recorded an increase of more than 2,000 deaths during the last week of a record-breaking European heatwave in June",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -3337,7 +3183,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "forecasters warn of further extreme temperatures on the continent in the next few days",
+        "quote": "forecasters warn of further extreme temperatures on the continent in the next few days.",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -3394,7 +3240,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "French health minister Stéphanie Rist adding there had been a \"clear increase\" in deaths among those over 45",
+        "quote": "with French health minister Stéphanie Rist adding there had been a \"clear increase\" in deaths among those over 45.",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -3451,8 +3297,8 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "BBC Weather says a large area of high pressure is currently building from the Azores... heat is forecast to climb across France and southern Britain",
-        "quote_status": "partial",
+        "quote": "BBC Weather says a large area of high pressure is currently building from the Azores towards Portugal and Spain and that by the weekend, heat is forecast to climb across France and southern Britain.",
+        "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
         "grounded": true
@@ -3508,9 +3354,9 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "according to the Copernicus climate service. It is the fastest warming continent",
-        "quote_status": "missing",
-        "quote_ratio": 0.738,
+        "quote": "It is the fastest warming continent, heating up twice as fast as the global average, according to the Copernicus climate service.",
+        "quote_status": "found",
+        "quote_ratio": 1.0,
         "citation_match": true,
         "grounded": true
       }
@@ -3565,7 +3411,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "The Public Health France agency announced on Friday. Deaths rose by 62% in the Paris region alone",
+        "quote": "the Public Health France agency announced on Friday.",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -3622,7 +3468,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "the French health ministry said the figure was likely an \"underestimate\" and mortality would \"therefore be higher\"",
+        "quote": "The French health ministry said the figure was likely an \"underestimate\" and mortality would \"therefore be higher than these initial figures\".",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -3679,7 +3525,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "French Interior Minister Laurent Nuñez saying on Saturday that 72 people had died by drowning since 18 June",
+        "quote": "French Interior Minister Laurent Nuñez saying on Saturday that 72 people had died by drowning since 18 June.",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -3736,7 +3582,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Dutch authorities said on Thursday - most of whom were aged 80 and older",
+        "quote": "unprecedented heat in the Netherlands last week led to about 480 excess deaths, Dutch authorities said on Thursday.",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -3793,8 +3639,8 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Météo-France has issued red alerts for Friday and Saturday for forest fires... risk of an outbreak was \"very high\"",
-        "quote_status": "partial",
+        "quote": "Météo-France has issued red alerts for Friday and Saturday for forest fires in the southern part of the country, warning that weather conditions meant the risk of an outbreak was \"very high\" compared to summer norms.",
+        "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
         "grounded": true
@@ -3850,8 +3696,8 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Prime Minister Sebastien Lecornu said nearly 7,000 fires had broken out... about 8,700 hectares burned so far",
-        "quote_status": "partial",
+        "quote": "Prime Minister Sebastien Lecornu said nearly 7,000 fires had broken out since the start of the summer season, with about 8,700 hectares burned so far.",
+        "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
         "grounded": true
@@ -3907,7 +3753,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Aemet weather service has warned of the possibility of another heatwave",
+        "quote": "Aemet weather service has warned of the possibility of another heatwave.",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -3964,406 +3810,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Portugal's government declared a state of alert... until midnight on Tuesday",
-        "quote_status": "partial",
-        "quote_ratio": 1.0,
-        "citation_match": true,
-        "grounded": true
-      }
-    },
-    {
-      "subject_id": "CL1",
-      "subject_text": "France reports increased deaths",
-      "subject_type": "Government Report",
-      "property": "mentions",
-      "property_source": "schema.org",
-      "vocab_id": null,
-      "property_is_new_to_vocab": false,
-      "property_definition": null,
-      "property_parent": null,
-      "property_justification": "The 'mentions' property indicates that a creative work references a thing, which fits what a report states or provides information about.",
-      "object_id": "OBS1",
-      "object_text": "France excess deaths during heatwave",
-      "object_type": "Excess Mortality",
-      "relation_phrases": [
-        "reports"
-      ],
-      "phrase_directions": {
-        "reports": "as_is"
-      },
-      "evidence": [
-        [
-          "it recorded an increase of more than 2,000 deaths"
-        ]
-      ],
-      "confidence": 1.0,
-      "grounding": {
-        "evidence_status": "found",
-        "evidence_detail": {
-          "n_quotes": 1,
-          "found": 1,
-          "partial": 0,
-          "missing": 0,
-          "worst_ratio": 1.0
-        },
-        "evidence_resolved": [
-          {
-            "quote": "it recorded an increase of more than 2,000 deaths",
-            "status": "found",
-            "ratio": 1.0,
-            "start": 190,
-            "end": 239,
-            "matched_text": "it recorded an increase of more than 2,000 deaths",
-            "sentence": "com/news/articles/c3ry307rxqro\nDate: 03/07/2026\n\nFrance has said it recorded an increase of more than 2,000 deaths during the last week of a record-breaking European heatwave in June as forecasters warn of further extreme temperatures on the continent in the next few days."
-          }
-        ],
-        "orphaned": false,
-        "supported": true,
-        "failure_type": null,
-        "note": "",
-        "quote": "France saw its hottest day ever... the Public Health France agency announced on Friday",
-        "quote_status": "missing",
-        "quote_ratio": 0.0,
-        "citation_match": false,
-        "grounded": true
-      }
-    },
-    {
-      "subject_id": "CL4",
-      "subject_text": "BBC Weather reports high pressure and heat forecast",
-      "subject_type": "Weather Report",
-      "property": "mentions",
-      "property_source": "schema.org",
-      "vocab_id": null,
-      "property_is_new_to_vocab": false,
-      "property_definition": null,
-      "property_parent": null,
-      "property_justification": "The 'mentions' property indicates that a creative work references a thing, which fits what a report states or provides information about.",
-      "object_id": "EV6",
-      "object_text": "High pressure building from Azores",
-      "object_type": "Weather System Development",
-      "relation_phrases": [
-        "reports"
-      ],
-      "phrase_directions": {
-        "reports": "as_is"
-      },
-      "evidence": [
-        [
-          "a large area of high pressure is currently building from the Azores towards Portugal and Spain"
-        ]
-      ],
-      "confidence": 1.0,
-      "grounding": {
-        "evidence_status": "found",
-        "evidence_detail": {
-          "n_quotes": 1,
-          "found": 1,
-          "partial": 0,
-          "missing": 0,
-          "worst_ratio": 1.0
-        },
-        "evidence_resolved": [
-          {
-            "quote": "a large area of high pressure is currently building from the Azores towards Portugal and Spain",
-            "status": "found",
-            "ratio": 1.0,
-            "start": 891,
-            "end": 985,
-            "matched_text": "a large area of high pressure is currently building from the Azores towards Portugal and Spain",
-            "sentence": "BBC Weather says a large area of high pressure is currently building from the Azores towards Portugal and Spain and that by the weekend, heat is forecast to climb across France and southern Britain."
-          }
-        ],
-        "orphaned": false,
-        "supported": true,
-        "failure_type": null,
-        "note": "",
-        "quote": "BBC Weather says a large area of high pressure is currently building from the Azores",
-        "quote_status": "found",
-        "quote_ratio": 1.0,
-        "citation_match": false,
-        "grounded": true
-      }
-    },
-    {
-      "subject_id": "CL4",
-      "subject_text": "BBC Weather reports high pressure and heat forecast",
-      "subject_type": "Weather Report",
-      "property": "mentions",
-      "property_source": "schema.org",
-      "vocab_id": null,
-      "property_is_new_to_vocab": false,
-      "property_definition": null,
-      "property_parent": null,
-      "property_justification": "The 'mentions' property indicates that a creative work references a thing, which fits what a report states or provides information about.",
-      "object_id": "EV7",
-      "object_text": "Heat forecast to climb",
-      "object_type": "Weather Forecast",
-      "relation_phrases": [
-        "reports"
-      ],
-      "phrase_directions": {
-        "reports": "as_is"
-      },
-      "evidence": [
-        [
-          "heat is forecast to climb across France and southern Britain"
-        ]
-      ],
-      "confidence": 1.0,
-      "grounding": {
-        "evidence_status": "found",
-        "evidence_detail": {
-          "n_quotes": 1,
-          "found": 1,
-          "partial": 0,
-          "missing": 0,
-          "worst_ratio": 1.0
-        },
-        "evidence_resolved": [
-          {
-            "quote": "heat is forecast to climb across France and southern Britain",
-            "status": "found",
-            "ratio": 1.0,
-            "start": 1011,
-            "end": 1071,
-            "matched_text": "heat is forecast to climb across France and southern Britain",
-            "sentence": "BBC Weather says a large area of high pressure is currently building from the Azores towards Portugal and Spain and that by the weekend, heat is forecast to climb across France and southern Britain."
-          }
-        ],
-        "orphaned": false,
-        "supported": true,
-        "failure_type": null,
-        "note": "",
-        "quote": "heat is forecast to climb across France and southern Britain",
-        "quote_status": "found",
-        "quote_ratio": 1.0,
-        "citation_match": true,
-        "grounded": true
-      }
-    },
-    {
-      "subject_id": "CL5",
-      "subject_text": "Copernicus reports Europe fastest warming",
-      "subject_type": "Climate Report",
-      "property": "mentions",
-      "property_source": "schema.org",
-      "vocab_id": null,
-      "property_is_new_to_vocab": false,
-      "property_definition": null,
-      "property_parent": null,
-      "property_justification": "The 'mentions' property indicates that a creative work references a thing, which fits what a report states or provides information about.",
-      "object_id": "OBS4",
-      "object_text": "Europe fastest warming continent",
-      "object_type": "Climate Statistic",
-      "relation_phrases": [
-        "reports"
-      ],
-      "phrase_directions": {
-        "reports": "as_is"
-      },
-      "evidence": [
-        [
-          "It is the fastest warming continent, heating up twice as fast as the global average, according to the Copernicus climate service."
-        ]
-      ],
-      "confidence": 1.0,
-      "grounding": {
-        "evidence_status": "found",
-        "evidence_detail": {
-          "n_quotes": 1,
-          "found": 1,
-          "partial": 0,
-          "missing": 0,
-          "worst_ratio": 1.0
-        },
-        "evidence_resolved": [
-          {
-            "quote": "It is the fastest warming continent, heating up twice as fast as the global average, according to the Copernicus climate service.",
-            "status": "found",
-            "ratio": 1.0,
-            "start": 1387,
-            "end": 1516,
-            "matched_text": "It is the fastest warming continent, heating up twice as fast as the global average, according to the Copernicus climate service.",
-            "sentence": "It is the fastest warming continent, heating up twice as fast as the global average, according to the Copernicus climate service.\nThis is causing increased summer heatwaves, greater pressure on Europe's water supply, and more intense wildfires."
-          }
-        ],
-        "orphaned": false,
-        "supported": true,
-        "failure_type": null,
-        "note": "",
-        "quote": "It is the fastest warming continent, heating up twice as fast as the global average",
-        "quote_status": "found",
-        "quote_ratio": 1.0,
-        "citation_match": true,
-        "grounded": true
-      }
-    },
-    {
-      "subject_id": "CL9",
-      "subject_text": "Dutch authorities report excess deaths",
-      "subject_type": "Government Report",
-      "property": "mentions",
-      "property_source": "schema.org",
-      "vocab_id": null,
-      "property_is_new_to_vocab": false,
-      "property_definition": null,
-      "property_parent": null,
-      "property_justification": "The 'mentions' property indicates that a creative work references a thing, which fits what a report states or provides information about.",
-      "object_id": "OBS12",
-      "object_text": "Netherlands recorded about 480 excess deaths",
-      "object_type": "Excess Mortality",
-      "relation_phrases": [
-        "reports"
-      ],
-      "phrase_directions": {
-        "reports": "as_is"
-      },
-      "evidence": [
-        [
-          "about 480 excess deaths"
-        ]
-      ],
-      "confidence": 1.0,
-      "grounding": {
-        "evidence_status": "found",
-        "evidence_detail": {
-          "n_quotes": 1,
-          "found": 1,
-          "partial": 0,
-          "missing": 0,
-          "worst_ratio": 1.0
-        },
-        "evidence_resolved": [
-          {
-            "quote": "about 480 excess deaths",
-            "status": "found",
-            "ratio": 1.0,
-            "start": 2503,
-            "end": 2526,
-            "matched_text": "about 480 excess deaths",
-            "sentence": "Meanwhile, unprecedented heat in the Netherlands last week led to about 480 excess deaths, Dutch authorities said on Thursday - most of whom were aged 80 and older."
-          }
-        ],
-        "orphaned": false,
-        "supported": true,
-        "failure_type": null,
-        "note": "",
-        "quote": "Dutch authorities said on Thursday - about 480 excess deaths",
-        "quote_status": "missing",
-        "quote_ratio": 0.7,
-        "citation_match": true,
-        "grounded": true
-      }
-    },
-    {
-      "subject_id": "CL11",
-      "subject_text": "Sebastien Lecornu reports fires broken out",
-      "subject_type": "Official Report",
-      "property": "mentions",
-      "property_source": "schema.org",
-      "vocab_id": null,
-      "property_is_new_to_vocab": false,
-      "property_definition": null,
-      "property_parent": null,
-      "property_justification": "The 'mentions' property indicates that a creative work references a thing, which fits what a report states or provides information about.",
-      "object_id": "OBS15",
-      "object_text": "Nearly 7,000 fires broken out",
-      "object_type": "Fire Incident Count",
-      "relation_phrases": [
-        "reports"
-      ],
-      "phrase_directions": {
-        "reports": "as_is"
-      },
-      "evidence": [
-        [
-          "nearly 7,000 fires had broken out since the start of the summer season"
-        ]
-      ],
-      "confidence": 1.0,
-      "grounding": {
-        "evidence_status": "found",
-        "evidence_detail": {
-          "n_quotes": 1,
-          "found": 1,
-          "partial": 0,
-          "missing": 0,
-          "worst_ratio": 1.0
-        },
-        "evidence_resolved": [
-          {
-            "quote": "nearly 7,000 fires had broken out since the start of the summer season",
-            "status": "found",
-            "ratio": 1.0,
-            "start": 3282,
-            "end": 3352,
-            "matched_text": "nearly 7,000 fires had broken out since the start of the summer season",
-            "sentence": "On Thursday, Prime Minister Sebastien Lecornu said nearly 7,000 fires had broken out since the start of the summer season, with about 8,700 hectares burned so far."
-          }
-        ],
-        "orphaned": false,
-        "supported": true,
-        "failure_type": null,
-        "note": "",
-        "quote": "nearly 7,000 fires had broken out since the start of the summer season",
-        "quote_status": "found",
-        "quote_ratio": 1.0,
-        "citation_match": true,
-        "grounded": true
-      }
-    },
-    {
-      "subject_id": "CL11",
-      "subject_text": "Sebastien Lecornu reports fires broken out",
-      "subject_type": "Official Report",
-      "property": "mentions",
-      "property_source": "schema.org",
-      "vocab_id": null,
-      "property_is_new_to_vocab": false,
-      "property_definition": null,
-      "property_parent": null,
-      "property_justification": "The 'mentions' property indicates that a creative work references a thing, which fits what a report states or provides information about.",
-      "object_id": "OBS16",
-      "object_text": "About 8,700 hectares burned",
-      "object_type": "Area Burned",
-      "relation_phrases": [
-        "reports"
-      ],
-      "phrase_directions": {
-        "reports": "as_is"
-      },
-      "evidence": [
-        [
-          "about 8,700 hectares burned so far."
-        ]
-      ],
-      "confidence": 1.0,
-      "grounding": {
-        "evidence_status": "found",
-        "evidence_detail": {
-          "n_quotes": 1,
-          "found": 1,
-          "partial": 0,
-          "missing": 0,
-          "worst_ratio": 1.0
-        },
-        "evidence_resolved": [
-          {
-            "quote": "about 8,700 hectares burned so far.",
-            "status": "found",
-            "ratio": 1.0,
-            "start": 3359,
-            "end": 3394,
-            "matched_text": "about 8,700 hectares burned so far.",
-            "sentence": "On Thursday, Prime Minister Sebastien Lecornu said nearly 7,000 fires had broken out since the start of the summer season, with about 8,700 hectares burned so far.\nNearly 3,000 people were evacuated after a wildfire ignited in the town of Sainte-Marie-la-Mer and spread to Canet-en-Roussillon on Thursday."
-          }
-        ],
-        "orphaned": false,
-        "supported": true,
-        "failure_type": null,
-        "note": "",
-        "quote": "about 8,700 hectares burned so far",
+        "quote": "Portugal's government declared a state of alert which will remain in place until midnight on Tuesday.",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -4420,10 +3867,10 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "France has said it recorded an increase of more than 2,000 deaths during the last week of a record-breaking European heatwave in June",
+        "quote": "In France, the number of deaths recorded between 22 and 28 June increased by 2,025 - nearly 30%",
         "quote_status": "found",
         "quote_ratio": 1.0,
-        "citation_match": true,
+        "citation_match": false,
         "grounded": true
       }
     },
@@ -4591,7 +4038,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "temperatures hitting almost 41C in Paris",
+        "quote": "with temperatures hitting almost 41C in Paris",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -4648,8 +4095,8 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "millions of Americans celebrating the July Fourth holiday weekend are already being affected by prolonged extreme heat and high humidity in parts of the central and eastern US",
-        "quote_status": "found",
+        "quote": "millions of Americans ... are already being affected by prolonged extreme heat and high humidity in parts of the central and eastern US.",
+        "quote_status": "partial",
         "quote_ratio": 1.0,
         "citation_match": true,
         "grounded": true
@@ -4762,10 +4209,10 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "The number of deaths recorded between 22 and 28 June increased by 2,025",
+        "quote": "In France, the number of deaths recorded between 22 and 28 June increased by 2,025 - nearly 30%",
         "quote_status": "found",
         "quote_ratio": 1.0,
-        "citation_match": false,
+        "citation_match": true,
         "grounded": true
       }
     },
@@ -4819,7 +4266,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Deaths rose by 62% in the Paris region alone",
+        "quote": "Deaths rose by 62% in the Paris region alone.",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -4876,7 +4323,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Unprecedented heat in the Netherlands last week led to about 480 excess deaths",
+        "quote": "unprecedented heat in the Netherlands last week led to about 480 excess deaths",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -4933,9 +4380,9 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Dutch authorities said on Thursday - most of whom were aged 80 and older",
-        "quote_status": "found",
-        "quote_ratio": 1.0,
+        "quote": "Netherlands recorded about 480 excess deaths",
+        "quote_status": "missing",
+        "quote_ratio": 0.705,
         "citation_match": false,
         "grounded": true
       }
@@ -5047,7 +4494,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "most of the deaths reported in the south and east of the Netherlands where temperatures were highest",
+        "quote": "most of the deaths reported in the south and east of the Netherlands",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -5161,7 +4608,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "In Spain, areas of the southwest are on orange alert as 40C is expected in some parts",
+        "quote": "In Spain, areas of the southwest are on orange alert",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -5218,7 +4665,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "France has said it recorded an increase of more than 2,000 deaths during the last week of a record-breaking European heatwave in June",
+        "quote": "recorded an increase of more than 2,000 deaths",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -5275,7 +4722,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Deaths rose 29% in the last week of June compared to the week before",
+        "quote": "Deaths rose 29% in the last week of June",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -5389,7 +4836,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Belgium recorded 1,222 excess deaths during the heatwave",
+        "quote": "Belgium recorded 1,222 excess deaths",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -5446,7 +4893,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "The number of deaths recorded between 22 and 28 June increased by 2,025",
+        "quote": "increased by 2,025",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -5503,7 +4950,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Deaths rose by 62% in the Paris region alone",
+        "quote": "Deaths rose by 62% in the Paris region alone.",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -5560,7 +5007,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "72 people had died by drowning since 18 June",
+        "quote": "72 people had died by drowning since 18 June.",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -5617,9 +5064,9 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "the Netherlands recorded about 480 excess deaths",
-        "quote_status": "missing",
-        "quote_ratio": 0.729,
+        "quote": "about 480 excess deaths",
+        "quote_status": "found",
+        "quote_ratio": 1.0,
         "citation_match": true,
         "grounded": true
       }
@@ -5788,7 +5235,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "nearly 7,000 fires had broken out since the start of the summer season",
+        "quote": "nearly 7,000 fires had broken out",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -5845,7 +5292,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "about 8,700 hectares burned so far",
+        "quote": "about 8,700 hectares burned",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -6016,7 +5463,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "during the last week of a record-breaking European heatwave in June",
+        "quote": "recorded an increase of more than 2,000 deaths during the last week of a record-breaking European heatwave in June",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -6073,7 +5520,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "in the last week of June compared to the week before",
+        "quote": "Deaths rose 29% in the last week of June",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -6130,7 +5577,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "This summer's record-breaking temperatures have already proved particularly deadly",
+        "quote": "This summer's record-breaking temperatures have already proved particularly deadly.",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -6195,63 +5642,6 @@
       }
     },
     {
-      "subject_id": "OBS6",
-      "subject_text": "Deaths during heatwave unprecedented",
-      "subject_type": "Mortality Assessment",
-      "property": "occurredAtTime",
-      "property_source": "vocab",
-      "vocab_id": "P0558",
-      "property_is_new_to_vocab": true,
-      "property_definition": "Specifies the time, period, or event during which something happened.",
-      "property_parent": null,
-      "property_justification": "No existing schema.org property directly expresses an event occurring within a broader time period or another event.",
-      "object_id": "E18",
-      "object_text": "a heatwave",
-      "object_type": "WeatherEvent",
-      "relation_phrases": [
-        "occurred during"
-      ],
-      "phrase_directions": {
-        "occurred during": "as_is"
-      },
-      "evidence": [
-        [
-          "during a heatwave"
-        ]
-      ],
-      "confidence": 1.0,
-      "grounding": {
-        "evidence_status": "found",
-        "evidence_detail": {
-          "n_quotes": 1,
-          "found": 1,
-          "partial": 0,
-          "missing": 0,
-          "worst_ratio": 1.0
-        },
-        "evidence_resolved": [
-          {
-            "quote": "during a heatwave",
-            "status": "found",
-            "ratio": 1.0,
-            "start": 1901,
-            "end": 1918,
-            "matched_text": "during a heatwave",
-            "sentence": "The country's health ministry said the number of deaths during a heatwave was \"unprecedented\"."
-          }
-        ],
-        "orphaned": false,
-        "supported": true,
-        "failure_type": null,
-        "note": "",
-        "quote": "the number of deaths during a heatwave was \"unprecedented\"",
-        "quote_status": "found",
-        "quote_ratio": 1.0,
-        "citation_match": true,
-        "grounded": true
-      }
-    },
-    {
       "subject_id": "EV14",
       "subject_text": "Drowning deaths soared during heatwave",
       "subject_type": "Mortality Event",
@@ -6301,9 +5691,9 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Drowning deaths soared during the heatwave",
-        "quote_status": "found",
-        "quote_ratio": 1.0,
+        "quote": "Drowning deaths surged during the heatwave",
+        "quote_status": "partial",
+        "quote_ratio": 0.905,
         "citation_match": true,
         "grounded": true
       }
@@ -6358,7 +5748,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "unprecedented heat in the Netherlands last week",
+        "quote": "unprecedented heat in the Netherlands last week led to about 480 excess deaths",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -6415,10 +5805,10 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "record-breaking European heatwave in June",
+        "quote": "record-breaking European heatwave",
         "quote_status": "found",
         "quote_ratio": 1.0,
-        "citation_match": false,
+        "citation_match": true,
         "grounded": true
       }
     },
@@ -6529,10 +5919,10 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Météo-France has issued red alerts for forest fires in the southern part of the country",
-        "quote_status": "missing",
-        "quote_ratio": 0.736,
-        "citation_match": false,
+        "quote": "risk of an outbreak was \"very high\"",
+        "quote_status": "found",
+        "quote_ratio": 1.0,
+        "citation_match": true,
         "grounded": true
       }
     },
@@ -6586,10 +5976,10 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Aemet weather service has warned of the possibility of another heatwave",
+        "quote": "has warned of the possibility of another heatwave",
         "quote_status": "found",
         "quote_ratio": 1.0,
-        "citation_match": false,
+        "citation_match": true,
         "grounded": true
       }
     },
@@ -6643,7 +6033,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "forecasters warn of further extreme temperatures on the continent in the next few days",
+        "quote": "forecasters warn of further extreme temperatures",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -6700,7 +6090,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "News of the death toll comes with parts of Europe, including the UK, braced for more searing temperatures from this weekend.",
+        "quote": "parts of Europe, including the UK, braced for more searing temperatures",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -6757,64 +6147,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "BBC Weather says a large area of high pressure is currently building from the Azores towards Portugal and Spain and that by the weekend, heat is forecast to climb across France and southern Britain.",
-        "quote_status": "found",
-        "quote_ratio": 1.0,
-        "citation_match": true,
-        "grounded": true
-      }
-    },
-    {
-      "subject_id": "OBS6",
-      "subject_text": "Deaths during heatwave unprecedented",
-      "subject_type": "Mortality Assessment",
-      "property": "about",
-      "property_source": "schema.org",
-      "vocab_id": null,
-      "property_is_new_to_vocab": false,
-      "property_definition": null,
-      "property_parent": null,
-      "property_justification": "The 'about' property indicates the primary subject or topic, and 'concerns' is an explicit alias for it.",
-      "object_id": "E11",
-      "object_text": "the number of deaths",
-      "object_type": "Quantity",
-      "relation_phrases": [
-        "concerns"
-      ],
-      "phrase_directions": {
-        "concerns": "as_is"
-      },
-      "evidence": [
-        [
-          "the number of deaths"
-        ]
-      ],
-      "confidence": 1.0,
-      "grounding": {
-        "evidence_status": "found",
-        "evidence_detail": {
-          "n_quotes": 1,
-          "found": 1,
-          "partial": 0,
-          "missing": 0,
-          "worst_ratio": 1.0
-        },
-        "evidence_resolved": [
-          {
-            "quote": "the number of deaths",
-            "status": "found",
-            "ratio": 1.0,
-            "start": 1880,
-            "end": 1900,
-            "matched_text": "the number of deaths",
-            "sentence": "The country's health ministry said the number of deaths during a heatwave was \"unprecedented\"."
-          }
-        ],
-        "orphaned": false,
-        "supported": true,
-        "failure_type": null,
-        "note": "",
-        "quote": "Belgium recorded 1,222 excess deaths during the heatwave – 39% more than usual – with almost half being people aged 85 and over. The country's health ministry said the number of deaths during a heatwave was \"unprecedented\".",
+        "quote": "heat is forecast to climb across France and southern Britain",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -6871,7 +6204,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Temperatures reached almost 40C in parts of the country, with most of the deaths reported in the south and east of the Netherlands where temperatures were highest.",
+        "quote": "most of the deaths reported in the south and east of the Netherlands where temperatures were highest",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -6928,7 +6261,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "While the Netherlands is expecting a cooler week ahead, hot weather is predicted again over the weekend elsewhere.",
+        "quote": "the Netherlands is expecting a cooler week ahead",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -6985,7 +6318,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "While the Netherlands is expecting a cooler week ahead, hot weather is predicted again over the weekend elsewhere.",
+        "quote": "hot weather is predicted again over the weekend elsewhere",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -7042,7 +6375,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Météo-France has issued red alerts for Friday and Saturday for forest fires in the southern part of the country, warning that weather conditions meant the risk of an outbreak was \"very high\" compared to summer norms.",
+        "quote": "issued red alerts for Friday and Saturday for forest fires in the southern part of the country",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -7099,10 +6432,10 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Météo-France has issued red alerts for Friday and Saturday for forest fires in the southern part of the country, warning that weather conditions meant the risk of an outbreak was \"very high\" compared to summer norms.",
+        "quote": "risk of an outbreak was \"very high\" compared to summer norms",
         "quote_status": "found",
         "quote_ratio": 1.0,
-        "citation_match": true,
+        "citation_match": false,
         "grounded": true
       }
     },
@@ -7156,7 +6489,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "On Thursday, Prime Minister Sebastien Lecornu said nearly 7,000 fires had broken out since the start of the summer season, with about 8,700 hectares burned so far.",
+        "quote": "about 8,700 hectares burned so far",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -7213,10 +6546,10 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Climate change is driving up temperatures around the world - but particularly in Europe. It is the fastest warming continent, heating up twice as fast as the global average, according to the Copernicus climate service.",
+        "quote": "forecasters warn of further extreme temperatures on the continent in the next few days",
         "quote_status": "found",
         "quote_ratio": 1.0,
-        "citation_match": false,
+        "citation_match": true,
         "grounded": true
       }
     },
@@ -7270,7 +6603,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "BBC Weather says a large area of high pressure is currently building from the Azores towards Portugal and Spain and that by the weekend, heat is forecast to climb across France and southern Britain.",
+        "quote": "heat is forecast to climb across France and southern Britain",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -7327,7 +6660,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "BBC Weather says a large area of high pressure is currently building from the Azores towards Portugal and Spain and that by the weekend, heat is forecast to climb across France and southern Britain.",
+        "quote": "heat is forecast to climb across France and southern Britain",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -7384,7 +6717,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Temperatures are forecast to reach 40C in the south of France, with peaks of 36C to 37C expected around Bordeaux, Toulouse and Agen.",
+        "quote": "Temperatures are forecast to reach 40C in the south of France",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -7441,7 +6774,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "In the Iberian Peninsula, Aemet weather service has warned of the possibility of another heatwave.",
+        "quote": "In the Iberian Peninsula, Aemet weather service has warned of the possibility of another heatwave",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -7498,7 +6831,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Portugal's government declared a state of alert which will remain in place until midnight on Tuesday. Temperatures are forecast to exceed 40C in some areas, with overnight temperatures above 25C.",
+        "quote": "Temperatures are forecast to exceed 40C in some areas",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -7555,7 +6888,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "France has said it recorded an increase of more than 2,000 deaths during the last week of a record-breaking European heatwave in June as forecasters warn of further extreme temperatures on the continent in the next few days.",
+        "quote": "forecasters warn of further extreme temperatures on the continent in the next few days",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -7612,7 +6945,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "While the Netherlands is expecting a cooler week ahead, hot weather is predicted again over the weekend elsewhere.",
+        "quote": "hot weather is predicted again over the weekend elsewhere",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -7669,10 +7002,10 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "In France, the number of deaths recorded between 22 and 28 June increased by 2,025 - nearly 30%, the Public Health France agency announced on Friday. Deaths rose by 62% in the Paris region alone.",
+        "quote": "Deaths rose 29% in the last week of June compared to the week before",
         "quote_status": "found",
         "quote_ratio": 1.0,
-        "citation_match": false,
+        "citation_match": true,
         "grounded": true
       }
     },
@@ -7726,7 +7059,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Météo-France has issued red alerts for Friday and Saturday for forest fires in the southern part of the country, warning that weather conditions meant the risk of an outbreak was \"very high\" compared to summer norms.",
+        "quote": "risk of an outbreak was \"very high\" compared to summer norms",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -7783,178 +7116,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "France saw its hottest day ever on average country-wide on 24 June, with temperatures hitting almost 41C in Paris and half the nation placed under a red heat alert. News of the death toll comes with parts of Europe, including the UK, braced for more searing temperatures from this weekend.",
-        "quote_status": "found",
-        "quote_ratio": 1.0,
-        "citation_match": false,
-        "grounded": true
-      }
-    },
-    {
-      "subject_id": "CL6",
-      "subject_text": "Belgium health ministry states deaths unprecedented",
-      "subject_type": "Official Statement",
-      "property": "interpretedAsClaim",
-      "property_source": "schema.org",
-      "vocab_id": null,
-      "property_is_new_to_vocab": false,
-      "property_definition": null,
-      "property_parent": null,
-      "property_justification": "The 'interpretedAsClaim' property links a creative work (statement) to a specific assertion or claim derived from its content.",
-      "object_id": "OBS6",
-      "object_text": "Deaths during heatwave unprecedented",
-      "object_type": "Mortality Assessment",
-      "relation_phrases": [
-        "states"
-      ],
-      "phrase_directions": {
-        "states": "as_is"
-      },
-      "evidence": [
-        [
-          "the number of deaths during a heatwave was \"unprecedented\""
-        ]
-      ],
-      "confidence": 1.0,
-      "grounding": {
-        "evidence_status": "found",
-        "evidence_detail": {
-          "n_quotes": 1,
-          "found": 1,
-          "partial": 0,
-          "missing": 0,
-          "worst_ratio": 1.0
-        },
-        "evidence_resolved": [
-          {
-            "quote": "the number of deaths during a heatwave was \"unprecedented\"",
-            "status": "found",
-            "ratio": 1.0,
-            "start": 1880,
-            "end": 1938,
-            "matched_text": "the number of deaths during a heatwave was \"unprecedented\"",
-            "sentence": "The country's health ministry said the number of deaths during a heatwave was \"unprecedented\"."
-          }
-        ],
-        "orphaned": false,
-        "supported": true,
-        "failure_type": null,
-        "note": "",
-        "quote": "the country's health ministry said the number of deaths during a heatwave was \"unprecedented\".",
-        "quote_status": "found",
-        "quote_ratio": 1.0,
-        "citation_match": true,
-        "grounded": true
-      }
-    },
-    {
-      "subject_id": "CL7",
-      "subject_text": "French health ministry states figure underestimate",
-      "subject_type": "Official Statement",
-      "property": "interpretedAsClaim",
-      "property_source": "schema.org",
-      "vocab_id": null,
-      "property_is_new_to_vocab": false,
-      "property_definition": null,
-      "property_parent": null,
-      "property_justification": "The 'interpretedAsClaim' property links a creative work (statement) to a specific assertion or claim derived from its content.",
-      "object_id": "OBS9",
-      "object_text": "Death figure likely underestimate",
-      "object_type": "Mortality Assessment",
-      "relation_phrases": [
-        "states"
-      ],
-      "phrase_directions": {
-        "states": "as_is"
-      },
-      "evidence": [
-        [
-          "the figure was likely an \"underestimate\""
-        ]
-      ],
-      "confidence": 1.0,
-      "grounding": {
-        "evidence_status": "found",
-        "evidence_detail": {
-          "n_quotes": 1,
-          "found": 1,
-          "partial": 0,
-          "missing": 0,
-          "worst_ratio": 1.0
-        },
-        "evidence_resolved": [
-          {
-            "quote": "the figure was likely an \"underestimate\"",
-            "status": "found",
-            "ratio": 1.0,
-            "start": 2168,
-            "end": 2208,
-            "matched_text": "the figure was likely an \"underestimate\"",
-            "sentence": "The French health ministry said the figure was likely an \"underestimate\" and mortality would \"therefore be higher than these initial figures\"."
-          }
-        ],
-        "orphaned": false,
-        "supported": true,
-        "failure_type": null,
-        "note": "",
-        "quote": "the French health ministry said the figure was likely an \"underestimate\"",
-        "quote_status": "found",
-        "quote_ratio": 1.0,
-        "citation_match": true,
-        "grounded": true
-      }
-    },
-    {
-      "subject_id": "CL7",
-      "subject_text": "French health ministry states figure underestimate",
-      "subject_type": "Official Statement",
-      "property": "interpretedAsClaim",
-      "property_source": "schema.org",
-      "vocab_id": null,
-      "property_is_new_to_vocab": false,
-      "property_definition": null,
-      "property_parent": null,
-      "property_justification": "The 'interpretedAsClaim' property links a creative work (statement) to a specific assertion or claim derived from its content.",
-      "object_id": "OBS10",
-      "object_text": "Mortality would be higher",
-      "object_type": "Mortality Forecast",
-      "relation_phrases": [
-        "states"
-      ],
-      "phrase_directions": {
-        "states": "as_is"
-      },
-      "evidence": [
-        [
-          "mortality would \"therefore be higher than these initial figures\""
-        ]
-      ],
-      "confidence": 1.0,
-      "grounding": {
-        "evidence_status": "found",
-        "evidence_detail": {
-          "n_quotes": 1,
-          "found": 1,
-          "partial": 0,
-          "missing": 0,
-          "worst_ratio": 1.0
-        },
-        "evidence_resolved": [
-          {
-            "quote": "mortality would \"therefore be higher than these initial figures\"",
-            "status": "found",
-            "ratio": 1.0,
-            "start": 2213,
-            "end": 2277,
-            "matched_text": "mortality would \"therefore be higher than these initial figures\"",
-            "sentence": "The French health ministry said the figure was likely an \"underestimate\" and mortality would \"therefore be higher than these initial figures\"."
-          }
-        ],
-        "orphaned": false,
-        "supported": true,
-        "failure_type": null,
-        "note": "",
-        "quote": "mortality would \"therefore be higher than these initial figures\"",
+        "quote": "there had been a \"clear increase\" in deaths among those over 45",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -8011,7 +7173,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "French Interior Minister Laurent Nuñez saying on Saturday that 72 people had died by drowning since 18 June",
+        "quote": "72 people had died by drowning since 18 June",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -8125,7 +7287,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "nearly 3,000 people were evacuated after a wildfire ignited in the town of Sainte-Marie-la-Mer and spread to Canet-en-Roussillon on Thursday",
+        "quote": "Nearly 3,000 people were evacuated after a wildfire ignited in the town of Sainte-Marie-la-Mer and spread to Canet-en-Roussillon on Thursday",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -8182,7 +7344,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "nearly 3,000 people were evacuated after a wildfire ignited in the town of Sainte-Marie-la-Mer and spread to Canet-en-Roussillon on Thursday",
+        "quote": "Nearly 3,000 people were evacuated after a wildfire ignited in the town of Sainte-Marie-la-Mer and spread to Canet-en-Roussillon on Thursday",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -8239,10 +7401,10 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "temperatures hitting almost 41C in Paris",
-        "quote_status": "found",
-        "quote_ratio": 1.0,
-        "citation_match": true,
+        "quote": "Paris temperatures hit almost 41C",
+        "quote_status": "missing",
+        "quote_ratio": 0.818,
+        "citation_match": false,
         "grounded": true
       }
     },
@@ -8638,7 +7800,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Météo-France has issued red alerts for Friday and Saturday for forest fires",
+        "quote": "issued red alerts for Friday and Saturday for forest fires",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -8695,7 +7857,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "areas of the southwest are on orange alert",
+        "quote": "are on orange alert",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -8809,10 +7971,10 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "wildfire ignited in the town of Sainte-Marie-la-Mer and spread to Canet-en-Roussillon",
+        "quote": "after a wildfire ignited",
         "quote_status": "found",
         "quote_ratio": 1.0,
-        "citation_match": false,
+        "citation_match": true,
         "grounded": true
       }
     },
@@ -8866,7 +8028,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Aemet weather service has warned of the possibility of another heatwave.",
+        "quote": "possibility of another heatwave",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -8923,7 +8085,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "parts of Europe, including the UK, braced for more searing temperatures from this weekend.",
+        "quote": "including the UK, braced for more searing temperatures",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -8980,7 +8142,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Temperatures are forecast to exceed 40C in some areas, with overnight temperatures above 25C.",
+        "quote": "overnight temperatures above 25C",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -9037,67 +8199,10 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "parts of Europe... braced for more searing temperatures from this weekend.",
-        "quote_status": "partial",
+        "quote": "by the weekend, heat is forecast to climb",
+        "quote_status": "found",
         "quote_ratio": 1.0,
-        "citation_match": true,
-        "grounded": true
-      }
-    },
-    {
-      "subject_id": "EV5",
-      "subject_text": "Europe braced for searing temperatures",
-      "subject_type": "Weather Anticipation",
-      "property": "occursAfter",
-      "property_source": "vocab",
-      "vocab_id": "P0236",
-      "property_is_new_to_vocab": true,
-      "property_definition": "Indicates that the subject event occurs chronologically after the object event.",
-      "property_parent": null,
-      "property_justification": "No existing schema.org property directly expresses an event or information following news about a specific topic.",
-      "object_id": "E9",
-      "object_text": "the death toll",
-      "object_type": "Quantity",
-      "relation_phrases": [
-        "follows news of"
-      ],
-      "phrase_directions": {
-        "follows news of": "as_is"
-      },
-      "evidence": [
-        [
-          "News of the death toll comes with"
-        ]
-      ],
-      "confidence": 1.0,
-      "grounding": {
-        "evidence_status": "found",
-        "evidence_detail": {
-          "n_quotes": 1,
-          "found": 1,
-          "partial": 0,
-          "missing": 0,
-          "worst_ratio": 1.0
-        },
-        "evidence_resolved": [
-          {
-            "quote": "News of the death toll comes with",
-            "status": "found",
-            "ratio": 1.0,
-            "start": 749,
-            "end": 782,
-            "matched_text": "News of the death toll comes with",
-            "sentence": "News of the death toll comes with parts of Europe, including the UK, braced for more searing temperatures from this weekend."
-          }
-        ],
-        "orphaned": false,
-        "supported": true,
-        "failure_type": null,
-        "note": "",
-        "quote": "News of the death toll comes with parts of Europe... braced for more searing temperatures.",
-        "quote_status": "missing",
-        "quote_ratio": 0.789,
-        "citation_match": true,
+        "citation_match": false,
         "grounded": true
       }
     },
@@ -9151,7 +8256,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "a large area of high pressure is currently building from the Azores towards Portugal and Spain.",
+        "quote": "building from the Azores",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -9208,7 +8313,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "a large area of high pressure is currently building from the Azores towards Portugal and Spain.",
+        "quote": "towards Portugal",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -9265,10 +8370,10 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "a large area of high pressure is currently building from the Azores towards Portugal and Spain.",
-        "quote_status": "found",
-        "quote_ratio": 1.0,
-        "citation_match": true,
+        "quote": "towards Spain",
+        "quote_status": "missing",
+        "quote_ratio": 0.692,
+        "citation_match": false,
         "grounded": true
       }
     },
@@ -9322,9 +8427,9 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "heat is forecast to climb across France and southern Britain by the weekend.",
-        "quote_status": "missing",
-        "quote_ratio": 0.829,
+        "quote": "by the weekend, heat is forecast to climb",
+        "quote_status": "found",
+        "quote_ratio": 1.0,
         "citation_match": true,
         "grounded": true
       }
@@ -9379,10 +8484,10 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "millions of Americans celebrating the July Fourth holiday weekend... being affected by prolonged extreme heat.",
-        "quote_status": "missing",
-        "quote_ratio": 0.836,
-        "citation_match": true,
+        "quote": "Millions of Americans ... are already being affected by prolonged extreme heat and high humidity in parts of the central and eastern US",
+        "quote_status": "partial",
+        "quote_ratio": 1.0,
+        "citation_match": false,
         "grounded": true
       }
     },
@@ -9436,7 +8541,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "prolonged extreme heat and high humidity in parts of the central and eastern US.",
+        "quote": "prolonged extreme heat",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -9493,7 +8598,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "prolonged extreme heat and high humidity in parts of the central and eastern US.",
+        "quote": "high humidity",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -9550,7 +8655,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "This summer's record-breaking temperatures have already proved particularly deadly.",
+        "quote": "record-breaking temperatures have already proved particularly deadly",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -9607,9 +8712,9 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "weather conditions meant the risk of an outbreak was 'very high' compared to summer norms.",
-        "quote_status": "partial",
-        "quote_ratio": 0.9,
+        "quote": "weather conditions meant the risk of an outbreak was \"very high\" compared to summer norms",
+        "quote_status": "found",
+        "quote_ratio": 1.0,
         "citation_match": true,
         "grounded": true
       }
@@ -9664,9 +8769,9 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "nearly 3,000 people were evacuated after a wildfire ignited in the town of Sainte-Marie-la-Mer and spread to Canet-en-Roussillon.",
-        "quote_status": "found",
-        "quote_ratio": 1.0,
+        "quote": "evacuated after a wildfire ignited and spread",
+        "quote_status": "missing",
+        "quote_ratio": 0.8,
         "citation_match": false,
         "grounded": true
       }
@@ -9721,7 +8826,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Climate change is driving up temperatures around the world.",
+        "quote": "Climate change is driving up temperatures",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -9778,7 +8883,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Climate change is driving up temperatures around the world.",
+        "quote": "around the world",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -9835,10 +8940,10 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Europe... heating up twice as fast as the global average.",
-        "quote_status": "missing",
-        "quote_ratio": 0.842,
-        "citation_match": false,
+        "quote": "particularly in Europe",
+        "quote_status": "found",
+        "quote_ratio": 1.0,
+        "citation_match": true,
         "grounded": true
       }
     },
@@ -9892,10 +8997,10 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Europe... the fastest warming continent.",
+        "quote": "Europe is the fastest warming continent",
         "quote_status": "partial",
-        "quote_ratio": 0.85,
-        "citation_match": false,
+        "quote_ratio": 0.872,
+        "citation_match": true,
         "grounded": true
       }
     },
@@ -9949,9 +9054,9 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Europe... the fastest warming continent.",
-        "quote_status": "partial",
-        "quote_ratio": 0.85,
+        "quote": "the fastest warming continent",
+        "quote_status": "found",
+        "quote_ratio": 1.0,
         "citation_match": true,
         "grounded": true
       }
@@ -10006,7 +9111,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Climate change is driving up temperatures around the world - but particularly in Europe. It is the fastest warming continent, heating up twice as fast as the global average, according to the Copernicus climate service.",
+        "quote": "heating up twice as fast as the global average",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -10063,8 +9168,8 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Climate change is driving up temperatures around the world... This is causing increased summer heatwaves...",
-        "quote_status": "partial",
+        "quote": "Increased summer heatwaves",
+        "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
         "grounded": true
@@ -10120,7 +9225,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "This is causing increased summer heatwaves, greater pressure on Europe's water supply...",
+        "quote": "Greater pressure on Europe's water supply",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -10177,178 +9282,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "This is causing increased summer heatwaves... and more intense wildfires.",
-        "quote_status": "partial",
-        "quote_ratio": 1.0,
-        "citation_match": true,
-        "grounded": true
-      }
-    },
-    {
-      "subject_id": "EV12",
-      "subject_text": "More intense wildfires",
-      "subject_type": "Natural Disaster Increase",
-      "property": "category",
-      "property_source": "schema.org",
-      "vocab_id": null,
-      "property_is_new_to_vocab": false,
-      "property_definition": null,
-      "property_parent": null,
-      "property_justification": "The 'category' property provides a general classification for an item, fitting the 'is a type of' meaning.",
-      "object_id": "E99",
-      "object_text": "more intense wildfires",
-      "object_type": "NaturalDisaster",
-      "relation_phrases": [
-        "is a type of"
-      ],
-      "phrase_directions": {
-        "is a type of": "as_is"
-      },
-      "evidence": [
-        [
-          "more intense wildfires"
-        ]
-      ],
-      "confidence": 1.0,
-      "grounding": {
-        "evidence_status": "found",
-        "evidence_detail": {
-          "n_quotes": 1,
-          "found": 1,
-          "partial": 0,
-          "missing": 0,
-          "worst_ratio": 1.0
-        },
-        "evidence_resolved": [
-          {
-            "quote": "more intense wildfires",
-            "status": "found",
-            "ratio": 1.0,
-            "start": 1608,
-            "end": 1630,
-            "matched_text": "more intense wildfires",
-            "sentence": "This is causing increased summer heatwaves, greater pressure on Europe's water supply, and more intense wildfires."
-          }
-        ],
-        "orphaned": false,
-        "supported": true,
-        "failure_type": null,
-        "note": "",
-        "quote": "more intense wildfires",
-        "quote_status": "found",
-        "quote_ratio": 1.0,
-        "citation_match": true,
-        "grounded": true
-      }
-    },
-    {
-      "subject_id": "EV14",
-      "subject_text": "Drowning deaths soared during heatwave",
-      "subject_type": "Mortality Event",
-      "property": "category",
-      "property_source": "schema.org",
-      "vocab_id": null,
-      "property_is_new_to_vocab": false,
-      "property_definition": null,
-      "property_parent": null,
-      "property_justification": "The 'category' property provides a general classification for an item, fitting the 'is a type of' meaning.",
-      "object_id": "E112",
-      "object_text": "Drowning deaths",
-      "object_type": "MedicalCause",
-      "relation_phrases": [
-        "is a type of"
-      ],
-      "phrase_directions": {
-        "is a type of": "as_is"
-      },
-      "evidence": [
-        [
-          "Drowning deaths"
-        ]
-      ],
-      "confidence": 1.0,
-      "grounding": {
-        "evidence_status": "found",
-        "evidence_detail": {
-          "n_quotes": 1,
-          "found": 1,
-          "partial": 0,
-          "missing": 0,
-          "worst_ratio": 1.0
-        },
-        "evidence_resolved": [
-          {
-            "quote": "Drowning deaths",
-            "status": "found",
-            "ratio": 1.0,
-            "start": 2279,
-            "end": 2294,
-            "matched_text": "Drowning deaths",
-            "sentence": "Drowning deaths soared during the heatwave, with French Interior Minister Laurent Nuñez saying on Saturday that 72 people had died by drowning since 18 June."
-          }
-        ],
-        "orphaned": false,
-        "supported": true,
-        "failure_type": null,
-        "note": "",
-        "quote": "Drowning deaths soared during the heatwave",
-        "quote_status": "found",
-        "quote_ratio": 1.0,
-        "citation_match": true,
-        "grounded": true
-      }
-    },
-    {
-      "subject_id": "OBS11",
-      "subject_text": "72 people died by drowning",
-      "subject_type": "Mortality Count",
-      "property": "category",
-      "property_source": "schema.org",
-      "vocab_id": null,
-      "property_is_new_to_vocab": false,
-      "property_definition": null,
-      "property_parent": null,
-      "property_justification": "The 'category' property provides a general classification for an item, fitting the 'is a type of' meaning.",
-      "object_id": "E112",
-      "object_text": "Drowning deaths",
-      "object_type": "MedicalCause",
-      "relation_phrases": [
-        "is a type of"
-      ],
-      "phrase_directions": {
-        "is a type of": "as_is"
-      },
-      "evidence": [
-        [
-          "died by drowning"
-        ]
-      ],
-      "confidence": 1.0,
-      "grounding": {
-        "evidence_status": "found",
-        "evidence_detail": {
-          "n_quotes": 1,
-          "found": 1,
-          "partial": 0,
-          "missing": 0,
-          "worst_ratio": 1.0
-        },
-        "evidence_resolved": [
-          {
-            "quote": "died by drowning",
-            "status": "found",
-            "ratio": 1.0,
-            "start": 2405,
-            "end": 2421,
-            "matched_text": "died by drowning",
-            "sentence": "Drowning deaths soared during the heatwave, with French Interior Minister Laurent Nuñez saying on Saturday that 72 people had died by drowning since 18 June."
-          }
-        ],
-        "orphaned": false,
-        "supported": true,
-        "failure_type": null,
-        "note": "",
-        "quote": "72 people had died by drowning since 18 June",
+        "quote": "More intense wildfires",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -10405,7 +9339,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Belgium recorded 1,222 excess deaths during the heatwave – 39% more than usual",
+        "quote": "Belgium recorded 1,222 excess deaths during the heatwave – 39% more than usual – with almost half being people aged 85 and over.",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -10462,7 +9396,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "almost half being people aged 85 and over",
+        "quote": "Belgium recorded 1,222 excess deaths during the heatwave – 39% more than usual – with almost half being people aged 85 and over.",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -10519,7 +9453,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "most of whom were aged 80 and older",
+        "quote": "most of whom were aged 80 and older.",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -10576,7 +9510,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "almost half being people aged 85 and over",
+        "quote": "Belgium recorded 1,222 excess deaths during the heatwave – 39% more than usual – with almost half being people aged 85 and over.",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -10633,7 +9567,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "most of whom were aged 80 and older",
+        "quote": "most of whom were aged 80 and older.",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -10690,7 +9624,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "the number of deaths recorded between 22 and 28 June increased by 2,025",
+        "quote": "the number of deaths recorded between 22 and 28 June increased by 2,025 - nearly 30%",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -10747,7 +9681,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "nearly 30%",
+        "quote": "the number of deaths recorded between 22 and 28 June increased by 2,025 - nearly 30%",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -10804,292 +9738,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "the Public Health France agency announced on Friday",
-        "quote_status": "found",
-        "quote_ratio": 1.0,
-        "citation_match": true,
-        "grounded": true
-      }
-    },
-    {
-      "subject_id": "OBS8",
-      "subject_text": "Paris region deaths rose 62%",
-      "subject_type": "Mortality Increase Percentage",
-      "property": "event",
-      "property_source": "schema.org",
-      "vocab_id": null,
-      "property_is_new_to_vocab": false,
-      "property_definition": null,
-      "property_parent": null,
-      "property_justification": "The 'event' property provides a general association with a related event, fitting the meaning of 'context of'.",
-      "object_id": "OBS7",
-      "object_text": "Public Health France reports 2,025 deaths increase",
-      "object_type": "Mortality Increase",
-      "relation_phrases": [
-        "context of"
-      ],
-      "phrase_directions": {
-        "context of": "as_is"
-      },
-      "evidence": [
-        [
-          "Deaths rose by 62% in the Paris region alone."
-        ]
-      ],
-      "confidence": 1.0,
-      "grounding": {
-        "evidence_status": "found",
-        "evidence_detail": {
-          "n_quotes": 1,
-          "found": 1,
-          "partial": 0,
-          "missing": 0,
-          "worst_ratio": 1.0
-        },
-        "evidence_resolved": [
-          {
-            "quote": "Deaths rose by 62% in the Paris region alone.",
-            "status": "found",
-            "ratio": 1.0,
-            "start": 2090,
-            "end": 2135,
-            "matched_text": "Deaths rose by 62% in the Paris region alone.",
-            "sentence": "Deaths rose by 62% in the Paris region alone.\nThe French health ministry said the figure was likely an \"underestimate\" and mortality would \"therefore be higher than these initial figures\"."
-          }
-        ],
-        "orphaned": false,
-        "supported": true,
-        "failure_type": null,
-        "note": "",
-        "quote": "62% in the Paris region alone",
-        "quote_status": "found",
-        "quote_ratio": 1.0,
-        "citation_match": true,
-        "grounded": true
-      }
-    },
-    {
-      "subject_id": "EV16",
-      "subject_text": "Netherlands temperatures reached almost 40C",
-      "subject_type": "Temperature Event",
-      "property": "event",
-      "property_source": "schema.org",
-      "vocab_id": null,
-      "property_is_new_to_vocab": false,
-      "property_definition": null,
-      "property_parent": null,
-      "property_justification": "The 'event' property provides a general association with a related event, fitting the meaning of 'context of'.",
-      "object_id": "EV15",
-      "object_text": "Unprecedented heat in Netherlands",
-      "object_type": "Weather Event",
-      "relation_phrases": [
-        "context of"
-      ],
-      "phrase_directions": {
-        "context of": "as_is"
-      },
-      "evidence": [
-        [
-          "unprecedented heat in the Netherlands last week led to about 480 excess deaths"
-        ]
-      ],
-      "confidence": 1.0,
-      "grounding": {
-        "evidence_status": "found",
-        "evidence_detail": {
-          "n_quotes": 1,
-          "found": 1,
-          "partial": 0,
-          "missing": 0,
-          "worst_ratio": 1.0
-        },
-        "evidence_resolved": [
-          {
-            "quote": "unprecedented heat in the Netherlands last week led to about 480 excess deaths",
-            "status": "found",
-            "ratio": 1.0,
-            "start": 2448,
-            "end": 2526,
-            "matched_text": "unprecedented heat in the Netherlands last week led to about 480 excess deaths",
-            "sentence": "Meanwhile, unprecedented heat in the Netherlands last week led to about 480 excess deaths, Dutch authorities said on Thursday - most of whom were aged 80 and older."
-          }
-        ],
-        "orphaned": false,
-        "supported": true,
-        "failure_type": null,
-        "note": "",
-        "quote": "Unprecedented heat in the Netherlands last week... Temperatures reached almost 40C",
-        "quote_status": "partial",
-        "quote_ratio": 1.0,
-        "citation_match": false,
-        "grounded": true
-      }
-    },
-    {
-      "subject_id": "EV25",
-      "subject_text": "Portugal temperatures forecast 40C",
-      "subject_type": "Weather Forecast",
-      "property": "event",
-      "property_source": "schema.org",
-      "vocab_id": null,
-      "property_is_new_to_vocab": false,
-      "property_definition": null,
-      "property_parent": null,
-      "property_justification": "The 'event' property provides a general association with a related event, fitting the meaning of 'context of'.",
-      "object_id": "EV24",
-      "object_text": "Portugal declares state of alert",
-      "object_type": "Government Declaration",
-      "relation_phrases": [
-        "context of"
-      ],
-      "phrase_directions": {
-        "context of": "as_is"
-      },
-      "evidence": [
-        [
-          "Portugal's government declared a state of alert which will remain in place until midnight on Tuesday. Temperatures are forecast to exceed 40C"
-        ]
-      ],
-      "confidence": 1.0,
-      "grounding": {
-        "evidence_status": "found",
-        "evidence_detail": {
-          "n_quotes": 1,
-          "found": 1,
-          "partial": 0,
-          "missing": 0,
-          "worst_ratio": 1.0
-        },
-        "evidence_resolved": [
-          {
-            "quote": "Portugal's government declared a state of alert which will remain in place until midnight on Tuesday. Temperatures are forecast to exceed 40C",
-            "status": "found",
-            "ratio": 1.0,
-            "start": 3636,
-            "end": 3777,
-            "matched_text": "Portugal's government declared a state of alert which will remain in place until midnight on Tuesday. Temperatures are forecast to exceed 40C",
-            "sentence": "Portugal's government declared a state of alert which will remain in place until midnight on Tuesday. Temperatures are forecast to exceed 40C in some areas, with overnight temperatures above 25C."
-          }
-        ],
-        "orphaned": false,
-        "supported": true,
-        "failure_type": null,
-        "note": "",
-        "quote": "Portugal's government declared a state of alert... Temperatures are forecast to exceed 40C",
-        "quote_status": "partial",
-        "quote_ratio": 1.0,
-        "citation_match": false,
-        "grounded": true
-      }
-    },
-    {
-      "subject_id": "OBS9",
-      "subject_text": "Death figure likely underestimate",
-      "subject_type": "Mortality Assessment",
-      "property": "mentions",
-      "property_source": "schema.org",
-      "vocab_id": null,
-      "property_is_new_to_vocab": false,
-      "property_definition": null,
-      "property_parent": null,
-      "property_justification": "The 'mentions' property indicates that a creative work references a thing, which fits what a term or figure is referencing.",
-      "object_id": "E107",
-      "object_text": "2,025",
-      "object_type": "Quantity",
-      "relation_phrases": [
-        "refers to"
-      ],
-      "phrase_directions": {
-        "refers to": "as_is"
-      },
-      "evidence": [
-        [
-          "the figure"
-        ]
-      ],
-      "confidence": 1.0,
-      "grounding": {
-        "evidence_status": "found",
-        "evidence_detail": {
-          "n_quotes": 1,
-          "found": 1,
-          "partial": 0,
-          "missing": 0,
-          "worst_ratio": 1.0
-        },
-        "evidence_resolved": [
-          {
-            "quote": "the figure",
-            "status": "found",
-            "ratio": 1.0,
-            "start": 2168,
-            "end": 2178,
-            "matched_text": "the figure",
-            "sentence": "The French health ministry said the figure was likely an \"underestimate\" and mortality would \"therefore be higher than these initial figures\"."
-          }
-        ],
-        "orphaned": false,
-        "supported": true,
-        "failure_type": null,
-        "note": "",
-        "quote": "the figure was likely an 'underestimate' and mortality would 'therefore be higher than these initial figures'",
-        "quote_status": "partial",
-        "quote_ratio": 0.908,
-        "citation_match": true,
-        "grounded": true
-      }
-    },
-    {
-      "subject_id": "OBS10",
-      "subject_text": "Mortality would be higher",
-      "subject_type": "Mortality Forecast",
-      "property": "mentions",
-      "property_source": "schema.org",
-      "vocab_id": null,
-      "property_is_new_to_vocab": false,
-      "property_definition": null,
-      "property_parent": null,
-      "property_justification": "The 'mentions' property indicates that a creative work references a thing, which fits what a term or figure is referencing.",
-      "object_id": "E107",
-      "object_text": "2,025",
-      "object_type": "Quantity",
-      "relation_phrases": [
-        "refers to"
-      ],
-      "phrase_directions": {
-        "refers to": "as_is"
-      },
-      "evidence": [
-        [
-          "these initial figures"
-        ]
-      ],
-      "confidence": 1.0,
-      "grounding": {
-        "evidence_status": "found",
-        "evidence_detail": {
-          "n_quotes": 1,
-          "found": 1,
-          "partial": 0,
-          "missing": 0,
-          "worst_ratio": 1.0
-        },
-        "evidence_resolved": [
-          {
-            "quote": "these initial figures",
-            "status": "found",
-            "ratio": 1.0,
-            "start": 2255,
-            "end": 2276,
-            "matched_text": "these initial figures",
-            "sentence": "The French health ministry said the figure was likely an \"underestimate\" and mortality would \"therefore be higher than these initial figures\"."
-          }
-        ],
-        "orphaned": false,
-        "supported": true,
-        "failure_type": null,
-        "note": "",
-        "quote": "the French health ministry said the figure was likely an \"underestimate\" and mortality would \"therefore be higher than these initial figures\".",
+        "quote": "announced on Friday",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -11146,7 +9795,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "French Interior Minister Laurent Nuñez saying on Saturday that 72 people had died by drowning since 18 June.",
+        "quote": "with French Interior Minister Laurent Nuñez saying on Saturday that 72 people had died by drowning since 18 June.",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -11203,7 +9852,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Dutch authorities said on Thursday - most of whom were aged 80 and older.",
+        "quote": "Dutch authorities said on Thursday",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -11260,7 +9909,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "On Thursday, Prime Minister Sebastien Lecornu said nearly 7,000 fires had broken out since the start of the summer season.",
+        "quote": "On Thursday, Prime Minister Sebastien Lecornu said nearly 7,000 fires had broken out since the start of the summer season",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -11317,7 +9966,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "72 people had died by drowning since 18 June.",
+        "quote": "with French Interior Minister Laurent Nuñez saying on Saturday that 72 people had died by drowning since 18 June.",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -11374,7 +10023,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "nearly 7,000 fires had broken out since the start of the summer season.",
+        "quote": "since the start of the summer season",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -11431,7 +10080,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "unprecedented heat in the Netherlands last week led to about 480 excess deaths.",
+        "quote": "unprecedented heat in the Netherlands last week led to about 480 excess deaths",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -11555,7 +10204,64 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "areas of the southwest are on orange alert as 40C is expected in some parts.",
+        "quote": "Spain, areas of the southwest are on orange alert as 40C is expected in some parts.",
+        "quote_status": "found",
+        "quote_ratio": 1.0,
+        "citation_match": true,
+        "grounded": true
+      }
+    },
+    {
+      "subject_id": "EV19",
+      "subject_text": "Temperatures forecast 40C South France",
+      "subject_type": "Weather Forecast",
+      "property": "maxValue",
+      "property_source": "schema.org",
+      "vocab_id": null,
+      "property_is_new_to_vocab": true,
+      "property_definition": null,
+      "property_parent": null,
+      "property_justification": "No existing schema.org property directly expresses the inclusion of a range of peak values.",
+      "object_id": "E117",
+      "object_text": "peaks of 36C to 37C",
+      "object_type": "TemperatureRange",
+      "relation_phrases": [
+        "includes peaks of"
+      ],
+      "phrase_directions": {
+        "includes peaks of": "as_is"
+      },
+      "evidence": [
+        [
+          "peaks of 36C to 37C"
+        ]
+      ],
+      "confidence": 1.0,
+      "grounding": {
+        "evidence_status": "found",
+        "evidence_detail": {
+          "n_quotes": 1,
+          "found": 1,
+          "partial": 0,
+          "missing": 0,
+          "worst_ratio": 1.0
+        },
+        "evidence_resolved": [
+          {
+            "quote": "peaks of 36C to 37C",
+            "status": "found",
+            "ratio": 1.0,
+            "start": 2949,
+            "end": 2968,
+            "matched_text": "peaks of 36C to 37C",
+            "sentence": "Temperatures are forecast to reach 40C in the south of France, with peaks of 36C to 37C expected around Bordeaux, Toulouse and Agen."
+          }
+        ],
+        "orphaned": false,
+        "supported": true,
+        "failure_type": null,
+        "note": "",
+        "quote": "Temperatures are forecast to reach 40C in the south of France, with peaks of 36C to 37C expected around Bordeaux, Toulouse and Agen.",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -11612,7 +10318,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "peaks of 36C to 37C expected around Bordeaux.",
+        "quote": "Temperatures are forecast to reach 40C in the south of France, with peaks of 36C to 37C expected around Bordeaux, Toulouse and Agen.",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -11669,9 +10375,9 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "peaks of 36C to 37C expected around Toulouse.",
-        "quote_status": "missing",
-        "quote_ratio": 0.844,
+        "quote": "Temperatures are forecast to reach 40C in the south of France, with peaks of 36C to 37C expected around Bordeaux, Toulouse and Agen.",
+        "quote_status": "found",
+        "quote_ratio": 1.0,
         "citation_match": true,
         "grounded": true
       }
@@ -11726,9 +10432,66 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "peaks of 36C to 37C expected around Agen.",
-        "quote_status": "partial",
-        "quote_ratio": 0.854,
+        "quote": "Temperatures are forecast to reach 40C in the south of France, with peaks of 36C to 37C expected around Bordeaux, Toulouse and Agen.",
+        "quote_status": "found",
+        "quote_ratio": 1.0,
+        "citation_match": true,
+        "grounded": true
+      }
+    },
+    {
+      "subject_id": "CL10",
+      "subject_text": "Météo-France issues red alerts for forest fires",
+      "subject_type": "Weather Warning",
+      "property": "result",
+      "property_source": "schema.org",
+      "vocab_id": null,
+      "property_is_new_to_vocab": false,
+      "property_definition": null,
+      "property_parent": null,
+      "property_justification": "The 'result' property indicates the outcome of an action, which fits the 'Weather Alert' being the result of a 'Weather Warning' (issuing action).",
+      "object_id": "EV20",
+      "object_text": "Red alerts for forest fires",
+      "object_type": "Weather Alert",
+      "relation_phrases": [
+        "issued"
+      ],
+      "phrase_directions": {
+        "issued": "as_is"
+      },
+      "evidence": [
+        [
+          "red alerts for Friday and Saturday for forest fires in the southern part of the country"
+        ]
+      ],
+      "confidence": 1.0,
+      "grounding": {
+        "evidence_status": "found",
+        "evidence_detail": {
+          "n_quotes": 1,
+          "found": 1,
+          "partial": 0,
+          "missing": 0,
+          "worst_ratio": 1.0
+        },
+        "evidence_resolved": [
+          {
+            "quote": "red alerts for Friday and Saturday for forest fires in the southern part of the country",
+            "status": "found",
+            "ratio": 1.0,
+            "start": 3038,
+            "end": 3125,
+            "matched_text": "red alerts for Friday and Saturday for forest fires in the southern part of the country",
+            "sentence": "Météo-France has issued red alerts for Friday and Saturday for forest fires in the southern part of the country, warning that weather conditions meant the risk of an outbreak was \"very high\" compared to summer norms."
+          }
+        ],
+        "orphaned": false,
+        "supported": true,
+        "failure_type": null,
+        "note": "",
+        "quote": "Météo-France has issued red alerts for Friday and Saturday for forest fires",
+        "quote_status": "found",
+        "quote_ratio": 1.0,
         "citation_match": false,
         "grounded": true
       }
@@ -11783,7 +10546,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Météo-France has issued red alerts for Friday and Saturday for forest fires in the southern part of the country.",
+        "quote": "Météo-France has issued red alerts for Friday and Saturday for forest fires",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -11840,7 +10603,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "nearly 3,000 people were evacuated after a wildfire ignited in the town of Sainte-Marie-la-Mer and spread to Canet-en-Roussillon on Thursday.",
+        "quote": "Nearly 3,000 people were evacuated after a wildfire ignited in the town of Sainte-Marie-la-Mer and spread to Canet-en-Roussillon",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -11897,7 +10660,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "a wildfire ignited in the town of Sainte-Marie-la-Mer and spread to Canet-en-Roussillon on Thursday.",
+        "quote": "Nearly 3,000 people were evacuated after a wildfire ignited in the town of Sainte-Marie-la-Mer and spread to Canet-en-Roussillon",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -11954,7 +10717,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "a wildfire ignited in the town of Sainte-Marie-la-Mer and spread to Canet-en-Roussillon on Thursday.",
+        "quote": "Nearly 3,000 people were evacuated after a wildfire ignited in the town of Sainte-Marie-la-Mer and spread to Canet-en-Roussillon",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -12011,9 +10774,9 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Aemet weather service has warned of the possibility of another heatwave in the Iberian Peninsula.",
-        "quote_status": "missing",
-        "quote_ratio": 0.763,
+        "quote": "In the Iberian Peninsula, Aemet weather service has warned of the possibility of another heatwave",
+        "quote_status": "found",
+        "quote_ratio": 1.0,
         "citation_match": true,
         "grounded": true
       }
@@ -12068,7 +10831,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Portugal's government declared a state of alert which will remain in place until midnight on Tuesday.",
+        "quote": "Portugal's government declared a state of alert",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -12125,64 +10888,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Portugal's government declared a state of alert which will remain in place until midnight on Tuesday.",
-        "quote_status": "found",
-        "quote_ratio": 1.0,
-        "citation_match": true,
-        "grounded": true
-      }
-    },
-    {
-      "subject_id": "EV27",
-      "subject_text": "Spain 40C expected",
-      "subject_type": "Weather Forecast",
-      "property": "location",
-      "property_source": "schema.org",
-      "vocab_id": null,
-      "property_is_new_to_vocab": false,
-      "property_definition": null,
-      "property_parent": null,
-      "property_justification": "The 'location' property specifies the physical place where something is situated or expected to occur.",
-      "object_id": "E80",
-      "object_text": "some areas",
-      "object_type": "DefinedRegion",
-      "relation_phrases": [
-        "expected in"
-      ],
-      "phrase_directions": {
-        "expected in": "as_is"
-      },
-      "evidence": [
-        [
-          "in some parts"
-        ]
-      ],
-      "confidence": 1.0,
-      "grounding": {
-        "evidence_status": "found",
-        "evidence_detail": {
-          "n_quotes": 1,
-          "found": 1,
-          "partial": 0,
-          "missing": 0,
-          "worst_ratio": 1.0
-        },
-        "evidence_resolved": [
-          {
-            "quote": "in some parts",
-            "status": "found",
-            "ratio": 1.0,
-            "start": 3904,
-            "end": 3917,
-            "matched_text": "in some parts",
-            "sentence": "In Spain, areas of the southwest are on orange alert as 40C is expected in some parts."
-          }
-        ],
-        "orphaned": false,
-        "supported": true,
-        "failure_type": null,
-        "note": "",
-        "quote": "in Spain, areas of the southwest are on orange alert as 40C is expected in some parts.",
+        "quote": "state of alert which will remain in place until midnight on Tuesday",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -12302,90 +11008,34 @@
         "citation_match": true,
         "grounded": true
       }
-    },
-    {
-      "subject_id": "E53",
-      "subject_text": "Prime Minister Sebastien Lecornu",
-      "subject_type": "GovernmentOfficial",
-      "property": "affiliation",
-      "property_source": "schema.org",
-      "vocab_id": null,
-      "property_is_new_to_vocab": true,
-      "property_definition": null,
-      "property_parent": null,
-      "property_justification": "No existing schema.org property directly expresses that a government official is an official of a country or organization; 'schema:worksFor' is for employment with an Organization, not a Country.",
-      "object_id": "E1",
-      "object_text": "France",
-      "object_type": "Country",
-      "relation_phrases": [
-        "is official of"
-      ],
-      "phrase_directions": {
-        "is official of": "as_is"
-      },
-      "evidence": [
-        [
-          "Prime Minister Sebastien Lecornu"
-        ]
-      ],
-      "confidence": 1.0,
-      "grounding": {
-        "evidence_status": "found",
-        "evidence_detail": {
-          "n_quotes": 1,
-          "found": 1,
-          "partial": 0,
-          "missing": 0,
-          "worst_ratio": 1.0
-        },
-        "evidence_resolved": [
-          {
-            "quote": "Prime Minister Sebastien Lecornu",
-            "status": "found",
-            "ratio": 1.0,
-            "start": 3244,
-            "end": 3276,
-            "matched_text": "Prime Minister Sebastien Lecornu",
-            "sentence": "On Thursday, Prime Minister Sebastien Lecornu said nearly 7,000 fires had broken out since the start of the summer season, with about 8,700 hectares burned so far."
-          }
-        ],
-        "orphaned": false,
-        "supported": true,
-        "failure_type": null,
-        "note": "",
-        "quote": "Prime Minister Sebastien Lecornu",
-        "quote_status": "found",
-        "quote_ratio": 1.0,
-        "citation_match": true,
-        "grounded": true
-      }
     }
   ],
   "prune_report": {
     "nary_nodes": {
       "before": 55,
-      "after": 55,
-      "removed": 0,
-      "kept_rate": 1.0
+      "after": 52,
+      "removed": 3,
+      "kept_rate": 0.945
     },
     "relations": {
       "before": 167,
-      "after": 160,
-      "removed": 7,
-      "kept_rate": 0.958
+      "after": 139,
+      "removed": 28,
+      "kept_rate": 0.832
     },
     "entities": {
       "before": 126,
-      "after": 105,
-      "removed": 21,
-      "kept_rate": 0.833
+      "after": 101,
+      "removed": 25,
+      "kept_rate": 0.802
     },
     "unjudged_kept": 0,
     "drop_unjudged": false,
     "drop_orphan_entities": true,
     "removed_by_failure_type": {
-      "intrinsic": 5,
-      "extrinsic": 2
+      "intrinsic": 7,
+      "extrinsic": 17,
+      "orphan": 7
     }
   }
 }

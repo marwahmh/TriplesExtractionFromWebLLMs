@@ -7,29 +7,31 @@
   "grounding_report": {
     "nary_nodes": {
       "total": 38,
-      "grounded": 38,
-      "rate": 1.0,
-      "failures": {},
+      "grounded": 37,
+      "rate": 0.974,
+      "failures": {
+        "intrinsic": 1
+      },
       "citation_status": {
         "found": 38
       },
       "citation_precision": {
-        "n": 38,
-        "matched": 33,
-        "rate": 0.868
+        "n": 37,
+        "matched": 35,
+        "rate": 0.946
       },
       "judge_quote_status": {
-        "found": 33,
-        "partial": 5
+        "found": 37
       }
     },
     "relations": {
       "total": 136,
-      "grounded": 127,
-      "rate": 0.934,
+      "grounded": 112,
+      "rate": 0.824,
       "failures": {
-        "intrinsic": 7,
-        "extrinsic": 2
+        "extrinsic": 19,
+        "intrinsic": 4,
+        "orphan": 1
       },
       "citation_status": {
         "found": 129,
@@ -37,44 +39,43 @@
         "missing": 1
       },
       "citation_precision": {
-        "n": 127,
-        "matched": 108,
-        "rate": 0.85
+        "n": 112,
+        "matched": 103,
+        "rate": 0.92
       },
       "judge_quote_status": {
-        "found": 116,
-        "partial": 10,
-        "missing": 1
+        "found": 105,
+        "partial": 5,
+        "missing": 2
       }
     },
     "relations_by_property_source": {
       "vocab": {
         "total": 84,
-        "grounded": 83,
-        "rate": 0.988
+        "grounded": 71,
+        "rate": 0.845
       },
       "schema.org": {
         "total": 52,
-        "grounded": 44,
-        "rate": 0.846
+        "grounded": 41,
+        "rate": 0.788
       }
     },
     "nodes_by_type_source": {
       "not_canonicalized": {
         "total": 38,
-        "grounded": 38,
-        "rate": 1.0
+        "grounded": 37,
+        "rate": 0.974
       }
     }
   },
   "grounding_config": {
     "method": "full_article",
-    "judge_backend": "qwen3-32b-think",
-    "judge_model": "qwen3-32b",
-    "judge_batch": 20,
-    "prompt_sha1": "67305d45abb6",
+    "backend": "gpt-oss-120b",
+    "model": "accounts/fireworks/models/gpt-oss-120b",
+    "judge_batch": 60,
     "graph": "nary_graph_dedup_main_val_r1_extended_consolidated.json",
-    "self_judged": false
+    "prompt_sha1": "67305d45abb6"
   },
   "entities": [
     {
@@ -107,15 +108,6 @@
     {
       "id": "E5",
       "text": "thousands",
-      "type": "Number",
-      "aliases": [],
-      "type_source": "schema.org",
-      "type_parent": null,
-      "type_vocab_id": null
-    },
-    {
-      "id": "E6",
-      "text": "More than 10,000 electricity customers",
       "type": "Number",
       "aliases": [],
       "type_source": "schema.org",
@@ -717,6 +709,15 @@
       "type_vocab_id": null
     },
     {
+      "id": "E70",
+      "text": "the US military",
+      "type": "GovernmentOrganization",
+      "aliases": [],
+      "type_source": "schema.org",
+      "type_parent": null,
+      "type_vocab_id": null
+    },
+    {
       "id": "E71",
       "text": "Iraq",
       "type": "Country",
@@ -877,10 +878,10 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Washington state wildfires force 60,000 people to evacuate homes",
+        "quote": "Wildfires have forced around 60,000 people to evacuate parts of the north-western US state of Washington, destroying hundreds of buildings and leaving thousands without power.",
         "quote_status": "found",
         "quote_ratio": 1.0,
-        "citation_match": false,
+        "citation_match": true,
         "grounded": true
       }
     },
@@ -917,10 +918,10 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "destroying hundreds of buildings",
+        "quote": "The fires have destroyed around 700 buildings, including homes, businesses and other buildings.",
         "quote_status": "found",
         "quote_ratio": 1.0,
-        "citation_match": true,
+        "citation_match": false,
         "grounded": true
       }
     },
@@ -957,7 +958,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "More than 10,000 electricity customers were left without power",
+        "quote": "More than 10,000 electricity customers were left without power on Sunday, according to Avista Utilities.",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": false,
@@ -997,7 +998,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Three major blazes continued to burn around the city of Spokane",
+        "quote": "Three major blazes continued to burn around the city of Spokane on Monday, with officials warning the fires had not been contained.",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -1037,7 +1038,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "officials warning the fires had not been contained",
+        "quote": "with officials warning the fires had not been contained.",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -1077,7 +1078,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "the worst natural disaster our region has faced",
+        "quote": "Spokane Mayor Lisa Brown described the situation to the BBC as \"the worst natural disaster our region has faced\"",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -1157,9 +1158,9 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "were still discussing the potential for lives to be lost",
-        "quote_status": "partial",
-        "quote_ratio": 0.964,
+        "quote": "and were \"still discussing the potential for lives to be lost\".",
+        "quote_status": "found",
+        "quote_ratio": 1.0,
         "citation_match": true,
         "grounded": true
       }
@@ -1197,7 +1198,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "No deaths or injuries have been confirmed",
+        "quote": "No deaths or injuries have been confirmed.",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -1237,7 +1238,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Investigators have yet to work out how the blazes started",
+        "quote": "Investigators have yet to work out how the blazes started.",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -1277,7 +1278,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "16 large, uncontained wildfires on the landscape in Washington state",
+        "quote": "The fires in Spokane are among a total number of 16 large, uncontained wildfires on the landscape in Washington state as of Monday morning",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -1317,9 +1318,9 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "National Weather Service (NWS) had warned of 'extremely critical' fire weather",
-        "quote_status": "partial",
-        "quote_ratio": 0.885,
+        "quote": "The National Weather Service (NWS) had warned of \"extremely critical\" fire weather",
+        "quote_status": "found",
+        "quote_ratio": 1.0,
         "citation_match": true,
         "grounded": true
       }
@@ -1357,7 +1358,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "with strong winds and unusually dry conditions helping the flames spread rapidly",
+        "quote": "with strong winds and unusually dry conditions helping the flames spread rapidly.",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -1397,10 +1398,10 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Videos from Spokane... show huge plumes of smoke and roaring fires",
-        "quote_status": "partial",
+        "quote": "Videos from Spokane - the second most populous city in the state - show huge plumes of smoke and roaring fires tearing through houses",
+        "quote_status": "found",
         "quote_ratio": 1.0,
-        "citation_match": false,
+        "citation_match": true,
         "grounded": true
       }
     },
@@ -1437,7 +1438,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "as helicopters fly above trying to put out the flames",
+        "quote": "as helicopters fly above trying to put out the flames.",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -1557,7 +1558,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "around half of them had their power restored",
+        "quote": "By Monday, around half of them had their power restored.",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -1637,7 +1638,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "requested federal assistance after speaking with US President Donald Trump",
+        "quote": "and requested federal assistance after speaking with US President Donald Trump.",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -1677,7 +1678,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "The three fires around Spokane - Old Trails, Fairview and Autumn Lane - have been together named the Spokane Complex Fires.",
+        "quote": "have been together named the Spokane Complex Fires.",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -1717,7 +1718,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "the fire jumped over the Spokane River at least twice, officials say.",
+        "quote": "the fire jumped over the Spokane River at least twice",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -1757,7 +1758,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "the fire jumped over the Spokane River at least twice, officials say.",
+        "quote": "officials say",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -1797,9 +1798,9 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "one official said the burned area looks like a 'war zone'.",
-        "quote_status": "partial",
-        "quote_ratio": 0.879,
+        "quote": "one official said the burned area looks like a \"war zone\"",
+        "quote_status": "found",
+        "quote_ratio": 1.0,
         "citation_match": true,
         "grounded": true
       }
@@ -1877,7 +1878,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Spokane County Sheriff John Nowels said that officials were trying to contact 14 people to confirm they managed to safely evacuate.",
+        "quote": "Spokane County Sheriff John Nowels said that officials were trying to contact 14 people",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -1917,9 +1918,9 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Mayor Brown said: 'The most important thing is that people need to remain vigilant and be patient and comply when we ask them to be ready to evacuate or when we say it's time to evacuate.'",
-        "quote_status": "partial",
-        "quote_ratio": 0.894,
+        "quote": "Mayor Brown said: \"The most important thing is that people need to remain vigilant and be patient and comply when we ask them to be ready to evacuate or when we say it's time to evacuate.\"",
+        "quote_status": "found",
+        "quote_ratio": 1.0,
         "citation_match": true,
         "grounded": true
       }
@@ -2037,10 +2038,10 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Our firefighters are already stretched thin across the state...",
+        "quote": "\"Our firefighters are already stretched thin across the state",
         "quote_status": "found",
         "quote_ratio": 1.0,
-        "citation_match": false,
+        "citation_match": true,
         "grounded": true
       }
     },
@@ -2117,7 +2118,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "I'm urging all Washingtonians to not be that spark.",
+        "quote": "\"I'm urging all Washingtonians to not be that spark.",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -2157,7 +2158,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "More than 900 firefighters are currently assigned to the blazes...",
+        "quote": "More than 900 firefighters are currently assigned to the blazes in Washington",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -2237,7 +2238,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Officials are reminding the public that it is illegal to fly drones near the fires...",
+        "quote": "Officials are reminding the public that it is illegal to fly drones near the fires",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -2317,47 +2318,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Scientists have said that human-induced climate change makes the warm, dry conditions that lead to wildfires more likely...",
-        "quote_status": "found",
-        "quote_ratio": 1.0,
-        "citation_match": false,
-        "grounded": true
-      }
-    },
-    {
-      "id": "OBS9",
-      "node_kind": "Observation",
-      "type": "WeatherExpectation",
-      "label": "Lighter winds expected",
-      "is_main": false,
-      "evidence": [
-        "Although lighter winds are expected"
-      ],
-      "confidence": 0.9,
-      "grounding": {
-        "evidence_status": "found",
-        "evidence_detail": {
-          "n_quotes": 1,
-          "found": 1,
-          "partial": 0,
-          "missing": 0,
-          "worst_ratio": 1.0
-        },
-        "evidence_resolved": [
-          {
-            "quote": "Although lighter winds are expected",
-            "status": "found",
-            "ratio": 1.0,
-            "start": 2709,
-            "end": 2744,
-            "matched_text": "Although lighter winds are expected",
-            "sentence": "\"\nAlthough lighter winds are expected, forecasters have warned temperatures are likely to rise again later in the week."
-          }
-        ],
-        "supported": true,
-        "failure_type": null,
-        "note": "",
-        "quote": "Although lighter winds are expected...",
+        "quote": "Scientists have said that human-induced climate change makes the warm, dry conditions that lead to wildfires more likely",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -2469,7 +2430,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Wildfires have forced around 60,000 people to evacuate",
+        "quote": "Wildfires have forced around 60,000 people to evacuate parts of the north-western US state of Washington",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -2524,117 +2485,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "More than 10,000 electricity customers were left without power on Sunday",
-        "quote_status": "found",
-        "quote_ratio": 1.0,
-        "citation_match": false,
-        "grounded": true
-      }
-    },
-    {
-      "subject_id": "OBS5",
-      "subject_text": "10,000 electricity customers without power",
-      "subject_type": "PowerOutageCount",
-      "property": "hasCount",
-      "property_source": "vocab",
-      "vocab_id": "P0061",
-      "property_is_new_to_vocab": true,
-      "property_definition": "The subject has the specified numerical quantity.",
-      "property_parent": "value",
-      "property_justification": "No schema.org property captures the relation of an impact/status affecting a numerical count.",
-      "object_id": "E6",
-      "object_text": "More than 10,000 electricity customers",
-      "object_type": "Number",
-      "relation_phrases": [
-        "affected"
-      ],
-      "phrase_directions": {
-        "affected": "as_is"
-      },
-      "evidence": [
-        "More than 10,000 electricity customers"
-      ],
-      "confidence": 0.95,
-      "grounding": {
-        "evidence_status": "found",
-        "evidence_detail": {
-          "n_quotes": 1,
-          "found": 1,
-          "partial": 0,
-          "missing": 0,
-          "worst_ratio": 1.0
-        },
-        "evidence_resolved": [
-          {
-            "quote": "More than 10,000 electricity customers",
-            "status": "found",
-            "ratio": 1.0,
-            "start": 1461,
-            "end": 1499,
-            "matched_text": "More than 10,000 electricity customers",
-            "sentence": "More than 10,000 electricity customers were left without power on Sunday, according to Avista Utilities."
-          }
-        ],
-        "orphaned": false,
-        "supported": true,
-        "failure_type": null,
-        "note": "",
-        "quote": "More than 10,000 electricity customers were left without power on Sunday",
-        "quote_status": "found",
-        "quote_ratio": 1.0,
-        "citation_match": true,
-        "grounded": true
-      }
-    },
-    {
-      "subject_id": "OBS6",
-      "subject_text": "Half of customers had power restored",
-      "subject_type": "PowerRestorationStatus",
-      "property": "hasCount",
-      "property_source": "vocab",
-      "vocab_id": "P0061",
-      "property_is_new_to_vocab": true,
-      "property_definition": "The subject has the specified numerical quantity.",
-      "property_parent": "value",
-      "property_justification": "No schema.org property captures the relation of an impact/status affecting a numerical count.",
-      "object_id": "E6",
-      "object_text": "More than 10,000 electricity customers",
-      "object_type": "Number",
-      "relation_phrases": [
-        "affected"
-      ],
-      "phrase_directions": {
-        "affected": "as_is"
-      },
-      "evidence": [
-        "around half of them"
-      ],
-      "confidence": 0.95,
-      "grounding": {
-        "evidence_status": "found",
-        "evidence_detail": {
-          "n_quotes": 1,
-          "found": 1,
-          "partial": 0,
-          "missing": 0,
-          "worst_ratio": 1.0
-        },
-        "evidence_resolved": [
-          {
-            "quote": "around half of them",
-            "status": "found",
-            "ratio": 1.0,
-            "start": 1577,
-            "end": 1596,
-            "matched_text": "around half of them",
-            "sentence": "By Monday, around half of them had their power restored."
-          }
-        ],
-        "orphaned": false,
-        "supported": true,
-        "failure_type": null,
-        "note": "",
-        "quote": "By Monday, around half of them had their power restored",
+        "quote": "leaving thousands without power.",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -2693,61 +2544,6 @@
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
-        "grounded": true
-      }
-    },
-    {
-      "subject_id": "EV1",
-      "subject_text": "Wildfires force evacuations",
-      "subject_type": "WildfireImpact",
-      "property": "fromLocation",
-      "property_source": "schema.org",
-      "vocab_id": null,
-      "property_is_new_to_vocab": false,
-      "property_definition": null,
-      "property_parent": null,
-      "property_justification": "The subjects imply an action or event of origin, and the objects are places, fitting fromLocation.",
-      "object_id": "E9",
-      "object_text": "homes",
-      "object_type": "BuildingType",
-      "relation_phrases": [
-        "from"
-      ],
-      "phrase_directions": {
-        "from": "as_is"
-      },
-      "evidence": [
-        "evacuate homes"
-      ],
-      "confidence": 0.95,
-      "grounding": {
-        "evidence_status": "found",
-        "evidence_detail": {
-          "n_quotes": 1,
-          "found": 1,
-          "partial": 0,
-          "missing": 0,
-          "worst_ratio": 1.0
-        },
-        "evidence_resolved": [
-          {
-            "quote": "evacuate homes",
-            "status": "found",
-            "ratio": 1.0,
-            "start": 57,
-            "end": 71,
-            "matched_text": "evacuate homes",
-            "sentence": "Title: Washington state wildfires force 60,000 people to evacuate homes\nURL: https://www."
-          }
-        ],
-        "orphaned": false,
-        "supported": true,
-        "failure_type": null,
-        "note": "",
-        "quote": "Wildfires have forced around 60,000 people to evacuate parts of the north-western US state of Washington, destroying hundreds of buildings and leaving thousands without power",
-        "quote_status": "found",
-        "quote_ratio": 1.0,
-        "citation_match": false,
         "grounded": true
       }
     },
@@ -2854,7 +2650,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "More reinforcements expected to arrive from other states in the coming days",
+        "quote": "More than 900 firefighters are currently assigned to the blazes in Washington, with more reinforcements expected to arrive from other states in the coming days.",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -2909,7 +2705,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "The fires have destroyed around 700 buildings, including homes, businesses and other buildings",
+        "quote": "The fires have destroyed around 700 buildings, including homes, businesses and other buildings.",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": false,
@@ -2964,7 +2760,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "leaving thousands without power",
+        "quote": "leaving thousands without power.",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -3019,7 +2815,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "The fires have destroyed around 700 buildings",
+        "quote": "The fires have destroyed around 700 buildings, including homes, businesses and other buildings.",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -3074,7 +2870,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Drones disrupted operations 26 times on Sunday",
+        "quote": "Drones disrupted operations 26 times on Sunday.",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -3129,62 +2925,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "leaving thousands without power",
-        "quote_status": "found",
-        "quote_ratio": 1.0,
-        "citation_match": true,
-        "grounded": true
-      }
-    },
-    {
-      "subject_id": "E20",
-      "subject_text": "Three major blazes",
-      "subject_type": "Number",
-      "property": "hasCount",
-      "property_source": "vocab",
-      "vocab_id": "P0061",
-      "property_is_new_to_vocab": true,
-      "property_definition": "The subject has the specified numerical quantity.",
-      "property_parent": "value",
-      "property_justification": "No schema.org property captures a numerical count of an ongoing event.",
-      "object_id": "EV4",
-      "object_text": "Major blazes burn around Spokane",
-      "object_type": "OngoingWildfires",
-      "relation_phrases": [
-        "continued to burn"
-      ],
-      "phrase_directions": {
-        "continued to burn": "as_is"
-      },
-      "evidence": [
-        "Three major blazes continued to burn"
-      ],
-      "confidence": 0.95,
-      "grounding": {
-        "evidence_status": "found",
-        "evidence_detail": {
-          "n_quotes": 1,
-          "found": 1,
-          "partial": 0,
-          "missing": 0,
-          "worst_ratio": 1.0
-        },
-        "evidence_resolved": [
-          {
-            "quote": "Three major blazes continued to burn",
-            "status": "found",
-            "ratio": 1.0,
-            "start": 318,
-            "end": 354,
-            "matched_text": "Three major blazes continued to burn",
-            "sentence": "Three major blazes continued to burn around the city of Spokane on Monday, with officials warning the fires had not been contained."
-          }
-        ],
-        "orphaned": false,
-        "supported": true,
-        "failure_type": null,
-        "note": "",
-        "quote": "Three major blazes continued to burn around the city of Spokane on Monday",
+        "quote": "leaving thousands without power.",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -3239,7 +2980,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Three major blazes continued to burn around the city of Spokane on Monday",
+        "quote": "Three major blazes continued to burn around the city of Spokane",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -3302,61 +3043,6 @@
       }
     },
     {
-      "subject_id": "OBS5",
-      "subject_text": "10,000 electricity customers without power",
-      "subject_type": "PowerOutageCount",
-      "property": "observationDate",
-      "property_source": "schema.org",
-      "vocab_id": null,
-      "property_is_new_to_vocab": false,
-      "property_definition": null,
-      "property_parent": null,
-      "property_justification": "The subjects are observations/events and the object is a specific day, fitting observationDate.",
-      "object_id": "E24",
-      "object_text": "Sunday",
-      "object_type": "DayOfWeek",
-      "relation_phrases": [
-        "on"
-      ],
-      "phrase_directions": {
-        "on": "as_is"
-      },
-      "evidence": [
-        "on Sunday"
-      ],
-      "confidence": 0.95,
-      "grounding": {
-        "evidence_status": "found",
-        "evidence_detail": {
-          "n_quotes": 1,
-          "found": 1,
-          "partial": 0,
-          "missing": 0,
-          "worst_ratio": 1.0
-        },
-        "evidence_resolved": [
-          {
-            "quote": "on Sunday",
-            "status": "found",
-            "ratio": 1.0,
-            "start": 1524,
-            "end": 1533,
-            "matched_text": "on Sunday",
-            "sentence": "More than 10,000 electricity customers were left without power on Sunday, according to Avista Utilities."
-          }
-        ],
-        "orphaned": false,
-        "supported": true,
-        "failure_type": null,
-        "note": "",
-        "quote": "More than 10,000 electricity customers were left without power on Sunday",
-        "quote_status": "found",
-        "quote_ratio": 1.0,
-        "citation_match": true,
-        "grounded": true
-      }
-    },
-    {
       "subject_id": "CL8",
       "subject_text": "Official describes burned area as war zone",
       "subject_type": "AreaDescription",
@@ -3404,7 +3090,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "At a news conference on Monday, one official said the burned area looks like a \"war zone\"",
+        "quote": "At a news conference on Monday, one official said the burned area looks like a \"war zone\".",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -3569,7 +3255,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "a statewide ban on all outdoor fires",
+        "quote": "statewide ban on all outdoor fires",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -3624,120 +3310,10 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "our tinder dry landscapes",
+        "quote": "any new spark on our tinder dry landscapes can lead to another devastating wildfire",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
-        "grounded": true
-      }
-    },
-    {
-      "subject_id": "E25",
-      "subject_text": "officials",
-      "subject_type": "Role",
-      "property": "issuesWarning",
-      "property_source": "vocab",
-      "vocab_id": "P0316",
-      "property_is_new_to_vocab": true,
-      "property_definition": "The subject issues a warning, which is the object.",
-      "property_parent": null,
-      "property_justification": "No schema.org property captures the issuance of a general warning by a role.",
-      "object_id": "CL1",
-      "object_text": "Officials warn fires uncontained",
-      "object_type": "WildfireStatusWarning",
-      "relation_phrases": [
-        "warned"
-      ],
-      "phrase_directions": {
-        "warned": "as_is"
-      },
-      "evidence": [
-        "officials warning"
-      ],
-      "confidence": 0.9,
-      "grounding": {
-        "evidence_status": "found",
-        "evidence_detail": {
-          "n_quotes": 1,
-          "found": 1,
-          "partial": 0,
-          "missing": 0,
-          "worst_ratio": 1.0
-        },
-        "evidence_resolved": [
-          {
-            "quote": "officials warning",
-            "status": "found",
-            "ratio": 1.0,
-            "start": 398,
-            "end": 415,
-            "matched_text": "officials warning",
-            "sentence": "Three major blazes continued to burn around the city of Spokane on Monday, with officials warning the fires had not been contained."
-          }
-        ],
-        "orphaned": false,
-        "supported": true,
-        "failure_type": null,
-        "note": "",
-        "quote": "Three major blazes continued to burn around the city of Spokane on Monday, with officials warning the fires had not been contained.",
-        "quote_status": "found",
-        "quote_ratio": 1.0,
-        "citation_match": true,
-        "grounded": true
-      }
-    },
-    {
-      "subject_id": "CL1",
-      "subject_text": "Officials warn fires uncontained",
-      "subject_type": "WildfireStatusWarning",
-      "property": "about",
-      "property_source": "schema.org",
-      "vocab_id": null,
-      "property_is_new_to_vocab": false,
-      "property_definition": null,
-      "property_parent": null,
-      "property_justification": "The 'about' property broadly covers the subject matter of various entities, fitting all instances.",
-      "object_id": "EV4",
-      "object_text": "Major blazes burn around Spokane",
-      "object_type": "OngoingWildfires",
-      "relation_phrases": [
-        "about"
-      ],
-      "phrase_directions": {
-        "about": "as_is"
-      },
-      "evidence": [
-        "the fires had not been contained"
-      ],
-      "confidence": 0.9,
-      "grounding": {
-        "evidence_status": "found",
-        "evidence_detail": {
-          "n_quotes": 1,
-          "found": 1,
-          "partial": 0,
-          "missing": 0,
-          "worst_ratio": 1.0
-        },
-        "evidence_resolved": [
-          {
-            "quote": "the fires had not been contained",
-            "status": "found",
-            "ratio": 1.0,
-            "start": 416,
-            "end": 448,
-            "matched_text": "the fires had not been contained",
-            "sentence": "Three major blazes continued to burn around the city of Spokane on Monday, with officials warning the fires had not been contained."
-          }
-        ],
-        "orphaned": false,
-        "supported": true,
-        "failure_type": null,
-        "note": "",
-        "quote": "Three major blazes continued to burn around the city of Spokane on Monday",
-        "quote_status": "found",
-        "quote_ratio": 1.0,
-        "citation_match": false,
         "grounded": true
       }
     },
@@ -3789,9 +3365,9 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "were still discussing the potential for lives to be lost",
+        "quote": "authorities were ... still discussing the potential for lives to be lost",
         "quote_status": "partial",
-        "quote_ratio": 0.964,
+        "quote_ratio": 1.0,
         "citation_match": true,
         "grounded": true
       }
@@ -3954,7 +3530,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "it is illegal to fly drones near the fires",
+        "quote": "Officials are reminding the public that it is illegal to fly drones near the fires",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -4009,10 +3585,10 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "human-induced climate change makes the warm, dry conditions that lead to wildfires more likely",
+        "quote": "Scientists have said that human-induced climate change makes the warm, dry conditions that lead to wildfires more likely",
         "quote_status": "found",
         "quote_ratio": 1.0,
-        "citation_match": true,
+        "citation_match": false,
         "grounded": true
       }
     },
@@ -4119,7 +3695,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Spokane Mayor Lisa Brown described the situation to the BBC",
+        "quote": "Spokane Mayor Lisa Brown described the situation to the BBC as \"the worst natural disaster our region has faced\"",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -4174,65 +3750,10 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "I can tell you today that that's a war zone",
+        "quote": "Maj Gen Gent Welsh, who commands the state's National Guard, said the scene reminded him of his time serving in the US military in Iraq.",
         "quote_status": "found",
         "quote_ratio": 1.0,
-        "citation_match": false,
-        "grounded": true
-      }
-    },
-    {
-      "subject_id": "CL2",
-      "subject_text": "Lisa Brown describes situation as worst natural disaster",
-      "subject_type": "DisasterDescription",
-      "property": "expresses",
-      "property_source": "vocab",
-      "vocab_id": "P0415",
-      "property_is_new_to_vocab": true,
-      "property_definition": "The subject makes information known or visible about the object.",
-      "property_parent": null,
-      "property_justification": "No schema.org property captures a description of a situation or area as an object.",
-      "object_id": "EV1",
-      "object_text": "Wildfires force evacuations",
-      "object_type": "WildfireImpact",
-      "relation_phrases": [
-        "describes"
-      ],
-      "phrase_directions": {
-        "describes": "as_is"
-      },
-      "evidence": [
-        "the situation"
-      ],
-      "confidence": 0.95,
-      "grounding": {
-        "evidence_status": "found",
-        "evidence_detail": {
-          "n_quotes": 1,
-          "found": 1,
-          "partial": 0,
-          "missing": 0,
-          "worst_ratio": 1.0
-        },
-        "evidence_resolved": [
-          {
-            "quote": "the situation",
-            "status": "found",
-            "ratio": 1.0,
-            "start": 485,
-            "end": 498,
-            "matched_text": "the situation",
-            "sentence": "Spokane Mayor Lisa Brown described the situation to the BBC as \"the worst natural disaster our region has faced\", adding that authorities were assessing the extent of the damage and were \"still discussing the potential for lives to be lost\"."
-          }
-        ],
-        "orphaned": false,
-        "supported": true,
-        "failure_type": null,
-        "note": "",
-        "quote": "the worst natural disaster our region has faced",
-        "quote_status": "found",
-        "quote_ratio": 1.0,
-        "citation_match": false,
+        "citation_match": true,
         "grounded": true
       }
     },
@@ -4284,7 +3805,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "the burned area looks like a \"war zone\"",
+        "quote": "At a news conference on Monday, one official said the burned area looks like a \"war zone\".",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -4339,65 +3860,10 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "the worst natural disaster our region has faced",
+        "quote": "Spokane Mayor Lisa Brown described the situation to the BBC as \"the worst natural disaster our region has faced\"",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
-        "grounded": true
-      }
-    },
-    {
-      "subject_id": "CL2",
-      "subject_text": "Lisa Brown describes situation as worst natural disaster",
-      "subject_type": "DisasterDescription",
-      "property": "about",
-      "property_source": "schema.org",
-      "vocab_id": null,
-      "property_is_new_to_vocab": false,
-      "property_definition": null,
-      "property_parent": null,
-      "property_justification": "The DisasterDescription is 'about' or 'concerns' the DefinedRegion, fitting the 'about' property.",
-      "object_id": "E16",
-      "object_text": "parts of the north-western US state of Washington",
-      "object_type": "DefinedRegion",
-      "relation_phrases": [
-        "affecting"
-      ],
-      "phrase_directions": {
-        "affecting": "as_is"
-      },
-      "evidence": [
-        "our region"
-      ],
-      "confidence": 0.95,
-      "grounding": {
-        "evidence_status": "found",
-        "evidence_detail": {
-          "n_quotes": 1,
-          "found": 1,
-          "partial": 0,
-          "missing": 0,
-          "worst_ratio": 1.0
-        },
-        "evidence_resolved": [
-          {
-            "quote": "our region",
-            "status": "found",
-            "ratio": 1.0,
-            "start": 541,
-            "end": 551,
-            "matched_text": "our region",
-            "sentence": "Spokane Mayor Lisa Brown described the situation to the BBC as \"the worst natural disaster our region has faced\", adding that authorities were assessing the extent of the damage and were \"still discussing the potential for lives to be lost\"."
-          }
-        ],
-        "orphaned": false,
-        "supported": true,
-        "failure_type": null,
-        "note": "",
-        "quote": "parts of the north-western US state of Washington",
-        "quote_status": "found",
-        "quote_ratio": 1.0,
-        "citation_match": false,
         "grounded": true
       }
     },
@@ -4449,7 +3915,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Spokane Mayor Lisa Brown described the situation to the BBC as \"the worst natural disaster our region has faced\", adding that authorities were assessing the extent of the damage and were \"still discussing the potential for lives to be lost\".",
+        "quote": "authorities were assessing the extent of the damage",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -4504,10 +3970,10 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Spokane Mayor Lisa Brown described the situation to the BBC as \"the worst natural disaster our region has faced\", adding that authorities were assessing the extent of the damage and were \"still discussing the potential for lives to be lost\".",
-        "quote_status": "found",
+        "quote": "authorities were ... still discussing the potential for lives to be lost",
+        "quote_status": "partial",
         "quote_ratio": 1.0,
-        "citation_match": false,
+        "citation_match": true,
         "grounded": true
       }
     },
@@ -4559,7 +4025,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Spokane Mayor Lisa Brown described the situation to the BBC as \"the worst natural disaster our region has faced\", adding that authorities were assessing the extent of the damage and were \"still discussing the potential for lives to be lost\".",
+        "quote": "authorities were assessing the extent of the damage",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -4614,7 +4080,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "The National Weather Service (NWS) had warned of \"extremely critical\" fire weather over the weekend, with strong winds and unusually dry conditions helping the flames spread rapidly.",
+        "quote": "The National Weather Service (NWS) had warned of \"extremely critical\" fire weather",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -4669,7 +4135,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "No deaths or injuries have been confirmed. Investigators have yet to work out how the blazes started.",
+        "quote": "No deaths or injuries have been confirmed.",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -4724,7 +4190,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "No deaths or injuries have been confirmed. Investigators have yet to work out how the blazes started.",
+        "quote": "No deaths or injuries have been confirmed.",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -4889,10 +4355,10 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "The fires in Spokane are among a total number of 16 large, uncontained wildfires on the landscape in Washington state as of Monday morning, according to the state's department of natural resources.",
+        "quote": "Investigators have yet to work out how the blazes started.",
         "quote_status": "found",
         "quote_ratio": 1.0,
-        "citation_match": false,
+        "citation_match": true,
         "grounded": true
       }
     },
@@ -4944,7 +4410,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "The fires in Spokane are among a total number of 16 large, uncontained wildfires on the landscape in Washington state as of Monday morning, according to the state's department of natural resources.",
+        "quote": "The fires in Spokane are among a total number of 16 large, uncontained wildfires on the landscape in Washington state as of Monday morning",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -5329,7 +4795,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "The fires in Spokane are among a total number of 16 large, uncontained wildfires on the landscape in Washington state as of Monday morning, according to the state's department of natural resources.",
+        "quote": "The fires in Spokane are among a total number of 16 large, uncontained wildfires on the landscape in Washington state as of Monday morning",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -5384,7 +4850,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Commissioner of Public Lands Dave Upthegrove in a written statement: \"Our firefighters are already stretched thin across the state, and with more heat and wind expected this weekend and for the rest of the summer, any new spark on our tinder dry landscapes can lead to another devastating wildfire.\"",
+        "quote": "Our firefighters are already stretched thin across the state",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -5439,7 +4905,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "More than 900 firefighters are currently assigned to the blazes in Washington, with more reinforcements expected to arrive from other states in the coming days.",
+        "quote": "More than 900 firefighters are currently assigned to the blazes in Washington",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -5494,7 +4960,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "The fires in Spokane are among a total number of 16 large, uncontained wildfires on the landscape in Washington state as of Monday morning, according to the state's department of natural resources.",
+        "quote": "The fires in Spokane are among a total number of 16 large, uncontained wildfires on the landscape in Washington state as of Monday morning",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -5549,7 +5015,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "The state's department of natural resources.",
+        "quote": "according to the state's department of natural resources.",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -5604,10 +5070,10 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Avista Utilities.",
+        "quote": "More than 10,000 electricity customers were left without power on Sunday, according to Avista Utilities.",
         "quote_status": "found",
         "quote_ratio": 1.0,
-        "citation_match": false,
+        "citation_match": true,
         "grounded": true
       }
     },
@@ -5659,9 +5125,9 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "The National Weather Service (NWS) had warned of 'extremely critical' fire weather over the weekend",
-        "quote_status": "partial",
-        "quote_ratio": 0.909,
+        "quote": "The National Weather Service (NWS) had warned of \"extremely critical\" fire weather over the weekend",
+        "quote_status": "found",
+        "quote_ratio": 1.0,
         "citation_match": true,
         "grounded": true
       }
@@ -5714,7 +5180,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "over the weekend",
+        "quote": "The National Weather Service (NWS) had warned of \"extremely critical\" fire weather over the weekend",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -5824,62 +5290,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "with strong winds and unusually dry conditions helping the flames spread rapidly",
-        "quote_status": "found",
-        "quote_ratio": 1.0,
-        "citation_match": true,
-        "grounded": true
-      }
-    },
-    {
-      "subject_id": "E48",
-      "subject_text": "warm, dry conditions",
-      "subject_type": "WeatherCondition",
-      "property": "contributesTo",
-      "property_source": "vocab",
-      "vocab_id": "P0329",
-      "property_is_new_to_vocab": true,
-      "property_definition": "The subject was a factor in the occurrence of the object.",
-      "property_parent": null,
-      "property_justification": "No schema.org property captures a general causal contribution from weather conditions to a factor.",
-      "object_id": "EV5",
-      "object_text": "Winds and dry conditions helped flames spread",
-      "object_type": "FireSpreadFactor",
-      "relation_phrases": [
-        "contributed to"
-      ],
-      "phrase_directions": {
-        "contributed to": "as_is"
-      },
-      "evidence": [
-        "helping the flames spread rapidly"
-      ],
-      "confidence": 0.9,
-      "grounding": {
-        "evidence_status": "found",
-        "evidence_detail": {
-          "n_quotes": 1,
-          "found": 1,
-          "partial": 0,
-          "missing": 0,
-          "worst_ratio": 1.0
-        },
-        "evidence_resolved": [
-          {
-            "quote": "helping the flames spread rapidly",
-            "status": "found",
-            "ratio": 1.0,
-            "start": 1140,
-            "end": 1173,
-            "matched_text": "helping the flames spread rapidly",
-            "sentence": "The National Weather Service (NWS) had warned of \"extremely critical\" fire weather over the weekend, with strong winds and unusually dry conditions helping the flames spread rapidly."
-          }
-        ],
-        "orphaned": false,
-        "supported": true,
-        "failure_type": null,
-        "note": "",
-        "quote": "with strong winds and unusually dry conditions helping the flames spread rapidly",
+        "quote": "strong winds and unusually dry conditions helping the flames spread rapidly",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -5934,8 +5345,8 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Videos from Spokane... show huge plumes of smoke and roaring fires",
-        "quote_status": "partial",
+        "quote": "Videos from Spokane - the second most populous city in the state - show huge plumes of smoke and roaring fires tearing through houses",
+        "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": false,
         "grounded": true
@@ -5993,61 +5404,6 @@
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
-        "grounded": true
-      }
-    },
-    {
-      "subject_id": "OBS3",
-      "subject_text": "Videos show smoke and fires",
-      "subject_type": "VisualEvidence",
-      "property": "expresses",
-      "property_source": "vocab",
-      "vocab_id": "P0415",
-      "property_is_new_to_vocab": true,
-      "property_definition": "The subject makes information known or visible about the object.",
-      "property_parent": null,
-      "property_justification": "No schema.org property captures a general 'depicts' relation for visual evidence.",
-      "object_id": "E53",
-      "object_text": "flames",
-      "object_type": "NaturalPhenomenon",
-      "relation_phrases": [
-        "depict"
-      ],
-      "phrase_directions": {
-        "depict": "as_is"
-      },
-      "evidence": [
-        "and roaring fires tearing through houses"
-      ],
-      "confidence": 0.9,
-      "grounding": {
-        "evidence_status": "found",
-        "evidence_detail": {
-          "n_quotes": 1,
-          "found": 1,
-          "partial": 0,
-          "missing": 0,
-          "worst_ratio": 1.0
-        },
-        "evidence_resolved": [
-          {
-            "quote": "and roaring fires tearing through houses",
-            "status": "found",
-            "ratio": 1.0,
-            "start": 1268,
-            "end": 1308,
-            "matched_text": "and roaring fires tearing through houses",
-            "sentence": "Videos from Spokane - the second most populous city in the state - show huge plumes of smoke and roaring fires tearing through houses, as helicopters fly above trying to put out the flames."
-          }
-        ],
-        "orphaned": false,
-        "supported": true,
-        "failure_type": null,
-        "note": "",
-        "quote": "show... roaring fires",
-        "quote_status": "partial",
-        "quote_ratio": 1.0,
-        "citation_match": false,
         "grounded": true
       }
     },
@@ -6156,7 +5512,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "helicopters fly above trying to put out the flames",
+        "quote": "as helicopters fly above trying to put out the flames",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -6211,7 +5567,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "trying to put out the flames",
+        "quote": "as helicopters fly above trying to put out the flames",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -6266,7 +5622,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "urging all Washingtonians to not be that spark",
+        "quote": "I'm urging all Washingtonians to not be that spark.",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -6321,117 +5677,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Officials are reminding the public that it is illegal to fly drones",
-        "quote_status": "found",
-        "quote_ratio": 1.0,
-        "citation_match": true,
-        "grounded": true
-      }
-    },
-    {
-      "subject_id": "OBS4",
-      "subject_text": "700 buildings destroyed",
-      "subject_type": "BuildingsDestroyedCount",
-      "property": "hasCount",
-      "property_source": "vocab",
-      "vocab_id": "P0061",
-      "property_is_new_to_vocab": true,
-      "property_definition": "The subject has the specified numerical quantity.",
-      "property_parent": "value",
-      "property_justification": "No schema.org property captures a count quantifying an event or impact.",
-      "object_id": "EV2",
-      "object_text": "Wildfires destroy buildings",
-      "object_type": "BuildingDestruction",
-      "relation_phrases": [
-        "quantifies"
-      ],
-      "phrase_directions": {
-        "quantifies": "as_is"
-      },
-      "evidence": [
-        "destroyed around 700 buildings"
-      ],
-      "confidence": 0.95,
-      "grounding": {
-        "evidence_status": "found",
-        "evidence_detail": {
-          "n_quotes": 1,
-          "found": 1,
-          "partial": 0,
-          "missing": 0,
-          "worst_ratio": 1.0
-        },
-        "evidence_resolved": [
-          {
-            "quote": "destroyed around 700 buildings",
-            "status": "found",
-            "ratio": 1.0,
-            "start": 1380,
-            "end": 1410,
-            "matched_text": "destroyed around 700 buildings",
-            "sentence": "The fires have destroyed around 700 buildings, including homes, businesses and other buildings."
-          }
-        ],
-        "orphaned": false,
-        "supported": true,
-        "failure_type": null,
-        "note": "",
-        "quote": "The fires have destroyed around 700 buildings",
-        "quote_status": "found",
-        "quote_ratio": 1.0,
-        "citation_match": true,
-        "grounded": true
-      }
-    },
-    {
-      "subject_id": "OBS5",
-      "subject_text": "10,000 electricity customers without power",
-      "subject_type": "PowerOutageCount",
-      "property": "hasCount",
-      "property_source": "vocab",
-      "vocab_id": "P0061",
-      "property_is_new_to_vocab": true,
-      "property_definition": "The subject has the specified numerical quantity.",
-      "property_parent": "value",
-      "property_justification": "No schema.org property captures a count quantifying an event or impact.",
-      "object_id": "EV3",
-      "object_text": "Wildfires cause power outages",
-      "object_type": "PowerOutage",
-      "relation_phrases": [
-        "quantifies"
-      ],
-      "phrase_directions": {
-        "quantifies": "as_is"
-      },
-      "evidence": [
-        "More than 10,000 electricity customers were left without power"
-      ],
-      "confidence": 0.95,
-      "grounding": {
-        "evidence_status": "found",
-        "evidence_detail": {
-          "n_quotes": 1,
-          "found": 1,
-          "partial": 0,
-          "missing": 0,
-          "worst_ratio": 1.0
-        },
-        "evidence_resolved": [
-          {
-            "quote": "More than 10,000 electricity customers were left without power",
-            "status": "found",
-            "ratio": 1.0,
-            "start": 1461,
-            "end": 1523,
-            "matched_text": "More than 10,000 electricity customers were left without power",
-            "sentence": "More than 10,000 electricity customers were left without power on Sunday, according to Avista Utilities."
-          }
-        ],
-        "orphaned": false,
-        "supported": true,
-        "failure_type": null,
-        "note": "",
-        "quote": "More than 10,000 electricity customers were left without power",
+        "quote": "Officials are reminding the public that it is illegal to fly drones near the fires",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -6543,7 +5789,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "By Monday, around half of them had their power restored",
+        "quote": "By Monday, around half of them had their power restored.",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -6597,7 +5843,7 @@
         "orphaned": false,
         "supported": true,
         "failure_type": null,
-        "note": "The article states that half of the customers had power restored by Monday.",
+        "note": "",
         "quote": "By Monday, around half of them had their power restored.",
         "quote_status": "found",
         "quote_ratio": 1.0,
@@ -6652,8 +5898,8 @@
         "orphaned": false,
         "supported": true,
         "failure_type": null,
-        "note": "The governor declared a statewide emergency as stated in the article.",
-        "quote": "Washington State Governor Bob Ferguson has declared a statewide emergency and requested federal assistance after speaking with US President Donald Trump.",
+        "note": "",
+        "quote": "Washington State Governor Bob Ferguson has declared a statewide emergency",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -6707,8 +5953,8 @@
         "orphaned": false,
         "supported": true,
         "failure_type": null,
-        "note": "The declared emergency is an instance of a statewide emergency.",
-        "quote": "Washington State Governor Bob Ferguson has declared a statewide emergency and requested federal assistance after speaking with US President Donald Trump.",
+        "note": "",
+        "quote": "Washington State Governor Bob Ferguson has declared a statewide emergency",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -6762,7 +6008,7 @@
         "orphaned": false,
         "supported": true,
         "failure_type": null,
-        "note": "The ban issued by the governor is an instance of a statewide ban.",
+        "note": "",
         "quote": "On Monday, Gov Ferguson issued a statewide ban on all outdoor fires.",
         "quote_status": "found",
         "quote_ratio": 1.0,
@@ -6817,8 +6063,8 @@
         "orphaned": false,
         "supported": true,
         "failure_type": null,
-        "note": "The governor requested federal assistance as mentioned in the article.",
-        "quote": "Washington State Governor Bob Ferguson has declared a statewide emergency and requested federal assistance after speaking with US President Donald Trump.",
+        "note": "",
+        "quote": "Washington State Governor Bob Ferguson has declared a statewide emergency and requested federal assistance",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -6872,8 +6118,8 @@
         "orphaned": false,
         "supported": true,
         "failure_type": null,
-        "note": "The request is about federal assistance as stated.",
-        "quote": "Washington State Governor Bob Ferguson has declared a statewide emergency and requested federal assistance after speaking with US President Donald Trump.",
+        "note": "",
+        "quote": "Washington State Governor Bob Ferguson has declared a statewide emergency and requested federal assistance",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -6927,8 +6173,8 @@
         "orphaned": false,
         "supported": true,
         "failure_type": null,
-        "note": "The governor spoke with the president, indicating interaction.",
-        "quote": "Washington State Governor Bob Ferguson has declared a statewide emergency and requested federal assistance after speaking with US President Donald Trump.",
+        "note": "",
+        "quote": "after speaking with US President Donald Trump",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -6982,11 +6228,11 @@
         "orphaned": false,
         "supported": true,
         "failure_type": null,
-        "note": "The request was made by the governor.",
-        "quote": "Washington State Governor Bob Ferguson has declared a statewide emergency and requested federal assistance after speaking with US President Donald Trump.",
+        "note": "",
+        "quote": "Washington State Governor Bob Ferguson has declared a statewide emergency and requested federal assistance",
         "quote_status": "found",
         "quote_ratio": 1.0,
-        "citation_match": true,
+        "citation_match": false,
         "grounded": true
       }
     },
@@ -7037,63 +6283,8 @@
         "orphaned": false,
         "supported": true,
         "failure_type": null,
-        "note": "The fires were named the Spokane Complex Fires.",
-        "quote": "The three fires around Spokane... have been together named the Spokane Complex Fires.",
-        "quote_status": "partial",
-        "quote_ratio": 1.0,
-        "citation_match": true,
-        "grounded": true
-      }
-    },
-    {
-      "subject_id": "E65",
-      "subject_text": "the Spokane Complex Fires",
-      "subject_type": "Wildfire",
-      "property": "performsAction",
-      "property_source": "vocab",
-      "vocab_id": "P0340",
-      "property_is_new_to_vocab": true,
-      "property_definition": "The subject carried out the action described by the object.",
-      "property_parent": null,
-      "property_justification": "No schema.org property captures a wildfire performing a specific action like spreading.",
-      "object_id": "EV10",
-      "object_text": "Fire jumped Spokane River",
-      "object_type": "FireSpread",
-      "relation_phrases": [
-        "performed"
-      ],
-      "phrase_directions": {
-        "performed": "as_is"
-      },
-      "evidence": [
-        "the fire jumped over the Spokane River"
-      ],
-      "confidence": 0.9,
-      "grounding": {
-        "evidence_status": "found",
-        "evidence_detail": {
-          "n_quotes": 1,
-          "found": 1,
-          "partial": 0,
-          "missing": 0,
-          "worst_ratio": 1.0
-        },
-        "evidence_resolved": [
-          {
-            "quote": "the fire jumped over the Spokane River",
-            "status": "found",
-            "ratio": 1.0,
-            "start": 1924,
-            "end": 1962,
-            "matched_text": "the fire jumped over the Spokane River",
-            "sentence": "Fuelled by high winds, the fire jumped over the Spokane River at least twice, officials say."
-          }
-        ],
-        "orphaned": false,
-        "supported": true,
-        "failure_type": null,
-        "note": "The fires jumped the river as stated.",
-        "quote": "the fire jumped over the Spokane River at least twice, officials say.",
+        "note": "",
+        "quote": "have been together named the Spokane Complex Fires",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -7147,8 +6338,8 @@
         "orphaned": false,
         "supported": true,
         "failure_type": null,
-        "note": "The fire was fueled by high winds.",
-        "quote": "Fuelled by high winds, the fire jumped over the Spokane River at least twice, officials say.",
+        "note": "",
+        "quote": "Fuelled by high winds, the fire jumped over the Spokane River at least twice",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -7202,10 +6393,10 @@
         "orphaned": false,
         "supported": true,
         "failure_type": null,
-        "note": "Officials made the statement about the river jump.",
-        "quote": "the fire jumped over the Spokane River at least twice, officials say.",
-        "quote_status": "found",
-        "quote_ratio": 1.0,
+        "note": "",
+        "quote": "officials say the fire jumped over the Spokane River",
+        "quote_status": "missing",
+        "quote_ratio": 0.808,
         "citation_match": true,
         "grounded": true
       }
@@ -7257,10 +6448,10 @@
         "orphaned": false,
         "supported": true,
         "failure_type": null,
-        "note": "The officials' statement asserts the river jump.",
-        "quote": "the fire jumped over the Spokane River at least twice, officials say.",
-        "quote_status": "found",
-        "quote_ratio": 1.0,
+        "note": "",
+        "quote": "Officials say the fire jumped over the Spokane River",
+        "quote_status": "missing",
+        "quote_ratio": 0.808,
         "citation_match": true,
         "grounded": true
       }
@@ -7312,8 +6503,8 @@
         "orphaned": false,
         "supported": true,
         "failure_type": null,
-        "note": "The sheriff's statement involves officials contacting people.",
-        "quote": "Spokane County Sheriff John Nowels said that officials were trying to contact 14 people to confirm they managed to safely evacuate.",
+        "note": "",
+        "quote": "Spokane County Sheriff John Nowels said that officials were trying to contact 14 people",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -7367,10 +6558,10 @@
         "orphaned": false,
         "supported": true,
         "failure_type": null,
-        "note": "One official made the war zone statement.",
-        "quote": "one official said the burned area looks like a 'war zone'.",
-        "quote_status": "partial",
-        "quote_ratio": 0.879,
+        "note": "",
+        "quote": "one official said the burned area looks like a \"war zone\"",
+        "quote_status": "found",
+        "quote_ratio": 1.0,
         "citation_match": true,
         "grounded": true
       }
@@ -7422,9 +6613,9 @@
         "orphaned": false,
         "supported": true,
         "failure_type": null,
-        "note": "Maj Gen Welsh compared the scene to Iraq.",
-        "quote": "Maj Gen Gent Welsh... said the scene reminded him of his time serving in the US military in Iraq.",
-        "quote_status": "partial",
+        "note": "",
+        "quote": "Maj Gen Gent Welsh, who commands the state's National Guard, said the scene reminded him of his time serving in the US military in Iraq.",
+        "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": false,
         "grounded": true
@@ -7477,8 +6668,8 @@
         "orphaned": false,
         "supported": true,
         "failure_type": null,
-        "note": "Sheriff Nowels made the statement about contacting people.",
-        "quote": "Spokane County Sheriff John Nowels said that officials were trying to contact 14 people to confirm they managed to safely evacuate.",
+        "note": "",
+        "quote": "Spokane County Sheriff John Nowels said that officials were trying to contact 14 people",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -7532,10 +6723,10 @@
         "orphaned": false,
         "supported": true,
         "failure_type": null,
-        "note": "Mayor Brown urged vigilance and compliance.",
-        "quote": "Mayor Brown said: 'The most important thing is that people need to remain vigilant and be patient and comply when we ask them to be ready to evacuate or when we say it's time to evacuate.'",
-        "quote_status": "partial",
-        "quote_ratio": 0.894,
+        "note": "",
+        "quote": "Mayor Brown said: \"The most important thing is that people need to remain vigilant and be patient and comply when we ask them to be ready to evacuate or when we say it's time to evacuate.\"",
+        "quote_status": "found",
+        "quote_ratio": 1.0,
         "citation_match": true,
         "grounded": true
       }
@@ -7587,10 +6778,10 @@
         "orphaned": false,
         "supported": true,
         "failure_type": null,
-        "note": "The statement about the war zone was made at a news conference.",
-        "quote": "At a news conference on Monday, one official said the burned area looks like a 'war zone'.",
-        "quote_status": "partial",
-        "quote_ratio": 0.878,
+        "note": "",
+        "quote": "At a news conference on Monday, one official said the burned area looks like a \"war zone\".",
+        "quote_status": "found",
+        "quote_ratio": 1.0,
         "citation_match": true,
         "grounded": true
       }
@@ -7642,8 +6833,8 @@
         "orphaned": false,
         "supported": true,
         "failure_type": null,
-        "note": "Maj Gen Welsh commands the state's National Guard.",
-        "quote": "Maj Gen Gent Welsh, who commands the state's National Guard, said the scene reminded him of his time serving in the US military in Iraq.",
+        "note": "",
+        "quote": "Maj Gen Gent Welsh, who commands the state's National Guard",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -7697,11 +6888,11 @@
         "orphaned": false,
         "supported": true,
         "failure_type": null,
-        "note": "The article explicitly states that Maj Gen Welsh compared the scene to a war zone, which he experienced in Iraq.",
-        "quote": "I can tell you today that that's a war zone.",
+        "note": "",
+        "quote": "said the scene reminded him of his time serving in the US military in Iraq",
         "quote_status": "found",
         "quote_ratio": 1.0,
-        "citation_match": false,
+        "citation_match": true,
         "grounded": true
       }
     },
@@ -7752,8 +6943,8 @@
         "orphaned": false,
         "supported": true,
         "failure_type": null,
-        "note": "The article states that officials are trying to contact 14 people to confirm their safe evacuation.",
-        "quote": "officials were trying to contact 14 people to confirm they managed to safely evacuate.",
+        "note": "",
+        "quote": "officials were trying to contact 14 people",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -7807,118 +6998,8 @@
         "orphaned": false,
         "supported": true,
         "failure_type": null,
-        "note": "The article explicitly states that Mayor Brown urges the public to remain vigilant and comply with evacuation orders.",
-        "quote": "The most important thing is that people need to remain vigilant and be patient and comply when we ask them to be ready to evacuate or when we say it's time to evacuate.",
-        "quote_status": "found",
-        "quote_ratio": 1.0,
-        "citation_match": true,
-        "grounded": true
-      }
-    },
-    {
-      "subject_id": "E36",
-      "subject_text": "Commissioner of Public Lands Dave Upthegrove",
-      "subject_type": "Person",
-      "property": "urgesAudience",
-      "property_source": "vocab",
-      "vocab_id": "P0347",
-      "property_is_new_to_vocab": true,
-      "property_definition": "The subject strongly advises or encourages the object audience.",
-      "property_parent": null,
-      "property_justification": "No schema.org property captures a person/urging action advising or encouraging an audience/appeal.",
-      "object_id": "CL15",
-      "object_text": "Dave Upthegrove urges Washingtonians not to be the spark",
-      "object_type": "PublicAppeal",
-      "relation_phrases": [
-        "urges"
-      ],
-      "phrase_directions": {
-        "urges": "as_is"
-      },
-      "evidence": [
-        "I'm urging all Washingtonians"
-      ],
-      "confidence": 0.95,
-      "grounding": {
-        "evidence_status": "found",
-        "evidence_detail": {
-          "n_quotes": 1,
-          "found": 1,
-          "partial": 0,
-          "missing": 0,
-          "worst_ratio": 1.0
-        },
-        "evidence_resolved": [
-          {
-            "quote": "I'm urging all Washingtonians",
-            "status": "found",
-            "ratio": 1.0,
-            "start": 3196,
-            "end": 3225,
-            "matched_text": "I'm urging all Washingtonians",
-            "sentence": "\"I'm urging all Washingtonians to not be that spark."
-          }
-        ],
-        "orphaned": false,
-        "supported": true,
-        "failure_type": null,
-        "note": "The article states that Dave Upthegrove urges Washingtonians not to be the spark.",
-        "quote": "I'm urging all Washingtonians to not be that spark.",
-        "quote_status": "found",
-        "quote_ratio": 1.0,
-        "citation_match": true,
-        "grounded": true
-      }
-    },
-    {
-      "subject_id": "CL11",
-      "subject_text": "Mayor Brown urges public vigilance and compliance",
-      "subject_type": "PublicSafetyUrging",
-      "property": "about",
-      "property_source": "schema.org",
-      "vocab_id": null,
-      "property_is_new_to_vocab": false,
-      "property_definition": null,
-      "property_parent": null,
-      "property_justification": "PublicSafetyUrging can be a CommunicateAction/Event, and WildfireImpact is a Thing, fitting the 'about' property.",
-      "object_id": "EV1",
-      "object_text": "Wildfires force evacuations",
-      "object_type": "WildfireImpact",
-      "relation_phrases": [
-        "regarding"
-      ],
-      "phrase_directions": {
-        "regarding": "as_is"
-      },
-      "evidence": [
-        "when we ask them to be ready to evacuate or when we say it's time to evacuate"
-      ],
-      "confidence": 0.95,
-      "grounding": {
-        "evidence_status": "found",
-        "evidence_detail": {
-          "n_quotes": 1,
-          "found": 1,
-          "partial": 0,
-          "missing": 0,
-          "worst_ratio": 1.0
-        },
-        "evidence_resolved": [
-          {
-            "quote": "when we ask them to be ready to evacuate or when we say it's time to evacuate",
-            "status": "found",
-            "ratio": 1.0,
-            "start": 2629,
-            "end": 2706,
-            "matched_text": "when we ask them to be ready to evacuate or when we say it's time to evacuate",
-            "sentence": "Speaking to the BBC, Mayor Brown said: \"The most important thing is that people need to remain vigilant and be patient and comply when we ask them to be ready to evacuate or when we say it's time to evacuate."
-          }
-        ],
-        "orphaned": false,
-        "supported": true,
-        "failure_type": null,
-        "note": "The article states that Mayor Brown's urging is in the context of wildfires forcing evacuations.",
-        "quote": "The most important thing is that people need to remain vigilant and be patient and comply when we ask them to be ready to evacuate or when we say it's time to evacuate.",
+        "note": "",
+        "quote": "Mayor Brown said: \"The most important thing is that people need to remain vigilant and be patient and comply when we ask them to be ready to evacuate or when we say it's time to evacuate.\"",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -7972,8 +7053,8 @@
         "orphaned": false,
         "supported": true,
         "failure_type": null,
-        "note": "The article states that forecasters warned of rising temperatures.",
-        "quote": "forecasters have warned temperatures are likely to rise again later in the week.",
+        "note": "",
+        "quote": "forecasters have warned temperatures are likely to rise again later in the week",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -8027,8 +7108,8 @@
         "orphaned": false,
         "supported": true,
         "failure_type": null,
-        "note": "The article specifies the timeframe as 'later in the week'.",
-        "quote": "forecasters have warned temperatures are likely to rise again later in the week.",
+        "note": "",
+        "quote": "temperatures are likely to rise again later in the week",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -8082,8 +7163,8 @@
         "orphaned": false,
         "supported": true,
         "failure_type": null,
-        "note": "The article states that the warning includes the weekend as part of the timeframe.",
-        "quote": "with more heat and wind expected this weekend and for the rest of the summer.",
+        "note": "",
+        "quote": "with more heat and wind expected this weekend and for the rest of the summer",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -8137,8 +7218,8 @@
         "orphaned": false,
         "supported": true,
         "failure_type": null,
-        "note": "The article explicitly states the rest of the summer as part of the timeframe.",
-        "quote": "with more heat and wind expected this weekend and for the rest of the summer.",
+        "note": "",
+        "quote": "with more heat and wind expected this weekend and for the rest of the summer",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -8192,7 +7273,7 @@
         "orphaned": false,
         "supported": true,
         "failure_type": null,
-        "note": "The article states that Gov Ferguson issued a statewide ban on outdoor fires.",
+        "note": "",
         "quote": "Gov Ferguson issued a statewide ban on all outdoor fires.",
         "quote_status": "found",
         "quote_ratio": 1.0,
@@ -8247,8 +7328,8 @@
         "orphaned": false,
         "supported": true,
         "failure_type": null,
-        "note": "The article states that Dave Upthegrove mentioned firefighters are stretched thin.",
-        "quote": "Our firefighters are already stretched thin across the state...",
+        "note": "",
+        "quote": "Our firefighters are already stretched thin across the state",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": false,
@@ -8302,10 +7383,10 @@
         "orphaned": false,
         "supported": true,
         "failure_type": null,
-        "note": "The article states that Dave Upthegrove made the statement in a written statement.",
-        "quote": "Commissioner of Public Lands Dave Upthegrove in a written statement: 'Our firefighters are already stretched thin across the state...",
-        "quote_status": "partial",
-        "quote_ratio": 0.902,
+        "note": "",
+        "quote": "Commissioner of Public Lands Dave Upthegrove in a written statement: \"Our firefighters are already stretched thin across the state...\"",
+        "quote_status": "found",
+        "quote_ratio": 1.0,
         "citation_match": true,
         "grounded": true
       }
@@ -8357,66 +7438,11 @@
         "orphaned": false,
         "supported": true,
         "failure_type": null,
-        "note": "The article states that Dave Upthegrove warned of new sparks leading to wildfires.",
-        "quote": "I'm urging all Washingtonians to not be that spark.",
+        "note": "",
+        "quote": "any new spark on our tinder dry landscapes can lead to another devastating wildfire",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": false,
-        "grounded": true
-      }
-    },
-    {
-      "subject_id": "CL14",
-      "subject_text": "Dave Upthegrove warns of new sparks leading to wildfires",
-      "subject_type": "WildfireRiskWarning",
-      "property": "causes",
-      "property_source": "vocab",
-      "vocab_id": "P0010",
-      "property_is_new_to_vocab": false,
-      "property_definition": "Indicates a direct causal link where one event or phenomenon leads to another.",
-      "property_parent": "result",
-      "property_justification": "No schema.org property captures this general causal relation for these types.",
-      "object_id": "E15",
-      "object_text": "Wildfires",
-      "object_type": "NaturalDisaster",
-      "relation_phrases": [
-        "leads to"
-      ],
-      "phrase_directions": {
-        "leads to": "as_is"
-      },
-      "evidence": [
-        "can lead to another devastating wildfire"
-      ],
-      "confidence": 0.95,
-      "grounding": {
-        "evidence_status": "found",
-        "evidence_detail": {
-          "n_quotes": 1,
-          "found": 1,
-          "partial": 0,
-          "missing": 0,
-          "worst_ratio": 1.0
-        },
-        "evidence_resolved": [
-          {
-            "quote": "can lead to another devastating wildfire",
-            "status": "found",
-            "ratio": 1.0,
-            "start": 3153,
-            "end": 3193,
-            "matched_text": "can lead to another devastating wildfire",
-            "sentence": "Commissioner of Public Lands Dave Upthegrove in a written statement: \"Our firefighters are already stretched thin across the state, and with more heat and wind expected this weekend and for the rest of the summer, any new spark on our tinder dry landscapes can lead to another devastating wildfire."
-          }
-        ],
-        "orphaned": false,
-        "supported": true,
-        "failure_type": null,
-        "note": "The article states that new sparks can lead to wildfires.",
-        "quote": "any new spark on our tinder dry landscapes can lead to another devastating wildfire.",
-        "quote_status": "found",
-        "quote_ratio": 1.0,
-        "citation_match": true,
         "grounded": true
       }
     },
@@ -8467,8 +7493,8 @@
         "orphaned": false,
         "supported": true,
         "failure_type": null,
-        "note": "The article states that human-induced climate change leads to more frequent and intense heatwaves.",
-        "quote": "human-induced climate change makes the warm, dry conditions that lead to wildfires more likely - as well as leading to more frequent and intense heatwaves...",
+        "note": "",
+        "quote": "human-induced climate change makes the warm, dry conditions that lead to wildfires more likely - as well as leading to more frequent and intense heatwaves",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -8522,11 +7548,66 @@
         "orphaned": false,
         "supported": true,
         "failure_type": null,
-        "note": "The article states that human-induced climate change leads to potential summer droughts.",
-        "quote": "...leading to potential summer droughts.",
-        "quote_status": "missing",
-        "quote_ratio": 0.725,
-        "citation_match": false,
+        "note": "",
+        "quote": "potential summer droughts",
+        "quote_status": "found",
+        "quote_ratio": 1.0,
+        "citation_match": true,
+        "grounded": true
+      }
+    },
+    {
+      "subject_id": "CL14",
+      "subject_text": "Dave Upthegrove warns of new sparks leading to wildfires",
+      "subject_type": "WildfireRiskWarning",
+      "property": "about",
+      "property_source": "schema.org",
+      "vocab_id": null,
+      "property_is_new_to_vocab": false,
+      "property_definition": null,
+      "property_parent": null,
+      "property_justification": "The WildfireRiskWarning is 'about' the WeatherCondition, fitting the 'about' property.",
+      "object_id": "E47",
+      "object_text": "strong winds",
+      "object_type": "WeatherCondition",
+      "relation_phrases": [
+        "due to"
+      ],
+      "phrase_directions": {
+        "due to": "as_is"
+      },
+      "evidence": [
+        "and wind expected"
+      ],
+      "confidence": 0.95,
+      "grounding": {
+        "evidence_status": "found",
+        "evidence_detail": {
+          "n_quotes": 1,
+          "found": 1,
+          "partial": 0,
+          "missing": 0,
+          "worst_ratio": 1.0
+        },
+        "evidence_resolved": [
+          {
+            "quote": "and wind expected",
+            "status": "found",
+            "ratio": 1.0,
+            "start": 3047,
+            "end": 3064,
+            "matched_text": "and wind expected",
+            "sentence": "Commissioner of Public Lands Dave Upthegrove in a written statement: \"Our firefighters are already stretched thin across the state, and with more heat and wind expected this weekend and for the rest of the summer, any new spark on our tinder dry landscapes can lead to another devastating wildfire."
+          }
+        ],
+        "orphaned": false,
+        "supported": true,
+        "failure_type": null,
+        "note": "",
+        "quote": "with more heat and wind expected this weekend and for the rest of the summer",
+        "quote_status": "found",
+        "quote_ratio": 1.0,
+        "citation_match": true,
         "grounded": true
       }
     },
@@ -8633,7 +7714,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "More than 900 firefighters are currently assigned to the blazes in Washington, with more reinforcements expected to arrive from other states in the coming days.",
+        "quote": "More than 900 firefighters are currently assigned to the blazes in Washington",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -8688,7 +7769,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "More than 900 firefighters are currently assigned to the blazes in Washington, with more reinforcements expected to arrive from other states in the coming days.",
+        "quote": "More than 900 firefighters are currently assigned to the blazes in Washington",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -8743,7 +7824,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "with more reinforcements expected to arrive from other states in the coming days.",
+        "quote": "with more reinforcements expected to arrive from other states in the coming days",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -8798,7 +7879,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "with more reinforcements expected to arrive from other states in the coming days.",
+        "quote": "expected to arrive from other states in the coming days",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -8853,7 +7934,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Officials are reminding the public that it is illegal to fly drones near the fires, because they interfere with firefighting planes and helicopters and force them to land.",
+        "quote": "Officials are reminding the public that it is illegal to fly drones near the fires",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -8908,7 +7989,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Officials are reminding the public that it is illegal to fly drones near the fires, because they interfere with firefighting planes and helicopters and force them to land.",
+        "quote": "illegal to fly drones near the fires",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -8963,7 +8044,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "because they interfere with firefighting planes and helicopters and force them to land.",
+        "quote": "they interfere with firefighting planes",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -9018,10 +8099,10 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "because they interfere with firefighting planes and helicopters and force them to land.",
-        "quote_status": "found",
+        "quote": "they interfere with ... helicopters",
+        "quote_status": "partial",
         "quote_ratio": 1.0,
-        "citation_match": true,
+        "citation_match": false,
         "grounded": true
       }
     },
@@ -9073,7 +8154,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "because they interfere with firefighting planes and helicopters and force them to land.",
+        "quote": "force them to land",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -9128,7 +8209,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "because they interfere with firefighting planes and helicopters and force them to land.",
+        "quote": "force them to land",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -9183,7 +8264,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Drones disrupted operations 26 times on Sunday.",
+        "quote": "Drones disrupted operations 26 times on Sunday",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -9293,10 +8374,10 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "human-induced climate change makes the warm, dry conditions that lead to wildfires more likely",
-        "quote_status": "found",
+        "quote": "human-induced climate change makes the warm, dry conditions ... more likely",
+        "quote_status": "partial",
         "quote_ratio": 1.0,
-        "citation_match": false,
+        "citation_match": true,
         "grounded": true
       }
     },
@@ -9354,20 +8435,77 @@
         "citation_match": true,
         "grounded": true
       }
+    },
+    {
+      "subject_id": "CL9",
+      "subject_text": "Maj Gen Welsh compares scene to Iraq",
+      "subject_type": "AreaComparison",
+      "property": "participant",
+      "property_source": "schema.org",
+      "vocab_id": null,
+      "property_is_new_to_vocab": false,
+      "property_definition": null,
+      "property_parent": null,
+      "property_justification": "AreaComparison can be an Action, and GovernmentOrganization is an Organization, fitting the 'participant' property.",
+      "object_id": "E70",
+      "object_text": "the US military",
+      "object_type": "GovernmentOrganization",
+      "relation_phrases": [
+        "involves"
+      ],
+      "phrase_directions": {
+        "involves": "as_is"
+      },
+      "evidence": [
+        [
+          "his time serving in the US military in Iraq"
+        ]
+      ],
+      "confidence": 0.9,
+      "grounding": {
+        "evidence_status": "found",
+        "evidence_detail": {
+          "n_quotes": 1,
+          "found": 1,
+          "partial": 0,
+          "missing": 0,
+          "worst_ratio": 1.0
+        },
+        "evidence_resolved": [
+          {
+            "quote": "his time serving in the US military in Iraq",
+            "status": "found",
+            "ratio": 1.0,
+            "start": 2177,
+            "end": 2220,
+            "matched_text": "his time serving in the US military in Iraq",
+            "sentence": "Maj Gen Gent Welsh, who commands the state's National Guard, said the scene reminded him of his time serving in the US military in Iraq."
+          }
+        ],
+        "orphaned": false,
+        "supported": true,
+        "failure_type": null,
+        "note": "",
+        "quote": "Maj Gen Gent Welsh ... said the scene reminded him of his time serving in the US military in Iraq",
+        "quote_status": "partial",
+        "quote_ratio": 1.0,
+        "citation_match": true,
+        "grounded": true
+      }
     }
   ],
   "prune_report": {
     "nary_nodes": {
       "before": 38,
-      "after": 38,
-      "removed": 0,
-      "kept_rate": 1.0
+      "after": 37,
+      "removed": 1,
+      "kept_rate": 0.974
     },
     "relations": {
       "before": 136,
-      "after": 127,
-      "removed": 9,
-      "kept_rate": 0.934
+      "after": 112,
+      "removed": 24,
+      "kept_rate": 0.824
     },
     "entities": {
       "before": 83,
@@ -9379,8 +8517,9 @@
     "drop_unjudged": false,
     "drop_orphan_entities": true,
     "removed_by_failure_type": {
-      "intrinsic": 7,
-      "extrinsic": 2
+      "intrinsic": 5,
+      "extrinsic": 19,
+      "orphan": 1
     }
   }
 }

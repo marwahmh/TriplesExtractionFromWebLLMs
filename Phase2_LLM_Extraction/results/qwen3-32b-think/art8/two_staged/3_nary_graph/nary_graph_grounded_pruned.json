@@ -7,30 +7,31 @@
   "grounding_report": {
     "nary_nodes": {
       "total": 11,
-      "grounded": 11,
-      "rate": 1.0,
-      "failures": {},
+      "grounded": 10,
+      "rate": 0.909,
+      "failures": {
+        "extrinsic": 1
+      },
       "citation_status": {
         "found": 10,
         "partial": 1
       },
       "citation_precision": {
-        "n": 11,
-        "matched": 8,
-        "rate": 0.727
+        "n": 10,
+        "matched": 2,
+        "rate": 0.2
       },
       "judge_quote_status": {
-        "found": 9,
-        "partial": 2
+        "found": 10
       }
     },
     "relations": {
       "total": 31,
-      "grounded": 28,
-      "rate": 0.903,
+      "grounded": 24,
+      "rate": 0.774,
       "failures": {
-        "intrinsic": 2,
-        "extrinsic": 1
+        "extrinsic": 4,
+        "orphan": 3
       },
       "citation_status": {
         "found": 27,
@@ -38,44 +39,43 @@
         "partial": 1
       },
       "citation_precision": {
-        "n": 28,
+        "n": 24,
         "matched": 13,
-        "rate": 0.464
+        "rate": 0.542
       },
       "judge_quote_status": {
-        "found": 15,
-        "partial": 8,
-        "missing": 5
+        "found": 20,
+        "partial": 2,
+        "missing": 2
       }
     },
     "relations_by_property_source": {
       "schema.org": {
         "total": 29,
-        "grounded": 27,
-        "rate": 0.931
+        "grounded": 22,
+        "rate": 0.759
       },
       "vocab": {
         "total": 2,
-        "grounded": 1,
-        "rate": 0.5
+        "grounded": 2,
+        "rate": 1.0
       }
     },
     "nodes_by_type_source": {
       "not_canonicalized": {
         "total": 11,
-        "grounded": 11,
-        "rate": 1.0
+        "grounded": 10,
+        "rate": 0.909
       }
     }
   },
   "grounding_config": {
     "method": "full_article",
-    "judge_backend": "qwen3-32b-think",
-    "judge_model": "qwen3-32b",
-    "judge_batch": 20,
-    "prompt_sha1": "67305d45abb6",
+    "backend": "gpt-oss-120b",
+    "model": "accounts/fireworks/models/gpt-oss-120b",
+    "judge_batch": 60,
     "graph": "nary_graph_dedup_main_val_r1_extended_consolidated.json",
-    "self_judged": true
+    "prompt_sha1": "67305d45abb6"
   },
   "entities": [
     {
@@ -169,31 +169,13 @@
       "type_vocab_id": null
     },
     {
-      "id": "E21",
-      "text": "Saudi Arabia’s East-West Pipeline",
-      "type": "InfrastructureProject",
+      "id": "E24",
+      "text": "International Energy Agency",
+      "type": "Organization",
       "aliases": [],
-      "type_source": "vocab",
-      "type_parent": "Project",
-      "type_vocab_id": "T0014"
-    },
-    {
-      "id": "E22",
-      "text": "Abu Dhabi Crude Oil Pipeline",
-      "type": "InfrastructureProject",
-      "aliases": [],
-      "type_source": "vocab",
-      "type_parent": "Project",
-      "type_vocab_id": "T0014"
-    },
-    {
-      "id": "E23",
-      "text": "Iraq-Turkiye Crude Oil Pipeline",
-      "type": "InfrastructureProject",
-      "aliases": [],
-      "type_source": "vocab",
-      "type_parent": "Project",
-      "type_vocab_id": "T0014"
+      "type_source": "schema.org",
+      "type_parent": null,
+      "type_vocab_id": null
     },
     {
       "id": "E25",
@@ -208,6 +190,15 @@
       "id": "E27",
       "text": "United Nations",
       "type": "Organization",
+      "aliases": [],
+      "type_source": "schema.org",
+      "type_parent": null,
+      "type_vocab_id": null
+    },
+    {
+      "id": "E29",
+      "text": "Wood Mackenzie",
+      "type": "ResearchOrganization",
       "aliases": [],
       "type_source": "schema.org",
       "type_parent": null,
@@ -266,6 +257,15 @@
       "type_source": "schema.org",
       "type_parent": null,
       "type_vocab_id": null
+    },
+    {
+      "id": "E39",
+      "text": "80 percent",
+      "type": "Number",
+      "aliases": [],
+      "type_source": "schema.org",
+      "type_parent": null,
+      "type_vocab_id": null
     }
   ],
   "nary_nodes": [
@@ -302,10 +302,10 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Since the United States and Israel launched a war on Iran in late February...",
+        "quote": "Since the United States and Israel launched a war on Iran in late February, the global energy sector has undergone major upheaval.",
         "quote_status": "found",
         "quote_ratio": 1.0,
-        "citation_match": true,
+        "citation_match": false,
         "grounded": true
       }
     },
@@ -342,7 +342,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "New pipelines will urgently be built...",
+        "quote": "New pipelines will urgently be built.",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -382,10 +382,10 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Attacks on commercial vessels in the Strait of Hormuz...",
+        "quote": "Attacks on commercial vessels in the Strait of Hormuz are widely expected to have a chilling effect on shipping lines that persists long after the war is officially brought to an end.",
         "quote_status": "found",
         "quote_ratio": 1.0,
-        "citation_match": true,
+        "citation_match": false,
         "grounded": true
       }
     },
@@ -422,7 +422,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Oil prices have swung from levels not seen since...",
+        "quote": "Oil prices have swung from levels not seen since the onset of Russia’s full-scale invasion of Ukraine in 2022 to close to where they were before the conflict more than four months ago.",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": false,
@@ -462,10 +462,10 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "The oil market will never be the same, following this conflict...",
+        "quote": "“The oil market will never be the same, following this conflict,” Adi Imsirovic, a veteran oil trader who lectures at the University of Oxford, told Al Jazeera.",
         "quote_status": "found",
         "quote_ratio": 1.0,
-        "citation_match": true,
+        "citation_match": false,
         "grounded": true
       }
     },
@@ -502,10 +502,10 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "While the current Iranian regime remains in place...",
+        "quote": "Dan Marks, a research fellow in energy security at the Royal United Services Institute in London, said he expects there to be “long-term” concern over transits in the strait.",
         "quote_status": "found",
         "quote_ratio": 1.0,
-        "citation_match": true,
+        "citation_match": false,
         "grounded": true
       }
     },
@@ -542,10 +542,10 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "For the producers, this would come in the form of more pipeline evacuation routes...",
+        "quote": "June Goh, a Singapore-based senior oil market analyst at Sparta, a commodities data firm, said she anticipates a sustained push by energy producers and consumers alike to reduce their reliance on the strait. “For the producers, this would come in the form of more pipeline evacuation routes from the Middle East,” Goh told Al Jazeera. “For the buyers, this would mean maintaining a healthy supply of strategic petroleum reserves.”",
         "quote_status": "found",
         "quote_ratio": 1.0,
-        "citation_match": true,
+        "citation_match": false,
         "grounded": true
       }
     },
@@ -582,7 +582,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Another anticipated legacy of the war is an acceleration in countries’ efforts to shift from fossil fuels...",
+        "quote": "Another anticipated legacy of the war is an acceleration in countries’ efforts to shift from fossil fuels to renewables, such as wind, solar and hydropower.",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -622,10 +622,10 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "the conflict was already 'supercharging the global renewables boom'...",
-        "quote_status": "partial",
-        "quote_ratio": 0.886,
-        "citation_match": true,
+        "quote": "In April, Simon Stiell, the top United Nations climate official, told a meeting of government officials at the International Energy Agency that the conflict was already “supercharging the global renewables boom”.",
+        "quote_status": "found",
+        "quote_ratio": 1.0,
+        "citation_match": false,
         "grounded": true
       }
     },
@@ -662,48 +662,8 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "the medium to long-term economic case for renewables will strengthen as geopolitical risk inflates...",
+        "quote": "While energy security imperatives are likely to lead many governments to stockpile fossil fuels in the near-term, the medium to long-term economic case for renewables will strengthen as geopolitical risk inflates “the true cost” of fossil fuel dependence, said Mohamed Elheddad, an associate lecturer in economics at the University of Lancashire in the United Kingdom.",
         "quote_status": "found",
-        "quote_ratio": 1.0,
-        "citation_match": false,
-        "grounded": true
-      }
-    },
-    {
-      "id": "EV5",
-      "node_kind": "Event",
-      "type": "EconomicBenefit",
-      "label": "China’s Renewable Energy Dominance",
-      "is_main": true,
-      "evidence": [
-        "China, more than any other country, stands to gain from an expedited global shift away from fossil fuels..."
-      ],
-      "confidence": 0.85,
-      "grounding": {
-        "evidence_status": "found",
-        "evidence_detail": {
-          "n_quotes": 1,
-          "found": 1,
-          "partial": 0,
-          "missing": 0,
-          "worst_ratio": 1.0
-        },
-        "evidence_resolved": [
-          {
-            "quote": "China, more than any other country, stands to gain from an expedited global shift away from fossil fuels...",
-            "status": "found",
-            "ratio": 1.0,
-            "start": 5174,
-            "end": 5278,
-            "matched_text": "China, more than any other country, stands to gain from an expedited global shift away from fossil fuels",
-            "sentence": "China, more than any other country, stands to gain from an expedited global shift away from fossil fuels."
-          }
-        ],
-        "supported": true,
-        "failure_type": null,
-        "note": "",
-        "quote": "China... producing more than 80 percent of the world’s wind turbines, solar panels and energy storage batteries...",
-        "quote_status": "partial",
         "quote_ratio": 1.0,
         "citation_match": false,
         "grounded": true
@@ -875,10 +835,10 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Energy suppliers have scrambled to find alternative trade routes amid Iran’s stranglehold over the Strait of Hormuz...",
+        "quote": "Attacks on commercial vessels in the Strait of Hormuz are widely expected to have a chilling effect on shipping lines that persists long after the war is officially brought to an end.",
         "quote_status": "found",
         "quote_ratio": 1.0,
-        "citation_match": true,
+        "citation_match": false,
         "grounded": true
       }
     },
@@ -942,181 +902,10 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Oil prices have swung from levels not seen since the onset of Russia’s full-scale invasion of Ukraine in 2022 to close to where they were before the conflict more than four months ago.",
+        "quote": "Since the United States and Israel launched a war on Iran in late February, the global energy sector has undergone major upheaval.",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": false,
-        "grounded": true
-      }
-    },
-    {
-      "subject_id": "EV2",
-      "subject_text": "New Pipeline Construction",
-      "subject_type": "InfrastructureDevelopment",
-      "property": "hasPart",
-      "property_source": "schema.org",
-      "vocab_id": null,
-      "property_is_new_to_vocab": true,
-      "property_definition": null,
-      "property_parent": null,
-      "property_justification": "No schema.org property directly expresses 'InfrastructureDevelopment → InfrastructureProject' as a part-of relation.",
-      "object_id": "E21",
-      "object_text": "Saudi Arabia’s East-West Pipeline",
-      "object_type": "InfrastructureProject",
-      "relation_phrases": [
-        "part of"
-      ],
-      "phrase_directions": {
-        "part of": "as_is"
-      },
-      "evidence": [
-        [
-          "Saudi Arabia’s East-West Pipeline"
-        ]
-      ],
-      "confidence": 0.85,
-      "grounding": {
-        "evidence_status": "found",
-        "evidence_detail": {
-          "n_quotes": 1,
-          "found": 1,
-          "partial": 0,
-          "missing": 0,
-          "worst_ratio": 1.0
-        },
-        "evidence_resolved": [
-          {
-            "quote": "Saudi Arabia’s East-West Pipeline",
-            "status": "found",
-            "ratio": 1.0,
-            "start": 2295,
-            "end": 2328,
-            "matched_text": "Saudi Arabia’s East-West Pipeline",
-            "sentence": "Facing ongoing threats in the waterway, energy suppliers have sought to ramp up exports on land via Saudi Arabia’s East-West Pipeline, the United Arab Emirates’ Abu Dhabi Crude Oil Pipeline, and the Iraq-Turkiye Crude Oil Pipeline – though the pipelines’ combined capacity falls well short of the approximately 20 million barrels of oil that moved through the strait each day before the war."
-          }
-        ],
-        "orphaned": false,
-        "supported": true,
-        "failure_type": null,
-        "note": "",
-        "quote": "energy suppliers have sought to ramp up exports on land via Saudi Arabia’s East-West Pipeline...",
-        "quote_status": "found",
-        "quote_ratio": 1.0,
-        "citation_match": true,
-        "grounded": true
-      }
-    },
-    {
-      "subject_id": "EV2",
-      "subject_text": "New Pipeline Construction",
-      "subject_type": "InfrastructureDevelopment",
-      "property": "hasPart",
-      "property_source": "schema.org",
-      "vocab_id": null,
-      "property_is_new_to_vocab": true,
-      "property_definition": null,
-      "property_parent": null,
-      "property_justification": "No schema.org property directly expresses 'InfrastructureDevelopment → InfrastructureProject' as a part-of relation.",
-      "object_id": "E22",
-      "object_text": "Abu Dhabi Crude Oil Pipeline",
-      "object_type": "InfrastructureProject",
-      "relation_phrases": [
-        "part of"
-      ],
-      "phrase_directions": {
-        "part of": "as_is"
-      },
-      "evidence": [
-        [
-          "Abu Dhabi Crude Oil Pipeline"
-        ]
-      ],
-      "confidence": 0.85,
-      "grounding": {
-        "evidence_status": "found",
-        "evidence_detail": {
-          "n_quotes": 1,
-          "found": 1,
-          "partial": 0,
-          "missing": 0,
-          "worst_ratio": 1.0
-        },
-        "evidence_resolved": [
-          {
-            "quote": "Abu Dhabi Crude Oil Pipeline",
-            "status": "found",
-            "ratio": 1.0,
-            "start": 2356,
-            "end": 2384,
-            "matched_text": "Abu Dhabi Crude Oil Pipeline",
-            "sentence": "Facing ongoing threats in the waterway, energy suppliers have sought to ramp up exports on land via Saudi Arabia’s East-West Pipeline, the United Arab Emirates’ Abu Dhabi Crude Oil Pipeline, and the Iraq-Turkiye Crude Oil Pipeline – though the pipelines’ combined capacity falls well short of the approximately 20 million barrels of oil that moved through the strait each day before the war."
-          }
-        ],
-        "orphaned": false,
-        "supported": true,
-        "failure_type": null,
-        "note": "",
-        "quote": "energy suppliers have sought to ramp up exports on land via ... the United Arab Emirates’ Abu Dhabi Crude Oil Pipeline...",
-        "quote_status": "partial",
-        "quote_ratio": 1.0,
-        "citation_match": true,
-        "grounded": true
-      }
-    },
-    {
-      "subject_id": "EV2",
-      "subject_text": "New Pipeline Construction",
-      "subject_type": "InfrastructureDevelopment",
-      "property": "hasPart",
-      "property_source": "schema.org",
-      "vocab_id": null,
-      "property_is_new_to_vocab": true,
-      "property_definition": null,
-      "property_parent": null,
-      "property_justification": "No schema.org property directly expresses 'InfrastructureDevelopment → InfrastructureProject' as a part-of relation.",
-      "object_id": "E23",
-      "object_text": "Iraq-Turkiye Crude Oil Pipeline",
-      "object_type": "InfrastructureProject",
-      "relation_phrases": [
-        "part of"
-      ],
-      "phrase_directions": {
-        "part of": "as_is"
-      },
-      "evidence": [
-        [
-          "Iraq-Turkiye Crude Oil Pipeline"
-        ]
-      ],
-      "confidence": 0.85,
-      "grounding": {
-        "evidence_status": "found",
-        "evidence_detail": {
-          "n_quotes": 1,
-          "found": 1,
-          "partial": 0,
-          "missing": 0,
-          "worst_ratio": 1.0
-        },
-        "evidence_resolved": [
-          {
-            "quote": "Iraq-Turkiye Crude Oil Pipeline",
-            "status": "found",
-            "ratio": 1.0,
-            "start": 2394,
-            "end": 2425,
-            "matched_text": "Iraq-Turkiye Crude Oil Pipeline",
-            "sentence": "Facing ongoing threats in the waterway, energy suppliers have sought to ramp up exports on land via Saudi Arabia’s East-West Pipeline, the United Arab Emirates’ Abu Dhabi Crude Oil Pipeline, and the Iraq-Turkiye Crude Oil Pipeline – though the pipelines’ combined capacity falls well short of the approximately 20 million barrels of oil that moved through the strait each day before the war."
-          }
-        ],
-        "orphaned": false,
-        "supported": true,
-        "failure_type": null,
-        "note": "",
-        "quote": "energy suppliers have sought to ramp up exports on land via ... the Iraq-Turkiye Crude Oil Pipeline...",
-        "quote_status": "partial",
-        "quote_ratio": 1.0,
-        "citation_match": true,
         "grounded": true
       }
     },
@@ -1170,10 +959,10 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "through which about one-fifth of global oil and liquefied natural gas (LNG) supplies pass in peacetime.",
+        "quote": "approximately 20 million barrels of oil that moved through the strait each day before the war.",
         "quote_status": "found",
         "quote_ratio": 1.0,
-        "citation_match": false,
+        "citation_match": true,
         "grounded": true
       }
     },
@@ -1227,67 +1016,10 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "The oil market will never be the same, following this conflict,” Adi Imsirovic... said.",
+        "quote": "“The oil market will never be the same, following this conflict,” Adi Imsirovic said.",
         "quote_status": "partial",
-        "quote_ratio": 1.0,
+        "quote_ratio": 0.953,
         "citation_match": true,
-        "grounded": true
-      }
-    },
-    {
-      "subject_id": "CL2",
-      "subject_text": "Marks on Long-Term Strait Risks",
-      "subject_type": "SecurityConcern",
-      "property": "event",
-      "property_source": "schema.org",
-      "vocab_id": null,
-      "property_is_new_to_vocab": false,
-      "property_definition": null,
-      "property_parent": null,
-      "property_justification": "fallback: top candidate",
-      "object_id": "EV3",
-      "object_text": "Strait of Hormuz Security Crisis",
-      "object_type": "GeopoliticalRisk",
-      "relation_phrases": [
-        "response to"
-      ],
-      "phrase_directions": {
-        "response to": "as_is"
-      },
-      "evidence": [
-        [
-          "While the current Iranian regime remains in place..."
-        ]
-      ],
-      "confidence": 0.8,
-      "grounding": {
-        "evidence_status": "found",
-        "evidence_detail": {
-          "n_quotes": 1,
-          "found": 1,
-          "partial": 0,
-          "missing": 0,
-          "worst_ratio": 1.0
-        },
-        "evidence_resolved": [
-          {
-            "quote": "While the current Iranian regime remains in place...",
-            "status": "found",
-            "ratio": 1.0,
-            "start": 2764,
-            "end": 2813,
-            "matched_text": "While the current Iranian regime remains in place",
-            "sentence": "‘“While the current Iranian regime remains in place and at odds with the United States and Israel, there will always be the possibility that tensions will flare and the strait will close,” Marks told Al Jazeera."
-          }
-        ],
-        "orphaned": false,
-        "supported": true,
-        "failure_type": null,
-        "note": "",
-        "quote": "Dan Marks... said he expects there to be “long-term” concern over transits in the strait.",
-        "quote_status": "partial",
-        "quote_ratio": 1.0,
-        "citation_match": false,
         "grounded": true
       }
     },
@@ -1341,8 +1073,8 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "June Goh... said she anticipates a sustained push by energy producers and consumers alike to reduce their reliance on the strait.",
-        "quote_status": "partial",
+        "quote": "June Goh, a Singapore-based senior oil market analyst at Sparta, a commodities data firm, said she anticipates a sustained push by energy producers and consumers alike to reduce their reliance on the strait.",
+        "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": false,
         "grounded": true
@@ -1398,9 +1130,9 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Mohamed Elheddad... said the medium to long-term economic case for renewables will strengthen as geopolitical risk inflates...",
+        "quote": "Mohamed Elheddad, an associate lecturer in economics at the University of Lancashire ... said the conflict may ultimately bring forward investment decisions that were already in motion.",
         "quote_status": "missing",
-        "quote_ratio": 0.825,
+        "quote_ratio": 0.832,
         "citation_match": false,
         "grounded": true
       }
@@ -1455,8 +1187,8 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Adi Imsirovic... said.",
-        "quote_status": "partial",
+        "quote": "Adi Imsirovic, a veteran oil trader who lectures at the University of Oxford, told Al Jazeera.",
+        "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": false,
         "grounded": true
@@ -1512,9 +1244,9 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Dan Marks... said.",
-        "quote_status": "missing",
-        "quote_ratio": 0.0,
+        "quote": "Dan Marks, a research fellow in energy security at the Royal United Services Institute in London, said he expects there to be “long-term” concern over transits in the strait.",
+        "quote_status": "found",
+        "quote_ratio": 1.0,
         "citation_match": false,
         "grounded": true
       }
@@ -1569,9 +1301,9 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "June Goh... said.",
-        "quote_status": "missing",
-        "quote_ratio": 0.0,
+        "quote": "June Goh, a Singapore-based senior oil market analyst at Sparta, a commodities data firm, said she anticipates a sustained push by energy producers and consumers alike to reduce their reliance on the strait.",
+        "quote_status": "found",
+        "quote_ratio": 1.0,
         "citation_match": false,
         "grounded": true
       }
@@ -1626,10 +1358,10 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Simon Stiell, the top United Nations climate official... said.",
-        "quote_status": "missing",
-        "quote_ratio": 0.0,
-        "citation_match": true,
+        "quote": "In April, Simon Stiell, the top United Nations climate official, told a meeting of government officials at the International Energy Agency that the conflict was already “supercharging the global renewables boom”.",
+        "quote_status": "found",
+        "quote_ratio": 1.0,
+        "citation_match": false,
         "grounded": true
       }
     },
@@ -1683,10 +1415,67 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "Mohamed Elheddad... said.",
+        "quote": "Mohamed Elheddad, an associate lecturer in economics at the University of Lancashire ... said the conflict may ultimately bring forward investment decisions that were already in motion.",
         "quote_status": "missing",
-        "quote_ratio": 0.0,
+        "quote_ratio": 0.832,
         "citation_match": false,
+        "grounded": true
+      }
+    },
+    {
+      "subject_id": "E4",
+      "subject_text": "China",
+      "subject_type": "Country",
+      "property": "sourceOrganization",
+      "property_source": "schema.org",
+      "vocab_id": null,
+      "property_is_new_to_vocab": false,
+      "property_definition": null,
+      "property_parent": null,
+      "property_justification": "The 'sourceOrganization' property (CreativeWork → Organization) fits 'Country → ResearchOrganization' as an attribution.",
+      "object_id": "E29",
+      "object_text": "Wood Mackenzie",
+      "object_type": "ResearchOrganization",
+      "relation_phrases": [
+        "attributed to"
+      ],
+      "phrase_directions": {
+        "attributed to": "as_is"
+      },
+      "evidence": [
+        [
+          "according to research and consulting company Wood Mackenzie"
+        ]
+      ],
+      "confidence": 0.8,
+      "grounding": {
+        "evidence_status": "found",
+        "evidence_detail": {
+          "n_quotes": 1,
+          "found": 1,
+          "partial": 0,
+          "missing": 0,
+          "worst_ratio": 1.0
+        },
+        "evidence_resolved": [
+          {
+            "quote": "according to research and consulting company Wood Mackenzie",
+            "status": "found",
+            "ratio": 1.0,
+            "start": 5493,
+            "end": 5552,
+            "matched_text": "according to research and consulting company Wood Mackenzie",
+            "sentence": "The world’s second-largest economy is by far the top global exporter of renewable energy-related components, producing more than 80 percent of the world’s wind turbines, solar panels and energy storage batteries, according to research and consulting company Wood Mackenzie."
+          }
+        ],
+        "orphaned": false,
+        "supported": true,
+        "failure_type": null,
+        "note": "",
+        "quote": "according to research and consulting company Wood Mackenzie.",
+        "quote_status": "found",
+        "quote_ratio": 1.0,
+        "citation_match": true,
         "grounded": true
       }
     },
@@ -1797,7 +1586,7 @@
         "supported": true,
         "failure_type": null,
         "note": "",
-        "quote": "The conflict was already “supercharging the global renewables boom”.",
+        "quote": "Another anticipated legacy of the war is an acceleration in countries’ efforts to shift from fossil fuels to renewables.",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": false,
@@ -1853,18 +1642,18 @@
         "orphaned": false,
         "supported": true,
         "failure_type": null,
-        "note": "The article explicitly states Simon Stiell is the 'top United Nations climate official'.",
-        "quote": "Simon Stiell, the top United Nations climate official, told a meeting of government officials at the International Energy Agency that the conflict was already 'supercharging the global renewables boom'.",
-        "quote_status": "partial",
-        "quote_ratio": 0.936,
+        "note": "",
+        "quote": "Simon Stiell, the top United Nations climate official",
+        "quote_status": "found",
+        "quote_ratio": 1.0,
         "citation_match": true,
         "grounded": true
       }
     },
     {
-      "subject_id": "EV5",
-      "subject_text": "China’s Renewable Energy Dominance",
-      "subject_type": "EconomicBenefit",
+      "subject_id": "CL4",
+      "subject_text": "Stiell on Renewables Boom",
+      "subject_type": "EconomicImpact",
       "property": "affiliation",
       "property_source": "schema.org",
       "vocab_id": null,
@@ -1872,9 +1661,9 @@
       "property_definition": null,
       "property_parent": null,
       "property_justification": "fallback: top candidate",
-      "object_id": "E4",
-      "object_text": "China",
-      "object_type": "Country",
+      "object_id": "E24",
+      "object_text": "International Energy Agency",
+      "object_type": "Organization",
       "relation_phrases": [
         "affiliated with"
       ],
@@ -1883,10 +1672,10 @@
       },
       "evidence": [
         [
-          "China, more than any other country..."
+          "meeting of government officials at the International Energy Agency"
         ]
       ],
-      "confidence": 0.85,
+      "confidence": 0.8,
       "grounding": {
         "evidence_status": "found",
         "evidence_detail": {
@@ -1898,80 +1687,23 @@
         },
         "evidence_resolved": [
           {
-            "quote": "China, more than any other country...",
+            "quote": "meeting of government officials at the International Energy Agency",
             "status": "found",
             "ratio": 1.0,
-            "start": 5174,
-            "end": 5208,
-            "matched_text": "China, more than any other country",
-            "sentence": "China, more than any other country, stands to gain from an expedited global shift away from fossil fuels."
+            "start": 3852,
+            "end": 3918,
+            "matched_text": "meeting of government officials at the International Energy Agency",
+            "sentence": "In April, Simon Stiell, the top United Nations climate official, told a meeting of government officials at the International Energy Agency that the conflict was already “supercharging the global renewables boom”."
           }
         ],
         "orphaned": false,
         "supported": true,
         "failure_type": null,
-        "note": "The article explicitly attributes renewable energy dominance to 'China' as the top exporter.",
-        "quote": "China, more than any other country, stands to gain from an expedited global shift away from fossil fuels.",
+        "note": "",
+        "quote": "told a meeting of government officials at the International Energy Agency",
         "quote_status": "found",
         "quote_ratio": 1.0,
-        "citation_match": false,
-        "grounded": true
-      }
-    },
-    {
-      "subject_id": "EV5",
-      "subject_text": "China’s Renewable Energy Dominance",
-      "subject_type": "EconomicBenefit",
-      "property": "hasTierBenefit",
-      "property_source": "schema.org",
-      "vocab_id": null,
-      "property_is_new_to_vocab": false,
-      "property_definition": null,
-      "property_parent": null,
-      "property_justification": "fallback: top candidate",
-      "object_id": "EV4",
-      "object_text": "Global Shift to Renewables",
-      "object_type": "RenewablesAcceleration",
-      "relation_phrases": [
-        "benefits from"
-      ],
-      "phrase_directions": {
-        "benefits from": "as_is"
-      },
-      "evidence": [
-        [
-          "China will benefit, given its dominance..."
-        ]
-      ],
-      "confidence": 0.85,
-      "grounding": {
-        "evidence_status": "found",
-        "evidence_detail": {
-          "n_quotes": 1,
-          "found": 1,
-          "partial": 0,
-          "missing": 0,
-          "worst_ratio": 1.0
-        },
-        "evidence_resolved": [
-          {
-            "quote": "China will benefit, given its dominance...",
-            "status": "found",
-            "ratio": 1.0,
-            "start": 5805,
-            "end": 5844,
-            "matched_text": "China will benefit, given its dominance",
-            "sentence": "“China will benefit, given its dominance in providing renewable energy infrastructure products,” Obstfeld told Al Jazeera."
-          }
-        ],
-        "orphaned": false,
-        "supported": true,
-        "failure_type": null,
-        "note": "The article links China’s dominance to the 'Global Shift to Renewables' as a direct beneficiary.",
-        "quote": "China will benefit, given its dominance in providing renewable energy infrastructure products.",
-        "quote_status": "found",
-        "quote_ratio": 1.0,
-        "citation_match": false,
+        "citation_match": true,
         "grounded": true
       }
     },
@@ -2024,11 +1756,11 @@
         "orphaned": false,
         "supported": true,
         "failure_type": null,
-        "note": "The article’s entire focus on 'renewables' aligns with the 'Global Shift to Renewables' event.",
-        "quote": "The conflict was already 'supercharging the global renewables boom'.",
-        "quote_status": "partial",
-        "quote_ratio": 0.912,
-        "citation_match": false,
+        "note": "",
+        "quote": "shift from fossil fuels to renewables",
+        "quote_status": "found",
+        "quote_ratio": 1.0,
+        "citation_match": true,
         "grounded": true
       }
     },
@@ -2081,9 +1813,9 @@
         "orphaned": false,
         "supported": true,
         "failure_type": null,
-        "note": "The article explicitly mentions EVs as part of the renewables shift.",
-        "quote": "Following this war, few people looking for a new car will opt for one with an internal combustion engine.",
-        "quote_status": "found",
+        "note": "",
+        "quote": "Following this war, few people looking for a new car will opt for one with an internal combustion engine… Why would they, given the EV alternatives?",
+        "quote_status": "partial",
         "quote_ratio": 1.0,
         "citation_match": false,
         "grounded": true
@@ -2138,68 +1870,11 @@
         "orphaned": false,
         "supported": true,
         "failure_type": null,
-        "note": "The article discusses strategic petroleum reserves as part of energy security.",
+        "note": "",
         "quote": "For the buyers, this would mean maintaining a healthy supply of strategic petroleum reserves.",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
-        "grounded": true
-      }
-    },
-    {
-      "subject_id": "EV5",
-      "subject_text": "China’s Renewable Energy Dominance",
-      "subject_type": "EconomicBenefit",
-      "property": "isRelatedTo",
-      "property_source": "schema.org",
-      "vocab_id": null,
-      "property_is_new_to_vocab": false,
-      "property_definition": null,
-      "property_parent": null,
-      "property_justification": "The 'isRelatedTo' property (Product/Service → Product/Service) fits 'RenewablesAcceleration → EnergySource', 'RenewablesAcceleration → Vehicle', and 'RenewablesAcceleration → ResourceStorage' as general associations.",
-      "object_id": "E37",
-      "object_text": "non-fossil fuel projects",
-      "object_type": "Project",
-      "relation_phrases": [
-        "related to"
-      ],
-      "phrase_directions": {
-        "related to": "as_is"
-      },
-      "evidence": [
-        [
-          "non-fossil fuel projects accounting for 86 percent..."
-        ]
-      ],
-      "confidence": 0.8,
-      "grounding": {
-        "evidence_status": "missing",
-        "evidence_detail": {
-          "n_quotes": 1,
-          "found": 0,
-          "partial": 0,
-          "missing": 1,
-          "worst_ratio": 0.792
-        },
-        "evidence_resolved": [
-          {
-            "quote": "non-fossil fuel projects accounting for 86 percent...",
-            "status": "missing",
-            "ratio": 0.792,
-            "start": null,
-            "end": null,
-            "matched_text": null,
-            "sentence": null
-          }
-        ],
-        "orphaned": false,
-        "supported": true,
-        "failure_type": null,
-        "note": "The article explicitly ties China’s renewable dominance to 'non-fossil fuel projects'.",
-        "quote": "producing more than 80 percent of the world’s wind turbines, solar panels and energy storage batteries",
-        "quote_status": "found",
-        "quote_ratio": 1.0,
-        "citation_match": false,
         "grounded": true
       }
     },
@@ -2252,8 +1927,8 @@
         "orphaned": false,
         "supported": true,
         "failure_type": null,
-        "note": "The article explicitly states the war was on Iran.",
-        "quote": "the United States and Israel launched a war on Iran",
+        "note": "",
+        "quote": "Since the United States and Israel launched a war on Iran in late February, the global energy sector has undergone major upheaval.",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -2309,8 +1984,65 @@
         "orphaned": false,
         "supported": true,
         "failure_type": null,
-        "note": "The article explicitly states the war began in late February.",
-        "quote": "launched a war on Iran in late February",
+        "note": "",
+        "quote": "Since the United States and Israel launched a war on Iran in late February, the global energy sector has undergone major upheaval.",
+        "quote_status": "found",
+        "quote_ratio": 1.0,
+        "citation_match": true,
+        "grounded": true
+      }
+    },
+    {
+      "subject_id": "E4",
+      "subject_text": "China",
+      "subject_type": "Country",
+      "property": "accountsFor",
+      "property_source": "vocab",
+      "vocab_id": "P0012",
+      "property_is_new_to_vocab": true,
+      "property_definition": "A quantitative contribution of one entity to another",
+      "property_parent": null,
+      "property_justification": "No schema.org property directly expresses 'Country → Number' as a quantitative contribution.",
+      "object_id": "E39",
+      "object_text": "80 percent",
+      "object_type": "Number",
+      "relation_phrases": [
+        "accounts for"
+      ],
+      "phrase_directions": {
+        "accounts for": "as_is"
+      },
+      "evidence": [
+        [
+          "producing more than 80 percent of the world’s wind turbines, solar panels and energy storage batteries"
+        ]
+      ],
+      "confidence": 0.8,
+      "grounding": {
+        "evidence_status": "found",
+        "evidence_detail": {
+          "n_quotes": 1,
+          "found": 1,
+          "partial": 0,
+          "missing": 0,
+          "worst_ratio": 1.0
+        },
+        "evidence_resolved": [
+          {
+            "quote": "producing more than 80 percent of the world’s wind turbines, solar panels and energy storage batteries",
+            "status": "found",
+            "ratio": 1.0,
+            "start": 5389,
+            "end": 5491,
+            "matched_text": "producing more than 80 percent of the world’s wind turbines, solar panels and energy storage batteries",
+            "sentence": "The world’s second-largest economy is by far the top global exporter of renewable energy-related components, producing more than 80 percent of the world’s wind turbines, solar panels and energy storage batteries, according to research and consulting company Wood Mackenzie."
+          }
+        ],
+        "orphaned": false,
+        "supported": true,
+        "failure_type": null,
+        "note": "",
+        "quote": "producing more than 80 percent of the world’s wind turbines, solar panels and energy storage batteries",
         "quote_status": "found",
         "quote_ratio": 1.0,
         "citation_match": true,
@@ -2321,15 +2053,15 @@
   "prune_report": {
     "nary_nodes": {
       "before": 11,
-      "after": 11,
-      "removed": 0,
-      "kept_rate": 1.0
+      "after": 10,
+      "removed": 1,
+      "kept_rate": 0.909
     },
     "relations": {
       "before": 31,
-      "after": 28,
-      "removed": 3,
-      "kept_rate": 0.903
+      "after": 24,
+      "removed": 7,
+      "kept_rate": 0.774
     },
     "entities": {
       "before": 39,
@@ -2341,8 +2073,8 @@
     "drop_unjudged": false,
     "drop_orphan_entities": true,
     "removed_by_failure_type": {
-      "intrinsic": 2,
-      "extrinsic": 1
+      "extrinsic": 5,
+      "orphan": 3
     }
   }
 }
