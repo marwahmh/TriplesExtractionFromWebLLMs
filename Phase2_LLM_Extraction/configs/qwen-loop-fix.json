@@ -1,9 +1,8 @@
 {
   "extends": "main",
   "experiment": "qwen-loop-fix",
-  "description": "TEMPORARY: re-extract art10 and art47 alone. Both failed in the qwen3-32b-think test run (2026-08-23) to a thinking-mode repetition loop: each generated ~62k output tokens against a ~24k sizing expectation, hit the 65,536 context ceiling, and the review call then 400'd asking for 85,268 / 78,697 tokens. 6c's output is named by VARIANT only, so this writes the same nary_graph_dedup.json the rest of the chain reads. Re-running alone changes the vLLM batch shape, which is what makes a different sampling path likely (see the seed note in notebooks/llm_backend.py). Delete once both articles are back and 6c's metrics have been recomputed over all 80.",
+  "description": "TEMPORARY: re-extract art47 alone. art10 and art47 both failed in the qwen3-32b-think test run (2026-08-23) to a thinking-mode repetition loop: each generated ~62k output tokens against a ~24k sizing expectation, filled the 65,536 context, and the review call then 400'd asking for 85,268 / 78,697 tokens. Re-running alone recovered art10 (a different vLLM batch shape gives a different sampling path) but art47 looped a second time, so it needs a re-rolled seed: run this with VLLM_SEED set to something other than 1234. 6c's output is named by VARIANT only, so this writes the same nary_graph_dedup.json the rest of the chain reads, and PHASE2_OVERWRITE=1 is required because the main_test_r1 manifest still claims the article. Delete once art47 is back and 6c's metrics have been recomputed over all 80.",
   "selected_articles": [
-    "art10",
     "art47"
   ]
 }

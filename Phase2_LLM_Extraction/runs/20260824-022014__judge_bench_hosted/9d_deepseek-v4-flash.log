@@ -1,0 +1,138 @@
+[NbConvertApp] Converting notebook /Users/marwah/Documents/Thesis/TriplesExtractionFromWebLLMs/Phase2_LLM_Extraction/notebooks/0_shared/9d_judge_benchmark.ipynb to notebook
+Traceback (most recent call last):
+  File "/opt/anaconda3/bin/jupyter-nbconvert", line 11, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "/opt/anaconda3/lib/python3.12/site-packages/jupyter_core/application.py", line 283, in launch_instance
+    super().launch_instance(argv=argv, **kwargs)
+  File "/opt/anaconda3/lib/python3.12/site-packages/traitlets/config/application.py", line 1075, in launch_instance
+    app.start()
+  File "/opt/anaconda3/lib/python3.12/site-packages/nbconvert/nbconvertapp.py", line 412, in start
+    self.convert_notebooks()
+  File "/opt/anaconda3/lib/python3.12/site-packages/nbconvert/nbconvertapp.py", line 590, in convert_notebooks
+    self.convert_single_notebook(notebook_filename)
+  File "/opt/anaconda3/lib/python3.12/site-packages/nbconvert/nbconvertapp.py", line 556, in convert_single_notebook
+    output, resources = self.export_single_notebook(
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.12/site-packages/nbconvert/nbconvertapp.py", line 479, in export_single_notebook
+    output, resources = self.exporter.from_filename(
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.12/site-packages/nbconvert/exporters/exporter.py", line 203, in from_filename
+    return self.from_file(f, resources=resources, **kw)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.12/site-packages/nbconvert/exporters/exporter.py", line 222, in from_file
+    return self.from_notebook_node(
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.12/site-packages/nbconvert/exporters/notebook.py", line 36, in from_notebook_node
+    nb_copy, resources = super().from_notebook_node(nb, resources, **kw)
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.12/site-packages/nbconvert/exporters/exporter.py", line 156, in from_notebook_node
+    nb_copy, resources = self._preprocess(nb_copy, resources)
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.12/site-packages/nbconvert/exporters/exporter.py", line 354, in _preprocess
+    nbc, resc = preprocessor(nbc, resc)  # type:ignore[operator]
+                ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.12/site-packages/nbconvert/preprocessors/base.py", line 48, in __call__
+    return self.preprocess(nb, resources)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.12/site-packages/nbconvert/preprocessors/execute.py", line 102, in preprocess
+    self.preprocess_cell(cell, resources, index)
+  File "/opt/anaconda3/lib/python3.12/site-packages/nbconvert/preprocessors/execute.py", line 123, in preprocess_cell
+    cell = self.execute_cell(cell, index, store_history=True)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.12/site-packages/jupyter_core/utils/__init__.py", line 165, in wrapped
+    return loop.run_until_complete(inner)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.12/asyncio/base_events.py", line 687, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.12/site-packages/nbclient/client.py", line 1058, in async_execute_cell
+    await self._check_raise_for_error(cell, cell_index, exec_reply)
+  File "/opt/anaconda3/lib/python3.12/site-packages/nbclient/client.py", line 914, in _check_raise_for_error
+    raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
+nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
+------------------
+def run_bench(backend, tag, url=None, seed=BENCH_SEED, workers=WORKERS, batch=None):
+    """Activate `backend`, judge all 500 items, write the verdict file. -> tag."""
+    spec = dict(llm_backend.BACKENDS[backend])
+    over = {}
+    if spec.get("kind") != "gemini":
+        # ALWAYS pin the URL. llm_backend keeps its base_url until something changes it, so a judge
+        # that passes none inherits the previous judge's server — which, with two models tunnelled,
+        # means silently benchmarking one model against the other's endpoint and getting a plausible
+        # number back. Never let it default here.
+        over["base_url"] = url or spec.get("url") or DEFAULT_URL
+    if spec.get("kind") != "gemini" and seed is not None:
+        over["seed"] = seed
+    llm_backend.activate(backend, ROOT, globals(), results=RESULTS_MODEL, **over)
+    if spec.get("kind") != "gemini":
+        print(f"   -> {llm_backend.BASE_URL}  model={llm_backend.MODEL}")
+
+    gc.set_llm(gemini_json)                       # whatever activate() just bound
+    # Give every judge the SAME batch size when comparing them: batch length changes how much a
+    # model has to hold in one answer, so a thinking judge at 20 versus a structured one at 60 is a
+    # confound sitting inside the comparison. 20 suits both; it only costs more calls.
+    gc.configure(judge_batch=batch or (20 if spec.get("thinking") else 60))
+
+    items  = jb.load_items(GLOBAL_DIR)            # fresh dicts: no verdicts carried between runs
+    groups = dict(jb.by_article(items))
+    arts   = {a: load_article(a) for a in groups}
+
+    def _one(aid, _g=groups, _a=arts):
+        gc.set_article(_a[aid])                   # thread-local: the prompt is built from it
+        nb_parallel.quiet(gc.run_judge, _g[aid], jb.assertion_of, aid)
+        return sum(x.get("grounding", {}).get("supported") is not None for x in _g[aid])
+
+    nb_parallel.reset_usage()
+    nb_parallel.pmap(_one, list(groups), workers=workers)
+    jb.save_verdicts(items, GLOBAL_DIR, tag, config={
+        "backend": backend, "model": llm_backend.MODEL if spec.get("kind") != "gemini" else GEMINI_MODEL,
+        **{k: v for k, v in spec.items() if k not in ("kind", "model", "url")},
+        "temperature": llm_backend.TEMPERATURE, "top_p": llm_backend.TOP_P,
+        "seed": llm_backend.SEED, "judge_batch": gc.JUDGE_BATCH, "workers": workers,
+        "graph": GRAPH_NAME, "results_model": RESULTS_MODEL, "prompt_sha1": PROMPT_SHA})
+    nb_parallel.usage_report(f"nb9d · {tag}", wall_seconds=nb_parallel.LAST_WALL_SECONDS,
+                             write=GLOBAL_DIR / f"token_usage_judge_benchmark_{tag}.json")
+    return tag
+
+# The tag carries the PROMPT hash. Without it, re-running after a prompt edit would find the old
+# verdict file, skip the run, and quietly compare a new-prompt judge against an old-prompt one —
+# the exact silent error this benchmark exists to prevent.
+for _j in JUDGES:
+    for _r in range(1, _j.get("repeats", 1) + 1):
+        _stem = f"{_j['backend']}_p{PROMPT_SHA}_seed{BENCH_SEED}"
+        _tag = f"{_stem}_run{_r}" if _j.get("repeats", 1) > 1 else _stem
+        if (GLOBAL_DIR / jb.VERDICTS_FILE.format(tag=_tag)).exists():
+            print(f"{_tag}: already done, skipping"); continue
+        print(f"\n=== {_tag} ===")
+        run_bench(_j["backend"], _tag, url=_j.get("url"), batch=_j.get("batch", BENCH_BATCH))
+------------------
+
+----- stdout -----
+
+=== deepseek-v4-flash_p67305d45abb6_seed1234_run1 ===
+------------------
+
+[0;31m---------------------------------------------------------------------------[0m
+[0;31mTypeError[0m                                 Traceback (most recent call last)
+Cell [0;32mIn[6], line 54[0m
+[1;32m     52[0m     [38;5;28mprint[39m([38;5;124mf[39m[38;5;124m"[39m[38;5;132;01m{[39;00m_tag[38;5;132;01m}[39;00m[38;5;124m: already done, skipping[39m[38;5;124m"[39m); [38;5;28;01mcontinue[39;00m
+[1;32m     53[0m [38;5;28mprint[39m([38;5;124mf[39m[38;5;124m"[39m[38;5;130;01m\n[39;00m[38;5;124m=== [39m[38;5;132;01m{[39;00m_tag[38;5;132;01m}[39;00m[38;5;124m ===[39m[38;5;124m"[39m)
+[0;32m---> 54[0m run_bench(_j[[38;5;124m"[39m[38;5;124mbackend[39m[38;5;124m"[39m], _tag, url[38;5;241m=[39m_j[38;5;241m.[39mget([38;5;124m"[39m[38;5;124murl[39m[38;5;124m"[39m), batch[38;5;241m=[39m_j[38;5;241m.[39mget([38;5;124m"[39m[38;5;124mbatch[39m[38;5;124m"[39m, BENCH_BATCH))
+
+Cell [0;32mIn[6], line 13[0m, in [0;36mrun_bench[0;34m(backend, tag, url, seed, workers, batch)[0m
+[1;32m     11[0m [38;5;28;01mif[39;00m spec[38;5;241m.[39mget([38;5;124m"[39m[38;5;124mkind[39m[38;5;124m"[39m) [38;5;241m!=[39m [38;5;124m"[39m[38;5;124mgemini[39m[38;5;124m"[39m [38;5;129;01mand[39;00m seed [38;5;129;01mis[39;00m [38;5;129;01mnot[39;00m [38;5;28;01mNone[39;00m:
+[1;32m     12[0m     over[[38;5;124m"[39m[38;5;124mseed[39m[38;5;124m"[39m] [38;5;241m=[39m seed
+[0;32m---> 13[0m llm_backend[38;5;241m.[39mactivate(backend, ROOT, [38;5;28mglobals[39m(), results[38;5;241m=[39mRESULTS_MODEL, [38;5;241m*[39m[38;5;241m*[39mover)
+[1;32m     14[0m [38;5;28;01mif[39;00m spec[38;5;241m.[39mget([38;5;124m"[39m[38;5;124mkind[39m[38;5;124m"[39m) [38;5;241m!=[39m [38;5;124m"[39m[38;5;124mgemini[39m[38;5;124m"[39m:
+[1;32m     15[0m     [38;5;28mprint[39m([38;5;124mf[39m[38;5;124m"[39m[38;5;124m   -> [39m[38;5;132;01m{[39;00mllm_backend[38;5;241m.[39mBASE_URL[38;5;132;01m}[39;00m[38;5;124m  model=[39m[38;5;132;01m{[39;00mllm_backend[38;5;241m.[39mMODEL[38;5;132;01m}[39;00m[38;5;124m"[39m)
+
+File [0;32m~/Documents/Thesis/TriplesExtractionFromWebLLMs/Phase2_LLM_Extraction/notebooks/llm_backend.py:544[0m, in [0;36mactivate[0;34m(name, root, ns, results, **overrides)[0m
+[1;32m    541[0m overrides[38;5;241m.[39msetdefault([38;5;124m"[39m[38;5;124mapi_key[39m[38;5;124m"[39m, [38;5;124m"[39m[38;5;124mEMPTY[39m[38;5;124m"[39m)
+[1;32m    542[0m spec[38;5;241m.[39msetdefault([38;5;124m"[39m[38;5;124mparams[39m[38;5;124m"[39m, {})
+[0;32m--> 544[0m configure(model[38;5;241m=[39mmodel, kind[38;5;241m=[39mkind, [38;5;241m*[39m[38;5;241m*[39mspec, [38;5;241m*[39m[38;5;241m*[39moverrides)
+[1;32m    545[0m ns[[38;5;124m"[39m[38;5;124mgemini_json[39m[38;5;124m"[39m] [38;5;241m=[39m llm_json
+[1;32m    546[0m ns[[38;5;124m"[39m[38;5;124mMAX_OUTPUT_TOKENS[39m[38;5;124m"[39m] [38;5;241m=[39m MAX_OUTPUT_TOKENS
+
+[0;31mTypeError[0m: llm_backend.configure() got multiple values for keyword argument 'base_url'
+

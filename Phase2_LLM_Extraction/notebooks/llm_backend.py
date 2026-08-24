@@ -512,7 +512,25 @@ def activate(name, root, ns, results=None, **overrides):
     # to hosted backends: those models have their own, and a hosted run is compared against the
     # Gemini baseline, which ran greedy.
     if spec.get("thinking") and kind == "vllm":       # see the docstring: greedy + thinking loops
+        # $VLLM_SEED / $VLLM_TEMPERATURE / $VLLM_TOP_P re-roll the sampling without editing a
+        # notebook. This exists for ONE failure: Qwen3 thinking occasionally locks into a
+        # repetition loop on a long article, emits ~62k tokens against a ~24k expectation, fills
+        # the context, and the review call then 400s. The loop is a sampling accident, so a
+        # different seed is a genuine second attempt where a re-run at the same seed may not be.
+        # Defaults are unchanged, so every existing run reproduces exactly; the resolved values are
+        # recorded in call.info and printed below, which is what keeps a re-rolled run honest.
+        _envmap = {"temperature": ("VLLM_TEMPERATURE", float),
+                   "top_p":       ("VLLM_TOP_P",       float),
+                   "seed":        ("VLLM_SEED",        int)}
         for k, v in (("temperature", 0.6), ("top_p", 0.95), ("seed", 1234)):
+            env_name, cast = _envmap[k]
+            raw = os.environ.get(env_name)
+            if raw is not None and k not in overrides:   # an explicit caller override still wins
+                try:
+                    overrides[k] = cast(raw)
+                    print(f"  [llm_backend] {k}={overrides[k]} from ${env_name}")
+                except ValueError:
+                    print(f"  [llm_backend] ignoring ${env_name}={raw!r}: not a valid {cast.__name__}")
             overrides.setdefault(k, v)                # an explicit override still wins
 
     # Both are passed on every activate, never left to persist: a notebook that switches backends
@@ -523,6 +541,13 @@ def activate(name, root, ns, results=None, **overrides):
     overrides.setdefault("api_key", "EMPTY")
     spec.setdefault("params", {})
 
+    # An explicit override beats the BACKENDS entry — the rule everywhere else in this function.
+    # It has to be enforced here too: `url` was renamed to `base_url` above, so a HOSTED backend
+    # (whose spec carries a url) plus a caller that pins base_url — which nb9d's run_bench does, on
+    # purpose, so a judge cannot inherit the previous judge's endpoint — reached configure() with
+    # base_url twice and raised TypeError. vLLM specs carry no url, so this only ever bit the
+    # hosted judges.
+    spec = {k: v for k, v in spec.items() if k not in overrides}
     configure(model=model, kind=kind, **spec, **overrides)
     ns["gemini_json"] = llm_json
     ns["MAX_OUTPUT_TOKENS"] = MAX_OUTPUT_TOKENS
