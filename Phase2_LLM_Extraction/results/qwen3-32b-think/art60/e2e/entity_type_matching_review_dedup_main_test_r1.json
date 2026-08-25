@@ -14,7 +14,7 @@
         "definition": null,
         "parent": null,
         "path": "Thing > Product",
-        "justification": "The mention 'Yingfeng 2' refers to a specific boat, which is a type of vehicle."
+        "justification": "Boat is a specific type of Vehicle used for water transportation."
       },
       "llm_proposed": {
         "source": "schema.org",
@@ -73,7 +73,7 @@
         "definition": null,
         "parent": null,
         "path": "Thing",
-        "justification": "The mention 'Roger Kamba' clearly identifies an individual human being."
+        "justification": "Person directly matches the definition of an individual human being."
       },
       "llm_proposed": {
         "source": "schema.org",
@@ -125,18 +125,18 @@
       "oie_type": "Organization",
       "embedding_query_text": "Organization: A structured group of people working together for a common purpose or goal. Also called institution, agency, group, organization. Examples: World Health Organization, WHO.",
       "chosen_type": {
-        "label": "MedicalOrganization",
+        "label": "Organization",
         "source": "schema.org",
         "vocab_id": null,
         "is_new_to_vocab": false,
         "definition": null,
         "parent": null,
-        "path": "Thing > Organization",
-        "justification": "The mention 'World Health Organization' is a medical institution operating in the healthcare domain."
+        "path": "Thing",
+        "justification": "Organization is the general category for structured groups, which aligns with the definition."
       },
       "llm_proposed": {
         "source": "schema.org",
-        "label": "MedicalOrganization",
+        "label": "Organization",
         "is_new": false
       },
       "mentions": [
@@ -186,12 +186,12 @@
       "chosen_type": {
         "label": "MedicalCaseCount",
         "source": "vocab",
-        "vocab_id": "T0193",
+        "vocab_id": "T0186",
         "is_new_to_vocab": true,
         "definition": "A numerical count of confirmed cases of a medical condition or disease in a population.",
-        "parent": "Quantity",
-        "path": "Quantity",
-        "justification": "No schema.org class directly represents a numerical case count, so a new type is needed under Quantity."
+        "parent": "MedicalEntity",
+        "path": "Thing > MedicalEntity",
+        "justification": "No schema.org class directly represents a case count; MedicalCaseCount is a concise fit under MedicalEntity."
       },
       "llm_proposed": {
         "source": "new",
@@ -248,12 +248,12 @@
       "chosen_type": {
         "label": "VirusStrain",
         "source": "vocab",
-        "vocab_id": "T0194",
+        "vocab_id": "T0187",
         "is_new_to_vocab": true,
-        "definition": "A distinct genetic variant of a virus species with unique characteristics.",
-        "parent": "InfectiousDisease",
-        "path": "Thing > MedicalEntity > MedicalCondition > InfectiousDisease",
-        "justification": "The mention refers to a specific virus variant, which isn't directly modeled in schema.org; 'InfectiousDisease' is the closest parent."
+        "definition": "A distinct genetic variant of a virus species, often with unique characteristics.",
+        "parent": "MedicalEntity",
+        "path": "Thing > MedicalEntity",
+        "justification": "VirusStrain is not directly available in schema.org but fits under MedicalEntity as a specific variant."
       },
       "llm_proposed": {
         "source": "new",
@@ -307,12 +307,12 @@
       "chosen_type": {
         "label": "PassengerCount",
         "source": "vocab",
-        "vocab_id": "T0195",
+        "vocab_id": "T0188",
         "is_new_to_vocab": true,
         "definition": "A numerical count of individuals traveling on a vessel or vehicle.",
         "parent": "Quantity",
         "path": "Quantity",
-        "justification": "The mention '255 passengers' is a numerical count, not a policy or vehicle type, requiring a new subclass of Quantity."
+        "justification": "PassengerCount is a numeric measure of travelers, best represented as a Quantity."
       },
       "llm_proposed": {
         "source": "new",
@@ -371,7 +371,7 @@
         "definition": null,
         "parent": null,
         "path": "Quantity",
-        "justification": "The mentions express time spans (e.g., '21 days') which align with the schema.org Duration type."
+        "justification": "TimeDuration aligns with Duration as a measure of time intervals."
       },
       "llm_proposed": {
         "source": "schema.org",
@@ -425,13 +425,13 @@
       "embedding_query_text": "Date: A specific day in time, typically expressed as a calendar date. Also called day, calendar date, date of occurrence, specific date. Examples: 15 May.",
       "chosen_type": {
         "label": "Date",
-        "source": "schema.org",
-        "vocab_id": null,
+        "source": "vocab",
+        "vocab_id": "T0094",
         "is_new_to_vocab": false,
-        "definition": null,
-        "parent": null,
-        "path": "",
-        "justification": "The mention '15 May' is a specific calendar date, directly matching schema.org Date."
+        "definition": "A calendar date without time component, representing a temporal marker for events.",
+        "parent": "Thing",
+        "path": "Thing",
+        "justification": "Date directly matches the calendar date format and examples."
       },
       "llm_proposed": {
         "source": "schema.org",
@@ -485,12 +485,12 @@
       "chosen_type": {
         "label": "PopulationCount",
         "source": "vocab",
-        "vocab_id": "T0189",
+        "vocab_id": "T0182",
         "is_new_to_vocab": false,
-        "definition": "A specific numerical count of people in a population",
-        "parent": "StructuredValue",
-        "path": "Thing > Intangible > StructuredValue",
-        "justification": "The mentions are numerical counts of people, which require a new subclass of Quantity."
+        "definition": "A QuantitativeValue representing the numerical size of a population.",
+        "parent": "QuantitativeValue",
+        "path": "Thing > Intangible > StructuredValue > QuantitativeValue",
+        "justification": "PopulationCount represents a numeric count of people, best mapped to Quantity."
       },
       "llm_proposed": {
         "source": "new",
@@ -550,7 +550,7 @@
         "definition": null,
         "parent": null,
         "path": "Quantity",
-        "justification": "The mention '1,700km' is a numerical distance measurement, directly matching schema.org Distance."
+        "justification": "Distance as a Quantity matches the measure of space between points."
       },
       "llm_proposed": {
         "source": "schema.org",
@@ -609,7 +609,7 @@
         "definition": null,
         "parent": null,
         "path": "Thing",
-        "justification": "The mentions refer to geographic locations (port, region) which align with schema.org Place."
+        "justification": "Location is a generic term for a fixed place, which Place represents."
       },
       "llm_proposed": {
         "source": "schema.org",
@@ -669,7 +669,7 @@
         "definition": null,
         "parent": null,
         "path": "Thing > Place > AdministrativeArea",
-        "justification": "The mention 'Mongala Province' is an administrative division of a country, matching schema.org State."
+        "justification": "Province is synonymous with State in schema.org's administrative area hierarchy."
       },
       "llm_proposed": {
         "source": "schema.org",
@@ -728,7 +728,7 @@
         "definition": null,
         "parent": null,
         "path": "Thing > Place > AdministrativeArea",
-        "justification": "The mention 'Kinshasa' is a large urban settlement with administrative boundaries, fitting schema.org City."
+        "justification": "City directly matches the definition of a large human settlement with administrative boundaries."
       },
       "llm_proposed": {
         "source": "schema.org",
@@ -787,7 +787,7 @@
         "definition": null,
         "parent": null,
         "path": "Thing > Organization",
-        "justification": "The mention 'Congolese health ministry' is a government entity providing a public service, aligning with GovernmentOrganization."
+        "justification": "GovernmentMinistry is a specific type of GovernmentOrganization responsible for health."
       },
       "llm_proposed": {
         "source": "schema.org",
@@ -839,18 +839,18 @@
       "oie_type": "Company",
       "embedding_query_text": "Company Examples: Chinese company.",
       "chosen_type": {
-        "label": "Corporation",
+        "label": "SomeProducts",
         "source": "schema.org",
         "vocab_id": null,
         "is_new_to_vocab": false,
         "definition": null,
         "parent": null,
-        "path": "Thing > Organization",
-        "justification": "The mention 'Chinese company' refers to a legal business entity, matching schema.org Corporation."
+        "path": "Thing > Product",
+        "justification": "fallback: top candidate"
       },
       "llm_proposed": {
         "source": "schema.org",
-        "label": "Corporation",
+        "label": "SomeProducts",
         "is_new": false
       },
       "mentions": [

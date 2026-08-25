@@ -1,0 +1,527 @@
+[NbConvertApp] Converting notebook /Users/marwah/Documents/Thesis/TriplesExtractionFromWebLLMs/Phase2_LLM_Extraction/notebooks/e2e/6e_e2e_relation_canonicalization.ipynb to notebook
+/opt/anaconda3/lib/python3.12/site-packages/nbformat/__init__.py:93: MissingIDFieldWarning: Code cell is missing an id field, this will become a hard error in future nbformat versions. You may want to use `normalize()` on your notebooks before validations (available since nbformat 5.1.4). Previous versions of nbformat are fixing this issue transparently, and will stop doing so in the future.
+  validate(nb)
+/opt/anaconda3/lib/python3.12/site-packages/nbformat/__init__.py:93: DuplicateCellId: Non-unique cell id 'cell002' detected. Corrected to 'aaec6f6b'.
+  validate(nb)
+Traceback (most recent call last):
+  File "/opt/anaconda3/bin/jupyter-nbconvert", line 11, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "/opt/anaconda3/lib/python3.12/site-packages/jupyter_core/application.py", line 283, in launch_instance
+    super().launch_instance(argv=argv, **kwargs)
+  File "/opt/anaconda3/lib/python3.12/site-packages/traitlets/config/application.py", line 1075, in launch_instance
+    app.start()
+  File "/opt/anaconda3/lib/python3.12/site-packages/nbconvert/nbconvertapp.py", line 412, in start
+    self.convert_notebooks()
+  File "/opt/anaconda3/lib/python3.12/site-packages/nbconvert/nbconvertapp.py", line 590, in convert_notebooks
+    self.convert_single_notebook(notebook_filename)
+  File "/opt/anaconda3/lib/python3.12/site-packages/nbconvert/nbconvertapp.py", line 556, in convert_single_notebook
+    output, resources = self.export_single_notebook(
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.12/site-packages/nbconvert/nbconvertapp.py", line 479, in export_single_notebook
+    output, resources = self.exporter.from_filename(
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.12/site-packages/nbconvert/exporters/exporter.py", line 203, in from_filename
+    return self.from_file(f, resources=resources, **kw)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.12/site-packages/nbconvert/exporters/exporter.py", line 222, in from_file
+    return self.from_notebook_node(
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.12/site-packages/nbconvert/exporters/notebook.py", line 36, in from_notebook_node
+    nb_copy, resources = super().from_notebook_node(nb, resources, **kw)
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.12/site-packages/nbconvert/exporters/exporter.py", line 156, in from_notebook_node
+    nb_copy, resources = self._preprocess(nb_copy, resources)
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.12/site-packages/nbconvert/exporters/exporter.py", line 354, in _preprocess
+    nbc, resc = preprocessor(nbc, resc)  # type:ignore[operator]
+                ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.12/site-packages/nbconvert/preprocessors/base.py", line 48, in __call__
+    return self.preprocess(nb, resources)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.12/site-packages/nbconvert/preprocessors/execute.py", line 102, in preprocess
+    self.preprocess_cell(cell, resources, index)
+  File "/opt/anaconda3/lib/python3.12/site-packages/nbconvert/preprocessors/execute.py", line 123, in preprocess_cell
+    cell = self.execute_cell(cell, index, store_history=True)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.12/site-packages/jupyter_core/utils/__init__.py", line 165, in wrapped
+    return loop.run_until_complete(inner)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.12/asyncio/base_events.py", line 687, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.12/site-packages/nbclient/client.py", line 1058, in async_execute_cell
+    await self._check_raise_for_error(cell, cell_index, exec_reply)
+  File "/opt/anaconda3/lib/python3.12/site-packages/nbclient/client.py", line 914, in _check_raise_for_error
+    raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
+nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
+------------------
+# ---- PERIODIC RE-CONSOLIDATION (CONSOLIDATE_EVERY) -------------------------------------------
+# The relation-side twin of 6d's periodic cell; see it for why the passes are accumulated instead of
+# refreshed one at a time (refresh_ext_after_consolidation composes merge chains from ONE report, so
+# refreshing per pass would drop the earlier ones and strand article 1 on a retired property id).
+#
+# Two things kept from the main build loop, which 6d does not have:
+#   prefetch   within a chunk the per-article calls are still independent while the inline pool is
+#              schema.org only, so PARALLEL_LLM keeps working — it is only ACROSS chunks that the
+#              vocabulary state matters.
+#   tokens     TOKENS accumulates across chunks and the ledger is rewritten at the end, so the cost
+#              file covers the whole stage rather than the first chunk.
+if CONSOLIDATE_EVERY and len(TODO_ALL) > len(todo):
+    _reports = [json.loads(CONSOLIDATION_REPORT_PATH.read_text())] if CONSOLIDATION_REPORT_PATH.exists() else []
+    _rest = TODO_ALL[len(todo):]
+    _chunks = [_rest[i:i + CONSOLIDATE_EVERY] for i in range(0, len(_rest), CONSOLIDATE_EVERY)]
+    print(f"periodic consolidation: {len(_chunks)} further chunk(s) of <= {CONSOLIDATE_EVERY} article(s)\n")
+
+    for _ci, _chunk in enumerate(_chunks, start=2):
+        # RECONCILING feed-back. A pass must only ever remove a property it RECORDED as merged;
+        # anything else that disappears is a term the per-article graphs still point at, and feeding
+        # a lossy vocabulary forward turns those references into dangling ids that no later pass can
+        # repair (it no longer knows the term existed). Measured on the first periodic 6e run: 5 of
+        # 29 removals had no merge record, orphaning 9 relations. Restore them and say so, rather
+        # than carrying the loss silently into the next chunk.
+        _prev = {t["id"]: t for t in load_vocab()["properties"]}
+        _con = load_consolidated()
+        _merged = {m["id"] for g in (_reports[-1].get("merges") or []) for m in (g.get("merged") or [])}
+        _lost = [i for i in _prev if i not in {t["id"] for t in _con["properties"]} and i not in _merged]
+        if _lost:
+            print(f"  [repair] {len(_lost)} property(s) left the vocabulary with no merge record "
+                  f"-- restoring: {_lost}")
+            _con["properties"] = _con["properties"] + [_prev[i] for i in _lost]
+        save_vocab(_con)
+        vocab = load_vocab()
+        print(f"── chunk {_ci}: {len(vocab['properties'])} propert(ies) carried forward | {_chunk}")
+        _pre = {}
+        if PARALLEL_LLM and not INLINE_VOCAB_CANDIDATES and len(_chunk) > 1:
+            _pre = {r.item: r.value for r in
+                    nb_parallel.pmap(lambda a: prefetch_assignments(a, vocab), _chunk, workers=WORKERS)
+                    if r.ok}
+        for aid in _chunk:
+            _ta = time.perf_counter()
+            with nb_parallel.usage_scope(aid):
+                process_article(aid, vocab, write=True, save=True, verbose=True, pre=_pre.get(aid))
+            _u = (_pre.get(aid) or {}).get("usage") or LAST_USAGE
+            TOKENS.append({"article": aid, "seconds": round(time.perf_counter() - _ta, 1),
+                           **(_u or {})})
+            if aid not in _pre:
+                time.sleep(5)
+        if CONSOLIDATE:
+            _reports.append(consolidate_vocab(load_vocab()))
+        else:
+            _consolidation_disabled()
+
+    if _reports:
+        _cum = dict(_reports[-1])
+        _cum["merges"] = [g for r in _reports for g in (r.get("merges") or [])]
+        _cum["reparents"] = [g for r in _reports for g in (r.get("reparents") or [])]
+        _cum["consolidation_passes"] = len(_reports)
+        _cum["n_merges"] = len(_cum["merges"])
+        _cum["n_reparented"] = sum(len(g.get("children") or []) for g in _cum["reparents"])
+        _cum["n_props_removed"] = sum(len(g.get("merged") or []) for g in _cum["merges"])
+        _cum["n_merged_into_schema"] = sum(len(g.get("merged") or []) for g in _cum["merges"]
+                                           if g.get("survivor_source") == "schema.org")
+        # NOT pass 1's "before" and pass 4's "after" — those describe different populations (the
+        # vocabulary after one chunk vs after twenty), and quoted as a pair they read as though
+        # consolidation GREW the vocabulary. The meaningful pair for a periodic run is the
+        # counterfactual: what the vocabulary would be had nothing been collapsed, against what it
+        # actually is. (Sanity check: before == next_id - 1, i.e. every id ever issued.)
+        _cum["vocab_size_after"] = _reports[-1].get("vocab_size_after")
+        _cum["vocab_size_before"] = (_cum["vocab_size_after"] or 0) + _cum["n_props_removed"]
+        _cum["per_pass"] = [{"before": r.get("vocab_size_before"), "after": r.get("vocab_size_after")}
+                            for r in _reports]
+        CONSOLIDATION_REPORT_PATH.write_text(json.dumps(_cum, indent=2, ensure_ascii=False))
+        print(f"\ncumulative report over {len(_reports)} pass(es) -> {CONSOLIDATION_REPORT_PATH.name}"
+              f"   {_cum['n_merges']} merge group(s), {_cum['n_props_removed']} propert(ies) removed")
+
+    refresh_ext_after_consolidation()          # once, with the composed mapping
+
+    _toktot = {k: sum((t.get(k) or 0) for t in TOKENS)
+               for k in ("prompt_tokens", "output_tokens", "thoughts_tokens", "total_tokens", "seconds")}
+    _tokp = RESULTS_DIR / "_global" / "e2e" / f"token_usage{_osfx}.json"
+    _tokp.write_text(json.dumps({"method": "candidate", "experiment": EXPERIMENT, "variant": VARIANT,
+                                 "prompt": PROMPT, "model": GEMINI_MODEL,
+                                 "consolidation_passes": len(_reports),
+                                 "per_article": TOKENS, "totals": _toktot}, indent=2, ensure_ascii=False))
+    print(f"\ndone — {len(load_consolidated()['properties'])} consolidated properties over "
+          f"{len(TODO_ALL)} article(s) | tokens {_toktot['total_tokens']:,} -> {_tokp.name}")
+
+# ---- INVARIANT: the consolidated graphs and the vocabulary must agree ---------------------------
+# Consolidating repeatedly can strand a graph on an id that no longer exists: a term merged in one
+# pass and merged AGAIN in a later one loses its trail. That failure is SILENT — the run finishes and
+# the counts look plausible. Three cheap checks, each of which has caught a real defect on this
+# corpus:
+#   dangling    an id the vocabulary no longer holds (the original check).
+#   duplicates  the SAME id held twice. A repair run that reused a run_tag re-issued P0558-P0563,
+#               already taken by six consolidation-generalize terms, and six relations then resolved
+#               to a different property than the one they were assigned. Ids still existed, so the
+#               dangling check saw nothing.
+#   labels      the reference's own label vs the label of the entry it points at. This is what
+#               catches a refresh that did not run: nb4's read the wrong field names, remapped
+#               nothing, and reported "0 nodes changed" while 65 references stayed on
+#               pre-consolidation terms.
+import glob as _glob
+_vocab = load_consolidated()["properties"]
+_live = {t["id"]: t.get("canonical_label") for t in _vocab}
+_dups = len(_vocab) - len(_live)
+_dangling, _mismatch, _checked = [], [], 0
+for _f in sorted(_glob.glob(str(RESULTS_DIR / "art*" / "e2e" / f"*{_osfx}_extended_consolidated.json"))):
+    _g = json.loads(Path(_f).read_text())
+    _aid = Path(_f).parts[-3]
+    for _coll in ("relations",):
+        for _n in _g.get(_coll, []):
+            _v = _n.get("vocab_id")
+            if not _v:
+                continue
+            _checked += 1
+            _lab = _n.get("property")
+            if _v not in _live:
+                _dangling.append((_aid, _v, _lab))
+            elif _lab != _live[_v]:
+                _mismatch.append((_aid, _v, _lab, _live[_v]))
+if _dups:
+    from collections import Counter as _C
+    _seen = _C(t["id"] for t in _vocab)
+    print(f"\n  *** {_dups} duplicated id(s) in the consolidated vocabulary: "
+          f"{[i for i, n in _seen.items() if n > 1][:10]}")
+if _dangling:
+    print(f"\n  *** {len(_dangling)} reference(s) to {len({d[1] for d in _dangling})} vanished property(s):")
+    for _d in _dangling[:10]:
+        print(f"      {_d[0]}  {_d[1]}  {_d[2]}")
+if _mismatch:
+    print(f"\n  *** {len(_mismatch)} reference(s) whose label disagrees with the vocabulary "
+          f"(a refresh that did not reach this data):")
+    for _d in _mismatch[:10]:
+        print(f"      {_d[0]}  {_d[1]}  graph says {_d[2]!r}, vocabulary says {_d[3]!r}")
+if _dups or _dangling or _mismatch:
+    raise AssertionError(
+        f"{_dups} duplicated id(s), {len(_dangling)} dangling reference(s) and "
+        f"{len(_mismatch)} label disagreement(s) between the consolidated graphs and the "
+        f"property vocabulary — these graphs are NOT safe to report. Fix before using this run.")
+print(f"  invariant OK — {_checked} vocabulary reference(s) resolve, with matching labels and no "
+      f"duplicated ids")
+
+------------------
+
+----- stdout -----
+periodic consolidation: 15 further chunk(s) of <= 5 article(s)
+
+── chunk 2: 31 propert(ies) carried forward | ['art13', 'art14', 'art16', 'art18', 'art19']
+5 item(s), running on 5 threads
+----- stdout -----
+[1/5] art16  (166.8s)
+----- stdout -----
+[2/5] art13  (186.7s)
+       [json_repair] salvaged a malformed response (477 chars)
+----- stdout -----
+[3/5] art19  (411.6s)
+----- stdout -----
+[4/5] art18  (412.3s)
+       [json_repair] salvaged a malformed response (6198 chars)
+----- stdout -----
+[5/5] art14  (587.3s)
+
+done — 5/5 ok in 587.3s
+  art13: 16 phrases (0 split), 25 instances -> 25 triples (0 merged, 0 inverse-reused) | +0 minted | vocab now 31
+  art14: 27 phrases (3 split), 46 instances -> 46 triples (0 merged, 9 inverse-reused) | +5 minted | vocab now 36
+  art16: 16 phrases (0 split), 35 instances -> 35 triples (0 merged, 0 inverse-reused) | +1 minted | vocab now 37
+  art18: 14 phrases (3 split), 26 instances -> 25 triples (1 merged, 5 inverse-reused) | +5 minted | vocab now 42
+  art19: 16 phrases (0 split), 23 instances -> 22 triples (1 merged, 5 inverse-reused) | +0 minted | vocab now 42
+----- stdout -----
+consolidation (2 call): subprop_mode='subproperty' | pool=vocab+schema.org | 10 merge-group(s), 2 generalize-group(s), 27 removed (22 into schema.org), 9 re-parented (9 under schema.org) | vocab 42 -> 17
+  [merge/syno] keep schema.org 'event' <= ['resignedFromPosition', 'usesTransportationRoute', 'confirmed', 'experienced']
+  [merge/syno] keep schema.org 'cause' <= ['causedBy', 'triggeredBy', 'caused']
+  [merge/syno] keep schema.org 'award' <= ['receivedAward', 'hasWon']
+  [merge/syno] keep schema.org 'member' <= ['hasMember', 'hasPlayer']
+  [merge/syno] keep schema.org 'creator' <= ['originatedBy', 'made', 'releasesCreativeWork']
+  [merge/syno] keep schema.org 'relatedTo' <= ['isSimilarTo', 'hasHeadToHeadRecord']
+  [merge/syno] keep schema.org 'amount' <= ['hasFundingAmount', 'hasOutpostCount']
+  [merge/syno] keep schema.org 'affectedBy' <= ['affectedBy']
+  [merge/syno] keep schema.org 'affectedBy' <= ['threatened']
+  [merge/syno] keep schema.org 'competitor' <= ['competesWith', 'hasInjury']
+  [generalize] new P0044 'hasEventSeriesPart' <= ['extendsEventSeries', 'followsEvent']
+  [generalize] new P0045 'hasLegalStatus' <= ['appealed', 'ruledAgainst', 'imposed']
+  [subproperty] ['approves'] subPropertyOf issuedBy (schema.org)
+  [subproperty] ['assertsLegalAssertion'] subPropertyOf hasCertification (schema.org)
+  [subproperty] ['violates'] subPropertyOf about (schema.org)
+  [subproperty] ['targetsRegion'] subPropertyOf shippingDestination (schema.org)
+  [subproperty] ['partOf'] subPropertyOf temporal (schema.org)
+  [subproperty] ['projectedImpact'] subPropertyOf contentReferenceTime (schema.org)
+  [subproperty] ['adoptionDate'] subPropertyOf startDate (schema.org)
+  [subproperty] ['hasEventSeriesPart'] subPropertyOf superEvent (schema.org)
+  [subproperty] ['perpetrator'] subPropertyOf agent (schema.org)
+  consolidated vocab -> /Users/marwah/Documents/Thesis/TriplesExtractionFromWebLLMs/Phase2_LLM_Extraction/results/qwen3-32b-think/_global/e2e/nary_relation_vocabulary_dedup_main_test_r1_consolidated.json  (raw nary_relation_vocabulary_dedup_main_test_r1.json untouched)
+  report -> /Users/marwah/Documents/Thesis/TriplesExtractionFromWebLLMs/Phase2_LLM_Extraction/results/qwen3-32b-think/_global/e2e/nary_relation_consolidation_report_dedup_main_test_r1.json
+  [repair] 5 property(s) left the vocabulary with no merge record -- restoring: ['P0025', 'P0026', 'P0032', 'P0035', 'P0037']
+── chunk 3: 22 propert(ies) carried forward | ['art20', 'art21', 'art22', 'art24', 'art25']
+5 item(s), running on 5 threads
+----- stdout -----
+[1/5] art21  (351.6s)
+       [json_repair] salvaged a malformed response (6302 chars)
+----- stdout -----
+[2/5] art20  (390.8s)
+----- stdout -----
+[3/5] art22  (402.2s)
+       [json_repair] salvaged a malformed response (8234 chars)
+----- stdout -----
+[4/5] art25  (404.7s)
+       [json_repair] salvaged a malformed response (5392 chars)
+----- stdout -----
+[5/5] art24  (416.1s)
+       [json_repair] salvaged a malformed response (5588 chars)
+
+done — 5/5 ok in 416.1s
+  art20: 11 phrases (3 split), 23 instances -> 23 triples (0 merged, 2 inverse-reused) | +6 minted | vocab now 28
+  art21: 15 phrases (1 split), 28 instances -> 28 triples (0 merged, 1 inverse-reused) | +2 minted | vocab now 30
+  art22: 16 phrases (2 split), 31 instances -> 31 triples (0 merged, 1 inverse-reused) | +13 minted | vocab now 43
+  art24: 17 phrases (1 split), 40 instances -> 34 triples (4 merged, 31 inverse-reused) | +1 minted | vocab now 44
+  art25: 15 phrases (0 split), 18 instances -> 18 triples (0 merged, 0 inverse-reused) | +8 minted | vocab now 52
+----- stdout -----
+consolidation (2 call): subprop_mode='subproperty' | pool=vocab+schema.org | 4 merge-group(s), 0 generalize-group(s), 8 removed (8 into schema.org), 1 re-parented (1 under schema.org) | vocab 52 -> 44
+  [merge/syno] keep schema.org 'cause' <= ['causedBy']
+  [merge/syno] keep schema.org 'attendee' <= ['visitedEvent', 'witnessedEvent']
+  [merge/syno] keep schema.org 'superEvent' <= ['hasEventSeriesPart', 'followsEvent']
+  [merge/syno] keep schema.org 'amount' <= ['hasAmount', 'hasRevenue', 'hasProfitValue']
+  [subproperty] ['providedAssistance'] subPropertyOf provider (schema.org)
+  consolidated vocab -> /Users/marwah/Documents/Thesis/TriplesExtractionFromWebLLMs/Phase2_LLM_Extraction/results/qwen3-32b-think/_global/e2e/nary_relation_vocabulary_dedup_main_test_r1_consolidated.json  (raw nary_relation_vocabulary_dedup_main_test_r1.json untouched)
+  report -> /Users/marwah/Documents/Thesis/TriplesExtractionFromWebLLMs/Phase2_LLM_Extraction/results/qwen3-32b-think/_global/e2e/nary_relation_consolidation_report_dedup_main_test_r1.json
+── chunk 4: 44 propert(ies) carried forward | ['art26', 'art27', 'art28', 'art29', 'art30']
+5 item(s), running on 5 threads
+----- stdout -----
+[1/5] art27  (176.3s)
+       [json_repair] salvaged a malformed response (763 chars)
+----- stdout -----
+[2/5] art26  (277.3s)
+       [json_repair] salvaged a malformed response (6532 chars)
+----- stdout -----
+[3/5] art30  (322.5s)
+       [json_repair] salvaged a malformed response (7106 chars)
+----- stdout -----
+[4/5] art29  (329.8s)
+----- stdout -----
+[5/5] art28  (421.7s)
+       [json_repair] salvaged a malformed response (6598 chars)
+
+done — 5/5 ok in 421.7s
+  art26: 10 phrases (1 split), 12 instances -> 12 triples (0 merged, 1 inverse-reused) | +5 minted | vocab now 49
+  art27: 14 phrases (1 split), 31 instances -> 31 triples (0 merged, 0 inverse-reused) | +1 minted | vocab now 50
+  art28: 14 phrases (1 split), 63 instances -> 58 triples (5 merged, 0 inverse-reused) | +4 minted | vocab now 54
+  art29: 15 phrases (1 split), 36 instances -> 36 triples (0 merged, 2 inverse-reused) | +10 minted | vocab now 64
+  art30: 15 phrases (0 split), 34 instances -> 34 triples (0 merged, 0 inverse-reused) | +1 minted | vocab now 65
+----- stdout -----
+consolidation (2 call): subprop_mode='subproperty' | pool=vocab+schema.org | 6 merge-group(s), 0 generalize-group(s), 42 removed (42 into schema.org), 3 re-parented (3 under schema.org) | vocab 65 -> 23
+  [merge/syno] keep schema.org 'relatedTo' <= ['relatedTo']
+  [merge/syno] keep schema.org 'relatedTo' <= ['proposedBy', 'relatedEvent']
+  [merge/syno] keep schema.org 'hasCertification' <= ['assertsLegalAssertion', 'hasLegalStatus', 'attributedTo', 'hasSector', 'hasCompetitor', 'hasDate', 'setRecord', 'hasProfitIncrease', 'hasStockValueIncrease', 'defeated', 'victimCount', 'injuredCount', 'criticalInjuriesCount', 'providedAssistance', 'includedQuantity', 'disrupts', 'participatedBy', 'deployedResources', 'evacuated', 'occurredBefore', 'relatedCountry', 'involvedTeam', 'usesTechnology', 'benefits', 'favors', 'hasMilitaryAction', 'hasTarget', 'elevatesThreatLevel', 'sustainsDamage', 'aimsToSave', 'justifiesAction', 'rejectsClaim', 'threatens', 'kills', 'injures', 'surpassed']
+  [merge/syno] keep schema.org 'hasParticipationOffer' <= ['participatedIn']
+  [merge/syno] keep schema.org 'warning' <= ['issuesWarning']
+  [merge/syno] keep schema.org 'event' <= ['violates']
+  [subproperty] ['containsCode'] subPropertyOf productID (schema.org)
+  [subproperty] ['hasProfitEvent'] subPropertyOf events (schema.org)
+  [subproperty] ['hasLocationDate'] subPropertyOf foundingDate (schema.org)
+  consolidated vocab -> /Users/marwah/Documents/Thesis/TriplesExtractionFromWebLLMs/Phase2_LLM_Extraction/results/qwen3-32b-think/_global/e2e/nary_relation_vocabulary_dedup_main_test_r1_consolidated.json  (raw nary_relation_vocabulary_dedup_main_test_r1.json untouched)
+  report -> /Users/marwah/Documents/Thesis/TriplesExtractionFromWebLLMs/Phase2_LLM_Extraction/results/qwen3-32b-think/_global/e2e/nary_relation_consolidation_report_dedup_main_test_r1.json
+── chunk 5: 23 propert(ies) carried forward | ['art31', 'art32', 'art33', 'art34', 'art35']
+5 item(s), running on 5 threads
+----- stdout -----
+[1/5] art34  (417.6s)
+       [json_repair] salvaged a malformed response (6478 chars)
+----- stdout -----
+[2/5] art32  (450.5s)
+       [json_repair] salvaged a malformed response (5138 chars)
+----- stdout -----
+[3/5] art31  (483.5s)
+----- stdout -----
+[4/5] art35  (557.0s)
+       [json_repair] salvaged a malformed response (7849 chars)
+----- stdout -----
+[5/5] art33  (673.9s)
+
+done — 5/5 ok in 673.9s
+  art31: 11 phrases (1 split), 42 instances -> 41 triples (1 merged, 1 inverse-reused) | +1 minted | vocab now 24
+  art32: 14 phrases (0 split), 26 instances -> 26 triples (0 merged, 1 inverse-reused) | +2 minted | vocab now 26
+  art33: 23 phrases (2 split), 50 instances -> 50 triples (0 merged, 6 inverse-reused) | +1 minted | vocab now 27
+  art34: 16 phrases (0 split), 26 instances -> 26 triples (0 merged, 0 inverse-reused) | +0 minted | vocab now 27
+  art35: 21 phrases (1 split), 34 instances -> 34 triples (0 merged, 1 inverse-reused) | +6 minted | vocab now 33
+----- stdout -----
+consolidation (2 call): subprop_mode='subproperty' | pool=vocab+schema.org | 2 merge-group(s), 0 generalize-group(s), 2 removed (2 into schema.org), 3 re-parented (3 under schema.org) | vocab 33 -> 31
+  [merge/syno] keep schema.org 'legislationDate' <= ['adoptionDate']
+  [merge/syno] keep schema.org 'foundingDate' <= ['hasLocationDate']
+  [subproperty] ['winner'] subPropertyOf winner (schema.org)
+  [subproperty] ['loser'] subPropertyOf loser (schema.org)
+  [subproperty] ['extendsEventSeries'] subPropertyOf subEvents (schema.org)
+  consolidated vocab -> /Users/marwah/Documents/Thesis/TriplesExtractionFromWebLLMs/Phase2_LLM_Extraction/results/qwen3-32b-think/_global/e2e/nary_relation_vocabulary_dedup_main_test_r1_consolidated.json  (raw nary_relation_vocabulary_dedup_main_test_r1.json untouched)
+  report -> /Users/marwah/Documents/Thesis/TriplesExtractionFromWebLLMs/Phase2_LLM_Extraction/results/qwen3-32b-think/_global/e2e/nary_relation_consolidation_report_dedup_main_test_r1.json
+── chunk 6: 31 propert(ies) carried forward | ['art36', 'art37', 'art38', 'art39', 'art40']
+5 item(s), running on 5 threads
+----- stdout -----
+[1/5] art40  (127.1s)
+       [json_repair] salvaged a malformed response (493 chars)
+----- stdout -----
+[2/5] art36  (271.6s)
+----- stdout -----
+[3/5] art39  (284.4s)
+----- stdout -----
+[4/5] art38  (306.4s)
+       [json_repair] salvaged a malformed response (6005 chars)
+----- stdout -----
+[5/5] art37  (417.1s)
+
+done — 5/5 ok in 417.2s
+  art36: 8 phrases (1 split), 20 instances -> 20 triples (0 merged, 2 inverse-reused) | +4 minted | vocab now 35
+  art37: 15 phrases (1 split), 33 instances -> 33 triples (0 merged, 11 inverse-reused) | +8 minted | vocab now 43
+  art38: 14 phrases (0 split), 37 instances -> 37 triples (0 merged, 0 inverse-reused) | +0 minted | vocab now 43
+  art39: 14 phrases (1 split), 21 instances -> 21 triples (0 merged, 0 inverse-reused) | +6 minted | vocab now 49
+  art40: 13 phrases (0 split), 27 instances -> 27 triples (0 merged, 0 inverse-reused) | +0 minted | vocab now 49
+----- stdout -----
+consolidation (2 call): subprop_mode='subproperty' | pool=vocab+schema.org | 5 merge-group(s), 4 generalize-group(s), 24 removed (14 into schema.org), 9 re-parented (7 under schema.org) | vocab 49 -> 29
+  [merge/syno] keep schema.org 'issuedBy' <= ['approves']
+  [merge/syno] keep schema.org 'geographicArea' <= ['targetsRegion', 'targetCountry']
+  [merge/syno] keep schema.org 'temporal' <= ['partOf']
+  [merge/syno] keep schema.org 'hasParticipationOffer' <= ['hasPurpose', 'hasChallenge', 'reportedBy', 'rescindedParticipation', 'isPartOfLegislation', 'hasPreviousPrice']
+  [merge/syno] keep schema.org 'competitor' <= ['winner', 'loser', 'scorer', 'hasDoubtfulPlayer']
+  [generalize] new P0125 'eventParticipation' ⊑ participant <= ['participatedOn', 'interviewedOn']
+  [generalize] new P0126 'hasFormationStructure' ⊑ hasPart <= ['hasFormation', 'usesFormation']
+  [generalize] new P0127 'financialTransaction' ⊑ hasPart <= ['hasPercentage', 'hasMonetaryAmount', 'boxOfficeEarnings']
+  [generalize] new P0128 'legislativeRelationship' <= ['appealed', 'ruledAgainst', 'modifiedAgreements']
+  [subproperty] ['intensityIncrease'] subPropertyOf intensity (schema.org)
+  [subproperty] ['imposed'] subPropertyOf imposedPenaltyOrRequirement
+  [subproperty] ['surpassesPreviousRecord'] subPropertyOf superEvent (schema.org)
+  [subproperty] ['chairmanOf'] subPropertyOf memberOf (schema.org)
+  [subproperty] ['threatensToBoycott'] subPropertyOf threatensEvent
+  [subproperty] ['comprisedOfDuration'] subPropertyOf duration (schema.org)
+  [subproperty] ['exertsPressureOn'] subPropertyOf worksFor (schema.org)
+  [subproperty] ['financialTransaction'] subPropertyOf amount (schema.org)
+  [subproperty] ['legislativeRelationship'] subPropertyOf legislationChanges (schema.org)
+  consolidated vocab -> /Users/marwah/Documents/Thesis/TriplesExtractionFromWebLLMs/Phase2_LLM_Extraction/results/qwen3-32b-think/_global/e2e/nary_relation_vocabulary_dedup_main_test_r1_consolidated.json  (raw nary_relation_vocabulary_dedup_main_test_r1.json untouched)
+  report -> /Users/marwah/Documents/Thesis/TriplesExtractionFromWebLLMs/Phase2_LLM_Extraction/results/qwen3-32b-think/_global/e2e/nary_relation_consolidation_report_dedup_main_test_r1.json
+  [repair] 10 property(s) left the vocabulary with no merge record -- restoring: ['P0028', 'P0039', 'P0025', 'P0026', 'P0058', 'P0098', 'P0100', 'P0112', 'P0119', 'P0121']
+── chunk 7: 39 propert(ies) carried forward | ['art41', 'art42', 'art43', 'art45', 'art47']
+5 item(s), running on 5 threads
+----- stdout -----
+[1/5] art47  (361.2s)
+       [json_repair] salvaged a malformed response (6566 chars)
+----- stdout -----
+[2/5] art45  (393.4s)
+       [json_repair] salvaged a malformed response (6707 chars)
+----- stdout -----
+[3/5] art43  (418.4s)
+       [json_repair] salvaged a malformed response (4703 chars)
+----- stdout -----
+[4/5] art41  (513.8s)
+       [json_repair] salvaged a malformed response (11341 chars)
+----- stdout -----
+[5/5] art42  (525.7s)
+
+done — 5/5 ok in 525.7s
+  art41: 20 phrases (3 split), 31 instances -> 30 triples (1 merged, 2 inverse-reused) | +7 minted | vocab now 46
+  art42: 15 phrases (2 split), 34 instances -> 34 triples (0 merged, 3 inverse-reused) | +8 minted | vocab now 54
+  art43: 10 phrases (1 split), 16 instances -> 16 triples (0 merged, 1 inverse-reused) | +6 minted | vocab now 60
+  art45: 14 phrases (2 split), 26 instances -> 26 triples (0 merged, 0 inverse-reused) | +4 minted | vocab now 64
+  art47: 18 phrases (1 split), 40 instances -> 40 triples (0 merged, 1 inverse-reused) | +2 minted | vocab now 66
+----- stdout -----
+consolidation (2 call): subprop_mode='subproperty' | pool=vocab+schema.org | 7 merge-group(s), 1 generalize-group(s), 17 removed (15 into schema.org), 26 re-parented (26 under schema.org) | vocab 66 -> 50
+  [merge/syno] keep schema.org 'participant' <= ['participatedOn', 'eventParticipation']
+  [merge/syno] keep schema.org 'hasPart' <= ['isPartOfEvent', 'affectedByEvent']
+  [merge/syno] keep schema.org 'memberOf' <= ['chairmanOf', 'exertsPressureOn']
+  [merge/syno] keep schema.org 'amount' <= ['financialTransaction', 'hasMonetaryValue']
+  [merge/syno] keep schema.org 'legislationChanges' <= ['modifiedAgreements', 'legislativeRelationship']
+  [merge/syno] keep schema.org 'event' <= ['surpassesPreviousRecord', 'hasFormation', 'followedBy']
+  [merge/syno] keep schema.org 'legalRepresentative' <= ['arguedLegalArgument', 'hasContractWith']
+  [generalize] new P0156 'FormationStructure' ⊑ hasPart <= ['usesFormation', 'hasFormationStructure']
+  [subproperty] ['tookShotAtTime'] subPropertyOf timestamp (schema.org)
+  [subproperty] ['onTarget'] subPropertyOf prescriptionStatus (schema.org)
+  [subproperty] ['originatedAt'] subPropertyOf foundingLocation (schema.org)
+  [subproperty] ['setsInterestRate'] subPropertyOf interestRate (schema.org)
+  [subproperty] ['boxOfficeEarnings'] subPropertyOf totalPrice (schema.org)
+  [subproperty] ['filmingTechnology'] subPropertyOf videoFormat (schema.org)
+  [subproperty] ['interviewedOn'] subPropertyOf participant (schema.org)
+  [subproperty] ['influencedBy'] subPropertyOf isBasedOn (schema.org)
+  [subproperty] ['usedTechnology'] subPropertyOf usesDevice (schema.org)
+  [subproperty] ['careerAppearances'] subPropertyOf appearance (schema.org)
+  [subproperty] ['worldCupGamesPlayed'] subPropertyOf repeatCount (schema.org)
+  [subproperty] ['goalScorer'] subPropertyOf competitor (schema.org)
+  [subproperty] ['goalScorerCount'] subPropertyOf ratingCount (schema.org)
+  [subproperty] ['threatens'] subPropertyOf constraintProperty (schema.org)
+  [subproperty] ['reimposes'] subPropertyOf legislationRepeals (schema.org)
+  [subproperty] ['targets'] subPropertyOf target (schema.org)
+  [subproperty] ['scraps'] subPropertyOf deliveryStatus (schema.org)
+  [subproperty] ['recordedDate'] subPropertyOf observationDate (schema.org)
+  [subproperty] ['hasDemographicDistribution'] subPropertyOf hasDefinedTerm (schema.org)
+  [subproperty] ['peakConcentrationPeriod'] subPropertyOf observationPeriod (schema.org)
+  [subproperty] ['hasCharacteristic'] subPropertyOf event (schema.org)
+  [subproperty] ['injured'] subPropertyOf attendee (schema.org)
+  [subproperty] ['partOfPlace'] subPropertyOf containedInPlace (schema.org)
+  [subproperty] ['usedInstrument'] subPropertyOf instrument (schema.org)
+  [subproperty] ['succeededBy'] subPropertyOf predecessorOf (schema.org)
+  [subproperty] ['FormationStructure'] subPropertyOf hasRepresentation (schema.org)
+  consolidated vocab -> /Users/marwah/Documents/Thesis/TriplesExtractionFromWebLLMs/Phase2_LLM_Extraction/results/qwen3-32b-think/_global/e2e/nary_relation_vocabulary_dedup_main_test_r1_consolidated.json  (raw nary_relation_vocabulary_dedup_main_test_r1.json untouched)
+  report -> /Users/marwah/Documents/Thesis/TriplesExtractionFromWebLLMs/Phase2_LLM_Extraction/results/qwen3-32b-think/_global/e2e/nary_relation_consolidation_report_dedup_main_test_r1.json
+  [repair] 2 property(s) left the vocabulary with no merge record -- restoring: ['P0126', 'P0098']
+── chunk 8: 52 propert(ies) carried forward | ['art48', 'art49', 'art50', 'art51', 'art53']
+5 item(s), running on 5 threads
+
+[1/5] art48  (0.0s)
+   FAILED: KeyError: 'relation_phrase'
+----- stdout -----
+[2/5] art53  (320.2s)
+       [json_repair] salvaged a malformed response (4839 chars)
+----- stdout -----
+[3/5] art49  (348.0s)
+----- stdout -----
+[4/5] art51  (373.3s)
+----- stdout -----
+[5/5] art50  (462.0s)
+       [json_repair] salvaged a malformed response (12897 chars)
+
+done — 4/5 ok in 462.0s; FAILED: art48
+------------------
+
+[0;31m---------------------------------------------------------------------------[0m
+[0;31mKeyError[0m                                  Traceback (most recent call last)
+Cell [0;32mIn[23], line 44[0m
+[1;32m     42[0m _ta [38;5;241m=[39m time[38;5;241m.[39mperf_counter()
+[1;32m     43[0m [38;5;28;01mwith[39;00m nb_parallel[38;5;241m.[39musage_scope(aid):
+[0;32m---> 44[0m     process_article(aid, vocab, write[38;5;241m=[39m[38;5;28;01mTrue[39;00m, save[38;5;241m=[39m[38;5;28;01mTrue[39;00m, verbose[38;5;241m=[39m[38;5;28;01mTrue[39;00m, pre[38;5;241m=[39m_pre[38;5;241m.[39mget(aid))
+[1;32m     45[0m _u [38;5;241m=[39m (_pre[38;5;241m.[39mget(aid) [38;5;129;01mor[39;00m {})[38;5;241m.[39mget([38;5;124m"[39m[38;5;124musage[39m[38;5;124m"[39m) [38;5;129;01mor[39;00m LAST_USAGE
+[1;32m     46[0m TOKENS[38;5;241m.[39mappend({[38;5;124m"[39m[38;5;124marticle[39m[38;5;124m"[39m: aid, [38;5;124m"[39m[38;5;124mseconds[39m[38;5;124m"[39m: [38;5;28mround[39m(time[38;5;241m.[39mperf_counter() [38;5;241m-[39m _ta, [38;5;241m1[39m),
+[1;32m     47[0m                [38;5;241m*[39m[38;5;241m*[39m(_u [38;5;129;01mor[39;00m {})})
+
+Cell [0;32mIn[16], line 21[0m, in [0;36mprocess_article[0;34m(aid, vocab, write, save, verbose, pre)[0m
+[1;32m     17[0m [38;5;28;01mdef[39;00m [38;5;21mprocess_article[39m(aid, vocab, write[38;5;241m=[39m[38;5;28;01mTrue[39;00m, save[38;5;241m=[39m[38;5;28;01mTrue[39;00m, verbose[38;5;241m=[39m[38;5;28;01mTrue[39;00m, pre[38;5;241m=[39m[38;5;28;01mNone[39;00m):
+[1;32m     18[0m     [38;5;66;03m# `pre` is a prefetch_assignments() result. Everything BELOW this point mutates the vocabulary[39;00m
+[1;32m     19[0m     [38;5;66;03m# (mint / bump / save) and must therefore run one article at a time, in ARTICLE_ORDER.[39;00m
+[1;32m     20[0m     [38;5;28;01mif[39;00m pre [38;5;129;01mis[39;00m [38;5;28;01mNone[39;00m:
+[0;32m---> 21[0m         pre [38;5;241m=[39m prefetch_assignments(aid, vocab)
+[1;32m     22[0m     oie, by_id, rinfo [38;5;241m=[39m pre[[38;5;124m"[39m[38;5;124moie[39m[38;5;124m"[39m], pre[[38;5;124m"[39m[38;5;124mby_id[39m[38;5;124m"[39m], pre[[38;5;124m"[39m[38;5;124mrinfo[39m[38;5;124m"[39m]
+[1;32m     23[0m     phrases, qtexts, groups [38;5;241m=[39m pre[[38;5;124m"[39m[38;5;124mphrases[39m[38;5;124m"[39m], pre[[38;5;124m"[39m[38;5;124mqtexts[39m[38;5;124m"[39m], pre[[38;5;124m"[39m[38;5;124mgroups[39m[38;5;124m"[39m]
+
+Cell [0;32mIn[16], line 11[0m, in [0;36mprefetch_assignments[0;34m(aid, vocab)[0m
+[1;32m      6[0m [38;5;28;01mdef[39;00m [38;5;21mprefetch_assignments[39m(aid, vocab):
+[1;32m      7[0m [38;5;250m    [39m[38;5;124;03m"""Everything up to AND INCLUDING the LLM call, mutating nothing. `vocab` is read only by[39;00m
+[1;32m      8[0m [38;5;124;03m    retrieve_candidates, which ignores it when INLINE_VOCAB_CANDIDATES is False — which is exactly[39;00m
+[1;32m      9[0m [38;5;124;03m    why these may run in parallel then. Token usage is captured per THREAD, so each article keeps its[39;00m
+[1;32m     10[0m [38;5;124;03m    own counts even with several calls in flight."""[39;00m
+[0;32m---> 11[0m     oie, by_id, rinfo, phrases, qtexts, groups [38;5;241m=[39m load_article(aid)
+[1;32m     12[0m     cands  [38;5;241m=[39m retrieve_candidates(qtexts, vocab)
+[1;32m     13[0m     report [38;5;241m=[39m llm_assign(phrases, rinfo, groups, by_id, cands)   [38;5;66;03m# phrase -> [assignments][39;00m
+
+Cell [0;32mIn[10], line 14[0m, in [0;36mload_article[0;34m(aid)[0m
+[1;32m     10[0m     by_id[n[[38;5;124m"[39m[38;5;124mid[39m[38;5;124m"[39m]] [38;5;241m=[39m {[38;5;124m"[39m[38;5;124mid[39m[38;5;124m"[39m: n[[38;5;124m"[39m[38;5;124mid[39m[38;5;124m"[39m], [38;5;124m"[39m[38;5;124mtext[39m[38;5;124m"[39m: n[38;5;241m.[39mget([38;5;124m"[39m[38;5;124mlabel[39m[38;5;124m"[39m),
+[1;32m     11[0m                       [38;5;124m"[39m[38;5;124mtype[39m[38;5;124m"[39m: n[38;5;241m.[39mget([38;5;124m"[39m[38;5;124mtype[39m[38;5;124m"[39m) [38;5;129;01mor[39;00m n[38;5;241m.[39mget([38;5;124m"[39m[38;5;124mnode_kind[39m[38;5;124m"[39m)}
+[1;32m     12[0m rinfo   [38;5;241m=[39m {d[[38;5;124m"[39m[38;5;124mrelation_phrase[39m[38;5;124m"[39m]: {[38;5;124m"[39m[38;5;124mdefinition[39m[38;5;124m"[39m: d[38;5;241m.[39mget([38;5;124m"[39m[38;5;124mdefinition[39m[38;5;124m"[39m)}
+[1;32m     13[0m            [38;5;28;01mfor[39;00m d [38;5;129;01min[39;00m g[38;5;241m.[39mget([38;5;124m"[39m[38;5;124mrelation_definitions[39m[38;5;124m"[39m, [])}
+[0;32m---> 14[0m phrases [38;5;241m=[39m [38;5;28mlist[39m([38;5;28mdict[39m[38;5;241m.[39mfromkeys(r[[38;5;124m"[39m[38;5;124mrelation_phrase[39m[38;5;124m"[39m] [38;5;28;01mfor[39;00m r [38;5;129;01min[39;00m g[[38;5;124m"[39m[38;5;124mrelations[39m[38;5;124m"[39m]))
+[1;32m     15[0m [38;5;28;01mdef[39;00m [38;5;21mqtext[39m(ph):
+[1;32m     16[0m     info [38;5;241m=[39m rinfo[38;5;241m.[39mget(ph, {})
+
+Cell [0;32mIn[10], line 14[0m, in [0;36m<genexpr>[0;34m(.0)[0m
+[1;32m     10[0m     by_id[n[[38;5;124m"[39m[38;5;124mid[39m[38;5;124m"[39m]] [38;5;241m=[39m {[38;5;124m"[39m[38;5;124mid[39m[38;5;124m"[39m: n[[38;5;124m"[39m[38;5;124mid[39m[38;5;124m"[39m], [38;5;124m"[39m[38;5;124mtext[39m[38;5;124m"[39m: n[38;5;241m.[39mget([38;5;124m"[39m[38;5;124mlabel[39m[38;5;124m"[39m),
+[1;32m     11[0m                       [38;5;124m"[39m[38;5;124mtype[39m[38;5;124m"[39m: n[38;5;241m.[39mget([38;5;124m"[39m[38;5;124mtype[39m[38;5;124m"[39m) [38;5;129;01mor[39;00m n[38;5;241m.[39mget([38;5;124m"[39m[38;5;124mnode_kind[39m[38;5;124m"[39m)}
+[1;32m     12[0m rinfo   [38;5;241m=[39m {d[[38;5;124m"[39m[38;5;124mrelation_phrase[39m[38;5;124m"[39m]: {[38;5;124m"[39m[38;5;124mdefinition[39m[38;5;124m"[39m: d[38;5;241m.[39mget([38;5;124m"[39m[38;5;124mdefinition[39m[38;5;124m"[39m)}
+[1;32m     13[0m            [38;5;28;01mfor[39;00m d [38;5;129;01min[39;00m g[38;5;241m.[39mget([38;5;124m"[39m[38;5;124mrelation_definitions[39m[38;5;124m"[39m, [])}
+[0;32m---> 14[0m phrases [38;5;241m=[39m [38;5;28mlist[39m([38;5;28mdict[39m[38;5;241m.[39mfromkeys(r[[38;5;124m"[39m[38;5;124mrelation_phrase[39m[38;5;124m"[39m] [38;5;28;01mfor[39;00m r [38;5;129;01min[39;00m g[[38;5;124m"[39m[38;5;124mrelations[39m[38;5;124m"[39m]))
+[1;32m     15[0m [38;5;28;01mdef[39;00m [38;5;21mqtext[39m(ph):
+[1;32m     16[0m     info [38;5;241m=[39m rinfo[38;5;241m.[39mget(ph, {})
+
+[0;31mKeyError[0m: 'relation_phrase'
+

@@ -1,0 +1,1909 @@
+{
+  "article_id": "art61",
+  "match_model": "intfloat/e5-base-v2",
+  "expand_mode": true,
+  "relations": [
+    {
+      "relation_phrase": "involves",
+      "definition": null,
+      "embedding_query_text": "involves:",
+      "observed_signatures": [
+        "Event → Person",
+        "Event → SportsTeam",
+        "Event → Event",
+        "ClubStatement → SportsTeam",
+        "ClubStatement → Person"
+      ],
+      "n_assignments": 1,
+      "assignments": [
+        {
+          "instances": [
+            "Mohamed Salah signs two-year contract with Trabzonspor -> Mohamed Salah",
+            "Mohamed Salah signs two-year contract with Trabzonspor -> Trabzonspor",
+            "Mohamed Salah signs two-year contract with Trabzonspor -> 34-year-old",
+            "Trabzonspor announces Salah's contract terms -> Trabzonspor",
+            "Trabzonspor announces Salah's contract terms -> Mohamed Salah",
+            "Salah departs Liverpool after nine years -> Mohamed Salah",
+            "Salah departs Liverpool after nine years -> Liverpool"
+          ],
+          "chosen_property": {
+            "label": "participant",
+            "source": "schema.org",
+            "direction": "as_is",
+            "vocab_id": null,
+            "is_new_to_vocab": false,
+            "definition": null,
+            "parent": null,
+            "domain": null,
+            "range": null,
+            "path": "",
+            "justification": "The 'participant' property (Action → Organization/Person) fits Event → Person/Team and ClubStatement → Person/Team when treating the subject as an Action (which includes Event)."
+          },
+          "llm_proposed": {
+            "source": "schema.org",
+            "label": "participant",
+            "is_new": false,
+            "direction": "as_is"
+          }
+        }
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "sportsTeam",
+          "signature": "ExerciseAction → SportsTeam",
+          "parent": "participant",
+          "inverse_of": null,
+          "score": -2.2158,
+          "matched_anchor": null,
+          "comment": "A participation relation between an exercise action and the sports team involved in it. Also called \"team participated\", \"team involved\", \"athletic team\". Examples: \"The goal was scored by the sportsTeam Real Madrid\", \"The race involved sportsTeam Team USA\", \"This action was performed by a sportsTeam.\". Distinct from participant, which is a more general participant property.",
+          "embed_score": 0.79,
+          "embed_rank": 41
+        },
+        {
+          "source": "schema.org",
+          "label": "question",
+          "signature": "AskAction → Question",
+          "parent": "object",
+          "inverse_of": null,
+          "score": -2.8663,
+          "matched_anchor": null,
+          "comment": "A question relation between an ask action and the specific question being posed. Also called asked question, inquiry. Examples: \"An ask action involves the question 'What is the capital of France?'.\", \"A survey asks the question 'How satisfied are you with our service?'.\", \"A forum post poses the question 'How do I fix this error?'.\"",
+          "embed_score": 0.793,
+          "embed_rank": 24
+        },
+        {
+          "source": "schema.org",
+          "label": "participant",
+          "signature": "Action → Organization/Person",
+          "parent": null,
+          "inverse_of": null,
+          "score": -3.2503,
+          "matched_anchor": null,
+          "comment": "A collaborative relation between an action and an organization or person who indirectly participated in it. Also called collaborated with, involved, assisted by, co-agent. Examples: A writing action has a participant co-author. A research project has a participant researcher. A meeting has a participant attendee. Distinct from agent, which is the primary actor of an action.",
+          "embed_score": 0.799,
+          "embed_rank": 10
+        },
+        {
+          "source": "schema.org",
+          "label": "about",
+          "signature": "Certification/CommunicateAction/CreativeWork/DefinedTerm/DefinedTermSet/Event → Thing",
+          "parent": null,
+          "inverse_of": "subjectOf",
+          "score": -4.4364,
+          "matched_anchor": null,
+          "comment": "A subject matter relation between an entity (e.g., a creative work, event, or communication) and the topic it concerns. Also called concerning, regarding, on the topic of, related to. Examples: \"A book about quantum physics.\", \"A lecture about climate change.\", \"A certification about data privacy.\"",
+          "embed_score": 0.806,
+          "embed_rank": 6
+        },
+        {
+          "source": "schema.org",
+          "label": "subjectOf",
+          "signature": "Thing → CreativeWork/Event",
+          "parent": null,
+          "inverse_of": "about",
+          "score": -5.8578,
+          "matched_anchor": null,
+          "comment": "A thematic relation between a thing and a creative work or event that is about it. Also called \"topic of\", \"depicted in\", \"featured in\", \"covered by\". Examples: \"The person is subjectOf a biography\", \"The historical event is subjectOf a documentary\", \"This concept is subjectOf a research paper.\"",
+          "embed_score": 0.812,
+          "embed_rank": 2
+        },
+        {
+          "source": "schema.org",
+          "label": "step",
+          "signature": "HowTo → CreativeWork/HowToSection/HowToStep/Text",
+          "parent": null,
+          "inverse_of": null,
+          "score": -5.9908,
+          "matched_anchor": null,
+          "comment": "A component relation between a how-to guide and a single instruction, section, or creative work that forms part of the process. Also called \"instructional step\", \"how-to instruction\", \"process step\", \"guide step\". Examples: \"The recipe has step 'Chop vegetables'\", \"The guide's step is a video tutorial\", \"This how-to includes a step for assembly.\". Distinct from steps, which refers to a collection of steps.",
+          "embed_score": 0.795,
+          "embed_rank": 18
+        },
+        {
+          "source": "schema.org",
+          "label": "duringMedia",
+          "signature": "HowToDirection → MediaObject/URL",
+          "parent": null,
+          "inverse_of": null,
+          "score": -6.1057,
+          "matched_anchor": null,
+          "comment": "A during media relation between a how-to direction and a media object or URL representing the circumstances while performing this direction. Also called \"instructional media\", \"step-by-step video\", \"visual guide\". Examples: \"How-to direction 'Attach part A' duringMedia 'Video of assembly'\", \"Direction 'Stir mixture' duringMedia 'Image of stirring technique'\".",
+          "embed_score": 0.792,
+          "embed_rank": 27
+        },
+        {
+          "source": "schema.org",
+          "label": "events",
+          "signature": "Organization/Place → Event",
+          "parent": null,
+          "inverse_of": null,
+          "score": -6.3284,
+          "matched_anchor": null,
+          "comment": "An events association relation between an organization or place and the events connected to it. Also called \"associated events\", \"related events\", \"features events\". Examples: \"Organization 'Museum' events 'Art Exhibition, Lecture Series'\", \"Place 'Park' events 'Summer Festival, Winter Fair'\", \"Company 'Tech Solutions' events 'Annual Conference, Product Launch'\". Distinct from event, which is the singular form.",
+          "embed_score": 0.812,
+          "embed_rank": 3
+        },
+        {
+          "source": "schema.org",
+          "label": "foodEstablishment",
+          "signature": "CookAction → FoodEstablishment/Place",
+          "parent": "location",
+          "inverse_of": null,
+          "score": -6.3476,
+          "matched_anchor": null,
+          "comment": "A food establishment relation between a cook action and the specific place or food establishment where the cooking occurred. Also called: cooking location, restaurant, kitchen. Examples: \"Chef prepares meal\" food establishment \"Gourmet Restaurant\", \"Home Cook makes dinner\" food establishment \"My Kitchen\", \"Baker bakes bread\" food establishment \"Local Bakery\". Distinct from foodEvent, which is a specific event.",
+          "embed_score": 0.789,
+          "embed_rank": 42
+        },
+        {
+          "source": "schema.org",
+          "label": "duration",
+          "signature": "Audiobook/Episode/Event/MediaObject/Movie/MusicRecording/MusicRelease/QuantitativeValueDistribution/Schedule/ServicePeriod → Duration/QuantitativeValue",
+          "parent": null,
+          "inverse_of": null,
+          "score": -6.355,
+          "matched_anchor": null,
+          "comment": "A duration relation between an item (such as an event, media object, or schedule) and its length of time. Also called \"length\", \"time span\", \"period\". Examples: \"Movie 'Avatar' duration 'PT2H42M'\", \"Event 'Concert' duration 'PT3H'\", \"Audio recording duration 'PT5M30S'\". Distinct from durationOfWarranty, which is specifically about warranty length.",
+          "embed_score": 0.791,
+          "embed_rank": 35
+        }
+      ]
+    },
+    {
+      "relation_phrase": "startDate",
+      "definition": null,
+      "embedding_query_text": "startDate:",
+      "observed_signatures": [
+        "Event → Date"
+      ],
+      "n_assignments": 1,
+      "assignments": [
+        {
+          "instances": [
+            "Mohamed Salah signs two-year contract with Trabzonspor -> 2026-08-06"
+          ],
+          "chosen_property": {
+            "label": "startDate",
+            "source": "schema.org",
+            "direction": "as_is",
+            "vocab_id": null,
+            "is_new_to_vocab": false,
+            "definition": null,
+            "parent": null,
+            "domain": null,
+            "range": null,
+            "path": "",
+            "justification": "fallback: top candidate"
+          },
+          "llm_proposed": {
+            "source": "schema.org",
+            "label": "startDate",
+            "is_new": false,
+            "direction": "as_is"
+          }
+        }
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "startDate",
+          "signature": "CreativeWorkSeason/CreativeWorkSeries/DatedMoneySpecification/EducationalOccupationalProgram/Event/MerchantReturnPolicySeasonalOverride/Role/Schedule → Date/DateTime",
+          "parent": null,
+          "inverse_of": null,
+          "score": 9.9343,
+          "matched_anchor": null,
+          "comment": "A temporal marker indicating the beginning date and time of an item, such as an event, program, or season. Also called \"beginning date\", \"commencement date\", \"start time\", \"effective date\". Examples: \"The event has startDate 2023-10-26\", \"The program's startDate is September 1st\", \"This role's startDate was last Monday.\". Distinct from dateCreated, which indicates when a creative work was first made.",
+          "embed_score": 0.868,
+          "embed_rank": 1
+        },
+        {
+          "source": "schema.org",
+          "label": "previousStartDate",
+          "signature": "Event → Date/DateTime",
+          "parent": null,
+          "inverse_of": null,
+          "score": 6.68,
+          "matched_anchor": null,
+          "comment": "A temporal attribute indicating the previously scheduled start date for an event that has been rescheduled or cancelled. Also called original start date, former start date, initial event date. Examples: A rescheduled event has a previous start date of '2023-03-15'. The cancelled concert had a previous start date of '2023-07-01T19:00:00'. The postponed meeting's previous start date was 'last Monday'. Distinct from startDate, which is the current or newly scheduled start date.",
+          "embed_score": 0.839,
+          "embed_rank": 3
+        },
+        {
+          "source": "schema.org",
+          "label": "jobStartDate",
+          "signature": "JobPosting → Date/Text",
+          "parent": null,
+          "inverse_of": null,
+          "score": 6.598,
+          "matched_anchor": null,
+          "comment": "An employment start date relation between a job posting and the anticipated date for a successful applicant to begin work. Also called start date, commencement date, employment beginning. Examples: A job posting has a jobStartDate of '2024-09-01'. A job posting has a jobStartDate of 'Fall 2024'. A job posting has a jobStartDate of 'as soon as possible'. Distinct from jobImmediateStart, which is a boolean flag for immediate availability.",
+          "embed_score": 0.841,
+          "embed_rank": 2
+        },
+        {
+          "source": "schema.org",
+          "label": "startTime",
+          "signature": "Action/FoodEstablishmentReservation/InteractionCounter/MediaObject/Schedule → DateTime/Time",
+          "parent": null,
+          "inverse_of": null,
+          "score": 6.1655,
+          "matched_anchor": null,
+          "comment": "A temporal marker indicating the beginning time of an action, reservation, or media segment. Also called \"beginning time\", \"commencement time\", \"start of action\", \"reservation time\". Examples: \"The reservation has startTime 7:00 PM\", \"The action's startTime was 10:30 AM\", \"The media clip's startTime is 00:01:15.\". Distinct from startDate, which specifies a date, while startTime focuses on the time of day or an offset.",
+          "embed_score": 0.837,
+          "embed_rank": 6
+        },
+        {
+          "source": "schema.org",
+          "label": "applicationStartDate",
+          "signature": "EducationalOccupationalProgram → Date",
+          "parent": null,
+          "inverse_of": null,
+          "score": 6.1171,
+          "matched_anchor": null,
+          "comment": "An application start date relation between an educational or occupational program and the date when it begins accepting applications for an enrollment cycle. Also called application opening date, submission start date. Examples: \"A university program's application start date is '2022-09-01'.\", \"The scholarship program's application start date is 'January 1st'.\"",
+          "embed_score": 0.838,
+          "embed_rank": 5
+        },
+        {
+          "source": "schema.org",
+          "label": "foundingDate",
+          "signature": "Organization → Date",
+          "parent": null,
+          "inverse_of": null,
+          "score": 5.4554,
+          "matched_anchor": null,
+          "comment": "A founding date relation between an organization and the specific date it was established. Also called: establishment date, creation date, inception date. Examples: \"Microsoft\" founding date \"1975-04-04\", \"Apple Inc.\" founding date \"1976-04-01\", \"Google\" founding date \"1998-09-04\".",
+          "embed_score": 0.838,
+          "embed_rank": 4
+        },
+        {
+          "source": "schema.org",
+          "label": "endDate",
+          "signature": "CreativeWorkSeason/CreativeWorkSeries/DatedMoneySpecification/EducationalOccupationalProgram/Event/MerchantReturnPolicySeasonalOverride/Role/Schedule → Date/DateTime",
+          "parent": null,
+          "inverse_of": null,
+          "score": 0.8733,
+          "matched_anchor": null,
+          "comment": "An end date relation between an item (such as a season, event, or schedule) and the date and time when it concludes. Also called \"conclusion date\", \"finish date\", \"termination date\". Examples: \"Event 'Conference' endDate '2023-10-27'\", \"Creative work season endDate '2024-05-31'\", \"Role 'Project Manager' endDate '2025-12-31'\". Distinct from endTime, which specifies the end time within a single day or for a clip.",
+          "embed_score": 0.825,
+          "embed_rank": 8
+        },
+        {
+          "source": "schema.org",
+          "label": "birthDate",
+          "signature": "Person → Date",
+          "parent": null,
+          "inverse_of": null,
+          "score": 0.8433,
+          "matched_anchor": null,
+          "comment": "A date representing a person's birth. Also called: date of birth, birthday. Examples: \"Person 'John Doe' birthDate '1980-05-15'\", \"Person 'Jane Smith' birthDate '1992-11-22'.\"",
+          "embed_score": 0.814,
+          "embed_rank": 15
+        },
+        {
+          "source": "schema.org",
+          "label": "jobImmediateStart",
+          "signature": "JobPosting → Boolean",
+          "parent": null,
+          "inverse_of": null,
+          "score": 0.8007,
+          "matched_anchor": null,
+          "comment": "An employment timing relation indicating whether a job position is available for an immediate start. Also called immediate start, urgent hire, start now, ready to begin. Examples: A job posting has jobImmediateStart set to 'true'. A job posting has jobImmediateStart set to 'false'. This position has jobImmediateStart as 'true' for qualified candidates. Distinct from jobStartDate, which specifies a particular date.",
+          "embed_score": 0.807,
+          "embed_rank": 32
+        },
+        {
+          "source": "schema.org",
+          "label": "productionDate",
+          "signature": "Product/Vehicle → Date",
+          "parent": null,
+          "inverse_of": null,
+          "score": -0.4915,
+          "matched_anchor": null,
+          "comment": "A production date relation between a product or vehicle and the specific date it was manufactured. Also called manufactured on, made on, creation date. Examples: \"A 2023 Toyota Camry has a production date of 2022-11-15.\", \"A vintage car has a production date of 1965-03-01.\", \"A smartphone has a production date of 2024-01-20.\"",
+          "embed_score": 0.815,
+          "embed_rank": 14
+        }
+      ]
+    },
+    {
+      "relation_phrase": "offers",
+      "definition": null,
+      "embedding_query_text": "offers:",
+      "observed_signatures": [
+        "ClubStatement → MonetaryAmount"
+      ],
+      "n_assignments": 1,
+      "assignments": [
+        {
+          "instances": [
+            "Trabzonspor announces Salah's contract terms -> 17 million euros"
+          ],
+          "chosen_property": {
+            "label": "offers",
+            "source": "schema.org",
+            "direction": "as_is",
+            "vocab_id": null,
+            "is_new_to_vocab": false,
+            "definition": null,
+            "parent": null,
+            "domain": null,
+            "range": null,
+            "path": "",
+            "justification": "fallback: top candidate"
+          },
+          "llm_proposed": {
+            "source": "schema.org",
+            "label": "offers",
+            "is_new": false,
+            "direction": "as_is"
+          }
+        }
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "offers",
+          "signature": "AggregateOffer/CreativeWork/EducationalOccupationalProgram/Event/MenuItem/Product/Service/Trip → Demand/Offer",
+          "parent": null,
+          "inverse_of": "itemOffered",
+          "score": 9.1692,
+          "matched_anchor": null,
+          "comment": "An offer or demand related to a product, service, event, or other item. Also called available offers, related offers, product offers. Examples: \"Product X offers 'Offer to sell'\", \"Service Y offers 'Demand for service'\", \"Event Z offers 'Offer for tickets'\". Distinct from hasOfferCatalog, which points to a catalog of offers.",
+          "embed_score": 0.848,
+          "embed_rank": 1
+        },
+        {
+          "source": "schema.org",
+          "label": "hasOfferCatalog",
+          "signature": "Organization/Person/Service → OfferCatalog",
+          "parent": null,
+          "inverse_of": null,
+          "score": 5.631,
+          "matched_anchor": null,
+          "comment": "An offer catalog relation between an organization, person, or service and an associated offer catalog. Also called offers catalog, catalog of offers, product catalog. Examples: \"An organization has an offer catalog of its products.\", \"A service has an offer catalog of its packages.\", \"The person maintains an offer catalog.\"",
+          "embed_score": 0.814,
+          "embed_rank": 3
+        },
+        {
+          "source": "schema.org",
+          "label": "makesOffer",
+          "signature": "Organization/Person → Offer",
+          "parent": null,
+          "inverse_of": "offeredBy",
+          "score": 5.5395,
+          "matched_anchor": null,
+          "comment": "An offering relation between an organization or person and the offer for products or services they provide. Also called: offers, provides, sells. Examples: \"Retailer makesOffer Discounted Electronics\", \"Consultant makesOffer Business Strategy Services\", \"Restaurant makesOffer Dinner Menu\".",
+          "embed_score": 0.793,
+          "embed_rank": 8
+        },
+        {
+          "source": "schema.org",
+          "label": "offeredBy",
+          "signature": "Offer → Organization/Person",
+          "parent": null,
+          "inverse_of": "makesOffer",
+          "score": 5.5196,
+          "matched_anchor": null,
+          "comment": "An organization or person making an offer. Also called provided by, seller, vendor, offered from. Examples: \"Product Offer offeredBy 'Acme Corp'\", \"Service Offer offeredBy 'John Doe'\", \"Event Ticket Offer offeredBy 'Ticketmaster'\". Distinct from seller, which is a more specific term for a person or organization selling something.",
+          "embed_score": 0.84,
+          "embed_rank": 2
+        },
+        {
+          "source": "schema.org",
+          "label": "offerCount",
+          "signature": "AggregateOffer → Integer",
+          "parent": null,
+          "inverse_of": null,
+          "score": 4.7993,
+          "matched_anchor": null,
+          "comment": "The total number of individual offers aggregated for a product. Also called number of offers, offer quantity, total offers. Examples: \"Product A AggregateOffer offerCount 10\", \"Service B AggregateOffer offerCount 5\", \"Item C AggregateOffer offerCount 20\". Distinct from orderQuantity, which is the quantity of a specific item in an order.",
+          "embed_score": 0.801,
+          "embed_rank": 5
+        },
+        {
+          "source": "schema.org",
+          "label": "acceptedOffer",
+          "signature": "Order → Offer",
+          "parent": null,
+          "inverse_of": null,
+          "score": 4.6211,
+          "matched_anchor": null,
+          "comment": "An accepted offer relation between an order and the specific offer(s) that were agreed upon and included in it. Also called purchased offer, confirmed offer, included offer. Examples: \"A customer's order accepted an offer for a laptop.\", \"The order accepted an offer for two books.\"",
+          "embed_score": 0.799,
+          "embed_rank": 6
+        },
+        {
+          "source": "schema.org",
+          "label": "itemOffered",
+          "signature": "Demand/Offer → AggregateOffer/CreativeWork/Event/MenuItem/Product/Service/Trip",
+          "parent": null,
+          "inverse_of": "offers",
+          "score": 4.3486,
+          "matched_anchor": null,
+          "comment": "A transaction subject relation between a demand or offer and the specific item, product, service, or event being requested or provided. Also called offered item, demanded item, subject of offer, product/service offered. Examples: An offer has an itemOffered of 'a new car'. A demand has an itemOffered of 'web design service'. An offer has an itemOffered of 'a concert ticket'. Distinct from itemReviewed, which is the subject of a review, not an offer/demand.",
+          "embed_score": 0.787,
+          "embed_rank": 10
+        },
+        {
+          "source": "schema.org",
+          "label": "addOn",
+          "signature": "Offer → Offer",
+          "parent": null,
+          "inverse_of": null,
+          "score": 3.6474,
+          "matched_anchor": null,
+          "comment": "An add-on relation between a base offer and an additional offer that can only be acquired in conjunction with it. Also called supplementary offer, bundled offer, extra option. Examples: \"A car purchase offer has an add-on for extended warranty.\", \"A software license offer has an add-on for premium support.\"",
+          "embed_score": 0.777,
+          "embed_rank": 18
+        },
+        {
+          "source": "schema.org",
+          "label": "priceValidUntil",
+          "signature": "Offer → Date",
+          "parent": "endDate",
+          "inverse_of": null,
+          "score": 2.8859,
+          "matched_anchor": null,
+          "comment": "A temporal attribute indicating the date after which an offered price is no longer valid or available. Also called offer expiry date, price expiration, valid until date. Examples: An offer has a price valid until '2023-12-31'. The discount price is valid until 'next month'. The special offer's price valid until is '2024-01-15'.",
+          "embed_score": 0.769,
+          "embed_rank": 31
+        },
+        {
+          "source": "schema.org",
+          "label": "availableDeliveryMethod",
+          "signature": "Demand/Offer → DeliveryMethod",
+          "parent": null,
+          "inverse_of": null,
+          "score": 2.8368,
+          "matched_anchor": null,
+          "comment": "A delivery method available for an offer. Also called: shipping option, delivery option, fulfillment method. Examples: \"Offer 'Product Z' availableDeliveryMethod 'DeliveryMode.Shipping'\", \"Offer 'Food' availableDeliveryMethod 'DeliveryMode.Pickup'.\"",
+          "embed_score": 0.798,
+          "embed_rank": 7
+        }
+      ]
+    },
+    {
+      "relation_phrase": "announces",
+      "definition": null,
+      "embedding_query_text": "announces:",
+      "observed_signatures": [
+        "SportsTeam → ClubStatement"
+      ],
+      "n_assignments": 1,
+      "assignments": [
+        {
+          "instances": [
+            "Trabzonspor -> Trabzonspor announces Salah's contract terms"
+          ],
+          "chosen_property": {
+            "label": "announcementLocation",
+            "source": "schema.org",
+            "direction": "as_is",
+            "vocab_id": null,
+            "is_new_to_vocab": false,
+            "definition": null,
+            "parent": null,
+            "domain": null,
+            "range": null,
+            "path": "contentLocation > spatialCoverage",
+            "justification": "fallback: top candidate"
+          },
+          "llm_proposed": {
+            "source": "schema.org",
+            "label": "announcementLocation",
+            "is_new": false,
+            "direction": "as_is"
+          }
+        }
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "announcementLocation",
+          "signature": "SpecialAnnouncement → CivicStructure/LocalBusiness",
+          "parent": "spatialCoverage",
+          "inverse_of": null,
+          "score": 5.426,
+          "matched_anchor": null,
+          "comment": "An announcement location relation between a special announcement and the specific civic structure or local business it pertains to. Also called relevant location, associated place, specific venue. Examples: \"A special announcement's announcement location is 'City Hall'.\", \"The emergency announcement's announcement location is 'Local Grocery Store'.\" Distinct from spatialCoverage, which is used for larger geographic regions.",
+          "embed_score": 0.771,
+          "embed_rank": 2
+        },
+        {
+          "source": "schema.org",
+          "label": "newsUpdatesAndGuidelines",
+          "signature": "SpecialAnnouncement → URL/WebContent",
+          "parent": null,
+          "inverse_of": null,
+          "score": 1.5708,
+          "matched_anchor": null,
+          "comment": "A URL or web content providing news updates and guidelines related to a special announcement. Also called updates page, guidelines link, news and guidance. Examples: \"COVID-19 Announcement newsUpdatesAndGuidelines 'https://example.com/covid-updates'\", \"Emergency Alert newsUpdatesAndGuidelines 'https://gov.example.org/emergency-guidelines'\", \"Product Recall newsUpdatesAndGuidelines 'https://company.com/recall-info'\".",
+          "embed_score": 0.76,
+          "embed_rank": 7
+        },
+        {
+          "source": "schema.org",
+          "label": "diseasePreventionInfo",
+          "signature": "SpecialAnnouncement → URL/WebContent",
+          "parent": null,
+          "inverse_of": null,
+          "score": 1.1621,
+          "matched_anchor": null,
+          "comment": "A disease prevention information relation between a special announcement and a URL or web content providing details about disease prevention. Also called \"prevention guidelines\", \"health advice\". Examples: \"Special announcement diseasePreventionInfo 'cdc.gov/prevention'\", \"Public health alert diseasePreventionInfo 'WebContent on handwashing'\", \"COVID-19 update diseasePreventionInfo 'who.int/prevention'\".",
+          "embed_score": 0.758,
+          "embed_rank": 8
+        },
+        {
+          "source": "schema.org",
+          "label": "publicTransportClosuresInfo",
+          "signature": "SpecialAnnouncement → URL/WebContent",
+          "parent": null,
+          "inverse_of": null,
+          "score": 0.1725,
+          "matched_anchor": null,
+          "comment": "A public transport closures information relation between a special announcement and details regarding public transport disruptions. Also called transport closure details, public transit alerts. Examples: \"A special announcement includes public transport closures info about subway lines.\", \"An emergency alert provides public transport closures info for bus routes.\", \"A news update contains public transport closures info for train services.\"",
+          "embed_score": 0.75,
+          "embed_rank": 23
+        },
+        {
+          "source": "schema.org",
+          "label": "diseaseSpreadStatistics",
+          "signature": "SpecialAnnouncement → Dataset/Observation/URL/WebContent",
+          "parent": null,
+          "inverse_of": null,
+          "score": -0.1666,
+          "matched_anchor": null,
+          "comment": "A disease spread statistics relation between a special announcement and a dataset, observation, URL, or web content containing statistical information about the spread of a disease. Also called \"epidemic data\", \"infection rates\", \"case statistics\". Examples: \"Special announcement diseaseSpreadStatistics 'Dataset of daily cases'\", \"Public health update diseaseSpreadStatistics 'WebContent on regional spread'\", \"COVID-19 alert diseaseSpreadStatistics 'URL to dashboard'\".",
+          "embed_score": 0.751,
+          "embed_rank": 16
+        },
+        {
+          "source": "schema.org",
+          "label": "schoolClosuresInfo",
+          "signature": "SpecialAnnouncement → URL/WebContent",
+          "parent": null,
+          "inverse_of": null,
+          "score": -0.2462,
+          "matched_anchor": null,
+          "comment": "Information regarding school closures, typically provided as a URL or web content within a special announcement. Also called school closing details, closure announcement, education disruption info. Examples: `Emergency Announcement` schoolClosuresInfo `URL to district website`, `Weather Alert` schoolClosuresInfo `Text about snow day`, `Public Health Notice` schoolClosuresInfo `WebContent on school status`.",
+          "embed_score": 0.762,
+          "embed_rank": 6
+        },
+        {
+          "source": "schema.org",
+          "label": "datePosted",
+          "signature": "CDCPMDRecord/JobPosting/RealEstateListing/SpecialAnnouncement → Date/DateTime",
+          "parent": null,
+          "inverse_of": null,
+          "score": -1.156,
+          "matched_anchor": null,
+          "comment": "A temporal publication relation between a CDCPMD record, job posting, real estate listing, or special announcement and its online publication date. Also called: posting date, publication date, listing date. Examples: \"Job Opening\" date posted \"2023-10-25\", \"Apartment for Rent\" date posted \"2023-10-20\", \"Public Health Alert\" date posted \"2023-03-01T09:00:00Z\". Distinct from datePublished, which is a more general property for first publication.",
+          "embed_score": 0.766,
+          "embed_rank": 4
+        },
+        {
+          "source": "schema.org",
+          "label": "releasedEvent",
+          "signature": "CreativeWork → PublicationEvent",
+          "parent": null,
+          "inverse_of": null,
+          "score": -1.7143,
+          "matched_anchor": null,
+          "comment": "A released event relation between a creative work and the publication event marking its release. Also called release event, launch event. Examples: \"A movie has a released event 'Premiere at Cannes Film Festival'.\", \"A book has a released event 'Book Launch Party'.\", \"A video game has a released event 'E3 Announcement'.\"",
+          "embed_score": 0.776,
+          "embed_rank": 1
+        },
+        {
+          "source": "schema.org",
+          "label": "releaseDate",
+          "signature": "Product → Date",
+          "parent": null,
+          "inverse_of": null,
+          "score": -2.5073,
+          "matched_anchor": null,
+          "comment": "A release date relation between a product and the date it was made available to the public. Also called launch date, availability date, publication date. Examples: \"A new smartphone model has a release date of 2024-03-01.\", \"A software update has a release date of 2023-11-15.\", \"A new car model has a release date of 2025-01-01.\". Distinct from productionDate, which is when the item was manufactured.",
+          "embed_score": 0.762,
+          "embed_rank": 5
+        },
+        {
+          "source": "schema.org",
+          "label": "availabilityStarts",
+          "signature": "ActionAccessSpecification/Demand/Offer → Date/DateTime/Time",
+          "parent": null,
+          "inverse_of": null,
+          "score": -5.9,
+          "matched_anchor": null,
+          "comment": "A date or time marking the beginning of availability for a product or service in an offer or access specification. Also called: availability start date, offer start, access start time. Examples: \"Offer 'New Product' availabilityStarts '2023-11-01'\", \"ActionAccessSpecification 'Pre-sale' availabilityStarts '2023-10-20T09:00:00'\". Distinct from availabilityEnds, which marks the end.",
+          "embed_score": 0.75,
+          "embed_rank": 18
+        }
+      ]
+    },
+    {
+      "relation_phrase": "hasAge",
+      "definition": null,
+      "embedding_query_text": "hasAge:",
+      "observed_signatures": [
+        "Person → Event"
+      ],
+      "n_assignments": 1,
+      "assignments": [
+        {
+          "instances": [
+            "Mohamed Salah -> 34-year-old"
+          ],
+          "chosen_property": {
+            "label": "hasDeliveryMethod",
+            "source": "schema.org",
+            "direction": "as_is",
+            "vocab_id": null,
+            "is_new_to_vocab": false,
+            "definition": null,
+            "parent": null,
+            "domain": null,
+            "range": null,
+            "path": "",
+            "justification": "fallback: top candidate"
+          },
+          "llm_proposed": {
+            "source": "schema.org",
+            "label": "hasDeliveryMethod",
+            "is_new": false,
+            "direction": "as_is"
+          }
+        }
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "hasDeliveryMethod",
+          "signature": "DeliveryEvent/ParcelDelivery → DeliveryMethod",
+          "parent": null,
+          "inverse_of": null,
+          "score": -0.1756,
+          "matched_anchor": null,
+          "comment": "A delivery method relation between a delivery event or parcel delivery and the method used for its delivery. Also called delivery via, shipping method, method of delivery. Examples: \"A parcel delivery has a delivery method of 'express shipping'.\", \"The delivery event has a delivery method of 'pickup'.\", \"The order uses a delivery method of 'standard mail'.\"",
+          "embed_score": 0.817,
+          "embed_rank": 9
+        },
+        {
+          "source": "schema.org",
+          "label": "hasOccupation",
+          "signature": "Person → Occupation",
+          "parent": null,
+          "inverse_of": null,
+          "score": -0.4296,
+          "matched_anchor": null,
+          "comment": "An occupation relation between a person and their current occupation. Also called profession, job, employment. Examples: \"A person has an occupation as a software engineer.\", \"She has an occupation as a doctor.\", \"His occupation is a teacher.\"",
+          "embed_score": 0.822,
+          "embed_rank": 5
+        },
+        {
+          "source": "schema.org",
+          "label": "hasMeasurement",
+          "signature": "Certification/Offer/Product/SizeSpecification → QuantitativeValue",
+          "parent": null,
+          "inverse_of": null,
+          "score": -0.5786,
+          "matched_anchor": null,
+          "comment": "A measurement relation between a certification, offer, product, or size specification and a quantitative value representing a specific measurement. Also called item measurement, dimension, size value. Examples: \"A product has a measurement for its height.\", \"An offer includes a measurement for package weight.\", \"The certification has a measurement of carbon footprint.\"",
+          "embed_score": 0.818,
+          "embed_rank": 7
+        },
+        {
+          "source": "schema.org",
+          "label": "suggestedAge",
+          "signature": "PeopleAudience/SizeSpecification → QuantitativeValue",
+          "parent": null,
+          "inverse_of": null,
+          "score": -1.063,
+          "matched_anchor": null,
+          "comment": "A quantitative value indicating the recommended age or age range for an intended audience or person. Also called \"recommended age\", \"age range\", \"target age\", \"suitable age\". Examples: \"The toy has suggestedAge 3-5 years\", \"The audience specification includes suggestedAge 18+\", \"This product is for suggestedAge 6-12 months.\". Distinct from suggestedMinAge and suggestedMaxAge, which specify only the minimum or maximum.",
+          "embed_score": 0.793,
+          "embed_rank": 32
+        },
+        {
+          "source": "schema.org",
+          "label": "hasOfferCatalog",
+          "signature": "Organization/Person/Service → OfferCatalog",
+          "parent": null,
+          "inverse_of": null,
+          "score": -1.0673,
+          "matched_anchor": null,
+          "comment": "An offer catalog relation between an organization, person, or service and an associated offer catalog. Also called offers catalog, catalog of offers, product catalog. Examples: \"An organization has an offer catalog of its products.\", \"A service has an offer catalog of its packages.\", \"The person maintains an offer catalog.\"",
+          "embed_score": 0.814,
+          "embed_rank": 12
+        },
+        {
+          "source": "schema.org",
+          "label": "hasPOS",
+          "signature": "Organization/Person → Place",
+          "parent": null,
+          "inverse_of": null,
+          "score": -1.5359,
+          "matched_anchor": null,
+          "comment": "A point-of-sale relation between an organization or person and a place where they operate a point of sale. Also called operates POS, sales location, retail point. Examples: \"An organization has a POS in New York.\", \"The vendor has a POS at the market.\", \"This company operates multiple POS locations.\"",
+          "embed_score": 0.83,
+          "embed_rank": 1
+        },
+        {
+          "source": "schema.org",
+          "label": "hasAdultConsideration",
+          "signature": "Offer/Product → AdultOrientedEnumeration",
+          "parent": null,
+          "inverse_of": null,
+          "score": -1.5757,
+          "matched_anchor": null,
+          "comment": "An adult suitability relation between an offer or product and its intended audience or content rating. Also called adult-oriented, age-restricted, mature content, for adults only. Examples: \"An offer has adult consideration for explicit content.\", \"A product is tagged with adult consideration.\", \"This item has adult consideration due to its theme.\"",
+          "embed_score": 0.81,
+          "embed_rank": 15
+        },
+        {
+          "source": "schema.org",
+          "label": "hasShippingService",
+          "signature": "OfferShippingDetails/Organization → ShippingService",
+          "parent": null,
+          "inverse_of": null,
+          "score": -1.5882,
+          "matched_anchor": null,
+          "comment": "A shipping service relation between offer shipping details or an organization and a shipping service it provides. Also called offers shipping, shipping option, delivery service. Examples: \"An organization has a shipping service for international delivery.\", \"Offer shipping details include a shipping service for express mail.\", \"The company provides a shipping service.\"",
+          "embed_score": 0.829,
+          "embed_rank": 2
+        },
+        {
+          "source": "schema.org",
+          "label": "hasMenu",
+          "signature": "FoodEstablishment → Menu/Text/URL",
+          "parent": null,
+          "inverse_of": null,
+          "score": -1.637,
+          "matched_anchor": null,
+          "comment": "A menu relation between a food establishment and its menu (structured, text, or URL). Also called offers menu, menu available, food menu. Examples: \"A restaurant has a menu with daily specials.\", \"The cafe has a menu URL.\", \"This food establishment provides its menu as text.\"",
+          "embed_score": 0.823,
+          "embed_rank": 3
+        },
+        {
+          "source": "schema.org",
+          "label": "hasCredential",
+          "signature": "Organization/Person → Credential",
+          "parent": null,
+          "inverse_of": null,
+          "score": -1.7439,
+          "matched_anchor": null,
+          "comment": "A credential relation between an organization or person and an awarded credential. Also called holds credential, awarded credential, possesses credential. Examples: \"A person has a credential as a licensed engineer.\", \"An organization has a credential for business excellence.\", \"The professional has a credential in data science.\"",
+          "embed_score": 0.781,
+          "embed_rank": 49
+        }
+      ]
+    },
+    {
+      "relation_phrase": "hasCareer",
+      "definition": null,
+      "embedding_query_text": "hasCareer:",
+      "observed_signatures": [
+        "Person → Event",
+        "SportsTeam → SportsEvent"
+      ],
+      "n_assignments": 1,
+      "assignments": [
+        {
+          "instances": [
+            "Mohamed Salah -> Salah joins Trabzonspor on free transfer",
+            "Trabzonspor -> Trabzonspor qualifies for Europa League"
+          ],
+          "chosen_property": {
+            "label": "hasOfferCatalog",
+            "source": "schema.org",
+            "direction": "as_is",
+            "vocab_id": null,
+            "is_new_to_vocab": false,
+            "definition": null,
+            "parent": null,
+            "domain": null,
+            "range": null,
+            "path": "",
+            "justification": "fallback: top candidate"
+          },
+          "llm_proposed": {
+            "source": "schema.org",
+            "label": "hasOfferCatalog",
+            "is_new": false,
+            "direction": "as_is"
+          }
+        }
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "hasOfferCatalog",
+          "signature": "Organization/Person/Service → OfferCatalog",
+          "parent": null,
+          "inverse_of": null,
+          "score": -2.0603,
+          "matched_anchor": null,
+          "comment": "An offer catalog relation between an organization, person, or service and an associated offer catalog. Also called offers catalog, catalog of offers, product catalog. Examples: \"An organization has an offer catalog of its products.\", \"A service has an offer catalog of its packages.\", \"The person maintains an offer catalog.\"",
+          "embed_score": 0.803,
+          "embed_rank": 8
+        },
+        {
+          "source": "schema.org",
+          "label": "hasSponsorshipOffer",
+          "signature": "Event → Offer",
+          "parent": null,
+          "inverse_of": null,
+          "score": -2.5231,
+          "matched_anchor": null,
+          "comment": "A sponsorship offer relation between an event and an offer to sponsor it. Also called sponsorship opportunity, sponsor package, call for sponsors. Examples: \"An event has a sponsorship offer for corporate partners.\", \"The conference has a sponsorship offer with different tiers.\", \"This festival includes a sponsorship offer.\". Distinct from hasParticipationOffer, which is an offer to participate in the event.",
+          "embed_score": 0.798,
+          "embed_rank": 13
+        },
+        {
+          "source": "schema.org",
+          "label": "hasParticipationOffer",
+          "signature": "Event → Offer",
+          "parent": null,
+          "inverse_of": null,
+          "score": -3.1321,
+          "matched_anchor": null,
+          "comment": "A participation offer relation between an event and an offer to participate in it. Also called call for participation, participation opportunity, event entry offer. Examples: \"An event has a participation offer for speakers.\", \"The conference has a participation offer for proposals.\", \"This festival includes a participation offer for performers.\". Distinct from hasSponsorshipOffer, which is an offer to sponsor the event.",
+          "embed_score": 0.801,
+          "embed_rank": 10
+        },
+        {
+          "source": "schema.org",
+          "label": "hasDefinedTerm",
+          "signature": "DefinedTermSet/Taxon → DefinedTerm",
+          "parent": null,
+          "inverse_of": null,
+          "score": -3.3553,
+          "matched_anchor": null,
+          "comment": "A term inclusion relation between a defined term set or taxon and one of its contained defined terms. Also called contains term, includes term, term within. Examples: \"A medical glossary has a defined term for 'hypertension'.\", \"A taxonomy has a defined term for 'Homo sapiens'.\", \"The dictionary has a defined term for 'algorithm'.\"",
+          "embed_score": 0.799,
+          "embed_rank": 12
+        },
+        {
+          "source": "schema.org",
+          "label": "hasAdultConsideration",
+          "signature": "Offer/Product → AdultOrientedEnumeration",
+          "parent": null,
+          "inverse_of": null,
+          "score": -4.5196,
+          "matched_anchor": null,
+          "comment": "An adult suitability relation between an offer or product and its intended audience or content rating. Also called adult-oriented, age-restricted, mature content, for adults only. Examples: \"An offer has adult consideration for explicit content.\", \"A product is tagged with adult consideration.\", \"This item has adult consideration due to its theme.\"",
+          "embed_score": 0.786,
+          "embed_rank": 25
+        },
+        {
+          "source": "schema.org",
+          "label": "hasOccupation",
+          "signature": "Person → Occupation",
+          "parent": null,
+          "inverse_of": null,
+          "score": -5.15,
+          "matched_anchor": null,
+          "comment": "An occupation relation between a person and their current occupation. Also called profession, job, employment. Examples: \"A person has an occupation as a software engineer.\", \"She has an occupation as a doctor.\", \"His occupation is a teacher.\"",
+          "embed_score": 0.807,
+          "embed_rank": 6
+        },
+        {
+          "source": "schema.org",
+          "label": "hasTiers",
+          "signature": "MemberProgram → MemberProgramTier",
+          "parent": null,
+          "inverse_of": "isTierOf",
+          "score": -5.1956,
+          "matched_anchor": null,
+          "comment": "A tier inclusion relation between a member program and its constituent member program tiers. Also called program tiers, includes tiers, membership levels. Examples: \"A member program has tiers for bronze, silver, and gold.\", \"The loyalty program has tiers for different membership levels.\", \"This program includes multiple tiers.\"",
+          "embed_score": 0.811,
+          "embed_rank": 4
+        },
+        {
+          "source": "schema.org",
+          "label": "hasDriveThroughService",
+          "signature": "Place → Boolean",
+          "parent": null,
+          "inverse_of": null,
+          "score": -5.2725,
+          "matched_anchor": null,
+          "comment": "A drive-through service availability relation for a place, indicating whether it offers services accessible by driving through. Also called offers drive-through, drive-through available, drive-in service. Examples: \"A restaurant has drive-through service.\", \"A testing facility has drive-through service.\", \"The bank has drive-through service for transactions.\"",
+          "embed_score": 0.808,
+          "embed_rank": 5
+        },
+        {
+          "source": "schema.org",
+          "label": "hasCertification",
+          "signature": "Organization/Person/Place/Product/Service → Certification",
+          "parent": null,
+          "inverse_of": null,
+          "score": -5.4154,
+          "matched_anchor": null,
+          "comment": "A certification relation between an entity (organization, person, place, product, or service) and its associated certification. Also called holds certification, certified by, possesses certification, has accreditation. Examples: \"An organization has a certification for quality management.\", \"A product has a certification for organic ingredients.\", \"A person has a certification in project management.\"",
+          "embed_score": 0.778,
+          "embed_rank": 40
+        },
+        {
+          "source": "schema.org",
+          "label": "hasPart",
+          "signature": "CreativeWork → CreativeWork",
+          "parent": null,
+          "inverse_of": "isPartOf",
+          "score": -5.7218,
+          "matched_anchor": null,
+          "comment": "A part-whole relation between a creative work and another creative work that is a component of it. Also called includes part, contains component, component of. Examples: \"A book has a part that is a chapter.\", \"A symphony has a part that is a movement.\", \"A website has a part that is a specific page.\". Distinct from includedComposition, which is specific to music compositions.",
+          "embed_score": 0.786,
+          "embed_rank": 27
+        }
+      ]
+    },
+    {
+      "relation_phrase": "hasRanking",
+      "definition": null,
+      "embedding_query_text": "hasRanking:",
+      "observed_signatures": [
+        "SportsTeam → ClubRanking"
+      ],
+      "n_assignments": 1,
+      "assignments": [
+        {
+          "instances": [
+            "Trabzonspor -> Trabzonspor is Turkey's fourth-biggest team"
+          ],
+          "chosen_property": {
+            "label": "taxonRank",
+            "source": "schema.org",
+            "direction": "as_is",
+            "vocab_id": null,
+            "is_new_to_vocab": false,
+            "definition": null,
+            "parent": null,
+            "domain": null,
+            "range": null,
+            "path": "",
+            "justification": "fallback: top candidate"
+          },
+          "llm_proposed": {
+            "source": "schema.org",
+            "label": "taxonRank",
+            "is_new": false,
+            "direction": "as_is"
+          }
+        }
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "taxonRank",
+          "signature": "Taxon → PropertyValue/Text/URL",
+          "parent": null,
+          "inverse_of": null,
+          "score": -0.9571,
+          "matched_anchor": null,
+          "comment": "A classification of a taxon by its taxonomic rank, often expressed as a URI from a controlled vocabulary. Also called \"taxonomic level\", \"rank in taxonomy\", \"biological classification\". Examples: \"The taxon has taxonRank 'Family'\", \"The species' taxonRank is 'Species'\", \"This taxon is classified by taxonRank 'Genus'.\"",
+          "embed_score": 0.811,
+          "embed_rank": 7
+        },
+        {
+          "source": "schema.org",
+          "label": "hasOfferCatalog",
+          "signature": "Organization/Person/Service → OfferCatalog",
+          "parent": null,
+          "inverse_of": null,
+          "score": -2.6468,
+          "matched_anchor": null,
+          "comment": "An offer catalog relation between an organization, person, or service and an associated offer catalog. Also called offers catalog, catalog of offers, product catalog. Examples: \"An organization has an offer catalog of its products.\", \"A service has an offer catalog of its packages.\", \"The person maintains an offer catalog.\"",
+          "embed_score": 0.819,
+          "embed_rank": 5
+        },
+        {
+          "source": "schema.org",
+          "label": "hasDeliveryMethod",
+          "signature": "DeliveryEvent/ParcelDelivery → DeliveryMethod",
+          "parent": null,
+          "inverse_of": null,
+          "score": -2.9901,
+          "matched_anchor": null,
+          "comment": "A delivery method relation between a delivery event or parcel delivery and the method used for its delivery. Also called delivery via, shipping method, method of delivery. Examples: \"A parcel delivery has a delivery method of 'express shipping'.\", \"The delivery event has a delivery method of 'pickup'.\", \"The order uses a delivery method of 'standard mail'.\"",
+          "embed_score": 0.803,
+          "embed_rank": 14
+        },
+        {
+          "source": "schema.org",
+          "label": "hasAdultConsideration",
+          "signature": "Offer/Product → AdultOrientedEnumeration",
+          "parent": null,
+          "inverse_of": null,
+          "score": -3.0795,
+          "matched_anchor": null,
+          "comment": "An adult suitability relation between an offer or product and its intended audience or content rating. Also called adult-oriented, age-restricted, mature content, for adults only. Examples: \"An offer has adult consideration for explicit content.\", \"A product is tagged with adult consideration.\", \"This item has adult consideration due to its theme.\"",
+          "embed_score": 0.802,
+          "embed_rank": 16
+        },
+        {
+          "source": "schema.org",
+          "label": "hasOccupation",
+          "signature": "Person → Occupation",
+          "parent": null,
+          "inverse_of": null,
+          "score": -3.6251,
+          "matched_anchor": null,
+          "comment": "An occupation relation between a person and their current occupation. Also called profession, job, employment. Examples: \"A person has an occupation as a software engineer.\", \"She has an occupation as a doctor.\", \"His occupation is a teacher.\"",
+          "embed_score": 0.796,
+          "embed_rank": 26
+        },
+        {
+          "source": "schema.org",
+          "label": "hasDefinedTerm",
+          "signature": "DefinedTermSet/Taxon → DefinedTerm",
+          "parent": null,
+          "inverse_of": null,
+          "score": -4.1846,
+          "matched_anchor": null,
+          "comment": "A term inclusion relation between a defined term set or taxon and one of its contained defined terms. Also called contains term, includes term, term within. Examples: \"A medical glossary has a defined term for 'hypertension'.\", \"A taxonomy has a defined term for 'Homo sapiens'.\", \"The dictionary has a defined term for 'algorithm'.\"",
+          "embed_score": 0.801,
+          "embed_rank": 18
+        },
+        {
+          "source": "schema.org",
+          "label": "hasParticipationOffer",
+          "signature": "Event → Offer",
+          "parent": null,
+          "inverse_of": null,
+          "score": -4.2226,
+          "matched_anchor": null,
+          "comment": "A participation offer relation between an event and an offer to participate in it. Also called call for participation, participation opportunity, event entry offer. Examples: \"An event has a participation offer for speakers.\", \"The conference has a participation offer for proposals.\", \"This festival includes a participation offer for performers.\". Distinct from hasSponsorshipOffer, which is an offer to sponsor the event.",
+          "embed_score": 0.81,
+          "embed_rank": 9
+        },
+        {
+          "source": "schema.org",
+          "label": "hasTierRequirement",
+          "signature": "MemberProgramTier → CreditCard/MonetaryAmount/Text/UnitPriceSpecification",
+          "parent": null,
+          "inverse_of": null,
+          "score": -4.2443,
+          "matched_anchor": null,
+          "comment": "A tier requirement relation between a member program tier and a condition for joining that tier. Also called tier eligibility, membership condition, joining requirement. Examples: \"A member program tier has a tier requirement of a specific credit card.\", \"The tier has a tier requirement of a minimum spend.\", \"This tier requires a tier requirement of an annual fee.\"",
+          "embed_score": 0.842,
+          "embed_rank": 1
+        },
+        {
+          "source": "schema.org",
+          "label": "hasCertification",
+          "signature": "Organization/Person/Place/Product/Service → Certification",
+          "parent": null,
+          "inverse_of": null,
+          "score": -4.4234,
+          "matched_anchor": null,
+          "comment": "A certification relation between an entity (organization, person, place, product, or service) and its associated certification. Also called holds certification, certified by, possesses certification, has accreditation. Examples: \"An organization has a certification for quality management.\", \"A product has a certification for organic ingredients.\", \"A person has a certification in project management.\"",
+          "embed_score": 0.798,
+          "embed_rank": 24
+        },
+        {
+          "source": "schema.org",
+          "label": "hasMenuSection",
+          "signature": "Menu/MenuSection → MenuSection",
+          "parent": null,
+          "inverse_of": null,
+          "score": -4.5285,
+          "matched_anchor": null,
+          "comment": "A menu section inclusion relation between a menu or menu section and one of its contained menu sections. Also called includes section, menu subgroup, section of menu. Examples: \"A menu has a menu section for main courses.\", \"The dinner menu has a menu section for beverages.\", \"This menu section contains another menu section for side dishes.\"",
+          "embed_score": 0.799,
+          "embed_rank": 21
+        }
+      ]
+    },
+    {
+      "relation_phrase": "comparedTo",
+      "definition": null,
+      "embedding_query_text": "comparedTo:",
+      "observed_signatures": [
+        "ClubRanking → SportsTeam"
+      ],
+      "n_assignments": 1,
+      "assignments": [
+        {
+          "instances": [
+            "Trabzonspor is Turkey's fourth-biggest team -> Fenerbahce",
+            "Trabzonspor is Turkey's fourth-biggest team -> Galatasaray",
+            "Trabzonspor is Turkey's fourth-biggest team -> Besiktas"
+          ],
+          "chosen_property": {
+            "label": "isSimilarTo",
+            "source": "schema.org",
+            "direction": "as_is",
+            "vocab_id": null,
+            "is_new_to_vocab": false,
+            "definition": null,
+            "parent": null,
+            "domain": null,
+            "range": null,
+            "path": "",
+            "justification": "fallback: top candidate"
+          },
+          "llm_proposed": {
+            "source": "schema.org",
+            "label": "isSimilarTo",
+            "is_new": false,
+            "direction": "as_is"
+          }
+        }
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "isSimilarTo",
+          "signature": "Product/Service → Product/Service",
+          "parent": null,
+          "inverse_of": null,
+          "score": 2.3887,
+          "matched_anchor": null,
+          "comment": "A functional resemblance relation between two products or services that share similar characteristics or purposes. Also called similar to, comparable to, analogous to, like. Examples: Product A isSimilarTo 'Product B' (a competitor's product). Service X isSimilarTo 'Service Y' (an alternative service). A specific brand of coffee isSimilarTo 'another brand of coffee'. Distinct from isRelatedTo, which is a more general association without implying functional similarity.",
+          "embed_score": 0.815,
+          "embed_rank": 1
+        },
+        {
+          "source": "schema.org",
+          "label": "isRelatedTo",
+          "signature": "Product/Service → Product/Service",
+          "parent": null,
+          "inverse_of": null,
+          "score": -0.6931,
+          "matched_anchor": null,
+          "comment": "A general association relation between two products or services that have some unspecified connection. Also called associated with, connected to, linked to, relevant to. Examples: A smartphone isRelatedTo 'a smart watch'. A car service isRelatedTo 'car insurance'. A book isRelatedTo 'a movie adaptation'. Distinct from isSimilarTo, which implies functional similarity, and isAccessoryOrSparePartFor or isConsumableFor, which imply specific functional dependencies. This is a very general relation.",
+          "embed_score": 0.788,
+          "embed_rank": 3
+        },
+        {
+          "source": "schema.org",
+          "label": "relatedTo",
+          "signature": "Person → Person",
+          "parent": null,
+          "inverse_of": null,
+          "score": -2.4355,
+          "matched_anchor": null,
+          "comment": "A familial relation between two people, representing a generic family connection. Also called family member, kin, relative. Examples: \"John is related to 'Jane'.\", \"Mary is related to 'Tom'.\", \"Aunt Sally is related to 'Nephew Bob'.\"",
+          "embed_score": 0.796,
+          "embed_rank": 2
+        },
+        {
+          "source": "schema.org",
+          "label": "connectedTo",
+          "signature": "AnatomicalStructure → AnatomicalStructure",
+          "parent": null,
+          "inverse_of": null,
+          "score": -2.4549,
+          "matched_anchor": null,
+          "comment": "A connection relation between an anatomical structure and other anatomical structures it is connected to. Also called \"linked to\", \"adjoins\", \"connects with\". Examples: \"Femur anatomical structure connectedTo Tibia\", \"Brain anatomical structure connectedTo Spinal cord\".",
+          "embed_score": 0.781,
+          "embed_rank": 9
+        },
+        {
+          "source": "schema.org",
+          "label": "creditedTo",
+          "signature": "MusicRelease → Organization/Person",
+          "parent": null,
+          "inverse_of": null,
+          "score": -2.8906,
+          "matched_anchor": null,
+          "comment": "An attribution relation between a music release and the group or artist it is credited to, if different from the primary artist. Also called: attributed to, release credit, presented by. Examples: \"Album 'Red and Blue'\" credited to \"Stefani Germanotta Band\", \"Single 'X'\" credited to \"The Session Musicians\", \"Soundtrack\" credited to \"Various Artists\".",
+          "embed_score": 0.774,
+          "embed_rank": 23
+        },
+        {
+          "source": "schema.org",
+          "label": "drainsTo",
+          "signature": "Vein → Vessel",
+          "parent": null,
+          "inverse_of": null,
+          "score": -3.2963,
+          "matched_anchor": null,
+          "comment": "A drainage relation between a vein and the vessel it empties into. Also called \"empties into\", \"flows into\", \"tributary to\". Examples: \"Great saphenous vein drainsTo 'Femoral vein'\", \"Internal jugular vein drainsTo 'Subclavian vein'\", \"Renal vein drainsTo 'Inferior vena cava'\".",
+          "embed_score": 0.775,
+          "embed_rank": 19
+        },
+        {
+          "source": "schema.org",
+          "label": "weightTotal",
+          "signature": "Vehicle → QuantitativeValue",
+          "parent": null,
+          "inverse_of": null,
+          "score": -4.6923,
+          "matched_anchor": null,
+          "comment": "A total weight capacity relation between a vehicle and a quantitative value, representing the maximum permitted loaded weight. Also called maximum weight, gross vehicle weight, total loaded weight, permitted weight. Examples: Truck weightTotal 40000 kg, Car weightTotal 2000 kg, Van weightTotal 3500 kg.",
+          "embed_score": 0.779,
+          "embed_rank": 12
+        },
+        {
+          "source": "schema.org",
+          "label": "isPartOf",
+          "signature": "CreativeWork → CreativeWork/URL",
+          "parent": null,
+          "inverse_of": "hasPart",
+          "score": -5.2152,
+          "matched_anchor": null,
+          "comment": "A part-whole relation indicating that an item or creative work is a component of a larger creative work or resource. Also called component of, member of, contained in, element of. Examples: A chapter isPartOf 'a book'. An episode isPartOf 'a TV series'. A web page isPartOf 'a website'. Distinct from hasPart, which expresses the inverse relationship (the whole *has* a part).",
+          "embed_score": 0.769,
+          "embed_rank": 40
+        },
+        {
+          "source": "schema.org",
+          "label": "lesserOrEqual",
+          "signature": "QualitativeValue → QualitativeValue",
+          "parent": null,
+          "inverse_of": null,
+          "score": -5.7316,
+          "matched_anchor": null,
+          "comment": "A lesser or equal ordering relation between two qualitative values, indicating that the subject value is smaller than or equal to the object value. Also called: is less than or equal to, is at most, does not exceed. Examples: \"Low lesserOrEqual Medium\", \"Small lesserOrEqual Small\", \"Cold lesserOrEqual Cold\". Distinct from lesser, which strictly indicates a smaller value.",
+          "embed_score": 0.782,
+          "embed_rank": 8
+        },
+        {
+          "source": "schema.org",
+          "label": "greaterOrEqual",
+          "signature": "QualitativeValue → QualitativeValue",
+          "parent": null,
+          "inverse_of": null,
+          "score": -5.9678,
+          "matched_anchor": null,
+          "comment": "A greater or equal relation indicating that one qualitative value is superior to or the same as another. Also called: is greater than or equal to, at least, no less than. Examples: \"High\" greater or equal \"Medium\", \"Good\" greater or equal \"Good\", \"Large\" greater or equal \"Medium\". Distinct from greater, which does not include equality.",
+          "embed_score": 0.786,
+          "embed_rank": 5
+        }
+      ]
+    },
+    {
+      "relation_phrase": "playedFor",
+      "definition": null,
+      "embedding_query_text": "playedFor:",
+      "observed_signatures": [
+        "Person → SportsTeam"
+      ],
+      "n_assignments": 1,
+      "assignments": [
+        {
+          "instances": [
+            "Mohamed Salah -> Basel",
+            "Mohamed Salah -> Chelsea",
+            "Mohamed Salah -> Fiorentina",
+            "Mohamed Salah -> AS Roma",
+            "Mohamed Salah -> Liverpool"
+          ],
+          "chosen_property": {
+            "label": "playMode",
+            "source": "schema.org",
+            "direction": "as_is",
+            "vocab_id": null,
+            "is_new_to_vocab": false,
+            "definition": null,
+            "parent": null,
+            "domain": null,
+            "range": null,
+            "path": "",
+            "justification": "fallback: top candidate"
+          },
+          "llm_proposed": {
+            "source": "schema.org",
+            "label": "playMode",
+            "is_new": false,
+            "direction": "as_is"
+          }
+        }
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "playMode",
+          "signature": "VideoGame/VideoGameSeries → GamePlayMode",
+          "parent": null,
+          "inverse_of": null,
+          "score": -0.6269,
+          "matched_anchor": null,
+          "comment": "A descriptive attribute indicating the supported gameplay modes for a video game or series, such as single-player, multi-player, or co-op. Also called game mode, player configuration, gameplay style. Examples: A video game has a play mode of 'SinglePlayer'. A video game has a play mode of 'MultiPlayer'. A video game has a play mode of 'CoOp'.",
+          "embed_score": 0.787,
+          "embed_rank": 8
+        },
+        {
+          "source": "schema.org",
+          "label": "gameServer",
+          "signature": "VideoGame → GameServer",
+          "parent": null,
+          "inverse_of": "game",
+          "score": -2.7132,
+          "matched_anchor": null,
+          "comment": "A game server relation between a video game and the server where it can be played. Also called: hosted on, playable server, game host. Examples: \"Minecraft\" game server \"Hypixel Network\", \"World of Warcraft\" game server \"Frostmourne Realm\", \"Call of Duty\" game server \"Dedicated Server\". Distinct from game, which is the game itself.",
+          "embed_score": 0.791,
+          "embed_rank": 2
+        },
+        {
+          "source": "schema.org",
+          "label": "validFor",
+          "signature": "Credential/Permit → Duration",
+          "parent": null,
+          "inverse_of": null,
+          "score": -3.5596,
+          "matched_anchor": null,
+          "comment": "A valid for relation between a credential or permit and the duration of its validity. Also called duration of validity, valid period, effective duration. Examples: \"Permit validFor 'P1Y'\", \"Credential validFor 'P5Y'\", \"License validFor 'P6M'\".",
+          "embed_score": 0.776,
+          "embed_rank": 13
+        },
+        {
+          "source": "schema.org",
+          "label": "isConsumableFor",
+          "signature": "Product → Product",
+          "parent": null,
+          "inverse_of": null,
+          "score": -3.5616,
+          "matched_anchor": null,
+          "comment": "A product dependency relation between a product and the other products that consume it or require it for operation. Also called consumable for, used by, required by, compatible consumable. Examples: An ink cartridge isConsumableFor 'Printer Model X'. Coffee pods areConsumableFor 'Coffee Machine Y'. Batteries areConsumableFor 'Remote Control Z'. Distinct from isAccessoryOrSparePartFor, which refers to items that are not used up.",
+          "embed_score": 0.779,
+          "embed_rank": 10
+        },
+        {
+          "source": "schema.org",
+          "label": "worksFor",
+          "signature": "Person → Organization",
+          "parent": null,
+          "inverse_of": null,
+          "score": -3.8513,
+          "matched_anchor": null,
+          "comment": "An employment relation between a person and an organization, indicating the organization for which the person is employed. Also called employed by, affiliated with, works at, employed at. Examples: Employee worksFor CompanyA, Consultant worksFor AgencyB, Professor worksFor UniversityC. Distinct from memberOf, which indicates general membership in a group, not necessarily employment.",
+          "embed_score": 0.789,
+          "embed_rank": 5
+        },
+        {
+          "source": "schema.org",
+          "label": "numberOfPlayers",
+          "signature": "Game/VideoGameSeries → QuantitativeValue",
+          "parent": null,
+          "inverse_of": null,
+          "score": -3.8709,
+          "matched_anchor": null,
+          "comment": "The number of people who can play a game or video game series, often expressed as a minimum, maximum, or range. Also called player count, game capacity, participant number. Examples: \"Board Game X numberOfPlayers '2-4'\", \"Video Game Y numberOfPlayers '1 (single-player)'\", \"Online Game Z numberOfPlayers '100 (max)'\".",
+          "embed_score": 0.788,
+          "embed_rank": 6
+        },
+        {
+          "source": "schema.org",
+          "label": "characterName",
+          "signature": "PerformanceRole → Text",
+          "parent": null,
+          "inverse_of": null,
+          "score": -3.9843,
+          "matched_anchor": null,
+          "comment": "A naming relation for a performance role, indicating the name of the character being played. Also called \"role name\", \"played character\", \"fictional name\". Examples: \"Actor's performance role characterName 'Hamlet'\", \"Actress's performance role characterName 'Juliet'\". Distinct from character, which refers to the fictional person itself, whereas characterName is the name of the character in a specific performance.",
+          "embed_score": 0.766,
+          "embed_rank": 26
+        },
+        {
+          "source": "schema.org",
+          "label": "inPlaylist",
+          "signature": "MusicRecording → MusicPlaylist",
+          "parent": null,
+          "inverse_of": null,
+          "score": -4.0493,
+          "matched_anchor": null,
+          "comment": "A playlist inclusion relation between a music recording and the music playlist it belongs to. Also called part of playlist, on playlist, playlist track. Examples: \"A music recording is in a playlist titled 'Workout Mix'.\", \"The song is in a playlist.\", \"This recording belongs to a specific playlist.\". Distinct from inAlbum, which refers to a music album.",
+          "embed_score": 0.771,
+          "embed_rank": 18
+        },
+        {
+          "source": "schema.org",
+          "label": "isAccessoryOrSparePartFor",
+          "signature": "Product → Product",
+          "parent": null,
+          "inverse_of": null,
+          "score": -4.2728,
+          "matched_anchor": null,
+          "comment": "A product compatibility relation between a product and the other products for which it serves as an accessory or spare part. Also called accessory for, spare part for, compatible with, used with. Examples: A phone case isAccessoryOrSparePartFor 'iPhone 15'. A replacement battery isAccessoryOrSparePartFor 'Laptop Model X'. A camera lens isAccessoryOrSparePartFor 'DSLR Camera Y'. Distinct from isConsumableFor, which refers to items that are used up.",
+          "embed_score": 0.788,
+          "embed_rank": 7
+        },
+        {
+          "source": "schema.org",
+          "label": "playerType",
+          "signature": "MediaObject → Text",
+          "parent": null,
+          "inverse_of": null,
+          "score": -4.3182,
+          "matched_anchor": null,
+          "comment": "A technical attribute indicating the specific media player type required to render a media object. Also called required player, media renderer, playback software. Examples: A video file has a player type of 'Flash'. A media object has a player type of 'Silverlight'. An audio stream has a player type of 'HTML5 Audio'.",
+          "embed_score": 0.776,
+          "embed_rank": 12
+        }
+      ]
+    },
+    {
+      "relation_phrase": "location",
+      "definition": null,
+      "embedding_query_text": "location:",
+      "observed_signatures": [
+        "SportsTeam → Country"
+      ],
+      "n_assignments": 1,
+      "assignments": [
+        {
+          "instances": [
+            "Basel -> Switzerland"
+          ],
+          "chosen_property": {
+            "label": "location",
+            "source": "schema.org",
+            "direction": "as_is",
+            "vocab_id": null,
+            "is_new_to_vocab": false,
+            "definition": null,
+            "parent": null,
+            "domain": null,
+            "range": null,
+            "path": "",
+            "justification": "fallback: top candidate"
+          },
+          "llm_proposed": {
+            "source": "schema.org",
+            "label": "location",
+            "is_new": false,
+            "direction": "as_is"
+          }
+        }
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "location",
+          "signature": "Action/Event/InteractionCounter/Organization → Place/PostalAddress/Text/VirtualLocation",
+          "parent": null,
+          "inverse_of": null,
+          "score": 7.1936,
+          "matched_anchor": null,
+          "comment": "A location relation between an action, event, interaction counter, or organization and its physical or virtual place. Also called: situated at, takes place at, found at. Examples: \"Conference Event location New York Hilton\", \"Company Organization location 123 Main St\", \"Online Meeting location Virtual Conference Room\".",
+          "embed_score": 0.811,
+          "embed_rank": 2
+        },
+        {
+          "source": "schema.org",
+          "label": "locationCreated",
+          "signature": "CreativeWork → Place",
+          "parent": null,
+          "inverse_of": null,
+          "score": 4.7555,
+          "matched_anchor": null,
+          "comment": "A creation location relation between a creative work and the place where it was created. Also called: place of creation, origin location, created in. Examples: \"Painting locationCreated Paris\", \"Novel locationCreated London\", \"Film locationCreated Hollywood\". Distinct from location, which refers to the current or general location of an entity.",
+          "embed_score": 0.793,
+          "embed_rank": 14
+        },
+        {
+          "source": "schema.org",
+          "label": "geo",
+          "signature": "Place → GeoCoordinates/GeoShape",
+          "parent": null,
+          "inverse_of": null,
+          "score": 3.0423,
+          "matched_anchor": null,
+          "comment": "A geo relation between a place and its geographical coordinates or shape. Also called: geographic location, coordinates, spatial data. Examples: \"Eiffel Tower\" geo \"Latitude: 48.8584, Longitude: 2.2945\", \"Central Park\" geo \"Polygon GeoShape\", \"Mount Everest\" geo \"Point GeoCoordinates\".",
+          "embed_score": 0.772,
+          "embed_rank": 44
+        },
+        {
+          "source": "schema.org",
+          "label": "gameLocation",
+          "signature": "Game/VideoGameSeries → Place/PostalAddress/URL",
+          "parent": null,
+          "inverse_of": null,
+          "score": 2.5628,
+          "matched_anchor": null,
+          "comment": "A game location relation between a game or video game series and a real or fictional place where the game or part of it is set. Also called: game setting, virtual world, game environment. Examples: \"Grand Theft Auto V\" game location \"Los Santos\", \"The Legend of Zelda: Breath of the Wild\" game location \"Hyrule\", \"Assassin's Creed Valhalla\" game location \"England\".",
+          "embed_score": 0.786,
+          "embed_rank": 25
+        },
+        {
+          "source": "schema.org",
+          "label": "homeLocation",
+          "signature": "Person → ContactPoint/Place",
+          "parent": "location",
+          "inverse_of": null,
+          "score": 1.7217,
+          "matched_anchor": null,
+          "comment": "A home location relation between a person and their residential contact point or place. Also called residence, dwelling, home address. Examples: \"A person has a home location in London.\", \"Her home location is a specific address.\", \"The individual's home location is a contact point.\"",
+          "embed_score": 0.79,
+          "embed_rank": 18
+        },
+        {
+          "source": "schema.org",
+          "label": "toLocation",
+          "signature": "ExerciseAction/InsertAction/MoveAction/TransferAction → Place",
+          "parent": "location",
+          "inverse_of": null,
+          "score": 1.6183,
+          "matched_anchor": null,
+          "comment": "A destination location relation between an action (like exercise, insert, move, or transfer) and the final place of the object or agent after the action. Also called destination, final location, arrival place. Examples: \"MoveAction toLocation 'New York'\", \"TransferAction toLocation 'Warehouse B'\", \"ExerciseAction toLocation 'gym'\". Distinct from location, which is the general place where something is or occurs.",
+          "embed_score": 0.781,
+          "embed_rank": 30
+        },
+        {
+          "source": "schema.org",
+          "label": "fromLocation",
+          "signature": "ExerciseAction/MoveAction/TransferAction → Place",
+          "parent": "location",
+          "inverse_of": null,
+          "score": 1.4787,
+          "matched_anchor": null,
+          "comment": "A from location relation between an exercise, move, or transfer action and the original place of the object or agent before the action occurred. Also called: origin location, starting point, departure place. Examples: \"Package Delivery\" from location \"Warehouse A\", \"Person Moving\" from location \"Old Apartment\", \"Data Transfer\" from location \"Server Room 1\". Distinct from toLocation, which is the destination after the action.",
+          "embed_score": 0.785,
+          "embed_rank": 27
+        },
+        {
+          "source": "schema.org",
+          "label": "foundingLocation",
+          "signature": "Organization → Place",
+          "parent": null,
+          "inverse_of": null,
+          "score": 0.8997,
+          "matched_anchor": null,
+          "comment": "A founding location relation between an organization and the place where it was established. Also called: place of origin, establishment location, birthplace. Examples: \"Microsoft\" founding location \"Albuquerque, New Mexico\", \"Apple Inc.\" founding location \"Los Altos, California\", \"Google\" founding location \"Menlo Park, California\".",
+          "embed_score": 0.805,
+          "embed_rank": 3
+        },
+        {
+          "source": "schema.org",
+          "label": "workLocation",
+          "signature": "Person → ContactPoint/Place",
+          "parent": "location",
+          "inverse_of": null,
+          "score": 0.8802,
+          "matched_anchor": null,
+          "comment": "A work location relation between a person and a contact point or place, identifying where the person performs their professional duties. Also called employment location, office address, workplace. Examples: John workLocation MainOffice, Jane workLocation RemoteHome, CompanyEmployee workLocation BranchOffice. Distinct from homeLocation, which is a person's residential address.",
+          "embed_score": 0.787,
+          "embed_rank": 22
+        },
+        {
+          "source": "schema.org",
+          "label": "globalLocationNumber",
+          "signature": "Organization/Person/Place → Text",
+          "parent": "identifier",
+          "inverse_of": null,
+          "score": 0.7662,
+          "matched_anchor": null,
+          "comment": "A global location number relation between an organization, person, or place and its unique 13-digit GLN identifier. Also called: GLN, International Location Number, ILN. Examples: \"Acme Corp Warehouse\" global location number \"1234567890123\", \"Hospital Main Campus\" global location number \"9876543210987\", \"Distribution Center X\" global location number \"1122334455667\".",
+          "embed_score": 0.77,
+          "embed_rank": 48
+        }
+      ]
+    },
+    {
+      "relation_phrase": "qualifiedFor",
+      "definition": null,
+      "embedding_query_text": "qualifiedFor:",
+      "observed_signatures": [
+        "SportsTeam → SportsEvent"
+      ],
+      "n_assignments": 1,
+      "assignments": [
+        {
+          "instances": [
+            "Trabzonspor -> Europa League"
+          ],
+          "chosen_property": {
+            "label": "validFor",
+            "source": "schema.org",
+            "direction": "as_is",
+            "vocab_id": null,
+            "is_new_to_vocab": false,
+            "definition": null,
+            "parent": null,
+            "domain": null,
+            "range": null,
+            "path": "",
+            "justification": "fallback: top candidate"
+          },
+          "llm_proposed": {
+            "source": "schema.org",
+            "label": "validFor",
+            "is_new": false,
+            "direction": "as_is"
+          }
+        }
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "validFor",
+          "signature": "Credential/Permit → Duration",
+          "parent": null,
+          "inverse_of": null,
+          "score": 2.4492,
+          "matched_anchor": null,
+          "comment": "A valid for relation between a credential or permit and the duration of its validity. Also called duration of validity, valid period, effective duration. Examples: \"Permit validFor 'P1Y'\", \"Credential validFor 'P5Y'\", \"License validFor 'P6M'\".",
+          "embed_score": 0.825,
+          "embed_rank": 1
+        },
+        {
+          "source": "schema.org",
+          "label": "qualifiedExpense",
+          "signature": "FinancialIncentive → IncentiveQualifiedExpenseType",
+          "parent": null,
+          "inverse_of": null,
+          "score": 1.8123,
+          "matched_anchor": null,
+          "comment": "A qualified expense relation between a financial incentive and the types of expenses that are covered by it. Also called covered expenses, eligible costs, incentive scope. Examples: \"A tax credit covers qualified expenses for 'energy-efficient appliances'.\", \"A grant covers qualified expenses for 'educational materials'.\", \"A voucher covers qualified expenses for 'groceries'.\"",
+          "embed_score": 0.789,
+          "embed_rank": 26
+        },
+        {
+          "source": "schema.org",
+          "label": "worksFor",
+          "signature": "Person → Organization",
+          "parent": null,
+          "inverse_of": null,
+          "score": 0.9108,
+          "matched_anchor": null,
+          "comment": "An employment relation between a person and an organization, indicating the organization for which the person is employed. Also called employed by, affiliated with, works at, employed at. Examples: Employee worksFor CompanyA, Consultant worksFor AgencyB, Professor worksFor UniversityC. Distinct from memberOf, which indicates general membership in a group, not necessarily employment.",
+          "embed_score": 0.796,
+          "embed_rank": 14
+        },
+        {
+          "source": "schema.org",
+          "label": "qualifications",
+          "signature": "JobPosting/Occupation → Credential/Text",
+          "parent": null,
+          "inverse_of": null,
+          "score": 0.5763,
+          "matched_anchor": null,
+          "comment": "A qualification relation between a job posting or occupation and the specific credentials or skills required. Also called required skills, job requirements, eligibility criteria. Examples: \"A software engineer job posting requires qualifications like a 'Bachelor's degree in Computer Science'.\", \"A doctor's occupation requires qualifications like 'Medical License'.\", \"A project manager role requires qualifications like 'PMP certification'.\"",
+          "embed_score": 0.819,
+          "embed_rank": 2
+        },
+        {
+          "source": "schema.org",
+          "label": "isConsumableFor",
+          "signature": "Product → Product",
+          "parent": null,
+          "inverse_of": null,
+          "score": -0.4479,
+          "matched_anchor": null,
+          "comment": "A product dependency relation between a product and the other products that consume it or require it for operation. Also called consumable for, used by, required by, compatible consumable. Examples: An ink cartridge isConsumableFor 'Printer Model X'. Coffee pods areConsumableFor 'Coffee Machine Y'. Batteries areConsumableFor 'Remote Control Z'. Distinct from isAccessoryOrSparePartFor, which refers to items that are not used up.",
+          "embed_score": 0.78,
+          "embed_rank": 40
+        },
+        {
+          "source": "schema.org",
+          "label": "isAccessoryOrSparePartFor",
+          "signature": "Product → Product",
+          "parent": null,
+          "inverse_of": null,
+          "score": -0.9492,
+          "matched_anchor": null,
+          "comment": "A product compatibility relation between a product and the other products for which it serves as an accessory or spare part. Also called accessory for, spare part for, compatible with, used with. Examples: A phone case isAccessoryOrSparePartFor 'iPhone 15'. A replacement battery isAccessoryOrSparePartFor 'Laptop Model X'. A camera lens isAccessoryOrSparePartFor 'DSLR Camera Y'. Distinct from isConsumableFor, which refers to items that are used up.",
+          "embed_score": 0.795,
+          "embed_rank": 16
+        },
+        {
+          "source": "schema.org",
+          "label": "reservationFor",
+          "signature": "Reservation → Thing",
+          "parent": null,
+          "inverse_of": null,
+          "score": -1.2179,
+          "matched_anchor": null,
+          "comment": "A reservation for relation between a reservation and the specific item or service being booked. Also called booked item, reserved item, subject of reservation. Examples: \"A reservation is for 'Flight BA249'.\", \"A restaurant booking is for 'Dinner at The Fancy Bistro'.\", \"A hotel reservation is for 'Room 301'.\"",
+          "embed_score": 0.805,
+          "embed_rank": 6
+        },
+        {
+          "source": "schema.org",
+          "label": "inSupportOf",
+          "signature": "Thesis → Text",
+          "parent": null,
+          "inverse_of": null,
+          "score": -3.9228,
+          "matched_anchor": null,
+          "comment": "A support relation between a thesis and the qualification, candidature, degree, or application it supports. Also called supports for, for the purpose of, in aid of. Examples: \"A thesis is in support of a PhD degree.\", \"The research is in support of a qualification.\", \"This thesis is written in support of an application.\"",
+          "embed_score": 0.781,
+          "embed_rank": 34
+        },
+        {
+          "source": "schema.org",
+          "label": "occupationalCredentialAwarded",
+          "signature": "Course/EducationalOccupationalProgram → EducationalOccupationalCredential/Text/URL",
+          "parent": null,
+          "inverse_of": null,
+          "score": -4.6841,
+          "matched_anchor": null,
+          "comment": "An occupational credential, such as a qualification, award, certificate, or diploma, awarded upon successful completion of a course or program. Also called credential earned, qualification awarded, program certification. Examples: \"Course X occupationalCredentialAwarded 'Certificate of Completion'\", \"Program Y occupationalCredentialAwarded 'Bachelor of Science'\", \"Training Z occupationalCredentialAwarded 'Professional Certification'\". Distinct from educationalLevel, which describes the level of education attained.",
+          "embed_score": 0.789,
+          "embed_rank": 27
+        },
+        {
+          "source": "schema.org",
+          "label": "educationalCredentialAwarded",
+          "signature": "Course/EducationalOccupationalProgram → EducationalOccupationalCredential/Text/URL",
+          "parent": null,
+          "inverse_of": null,
+          "score": -5.8202,
+          "matched_anchor": null,
+          "comment": "An educational credential awarded relation between a course or program and the credential received upon successful completion. Also called \"award received\", \"qualification granted\", \"certificate earned\". Examples: \"Course 'Introduction to Python' educationalCredentialAwarded 'Certificate of Completion'\", \"Program 'MBA' educationalCredentialAwarded 'Master of Business Administration'\", \"Training 'First Aid' educationalCredentialAwarded 'First Aid Certification'\".",
+          "embed_score": 0.794,
+          "embed_rank": 18
+        }
+      ]
+    },
+    {
+      "relation_phrase": "hasLastChampionship",
+      "definition": null,
+      "embedding_query_text": "hasLastChampionship:",
+      "observed_signatures": [
+        "SportsTeam → Event"
+      ],
+      "n_assignments": 1,
+      "assignments": [
+        {
+          "instances": [
+            "Trabzonspor -> 2021-22 season"
+          ],
+          "chosen_property": {
+            "label": "hasSponsorshipOffer",
+            "source": "schema.org",
+            "direction": "as_is",
+            "vocab_id": null,
+            "is_new_to_vocab": false,
+            "definition": null,
+            "parent": null,
+            "domain": null,
+            "range": null,
+            "path": "",
+            "justification": "fallback: top candidate"
+          },
+          "llm_proposed": {
+            "source": "schema.org",
+            "label": "hasSponsorshipOffer",
+            "is_new": false,
+            "direction": "as_is"
+          }
+        }
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "hasSponsorshipOffer",
+          "signature": "Event → Offer",
+          "parent": null,
+          "inverse_of": null,
+          "score": -8.0484,
+          "matched_anchor": null,
+          "comment": "A sponsorship offer relation between an event and an offer to sponsor it. Also called sponsorship opportunity, sponsor package, call for sponsors. Examples: \"An event has a sponsorship offer for corporate partners.\", \"The conference has a sponsorship offer with different tiers.\", \"This festival includes a sponsorship offer.\". Distinct from hasParticipationOffer, which is an offer to participate in the event.",
+          "embed_score": 0.816,
+          "embed_rank": 8
+        },
+        {
+          "source": "schema.org",
+          "label": "hasParticipationOffer",
+          "signature": "Event → Offer",
+          "parent": null,
+          "inverse_of": null,
+          "score": -8.2649,
+          "matched_anchor": null,
+          "comment": "A participation offer relation between an event and an offer to participate in it. Also called call for participation, participation opportunity, event entry offer. Examples: \"An event has a participation offer for speakers.\", \"The conference has a participation offer for proposals.\", \"This festival includes a participation offer for performers.\". Distinct from hasSponsorshipOffer, which is an offer to sponsor the event.",
+          "embed_score": 0.817,
+          "embed_rank": 7
+        },
+        {
+          "source": "schema.org",
+          "label": "hasDigitalDocumentPermission",
+          "signature": "DigitalDocument → DigitalDocumentPermission",
+          "parent": null,
+          "inverse_of": null,
+          "score": -8.3022,
+          "matched_anchor": null,
+          "comment": "A document permission relation between a digital document and an associated access permission. Also called document access, permission for document, document rights. Examples: \"A digital document has a digital document permission to read.\", \"The file has a digital document permission for editing.\", \"This document has digital document permissions for public viewing.\"",
+          "embed_score": 0.815,
+          "embed_rank": 9
+        },
+        {
+          "source": "schema.org",
+          "label": "hasDeliveryMethod",
+          "signature": "DeliveryEvent/ParcelDelivery → DeliveryMethod",
+          "parent": null,
+          "inverse_of": null,
+          "score": -8.6604,
+          "matched_anchor": null,
+          "comment": "A delivery method relation between a delivery event or parcel delivery and the method used for its delivery. Also called delivery via, shipping method, method of delivery. Examples: \"A parcel delivery has a delivery method of 'express shipping'.\", \"The delivery event has a delivery method of 'pickup'.\", \"The order uses a delivery method of 'standard mail'.\"",
+          "embed_score": 0.832,
+          "embed_rank": 3
+        },
+        {
+          "source": "schema.org",
+          "label": "hasMenuSection",
+          "signature": "Menu/MenuSection → MenuSection",
+          "parent": null,
+          "inverse_of": null,
+          "score": -8.7952,
+          "matched_anchor": null,
+          "comment": "A menu section inclusion relation between a menu or menu section and one of its contained menu sections. Also called includes section, menu subgroup, section of menu. Examples: \"A menu has a menu section for main courses.\", \"The dinner menu has a menu section for beverages.\", \"This menu section contains another menu section for side dishes.\"",
+          "embed_score": 0.813,
+          "embed_rank": 11
+        },
+        {
+          "source": "schema.org",
+          "label": "hasBioChemEntityPart",
+          "signature": "BioChemEntity → BioChemEntity",
+          "parent": null,
+          "inverse_of": "isPartOfBioChemEntity",
+          "score": -9.1982,
+          "matched_anchor": null,
+          "comment": "A part-whole relation between a biochemical entity and one of its constituent biochemical entities. Also called composed of, contains, includes part, made of. Examples: \"A protein has a BioChemEntity part of an amino acid sequence.\", \"A cell has BioChemEntity parts like organelles.\", \"A molecule has BioChemEntity parts of atoms.\"",
+          "embed_score": 0.807,
+          "embed_rank": 20
+        },
+        {
+          "source": "schema.org",
+          "label": "hasMerchantReturnPolicy",
+          "signature": "Offer/Organization/Product → MerchantReturnPolicy",
+          "parent": null,
+          "inverse_of": null,
+          "score": -9.3338,
+          "matched_anchor": null,
+          "comment": "A merchant return policy relation between an offer, organization, or product and its applicable return policy. Also called return policy, refund policy, returns information. Examples: \"A product has a merchant return policy of 30 days.\", \"An organization has a merchant return policy for all sales.\", \"The offer includes a merchant return policy.\"",
+          "embed_score": 0.801,
+          "embed_rank": 23
+        },
+        {
+          "source": "schema.org",
+          "label": "hasDriveThroughService",
+          "signature": "Place → Boolean",
+          "parent": null,
+          "inverse_of": null,
+          "score": -9.3596,
+          "matched_anchor": null,
+          "comment": "A drive-through service availability relation for a place, indicating whether it offers services accessible by driving through. Also called offers drive-through, drive-through available, drive-in service. Examples: \"A restaurant has drive-through service.\", \"A testing facility has drive-through service.\", \"The bank has drive-through service for transactions.\"",
+          "embed_score": 0.811,
+          "embed_rank": 15
+        },
+        {
+          "source": "schema.org",
+          "label": "hasOfferCatalog",
+          "signature": "Organization/Person/Service → OfferCatalog",
+          "parent": null,
+          "inverse_of": null,
+          "score": -9.3697,
+          "matched_anchor": null,
+          "comment": "An offer catalog relation between an organization, person, or service and an associated offer catalog. Also called offers catalog, catalog of offers, product catalog. Examples: \"An organization has an offer catalog of its products.\", \"A service has an offer catalog of its packages.\", \"The person maintains an offer catalog.\"",
+          "embed_score": 0.808,
+          "embed_rank": 19
+        },
+        {
+          "source": "schema.org",
+          "label": "hasVariant",
+          "signature": "ProductGroup → Product",
+          "parent": null,
+          "inverse_of": "isVariantOf",
+          "score": -9.5359,
+          "matched_anchor": null,
+          "comment": "A product variant relation between a product group and a specific product that is a variant within that group. Also called product variation, variant of, member of group. Examples: \"A product group has a variant for a different color.\", \"The product model has a variant for a larger size.\", \"This group includes a product variant.\"",
+          "embed_score": 0.794,
+          "embed_rank": 31
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,381 @@
+[NbConvertApp] Converting notebook /Users/marwah/Documents/Thesis/TriplesExtractionFromWebLLMs/Phase2_LLM_Extraction/notebooks/e2e/6d_e2e_type_canonicalization.ipynb to notebook
+/opt/anaconda3/lib/python3.12/site-packages/nbformat/__init__.py:93: MissingIDFieldWarning: Code cell is missing an id field, this will become a hard error in future nbformat versions. You may want to use `normalize()` on your notebooks before validations (available since nbformat 5.1.4). Previous versions of nbformat are fixing this issue transparently, and will stop doing so in the future.
+  validate(nb)
+Traceback (most recent call last):
+  File "/opt/anaconda3/bin/jupyter-nbconvert", line 11, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "/opt/anaconda3/lib/python3.12/site-packages/jupyter_core/application.py", line 283, in launch_instance
+    super().launch_instance(argv=argv, **kwargs)
+  File "/opt/anaconda3/lib/python3.12/site-packages/traitlets/config/application.py", line 1075, in launch_instance
+    app.start()
+  File "/opt/anaconda3/lib/python3.12/site-packages/nbconvert/nbconvertapp.py", line 412, in start
+    self.convert_notebooks()
+  File "/opt/anaconda3/lib/python3.12/site-packages/nbconvert/nbconvertapp.py", line 590, in convert_notebooks
+    self.convert_single_notebook(notebook_filename)
+  File "/opt/anaconda3/lib/python3.12/site-packages/nbconvert/nbconvertapp.py", line 556, in convert_single_notebook
+    output, resources = self.export_single_notebook(
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.12/site-packages/nbconvert/nbconvertapp.py", line 479, in export_single_notebook
+    output, resources = self.exporter.from_filename(
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.12/site-packages/nbconvert/exporters/exporter.py", line 203, in from_filename
+    return self.from_file(f, resources=resources, **kw)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.12/site-packages/nbconvert/exporters/exporter.py", line 222, in from_file
+    return self.from_notebook_node(
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.12/site-packages/nbconvert/exporters/notebook.py", line 36, in from_notebook_node
+    nb_copy, resources = super().from_notebook_node(nb, resources, **kw)
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.12/site-packages/nbconvert/exporters/exporter.py", line 156, in from_notebook_node
+    nb_copy, resources = self._preprocess(nb_copy, resources)
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.12/site-packages/nbconvert/exporters/exporter.py", line 354, in _preprocess
+    nbc, resc = preprocessor(nbc, resc)  # type:ignore[operator]
+                ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.12/site-packages/nbconvert/preprocessors/base.py", line 48, in __call__
+    return self.preprocess(nb, resources)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.12/site-packages/nbconvert/preprocessors/execute.py", line 102, in preprocess
+    self.preprocess_cell(cell, resources, index)
+  File "/opt/anaconda3/lib/python3.12/site-packages/nbconvert/preprocessors/execute.py", line 123, in preprocess_cell
+    cell = self.execute_cell(cell, index, store_history=True)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.12/site-packages/jupyter_core/utils/__init__.py", line 165, in wrapped
+    return loop.run_until_complete(inner)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.12/asyncio/base_events.py", line 687, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.12/site-packages/nbclient/client.py", line 1058, in async_execute_cell
+    await self._check_raise_for_error(cell, cell_index, exec_reply)
+  File "/opt/anaconda3/lib/python3.12/site-packages/nbclient/client.py", line 914, in _check_raise_for_error
+    raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
+nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
+------------------
+def _consolidation_disabled():
+    """CONSOLIDATE=False: copy the raw vocabulary to the consolidated path and write an empty
+    report, so every consumer downstream is unchanged and the run is still fully described."""
+    v = load_vocab()
+    CONSOLIDATED_VOCAB_PATH.write_text(json.dumps(v, indent=2, ensure_ascii=False))
+    rep = {"timestamp": time.strftime("%Y-%m-%dT%H:%M:%S"), "consolidation": "DISABLED",
+           "experiment": EXPERIMENT, "subtype_mode": SUBTYPE_MODE,
+           "source_vocab": VOCAB_PATH.name, "consolidated_vocab": CONSOLIDATED_VOCAB_PATH.name,
+           "vocab_size_before": len(v["types"]), "vocab_size_after": len(v["types"]),
+           "n_merges": 0, "n_types_removed": 0, "n_reparented": 0,
+           "n_merged_into_schema": 0, "n_reparented_under_schema": 0,
+           "merges": [], "reparents": [], "neighbour_shortlist": [], "self_parent_fixed": []}
+    CONSOLIDATION_REPORT_PATH.write_text(json.dumps(rep, indent=2, ensure_ascii=False))
+    print(f"consolidation DISABLED for experiment {EXPERIMENT!r} — copied the raw vocabulary "
+          f"({len(v['types'])} types) to {CONSOLIDATED_VOCAB_PATH.name} unchanged")
+    return rep
+
+
+# Retrieve-then-judge: every vocab type is shortlisted against the other vocab types, plus the full
+# schema.org class pool when CONSOLIDATE_INCLUDE_SCHEMA is on (then the judge sees standard classes and
+# sibling extension types side by side as merge candidates). With RERANK_CONSOLIDATE on, e5 fetches
+# RERANK_CONSOLIDATE_FROM neighbours and a cross-encoder picks the CONSOLIDATE_TOP_K shown to the
+# judge — the same two-stage retrieval Hook A uses, at its own depth. The score printed for each
+# candidate stays the EMBEDDING cosine.
+def _candidate_line(src, obj, score):
+    """One rendered candidate, inlined under the type it was retrieved for — carries everything the
+    judge needs (id, label, parent/path, definition), so no separate lookup block is needed."""
+    if src == "schema.org":
+        desc = (obj.get("enriched_comment") or obj.get("comment") or "").replace("\n", " ").strip()
+        return (f'    -> {SCHEMA_ID_PREFIX}{obj["label"]} ({score}) | schema.org | path: {obj.get("path", "")}'
+                f' | def: {desc[:CANDIDATE_DEF_CHARS]}')
+    desc = (obj.get("definition") or "").replace("\n", " ").strip()
+    return (f'    -> {obj["id"]} ({score}) | vocab | label: {obj["canonical_label"]}'
+            f' | parent: {obj.get("parent")} | support: {obj.get("support", 0)}'
+            f' | def: {desc[:CANDIDATE_DEF_CHARS]}')
+
+def _consolidation_shortlist(ents_sorted):
+    """Top-CONSOLIDATE_TOP_K nearest neighbours of each vocab type over (vocab \\ self) u schema.org.
+    Returns (cand_lines, shortlist_records, adj): `cand_lines` maps a vocab id to its rendered candidate
+    lines (spliced under that type's line in the prompt), `adj` maps it to the set of candidate ids the
+    embedder proposed (used for the audit), `shortlist_records` is the same thing for the report."""
+    ids  = [t["id"] for t in ents_sorted]
+    labs = [t["canonical_label"] for t in ents_sorted]
+    V    = embed([vocab_embedding_text(t) for t in ents_sorted], DP)
+    meta = [("vocab", ids[i], labs[i], ents_sorted[i]) for i in range(len(ents_sorted))]
+    D    = V
+    if CONSOLIDATE_INCLUDE_SCHEMA:
+        keep = [i for i, c in enumerate(schema_pool) if c["label"] not in SCHEMA_EXCLUDE_LABELS]
+        D    = np.vstack([V, schema_emb[keep]])
+        meta = meta + [("schema.org", SCHEMA_ID_PREFIX + schema_pool[i]["label"],
+                        schema_pool[i]["label"], schema_pool[i]) for i in keep]
+    sims = V @ D.T
+    for i in range(len(ents_sorted)):
+        sims[i, i] = -1.0                                   # a type is never its own candidate
+    k = min(CONSOLIDATE_TOP_K, D.shape[0] - 1)
+
+    def _cand_doc(m):
+        """"label: definition" for the cross-encoder — vocab entries and schema.org entries alike."""
+        obj = m[3]
+        d = obj.get("definition") or obj.get("enriched_comment") or obj.get("comment") or ""
+        return f"{m[2]}: {d[:400]}"
+
+    fetch = min(max(k, RERANK_CONSOLIDATE_FROM), D.shape[0] - 1) if RERANK_CONSOLIDATE else k
+    cand_lines, shortlist, adj = {}, [], {}
+    for i in range(len(ents_sorted)):
+        top = np.argsort(-sims[i])[:fetch]
+        if RERANK_CONSOLIDATE and len(top) > k:      # cross-encode the shortlist, same as Hook A
+            q  = vocab_embedding_text(ents_sorted[i])
+            rs = np.asarray(_reranker().predict([(q, _cand_doc(meta[j])) for j in top],
+                                                batch_size=64, show_progress_bar=False))
+            top = top[np.argsort(-rs)][:k]
+        # the score shown to the LLM stays the EMBEDDING cosine — a cross-encoder logit is on a
+        # different scale and would read as a confidence it does not carry.
+        cands = [(meta[j], round(float(sims[i][j]), 3)) for j in top]
+        adj[ids[i]] = {m[1] for m, _ in cands}
+        cand_lines[ids[i]] = [_candidate_line(m[0], m[3], s) for m, s in cands]
+        shortlist.append({"id": ids[i], "label": labs[i],
+                          "neighbours": [{"id": m[1], "label": m[2], "source": m[0], "score": s}
+                                         for m, s in cands]})
+    return cand_lines, shortlist, adj
+
+
+def consolidate_vocab(vocab, write_report=True, verbose=True):
+    """Global re-consolidation in ONE Gemini call, judged against the MIXED candidate pool (vocab u
+    schema.org). The model returns SYNONYM and SUBTYPE groups whose keep_id may be a vocab id OR a
+    `schema:X` class; how SUBTYPE (is-a) groups are applied depends on SUBTYPE_MODE:
+      "off"      -> ignore them (only synonyms merge).
+      "subclass" -> KEEP each child type, set its parent to the broader type (vocab OR schema.org).
+      "merge"    -> fold each child type into the broader parent (removed; label -> alias).
+    SYNONYM groups merge onto the highest-support member, or onto the schema.org class when the LLM
+    kept one (the vocab type is then dropped from the extension entirely). Writes the consolidated
+    vocab to CONSOLIDATED_VOCAB_PATH and a report to CONSOLIDATION_REPORT_PATH — the raw
+    type_vocabulary.json is NOT modified (pass load_vocab() as `vocab`)."""
+    ents  = list(vocab["types"])
+    by_id = {t["id"]: t for t in ents}
+
+    def _articles_of(t):
+        return [p.get("article") for p in t.get("provenance", []) if p.get("article")]
+    articles_before = sorted({a for t in ents for a in _articles_of(t)})
+
+    groups = []
+    shortlist, _adj = [], {}     # the embedder's proposals, for the audit report
+    if len(ents) >= 2:
+        ents_sorted = sorted(ents, key=lambda x: x["id"])
+        lines = [f'- id: {t["id"]} | label: {t["canonical_label"]} | parent: {t.get("parent")} '
+                 f'| support: {t.get("support", 0)} | def: {t.get("definition", "")}'
+                 + (f' | aka: {", ".join(t["aliases"])}' if t.get("aliases") else "")
+                 for t in ents_sorted]
+        cand_lines, shortlist, _adj = _consolidation_shortlist(ents_sorted)
+        # Each vocab type is followed by its own candidates (vocab and schema.org ranked together),
+        # so every id the judge may reach for is defined right where it is offered. The prompt always
+        # asks for BOTH group kinds; with SUBTYPE_MODE = "off" the subtype groups it returns are
+        # dropped below rather than suppressed in the prompt.
+        blocks = [ln + "\n" + "\n".join(cand_lines[t["id"]]) for t, ln in zip(ents_sorted, lines)]
+        msg = ("VOCABULARY — each type, then its retrieved CANDIDATES (`->` lines: the only entries it "
+               "may be grouped with):\n\n" + "\n\n".join(blocks))
+        try:
+            res = parse_json(gemini_json(CONSOLIDATE_ALL_PROMPT, msg))
+            groups = (res.get("groups", res) if isinstance(res, dict) else res) or []
+        # A TRUNCATED consolidation reply comes back through json_repair structurally wrong —
+        # a bare list where a group dict was expected — and the unguarded g.get("keep_id")
+        # below then raises AttributeError and kills the STAGE, not the call. That is how
+        # qwen3-32b-think lost 6d fifty articles in on 2026-08-24: it looped on one
+        # consolidation call, truncated at 26k output tokens, and json_repair salvaged 61k
+        # chars into the wrong shape. A non-dict group carries neither keep_id nor merge_ids,
+        # so it cannot contribute a decision: drop it, say so, and let the rest of the pass
+        # stand rather than losing the run.
+        _malformed = [g for g in groups if not isinstance(g, dict)]
+        if _malformed:
+            print(f"  [consolidate] dropped {len(_malformed)} malformed group(s) from the "
+                  f"reply (saw: {sorted({type(g).__name__ for g in _malformed})}) — the call "
+                  f"was probably truncated; the surviving groups are still applied")
+            groups = [g for g in groups if isinstance(g, dict)]
+        except Exception as ex:
+            print(f"[WARN] consolidation call failed ({type(ex).__name__}: {ex})")
+
+    def _keep_ref(keep):
+        """Resolve a keep_id to ("vocab", entry) or ("schema.org", label); (None, None) if unknown.
+        A bare schema.org label (no `schema:` prefix) is tolerated."""
+        if not isinstance(keep, str):
+            return None, None
+        if keep in by_id:
+            return "vocab", by_id[keep]
+        lbl = keep[len(SCHEMA_ID_PREFIX):] if keep.startswith(SCHEMA_ID_PREFIX) else keep
+        if lbl in SCHEMA_LABELS and lbl not in SCHEMA_EXCLUDE_LABELS:   # excluded ones are never valid keeps
+            return "schema.org", lbl
+        return None, None
+
+    def _split_label_collisions(groups):
+        """A schema.org keep that shares its LABEL with one of its children is not a hierarchy — it is
+        the same name twice. `parent` stores a bare label, so attaching the child there would make it
+        its OWN parent (self-loop: _find_vocab_by_label resolves the label back to the child, and the
+        entry drops out of the hierarchy). An identical label means equivalence, so those children are
+        rewritten into a SYNONYM merge into schema.org; any remaining children keep the original kind."""
+        out = []
+        for g in groups:
+            ksrc, kobj = _keep_ref(g.get("keep_id"))
+            ids  = list(dict.fromkeys(g.get("merge_ids") or []))
+            same = [i for i in ids if ksrc == "schema.org" and i in by_id
+                    and by_id[i]["canonical_label"] == kobj]
+            if not same:
+                out.append(g); continue
+            note = " [same label as the schema.org entry -> merged, not nested under it]"
+            out.append({**g, "kind": "synonym", "merge_ids": same,
+                        "reason": (g.get("reason") or "") + note})
+            rest = [i for i in ids if i not in same]
+            if rest:
+                out.append({**g, "merge_ids": rest})
+        return out
+    groups = _split_label_collisions(groups)
+
+    merges, reparents, merged_ids = [], [], set()
+    label_remap = {}          # merged-away label -> survivor label (to repair `parent` pointers)
+    for g in groups:
+        kind = (g.get("kind") or "synonym").lower()
+        is_subtype = kind.startswith("subtype")
+        ksrc, kobj = _keep_ref(g.get("keep_id"))
+        if ksrc is None or (ksrc == "vocab" and kobj["id"] in merged_ids):
+            continue
+        # Only VOCAB types can be merged away — a schema.org id in merge_ids is ignored by design.
+        children = [by_id[i] for i in dict.fromkeys(g.get("merge_ids") or [])
+                    if i in by_id and i not in merged_ids and not (ksrc == "vocab" and i == kobj["id"])]
+        if not children:
+            continue
+
+        # SUBTYPE + subclass: keep the children, just re-parent them onto the broader type
+        if is_subtype and SUBTYPE_MODE == "subclass":
+            parent_label = kobj["canonical_label"] if ksrc == "vocab" else kobj
+            rec = {"kind": "subtype", "action": "subclass",
+                   "parent_id": kobj["id"] if ksrc == "vocab" else SCHEMA_ID_PREFIX + kobj,
+                   "parent_label": parent_label, "parent_source": ksrc,
+                   "reason": g.get("reason"), "children": []}
+            for child in children:
+                if child.get("parent") == parent_label:
+                    continue                                      # already under this parent — no-op, skip
+                rec["children"].append({"id": child["id"], "label": child["canonical_label"],
+                                        "old_parent": child.get("parent")})
+                child["parent"] = parent_label                    # keep the child type; re-parent it
+            if rec["children"]:
+                reparents.append(rec)
+            continue
+
+        # otherwise MERGE: synonyms always; subtype only when SUBTYPE_MODE == "merge"
+        if is_subtype and SUBTYPE_MODE != "merge":
+            continue
+        if ksrc == "schema.org":
+            survivor, members = None, children                    # folds INTO schema.org: nothing survives in vocab
+            survivor_id, survivor_label = SCHEMA_ID_PREFIX + kobj, kobj
+        elif is_subtype:
+            survivor, members = kobj, children                    # broader parent survives
+        else:
+            members  = [kobj] + children
+            survivor = max(members, key=lambda t: (t.get("support", 0), -int(t["id"][1:])))
+        if survivor is not None:
+            survivor_id, survivor_label = survivor["id"], survivor["canonical_label"]
+        rec = {"kind": kind, "action": "merge", "survivor_id": survivor_id,
+               "survivor_label": survivor_label,
+               "survivor_source": "schema.org" if survivor is None else "vocab",
+               "reason": g.get("reason"), "merged": [],
+               "articles": sorted({a for t in members for a in _articles_of(t)})}
+        for m in members:
+            if survivor is not None and m["id"] == survivor["id"]:
+                continue
+            if survivor is not None:                              # schema.org survivors hold no aliases/provenance
+                for lbl in [m["canonical_label"]] + m.get("aliases", []):
+                    if lbl != survivor["canonical_label"] and lbl not in survivor["aliases"]:
+                        survivor["aliases"].append(lbl)
+                survivor["support"] = survivor.get("support", 0) + m.get("support", 0)
+                survivor.setdefault("provenance", []).extend(m.get("provenance", []))
+            rec["merged"].append({"id": m["id"], "label": m["canonical_label"],
+                                  "support": m.get("support", 0), "articles": _articles_of(m)})
+            merged_ids.add(m["id"])
+            label_remap[m["canonical_label"]] = survivor_label
+        if rec["merged"]:
+            if survivor is not None:
+                rec["resulting_support"]  = survivor["support"]
+                rec["resulting_aliases"] = list(survivor["aliases"])
+            merges.append(rec)
+
+    if merged_ids:
+        vocab["types"] = [t for t in vocab["types"] if t["id"] not in merged_ids]
+    # A merged-away label can still be some surviving type's `parent` — repoint it at the survivor
+    # (following merge chains), so no parent link dangles after consolidation.
+    for t in vocab["types"]:
+        p, seen = t.get("parent"), set()
+        while p in label_remap and p not in seen:
+            seen.add(p); p = label_remap[p]
+        if p != t.get("parent"):
+            t["parent"] = p
+    # Safety net: an entry must never be its own parent. A bare label can name both a vocab entry and a
+    # schema.org one, and the vocab side wins the lookup — so a self-label parent silently orphans the
+    # entry from the hierarchy. Drop it to no super-entry and record it in the report.
+    self_parented = [t["id"] for t in vocab["types"] if t.get("parent") == t["canonical_label"]]
+    for t in vocab["types"]:
+        if t.get("parent") == t["canonical_label"]:
+            t["parent"] = None
+
+    # write the CONSOLIDATED vocabulary to its own file (raw type_vocabulary.json stays untouched)
+    _annotate_vocab_paths(vocab)                 # refresh derived `path`s (re-parenting/merges changed them)
+    CONSOLIDATED_VOCAB_PATH.write_text(json.dumps(vocab, indent=2, ensure_ascii=False))
+
+    n_reparented   = sum(len(r["children"]) for r in reparents)
+    n_into_schema  = sum(len(r["merged"]) for r in merges if r["survivor_source"] == "schema.org")
+    n_sch_parents  = sum(len(r["children"]) for r in reparents if r["parent_source"] == "schema.org")
+    # audit: did the embedder's shortlist actually propose each pair the LLM merged/re-parented?
+    def _in_shortlist(a, b):
+        return b in _adj.get(a, ()) or a in _adj.get(b, ())
+    for _r in merges:
+        for _m in _r["merged"]:
+            _m["in_shortlist"] = _in_shortlist(_r["survivor_id"], _m["id"])
+    for _r in reparents:
+        for _c in _r["children"]:
+            _c["in_shortlist"] = _in_shortlist(_r["parent_id"], _c["id"])
+
+    report = {
+        "timestamp": time.strftime("%Y-%m-%dT%H:%M:%S"), "experiment": EXPERIMENT,
+        "match_model": MATCH_MODEL,
+        "gemini_model": GEMINI_MODEL, "expand_mode": EXPAND_MODE,
+        "subtype_mode": SUBTYPE_MODE, "source_vocab": str(VOCAB_PATH.name),
+        "consolidated_vocab": str(CONSOLIDATED_VOCAB_PATH.name),
+        "consolidate_top_k": CONSOLIDATE_TOP_K,
+        "candidate_pool": ("vocab+schema.org" if CONSOLIDATE_INCLUDE_SCHEMA else "vocab"),
+        "consolidation_reranked": RERANK_CONSOLIDATE,
+        "schema_excluded_labels": sorted(SCHEMA_EXCLUDE_LABELS), "self_parent_fixed": self_parented,
+        "neighbour_shortlist": shortlist,
+        "articles_used": articles_before, "n_articles": len(articles_before),
+        "vocab_size_before": len(ents), "vocab_size_after": len(vocab["types"]),
+        "n_merges": len(merges), "n_types_removed": len(merged_ids), "n_reparented": n_reparented,
+        "n_merged_into_schema": n_into_schema, "n_reparented_under_schema": n_sch_parents,
+        "merges": merges, "reparents": reparents,
+    }
+    if write_report:
+        CONSOLIDATION_REPORT_PATH.write_text(json.dumps(report, indent=2, ensure_ascii=False))
+
+    if verbose:
+        print(f"consolidation (1 call): subtype_mode={SUBTYPE_MODE!r} | pool={report['candidate_pool']} | "
+              f"{len(merges)} merge-group(s), {len(merged_ids)} removed "
+              f"({n_into_schema} into schema.org), {n_reparented} re-parented "
+              f"({n_sch_parents} under schema.org) | vocab {len(ents)} -> {len(vocab['types'])}")
+        for r in merges:
+            tag = "schema.org" if r["survivor_source"] == "schema.org" else r["survivor_id"]
+            print(f"  [merge/{r['kind'][:4]}] keep {tag} {r['survivor_label']!r} <= "
+                  f"{[m['label'] for m in r['merged']]}")
+        for r in reparents:
+            tag = " (schema.org)" if r["parent_source"] == "schema.org" else ""
+            print(f"  [subtype] {[c['label'] for c in r['children']]} <: {r['parent_label']}{tag}")
+        print(f"  consolidated vocab -> {CONSOLIDATED_VOCAB_PATH}  (raw {VOCAB_PATH.name} untouched)")
+        if write_report:
+            print(f"  report -> {CONSOLIDATION_REPORT_PATH}")
+    return report
+
+# Runs on the RAW incremental vocab and writes the consolidated result to a separate file.
+# CONSOLIDATE=False (the `no-consolidation` ablation) skips the LLM but still writes both files, so
+# the downstream stages — which read the *_consolidated names — behave identically and the metrics
+# record a genuine zero instead of a missing file.
+_ = consolidate_vocab(load_vocab()) if CONSOLIDATE else _consolidation_disabled()
+------------------
+
+
+[0;36m  Cell [0;32mIn[15], line 128[0;36m[0m
+[0;31m    _malformed = [g for g in groups if not isinstance(g, dict)][0m
+[0m    ^[0m
+[0;31mSyntaxError[0m[0;31m:[0m expected 'except' or 'finally' block
+
+

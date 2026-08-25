@@ -1,0 +1,2386 @@
+{
+  "article_id": "art77",
+  "match_model": "intfloat/e5-base-v2",
+  "expand_mode": true,
+  "relations": [
+    {
+      "relation_phrase": "involves",
+      "definition": null,
+      "embedding_query_text": "involves:",
+      "observed_signatures": [
+        "SaleEvent → SportsTeam",
+        "LegalInvestigation → Person",
+        "LegalInvestigation → Organization",
+        "Season → SportsTeam"
+      ],
+      "n_assignments": 1,
+      "assignments": [
+        {
+          "instances": [
+            "Los Angeles Lakers sale to Iger and Kushner -> Los Angeles Lakers",
+            "Mark Walter’s majority ownership of Lakers -> Los Angeles Lakers",
+            "Guggenheim Investments federal investigation -> Mark Walter",
+            "Guggenheim Investments federal investigation -> Guggenheim Investments",
+            "2019-20 season -> Los Angeles Lakers"
+          ],
+          "chosen_property": {
+            "label": "participant",
+            "source": "schema.org",
+            "direction": "as_is",
+            "vocab_id": null,
+            "is_new_to_vocab": false,
+            "definition": null,
+            "parent": null,
+            "domain": null,
+            "range": null,
+            "path": "",
+            "justification": "The 'participant' property (domain: Action → Organization/Person) fits all instances where entities are involved in events or actions."
+          },
+          "llm_proposed": {
+            "source": "schema.org",
+            "label": "participant",
+            "is_new": false,
+            "direction": "as_is"
+          }
+        }
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "sportsTeam",
+          "signature": "ExerciseAction → SportsTeam",
+          "parent": "participant",
+          "inverse_of": null,
+          "score": -2.2158,
+          "matched_anchor": null,
+          "comment": "A participation relation between an exercise action and the sports team involved in it. Also called \"team participated\", \"team involved\", \"athletic team\". Examples: \"The goal was scored by the sportsTeam Real Madrid\", \"The race involved sportsTeam Team USA\", \"This action was performed by a sportsTeam.\". Distinct from participant, which is a more general participant property.",
+          "embed_score": 0.79,
+          "embed_rank": 41
+        },
+        {
+          "source": "schema.org",
+          "label": "question",
+          "signature": "AskAction → Question",
+          "parent": "object",
+          "inverse_of": null,
+          "score": -2.8663,
+          "matched_anchor": null,
+          "comment": "A question relation between an ask action and the specific question being posed. Also called asked question, inquiry. Examples: \"An ask action involves the question 'What is the capital of France?'.\", \"A survey asks the question 'How satisfied are you with our service?'.\", \"A forum post poses the question 'How do I fix this error?'.\"",
+          "embed_score": 0.793,
+          "embed_rank": 24
+        },
+        {
+          "source": "schema.org",
+          "label": "participant",
+          "signature": "Action → Organization/Person",
+          "parent": null,
+          "inverse_of": null,
+          "score": -3.2503,
+          "matched_anchor": null,
+          "comment": "A collaborative relation between an action and an organization or person who indirectly participated in it. Also called collaborated with, involved, assisted by, co-agent. Examples: A writing action has a participant co-author. A research project has a participant researcher. A meeting has a participant attendee. Distinct from agent, which is the primary actor of an action.",
+          "embed_score": 0.799,
+          "embed_rank": 10
+        },
+        {
+          "source": "schema.org",
+          "label": "about",
+          "signature": "Certification/CommunicateAction/CreativeWork/DefinedTerm/DefinedTermSet/Event → Thing",
+          "parent": null,
+          "inverse_of": "subjectOf",
+          "score": -4.4364,
+          "matched_anchor": null,
+          "comment": "A subject matter relation between an entity (e.g., a creative work, event, or communication) and the topic it concerns. Also called concerning, regarding, on the topic of, related to. Examples: \"A book about quantum physics.\", \"A lecture about climate change.\", \"A certification about data privacy.\"",
+          "embed_score": 0.806,
+          "embed_rank": 6
+        },
+        {
+          "source": "schema.org",
+          "label": "subjectOf",
+          "signature": "Thing → CreativeWork/Event",
+          "parent": null,
+          "inverse_of": "about",
+          "score": -5.8578,
+          "matched_anchor": null,
+          "comment": "A thematic relation between a thing and a creative work or event that is about it. Also called \"topic of\", \"depicted in\", \"featured in\", \"covered by\". Examples: \"The person is subjectOf a biography\", \"The historical event is subjectOf a documentary\", \"This concept is subjectOf a research paper.\"",
+          "embed_score": 0.812,
+          "embed_rank": 2
+        },
+        {
+          "source": "schema.org",
+          "label": "step",
+          "signature": "HowTo → CreativeWork/HowToSection/HowToStep/Text",
+          "parent": null,
+          "inverse_of": null,
+          "score": -5.9908,
+          "matched_anchor": null,
+          "comment": "A component relation between a how-to guide and a single instruction, section, or creative work that forms part of the process. Also called \"instructional step\", \"how-to instruction\", \"process step\", \"guide step\". Examples: \"The recipe has step 'Chop vegetables'\", \"The guide's step is a video tutorial\", \"This how-to includes a step for assembly.\". Distinct from steps, which refers to a collection of steps.",
+          "embed_score": 0.795,
+          "embed_rank": 18
+        },
+        {
+          "source": "schema.org",
+          "label": "duringMedia",
+          "signature": "HowToDirection → MediaObject/URL",
+          "parent": null,
+          "inverse_of": null,
+          "score": -6.1057,
+          "matched_anchor": null,
+          "comment": "A during media relation between a how-to direction and a media object or URL representing the circumstances while performing this direction. Also called \"instructional media\", \"step-by-step video\", \"visual guide\". Examples: \"How-to direction 'Attach part A' duringMedia 'Video of assembly'\", \"Direction 'Stir mixture' duringMedia 'Image of stirring technique'\".",
+          "embed_score": 0.792,
+          "embed_rank": 27
+        },
+        {
+          "source": "schema.org",
+          "label": "events",
+          "signature": "Organization/Place → Event",
+          "parent": null,
+          "inverse_of": null,
+          "score": -6.3284,
+          "matched_anchor": null,
+          "comment": "An events association relation between an organization or place and the events connected to it. Also called \"associated events\", \"related events\", \"features events\". Examples: \"Organization 'Museum' events 'Art Exhibition, Lecture Series'\", \"Place 'Park' events 'Summer Festival, Winter Fair'\", \"Company 'Tech Solutions' events 'Annual Conference, Product Launch'\". Distinct from event, which is the singular form.",
+          "embed_score": 0.812,
+          "embed_rank": 3
+        },
+        {
+          "source": "schema.org",
+          "label": "foodEstablishment",
+          "signature": "CookAction → FoodEstablishment/Place",
+          "parent": "location",
+          "inverse_of": null,
+          "score": -6.3476,
+          "matched_anchor": null,
+          "comment": "A food establishment relation between a cook action and the specific place or food establishment where the cooking occurred. Also called: cooking location, restaurant, kitchen. Examples: \"Chef prepares meal\" food establishment \"Gourmet Restaurant\", \"Home Cook makes dinner\" food establishment \"My Kitchen\", \"Baker bakes bread\" food establishment \"Local Bakery\". Distinct from foodEvent, which is a specific event.",
+          "embed_score": 0.789,
+          "embed_rank": 42
+        },
+        {
+          "source": "schema.org",
+          "label": "duration",
+          "signature": "Audiobook/Episode/Event/MediaObject/Movie/MusicRecording/MusicRelease/QuantitativeValueDistribution/Schedule/ServicePeriod → Duration/QuantitativeValue",
+          "parent": null,
+          "inverse_of": null,
+          "score": -6.355,
+          "matched_anchor": null,
+          "comment": "A duration relation between an item (such as an event, media object, or schedule) and its length of time. Also called \"length\", \"time span\", \"period\". Examples: \"Movie 'Avatar' duration 'PT2H42M'\", \"Event 'Concert' duration 'PT3H'\", \"Audio recording duration 'PT5M30S'\". Distinct from durationOfWarranty, which is specifically about warranty length.",
+          "embed_score": 0.791,
+          "embed_rank": 35
+        }
+      ]
+    },
+    {
+      "relation_phrase": "buyer_of",
+      "definition": "Indicates the entity purchasing an asset or business",
+      "embedding_query_text": "buyer_of: Indicates the entity purchasing an asset or business",
+      "observed_signatures": [
+        "SaleEvent → Person"
+      ],
+      "n_assignments": 1,
+      "assignments": [
+        {
+          "instances": [
+            "Los Angeles Lakers sale to Iger and Kushner -> Bob Iger",
+            "Los Angeles Lakers sale to Iger and Kushner -> Josh Kushner",
+            "Mark Walter’s majority ownership of Lakers -> Mark Walter"
+          ],
+          "chosen_property": {
+            "label": "buyer",
+            "source": "schema.org",
+            "direction": "as_is",
+            "vocab_id": null,
+            "is_new_to_vocab": false,
+            "definition": null,
+            "parent": null,
+            "domain": null,
+            "range": null,
+            "path": "participant",
+            "justification": "The 'buyer' property (domain: SellAction → Organization/Person) aligns with SaleEvent → Person in the observed signature."
+          },
+          "llm_proposed": {
+            "source": "schema.org",
+            "label": "buyer",
+            "is_new": false,
+            "direction": "as_is"
+          }
+        }
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "buyer",
+          "signature": "SellAction → Organization/Person",
+          "parent": "participant",
+          "inverse_of": null,
+          "score": 3.9016,
+          "matched_anchor": null,
+          "comment": "A participation relation in a sell action, indicating the organization or person who purchased the object. Also called \"purchaser\", \"customer\", \"acquired by\". Examples: \"Online purchase sell action buyer Jane Doe\", \"Company acquisition sell action buyer Acme Corp\". Distinct from seller, which is the party offering the object for sale.",
+          "embed_score": 0.883,
+          "embed_rank": 1
+        },
+        {
+          "source": "schema.org",
+          "label": "purchaseDate",
+          "signature": "Product/Vehicle → Date",
+          "parent": null,
+          "inverse_of": null,
+          "score": -2.073,
+          "matched_anchor": null,
+          "comment": "A purchase date relation between a product or vehicle and the date it was acquired by its current owner. Also called acquired on, bought on, ownership date. Examples: \"A car has a purchase date of 2020-05-10.\", \"A smartphone has a purchase date of 2023-01-15.\", \"A house has a purchase date of 2018-07-22.\". Distinct from productionDate, which is the date the item was manufactured.",
+          "embed_score": 0.829,
+          "embed_rank": 4
+        },
+        {
+          "source": "schema.org",
+          "label": "acquiredFrom",
+          "signature": "OwnershipInfo → Organization/Person",
+          "parent": null,
+          "inverse_of": null,
+          "score": -2.1666,
+          "matched_anchor": null,
+          "comment": "An acquired from relation between ownership information and the organization or person from whom a product was obtained. Also called purchased from, obtained from, source of acquisition. Examples: \"The car's ownership info indicates it was acquired from 'Dealership X'.\", \"The book's ownership info shows it was acquired from 'John Doe'.\"",
+          "embed_score": 0.837,
+          "embed_rank": 3
+        },
+        {
+          "source": "schema.org",
+          "label": "seller",
+          "signature": "BuyAction/Demand/Flight/Offer/Order → Organization/Person",
+          "parent": "participant",
+          "inverse_of": null,
+          "score": -3.393,
+          "matched_anchor": null,
+          "comment": "The organization or person that offers, sells, leases, lends, or loans goods or services. Also called vendor, merchant, provider, retailer. Examples: `BuyAction` seller `Amazon`, `Offer for Product` seller `Best Buy`, `Flight Booking` seller `Airline X`. Distinct from `customer` or `buyer`.",
+          "embed_score": 0.84,
+          "embed_rank": 2
+        },
+        {
+          "source": "schema.org",
+          "label": "vendor",
+          "signature": "BuyAction → Organization/Person",
+          "parent": "participant",
+          "inverse_of": null,
+          "score": -3.7981,
+          "matched_anchor": null,
+          "comment": "A vendor relation between a buy action and the organization or person selling the item. Also called seller, merchant, supplier. Examples: \"BuyAction vendor 'Amazon'\", \"BuyAction vendor 'Local Bookstore'\", \"BuyAction vendor 'John Doe'\". Distinct from seller, which is the current preferred term.",
+          "embed_score": 0.819,
+          "embed_rank": 9
+        },
+        {
+          "source": "schema.org",
+          "label": "customer",
+          "signature": "Invoice/Order → Organization/Person",
+          "parent": null,
+          "inverse_of": null,
+          "score": -3.9031,
+          "matched_anchor": null,
+          "comment": "A transactional role relation between an invoice or order and the person or organization placing the order or paying the invoice. Also called: buyer, client, purchaser, payer. Examples: \"Online Order\" customer \"Jane Doe\", \"Service Invoice\" customer \"Acme Corp.\", \"Product Purchase\" customer \"John Smith\".",
+          "embed_score": 0.822,
+          "embed_rank": 7
+        },
+        {
+          "source": "schema.org",
+          "label": "purchaseType",
+          "signature": "FinancialIncentive → PurchaseType",
+          "parent": null,
+          "inverse_of": null,
+          "score": -4.3484,
+          "matched_anchor": null,
+          "comment": "A purchase type relation between a financial incentive and the specific kind of purchase required to qualify for it. Also called qualifying purchase, incentive purchase type. Examples: \"A cashback offer requires a purchase type 'new customer'.\", \"A loyalty discount requires a purchase type 'repeat purchase'.\", \"A promotional offer requires a purchase type 'online only'.\"",
+          "embed_score": 0.802,
+          "embed_rank": 17
+        },
+        {
+          "source": "schema.org",
+          "label": "isGift",
+          "signature": "Order → Boolean",
+          "parent": null,
+          "inverse_of": null,
+          "score": -4.4651,
+          "matched_anchor": null,
+          "comment": "A transaction intent relation indicating whether an order was placed as a gift for a recipient other than the buyer. Also called gift purchase, purchased as gift, gift order. Examples: An order has isGift set to 'true'. A purchase has isGift set to 'false'. A book order has isGift set to 'true' with gift wrapping.",
+          "embed_score": 0.812,
+          "embed_rank": 11
+        },
+        {
+          "source": "schema.org",
+          "label": "broker",
+          "signature": "Invoice/Order/Reservation/Service → Organization/Person",
+          "parent": null,
+          "inverse_of": null,
+          "score": -4.7032,
+          "matched_anchor": null,
+          "comment": "An intermediary relation between an invoice, order, reservation, or service and the organization or person who arranges the exchange. Also called \"arranged by\", \"intermediary\", \"agent\". Examples: \"Flight reservation broker Expedia\", \"Real estate service broker John Doe\", \"Stock order broker Fidelity\". Distinct from seller or buyer, which indicate direct parties in an exchange, whereas broker facilitates it without taking ownership.",
+          "embed_score": 0.8,
+          "embed_rank": 23
+        },
+        {
+          "source": "schema.org",
+          "label": "merchant",
+          "signature": "Order → Organization/Person",
+          "parent": null,
+          "inverse_of": null,
+          "score": -5.063,
+          "matched_anchor": null,
+          "comment": "A seller relation between an order and the organization or person acting as the seller. Also called: seller, vendor, retailer. Examples: \"Online Order merchant Amazon\", \"Local Purchase merchant Boutique Store\", \"Service Booking merchant Freelancer\".",
+          "embed_score": 0.819,
+          "embed_rank": 8
+        }
+      ]
+    },
+    {
+      "relation_phrase": "has_price",
+      "definition": "Associates a monetary value with a transaction or asset",
+      "embedding_query_text": "has_price: Associates a monetary value with a transaction or asset",
+      "observed_signatures": [
+        "SaleEvent → MonetaryAmount"
+      ],
+      "n_assignments": 1,
+      "assignments": [
+        {
+          "instances": [
+            "Los Angeles Lakers sale to Iger and Kushner -> 12.5 billion",
+            "Mark Walter’s majority ownership of Lakers -> 10 billion"
+          ],
+          "chosen_property": {
+            "label": "hasSalePrice",
+            "source": "vocab",
+            "direction": "as_is",
+            "vocab_id": "P0209",
+            "is_new_to_vocab": true,
+            "definition": "The monetary value associated with a sale event.",
+            "parent": null,
+            "domain": [
+              "SaleEvent"
+            ],
+            "range": [
+              "MonetaryAmount"
+            ],
+            "path": "",
+            "justification": "No schema.org property directly captures the association of a monetary amount with a sale event."
+          },
+          "llm_proposed": {
+            "source": "new",
+            "label": "hasSalePrice",
+            "is_new": true,
+            "direction": "as_is"
+          }
+        }
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "price",
+          "signature": "DonateAction/Offer/PriceSpecification/TradeAction → Number/Text",
+          "parent": null,
+          "inverse_of": null,
+          "score": -2.1877,
+          "matched_anchor": null,
+          "comment": "A financial attribute indicating the monetary value of an offer, product, or price component. Also called cost, rate, charge, amount. Examples: An offer has a price of '19.99'. A product has a price of '100'. The service has a price of '50.00'. Distinct from priceCurrency, which specifies the currency of the price.",
+          "embed_score": 0.843,
+          "embed_rank": 1
+        },
+        {
+          "source": "schema.org",
+          "label": "eligibleTransactionVolume",
+          "signature": "Demand/Offer/PriceSpecification → PriceSpecification",
+          "parent": null,
+          "inverse_of": null,
+          "score": -4.7531,
+          "matched_anchor": null,
+          "comment": "An eligible transaction volume relation between a demand, offer, or price specification and the price specification representing the monetary volume for which it is valid. Also called \"valid transaction amount\", \"minimum purchase\", \"order value threshold\". Examples: \"Offer 'Free Shipping' eligibleTransactionVolume 'Min. $50'\", \"Price specification eligibleTransactionVolume 'Orders over $1000'\", \"Credit card acceptance eligibleTransactionVolume 'Min. $10'\".",
+          "embed_score": 0.802,
+          "embed_rank": 13
+        },
+        {
+          "source": "schema.org",
+          "label": "priceCurrency",
+          "signature": "DonateAction/Offer/PriceSpecification/Reservation/Ticket/TradeAction → Text",
+          "parent": null,
+          "inverse_of": null,
+          "score": -5.0938,
+          "matched_anchor": null,
+          "comment": "A financial attribute indicating the currency in which a price or price component is expressed. Also called currency type, monetary unit, unit of exchange. Examples: An offer has a price currency of 'USD'. A product's price currency is 'EUR'. The ticket price currency is 'GBP'. Distinct from price, which is the numerical value.",
+          "embed_score": 0.821,
+          "embed_rank": 5
+        },
+        {
+          "source": "schema.org",
+          "label": "amount",
+          "signature": "DatedMoneySpecification/InvestmentOrDeposit/LoanOrCredit/MonetaryGrant/MoneyTransfer → MonetaryAmount/Number",
+          "parent": null,
+          "inverse_of": null,
+          "score": -5.9768,
+          "matched_anchor": null,
+          "comment": "An amount relation between a financial entity (e.g., loan, grant, money transfer) and the monetary value or number associated with it. Also called value, sum, quantity of money. Examples: \"A loan's amount is '$10,000'.\", \"The grant's amount is '€5,000'.\", \"A money transfer's amount is '250'.\"",
+          "embed_score": 0.825,
+          "embed_rank": 3
+        },
+        {
+          "source": "schema.org",
+          "label": "value",
+          "signature": "MonetaryAmount/PropertyValue/QuantitativeValue → Boolean/Number/StructuredValue/Text",
+          "parent": null,
+          "inverse_of": null,
+          "score": -6.3604,
+          "matched_anchor": null,
+          "comment": "A value relation between a monetary amount, property value, or quantitative value and its specific numerical, textual, boolean, or structured content. Also called amount, quantity, content. Examples: \"QuantitativeValue value '10'\", \"PropertyValue value 'red'\", \"MonetaryAmount value '99.99'\".",
+          "embed_score": 0.828,
+          "embed_rank": 2
+        },
+        {
+          "source": "schema.org",
+          "label": "maxValue",
+          "signature": "MonetaryAmount/PropertyValue/PropertyValueSpecification/QuantitativeValue → Number",
+          "parent": null,
+          "inverse_of": null,
+          "score": -8.571,
+          "matched_anchor": null,
+          "comment": "An upper value relation between a monetary amount, property value, property value specification, or quantitative value and the highest value of a characteristic or property. Also called: maximum limit, upper bound, highest possible value. Examples: \"Temperature Range maxValue 30\", \"Age Limit maxValue 65\", \"Credit Score maxValue 850\". Distinct from maxPrice, which specifically refers to the highest price in a range.",
+          "embed_score": 0.801,
+          "embed_rank": 15
+        },
+        {
+          "source": "schema.org",
+          "label": "currency",
+          "signature": "DatedMoneySpecification/ExchangeRateSpecification/LoanOrCredit/MonetaryAmount/MonetaryAmountDistribution → Text",
+          "parent": null,
+          "inverse_of": null,
+          "score": -8.6734,
+          "matched_anchor": null,
+          "comment": "A monetary unit relation between a monetary amount or specification and the currency in which it is expressed. Also called: monetary currency, unit of money, payment unit. Examples: \"Product Price\" currency \"USD\", \"Loan Amount\" currency \"EUR\", \"Exchange Rate\" currency \"JPY\", \"Salary\" currency \"GBP\". Distinct from costCurrency, which is specific to drug costs.",
+          "embed_score": 0.813,
+          "embed_rank": 6
+        },
+        {
+          "source": "schema.org",
+          "label": "minValue",
+          "signature": "MonetaryAmount/PropertyValue/PropertyValueSpecification/QuantitativeValue → Number",
+          "parent": null,
+          "inverse_of": null,
+          "score": -8.8471,
+          "matched_anchor": null,
+          "comment": "A lower value relation between a monetary amount, property value, property value specification, or quantitative value and the lowest value of a characteristic or property. Also called: minimum limit, lower bound, lowest possible value. Examples: \"Temperature Range minValue 10\", \"Age Limit minValue 18\", \"Credit Score minValue 300\". Distinct from minPrice, which specifically refers to the lowest price in a range.",
+          "embed_score": 0.805,
+          "embed_rank": 11
+        },
+        {
+          "source": "schema.org",
+          "label": "costCurrency",
+          "signature": "DrugCost → Text",
+          "parent": null,
+          "inverse_of": null,
+          "score": -9.1741,
+          "matched_anchor": null,
+          "comment": "A monetary unit relation between a drug cost and the currency in which it is expressed. Also called: currency of cost, price currency, cost unit. Examples: \"Drug A cost\" cost currency \"USD\", \"Medication B price\" cost currency \"EUR\", \"Prescription C expense\" cost currency \"JPY\". Distinct from currency, which is a more general property for monetary amounts.",
+          "embed_score": 0.809,
+          "embed_rank": 7
+        },
+        {
+          "source": "schema.org",
+          "label": "purchasePriceLimit",
+          "signature": "FinancialIncentive → MonetaryAmount",
+          "parent": null,
+          "inverse_of": null,
+          "score": -9.7657,
+          "matched_anchor": null,
+          "comment": "A purchase price limit relation between a financial incentive and the maximum price an item can have to qualify for the incentive. Also called maximum price, price cap, qualifying price. Examples: \"A rebate offer has a purchase price limit of $500.\", \"A discount coupon has a purchase price limit of €100.\", \"A loyalty bonus has a purchase price limit of £250.\"",
+          "embed_score": 0.786,
+          "embed_rank": 31
+        }
+      ]
+    },
+    {
+      "relation_phrase": "participates_in",
+      "definition": "Indicates involvement in a business or investment activity",
+      "embedding_query_text": "participates_in: Indicates involvement in a business or investment activity",
+      "observed_signatures": [
+        "SaleEvent → Organization"
+      ],
+      "n_assignments": 1,
+      "assignments": [
+        {
+          "instances": [
+            "Los Angeles Lakers sale to Iger and Kushner -> Thrive Eternal"
+          ],
+          "chosen_property": {
+            "label": "participant",
+            "source": "schema.org",
+            "direction": "as_is",
+            "vocab_id": null,
+            "is_new_to_vocab": false,
+            "definition": null,
+            "parent": null,
+            "domain": null,
+            "range": null,
+            "path": "",
+            "justification": "The 'participant' property (domain: Action → Organization/Person) fits the SaleEvent → Organization signature."
+          },
+          "llm_proposed": {
+            "source": "schema.org",
+            "label": "participant",
+            "is_new": false,
+            "direction": "as_is"
+          }
+        }
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "contributor",
+          "signature": "CreativeWork/Event → Organization/Person",
+          "parent": null,
+          "inverse_of": null,
+          "score": -5.0145,
+          "matched_anchor": null,
+          "comment": "A secondary participation relation for a creative work or event, indicating an organization or person who contributed to it. Also called \"additional contributor\", \"supporting role\", \"collaborator\". Examples: \"Book creative work contributor 'Editor Jane Doe'\", \"Conference event contributor 'Sponsor Acme Corp'\". Distinct from author or creator, which typically denote primary responsibility.",
+          "embed_score": 0.814,
+          "embed_rank": 4
+        },
+        {
+          "source": "schema.org",
+          "label": "buyer",
+          "signature": "SellAction → Organization/Person",
+          "parent": "participant",
+          "inverse_of": null,
+          "score": -5.2669,
+          "matched_anchor": null,
+          "comment": "A participation relation in a sell action, indicating the organization or person who purchased the object. Also called \"purchaser\", \"customer\", \"acquired by\". Examples: \"Online purchase sell action buyer Jane Doe\", \"Company acquisition sell action buyer Acme Corp\". Distinct from seller, which is the party offering the object for sale.",
+          "embed_score": 0.823,
+          "embed_rank": 2
+        },
+        {
+          "source": "schema.org",
+          "label": "performerIn",
+          "signature": "Person → Event",
+          "parent": null,
+          "inverse_of": null,
+          "score": -5.6536,
+          "matched_anchor": null,
+          "comment": "A participation role relation between a person and an event in which they perform or participate. Also called performs in, participates in, acts in, presents at. Examples: John Doe is a performer in 'The Annual Gala'. Jane Smith is a performer in 'The City Marathon'. An actor is a performer in 'The New Play'. Distinct from performer, which points from an event to a person.",
+          "embed_score": 0.805,
+          "embed_rank": 6
+        },
+        {
+          "source": "schema.org",
+          "label": "participant",
+          "signature": "Action → Organization/Person",
+          "parent": null,
+          "inverse_of": null,
+          "score": -5.9187,
+          "matched_anchor": null,
+          "comment": "A collaborative relation between an action and an organization or person who indirectly participated in it. Also called collaborated with, involved, assisted by, co-agent. Examples: A writing action has a participant co-author. A research project has a participant researcher. A meeting has a participant attendee. Distinct from agent, which is the primary actor of an action.",
+          "embed_score": 0.836,
+          "embed_rank": 1
+        },
+        {
+          "source": "schema.org",
+          "label": "hasParticipationOffer",
+          "signature": "Event → Offer",
+          "parent": null,
+          "inverse_of": null,
+          "score": -7.1835,
+          "matched_anchor": null,
+          "comment": "A participation offer relation between an event and an offer to participate in it. Also called call for participation, participation opportunity, event entry offer. Examples: \"An event has a participation offer for speakers.\", \"The conference has a participation offer for proposals.\", \"This festival includes a participation offer for performers.\". Distinct from hasSponsorshipOffer, which is an offer to sponsor the event.",
+          "embed_score": 0.8,
+          "embed_rank": 8
+        },
+        {
+          "source": "schema.org",
+          "label": "member",
+          "signature": "Organization/ProgramMembership → Organization/Person",
+          "parent": null,
+          "inverse_of": "memberOf",
+          "score": -7.4798,
+          "matched_anchor": null,
+          "comment": "A member relation between an organization or program membership and an organization or person belonging to it. Also called: belongs to, is a part of, participant in. Examples: \"Club Organization member John Doe\", \"Team ProgramMembership member Jane Smith\", \"Alliance Organization member Partner Company\". Distinct from memberOf, which expresses the inverse relationship.",
+          "embed_score": 0.804,
+          "embed_rank": 7
+        },
+        {
+          "source": "schema.org",
+          "label": "worksFor",
+          "signature": "Person → Organization",
+          "parent": null,
+          "inverse_of": null,
+          "score": -8.0555,
+          "matched_anchor": null,
+          "comment": "An employment relation between a person and an organization, indicating the organization for which the person is employed. Also called employed by, affiliated with, works at, employed at. Examples: Employee worksFor CompanyA, Consultant worksFor AgencyB, Professor worksFor UniversityC. Distinct from memberOf, which indicates general membership in a group, not necessarily employment.",
+          "embed_score": 0.781,
+          "embed_rank": 41
+        },
+        {
+          "source": "schema.org",
+          "label": "sportsTeam",
+          "signature": "ExerciseAction → SportsTeam",
+          "parent": "participant",
+          "inverse_of": null,
+          "score": -8.449,
+          "matched_anchor": null,
+          "comment": "A participation relation between an exercise action and the sports team involved in it. Also called \"team participated\", \"team involved\", \"athletic team\". Examples: \"The goal was scored by the sportsTeam Real Madrid\", \"The race involved sportsTeam Team USA\", \"This action was performed by a sportsTeam.\". Distinct from participant, which is a more general participant property.",
+          "embed_score": 0.8,
+          "embed_rank": 9
+        },
+        {
+          "source": "schema.org",
+          "label": "isInvolvedInBiologicalProcess",
+          "signature": "BioChemEntity → DefinedTerm/PropertyValue/URL",
+          "parent": null,
+          "inverse_of": null,
+          "score": -8.6609,
+          "matched_anchor": null,
+          "comment": "A biological function relation between a biochemical entity and the biological process it participates in. Also called participates in process, role in biological process, contributes to process. Examples: A protein is isInvolvedInBiologicalProcess 'cell division'. An enzyme is isInvolvedInBiologicalProcess 'metabolism'. A hormone is isInvolvedInBiologicalProcess 'growth regulation'.",
+          "embed_score": 0.792,
+          "embed_rank": 15
+        },
+        {
+          "source": "schema.org",
+          "label": "yearsInOperation",
+          "signature": "BusinessAudience → QuantitativeValue",
+          "parent": null,
+          "inverse_of": null,
+          "score": -9.1924,
+          "matched_anchor": null,
+          "comment": "An operational age relation between a business audience and a quantitative value, indicating the number of years the business has been active. Also called business age, operational duration, years active. Examples: TargetAudience yearsInOperation \"5-10 years\", BusinessAudience yearsInOperation \"over 20 years\", StartupAudience yearsInOperation \"under 2 years\".",
+          "embed_score": 0.779,
+          "embed_rank": 48
+        }
+      ]
+    },
+    {
+      "relation_phrase": "sibling_of",
+      "definition": "Indicates a familial relationship between two individuals",
+      "embedding_query_text": "sibling_of: Indicates a familial relationship between two individuals",
+      "observed_signatures": [
+        "Person → Person"
+      ],
+      "n_assignments": 1,
+      "assignments": [
+        {
+          "instances": [
+            "Josh Kushner -> Jared Kushner"
+          ],
+          "chosen_property": {
+            "label": "sibling",
+            "source": "schema.org",
+            "direction": "as_is",
+            "vocab_id": null,
+            "is_new_to_vocab": false,
+            "definition": null,
+            "parent": null,
+            "domain": null,
+            "range": null,
+            "path": "",
+            "justification": "The 'sibling' property (domain: Person → Person) directly matches the observed signature."
+          },
+          "llm_proposed": {
+            "source": "schema.org",
+            "label": "sibling",
+            "is_new": false,
+            "direction": "as_is"
+          }
+        }
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "sibling",
+          "signature": "Person → Person",
+          "parent": null,
+          "inverse_of": null,
+          "score": 7.1359,
+          "matched_anchor": null,
+          "comment": "A familial relationship between two people who share at least one parent. Also called brother, sister, kin, family member. Examples: `John Doe` sibling `Jane Doe`, `Mary Smith` sibling `Tom Smith`, `Alice Brown` sibling `Bob Brown`. Distinct from `siblings`, which is the plural form.",
+          "embed_score": 0.92,
+          "embed_rank": 1
+        },
+        {
+          "source": "schema.org",
+          "label": "siblings",
+          "signature": "Person → Person",
+          "parent": null,
+          "inverse_of": null,
+          "score": 6.0039,
+          "matched_anchor": null,
+          "comment": "A collection of familial relationships between a person and their brothers and sisters. Also called brothers and sisters, kin, family members. Examples: `John Doe` siblings `[Jane Doe, Peter Doe]`, `Mary Smith` siblings `[Tom Smith]`, `Alice Brown` siblings `[Bob Brown, Carol Brown, David Brown]`. Distinct from `sibling`, which typically refers to a single sibling.",
+          "embed_score": 0.901,
+          "embed_rank": 2
+        },
+        {
+          "source": "schema.org",
+          "label": "relatedTo",
+          "signature": "Person → Person",
+          "parent": null,
+          "inverse_of": null,
+          "score": 3.4459,
+          "matched_anchor": null,
+          "comment": "A familial relation between two people, representing a generic family connection. Also called family member, kin, relative. Examples: \"John is related to 'Jane'.\", \"Mary is related to 'Tom'.\", \"Aunt Sally is related to 'Nephew Bob'.\"",
+          "embed_score": 0.877,
+          "embed_rank": 3
+        },
+        {
+          "source": "schema.org",
+          "label": "children",
+          "signature": "Person → Person",
+          "parent": null,
+          "inverse_of": null,
+          "score": 2.85,
+          "matched_anchor": null,
+          "comment": "A familial relation between a person and their child. Also called \"offspring\", \"son\", \"daughter\". Examples: \"John children Jane\", \"Mary children Peter\". Distinct from parent, which indicates the inverse relationship.",
+          "embed_score": 0.867,
+          "embed_rank": 4
+        },
+        {
+          "source": "schema.org",
+          "label": "spouse",
+          "signature": "Person → Person",
+          "parent": null,
+          "inverse_of": null,
+          "score": 0.7213,
+          "matched_anchor": null,
+          "comment": "A marital relation between two persons who are married to each other. Also called \"husband\", \"wife\", \"married to\", \"partner\". Examples: \"John has spouse Jane\", \"Mary's spouse is David\", \"The couple includes a spouse relationship.\". Distinct from colleague, which indicates a professional relationship, or parent, which indicates a familial relationship.",
+          "embed_score": 0.812,
+          "embed_rank": 14
+        },
+        {
+          "source": "schema.org",
+          "label": "parents",
+          "signature": "Person → Person",
+          "parent": null,
+          "inverse_of": null,
+          "score": 0.0209,
+          "matched_anchor": null,
+          "comment": "A familial relation between a person and their biological or adoptive parents. Also called is a child of, has as a parent, is parented by. Examples: John is a parent of Mary. Jane is a parent of David. The parents of a child are their mother and father. Distinct from children, which points from a parent to their offspring.",
+          "embed_score": 0.863,
+          "embed_rank": 5
+        },
+        {
+          "source": "schema.org",
+          "label": "knows",
+          "signature": "Person → Person",
+          "parent": null,
+          "inverse_of": null,
+          "score": -4.9568,
+          "matched_anchor": null,
+          "comment": "A general acquaintance relation between two people who are known to each other socially or professionally. Also called acquainted with, familiar with, knows personally, has met. Examples: John knows 'Jane'. Sarah knows 'her colleague Tom'. The CEO knows 'the board members'. Distinct from follows, friend, or memberOf, which imply more specific types of relationships.",
+          "embed_score": 0.804,
+          "embed_rank": 21
+        },
+        {
+          "source": "schema.org",
+          "label": "inverseOf",
+          "signature": "Property → Property",
+          "parent": null,
+          "inverse_of": null,
+          "score": -7.2829,
+          "matched_anchor": null,
+          "comment": "A property relationship indicating that two properties describe the same association between entities but in opposite directions. Also called reciprocal property, opposite property, reverse property. Examples: The 'alumni' property is an inverseOf 'alumniOf'. The 'parent' property is an inverseOf 'child'. The 'employee' property is an inverseOf 'worksFor'.",
+          "embed_score": 0.798,
+          "embed_rank": 25
+        },
+        {
+          "source": "schema.org",
+          "label": "follows",
+          "signature": "Person → Person",
+          "parent": null,
+          "inverse_of": null,
+          "score": -8.2627,
+          "matched_anchor": null,
+          "comment": "A follows relation representing a generic uni-directional social connection between two people. Also called: is following, subscribes to, tracks. Examples: \"Alice follows Bob\", \"Charlie follows David\", \"Eve follows Frank\". Distinct from followee, which is the object of a follow action.",
+          "embed_score": 0.813,
+          "embed_rank": 12
+        },
+        {
+          "source": "schema.org",
+          "label": "familyName",
+          "signature": "Person → Text",
+          "parent": null,
+          "inverse_of": null,
+          "score": -9.0136,
+          "matched_anchor": null,
+          "comment": "A family name relation between a person and their last name. Also called: last name, surname. Examples: \"John Doe\" family name \"Doe\", \"Jane Smith\" family name \"Smith\", \"Alice Wonderland\" family name \"Wonderland\". Distinct from givenName, which is the first name.",
+          "embed_score": 0.837,
+          "embed_rank": 6
+        }
+      ]
+    },
+    {
+      "relation_phrase": "controlled_by",
+      "definition": "Describes an entity that holds majority ownership or management authority",
+      "embedding_query_text": "controlled_by: Describes an entity that holds majority ownership or management authority",
+      "observed_signatures": [
+        "SaleEvent → Person"
+      ],
+      "n_assignments": 1,
+      "assignments": [
+        {
+          "instances": [
+            "Mark Walter’s majority ownership of Lakers -> Mark Walter"
+          ],
+          "chosen_property": {
+            "label": "owner",
+            "source": "schema.org",
+            "direction": "inverse",
+            "vocab_id": null,
+            "is_new_to_vocab": false,
+            "definition": null,
+            "parent": null,
+            "domain": null,
+            "range": null,
+            "path": "",
+            "justification": "The 'owner' property (domain: Thing → Organization/Person) is the inverse of the required SaleEvent → Person relationship."
+          },
+          "llm_proposed": {
+            "source": "schema.org",
+            "label": "owner",
+            "is_new": false,
+            "direction": "inverse"
+          }
+        }
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "owns",
+          "signature": "Organization/Person → Thing",
+          "parent": null,
+          "inverse_of": "owner",
+          "score": -3.8594,
+          "matched_anchor": null,
+          "comment": "A thing that is owned by an organization or person. Also called possesses, holds title to, has ownership of. Examples: \"John Doe owns 'a car'\", \"Acme Corp owns 'a patent'\", \"Sarah owns 'her house'\". Distinct from memberOf, which describes membership in a group.",
+          "embed_score": 0.83,
+          "embed_rank": 1
+        },
+        {
+          "source": "schema.org",
+          "label": "copyrightHolder",
+          "signature": "CreativeWork → Organization/Person",
+          "parent": null,
+          "inverse_of": null,
+          "score": -4.386,
+          "matched_anchor": null,
+          "comment": "A legal ownership relation between a creative work and the person or organization holding its copyright. Also called: copyright owner, rights holder, legally owned by. Examples: \"The Mona Lisa\" copyright holder \"The Louvre Museum\", \"Harry Potter and the Sorcerer's Stone\" copyright holder \"J.K. Rowling\", \"Microsoft Windows\" copyright holder \"Microsoft Corporation\".",
+          "embed_score": 0.788,
+          "embed_rank": 6
+        },
+        {
+          "source": "schema.org",
+          "label": "hasCertification",
+          "signature": "Organization/Person/Place/Product/Service → Certification",
+          "parent": null,
+          "inverse_of": null,
+          "score": -5.3453,
+          "matched_anchor": null,
+          "comment": "A certification relation between an entity (organization, person, place, product, or service) and its associated certification. Also called holds certification, certified by, possesses certification, has accreditation. Examples: \"An organization has a certification for quality management.\", \"A product has a certification for organic ingredients.\", \"A person has a certification in project management.\"",
+          "embed_score": 0.766,
+          "embed_rank": 25
+        },
+        {
+          "source": "schema.org",
+          "label": "holdingArchive",
+          "signature": "ArchiveComponent → ArchiveOrganization",
+          "parent": null,
+          "inverse_of": "archiveHeld",
+          "score": -5.9261,
+          "matched_anchor": null,
+          "comment": "A holding archive relation between an archive component and the archive organization that maintains it. Also called maintained by, kept by, archive holder. Examples: \"An archive component has a holding archive 'National Archives'.\", \"The document is part of a holding archive.\", \"This record is held by a specific holding archive.\"",
+          "embed_score": 0.772,
+          "embed_rank": 17
+        },
+        {
+          "source": "schema.org",
+          "label": "owner",
+          "signature": "Thing → Organization/Person",
+          "parent": null,
+          "inverse_of": "owns",
+          "score": -6.97,
+          "matched_anchor": null,
+          "comment": "A person or organization that owns a thing. Also called proprietor, possessor, title holder. Examples: \"Car owner 'John Doe'\", \"Company owner 'Acme Corp'\", \"House owner 'Smith Family Trust'\". Distinct from creator, who made the thing.",
+          "embed_score": 0.812,
+          "embed_rank": 2
+        },
+        {
+          "source": "schema.org",
+          "label": "broadcaster",
+          "signature": "BroadcastService → Organization",
+          "parent": null,
+          "inverse_of": null,
+          "score": -7.4168,
+          "matched_anchor": null,
+          "comment": "An ownership or operational relation between a broadcast service and the organization responsible for it. Also called \"service provider\", \"operated by\", \"owned by\", \"broadcast by\". Examples: \"BBC Radio 4 broadcaster BBC\", \"CNN broadcast service broadcaster Warner Bros. Discovery\".",
+          "embed_score": 0.793,
+          "embed_rank": 5
+        },
+        {
+          "source": "schema.org",
+          "label": "landlord",
+          "signature": "RentAction → Organization/Person",
+          "parent": "participant",
+          "inverse_of": null,
+          "score": -7.5855,
+          "matched_anchor": null,
+          "comment": "A property ownership relation between a rent action and the person or organization that owns and leases the real estate. Also called property owner, lessor, rental owner, proprietor. Examples: A rent action has a landlord of 'John Doe'. A rent action has a landlord of 'Property Management Inc.'. A lease agreement lists 'Sarah Smith' as the landlord. Distinct from agent, which is the general actor of an action.",
+          "embed_score": 0.779,
+          "embed_rank": 12
+        },
+        {
+          "source": "schema.org",
+          "label": "legalStatus",
+          "signature": "DietarySupplement/Drug/MedicalEntity → DrugLegalStatus/MedicalEnumeration/Text",
+          "parent": null,
+          "inverse_of": null,
+          "score": -7.9631,
+          "matched_anchor": null,
+          "comment": "A regulatory status relation between a dietary supplement, drug, or medical entity and its legal classification, including controlled substance schedules. Also called regulatory status, legal classification, controlled substance status, drug schedule. Examples: A drug has a legalStatus of 'PrescriptionOnly'. A dietary supplement has a legalStatus of 'OverTheCounter'. A medication has a legalStatus of 'Schedule II controlled substance'. Distinct from drugClass, which is a medical classification, not a legal one.",
+          "embed_score": 0.775,
+          "embed_rank": 15
+        },
+        {
+          "source": "schema.org",
+          "label": "ownershipFundingInfo",
+          "signature": "NewsMediaOrganization/Organization → AboutPage/CreativeWork/Text/URL",
+          "parent": "publishingPrinciples",
+          "inverse_of": null,
+          "score": -7.9646,
+          "matched_anchor": null,
+          "comment": "Information describing the ownership structure, funding, and grants of an organization, particularly concerning editorial independence for news media. Also called funding transparency, ownership structure, financial backing details. Examples: \"News Org A ownershipFundingInfo 'https://news.example.com/about/funding'\", \"Company B ownershipFundingInfo 'Privately held by XYZ Group.'\", \"Nonprofit C ownershipFundingInfo 'Funded by grants from various foundations.'\". Distinct from funder, which specifically identifies the entity providing funds.",
+          "embed_score": 0.784,
+          "embed_rank": 8
+        },
+        {
+          "source": "schema.org",
+          "label": "serviceOperator",
+          "signature": "GovernmentService → Organization",
+          "parent": null,
+          "inverse_of": null,
+          "score": -8.0391,
+          "matched_anchor": null,
+          "comment": "The organization responsible for operating a government service, distinct from the primary provider. Also called service management, operating entity, service subcontractor. Examples: `Public Transport Service` serviceOperator `Transit Authority`, `Waste Collection Service` serviceOperator `Private Waste Management Company`, `National Park Service` serviceOperator `Local Park Management`. Distinct from `provider`, which is the primary organization offering the service.",
+          "embed_score": 0.758,
+          "embed_rank": 43
+        }
+      ]
+    },
+    {
+      "relation_phrase": "made_by",
+      "definition": null,
+      "embedding_query_text": "made_by:",
+      "observed_signatures": [
+        "PublicStatement → Person"
+      ],
+      "n_assignments": 1,
+      "assignments": [
+        {
+          "instances": [
+            "Iger and Kushner on Lakers stewardship -> Bob Iger",
+            "Iger and Kushner on Lakers stewardship -> Josh Kushner",
+            "Mark Walter on Lakers ownership -> Mark Walter"
+          ],
+          "chosen_property": {
+            "label": "creator",
+            "source": "schema.org",
+            "direction": "as_is",
+            "vocab_id": null,
+            "is_new_to_vocab": false,
+            "definition": null,
+            "parent": null,
+            "domain": null,
+            "range": null,
+            "path": "",
+            "justification": "The 'creator' property (domain: CreativeWork/UserComments → Organization/Person) fits PublicStatement → Person as a creator of the statement."
+          },
+          "llm_proposed": {
+            "source": "schema.org",
+            "label": "creator",
+            "is_new": false,
+            "direction": "as_is"
+          }
+        }
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "manufacturer",
+          "signature": "Product → Organization",
+          "parent": null,
+          "inverse_of": null,
+          "score": 5.4922,
+          "matched_anchor": null,
+          "comment": "A manufacturing relation between a product and the organization that produced it. Also called: produced by, made by, fabricated by. Examples: \"Smartphone manufacturer Apple\", \"Automobile manufacturer Toyota\", \"Furniture manufacturer IKEA\".",
+          "embed_score": 0.836,
+          "embed_rank": 1
+        },
+        {
+          "source": "schema.org",
+          "label": "productionCompany",
+          "signature": "CreativeWorkSeason/Episode/MediaObject/Movie/MovieSeries/RadioSeries/TVSeries/VideoGameSeries → Organization",
+          "parent": null,
+          "inverse_of": null,
+          "score": 3.4715,
+          "matched_anchor": null,
+          "comment": "A production relation between a creative work (like a movie or series) and the organization responsible for its creation. Also called produced by, studio, made by, created by. Examples: \"The movie 'Dune' was produced by Legendary Pictures.\", \"The TV series 'The Crown' was produced by Left Bank Pictures.\", \"The video game 'Cyberpunk 2077' was produced by CD Projekt Red.\"",
+          "embed_score": 0.783,
+          "embed_rank": 20
+        },
+        {
+          "source": "schema.org",
+          "label": "legislationPassedBy",
+          "signature": "Legislation → Organization/Person",
+          "parent": "creator",
+          "inverse_of": null,
+          "score": 2.0217,
+          "matched_anchor": null,
+          "comment": "A passing authority relation between a piece of legislation and the organization or person that originally enacted it. Also called: enacted by, made by, legislated by. Examples: \"Primary Legislation legislationPassedBy Parliament\", \"Secondary Legislation legislationPassedBy Government\", \"Local Bylaw legislationPassedBy City Council\". Distinct from legislationResponsible, which refers to the ministry or individual in charge of elaborating or addressing questions about the legislation.",
+          "embed_score": 0.776,
+          "embed_rank": 36
+        },
+        {
+          "source": "schema.org",
+          "label": "creator",
+          "signature": "CreativeWork/UserComments → Organization/Person",
+          "parent": null,
+          "inverse_of": null,
+          "score": 1.3225,
+          "matched_anchor": null,
+          "comment": "An authorship relation between a creative work or user comment and the person or organization responsible for its creation. Also called: author, originator, producer, made by. Examples: \"Novel\" creator \"Jane Doe\", \"Software\" creator \"Acme Corp.\", \"Blog Post\" creator \"John Smith\", \"User Review\" creator \"Anonymous User\". Distinct from copyrightHolder, which is about legal ownership.",
+          "embed_score": 0.807,
+          "embed_rank": 2
+        },
+        {
+          "source": "schema.org",
+          "label": "material",
+          "signature": "CreativeWork/Product → Product/Text/URL",
+          "parent": null,
+          "inverse_of": null,
+          "score": -2.2063,
+          "matched_anchor": null,
+          "comment": "A material composition relation between a creative work or product and the material it is made from. Also called: made of, composed of, constructed from. Examples: \"Wooden Chair material Wood\", \"Wool Sweater material Wool\", \"Paper Book material Paper\".",
+          "embed_score": 0.794,
+          "embed_rank": 7
+        },
+        {
+          "source": "schema.org",
+          "label": "productionDate",
+          "signature": "Product/Vehicle → Date",
+          "parent": null,
+          "inverse_of": null,
+          "score": -3.3922,
+          "matched_anchor": null,
+          "comment": "A production date relation between a product or vehicle and the specific date it was manufactured. Also called manufactured on, made on, creation date. Examples: \"A 2023 Toyota Camry has a production date of 2022-11-15.\", \"A vintage car has a production date of 1965-03-01.\", \"A smartphone has a production date of 2024-01-20.\"",
+          "embed_score": 0.796,
+          "embed_rank": 5
+        },
+        {
+          "source": "schema.org",
+          "label": "founder",
+          "signature": "Organization → Organization/Person",
+          "parent": null,
+          "inverse_of": null,
+          "score": -3.6493,
+          "matched_anchor": null,
+          "comment": "A founder relation between an organization and the person or organization that established it. Also called: established by, created by, initiated by. Examples: \"Microsoft\" founder \"Bill Gates\", \"Apple Inc.\" founder \"Steve Jobs\", \"Google\" founder \"Larry Page\". Distinct from founders, which is specifically for multiple people.",
+          "embed_score": 0.781,
+          "embed_rank": 26
+        },
+        {
+          "source": "schema.org",
+          "label": "editor",
+          "signature": "CreativeWork → Person",
+          "parent": null,
+          "inverse_of": null,
+          "score": -4.4292,
+          "matched_anchor": null,
+          "comment": "An editor relation between a creative work and the person who edited it. Also called \"edited by\", \"compiled by\", \"prepared by\". Examples: \"Book 'The Great Gatsby' editor 'Maxwell Perkins'\", \"Journal article editor 'Dr. Jane Doe'\", \"Film 'Pulp Fiction' editor 'Sally Menke'\".",
+          "embed_score": 0.788,
+          "embed_rank": 14
+        },
+        {
+          "source": "schema.org",
+          "label": "makesOffer",
+          "signature": "Organization/Person → Offer",
+          "parent": null,
+          "inverse_of": "offeredBy",
+          "score": -4.5098,
+          "matched_anchor": null,
+          "comment": "An offering relation between an organization or person and the offer for products or services they provide. Also called: offers, provides, sells. Examples: \"Retailer makesOffer Discounted Electronics\", \"Consultant makesOffer Business Strategy Services\", \"Restaurant makesOffer Dinner Menu\".",
+          "embed_score": 0.777,
+          "embed_rank": 33
+        },
+        {
+          "source": "schema.org",
+          "label": "publishedBy",
+          "signature": "PublicationEvent → Organization/Person",
+          "parent": null,
+          "inverse_of": null,
+          "score": -4.9391,
+          "matched_anchor": null,
+          "comment": "A publisher relation between a publication event and the organization or person responsible for it. Also called published by, issued by, released by. Examples: \"A book's publication event was published by 'Penguin Random House'.\", \"A journal article's publication event was published by 'Elsevier'.\", \"A blog post's publication event was published by 'Jane Doe'.\". Distinct from publisher, which refers to the publisher of the creative work itself.",
+          "embed_score": 0.801,
+          "embed_rank": 3
+        }
+      ]
+    },
+    {
+      "relation_phrase": "concerns",
+      "definition": null,
+      "embedding_query_text": "concerns:",
+      "observed_signatures": [
+        "PublicStatement → SportsTeam"
+      ],
+      "n_assignments": 1,
+      "assignments": [
+        {
+          "instances": [
+            "Iger and Kushner on Lakers stewardship -> Los Angeles Lakers",
+            "Mark Walter on Lakers ownership -> Los Angeles Lakers"
+          ],
+          "chosen_property": {
+            "label": "about",
+            "source": "schema.org",
+            "direction": "as_is",
+            "vocab_id": null,
+            "is_new_to_vocab": false,
+            "definition": null,
+            "parent": null,
+            "domain": null,
+            "range": null,
+            "path": "",
+            "justification": "The 'about' property (domain: Certification/CommunicateAction/CreativeWork/... → Thing) matches PublicStatement → SportsTeam."
+          },
+          "llm_proposed": {
+            "source": "schema.org",
+            "label": "about",
+            "is_new": false,
+            "direction": "as_is"
+          }
+        }
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "about",
+          "signature": "Certification/CommunicateAction/CreativeWork/DefinedTerm/DefinedTermSet/Event → Thing",
+          "parent": null,
+          "inverse_of": "subjectOf",
+          "score": 1.8299,
+          "matched_anchor": null,
+          "comment": "A subject matter relation between an entity (e.g., a creative work, event, or communication) and the topic it concerns. Also called concerning, regarding, on the topic of, related to. Examples: \"A book about quantum physics.\", \"A lecture about climate change.\", \"A certification about data privacy.\"",
+          "embed_score": 0.784,
+          "embed_rank": 2
+        },
+        {
+          "source": "schema.org",
+          "label": "safetyConsideration",
+          "signature": "DietarySupplement → Text",
+          "parent": null,
+          "inverse_of": null,
+          "score": -0.6915,
+          "matched_anchor": null,
+          "comment": "Any potential safety concerns, interactions, or adverse reactions associated with a dietary supplement. Also called supplement warnings, safety warnings, adverse effects. Examples: `St. John's Wort` safetyConsideration `\"May interact with antidepressants\"`, `Creatine Supplement` safetyConsideration `\"Not recommended for individuals with kidney issues\"`, `Vitamin D Supplement` safetyConsideration `\"Avoid excessive dosage\"`.",
+          "embed_score": 0.79,
+          "embed_rank": 1
+        },
+        {
+          "source": "schema.org",
+          "label": "expertConsiderations",
+          "signature": "Diet → Text",
+          "parent": null,
+          "inverse_of": null,
+          "score": -3.9069,
+          "matched_anchor": null,
+          "comment": "An expert considerations relation between a diet and the medical expert advice pertinent to that dietary plan. Also called: medical advice, professional guidance, health warnings. Examples: \"Keto Diet\" expert considerations \"Consult a doctor if you have kidney issues\", \"Vegan Diet\" expert considerations \"Ensure adequate B12 supplementation\", \"Low-Sodium Diet\" expert considerations \"Monitor blood pressure regularly\".",
+          "embed_score": 0.774,
+          "embed_rank": 3
+        },
+        {
+          "source": "schema.org",
+          "label": "risks",
+          "signature": "Diet → Text",
+          "parent": null,
+          "inverse_of": null,
+          "score": -4.2612,
+          "matched_anchor": null,
+          "comment": "The specific physiological dangers or adverse effects associated with a particular diet plan. Also called diet hazards, health risks of diet, diet side effects. Examples: `Keto Diet` risks `\"Nutrient deficiencies\"`, `Fad Diet` risks `\"Metabolic imbalance\"`, `Vegan Diet` risks `\"Vitamin B12 deficiency if not supplemented\"`.",
+          "embed_score": 0.765,
+          "embed_rank": 10
+        },
+        {
+          "source": "schema.org",
+          "label": "warning",
+          "signature": "Drug → Text/URL",
+          "parent": null,
+          "inverse_of": null,
+          "score": -4.9388,
+          "matched_anchor": null,
+          "comment": "A warning relation between a drug and any FDA or other safety advisories. Also called drug warning, safety advisory, health alert. Examples: \"Drug warning 'May cause drowsiness.'\", \"Drug warning 'https://fda.gov/drug-warnings/xyz'\", \"Medication warning 'Do not exceed recommended dose.'\".",
+          "embed_score": 0.758,
+          "embed_rank": 19
+        },
+        {
+          "source": "schema.org",
+          "label": "negativeNotes",
+          "signature": "Product/Review → ItemList/ListItem/Text/WebContent",
+          "parent": null,
+          "inverse_of": null,
+          "score": -5.8388,
+          "matched_anchor": null,
+          "comment": "Negative considerations or drawbacks associated with a product or described in a review. Also called cons, disadvantages, downsides, criticisms. Examples: \"Product X negativeNotes 'short battery life'\", \"Review Y negativeNotes 'poor customer service'\", \"Software Z negativeNotes 'steep learning curve', 'frequent crashes'\". Distinct from positiveNotes, which describes favorable aspects.",
+          "embed_score": 0.771,
+          "embed_rank": 5
+        },
+        {
+          "source": "schema.org",
+          "label": "breastfeedingWarning",
+          "signature": "Drug → Text",
+          "parent": null,
+          "inverse_of": null,
+          "score": -5.9716,
+          "matched_anchor": null,
+          "comment": "Any precaution, guidance, or contraindication related to a drug's use by breastfeeding mothers. Also called: lactation warning, nursing caution, breastfeeding safety. Examples: \"Drug 'Medication X' breastfeedingWarning 'Consult doctor before use'\", \"Drug 'Drug Y' breastfeedingWarning 'Not recommended for breastfeeding mothers'.\"",
+          "embed_score": 0.756,
+          "embed_rank": 33
+        },
+        {
+          "source": "schema.org",
+          "label": "possibleComplication",
+          "signature": "MedicalCondition → Text",
+          "parent": null,
+          "inverse_of": null,
+          "score": -6.3106,
+          "matched_anchor": null,
+          "comment": "A medical attribute describing a potential unexpected and unfavorable evolution or outcome of a medical condition. Also called potential adverse event, risk, secondary condition, complication risk. Examples: Diabetes has a possible complication of 'kidney failure'. Surgery has a possible complication of 'infection'. A medical condition has a possible complication of 'worsening symptoms'.",
+          "embed_score": 0.773,
+          "embed_rank": 4
+        },
+        {
+          "source": "schema.org",
+          "label": "accessibilityHazard",
+          "signature": "CreativeWork → Text",
+          "parent": null,
+          "inverse_of": null,
+          "score": -6.3336,
+          "matched_anchor": null,
+          "comment": "An accessibility hazard relation between a creative work and a characteristic that poses a physiological danger to some users. Also called accessibility risk, dangerous feature, user hazard. Examples: \"A video's accessibility hazard is 'flashingLights'.\", \"A game's accessibility hazard is 'motionSimulation'.\"",
+          "embed_score": 0.754,
+          "embed_rank": 39
+        },
+        {
+          "source": "schema.org",
+          "label": "increasesRiskOf",
+          "signature": "MedicalRiskFactor → MedicalEntity",
+          "parent": null,
+          "inverse_of": null,
+          "score": -6.4454,
+          "matched_anchor": null,
+          "comment": "A risk amplification relation between a medical risk factor and the medical entity (condition, complication) whose likelihood it increases. Also called heightens risk of, raises risk of, predisposes to, contributes to risk of. Examples: Smoking increasesRiskOf lung cancer. High blood pressure increasesRiskOf heart attack. Obesity increasesRiskOf type 2 diabetes.",
+          "embed_score": 0.759,
+          "embed_rank": 18
+        }
+      ]
+    },
+    {
+      "relation_phrase": "requires",
+      "definition": null,
+      "embedding_query_text": "requires:",
+      "observed_signatures": [
+        "SaleEvent → SportsOrganization"
+      ],
+      "n_assignments": 1,
+      "assignments": [
+        {
+          "instances": [
+            "Los Angeles Lakers sale to Iger and Kushner -> NBA"
+          ],
+          "chosen_property": {
+            "label": "hasRequiredOrganization",
+            "source": "vocab",
+            "direction": "as_is",
+            "vocab_id": "P0210",
+            "is_new_to_vocab": true,
+            "definition": "An organization required for a sale event or transaction.",
+            "parent": "participant",
+            "domain": [
+              "SaleEvent"
+            ],
+            "range": [
+              "SportsOrganization"
+            ],
+            "path": "participant",
+            "justification": "No schema.org property directly captures the required organization for a sale event."
+          },
+          "llm_proposed": {
+            "source": "new",
+            "label": "hasRequiredOrganization",
+            "is_new": true,
+            "direction": "as_is"
+          }
+        }
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "requirements",
+          "signature": "SoftwareApplication → Text/URL",
+          "parent": null,
+          "inverse_of": null,
+          "score": 7.9718,
+          "matched_anchor": null,
+          "comment": "A requirements relation between a software application and the necessary components or environments for its operation. Also called system requirements, dependencies, prerequisites. Examples: \"A video game has requirements 'Windows 10, DirectX 12'.\", \"A Java application has requirements 'Java Runtime Environment 8+'.\", \"A design software has requirements 'macOS 10.15, 8GB RAM'.\"",
+          "embed_score": 0.824,
+          "embed_rank": 5
+        },
+        {
+          "source": "schema.org",
+          "label": "requiredQuantity",
+          "signature": "HowToItem → Number/QuantitativeValue/Text",
+          "parent": null,
+          "inverse_of": null,
+          "score": 5.882,
+          "matched_anchor": null,
+          "comment": "A required quantity relation between a how-to item and the amount of that item needed. Also called quantity needed, amount required. Examples: \"A how-to item 'sugar' has a required quantity '1 cup'.\", \"A crafting project needs a required quantity '5 sheets of paper'.\", \"A recipe step specifies a required quantity '2 eggs'.\"",
+          "embed_score": 0.821,
+          "embed_rank": 7
+        },
+        {
+          "source": "schema.org",
+          "label": "requiresSubscription",
+          "signature": "ActionAccessSpecification/MediaObject → Boolean/MediaSubscription",
+          "parent": null,
+          "inverse_of": null,
+          "score": 5.8065,
+          "matched_anchor": null,
+          "comment": "A subscription requirement relation indicating whether an action access or media object necessitates a subscription for use. Also called subscription needed, paywall, access restriction. Examples: \"A streaming movie requires subscription 'true'.\", \"A news article requires subscription 'false'.\", \"A premium feature requires subscription 'true'.\"",
+          "embed_score": 0.852,
+          "embed_rank": 1
+        },
+        {
+          "source": "schema.org",
+          "label": "coursePrerequisites",
+          "signature": "Course → AlignmentObject/Course/Text",
+          "parent": null,
+          "inverse_of": null,
+          "score": 5.1081,
+          "matched_anchor": null,
+          "comment": "A requirement relation between a course and the conditions or prior knowledge needed to take it. Also called: prerequisites, required courses, entry requirements. Examples: \"Advanced Algorithms\" course prerequisites \"Data Structures\", \"Calculus II\" course prerequisites \"Calculus I\", \"Graduate Seminar\" course prerequisites \"permission of instructor\".",
+          "embed_score": 0.803,
+          "embed_rank": 18
+        },
+        {
+          "source": "schema.org",
+          "label": "qualifications",
+          "signature": "JobPosting/Occupation → Credential/Text",
+          "parent": null,
+          "inverse_of": null,
+          "score": 4.8771,
+          "matched_anchor": null,
+          "comment": "A qualification relation between a job posting or occupation and the specific credentials or skills required. Also called required skills, job requirements, eligibility criteria. Examples: \"A software engineer job posting requires qualifications like a 'Bachelor's degree in Computer Science'.\", \"A doctor's occupation requires qualifications like 'Medical License'.\", \"A project manager role requires qualifications like 'PMP certification'.\"",
+          "embed_score": 0.793,
+          "embed_rank": 29
+        },
+        {
+          "source": "schema.org",
+          "label": "requiredCollateral",
+          "signature": "LoanOrCredit → Text/Thing",
+          "parent": null,
+          "inverse_of": null,
+          "score": 4.5541,
+          "matched_anchor": null,
+          "comment": "A required collateral relation between a loan or credit and the assets needed to secure its repayment. Also called loan security, collateral for loan. Examples: \"A car loan requires collateral 'the vehicle itself'.\", \"A business loan requires collateral 'company assets'.\", \"A mortgage requires collateral 'the property'.\"",
+          "embed_score": 0.813,
+          "embed_rank": 9
+        },
+        {
+          "source": "schema.org",
+          "label": "requiredGender",
+          "signature": "PeopleAudience → Text",
+          "parent": null,
+          "inverse_of": null,
+          "score": 4.3671,
+          "matched_anchor": null,
+          "comment": "A required gender relation between a people audience and the specific gender criteria for inclusion. Also called target gender, gender requirement. Examples: \"An event targets a people audience with required gender 'female'.\", \"A survey specifies a required gender 'male'.\", \"A product is marketed to a people audience with required gender 'unspecified'.\"",
+          "embed_score": 0.827,
+          "embed_rank": 3
+        },
+        {
+          "source": "schema.org",
+          "label": "programPrerequisites",
+          "signature": "EducationalOccupationalProgram → AlignmentObject/Course/EducationalOccupationalCredential/Text",
+          "parent": null,
+          "inverse_of": null,
+          "score": 3.7507,
+          "matched_anchor": null,
+          "comment": "A prerequisite relation between an educational or occupational program and the requirements for enrollment. Also called required for program, program requirements, entry criteria. Examples: \"A master's program has prerequisites of a bachelor's degree.\", \"A coding bootcamp has prerequisites of basic computer literacy.\", \"A certification program has prerequisites of specific work experience.\"",
+          "embed_score": 0.789,
+          "embed_rank": 34
+        },
+        {
+          "source": "schema.org",
+          "label": "experienceRequirements",
+          "signature": "JobPosting/Occupation → OccupationalExperienceRequirements/Text",
+          "parent": null,
+          "inverse_of": null,
+          "score": 3.5462,
+          "matched_anchor": null,
+          "comment": "An experience requirements relation between a job posting or occupation and the necessary skills and experience for the role. Also called: required experience, skill requirements, professional background. Examples: \"Software Engineer Job\" experience requirements \"5+ years in Java development\", \"Marketing Manager Occupation\" experience requirements \"Proven track record in digital marketing campaigns\", \"Chef Position\" experience requirements \"Culinary school degree and 3 years restaurant experience\".",
+          "embed_score": 0.792,
+          "embed_rank": 31
+        },
+        {
+          "source": "schema.org",
+          "label": "requiredMinAge",
+          "signature": "PeopleAudience → Integer",
+          "parent": null,
+          "inverse_of": null,
+          "score": 3.4129,
+          "matched_anchor": null,
+          "comment": "A required minimum age relation between a people audience and the lower age limit for inclusion. Also called min age, age requirement. Examples: \"An adult event targets a people audience with required min age '18'.\", \"A driving course has a required min age '16'.\", \"A senior discount applies to a people audience with required min age '65'.\"",
+          "embed_score": 0.828,
+          "embed_rank": 2
+        }
+      ]
+    },
+    {
+      "relation_phrase": "followed_by",
+      "definition": null,
+      "embedding_query_text": "followed_by:",
+      "observed_signatures": [
+        "SaleEvent → SaleEvent"
+      ],
+      "n_assignments": 1,
+      "assignments": [
+        {
+          "instances": [
+            "Los Angeles Lakers sale to Iger and Kushner -> Mark Walter’s majority ownership of Lakers"
+          ],
+          "chosen_property": {
+            "label": "predecessorOf",
+            "source": "schema.org",
+            "direction": "inverse",
+            "vocab_id": null,
+            "is_new_to_vocab": false,
+            "definition": null,
+            "parent": null,
+            "domain": null,
+            "range": null,
+            "path": "",
+            "justification": "The 'predecessorOf' property (domain: ProductModel → ProductModel) is the inverse of the required SaleEvent → SaleEvent relationship."
+          },
+          "llm_proposed": {
+            "source": "schema.org",
+            "label": "predecessorOf",
+            "is_new": false,
+            "direction": "inverse"
+          }
+        }
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "follows",
+          "signature": "Person → Person",
+          "parent": null,
+          "inverse_of": null,
+          "score": 5.922,
+          "matched_anchor": null,
+          "comment": "A follows relation representing a generic uni-directional social connection between two people. Also called: is following, subscribes to, tracks. Examples: \"Alice follows Bob\", \"Charlie follows David\", \"Eve follows Frank\". Distinct from followee, which is the object of a follow action.",
+          "embed_score": 0.829,
+          "embed_rank": 1
+        },
+        {
+          "source": "schema.org",
+          "label": "followee",
+          "signature": "FollowAction → Organization/Person",
+          "parent": "object",
+          "inverse_of": null,
+          "score": 3.8373,
+          "matched_anchor": null,
+          "comment": "A followee relation between a follow action and the person or organization that is being followed. Also called: followed entity, subject of follow, target of follow. Examples: \"User A follows User B\" followee \"User B\", \"Fan follows Band X\" followee \"Band X\", \"Journalist follows News Organization Y\" followee \"News Organization Y\". Distinct from follows, which is the general social relation.",
+          "embed_score": 0.816,
+          "embed_rank": 2
+        },
+        {
+          "source": "schema.org",
+          "label": "followup",
+          "signature": "MedicalProcedure → Text",
+          "parent": null,
+          "inverse_of": null,
+          "score": 3.4926,
+          "matched_anchor": null,
+          "comment": "A followup relation between a medical procedure and the typical or recommended post-procedure care. Also called: aftercare, post-procedure care, follow-up instructions. Examples: \"Surgery\" followup \"Rest for 2 weeks, avoid heavy lifting\", \"Dental Cleaning\" followup \"Brush twice daily, floss regularly\", \"Vaccination\" followup \"Monitor for side effects, schedule booster shot\".",
+          "embed_score": 0.776,
+          "embed_rank": 7
+        },
+        {
+          "source": "schema.org",
+          "label": "previousItem",
+          "signature": "ListItem → ListItem",
+          "parent": null,
+          "inverse_of": null,
+          "score": 1.5424,
+          "matched_anchor": null,
+          "comment": "A sequential relation between a list item and the list item that immediately precedes it. Also called precedes, comes after, follows. Examples: List item 'B' has a previous item 'A'. The current item's previous item is the one before it. In a breadcrumb trail, the current page has a previous item. Distinct from nextItem, which links to the item that follows.",
+          "embed_score": 0.796,
+          "embed_rank": 4
+        },
+        {
+          "source": "schema.org",
+          "label": "nextItem",
+          "signature": "ListItem → ListItem",
+          "parent": null,
+          "inverse_of": null,
+          "score": 0.5027,
+          "matched_anchor": null,
+          "comment": "A list item that immediately follows the current list item in an ordered sequence. Also called subsequent item, following item, next in list. Examples: \"Item 1 nextItem 'Item 2'\", \"Page 3 nextItem 'Page 4'\", \"Step A nextItem 'Step B'\". Distinct from previousItem, which links to the preceding item.",
+          "embed_score": 0.798,
+          "embed_rank": 3
+        },
+        {
+          "source": "schema.org",
+          "label": "tocContinuation",
+          "signature": "HyperTocEntry → HyperTocEntry",
+          "parent": null,
+          "inverse_of": null,
+          "score": -1.9763,
+          "matched_anchor": null,
+          "comment": "A table of contents continuation relation between a HyperToc entry and the next default HyperToc entry to play or render. Also called next entry, subsequent entry, continued by. Examples: \"Chapter 1 tocContinuation 'Chapter 2'\", \"Segment A tocContinuation 'Segment B'\", \"HyperTocEntry 'Intro' tocContinuation 'Main Content'\".",
+          "embed_score": 0.776,
+          "embed_rank": 6
+        },
+        {
+          "source": "schema.org",
+          "label": "afterMedia",
+          "signature": "HowToDirection → MediaObject/URL",
+          "parent": null,
+          "inverse_of": null,
+          "score": -2.0108,
+          "matched_anchor": null,
+          "comment": "An after media relation between a how-to direction and a media object or URL depicting the state or circumstances after completing that step. Also called post-step media, result image, outcome visual. Examples: \"A recipe direction's after media is an image of the mixed ingredients.\", \"The assembly instruction's after media is a video of the connected parts.\"",
+          "embed_score": 0.761,
+          "embed_rank": 29
+        },
+        {
+          "source": "schema.org",
+          "label": "honorificSuffix",
+          "signature": "Person → Text",
+          "parent": null,
+          "inverse_of": null,
+          "score": -4.815,
+          "matched_anchor": null,
+          "comment": "An honorific suffix relation between a person and a title following their name. Also called post-nominal title, suffix title, academic suffix. Examples: \"A person has an honorific suffix 'PhD'.\", \"His honorific suffix is 'M.D.'.\", \"The individual uses the honorific suffix 'Jr.'.\"",
+          "embed_score": 0.758,
+          "embed_rank": 39
+        },
+        {
+          "source": "schema.org",
+          "label": "exerciseRelatedDiet",
+          "signature": "ExerciseAction → Diet",
+          "parent": "instrument",
+          "inverse_of": null,
+          "score": -4.9035,
+          "matched_anchor": null,
+          "comment": "An exercise-related diet relation between an exercise action and the diet followed in conjunction with that action. Also called: workout diet, fitness diet, training nutrition. Examples: \"Marathon Training\" exercise related diet \"High-Carb Diet\", \"Bodybuilding Workout\" exercise related diet \"High-Protein Diet\", \"Weight Loss Program\" exercise related diet \"Calorie-Restricted Diet\".",
+          "embed_score": 0.758,
+          "embed_rank": 41
+        },
+        {
+          "source": "schema.org",
+          "label": "predecessorOf",
+          "signature": "ProductModel → ProductModel",
+          "parent": null,
+          "inverse_of": null,
+          "score": -4.9742,
+          "matched_anchor": null,
+          "comment": "A lineage relation between a product model and its newer, often superseding, variant. Also called replaced by, succeeded by, updated to, newer version is. Examples: iPhone 10 is a predecessor of iPhone 11. Model A is a predecessor of Model B. The old software version is a predecessor of the new one. Distinct from successorOf, which points from a newer variant to an older one.",
+          "embed_score": 0.775,
+          "embed_rank": 8
+        }
+      ]
+    },
+    {
+      "relation_phrase": "occurred_on",
+      "definition": null,
+      "embedding_query_text": "occurred_on:",
+      "observed_signatures": [
+        "DayOfWeek → PublicStatement"
+      ],
+      "n_assignments": 1,
+      "assignments": [
+        {
+          "instances": [
+            "Wednesday -> Iger and Kushner on Lakers stewardship"
+          ],
+          "chosen_property": {
+            "label": "byDay",
+            "source": "schema.org",
+            "direction": "as_is",
+            "vocab_id": null,
+            "is_new_to_vocab": false,
+            "definition": null,
+            "parent": null,
+            "domain": null,
+            "range": null,
+            "path": "",
+            "justification": "The 'byDay' property (domain: Schedule → DayOfWeek/Text) fits the DayOfWeek → PublicStatement signature as a temporal specification."
+          },
+          "llm_proposed": {
+            "source": "schema.org",
+            "label": "byDay",
+            "is_new": false,
+            "direction": "as_is"
+          }
+        }
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "timestamp",
+          "signature": "InstantaneousEvent → DateTime",
+          "parent": null,
+          "inverse_of": null,
+          "score": -1.9735,
+          "matched_anchor": null,
+          "comment": "A timestamp relation between an instantaneous event and the specific date and time it occurred. Also called event time, occurrence time, moment of event. Examples: \"Concert timestamp 2023-10-27T20:00:00\", \"Login timestamp 2023-11-01T09:30:15Z\", \"Photo timestamp 2023-05-15T14:22:00\".",
+          "embed_score": 0.77,
+          "embed_rank": 28
+        },
+        {
+          "source": "schema.org",
+          "label": "appearance",
+          "signature": "Claim → CreativeWork",
+          "parent": "workExample",
+          "inverse_of": null,
+          "score": -2.9361,
+          "matched_anchor": null,
+          "comment": "An appearance relation between a claim and a creative work where that claim is found or occurs. Also called occurrence in, mentioned in, found in. Examples: \"A claim's appearance is in 'News Article X'.\", \"The factual claim's appearance is in 'Research Paper Y'.\"",
+          "embed_score": 0.765,
+          "embed_rank": 50
+        },
+        {
+          "source": "schema.org",
+          "label": "byDay",
+          "signature": "Schedule → DayOfWeek/Text",
+          "parent": null,
+          "inverse_of": null,
+          "score": -3.2196,
+          "matched_anchor": null,
+          "comment": "A temporal specification for a schedule, indicating the day(s) of the week on which a recurring event occurs. Also called \"days of week\", \"weekly recurrence\", \"on day\". Examples: \"Weekly meeting schedule byDay Monday\", \"Class schedule byDay 'MO,WE,FR'\".",
+          "embed_score": 0.767,
+          "embed_rank": 38
+        },
+        {
+          "source": "schema.org",
+          "label": "byMonthDay",
+          "signature": "Schedule → Integer",
+          "parent": null,
+          "inverse_of": null,
+          "score": -3.2701,
+          "matched_anchor": null,
+          "comment": "A temporal specification for a schedule, indicating the day(s) of the month on which a recurring event occurs. Also called \"day of month\", \"monthly day recurrence\", \"on day of month\". Examples: \"Rent payment schedule byMonthDay 1\", \"Board meeting schedule byMonthDay 15\".",
+          "embed_score": 0.772,
+          "embed_rank": 23
+        },
+        {
+          "source": "schema.org",
+          "label": "firstAppearance",
+          "signature": "Claim → CreativeWork",
+          "parent": "workExample",
+          "inverse_of": null,
+          "score": -4.8916,
+          "matched_anchor": null,
+          "comment": "A first appearance relation between a claim and the creative work where it was initially known to occur. Also called: initial publication, original mention, debut in. Examples: \"Claim: Earth is flat\" first appearance \"Ancient Greek Texts\", \"Claim: COVID-19 is a hoax\" first appearance \"Social Media Post\", \"Claim: New drug cures cancer\" first appearance \"Unverified Online Article\".",
+          "embed_score": 0.775,
+          "embed_rank": 16
+        },
+        {
+          "source": "schema.org",
+          "label": "sportsEvent",
+          "signature": "ExerciseAction → SportsEvent",
+          "parent": "location",
+          "inverse_of": null,
+          "score": -5.4456,
+          "matched_anchor": null,
+          "comment": "A specific event relation between an exercise action and the sports event during which it occurred. Also called \"event of exercise\", \"competition event\", \"athletic event\". Examples: \"The sprint occurred during the sportsEvent Olympics\", \"The goal was scored in the sportsEvent World Cup match\", \"This action took place at a sportsEvent marathon.\". Distinct from event, which is a more general event property.",
+          "embed_score": 0.786,
+          "embed_rank": 3
+        },
+        {
+          "source": "schema.org",
+          "label": "eventAttendanceMode",
+          "signature": "Event → EventAttendanceModeEnumeration",
+          "parent": null,
+          "inverse_of": null,
+          "score": -5.6706,
+          "matched_anchor": null,
+          "comment": "An event attendance mode relation between an event and the enumeration indicating whether it occurs online, offline, or a mix. Also called \"attendance format\", \"event delivery mode\", \"participation mode\". Examples: \"Event 'Conference' eventAttendanceMode 'OnlineEventAttendanceMode'\", \"Event 'Workshop' eventAttendanceMode 'OfflineEventAttendanceMode'\", \"Event 'Hybrid Meeting' eventAttendanceMode 'MixedEventAttendanceMode'\".",
+          "embed_score": 0.776,
+          "embed_rank": 14
+        },
+        {
+          "source": "schema.org",
+          "label": "source",
+          "signature": "InstantaneousEvent → Thing",
+          "parent": null,
+          "inverse_of": null,
+          "score": -5.8789,
+          "matched_anchor": null,
+          "comment": "A causal relation between an instantaneous event and the thing that initiated or caused it. Also called \"originates from\", \"caused by\", \"event trigger\", \"event origin\". Examples: \"The explosion's source was a gas leak\", \"The alarm's source was a smoke detector\", \"The data breach's source was a phishing attack.\"",
+          "embed_score": 0.796,
+          "embed_rank": 1
+        },
+        {
+          "source": "schema.org",
+          "label": "dateReceived",
+          "signature": "Message → DateTime",
+          "parent": null,
+          "inverse_of": null,
+          "score": -6.0404,
+          "matched_anchor": null,
+          "comment": "A temporal arrival relation between a message and the date/time it was received by the recipient. Also called: reception date, message arrival time, delivery time. Examples: \"Email\" date received \"2023-10-26T10:25:00Z\", \"Package Notification\" date received \"2023-10-26T11:00:00Z\". Distinct from dateSent, which is when the message was dispatched.",
+          "embed_score": 0.766,
+          "embed_rank": 45
+        },
+        {
+          "source": "schema.org",
+          "label": "purchaseDate",
+          "signature": "Product/Vehicle → Date",
+          "parent": null,
+          "inverse_of": null,
+          "score": -6.1422,
+          "matched_anchor": null,
+          "comment": "A purchase date relation between a product or vehicle and the date it was acquired by its current owner. Also called acquired on, bought on, ownership date. Examples: \"A car has a purchase date of 2020-05-10.\", \"A smartphone has a purchase date of 2023-01-15.\", \"A house has a purchase date of 2018-07-22.\". Distinct from productionDate, which is the date the item was manufactured.",
+          "embed_score": 0.771,
+          "embed_rank": 24
+        }
+      ]
+    },
+    {
+      "relation_phrase": "occurred_in",
+      "definition": null,
+      "embedding_query_text": "occurred_in:",
+      "observed_signatures": [
+        "Season → SaleEvent",
+        "Season → LegalInvestigation"
+      ],
+      "n_assignments": 1,
+      "assignments": [
+        {
+          "instances": [
+            "late last month -> Guggenheim Investments federal investigation",
+            "just over a year ago -> Mark Walter’s majority ownership of Lakers",
+            "last October -> Mark Walter’s majority ownership of Lakers"
+          ],
+          "chosen_property": {
+            "label": "contentReferenceTime",
+            "source": "schema.org",
+            "direction": "as_is",
+            "vocab_id": null,
+            "is_new_to_vocab": false,
+            "definition": null,
+            "parent": null,
+            "domain": null,
+            "range": null,
+            "path": "",
+            "justification": "The 'contentReferenceTime' property (domain: CreativeWork → DateTime) aligns with Season → Event/Investigation as a temporal reference."
+          },
+          "llm_proposed": {
+            "source": "schema.org",
+            "label": "contentReferenceTime",
+            "is_new": false,
+            "direction": "as_is"
+          }
+        }
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "appearance",
+          "signature": "Claim → CreativeWork",
+          "parent": "workExample",
+          "inverse_of": null,
+          "score": 1.8892,
+          "matched_anchor": null,
+          "comment": "An appearance relation between a claim and a creative work where that claim is found or occurs. Also called occurrence in, mentioned in, found in. Examples: \"A claim's appearance is in 'News Article X'.\", \"The factual claim's appearance is in 'Research Paper Y'.\"",
+          "embed_score": 0.781,
+          "embed_rank": 11
+        },
+        {
+          "source": "schema.org",
+          "label": "timestamp",
+          "signature": "InstantaneousEvent → DateTime",
+          "parent": null,
+          "inverse_of": null,
+          "score": -1.5875,
+          "matched_anchor": null,
+          "comment": "A timestamp relation between an instantaneous event and the specific date and time it occurred. Also called event time, occurrence time, moment of event. Examples: \"Concert timestamp 2023-10-27T20:00:00\", \"Login timestamp 2023-11-01T09:30:15Z\", \"Photo timestamp 2023-05-15T14:22:00\".",
+          "embed_score": 0.772,
+          "embed_rank": 32
+        },
+        {
+          "source": "schema.org",
+          "label": "firstAppearance",
+          "signature": "Claim → CreativeWork",
+          "parent": "workExample",
+          "inverse_of": null,
+          "score": -2.7135,
+          "matched_anchor": null,
+          "comment": "A first appearance relation between a claim and the creative work where it was initially known to occur. Also called: initial publication, original mention, debut in. Examples: \"Claim: Earth is flat\" first appearance \"Ancient Greek Texts\", \"Claim: COVID-19 is a hoax\" first appearance \"Social Media Post\", \"Claim: New drug cures cancer\" first appearance \"Unverified Online Article\".",
+          "embed_score": 0.782,
+          "embed_rank": 9
+        },
+        {
+          "source": "schema.org",
+          "label": "sportsEvent",
+          "signature": "ExerciseAction → SportsEvent",
+          "parent": "location",
+          "inverse_of": null,
+          "score": -3.8302,
+          "matched_anchor": null,
+          "comment": "A specific event relation between an exercise action and the sports event during which it occurred. Also called \"event of exercise\", \"competition event\", \"athletic event\". Examples: \"The sprint occurred during the sportsEvent Olympics\", \"The goal was scored in the sportsEvent World Cup match\", \"This action took place at a sportsEvent marathon.\". Distinct from event, which is a more general event property.",
+          "embed_score": 0.787,
+          "embed_rank": 7
+        },
+        {
+          "source": "schema.org",
+          "label": "source",
+          "signature": "InstantaneousEvent → Thing",
+          "parent": null,
+          "inverse_of": null,
+          "score": -4.4069,
+          "matched_anchor": null,
+          "comment": "A causal relation between an instantaneous event and the thing that initiated or caused it. Also called \"originates from\", \"caused by\", \"event trigger\", \"event origin\". Examples: \"The explosion's source was a gas leak\", \"The alarm's source was a smoke detector\", \"The data breach's source was a phishing attack.\"",
+          "embed_score": 0.799,
+          "embed_rank": 1
+        },
+        {
+          "source": "schema.org",
+          "label": "byMonthDay",
+          "signature": "Schedule → Integer",
+          "parent": null,
+          "inverse_of": null,
+          "score": -5.1922,
+          "matched_anchor": null,
+          "comment": "A temporal specification for a schedule, indicating the day(s) of the month on which a recurring event occurs. Also called \"day of month\", \"monthly day recurrence\", \"on day of month\". Examples: \"Rent payment schedule byMonthDay 1\", \"Board meeting schedule byMonthDay 15\".",
+          "embed_score": 0.768,
+          "embed_rank": 47
+        },
+        {
+          "source": "schema.org",
+          "label": "eventAttendanceMode",
+          "signature": "Event → EventAttendanceModeEnumeration",
+          "parent": null,
+          "inverse_of": null,
+          "score": -5.4541,
+          "matched_anchor": null,
+          "comment": "An event attendance mode relation between an event and the enumeration indicating whether it occurs online, offline, or a mix. Also called \"attendance format\", \"event delivery mode\", \"participation mode\". Examples: \"Event 'Conference' eventAttendanceMode 'OnlineEventAttendanceMode'\", \"Event 'Workshop' eventAttendanceMode 'OfflineEventAttendanceMode'\", \"Event 'Hybrid Meeting' eventAttendanceMode 'MixedEventAttendanceMode'\".",
+          "embed_score": 0.777,
+          "embed_rank": 18
+        },
+        {
+          "source": "schema.org",
+          "label": "foodEstablishment",
+          "signature": "CookAction → FoodEstablishment/Place",
+          "parent": "location",
+          "inverse_of": null,
+          "score": -6.2611,
+          "matched_anchor": null,
+          "comment": "A food establishment relation between a cook action and the specific place or food establishment where the cooking occurred. Also called: cooking location, restaurant, kitchen. Examples: \"Chef prepares meal\" food establishment \"Gourmet Restaurant\", \"Home Cook makes dinner\" food establishment \"My Kitchen\", \"Baker bakes bread\" food establishment \"Local Bakery\". Distinct from foodEvent, which is a specific event.",
+          "embed_score": 0.78,
+          "embed_rank": 13
+        },
+        {
+          "source": "schema.org",
+          "label": "recordedIn",
+          "signature": "Event → CreativeWork",
+          "parent": null,
+          "inverse_of": "recordedAt",
+          "score": -7.2565,
+          "matched_anchor": null,
+          "comment": "A recording capture relation between an event and the creative work that captured all or part of it. Also called captured by, documented in, featured in. Examples: \"A concert event was recorded in 'a live album'.\", \"A historical event was recorded in 'a documentary film'.\", \"A speech event was recorded in 'a news broadcast'.\". Distinct from recordedAt, which is the inverse relation.",
+          "embed_score": 0.787,
+          "embed_rank": 5
+        },
+        {
+          "source": "schema.org",
+          "label": "contentReferenceTime",
+          "signature": "CreativeWork → DateTime",
+          "parent": null,
+          "inverse_of": null,
+          "score": -7.4477,
+          "matched_anchor": null,
+          "comment": "A temporal reference relation for a creative work, indicating the specific date and time described or emphasized within its content. Also called \"event time\", \"depicted time\", \"time of content\". Examples: \"News article contentReferenceTime '2023-10-26T14:00:00Z'\", \"Historical documentary contentReferenceTime '1945-09-02'\".",
+          "embed_score": 0.773,
+          "embed_rank": 30
+        }
+      ]
+    },
+    {
+      "relation_phrase": "owns",
+      "definition": null,
+      "embedding_query_text": "owns:",
+      "observed_signatures": [
+        "Organization → SportsTeam"
+      ],
+      "n_assignments": 1,
+      "assignments": [
+        {
+          "instances": [
+            "Guggenheim Investments -> Los Angeles Dodgers"
+          ],
+          "chosen_property": {
+            "label": "owns",
+            "source": "schema.org",
+            "direction": "as_is",
+            "vocab_id": null,
+            "is_new_to_vocab": false,
+            "definition": null,
+            "parent": null,
+            "domain": null,
+            "range": null,
+            "path": "",
+            "justification": "The 'owns' property (domain: Organization/Person → Thing) fits Organization → SportsTeam directly."
+          },
+          "llm_proposed": {
+            "source": "schema.org",
+            "label": "owns",
+            "is_new": false,
+            "direction": "as_is"
+          }
+        }
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "owns",
+          "signature": "Organization/Person → Thing",
+          "parent": null,
+          "inverse_of": "owner",
+          "score": 8.7032,
+          "matched_anchor": null,
+          "comment": "A thing that is owned by an organization or person. Also called possesses, holds title to, has ownership of. Examples: \"John Doe owns 'a car'\", \"Acme Corp owns 'a patent'\", \"Sarah owns 'her house'\". Distinct from memberOf, which describes membership in a group.",
+          "embed_score": 0.907,
+          "embed_rank": 1
+        },
+        {
+          "source": "schema.org",
+          "label": "owner",
+          "signature": "Thing → Organization/Person",
+          "parent": null,
+          "inverse_of": "owns",
+          "score": 7.307,
+          "matched_anchor": null,
+          "comment": "A person or organization that owns a thing. Also called proprietor, possessor, title holder. Examples: \"Car owner 'John Doe'\", \"Company owner 'Acme Corp'\", \"House owner 'Smith Family Trust'\". Distinct from creator, who made the thing.",
+          "embed_score": 0.866,
+          "embed_rank": 2
+        },
+        {
+          "source": "schema.org",
+          "label": "ownedFrom",
+          "signature": "OwnershipInfo → DateTime",
+          "parent": null,
+          "inverse_of": null,
+          "score": 4.3696,
+          "matched_anchor": null,
+          "comment": "The date and time when ownership of a product was obtained. Also called acquisition date, purchase date, date acquired. Examples: \"Car OwnershipInfo ownedFrom '2020-01-15'\", \"House OwnershipInfo ownedFrom '2018-06-01T10:00:00'\", \"Book OwnershipInfo ownedFrom '2023-03-10'\". Distinct from ownedThrough, which is the date ownership ended.",
+          "embed_score": 0.839,
+          "embed_rank": 3
+        },
+        {
+          "source": "schema.org",
+          "label": "copyrightHolder",
+          "signature": "CreativeWork → Organization/Person",
+          "parent": null,
+          "inverse_of": null,
+          "score": 2.9991,
+          "matched_anchor": null,
+          "comment": "A legal ownership relation between a creative work and the person or organization holding its copyright. Also called: copyright owner, rights holder, legally owned by. Examples: \"The Mona Lisa\" copyright holder \"The Louvre Museum\", \"Harry Potter and the Sorcerer's Stone\" copyright holder \"J.K. Rowling\", \"Microsoft Windows\" copyright holder \"Microsoft Corporation\".",
+          "embed_score": 0.799,
+          "embed_rank": 7
+        },
+        {
+          "source": "schema.org",
+          "label": "ownedThrough",
+          "signature": "OwnershipInfo → DateTime",
+          "parent": null,
+          "inverse_of": null,
+          "score": 2.6156,
+          "matched_anchor": null,
+          "comment": "The date and time when ownership of a product was relinquished. Also called disposal date, date sold, ownership end date. Examples: \"Car OwnershipInfo ownedThrough '2023-05-20'\", \"House OwnershipInfo ownedThrough '2022-11-30T16:00:00'\", \"Book OwnershipInfo ownedThrough '2024-01-01'\". Distinct from ownedFrom, which is the date ownership began.",
+          "embed_score": 0.825,
+          "embed_rank": 4
+        },
+        {
+          "source": "schema.org",
+          "label": "landlord",
+          "signature": "RentAction → Organization/Person",
+          "parent": "participant",
+          "inverse_of": null,
+          "score": 1.3832,
+          "matched_anchor": null,
+          "comment": "A property ownership relation between a rent action and the person or organization that owns and leases the real estate. Also called property owner, lessor, rental owner, proprietor. Examples: A rent action has a landlord of 'John Doe'. A rent action has a landlord of 'Property Management Inc.'. A lease agreement lists 'Sarah Smith' as the landlord. Distinct from agent, which is the general actor of an action.",
+          "embed_score": 0.799,
+          "embed_rank": 8
+        },
+        {
+          "source": "schema.org",
+          "label": "numberOfPreviousOwners",
+          "signature": "Vehicle → Number/QuantitativeValue",
+          "parent": null,
+          "inverse_of": null,
+          "score": 1.3302,
+          "matched_anchor": null,
+          "comment": "The total number of previous owners of a vehicle, including the current owner. Also called prior owners, owner history count, past owners. Examples: \"Used Car A numberOfPreviousOwners 1\", \"Vintage Vehicle B numberOfPreviousOwners 3\", \"New Car C numberOfPreviousOwners 0\".",
+          "embed_score": 0.8,
+          "embed_rank": 6
+        },
+        {
+          "source": "schema.org",
+          "label": "ownershipFundingInfo",
+          "signature": "NewsMediaOrganization/Organization → AboutPage/CreativeWork/Text/URL",
+          "parent": "publishingPrinciples",
+          "inverse_of": null,
+          "score": 0.463,
+          "matched_anchor": null,
+          "comment": "Information describing the ownership structure, funding, and grants of an organization, particularly concerning editorial independence for news media. Also called funding transparency, ownership structure, financial backing details. Examples: \"News Org A ownershipFundingInfo 'https://news.example.com/about/funding'\", \"Company B ownershipFundingInfo 'Privately held by XYZ Group.'\", \"Nonprofit C ownershipFundingInfo 'Funded by grants from various foundations.'\". Distinct from funder, which specifically identifies the entity providing funds.",
+          "embed_score": 0.78,
+          "embed_rank": 14
+        },
+        {
+          "source": "schema.org",
+          "label": "purchaseDate",
+          "signature": "Product/Vehicle → Date",
+          "parent": null,
+          "inverse_of": null,
+          "score": -0.1816,
+          "matched_anchor": null,
+          "comment": "A purchase date relation between a product or vehicle and the date it was acquired by its current owner. Also called acquired on, bought on, ownership date. Examples: \"A car has a purchase date of 2020-05-10.\", \"A smartphone has a purchase date of 2023-01-15.\", \"A house has a purchase date of 2018-07-22.\". Distinct from productionDate, which is the date the item was manufactured.",
+          "embed_score": 0.807,
+          "embed_rank": 5
+        },
+        {
+          "source": "schema.org",
+          "label": "acquiredFrom",
+          "signature": "OwnershipInfo → Organization/Person",
+          "parent": null,
+          "inverse_of": null,
+          "score": -0.2424,
+          "matched_anchor": null,
+          "comment": "An acquired from relation between ownership information and the organization or person from whom a product was obtained. Also called purchased from, obtained from, source of acquisition. Examples: \"The car's ownership info indicates it was acquired from 'Dealership X'.\", \"The book's ownership info shows it was acquired from 'John Doe'.\"",
+          "embed_score": 0.794,
+          "embed_rank": 10
+        }
+      ]
+    },
+    {
+      "relation_phrase": "has_controlling_owner",
+      "definition": null,
+      "embedding_query_text": "has_controlling_owner:",
+      "observed_signatures": [
+        "SaleEvent → Person"
+      ],
+      "n_assignments": 1,
+      "assignments": [
+        {
+          "instances": [
+            "Los Angeles Lakers sale to Iger and Kushner -> Josh Kushner"
+          ],
+          "chosen_property": {
+            "label": "owner",
+            "source": "schema.org",
+            "direction": "as_is",
+            "vocab_id": null,
+            "is_new_to_vocab": false,
+            "definition": null,
+            "parent": null,
+            "domain": null,
+            "range": null,
+            "path": "",
+            "justification": "The 'owner' property (domain: Thing → Organization/Person) aligns with SaleEvent → Person as the controlling owner."
+          },
+          "llm_proposed": {
+            "source": "schema.org",
+            "label": "owner",
+            "is_new": false,
+            "direction": "as_is"
+          }
+        }
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "owns",
+          "signature": "Organization/Person → Thing",
+          "parent": null,
+          "inverse_of": "owner",
+          "score": -1.2722,
+          "matched_anchor": null,
+          "comment": "A thing that is owned by an organization or person. Also called possesses, holds title to, has ownership of. Examples: \"John Doe owns 'a car'\", \"Acme Corp owns 'a patent'\", \"Sarah owns 'her house'\". Distinct from memberOf, which describes membership in a group.",
+          "embed_score": 0.866,
+          "embed_rank": 2
+        },
+        {
+          "source": "schema.org",
+          "label": "owner",
+          "signature": "Thing → Organization/Person",
+          "parent": null,
+          "inverse_of": "owns",
+          "score": -2.0927,
+          "matched_anchor": null,
+          "comment": "A person or organization that owns a thing. Also called proprietor, possessor, title holder. Examples: \"Car owner 'John Doe'\", \"Company owner 'Acme Corp'\", \"House owner 'Smith Family Trust'\". Distinct from creator, who made the thing.",
+          "embed_score": 0.873,
+          "embed_rank": 1
+        },
+        {
+          "source": "schema.org",
+          "label": "landlord",
+          "signature": "RentAction → Organization/Person",
+          "parent": "participant",
+          "inverse_of": null,
+          "score": -4.4925,
+          "matched_anchor": null,
+          "comment": "A property ownership relation between a rent action and the person or organization that owns and leases the real estate. Also called property owner, lessor, rental owner, proprietor. Examples: A rent action has a landlord of 'John Doe'. A rent action has a landlord of 'Property Management Inc.'. A lease agreement lists 'Sarah Smith' as the landlord. Distinct from agent, which is the general actor of an action.",
+          "embed_score": 0.819,
+          "embed_rank": 4
+        },
+        {
+          "source": "schema.org",
+          "label": "copyrightHolder",
+          "signature": "CreativeWork → Organization/Person",
+          "parent": null,
+          "inverse_of": null,
+          "score": -4.8168,
+          "matched_anchor": null,
+          "comment": "A legal ownership relation between a creative work and the person or organization holding its copyright. Also called: copyright owner, rights holder, legally owned by. Examples: \"The Mona Lisa\" copyright holder \"The Louvre Museum\", \"Harry Potter and the Sorcerer's Stone\" copyright holder \"J.K. Rowling\", \"Microsoft Windows\" copyright holder \"Microsoft Corporation\".",
+          "embed_score": 0.819,
+          "embed_rank": 5
+        },
+        {
+          "source": "schema.org",
+          "label": "ownedFrom",
+          "signature": "OwnershipInfo → DateTime",
+          "parent": null,
+          "inverse_of": null,
+          "score": -7.9521,
+          "matched_anchor": null,
+          "comment": "The date and time when ownership of a product was obtained. Also called acquisition date, purchase date, date acquired. Examples: \"Car OwnershipInfo ownedFrom '2020-01-15'\", \"House OwnershipInfo ownedFrom '2018-06-01T10:00:00'\", \"Book OwnershipInfo ownedFrom '2023-03-10'\". Distinct from ownedThrough, which is the date ownership ended.",
+          "embed_score": 0.811,
+          "embed_rank": 6
+        },
+        {
+          "source": "schema.org",
+          "label": "numberOfPreviousOwners",
+          "signature": "Vehicle → Number/QuantitativeValue",
+          "parent": null,
+          "inverse_of": null,
+          "score": -7.9927,
+          "matched_anchor": null,
+          "comment": "The total number of previous owners of a vehicle, including the current owner. Also called prior owners, owner history count, past owners. Examples: \"Used Car A numberOfPreviousOwners 1\", \"Vintage Vehicle B numberOfPreviousOwners 3\", \"New Car C numberOfPreviousOwners 0\".",
+          "embed_score": 0.81,
+          "embed_rank": 7
+        },
+        {
+          "source": "schema.org",
+          "label": "broadcaster",
+          "signature": "BroadcastService → Organization",
+          "parent": null,
+          "inverse_of": null,
+          "score": -8.1733,
+          "matched_anchor": null,
+          "comment": "An ownership or operational relation between a broadcast service and the organization responsible for it. Also called \"service provider\", \"operated by\", \"owned by\", \"broadcast by\". Examples: \"BBC Radio 4 broadcaster BBC\", \"CNN broadcast service broadcaster Warner Bros. Discovery\".",
+          "embed_score": 0.807,
+          "embed_rank": 8
+        },
+        {
+          "source": "schema.org",
+          "label": "hasPOS",
+          "signature": "Organization/Person → Place",
+          "parent": null,
+          "inverse_of": null,
+          "score": -8.3634,
+          "matched_anchor": null,
+          "comment": "A point-of-sale relation between an organization or person and a place where they operate a point of sale. Also called operates POS, sales location, retail point. Examples: \"An organization has a POS in New York.\", \"The vendor has a POS at the market.\", \"This company operates multiple POS locations.\"",
+          "embed_score": 0.795,
+          "embed_rank": 12
+        },
+        {
+          "source": "schema.org",
+          "label": "ownedThrough",
+          "signature": "OwnershipInfo → DateTime",
+          "parent": null,
+          "inverse_of": null,
+          "score": -8.4371,
+          "matched_anchor": null,
+          "comment": "The date and time when ownership of a product was relinquished. Also called disposal date, date sold, ownership end date. Examples: \"Car OwnershipInfo ownedThrough '2023-05-20'\", \"House OwnershipInfo ownedThrough '2022-11-30T16:00:00'\", \"Book OwnershipInfo ownedThrough '2024-01-01'\". Distinct from ownedFrom, which is the date ownership began.",
+          "embed_score": 0.821,
+          "embed_rank": 3
+        },
+        {
+          "source": "schema.org",
+          "label": "purchaseDate",
+          "signature": "Product/Vehicle → Date",
+          "parent": null,
+          "inverse_of": null,
+          "score": -8.6044,
+          "matched_anchor": null,
+          "comment": "A purchase date relation between a product or vehicle and the date it was acquired by its current owner. Also called acquired on, bought on, ownership date. Examples: \"A car has a purchase date of 2020-05-10.\", \"A smartphone has a purchase date of 2023-01-15.\", \"A house has a purchase date of 2018-07-22.\". Distinct from productionDate, which is the date the item was manufactured.",
+          "embed_score": 0.804,
+          "embed_rank": 9
+        }
+      ]
+    },
+    {
+      "relation_phrase": "has_leadership_role",
+      "definition": null,
+      "embedding_query_text": "has_leadership_role:",
+      "observed_signatures": [
+        "SaleEvent → Person"
+      ],
+      "n_assignments": 1,
+      "assignments": [
+        {
+          "instances": [
+            "Los Angeles Lakers sale to Iger and Kushner -> Bob Iger"
+          ],
+          "chosen_property": {
+            "label": "jobTitle",
+            "source": "schema.org",
+            "direction": "as_is",
+            "vocab_id": null,
+            "is_new_to_vocab": false,
+            "definition": null,
+            "parent": null,
+            "domain": null,
+            "range": null,
+            "path": "",
+            "justification": "The 'jobTitle' property (domain: Person → DefinedTerm/Text) fits the leadership role of a person in a sale event."
+          },
+          "llm_proposed": {
+            "source": "schema.org",
+            "label": "jobTitle",
+            "is_new": false,
+            "direction": "as_is"
+          }
+        }
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "coach",
+          "signature": "SportsTeam → Person",
+          "parent": null,
+          "inverse_of": null,
+          "score": -4.0518,
+          "matched_anchor": null,
+          "comment": "A leadership relation between a sports team and the person who acts as its coach. Also called \"team coach\", \"trainer\", \"manager\". Examples: \"Basketball team coach John Smith\", \"Soccer team coach Jane Doe\".",
+          "embed_score": 0.807,
+          "embed_rank": 1
+        },
+        {
+          "source": "schema.org",
+          "label": "jobTitle",
+          "signature": "Person → DefinedTerm/Text",
+          "parent": null,
+          "inverse_of": null,
+          "score": -5.3487,
+          "matched_anchor": null,
+          "comment": "An occupational role relation between a person and their formal designation within an organization. Also called position, role, occupation, professional title. Examples: A person has a jobTitle of 'Software Engineer'. A person has a jobTitle of 'Chief Executive Officer'. A person has a jobTitle of 'Marketing Manager'.",
+          "embed_score": 0.789,
+          "embed_rank": 3
+        },
+        {
+          "source": "schema.org",
+          "label": "roleName",
+          "signature": "Role → Text/URL",
+          "parent": null,
+          "inverse_of": null,
+          "score": -5.9126,
+          "matched_anchor": null,
+          "comment": "The specific designation or title of a role performed by a person or organization. Also called role title, position name, function name. Examples: `Person in Movie` roleName `\"Actor\"`, `Team Member` roleName `\"Quarterback\"`, `Project Contributor` roleName `\"Lead Developer\"`.",
+          "embed_score": 0.804,
+          "embed_rank": 2
+        },
+        {
+          "source": "schema.org",
+          "label": "instructor",
+          "signature": "CourseInstance → Person",
+          "parent": null,
+          "inverse_of": null,
+          "score": -6.6081,
+          "matched_anchor": null,
+          "comment": "An instructional role relation between a course instance and the person who teaches or assists in teaching it. Also called teacher, lecturer, tutor, educator, faculty. Examples: A calculus course instance has 'Dr. Smith' as its instructor. A yoga class has 'Jane Doe' as its instructor. A coding bootcamp lists 'John Johnson' as an instructor.",
+          "embed_score": 0.766,
+          "embed_rank": 23
+        },
+        {
+          "source": "schema.org",
+          "label": "namedPosition",
+          "signature": "Role → Text/URL",
+          "parent": null,
+          "inverse_of": null,
+          "score": -6.6394,
+          "matched_anchor": null,
+          "comment": "A specific named position or role played by a person or organization within a larger organization. Also called role name, position title, job title. Examples: \"Athlete Role namedPosition 'Quarterback'\", \"Employee Role namedPosition 'Senior Software Engineer'\", \"Board Member Role namedPosition 'Treasurer'\". Distinct from roleName, which is a more general description of a role.",
+          "embed_score": 0.788,
+          "embed_rank": 4
+        },
+        {
+          "source": "schema.org",
+          "label": "directors",
+          "signature": "Clip/Episode/Movie/MovieSeries/RadioSeries/TVSeries/VideoGame/VideoGameSeries/VideoObject → Person",
+          "parent": null,
+          "inverse_of": null,
+          "score": -6.6684,
+          "matched_anchor": null,
+          "comment": "A creative leadership relation between a clip, episode, movie, or video game and the persons who directed it. Also called: directed by, filmmakers, showrunners. Examples: \"Movie\" directors \"Joel Coen, Ethan Coen\", \"TV Episode\" directors \"Various Directors\", \"Video Game\" directors \"Hideo Kojima, Yoji Shinkawa\". Distinct from director, which is a singular property for a single director.",
+          "embed_score": 0.773,
+          "embed_rank": 12
+        },
+        {
+          "source": "schema.org",
+          "label": "director",
+          "signature": "Clip/CreativeWorkSeason/Episode/Event/Movie/MovieSeries/RadioSeries/TVSeries/VideoGame/VideoGameSeries/VideoObject → Person",
+          "parent": null,
+          "inverse_of": null,
+          "score": -6.8383,
+          "matched_anchor": null,
+          "comment": "A creative leadership relation between a clip, creative work season, episode, event, movie, or video game and a person who directed it. Also called: directed by, filmmaker, showrunner. Examples: \"Movie\" director \"Steven Spielberg\", \"TV Episode\" director \"Ava DuVernay\", \"Video Game\" director \"Hideo Kojima\". Distinct from directors, which is a plural property for multiple directors.",
+          "embed_score": 0.764,
+          "embed_rank": 27
+        },
+        {
+          "source": "schema.org",
+          "label": "hasMemberProgram",
+          "signature": "Organization → MemberProgram",
+          "parent": null,
+          "inverse_of": null,
+          "score": -7.1702,
+          "matched_anchor": null,
+          "comment": "A member program relation between an organization and a member program it offers. Also called offers program, loyalty program, membership program. Examples: \"An airline has a member program for frequent flyers.\", \"An eCommerce merchant has a member program for discounts.\", \"The organization offers a member program.\"",
+          "embed_score": 0.76,
+          "embed_rank": 41
+        },
+        {
+          "source": "schema.org",
+          "label": "performer",
+          "signature": "Event → Organization/Person",
+          "parent": null,
+          "inverse_of": null,
+          "score": -7.3079,
+          "matched_anchor": null,
+          "comment": "A participation role relation between an event and an organization or person who performs at it. Also called artist, entertainer, presenter, actor. Examples: A concert has a performer 'Taylor Swift'. A play has a performer 'Meryl Streep'. A conference has a performer 'Dr. Jane Doe'. Distinct from performerIn, which points from a person to an event.",
+          "embed_score": 0.77,
+          "embed_rank": 15
+        },
+        {
+          "source": "schema.org",
+          "label": "producer",
+          "signature": "CreativeWork → Organization/Person",
+          "parent": null,
+          "inverse_of": null,
+          "score": -7.485,
+          "matched_anchor": null,
+          "comment": "A creative role relation between a creative work and the person or organization responsible for its production. Also called production company, executive producer, creator, maker. Examples: A movie has a producer 'Steven Spielberg'. A music album has a producer 'Universal Music Group'. A TV series has a producer 'Shonda Rhimes'. Distinct from director, who is responsible for the creative vision.",
+          "embed_score": 0.761,
+          "embed_rank": 35
+        }
+      ]
+    }
+  ]
+}

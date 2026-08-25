@@ -1,0 +1,905 @@
+{
+  "article_id": "art82",
+  "match_model": "intfloat/e5-base-v2",
+  "expand_mode": true,
+  "types": [
+    {
+      "oie_type": "Disease",
+      "embedding_query_text": "Disease: A medical condition characterized by specific symptoms and pathophysiology. Also called illness, health disorder, medical disorder. Examples: Type 2 diabetes, Type 1 diabetes, T2D, type 2 diabetes.",
+      "chosen_type": {
+        "label": "MedicalCondition",
+        "source": "schema.org",
+        "vocab_id": null,
+        "is_new_to_vocab": false,
+        "definition": null,
+        "parent": null,
+        "path": "Thing > MedicalEntity",
+        "justification": "MedicalCondition is the schema.org class for diseases, which matches the definition and examples provided."
+      },
+      "llm_proposed": {
+        "source": "schema.org",
+        "label": "MedicalCondition",
+        "is_new": false
+      },
+      "mentions": [
+        "Type 2 diabetes",
+        "Type 1 diabetes"
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "MedicalCondition",
+          "path": "Thing > MedicalEntity",
+          "score": 0.827,
+          "comment": "A medical entity representing any condition of the human body that affects normal functioning, including diseases, injuries, disabilities, and disorders. Also called disease, illness, health disorder, ailment. Examples: \"influenza\", \"diabetes\", \"a broken arm\", \"depression\", \"asthma\"."
+        },
+        {
+          "source": "schema.org",
+          "label": "MedicalSignOrSymptom",
+          "path": "Thing > MedicalEntity > MedicalCondition",
+          "score": 0.826,
+          "comment": "A medical condition representing any feature, objective or subjective, associated with a medical condition. Also called clinical manifestation, health indicator, disease feature. Examples: \"pain\", \"fever\", \"fatigue\", \"rash\", \"nausea\". Distinct from MedicalCondition, which is the underlying state itself."
+        },
+        {
+          "source": "schema.org",
+          "label": "MedicalCause",
+          "path": "Thing > MedicalEntity",
+          "score": 0.808,
+          "comment": "A medical entity representing the causative agent(s) responsible for a pathophysiologic process leading to a medical condition, symptom, or sign. Also called etiology, causative factor, underlying reason. Examples: \"HIV virus\" as a cause of AIDS, \"pulmonary embolism\" as a cause of cardiac arrest, \"bacterial infection\"."
+        },
+        {
+          "source": "schema.org",
+          "label": "InfectiousDisease",
+          "path": "Thing > MedicalEntity > MedicalCondition",
+          "score": 0.808,
+          "comment": "An InfectiousDisease is a medical condition resulting from the presence of pathogenic microbial agents like viruses, bacteria, or fungi. Also called communicable disease, contagious illness, infection. Examples: influenza, COVID-19, malaria, tuberculosis. Distinct from MedicalCondition, which is a broader category for any health problem."
+        },
+        {
+          "source": "schema.org",
+          "label": "MedicalSymptom",
+          "path": "Thing > MedicalEntity > MedicalCondition > MedicalSignOrSymptom",
+          "score": 0.808,
+          "comment": "A medical sign or symptom that is a subjective complaint sensed and expressed by the patient. Also called subjective symptom, patient complaint, reported feeling. Examples: \"stomachache\", \"lower-back pain\", \"fatigue\", \"headache\", \"nausea\". Distinct from MedicalSign, which is an objective finding."
+        }
+      ]
+    },
+    {
+      "oie_type": "Institution",
+      "embedding_query_text": "Institution: An organization established for a specific purpose, such as education, research, or public service. Also called organization, society, university. Examples: Imperial College London, German Diabetes Society (DDG), Medical University of Vienna, Diabetes UK.",
+      "chosen_type": {
+        "label": "Organization",
+        "source": "schema.org",
+        "vocab_id": null,
+        "is_new_to_vocab": false,
+        "definition": null,
+        "parent": null,
+        "path": "Thing",
+        "justification": "Organization is the broad schema.org class for institutions, and the examples fit under it as educational or medical organizations."
+      },
+      "llm_proposed": {
+        "source": "schema.org",
+        "label": "Organization",
+        "is_new": false
+      },
+      "mentions": [
+        "Imperial College London",
+        "German Diabetes Society (DDG)",
+        "Medical University of Vienna",
+        "Diabetes UK"
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "Organization",
+          "path": "Thing",
+          "score": 0.843,
+          "comment": "An Organization is a group of people with a particular purpose, such as a school, NGO, corporation, or club. Also called entity, institution, association. Examples: Google, Harvard University, Red Cross, a local sports club. Distinct from Person, which is an individual."
+        },
+        {
+          "source": "schema.org",
+          "label": "School",
+          "path": "Thing > Place > CivicStructure > EducationalOrganization",
+          "score": 0.824,
+          "comment": "An educational organization providing instruction to students, typically for primary or secondary education. Also called educational institution, academy, learning center, college. Examples: a public elementary school, a private high school, a vocational school, a university."
+        },
+        {
+          "source": "schema.org",
+          "label": "ResearchOrganization",
+          "path": "Thing > Organization",
+          "score": 0.82,
+          "comment": "A ResearchOrganization is an Organization dedicated to conducting research. Also called scientific institute, research company, academic research center. Examples: Max Planck Society, Bell Labs, a university research department, a pharmaceutical research firm."
+        },
+        {
+          "source": "schema.org",
+          "label": "MedicalOrganization",
+          "path": "Thing > Organization",
+          "score": 0.818,
+          "comment": "An organization, physical or virtual, operating in the medical domain, such as a hospital or clinic. Also called healthcare organization, medical institution, health system. Examples: \"Mayo Clinic\", \"World Health Organization\", \"Doctors Without Borders\". Distinct from Organization, which is a broader category for any group."
+        },
+        {
+          "source": "schema.org",
+          "label": "EducationalOrganization",
+          "path": "Thing > Place > CivicStructure",
+          "score": 0.817,
+          "comment": "An EducationalOrganization is a CivicStructure that provides education. Also called learning institution, academic body, school. Examples: A university, a high school, a vocational college, a research institute."
+        }
+      ]
+    },
+    {
+      "oie_type": "MedicalStudy",
+      "embedding_query_text": "MedicalStudy: A research project investigating health-related phenomena through data analysis. Also called health study, clinical research, scientific investigation. Examples: English National Diabetes Audit.",
+      "chosen_type": {
+        "label": "MedicalStudy",
+        "source": "schema.org",
+        "vocab_id": null,
+        "is_new_to_vocab": false,
+        "definition": null,
+        "parent": null,
+        "path": "Thing > MedicalEntity",
+        "justification": "MedicalStudy is the schema.org class for health-related research projects, and the example 'English National Diabetes Audit' is a medical study."
+      },
+      "llm_proposed": {
+        "source": "schema.org",
+        "label": "MedicalStudy",
+        "is_new": false
+      },
+      "mentions": [
+        "English National Diabetes Audit"
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "MedicalStudy",
+          "path": "Thing > MedicalEntity",
+          "score": 0.906,
+          "comment": "A medical entity that is an umbrella type covering all kinds of research studies relating to human medicine or health. Also called clinical study, health research, medical investigation. Examples: a drug trial, an epidemiological survey, a patient registry. Distinct from MedicalScholarlyArticle, which is the publication of study results, not the study itself."
+        },
+        {
+          "source": "schema.org",
+          "label": "MedicalObservationalStudy",
+          "path": "Thing > MedicalEntity > MedicalStudy",
+          "score": 0.898,
+          "comment": "A medical study that infers the effect of a treatment by observing a cohort of subjects over time, without investigator control over treatment assignment. Also called observational research, cohort study, epidemiological study. Examples: a study tracking health outcomes in smokers vs. non-smokers, a study on diet and disease incidence. Distinct from MedicalTrial, where subjects are randomly assigned to treatment groups."
+        },
+        {
+          "source": "schema.org",
+          "label": "MedicalTrial",
+          "path": "Thing > MedicalEntity > MedicalStudy",
+          "score": 0.884,
+          "comment": "A medical study that uses a scientific process to compare the safety and efficacy of medical therapies or procedures, typically with random allocation to groups. Also called clinical trial, randomized controlled trial, interventional study. Examples: a Phase 3 drug trial, a study comparing two surgical techniques, a vaccine efficacy trial. Distinct from MedicalObservationalStudy, where treatment assignment is not controlled by the investigator."
+        },
+        {
+          "source": "schema.org",
+          "label": "MedicalStudyStatus",
+          "path": "Thing > Intangible > Enumeration > MedicalEnumeration",
+          "score": 0.87,
+          "comment": "An enumeration representing the status of a medical study. Also called study phase, research status, trial stage. Examples: \"Recruiting\", \"Active, not recruiting\", \"Completed\", \"Terminated\"."
+        },
+        {
+          "source": "schema.org",
+          "label": "MedicalObservationalStudyDesign",
+          "path": "Thing > Intangible > Enumeration > MedicalEnumeration",
+          "score": 0.847,
+          "comment": "An enumeration of design models for observational medical studies. Also called observational study type, research design, epidemiological design. Examples: \"CohortStudy\", \"CaseControlStudy\", \"CrossSectionalStudy\"."
+        }
+      ]
+    },
+    {
+      "oie_type": "TimeSpan",
+      "embedding_query_text": "TimeSpan: A duration of time defined by a start and end date. Also called period, time frame, chronological interval. Examples: 2011-2024, 2014-2023.",
+      "chosen_type": {
+        "label": "Duration",
+        "source": "schema.org",
+        "vocab_id": null,
+        "is_new_to_vocab": false,
+        "definition": null,
+        "parent": null,
+        "path": "Quantity",
+        "justification": "Duration represents a time span, and the examples '2011-2024' and '2014-2023' can be interpreted as durations."
+      },
+      "llm_proposed": {
+        "source": "schema.org",
+        "label": "Duration",
+        "is_new": false
+      },
+      "mentions": [
+        "2011-2024",
+        "2014-2023"
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "Duration",
+          "path": "Quantity",
+          "score": 0.82,
+          "comment": "As a Quantity, Duration represents a period of time, typically expressed in ISO 8601 format. Also called time span, period, length of time. Examples: \"PT1H30M\" (1 hour 30 minutes), \"P3D\" (3 days), \"PT2H\" (2 hours)."
+        },
+        {
+          "source": "schema.org",
+          "label": "Schedule",
+          "path": "Thing > Intangible",
+          "score": 0.818,
+          "comment": "A definition of a repeating time period used to describe a regularly occurring event, specifying frequency, days, and start/end times. Also called timetable, recurring event plan, calendar entry, routine. Examples: a weekly yoga class schedule, a bus route timetable, a daily meeting schedule, a concert series calendar."
+        },
+        {
+          "source": "schema.org",
+          "label": "Time",
+          "path": "",
+          "score": 0.808,
+          "comment": "A data type representing a specific point in time, typically in hh:mm:ss format, potentially with a timezone offset. Also called timestamp, clock time, time of day. Examples: \"14:30:00\", \"09:00:00Z\", \"17:45:30+01:00\"."
+        },
+        {
+          "source": "schema.org",
+          "label": "DateTime",
+          "path": "",
+          "score": 0.807,
+          "comment": "A data type representing a specific point in time, combining both date and time components according to ISO 8601. Also called Timestamp, date and time string, ISO 8601 datetime. Examples: \"2023-10-27T10:30:00Z\", \"1999-12-31T23:59:59-05:00\", \"2024-01-15T14:00:00\". Distinct from Date, which only specifies a calendar date without time."
+        },
+        {
+          "source": "schema.org",
+          "label": "ServicePeriod",
+          "path": "Thing > Intangible > StructuredValue",
+          "score": 0.792,
+          "comment": "A structured value representing a duration for a service, often including constraints like cutoff times or business days. Also called service duration, operational window, delivery timeframe, handling period. Examples: a 2-day shipping period with a 3 PM cutoff, a 5-business-day processing time, a 24/7 support period."
+        }
+      ]
+    },
+    {
+      "oie_type": "Publication",
+      "embedding_query_text": "Publication: A scholarly or news article disseminating research findings or information. Also called journal article, research paper, medical journal. Examples: The Lancet Regional Health Europe journal, Deutsches Ärzteblatt.",
+      "chosen_type": {
+        "label": "MedicalScholarlyArticle",
+        "source": "schema.org",
+        "vocab_id": null,
+        "is_new_to_vocab": false,
+        "definition": null,
+        "parent": null,
+        "path": "Thing > CreativeWork > Article > ScholarlyArticle",
+        "justification": "MedicalScholarlyArticle is a schema.org class for medical journal articles, which matches the examples provided."
+      },
+      "llm_proposed": {
+        "source": "schema.org",
+        "label": "MedicalScholarlyArticle",
+        "is_new": false
+      },
+      "mentions": [
+        "The Lancet Regional Health Europe journal",
+        "Deutsches Ärzteblatt"
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "MedicalScholarlyArticle",
+          "path": "Thing > CreativeWork > Article > ScholarlyArticle",
+          "score": 0.854,
+          "comment": "A scholarly article specifically within the medical domain. Also called medical journal article, clinical research paper, healthcare publication. Examples: a peer-reviewed article on a new drug, a research paper on surgical techniques, a review article on a disease. Distinct from ScholarlyArticle, which is a broader category for academic papers."
+        },
+        {
+          "source": "schema.org",
+          "label": "ScholarlyArticle",
+          "path": "Thing > CreativeWork > Article",
+          "score": 0.854,
+          "comment": "A formal article presenting original research or analysis, typically peer-reviewed and published in an academic journal. Also called academic paper, research article, journal publication, scientific paper. Examples: a paper published in Nature, a research article in the Journal of Marketing, a thesis chapter."
+        },
+        {
+          "source": "schema.org",
+          "label": "PublicationIssue",
+          "path": "Thing > CreativeWork",
+          "score": 0.821,
+          "comment": "A PublicationIssue is a CreativeWork representing a part of a successively published periodical or publication volume, often numbered and containing a grouping of works. Also called journal issue, magazine issue, periodical issue. Examples: \"Nature\" Vol. 500, Issue 1; \"The New Yorker\" October 26, 2023 issue; a specific issue of a scientific journal. Distinct from PublicationVolume, which is a larger grouping of issues."
+        },
+        {
+          "source": "schema.org",
+          "label": "PublicationVolume",
+          "path": "Thing > CreativeWork",
+          "score": 0.82,
+          "comment": "A PublicationVolume is a CreativeWork representing a part of a successively published periodical or multi-volume work, often numbered and potentially spanning a time period. Also called journal volume, book volume, periodical volume. Examples: \"Nature\" Volume 500; \"Encyclopedia Britannica\" Volume 1; a year's collection of a magazine. Distinct from PublicationIssue, which is a smaller, more granular part of a volume."
+        },
+        {
+          "source": "schema.org",
+          "label": "NewsArticle",
+          "path": "Thing > CreativeWork > Article",
+          "score": 0.815,
+          "comment": "A NewsArticle, as an Article, is a creative work whose content reports news or provides background context for understanding news. Also called news report, news story, journalistic article. Examples: a breaking news report, an investigative journalism piece, an opinion column in a newspaper. Distinct from BlogPosting, which is typically less formal and often personal."
+        }
+      ]
+    },
+    {
+      "oie_type": "Person",
+      "embedding_query_text": "Person Examples: Shivani Misra, Baptist Gallwitz, Alexandra Kautzky-Willer, Helen Kirrane.",
+      "chosen_type": {
+        "label": "Person",
+        "source": "schema.org",
+        "vocab_id": null,
+        "is_new_to_vocab": false,
+        "definition": null,
+        "parent": null,
+        "path": "Thing",
+        "justification": "Person is the schema.org class for individual humans, and the mentions are all named individuals."
+      },
+      "llm_proposed": {
+        "source": "schema.org",
+        "label": "Person",
+        "is_new": false
+      },
+      "mentions": [
+        "Shivani Misra",
+        "Baptist Gallwitz",
+        "Alexandra Kautzky-Willer",
+        "Helen Kirrane"
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "Person",
+          "path": "Thing",
+          "score": 0.73,
+          "comment": "A Person is an individual human being, whether alive, dead, undead, or fictional. Also called individual, human, character. Examples: John Doe, Albert Einstein, Sherlock Holmes. Distinct from Organization, which is a group of people."
+        },
+        {
+          "source": "schema.org",
+          "label": "UserPlusOnes",
+          "path": "Thing > Event > UserInteraction",
+          "score": 0.724,
+          "comment": "An outdated type representing a user's interaction of giving a \"+1\" endorsement, typically on Google+ or similar platforms. Also called user endorsement, +1, social recommendation. Examples: a user giving a +1 to a web page, endorsing a business, recommending content."
+        },
+        {
+          "source": "schema.org",
+          "label": "ListItem",
+          "path": "Thing > Intangible",
+          "score": 0.722,
+          "comment": "A ListItem is an intangible representing a single entry within a list, such as a step in a checklist or a how-to description. Also called list entry, item in a sequence, element of a list. Examples: 'Buy milk,' 'Step 1: Preheat oven,' 'First item.' Distinct from ItemList, which is the collection of items."
+        },
+        {
+          "source": "schema.org",
+          "label": "Researcher",
+          "path": "Thing > Intangible > Audience",
+          "score": 0.72,
+          "comment": "A Researcher is an Audience type representing individuals engaged in scientific or academic inquiry. Also called scientist, academic, scholar. Examples: a university professor, a lab scientist, a PhD student, an independent scholar."
+        },
+        {
+          "source": "schema.org",
+          "label": "NLNonprofitType",
+          "path": "Thing > Intangible > Enumeration > NonprofitType",
+          "score": 0.717,
+          "comment": "NLNonprofitType is an enumeration for specific non-profit organization types originating from the Netherlands. Also called Dutch non-profit type, Netherlands charity classification. Examples: ANBI (Algemeen Nut Beogende Instelling), SBBI (Sociaal Belang Behartigende Instelling). Distinct from NonprofitType, which is a general enumeration for non-profit types."
+        }
+      ]
+    },
+    {
+      "oie_type": "Rate",
+      "embedding_query_text": "Rate: A measure of change over time, often expressed as a percentage. Also called growth rate, increase rate, statistical rate. Examples: 5.8% annual increase.",
+      "chosen_type": {
+        "label": "StatisticalVariable",
+        "source": "schema.org",
+        "vocab_id": null,
+        "is_new_to_vocab": false,
+        "definition": null,
+        "parent": null,
+        "path": "Thing > Intangible > ConstraintNode",
+        "justification": "StatisticalVariable represents measurable metrics, and '5.8% annual increase' is a statistical rate."
+      },
+      "llm_proposed": {
+        "source": "schema.org",
+        "label": "StatisticalVariable",
+        "is_new": false
+      },
+      "mentions": [
+        "5.8% annual increase"
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "ExchangeRateSpecification",
+          "path": "Thing > Intangible > StructuredValue",
+          "score": 0.785,
+          "comment": "An ExchangeRateSpecification is a StructuredValue representing details about an exchange rate. Also called currency exchange rate, foreign exchange rate. Examples: The exchange rate between USD and EUR, a specific conversion rate for a financial transaction, details including fees and validity period."
+        },
+        {
+          "source": "schema.org",
+          "label": "Duration",
+          "path": "Quantity",
+          "score": 0.779,
+          "comment": "As a Quantity, Duration represents a period of time, typically expressed in ISO 8601 format. Also called time span, period, length of time. Examples: \"PT1H30M\" (1 hour 30 minutes), \"P3D\" (3 days), \"PT2H\" (2 hours)."
+        },
+        {
+          "source": "schema.org",
+          "label": "Schedule",
+          "path": "Thing > Intangible",
+          "score": 0.77,
+          "comment": "A definition of a repeating time period used to describe a regularly occurring event, specifying frequency, days, and start/end times. Also called timetable, recurring event plan, calendar entry, routine. Examples: a weekly yoga class schedule, a bus route timetable, a daily meeting schedule, a concert series calendar."
+        },
+        {
+          "source": "schema.org",
+          "label": "StatisticalVariable",
+          "path": "Thing > Intangible > ConstraintNode",
+          "score": 0.769,
+          "comment": "A measurable statistical metric that can be observed at a place and time, defined by a population type and specific constraints. Also called statistical metric, data point, observable quantity, measurement variable. Examples: median height of female persons, average temperature in a city, count of news articles published daily. Distinct from StatisticalPopulation, which is the group being measured, not the measurement itself."
+        },
+        {
+          "source": "schema.org",
+          "label": "ShippingDeliveryTime",
+          "path": "Thing > Intangible > StructuredValue",
+          "score": 0.769,
+          "comment": "A structured value providing details about the expected delivery times for product shipping. Also called delivery timeframe, estimated delivery, shipping lead time, transit time. Examples: 'ships in 1-2 business days', 'delivery by Friday', 'estimated 3-5 day transit'."
+        }
+      ]
+    },
+    {
+      "oie_type": "Date",
+      "embedding_query_text": "Date Examples: 2025.",
+      "chosen_type": {
+        "label": "Date",
+        "source": "vocab",
+        "vocab_id": "T0094",
+        "is_new_to_vocab": false,
+        "definition": "A calendar date without time component, representing a temporal marker for events.",
+        "parent": "Thing",
+        "path": "Thing",
+        "justification": "Date is the schema.org datatype for calendar dates, and '2025' is a calendar year."
+      },
+      "llm_proposed": {
+        "source": "schema.org",
+        "label": "Date",
+        "is_new": false
+      },
+      "mentions": [
+        "2025"
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "Date",
+          "path": "",
+          "score": 0.796,
+          "comment": "Date is a data type representing a specific calendar date, typically formatted according to ISO 8601. Also called calendar date, specific day. Examples: \"2023-10-27\", \"1999-12-31\", \"0001-01-01\"."
+        },
+        {
+          "source": "schema.org",
+          "label": "DateTime",
+          "path": "",
+          "score": 0.772,
+          "comment": "A data type representing a specific point in time, combining both date and time components according to ISO 8601. Also called Timestamp, date and time string, ISO 8601 datetime. Examples: \"2023-10-27T10:30:00Z\", \"1999-12-31T23:59:59-05:00\", \"2024-01-15T14:00:00\". Distinct from Date, which only specifies a calendar date without time."
+        },
+        {
+          "source": "schema.org",
+          "label": "ShippingDeliveryTime",
+          "path": "Thing > Intangible > StructuredValue",
+          "score": 0.77,
+          "comment": "A structured value providing details about the expected delivery times for product shipping. Also called delivery timeframe, estimated delivery, shipping lead time, transit time. Examples: 'ships in 1-2 business days', 'delivery by Friday', 'estimated 3-5 day transit'."
+        },
+        {
+          "source": "schema.org",
+          "label": "DatedMoneySpecification",
+          "path": "Thing > Intangible > StructuredValue",
+          "score": 0.768,
+          "comment": "A structured value representing a monetary amount that is valid or applicable over a specified time period, though its use is superseded by MonetaryAmount. Also called Time-bound monetary value, period-specific money, dated financial amount. Examples: An employee's salary from 2022-01-01 to 2022-12-31, a subscription fee valid for a quarter, a bonus paid for a specific fiscal year."
+        },
+        {
+          "source": "schema.org",
+          "label": "EventAttendanceModeEnumeration",
+          "path": "Thing > Intangible > Enumeration",
+          "score": 0.758,
+          "comment": "An EventAttendanceModeEnumeration is an Enumeration of modes for organizing an event, indicating whether it is online or offline. Also called attendance type, event format, participation mode. Examples: OnlineEventAttendanceMode, OfflineEventAttendanceMode, MixedEventAttendanceMode."
+        }
+      ]
+    },
+    {
+      "oie_type": "MedicalTest",
+      "embedding_query_text": "MedicalTest Examples: HbA1c, glucose tolerance test.",
+      "chosen_type": {
+        "label": "BloodTest",
+        "source": "schema.org",
+        "vocab_id": null,
+        "is_new_to_vocab": false,
+        "definition": null,
+        "parent": null,
+        "path": "Thing > MedicalEntity > MedicalTest",
+        "justification": "BloodTest is a schema.org class for tests on blood samples, and the examples 'HbA1c' and 'glucose tolerance test' are blood tests."
+      },
+      "llm_proposed": {
+        "source": "schema.org",
+        "label": "BloodTest",
+        "is_new": false
+      },
+      "mentions": [
+        "HbA1c",
+        "glucose tolerance test"
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "BloodTest",
+          "path": "Thing > MedicalEntity > MedicalTest",
+          "score": 0.824,
+          "comment": "A MedicalTest performed on a patient's blood sample to diagnose or monitor health conditions. Also called blood analysis, blood panel, blood work. Examples: \"A complete blood count (CBC)\", \"A cholesterol test\", \"A glucose tolerance test\"."
+        },
+        {
+          "source": "schema.org",
+          "label": "MedicalTestPanel",
+          "path": "Thing > MedicalEntity > MedicalTest",
+          "score": 0.821,
+          "comment": "A medical test that is a collection of tests commonly ordered together. Also called test battery, diagnostic panel, group of tests. Examples: \"complete blood count (CBC)\", \"liver function panel\", \"metabolic panel\". Distinct from MedicalTest, which can be a single test."
+        },
+        {
+          "source": "schema.org",
+          "label": "MedicalTest",
+          "path": "Thing > MedicalEntity",
+          "score": 0.809,
+          "comment": "A medical entity representing any medical test, typically performed for diagnostic purposes. Also called diagnostic test, clinical examination, medical screening. Examples: \"blood test\", \"urine test\", \"MRI scan\", \"biopsy\", \"physical exam\"."
+        },
+        {
+          "source": "schema.org",
+          "label": "ImagingTest",
+          "path": "Thing > MedicalEntity > MedicalTest",
+          "score": 0.805,
+          "comment": "An ImagingTest is a medical test that uses any medical imaging modality for diagnostic purposes. Also called medical scan, diagnostic imaging, radiology test. Examples: X-ray, MRI scan, CT scan, ultrasound. Distinct from BloodTest, which analyzes blood samples, and PathologyTest, which examines tissues."
+        },
+        {
+          "source": "schema.org",
+          "label": "MedicalTrial",
+          "path": "Thing > MedicalEntity > MedicalStudy",
+          "score": 0.797,
+          "comment": "A medical study that uses a scientific process to compare the safety and efficacy of medical therapies or procedures, typically with random allocation to groups. Also called clinical trial, randomized controlled trial, interventional study. Examples: a Phase 3 drug trial, a study comparing two surgical techniques, a vaccine efficacy trial. Distinct from MedicalObservationalStudy, where treatment assignment is not controlled by the investigator."
+        }
+      ]
+    },
+    {
+      "oie_type": "MedicalCondition",
+      "embedding_query_text": "MedicalCondition Examples: pre-diabetic.",
+      "chosen_type": {
+        "label": "MedicalConditionStage",
+        "source": "schema.org",
+        "vocab_id": null,
+        "is_new_to_vocab": false,
+        "definition": null,
+        "parent": null,
+        "path": "Thing > MedicalEntity > MedicalIntangible",
+        "justification": "MedicalConditionStage represents stages of a medical condition, and 'pre-diabetic' is a stage of diabetes."
+      },
+      "llm_proposed": {
+        "source": "schema.org",
+        "label": "MedicalConditionStage",
+        "is_new": false
+      },
+      "mentions": [
+        "pre-diabetic"
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "MedicalCondition",
+          "path": "Thing > MedicalEntity",
+          "score": 0.835,
+          "comment": "A medical entity representing any condition of the human body that affects normal functioning, including diseases, injuries, disabilities, and disorders. Also called disease, illness, health disorder, ailment. Examples: \"influenza\", \"diabetes\", \"a broken arm\", \"depression\", \"asthma\"."
+        },
+        {
+          "source": "schema.org",
+          "label": "MedicalSignOrSymptom",
+          "path": "Thing > MedicalEntity > MedicalCondition",
+          "score": 0.833,
+          "comment": "A medical condition representing any feature, objective or subjective, associated with a medical condition. Also called clinical manifestation, health indicator, disease feature. Examples: \"pain\", \"fever\", \"fatigue\", \"rash\", \"nausea\". Distinct from MedicalCondition, which is the underlying state itself."
+        },
+        {
+          "source": "schema.org",
+          "label": "MedicalConditionStage",
+          "path": "Thing > MedicalEntity > MedicalIntangible",
+          "score": 0.813,
+          "comment": "A medical intangible representing a specific stage of a medical condition. Also called disease stage, condition phase, severity level. Examples: \"Stage IIIa cancer\", \"early-stage Alzheimer's\", \"acute phase of an infection\"."
+        },
+        {
+          "source": "schema.org",
+          "label": "MedicalRiskFactor",
+          "path": "Thing > MedicalEntity",
+          "score": 0.805,
+          "comment": "A medical entity representing anything that increases a person's likelihood of developing a disease, medical condition, or complication. Also called risk element, predisposing factor, vulnerability. Examples: \"smoking\", \"high cholesterol\", \"family history of heart disease\", \"obesity\". Distinct from MedicalRiskEstimator, which is a tool to calculate risk based on multiple factors."
+        },
+        {
+          "source": "schema.org",
+          "label": "MedicalSign",
+          "path": "Thing > MedicalEntity > MedicalCondition > MedicalSignOrSymptom",
+          "score": 0.801,
+          "comment": "A medical sign or symptom that is an objective physical manifestation of a medical condition, discoverable by diagnostic tests or physical examination. Also called objective symptom, clinical sign, diagnostic finding. Examples: \"fever\", \"rash\", \"high blood pressure\", \"swelling\". Distinct from MedicalSymptom, which is subjective and reported by the patient."
+        }
+      ]
+    },
+    {
+      "oie_type": "Country",
+      "embedding_query_text": "Country Examples: England, Germany, UK, United Kingdom.",
+      "chosen_type": {
+        "label": "Country",
+        "source": "schema.org",
+        "vocab_id": null,
+        "is_new_to_vocab": false,
+        "definition": null,
+        "parent": null,
+        "path": "Thing > Place > AdministrativeArea",
+        "justification": "Country is the schema.org class for sovereign states, and the mentions are countries."
+      },
+      "llm_proposed": {
+        "source": "schema.org",
+        "label": "Country",
+        "is_new": false
+      },
+      "mentions": [
+        "England",
+        "Germany",
+        "UK"
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "Country",
+          "path": "Thing > Place > AdministrativeArea",
+          "score": 0.776,
+          "comment": "A Country is a sovereign state or nation, representing a primary administrative division of the Earth's surface. Also called nation, state, sovereign state, realm. Examples: United States, Canada, France, Japan, Brazil."
+        },
+        {
+          "source": "schema.org",
+          "label": "UKNonprofitType",
+          "path": "Thing > Intangible > Enumeration > NonprofitType",
+          "score": 0.767,
+          "comment": "An enumeration of specific non-profit organization types recognized within the United Kingdom. Also called UK charity type, British non-profit category, UK voluntary sector classification. Examples: a registered charity, a community interest company (CIC), a benevolent society."
+        },
+        {
+          "source": "schema.org",
+          "label": "ITNonprofitType",
+          "path": "Thing > Intangible > Enumeration > NonprofitType",
+          "score": 0.754,
+          "comment": "ITNonprofitType is a nonprofit type enumeration specifically for non-profit organizations originating from Italy. Also called Italian non-profit category, Italy NPO type, Italian charity classification. Examples: 'ONLUS', 'APS', 'ODV' (specific Italian non-profit legal forms). Distinct from NonprofitType, which is a more general enumeration of non-profit organization types."
+        },
+        {
+          "source": "schema.org",
+          "label": "DENonprofitType",
+          "path": "Thing > Intangible > Enumeration > NonprofitType",
+          "score": 0.754,
+          "comment": "DENonprofitType is an enumeration representing specific types of non-profit organizations recognized under German fiscal code, article 52. Also called German non-profit classification, AO 52 non-profit. Examples: A German charitable foundation, a registered German association for public benefit."
+        },
+        {
+          "source": "schema.org",
+          "label": "NLNonprofitType",
+          "path": "Thing > Intangible > Enumeration > NonprofitType",
+          "score": 0.751,
+          "comment": "NLNonprofitType is an enumeration for specific non-profit organization types originating from the Netherlands. Also called Dutch non-profit type, Netherlands charity classification. Examples: ANBI (Algemeen Nut Beogende Instelling), SBBI (Sociaal Belang Behartigende Instelling). Distinct from NonprofitType, which is a general enumeration for non-profit types."
+        }
+      ]
+    },
+    {
+      "oie_type": "Year",
+      "embedding_query_text": "Year Examples: 2026.",
+      "chosen_type": {
+        "label": "Date",
+        "source": "vocab",
+        "vocab_id": "T0094",
+        "is_new_to_vocab": false,
+        "definition": "A calendar date without time component, representing a temporal marker for events.",
+        "parent": "Thing",
+        "path": "Thing",
+        "justification": "Date is the schema.org datatype for calendar dates, and '2026' is a calendar year."
+      },
+      "llm_proposed": {
+        "source": "schema.org",
+        "label": "Date",
+        "is_new": false
+      },
+      "mentions": [
+        "2026"
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "CreativeWorkSeason",
+          "path": "Thing > CreativeWork",
+          "score": 0.76,
+          "comment": "A CreativeWorkSeason is a distinct period or installment within a larger media series, such as a television show, radio program, or video game. Also called TV season, media season, series season, broadcast season. Examples: \"Game of Thrones Season 8,\" \"The Crown Season 4,\" \"The Mandalorian Season 2.\" Distinct from CreativeWorkSeries, which is the entire collection of seasons or related works."
+        },
+        {
+          "source": "schema.org",
+          "label": "BackgroundNewsArticle",
+          "path": "Thing > CreativeWork > Article > NewsArticle",
+          "score": 0.748,
+          "comment": "A NewsArticle that provides historical context, definitions, or detailed explanations on a specific topic. Also called explainer article, backgrounder, FAQ document. Examples: \"An explainer on climate change\", \"A detailed history of the European Union\", \"FAQ about blockchain technology\". Distinct from NewsArticle, which reports on current events."
+        },
+        {
+          "source": "schema.org",
+          "label": "ShippingDeliveryTime",
+          "path": "Thing > Intangible > StructuredValue",
+          "score": 0.748,
+          "comment": "A structured value providing details about the expected delivery times for product shipping. Also called delivery timeframe, estimated delivery, shipping lead time, transit time. Examples: 'ships in 1-2 business days', 'delivery by Friday', 'estimated 3-5 day transit'."
+        },
+        {
+          "source": "schema.org",
+          "label": "NLNonprofitType",
+          "path": "Thing > Intangible > Enumeration > NonprofitType",
+          "score": 0.746,
+          "comment": "NLNonprofitType is an enumeration for specific non-profit organization types originating from the Netherlands. Also called Dutch non-profit type, Netherlands charity classification. Examples: ANBI (Algemeen Nut Beogende Instelling), SBBI (Sociaal Belang Behartigende Instelling). Distinct from NonprofitType, which is a general enumeration for non-profit types."
+        },
+        {
+          "source": "schema.org",
+          "label": "MerchantReturnEnumeration",
+          "path": "Thing > Intangible > Enumeration",
+          "score": 0.745,
+          "comment": "An enumeration of various kinds of product return policies offered by merchants. Also called return policy type, refund option, merchandise return category. Examples: \"NoReturns\", \"FreeReturns\", \"ReturnsWithFee\", \"ExchangeOnly\"."
+        }
+      ]
+    },
+    {
+      "oie_type": "SocialIssue",
+      "embedding_query_text": "SocialIssue Examples: catcalling.",
+      "chosen_type": {
+        "label": "SocialIssue",
+        "source": "vocab",
+        "vocab_id": "T0272",
+        "is_new_to_vocab": true,
+        "definition": "A societal problem or concern affecting people's lives or communities.",
+        "parent": "Thing",
+        "path": "Thing",
+        "justification": "No schema.org class directly represents social issues like 'catcalling', so a new type is needed."
+      },
+      "llm_proposed": {
+        "source": "new",
+        "label": "SocialIssue",
+        "is_new": true
+      },
+      "mentions": [
+        "catcalling"
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "InviteAction",
+          "path": "Thing > Action > InteractAction > CommunicateAction",
+          "score": 0.762,
+          "comment": "An InviteAction is a communicate action representing the act of asking someone to attend an event. Also called invitation action, request attendance, solicit presence. Examples: sending a party invitation, inviting a speaker to a conference, asking a friend to dinner. Distinct from RsvpAction, which is the reciprocal act of responding to an invitation."
+        },
+        {
+          "source": "schema.org",
+          "label": "RsvpAction",
+          "path": "Thing > Action > InteractAction > CommunicateAction > InformAction",
+          "score": 0.76,
+          "comment": "The act of responding to an event organizer to indicate whether one expects to attend the event. Also called RSVPing, confirming attendance, declining invitation, responding to invite. Examples: accepting a wedding invitation, declining a party invite, indicating 'maybe' for a meeting."
+        },
+        {
+          "source": "schema.org",
+          "label": "UserPlusOnes",
+          "path": "Thing > Event > UserInteraction",
+          "score": 0.76,
+          "comment": "An outdated type representing a user's interaction of giving a \"+1\" endorsement, typically on Google+ or similar platforms. Also called user endorsement, +1, social recommendation. Examples: a user giving a +1 to a web page, endorsing a business, recommending content."
+        },
+        {
+          "source": "schema.org",
+          "label": "DiscussionForumPosting",
+          "path": "Thing > CreativeWork > Article > SocialMediaPosting",
+          "score": 0.758,
+          "comment": "A social media posting that is an entry or message within an online discussion forum. Also called Forum post, message board entry, thread reply, online discussion. Examples: A question posted on a tech support forum, a comment in a gaming community thread, a new topic started on a hobby board. Distinct from BlogPosting, which is typically a longer, standalone article on a blog."
+        },
+        {
+          "source": "schema.org",
+          "label": "AskAction",
+          "path": "Thing > Action > InteractAction > CommunicateAction",
+          "score": 0.757,
+          "comment": "An AskAction is a CommunicateAction representing the act of posing a question or requesting a favor from someone. Also called inquire, query, request, solicit. Examples: asking for directions, posing a question in a Q&A forum, requesting help from a colleague, asking for a donation. Distinct from ReplyAction, which is a response to a question or request."
+        }
+      ]
+    },
+    {
+      "oie_type": "LifestyleFactor",
+      "embedding_query_text": "LifestyleFactor Examples: reduced physical activity.",
+      "chosen_type": {
+        "label": "PhysicalActivity",
+        "source": "schema.org",
+        "vocab_id": null,
+        "is_new_to_vocab": false,
+        "definition": null,
+        "parent": null,
+        "path": "Thing > MedicalEntity > LifestyleModification",
+        "justification": "PhysicalActivity is a schema.org class for health-related activities, and 'reduced physical activity' is a lifestyle modification."
+      },
+      "llm_proposed": {
+        "source": "schema.org",
+        "label": "PhysicalActivity",
+        "is_new": false
+      },
+      "mentions": [
+        "reduced physical activity"
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "PhysicalActivity",
+          "path": "Thing > MedicalEntity > LifestyleModification",
+          "score": 0.845,
+          "comment": "PhysicalActivity, as a LifestyleModification, is any bodily activity that enhances or maintains physical fitness and overall health. Also called exercise, workout, physical exertion. Examples: running, swimming, yoga, weightlifting. Distinct from MedicalTherapy, which is a treatment for a specific condition."
+        },
+        {
+          "source": "schema.org",
+          "label": "LifestyleModification",
+          "path": "Thing > MedicalEntity",
+          "score": 0.832,
+          "comment": "A LifestyleModification is a medical entity representing a process of care involving changes to diet, exercise, and other habits to improve a health condition. Also called health habit change, wellness intervention, behavioral therapy. Examples: a weight loss program, a smoking cessation plan, a stress reduction regimen."
+        },
+        {
+          "source": "schema.org",
+          "label": "PhysicalActivityCategory",
+          "path": "Thing > Intangible > Enumeration",
+          "score": 0.799,
+          "comment": "PhysicalActivityCategory is an enumeration for categories of physical activity, organized by physiologic classification. Also called exercise type, activity classification. Examples: AerobicActivity, StrengthTraining, Flexibility. Distinct from PhysicalActivity, which is an instance of an activity."
+        },
+        {
+          "source": "schema.org",
+          "label": "ExerciseAction",
+          "path": "Thing > Action > PlayAction",
+          "score": 0.798,
+          "comment": "ExerciseAction is a PlayAction representing the act of participating in exertive activity to improve health and fitness. Also called working out, physical activity, training. Examples: Going for a run, lifting weights, practicing yoga, swimming laps."
+        },
+        {
+          "source": "schema.org",
+          "label": "ExerciseGym",
+          "path": "Thing > Organization > LocalBusiness > SportsActivityLocation",
+          "score": 0.792,
+          "comment": "An ExerciseGym is a SportsActivityLocation that provides facilities for physical exercise. Also called gym, fitness center, health club. Examples: A local fitness gym, a CrossFit box, a university recreation center."
+        }
+      ]
+    },
+    {
+      "oie_type": "PolicyProposal",
+      "embedding_query_text": "PolicyProposal Examples: tiered VAT system, mandatory movement in schools.",
+      "chosen_type": {
+        "label": "PolicyProposal",
+        "source": "vocab",
+        "vocab_id": "T0273",
+        "is_new_to_vocab": true,
+        "definition": "A proposed plan or initiative aimed at addressing a social, economic, or health issue.",
+        "parent": "Thing",
+        "path": "Thing",
+        "justification": "No schema.org class matches policy proposals like 'tiered VAT system', so a new type is required."
+      },
+      "llm_proposed": {
+        "source": "new",
+        "label": "PolicyProposal",
+        "is_new": true
+      },
+      "mentions": [
+        "tiered VAT system",
+        "mandatory movement in schools"
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "SchoolDistrict",
+          "path": "Thing > Place > AdministrativeArea",
+          "score": 0.759,
+          "comment": "An administrative area responsible for the organization and operation of public schools within its geographical boundaries. Also called education district, school system, local education authority. Examples: 'Los Angeles Unified School District', 'New York City Department of Education', 'Springfield School District 186'."
+        },
+        {
+          "source": "schema.org",
+          "label": "BoardingPolicyType",
+          "path": "Thing > Intangible > Enumeration",
+          "score": 0.759,
+          "comment": "An Enumeration representing different policies used by airlines for boarding passengers. Also called airline boarding rule, boarding group type, flight boarding policy. Examples: \"Zone boarding\", \"Group boarding\", \"Priority boarding\", \"Family boarding\"."
+        },
+        {
+          "source": "schema.org",
+          "label": "LegalValueLevel",
+          "path": "Thing > Intangible > Enumeration",
+          "score": 0.758,
+          "comment": "LegalValueLevel is an enumeration of possible levels for the legal validity or authority of a legislation. Also called legislative authority level, legal hierarchy, law's binding power. Examples: 'Primary', 'Secondary', 'Tertiary', 'Advisory'."
+        },
+        {
+          "source": "schema.org",
+          "label": "UKNonprofitType",
+          "path": "Thing > Intangible > Enumeration > NonprofitType",
+          "score": 0.757,
+          "comment": "An enumeration of specific non-profit organization types recognized within the United Kingdom. Also called UK charity type, British non-profit category, UK voluntary sector classification. Examples: a registered charity, a community interest company (CIC), a benevolent society."
+        },
+        {
+          "source": "schema.org",
+          "label": "GovernmentBenefitsType",
+          "path": "Thing > Intangible > Enumeration",
+          "score": 0.755,
+          "comment": "GovernmentBenefitsType is an enumeration of various government benefits, particularly those related to supporting situations like COVID-19. Also called public assistance types, state aid categories, welfare program kinds. Examples: unemployment benefits, stimulus checks, housing assistance, food stamps."
+        }
+      ]
+    }
+  ]
+}

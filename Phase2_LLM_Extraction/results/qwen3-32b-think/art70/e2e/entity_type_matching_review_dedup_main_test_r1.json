@@ -1,0 +1,662 @@
+{
+  "article_id": "art70",
+  "match_model": "intfloat/e5-base-v2",
+  "expand_mode": true,
+  "types": [
+    {
+      "oie_type": "TropicalStorm",
+      "embedding_query_text": "TropicalStorm: A tropical cyclone with sustained wind speeds between 39-73 mph (63-118 km/h), typically forming over warm ocean waters. Also called storm, tropical cyclone, depression. Examples: Tropical Storm Lala, Tropical Storm Hernan, Lala, Hernan.",
+      "chosen_type": {
+        "label": "TropicalStorm",
+        "source": "vocab",
+        "vocab_id": "T0227",
+        "is_new_to_vocab": true,
+        "definition": "A tropical cyclone with sustained wind speeds between 39-73 mph (63-118 km/h), typically forming over warm ocean waters.",
+        "parent": "Event",
+        "path": "Thing > Event",
+        "justification": "No schema.org class directly represents a tropical storm as a weather event; 'Event' is the closest parent for a new type."
+      },
+      "llm_proposed": {
+        "source": "new",
+        "label": "TropicalStorm",
+        "is_new": true
+      },
+      "mentions": [
+        "Tropical Storm Lala",
+        "Tropical Storm Hernan"
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "BodyOfWater",
+          "path": "Thing > Place > Landform",
+          "score": 0.756,
+          "comment": "A Landform representing a significant accumulation of water, such as a sea, ocean, or lake. Also called aquatic environment, water body, large water mass. Examples: \"The Pacific Ocean\", \"Lake Superior\", \"The Mediterranean Sea\", \"The Nile River\". Distinct from Beach, which is a specific landform adjacent to a body of water."
+        },
+        {
+          "source": "schema.org",
+          "label": "LakeBodyOfWater",
+          "path": "Thing > Place > Landform > BodyOfWater",
+          "score": 0.753,
+          "comment": "A LakeBodyOfWater is a landform representing a large body of still water surrounded by land. Also called lake, inland sea, reservoir. Examples: Lake Superior, Lake Tahoe, Lake Pontchartrain. Distinct from River, which is flowing water, and OceanBodyOfWater, which is a large saltwater body."
+        },
+        {
+          "source": "schema.org",
+          "label": "UserPlusOnes",
+          "path": "Thing > Event > UserInteraction",
+          "score": 0.752,
+          "comment": "An outdated type representing a user's interaction of giving a \"+1\" endorsement, typically on Google+ or similar platforms. Also called user endorsement, +1, social recommendation. Examples: a user giving a +1 to a web page, endorsing a business, recommending content."
+        },
+        {
+          "source": "schema.org",
+          "label": "OceanBodyOfWater",
+          "path": "Thing > Place > Landform > BodyOfWater",
+          "score": 0.752,
+          "comment": "An OceanBodyOfWater, as a BodyOfWater, is a large expanse of saltwater, such as the Pacific Ocean. Also called ocean, sea, marine body. Examples: Atlantic Ocean, Indian Ocean, Southern Ocean. Distinct from LakeBodyOfWater, which is an inland freshwater body."
+        },
+        {
+          "source": "schema.org",
+          "label": "Volcano",
+          "path": "Thing > Place > Landform",
+          "score": 0.751,
+          "comment": "A landform, typically a mountain, with a vent through which lava, rock fragments, hot vapor, and gas are ejected. Also called active volcano, dormant volcano, volcanic mountain. Examples: Mount Fuji, Mount Vesuvius, Kilauea."
+        }
+      ]
+    },
+    {
+      "oie_type": "Island",
+      "embedding_query_text": "Island: A piece of land surrounded by water, often part of a larger archipelago or chain. Also called landmass, peninsula, archipelago member. Examples: Big Island of Hawaii, Big Island, Hawaii's Big Island.",
+      "chosen_type": {
+        "label": "Island",
+        "source": "vocab",
+        "vocab_id": "T0228",
+        "is_new_to_vocab": true,
+        "definition": "A piece of land surrounded by water, often part of a larger archipelago or chain.",
+        "parent": "Landform",
+        "path": "Thing > Place > Landform",
+        "justification": "None of the candidates represent an island as a landform; 'Landform' is the appropriate parent for a new type."
+      },
+      "llm_proposed": {
+        "source": "new",
+        "label": "Island",
+        "is_new": true
+      },
+      "mentions": [
+        "Big Island of Hawaii"
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "BodyOfWater",
+          "path": "Thing > Place > Landform",
+          "score": 0.82,
+          "comment": "A Landform representing a significant accumulation of water, such as a sea, ocean, or lake. Also called aquatic environment, water body, large water mass. Examples: \"The Pacific Ocean\", \"Lake Superior\", \"The Mediterranean Sea\", \"The Nile River\". Distinct from Beach, which is a specific landform adjacent to a body of water."
+        },
+        {
+          "source": "schema.org",
+          "label": "LakeBodyOfWater",
+          "path": "Thing > Place > Landform > BodyOfWater",
+          "score": 0.811,
+          "comment": "A LakeBodyOfWater is a landform representing a large body of still water surrounded by land. Also called lake, inland sea, reservoir. Examples: Lake Superior, Lake Tahoe, Lake Pontchartrain. Distinct from River, which is flowing water, and OceanBodyOfWater, which is a large saltwater body."
+        },
+        {
+          "source": "schema.org",
+          "label": "Continent",
+          "path": "Thing > Place > Landform",
+          "score": 0.809,
+          "comment": "One of the Earth's large landmasses, such as Europe or Africa. Also called major landmass, global region, land continent. Examples: Asia, North America, Antarctica, Australia. Distinct from Landform, which is a general term for a natural feature of the Earth's surface."
+        },
+        {
+          "source": "schema.org",
+          "label": "SeaBodyOfWater",
+          "path": "Thing > Place > Landform > BodyOfWater",
+          "score": 0.805,
+          "comment": "A large expanse of saltwater, typically part of an ocean or a large inland body of saltwater. Also called sea, ocean, marine body, saltwater expanse. Examples: the Mediterranean Sea, the Caribbean Sea, the Black Sea, the Caspian Sea. Distinct from RiverBodyOfWater, which is a flowing freshwater course."
+        },
+        {
+          "source": "schema.org",
+          "label": "Volcano",
+          "path": "Thing > Place > Landform",
+          "score": 0.804,
+          "comment": "A landform, typically a mountain, with a vent through which lava, rock fragments, hot vapor, and gas are ejected. Also called active volcano, dormant volcano, volcanic mountain. Examples: Mount Fuji, Mount Vesuvius, Kilauea."
+        }
+      ]
+    },
+    {
+      "oie_type": "GovernmentAgency",
+      "embedding_query_text": "GovernmentAgency: An organization established by a government to perform specific functions, such as weather monitoring. Also called public authority, regulatory body, federal agency. Examples: National Hurricane Center, National Weather Service, Miami-based National Hurricane Center, NHC.",
+      "chosen_type": {
+        "label": "GovernmentOrganization",
+        "source": "schema.org",
+        "vocab_id": null,
+        "is_new_to_vocab": false,
+        "definition": null,
+        "parent": null,
+        "path": "Thing > Organization",
+        "justification": "The examples match 'GovernmentOrganization' as they are agencies performing public functions."
+      },
+      "llm_proposed": {
+        "source": "schema.org",
+        "label": "GovernmentOrganization",
+        "is_new": false
+      },
+      "mentions": [
+        "National Hurricane Center",
+        "National Weather Service"
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "GovernmentOrganization",
+          "path": "Thing > Organization",
+          "score": 0.825,
+          "comment": "A GovernmentOrganization is an organization or agency that is part of a governmental body. Also called public sector entity, state agency, governmental body. Examples: Department of Defense, Environmental Protection Agency, National Institutes of Health, local city council."
+        },
+        {
+          "source": "schema.org",
+          "label": "TravelAgency",
+          "path": "Thing > Organization > LocalBusiness",
+          "score": 0.812,
+          "comment": "A local business that assists individuals and groups in planning and booking travel arrangements. Also called travel agent, tour operator, booking agency. Examples: Expedia, a local independent travel agency, a corporate travel management company."
+        },
+        {
+          "source": "schema.org",
+          "label": "GovernmentService",
+          "path": "Thing > Intangible > Service",
+          "score": 0.804,
+          "comment": "A GovernmentService is an intangible service provided by a government organization to the public. Also called public service, state-provided service, municipal offering. Examples: food stamps program, veterans benefits, public education, waste collection."
+        },
+        {
+          "source": "schema.org",
+          "label": "DefenceEstablishment",
+          "path": "Thing > Place > CivicStructure > GovernmentBuilding",
+          "score": 0.804,
+          "comment": "A government building or civic structure primarily used for military or national defense purposes. Also called Military base, army base, naval base, air force station. Examples: The Pentagon, Fort Bragg, Pearl Harbor Naval Shipyard, Royal Air Force Lakenheath. Distinct from GovernmentBuilding, which is a broader category for any government facility."
+        },
+        {
+          "source": "schema.org",
+          "label": "GovernmentPermit",
+          "path": "Thing > Intangible > Permit",
+          "score": 0.804,
+          "comment": "A GovernmentPermit is a formal authorization issued by a government agency. Also called public license, state approval, official authorization. Examples: building permit, driver's license, business operating license, fishing permit."
+        }
+      ]
+    },
+    {
+      "oie_type": "Date",
+      "embedding_query_text": "Date Examples: 2026-08-13, 2026-08-14, 2026-08-15, 2026-08-17.",
+      "chosen_type": {
+        "label": "Date",
+        "source": "vocab",
+        "vocab_id": "T0094",
+        "is_new_to_vocab": false,
+        "definition": "A calendar date without time component, representing a temporal marker for events.",
+        "parent": "Thing",
+        "path": "Thing",
+        "justification": "The mentions are calendar dates without time, aligning with the schema.org 'Date' datatype."
+      },
+      "llm_proposed": {
+        "source": "schema.org",
+        "label": "Date",
+        "is_new": false
+      },
+      "mentions": [
+        "2026-08-13",
+        "2026-08-14",
+        "2026-08-15",
+        "2026-08-17"
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "Date",
+          "path": "",
+          "score": 0.794,
+          "comment": "Date is a data type representing a specific calendar date, typically formatted according to ISO 8601. Also called calendar date, specific day. Examples: \"2023-10-27\", \"1999-12-31\", \"0001-01-01\"."
+        },
+        {
+          "source": "schema.org",
+          "label": "DateTime",
+          "path": "",
+          "score": 0.76,
+          "comment": "A data type representing a specific point in time, combining both date and time components according to ISO 8601. Also called Timestamp, date and time string, ISO 8601 datetime. Examples: \"2023-10-27T10:30:00Z\", \"1999-12-31T23:59:59-05:00\", \"2024-01-15T14:00:00\". Distinct from Date, which only specifies a calendar date without time."
+        },
+        {
+          "source": "schema.org",
+          "label": "ShippingDeliveryTime",
+          "path": "Thing > Intangible > StructuredValue",
+          "score": 0.759,
+          "comment": "A structured value providing details about the expected delivery times for product shipping. Also called delivery timeframe, estimated delivery, shipping lead time, transit time. Examples: 'ships in 1-2 business days', 'delivery by Friday', 'estimated 3-5 day transit'."
+        },
+        {
+          "source": "schema.org",
+          "label": "CreativeWorkSeason",
+          "path": "Thing > CreativeWork",
+          "score": 0.755,
+          "comment": "A CreativeWorkSeason is a distinct period or installment within a larger media series, such as a television show, radio program, or video game. Also called TV season, media season, series season, broadcast season. Examples: \"Game of Thrones Season 8,\" \"The Crown Season 4,\" \"The Mandalorian Season 2.\" Distinct from CreativeWorkSeries, which is the entire collection of seasons or related works."
+        },
+        {
+          "source": "schema.org",
+          "label": "EventAttendanceModeEnumeration",
+          "path": "Thing > Intangible > Enumeration",
+          "score": 0.754,
+          "comment": "An EventAttendanceModeEnumeration is an Enumeration of modes for organizing an event, indicating whether it is online or offline. Also called attendance type, event format, participation mode. Examples: OnlineEventAttendanceMode, OfflineEventAttendanceMode, MixedEventAttendanceMode."
+        }
+      ]
+    },
+    {
+      "oie_type": "RainfallAmount",
+      "embedding_query_text": "RainfallAmount: A measurement of precipitation volume, typically expressed in inches or millimeters. Also called precipitation level, rainfall total, stormwater volume. Examples: 5 to 10 inches, up to 20 inches.",
+      "chosen_type": {
+        "label": "RainfallAmount",
+        "source": "vocab",
+        "vocab_id": "T0229",
+        "is_new_to_vocab": true,
+        "definition": "A measurement of precipitation volume, typically expressed in inches or millimeters.",
+        "parent": "QuantitativeValue",
+        "path": "Thing > Intangible > StructuredValue > QuantitativeValue",
+        "justification": "No candidate represents a precipitation measurement; 'QuantitativeValue' is the appropriate parent for a new type."
+      },
+      "llm_proposed": {
+        "source": "new",
+        "label": "RainfallAmount",
+        "is_new": true
+      },
+      "mentions": [
+        "5 to 10 inches",
+        "up to 20 inches"
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "MonetaryAmount",
+          "path": "Thing > Intangible > StructuredValue",
+          "score": 0.811,
+          "comment": "A structured value representing a monetary value or range, typically expressed with a currency. Also called amount of money, financial value, currency amount. Examples: \"$50 USD\", \"£1,000 to £1,000,000 GBP\", \"€25.99\". Distinct from PriceSpecification, which describes the price of an offer."
+        },
+        {
+          "source": "schema.org",
+          "label": "Waterfall",
+          "path": "Thing > Place > Landform > BodyOfWater",
+          "score": 0.79,
+          "comment": "A landform where water flows over a vertical drop or a series of steep drops in the course of a stream or river. Also called cascade, falls, cataract. Examples: Niagara Falls, Victoria Falls, Angel Falls."
+        },
+        {
+          "source": "schema.org",
+          "label": "SizeSystemEnumeration",
+          "path": "Thing > Intangible > Enumeration",
+          "score": 0.788,
+          "comment": "An enumeration of common size systems used for different product categories. Also called sizing standard, measurement system, apparel sizing convention. Examples: 'US', 'UK', 'EU', 'EN-13402', 'Imperial'."
+        },
+        {
+          "source": "schema.org",
+          "label": "MeasurementMethodEnum",
+          "path": "Thing > Intangible > Enumeration",
+          "score": 0.788,
+          "comment": "An enumeration of methods used for measurement. Also called measurement technique, gauging method, assessment approach. Examples: \"manual measurement\", \"automated sensor measurement\", \"self-reported measurement\"."
+        },
+        {
+          "source": "schema.org",
+          "label": "MonetaryAmountDistribution",
+          "path": "Thing > Intangible > StructuredValue > QuantitativeValueDistribution",
+          "score": 0.784,
+          "comment": "A quantitative value distribution representing a statistical distribution of monetary amounts. Also called money distribution, financial range, income distribution. Examples: \"average salary range\", \"distribution of asset values\", \"price range for a product category\"."
+        }
+      ]
+    },
+    {
+      "oie_type": "Ocean",
+      "embedding_query_text": "Ocean Examples: Pacific Ocean.",
+      "chosen_type": {
+        "label": "OceanBodyOfWater",
+        "source": "schema.org",
+        "vocab_id": null,
+        "is_new_to_vocab": false,
+        "definition": null,
+        "parent": null,
+        "path": "Thing > Place > Landform > BodyOfWater",
+        "justification": "The mention 'Pacific Ocean' is a classic example of an 'OceanBodyOfWater'."
+      },
+      "llm_proposed": {
+        "source": "schema.org",
+        "label": "OceanBodyOfWater",
+        "is_new": false
+      },
+      "mentions": [
+        "Pacific Ocean"
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "OceanBodyOfWater",
+          "path": "Thing > Place > Landform > BodyOfWater",
+          "score": 0.837,
+          "comment": "An OceanBodyOfWater, as a BodyOfWater, is a large expanse of saltwater, such as the Pacific Ocean. Also called ocean, sea, marine body. Examples: Atlantic Ocean, Indian Ocean, Southern Ocean. Distinct from LakeBodyOfWater, which is an inland freshwater body."
+        },
+        {
+          "source": "schema.org",
+          "label": "SeaBodyOfWater",
+          "path": "Thing > Place > Landform > BodyOfWater",
+          "score": 0.798,
+          "comment": "A large expanse of saltwater, typically part of an ocean or a large inland body of saltwater. Also called sea, ocean, marine body, saltwater expanse. Examples: the Mediterranean Sea, the Caribbean Sea, the Black Sea, the Caspian Sea. Distinct from RiverBodyOfWater, which is a flowing freshwater course."
+        },
+        {
+          "source": "schema.org",
+          "label": "BodyOfWater",
+          "path": "Thing > Place > Landform",
+          "score": 0.779,
+          "comment": "A Landform representing a significant accumulation of water, such as a sea, ocean, or lake. Also called aquatic environment, water body, large water mass. Examples: \"The Pacific Ocean\", \"Lake Superior\", \"The Mediterranean Sea\", \"The Nile River\". Distinct from Beach, which is a specific landform adjacent to a body of water."
+        },
+        {
+          "source": "schema.org",
+          "label": "RiverBodyOfWater",
+          "path": "Thing > Place > Landform > BodyOfWater",
+          "score": 0.775,
+          "comment": "A natural flowing watercourse, typically freshwater, flowing towards an ocean, sea, lake, or another river. Also called river, stream, waterway, current. Examples: the Nile River, the Amazon River, the Mississippi River, the Thames. Distinct from SeaBodyOfWater, which is a large expanse of saltwater."
+        },
+        {
+          "source": "schema.org",
+          "label": "LakeBodyOfWater",
+          "path": "Thing > Place > Landform > BodyOfWater",
+          "score": 0.771,
+          "comment": "A LakeBodyOfWater is a landform representing a large body of still water surrounded by land. Also called lake, inland sea, reservoir. Examples: Lake Superior, Lake Tahoe, Lake Pontchartrain. Distinct from River, which is flowing water, and OceanBodyOfWater, which is a large saltwater body."
+        }
+      ]
+    },
+    {
+      "oie_type": "Peninsula",
+      "embedding_query_text": "Peninsula Examples: Baja California.",
+      "chosen_type": {
+        "label": "Peninsula",
+        "source": "vocab",
+        "vocab_id": "T0230",
+        "is_new_to_vocab": true,
+        "definition": "A piece of land that projects into a body of water, bordered by a strait, river, or sea.",
+        "parent": "Landform",
+        "path": "Thing > Place > Landform",
+        "justification": "None of the candidates represent a peninsula as a landform; 'Landform' is the appropriate parent for a new type."
+      },
+      "llm_proposed": {
+        "source": "new",
+        "label": "Peninsula",
+        "is_new": true
+      },
+      "mentions": [
+        "Baja California"
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "Beach",
+          "path": "Thing > Place > CivicStructure",
+          "score": 0.757,
+          "comment": "A CivicStructure consisting of a sandy or pebbly shore by a body of water. Also called seashore, coastline, sandy beach, waterfront. Examples: \"Copacabana Beach\", \"Malibu Beach\", \"Waikiki Beach\"."
+        },
+        {
+          "source": "schema.org",
+          "label": "BoatTerminal",
+          "path": "Thing > Place > CivicStructure",
+          "score": 0.746,
+          "comment": "A CivicStructure serving as a station for boats, ships, and other water vessels to dock and embark/disembark passengers or cargo. Also called ferry terminal, cruise port, marina, dock. Examples: \"The Seattle Ferry Terminal\", \"PortMiami cruise terminal\", \"A local marina office\"."
+        },
+        {
+          "source": "schema.org",
+          "label": "TouristDestination",
+          "path": "Thing > Place",
+          "score": 0.744,
+          "comment": "A place, region, or area that is a primary focus for tourism, often containing multiple tourist attractions. Also called travel destination, vacation spot, tourist region. Examples: Paris, the Grand Canyon, the Caribbean islands, a specific resort town. Distinct from TouristAttraction, which is a specific point of interest within a destination."
+        },
+        {
+          "source": "schema.org",
+          "label": "TaxiStand",
+          "path": "Thing > Place > CivicStructure",
+          "score": 0.739,
+          "comment": "A civic structure or designated area where taxis wait for passengers. Also called cab stand, taxi rank, hack stand. Examples: a taxi stand at an airport, a designated taxi area outside a hotel, a street corner taxi queue."
+        },
+        {
+          "source": "schema.org",
+          "label": "TouristAttraction",
+          "path": "Thing > Place",
+          "score": 0.739,
+          "comment": "A specific place or feature that draws tourists due to its interest or appeal. Also called point of interest, visitor attraction, landmark. Examples: the Eiffel Tower, a national park, a historical museum, a famous statue. Distinct from TouristDestination, which is a broader area containing one or more attractions."
+        }
+      ]
+    },
+    {
+      "oie_type": "WindSpeed",
+      "embedding_query_text": "WindSpeed Examples: 40 mph.",
+      "chosen_type": {
+        "label": "WindSpeed",
+        "source": "vocab",
+        "vocab_id": "T0231",
+        "is_new_to_vocab": true,
+        "definition": "A measurement of the speed of wind, typically expressed in miles per hour or kilometers per hour.",
+        "parent": "QuantitativeValue",
+        "path": "Thing > Intangible > StructuredValue > QuantitativeValue",
+        "justification": "The mention '40 mph' indicates a quantitative value for wind speed; no existing schema.org class fits this."
+      },
+      "llm_proposed": {
+        "source": "new",
+        "label": "WindSpeed",
+        "is_new": true
+      },
+      "mentions": [
+        "40 mph"
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "Distance",
+          "path": "Quantity",
+          "score": 0.729,
+          "comment": "As a Quantity, Distance represents a numerical value combined with a unit of length. Also called length, extent, span, separation. Examples: \"10 km\", \"5 miles\", \"300 meters\", \"2 feet\"."
+        },
+        {
+          "source": "schema.org",
+          "label": "TravelAction",
+          "path": "Thing > Action > MoveAction",
+          "score": 0.728,
+          "comment": "The act of moving from a starting location to a destination using a specified mode of transport. Also called journey, commute, voyage. Examples: traveling by car from home to work, flying from New York to London, taking a bus to another city."
+        },
+        {
+          "source": "schema.org",
+          "label": "LegalForceStatus",
+          "path": "Thing > Intangible > Enumeration > StatusEnumeration",
+          "score": 0.726,
+          "comment": "LegalForceStatus is an enumeration of possible statuses for the legal force or validity of a legislation. Also called legal validity status, legislative effect, law status. Examples: 'InForce', 'Repealed', 'Expired', 'Pending'."
+        },
+        {
+          "source": "schema.org",
+          "label": "MerchantReturnPolicySeasonalOverride",
+          "path": "Thing > Intangible",
+          "score": 0.726,
+          "comment": "An intangible representing a temporary, seasonal modification to a standard merchant return policy. Also called holiday return policy, seasonal return exception, extended return period. Examples: \"extended holiday return window\", \"special return policy for Black Friday purchases\"."
+        },
+        {
+          "source": "schema.org",
+          "label": "BoardingPolicyType",
+          "path": "Thing > Intangible > Enumeration",
+          "score": 0.722,
+          "comment": "An Enumeration representing different policies used by airlines for boarding passengers. Also called airline boarding rule, boarding group type, flight boarding policy. Examples: \"Zone boarding\", \"Group boarding\", \"Priority boarding\", \"Family boarding\"."
+        }
+      ]
+    },
+    {
+      "oie_type": "Direction",
+      "embedding_query_text": "Direction Examples: west.",
+      "chosen_type": {
+        "label": "Direction",
+        "source": "vocab",
+        "vocab_id": "T0232",
+        "is_new_to_vocab": true,
+        "definition": "A cardinal or ordinal direction, such as north, south, east, or west.",
+        "parent": "Intangible",
+        "path": "Thing > Intangible",
+        "justification": "The mention 'west' is a directional term not covered by any schema.org candidates; 'Intangible' is the appropriate parent."
+      },
+      "llm_proposed": {
+        "source": "new",
+        "label": "Direction",
+        "is_new": true
+      },
+      "mentions": [
+        "west"
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "HowToDirection",
+          "path": "Thing > CreativeWork",
+          "score": 0.771,
+          "comment": "A HowToDirection is a creative work representing a single action or instruction within a HowTo guide. Also called instruction step, action item, procedural command. Examples: 'Mix ingredients thoroughly,' 'Turn the knob clockwise,' 'Press the power button.' Distinct from HowToTip, which provides supplementary information rather than a direct action."
+        },
+        {
+          "source": "schema.org",
+          "label": "GeoCoordinates",
+          "path": "Thing > Intangible > StructuredValue",
+          "score": 0.76,
+          "comment": "GeoCoordinates is a StructuredValue representing the geographic coordinates of a place or event, typically latitude and longitude. Also called geographic location, GPS coordinates, spatial coordinates. Examples: Latitude 34.0522, Longitude -118.2437 (for Los Angeles), a specific point on a map, the coordinates of an event venue."
+        },
+        {
+          "source": "schema.org",
+          "label": "SteeringPositionValue",
+          "path": "Thing > Intangible > Enumeration > QualitativeValue",
+          "score": 0.754,
+          "comment": "A value indicating the steering position of a vehicle. Also called steering side, driver's side, vehicle control position. Examples: 'LeftHandDriving', 'RightHandDriving'."
+        },
+        {
+          "source": "schema.org",
+          "label": "Map",
+          "path": "Thing > CreativeWork",
+          "score": 0.752,
+          "comment": "A creative work that visually represents an area, showing features like roads, cities, or terrain. Also called cartographic representation, geographical chart, atlas page. Examples: a road map, a topographic map, a subway map, a world atlas."
+        },
+        {
+          "source": "schema.org",
+          "label": "DepartAction",
+          "path": "Thing > Action > MoveAction",
+          "score": 0.749,
+          "comment": "A move action representing the act of an agent leaving a specific location to travel towards a destination. Also called Leave, set off, embark, exit. Examples: A plane departing from an airport, a person leaving their home for work, a ship sailing from a port. Distinct from ArriveAction, which is the act of reaching a destination."
+        }
+      ]
+    },
+    {
+      "oie_type": "StormStrength",
+      "embedding_query_text": "StormStrength Examples: hurricane strength.",
+      "chosen_type": {
+        "label": "StormStrength",
+        "source": "vocab",
+        "vocab_id": "T0233",
+        "is_new_to_vocab": true,
+        "definition": "A classification or measurement of the intensity or strength of a storm, such as 'hurricane strength'.",
+        "parent": "Enumeration",
+        "path": "Thing > Intangible > Enumeration",
+        "justification": "The mention 'hurricane strength' implies a categorical strength value not covered by existing schema.org classes."
+      },
+      "llm_proposed": {
+        "source": "new",
+        "label": "StormStrength",
+        "is_new": true
+      },
+      "mentions": [
+        "hurricane strength"
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "DrugStrength",
+          "path": "Thing > MedicalEntity > MedicalIntangible",
+          "score": 0.755,
+          "comment": "A DrugStrength is a MedicalIntangible representing a specific potency in which a medical drug is available in a particular country. Also called medication dosage, pharmaceutical concentration. Examples: \"500 mg tablets\", \"10 mg/mL solution\", \"25 mcg patch\"."
+        },
+        {
+          "source": "schema.org",
+          "label": "MedicalConditionStage",
+          "path": "Thing > MedicalEntity > MedicalIntangible",
+          "score": 0.74,
+          "comment": "A medical intangible representing a specific stage of a medical condition. Also called disease stage, condition phase, severity level. Examples: \"Stage IIIa cancer\", \"early-stage Alzheimer's\", \"acute phase of an infection\"."
+        },
+        {
+          "source": "schema.org",
+          "label": "LegalForceStatus",
+          "path": "Thing > Intangible > Enumeration > StatusEnumeration",
+          "score": 0.737,
+          "comment": "LegalForceStatus is an enumeration of possible statuses for the legal force or validity of a legislation. Also called legal validity status, legislative effect, law status. Examples: 'InForce', 'Repealed', 'Expired', 'Pending'."
+        },
+        {
+          "source": "schema.org",
+          "label": "EventStatusType",
+          "path": "Thing > Intangible > Enumeration > StatusEnumeration",
+          "score": 0.737,
+          "comment": "An EventStatusType is a StatusEnumeration whose instances represent various states an Event may be in. Also called event state, status of event. Examples: EventScheduled, EventCancelled, EventPostponed, EventRescheduled."
+        },
+        {
+          "source": "schema.org",
+          "label": "UserPlusOnes",
+          "path": "Thing > Event > UserInteraction",
+          "score": 0.732,
+          "comment": "An outdated type representing a user's interaction of giving a \"+1\" endorsement, typically on Google+ or similar platforms. Also called user endorsement, +1, social recommendation. Examples: a user giving a +1 to a web page, endorsing a business, recommending content."
+        }
+      ]
+    },
+    {
+      "oie_type": "NoThreatToLand",
+      "embedding_query_text": "NoThreatToLand Examples: no threat to land.",
+      "chosen_type": {
+        "label": "LakeBodyOfWater",
+        "source": "schema.org",
+        "vocab_id": null,
+        "is_new_to_vocab": false,
+        "definition": null,
+        "parent": null,
+        "path": "Thing > Place > Landform > BodyOfWater",
+        "justification": "fallback: top candidate"
+      },
+      "llm_proposed": {
+        "source": "schema.org",
+        "label": "LakeBodyOfWater",
+        "is_new": false
+      },
+      "mentions": [
+        "no threat to land"
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "LakeBodyOfWater",
+          "path": "Thing > Place > Landform > BodyOfWater",
+          "score": 0.746,
+          "comment": "A LakeBodyOfWater is a landform representing a large body of still water surrounded by land. Also called lake, inland sea, reservoir. Examples: Lake Superior, Lake Tahoe, Lake Pontchartrain. Distinct from River, which is flowing water, and OceanBodyOfWater, which is a large saltwater body."
+        },
+        {
+          "source": "schema.org",
+          "label": "BoatTerminal",
+          "path": "Thing > Place > CivicStructure",
+          "score": 0.74,
+          "comment": "A CivicStructure serving as a station for boats, ships, and other water vessels to dock and embark/disembark passengers or cargo. Also called ferry terminal, cruise port, marina, dock. Examples: \"The Seattle Ferry Terminal\", \"PortMiami cruise terminal\", \"A local marina office\"."
+        },
+        {
+          "source": "schema.org",
+          "label": "DENonprofitType",
+          "path": "Thing > Intangible > Enumeration > NonprofitType",
+          "score": 0.739,
+          "comment": "DENonprofitType is an enumeration representing specific types of non-profit organizations recognized under German fiscal code, article 52. Also called German non-profit classification, AO 52 non-profit. Examples: A German charitable foundation, a registered German association for public benefit."
+        },
+        {
+          "source": "schema.org",
+          "label": "NLNonprofitType",
+          "path": "Thing > Intangible > Enumeration > NonprofitType",
+          "score": 0.736,
+          "comment": "NLNonprofitType is an enumeration for specific non-profit organization types originating from the Netherlands. Also called Dutch non-profit type, Netherlands charity classification. Examples: ANBI (Algemeen Nut Beogende Instelling), SBBI (Sociaal Belang Behartigende Instelling). Distinct from NonprofitType, which is a general enumeration for non-profit types."
+        },
+        {
+          "source": "schema.org",
+          "label": "Pond",
+          "path": "Thing > Place > Landform > BodyOfWater",
+          "score": 0.732,
+          "comment": "A Pond is a BodyOfWater, typically a small, still body of fresh water. Also called pool, small lake. Examples: a garden pond, a village pond, a duck pond, a natural depression filled with water."
+        }
+      ]
+    }
+  ]
+}

@@ -14,7 +14,7 @@
         "definition": null,
         "parent": null,
         "path": "Thing > Organization",
-        "justification": "Matches 'GovernmentBody' as it represents a political/administrative entity governing, with examples like 'Israel’s Security Cabinet' fitting."
+        "justification": "Matches 'GovernmentBody' as it represents a political organization responsible for governance."
       },
       "llm_proposed": {
         "source": "schema.org",
@@ -74,7 +74,7 @@
         "definition": null,
         "parent": null,
         "path": "Thing > Organization",
-        "justification": "Aligns with 'MediaOrganization' for entities producing/disseminating news, and 'Israel’s Channel 7' is a media outlet."
+        "justification": "Aligns with 'MediaOrganization' as it produces and disseminates news (e.g., TV channel)."
       },
       "llm_proposed": {
         "source": "schema.org",
@@ -133,7 +133,7 @@
         "definition": null,
         "parent": null,
         "path": "Thing > Place",
-        "justification": "Best fits 'Location' for regions defined by non-administrative criteria, matching examples like 'Binyamin regional area' and 'West Bank.'"
+        "justification": "Best fits 'Location' as the mentions are non-administrative geographic regions."
       },
       "llm_proposed": {
         "source": "schema.org",
@@ -191,19 +191,19 @@
       "oie_type": "TransportationInfrastructure",
       "embedding_query_text": "TransportationInfrastructure Examples: Route 60.",
       "chosen_type": {
-        "label": "FloorPlan",
-        "source": "schema.org",
-        "vocab_id": null,
-        "is_new_to_vocab": false,
-        "definition": null,
-        "parent": null,
-        "path": "Thing > Intangible",
-        "justification": "Matches 'SettlementPlan' as a blueprint for development, though not perfect; 'Route 60' could imply a structured plan."
+        "label": "TransportationRoute",
+        "source": "vocab",
+        "vocab_id": "T0003",
+        "is_new_to_vocab": true,
+        "definition": "A transportation route or corridor for infrastructure and movement.",
+        "parent": "CivicStructure",
+        "path": "Thing > Place > CivicStructure",
+        "justification": "No schema.org class matches 'Route 60' as a transportation corridor."
       },
       "llm_proposed": {
-        "source": "schema.org",
-        "label": "FloorPlan",
-        "is_new": false
+        "source": "new",
+        "label": "TransportationRoute",
+        "is_new": true
       },
       "mentions": [
         "Route 60"
@@ -250,19 +250,19 @@
       "oie_type": "PoliticalEvent",
       "embedding_query_text": "PoliticalEvent Examples: Knesset elections, Israeli elections, Knesset elections 2026.",
       "chosen_type": {
-        "label": "Event",
-        "source": "schema.org",
-        "vocab_id": null,
-        "is_new_to_vocab": false,
-        "definition": null,
-        "parent": null,
-        "path": "Thing",
-        "justification": "No candidate fits 'PoliticalEvent'; 'Knesset elections' is an event, but no specific schema.org class for elections exists. Reuse 'Event' as a fallback."
+        "label": "ElectionEvent",
+        "source": "vocab",
+        "vocab_id": "T0004",
+        "is_new_to_vocab": true,
+        "definition": "An event representing a political election or voting process.",
+        "parent": "Event",
+        "path": "Thing > Event",
+        "justification": "Schema.org lacks a specific 'PoliticalEvent' type; 'Knesset elections' is a distinct political event."
       },
       "llm_proposed": {
-        "source": "schema.org",
-        "label": "Event",
-        "is_new": false
+        "source": "new",
+        "label": "ElectionEvent",
+        "is_new": true
       },
       "mentions": [
         "Knesset elections"
@@ -316,7 +316,7 @@
         "definition": null,
         "parent": null,
         "path": "Thing",
-        "justification": "Matches 'Organization' broadly; 'Palestinian Forum for Israeli Studies (MADAR)' is an academic/research institution."
+        "justification": "General 'Organization' fits 'Palestinian Forum for Israeli Studies' as an institution."
       },
       "llm_proposed": {
         "source": "schema.org",
@@ -370,12 +370,12 @@
       "chosen_type": {
         "label": "InternationalAgreement",
         "source": "vocab",
-        "vocab_id": "T0003",
+        "vocab_id": "T0005",
         "is_new_to_vocab": true,
-        "definition": "A treaty or accord between multiple nations governing specific geopolitical issues",
+        "definition": "A formal treaty or accord between multiple nations governing geopolitical issues.",
         "parent": "Intangible",
         "path": "Thing > Intangible",
-        "justification": "No schema.org class matches 'InternationalAgreement'; 'Oslo Accords' is a treaty between nations."
+        "justification": "Schema.org lacks a class for international treaties; 'Oslo Accords' is a distinct agreement."
       },
       "llm_proposed": {
         "source": "new",
@@ -427,19 +427,19 @@
       "oie_type": "InternationalEntity",
       "embedding_query_text": "InternationalEntity Examples: international community.",
       "chosen_type": {
-        "label": "Event",
-        "source": "schema.org",
-        "vocab_id": null,
-        "is_new_to_vocab": false,
-        "definition": null,
-        "parent": null,
-        "path": "Thing",
-        "justification": "No candidate fits 'InternationalEntity'; 'international community' refers to a collective entity, best modeled as a generic 'Event' subclass."
+        "label": "InternationalCommunity",
+        "source": "vocab",
+        "vocab_id": "T0006",
+        "is_new_to_vocab": true,
+        "definition": "A collective of nations or global entities acting diplomatically or politically.",
+        "parent": "Organization",
+        "path": "Thing > Organization",
+        "justification": "Schema.org lacks a class for 'international community' as a collective entity."
       },
       "llm_proposed": {
-        "source": "schema.org",
-        "label": "Event",
-        "is_new": false
+        "source": "new",
+        "label": "InternationalCommunity",
+        "is_new": true
       },
       "mentions": [
         "international community"
@@ -486,18 +486,18 @@
       "oie_type": "SettlementPlan",
       "embedding_query_text": "SettlementPlan: A proposed development of new settlements in a specific geographic area Also called Settlement Initiative, Colonization Project, Land Expansion Plan, Residential Development Scheme, Territorial Construction Plan. Examples: 13 new settlements, 13 settlements, new settlements plan.",
       "chosen_type": {
-        "label": "SettlementPlan",
+        "label": "SettlementDevelopmentPlan",
         "source": "vocab",
-        "vocab_id": "T0004",
+        "vocab_id": "T0007",
         "is_new_to_vocab": true,
-        "definition": "A proposed development of new settlements in a specific geographic area",
+        "definition": "A proposed development of new settlements in a specific geographic area.",
         "parent": "Intangible",
         "path": "Thing > Intangible",
-        "justification": "No schema.org class matches 'SettlementPlan'; '13 new settlements' implies a development plan."
+        "justification": "Schema.org lacks a class for 'SettlementPlan' as a development proposal."
       },
       "llm_proposed": {
         "source": "new",
-        "label": "SettlementPlan",
+        "label": "SettlementDevelopmentPlan",
         "is_new": true
       },
       "mentions": [
@@ -552,7 +552,7 @@
         "definition": null,
         "parent": null,
         "path": "Thing > Intangible > StructuredValue",
-        "justification": "Matches 'MonetaryValue' for currency-based amounts; '28 million shekels' fits as a structured monetary value."
+        "justification": "Matches 'MonetaryValue' as it represents currency amounts (e.g., '28 million shekels')."
       },
       "llm_proposed": {
         "source": "schema.org",
@@ -612,7 +612,7 @@
         "definition": null,
         "parent": null,
         "path": "Thing > Intangible",
-        "justification": "Best fits 'Population' as a statistical group; '700,000 Israeli settlers' is a demographic count."
+        "justification": "Represents a population of '700,000 Israeli settlers' as a statistical group."
       },
       "llm_proposed": {
         "source": "schema.org",
@@ -671,7 +671,7 @@
         "definition": null,
         "parent": null,
         "path": "",
-        "justification": "Matches 'Date' for calendar years; '2023' is a valid ISO 8601 date."
+        "justification": "Matches 'Date' as a calendar date (e.g., '2023')."
       },
       "llm_proposed": {
         "source": "schema.org",
@@ -727,12 +727,12 @@
       "chosen_type": {
         "label": "SettlementOutpostCount",
         "source": "vocab",
-        "vocab_id": "T0005",
+        "vocab_id": "T0008",
         "is_new_to_vocab": true,
-        "definition": "A count of unauthorized settlement outposts in a region",
+        "definition": "A numerical count of settlement outposts or similar structures.",
         "parent": "Intangible",
         "path": "Thing > Intangible",
-        "justification": "No schema.org class fits 'SettlementOutpostCount'; '70 outposts' is a numeric count of settlements."
+        "justification": "Schema.org lacks a class for '70 outposts' as a quantitative count."
       },
       "llm_proposed": {
         "source": "new",
@@ -784,18 +784,18 @@
       "oie_type": "GeographicCorridor",
       "embedding_query_text": "GeographicCorridor Examples: two main corridors.",
       "chosen_type": {
-        "label": "GeoCircle",
+        "label": "GeoShape",
         "source": "schema.org",
         "vocab_id": null,
         "is_new_to_vocab": false,
         "definition": null,
         "parent": null,
-        "path": "Thing > Intangible > StructuredValue > GeoShape",
-        "justification": "Best fits 'GeographicCorridor' as a circular region; 'two main corridors' could imply spatial boundaries."
+        "path": "Thing > Intangible > StructuredValue",
+        "justification": "Represents 'two main corridors' as geographic shapes."
       },
       "llm_proposed": {
         "source": "schema.org",
-        "label": "GeoCircle",
+        "label": "GeoShape",
         "is_new": false
       },
       "mentions": [

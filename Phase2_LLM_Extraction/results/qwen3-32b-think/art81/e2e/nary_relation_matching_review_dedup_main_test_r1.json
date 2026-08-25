@@ -1,0 +1,2284 @@
+{
+  "article_id": "art81",
+  "match_model": "intfloat/e5-base-v2",
+  "expand_mode": true,
+  "relations": [
+    {
+      "relation_phrase": "caused by",
+      "definition": "Indicates a causal relationship where one entity is the direct cause of another",
+      "embedding_query_text": "caused by: Indicates a causal relationship where one entity is the direct cause of another",
+      "observed_signatures": [
+        "Event → EnvironmentalProcess"
+      ],
+      "n_assignments": 1,
+      "assignments": [
+        {
+          "instances": [
+            "Drought Intensification in Europe -> climate change"
+          ],
+          "chosen_property": {
+            "label": "source",
+            "source": "schema.org",
+            "direction": "as_is",
+            "vocab_id": null,
+            "is_new_to_vocab": false,
+            "definition": null,
+            "parent": null,
+            "domain": null,
+            "range": null,
+            "path": "",
+            "justification": "Selected 'source' as it links an event to its cause, aligning with the 'caused by' relation despite the domain being InstantaneousEvent."
+          },
+          "llm_proposed": {
+            "source": "schema.org",
+            "label": "source",
+            "is_new": false,
+            "direction": "as_is"
+          }
+        }
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "causeOf",
+          "signature": "MedicalCause → MedicalEntity",
+          "parent": null,
+          "inverse_of": "cause",
+          "score": 3.4653,
+          "matched_anchor": null,
+          "comment": "A causal relation between a medical cause and the medical entity (condition, complication, symptom) it produces. Also called \"results in\", \"leads to\", \"produces\". Examples: \"Influenza virus medical causeOf Flu\", \"Smoking medical causeOf Lung cancer\". Distinct from cause, which describes what leads to a condition, whereas causeOf describes what a medical cause leads to.",
+          "embed_score": 0.867,
+          "embed_rank": 2
+        },
+        {
+          "source": "schema.org",
+          "label": "cause",
+          "signature": "MedicalCondition → MedicalCause",
+          "parent": null,
+          "inverse_of": "causeOf",
+          "score": 1.8939,
+          "matched_anchor": null,
+          "comment": "A causal relation between a medical condition and its medical cause. Also called \"etiology\", \"origin\", \"caused by\". Examples: \"Flu medical condition cause Influenza virus\", \"Heart attack medical condition cause Coronary artery disease\". Distinct from causeOf, which describes what a medical cause leads to, whereas cause describes what leads to a condition.",
+          "embed_score": 0.868,
+          "embed_rank": 1
+        },
+        {
+          "source": "schema.org",
+          "label": "source",
+          "signature": "InstantaneousEvent → Thing",
+          "parent": null,
+          "inverse_of": null,
+          "score": 1.0246,
+          "matched_anchor": null,
+          "comment": "A causal relation between an instantaneous event and the thing that initiated or caused it. Also called \"originates from\", \"caused by\", \"event trigger\", \"event origin\". Examples: \"The explosion's source was a gas leak\", \"The alarm's source was a smoke detector\", \"The data breach's source was a phishing attack.\"",
+          "embed_score": 0.858,
+          "embed_rank": 3
+        },
+        {
+          "source": "schema.org",
+          "label": "inverseOf",
+          "signature": "Property → Property",
+          "parent": null,
+          "inverse_of": null,
+          "score": -6.3111,
+          "matched_anchor": null,
+          "comment": "A property relationship indicating that two properties describe the same association between entities but in opposite directions. Also called reciprocal property, opposite property, reverse property. Examples: The 'alumni' property is an inverseOf 'alumniOf'. The 'parent' property is an inverseOf 'child'. The 'employee' property is an inverseOf 'worksFor'.",
+          "embed_score": 0.796,
+          "embed_rank": 13
+        },
+        {
+          "source": "schema.org",
+          "label": "infectiousAgent",
+          "signature": "InfectiousDisease → Text",
+          "parent": null,
+          "inverse_of": null,
+          "score": -7.9881,
+          "matched_anchor": null,
+          "comment": "A causative agent relation between an infectious disease and the specific microorganism or pathogen that causes it. Also called causative organism, pathogen, disease agent, etiological agent. Examples: Influenza has an infectiousAgent of 'Influenza virus'. Tuberculosis has an infectiousAgent of 'Mycobacterium tuberculosis'. Malaria has an infectiousAgent of 'Plasmodium falciparum'. Distinct from infectiousAgentClass, which specifies the *type* of agent (e.g., bacteria, virus).",
+          "embed_score": 0.791,
+          "embed_rank": 22
+        },
+        {
+          "source": "schema.org",
+          "label": "error",
+          "signature": "Action → Thing",
+          "parent": null,
+          "inverse_of": null,
+          "score": -8.8576,
+          "matched_anchor": null,
+          "comment": "An error relation between a failed action and the thing providing more information on the cause of the failure. Also called \"failure cause\", \"problem details\", \"issue description\". Examples: \"Action 'Payment' error 'Insufficient Funds'\", \"Action 'Login' error 'Invalid Credentials'\", \"Action 'File Upload' error 'File Too Large'\". Distinct from errorCode, which is a specific code for the error.",
+          "embed_score": 0.807,
+          "embed_rank": 5
+        },
+        {
+          "source": "schema.org",
+          "label": "associatedDisease",
+          "signature": "BioChemEntity → MedicalCondition/PropertyValue/URL",
+          "parent": null,
+          "inverse_of": null,
+          "score": -9.0307,
+          "matched_anchor": null,
+          "comment": "A medical condition or URL representing a disease linked to a biochemical entity. Also called: related disease, disease connection, disease association. Examples: \"BioChemEntity 'Insulin' associatedDisease 'Diabetes'\", \"BioChemEntity 'Gene X' associatedDisease 'Cancer'\", \"BioChemEntity 'Drug Y' associatedDisease 'Hypertension'.\"",
+          "embed_score": 0.79,
+          "embed_rank": 27
+        },
+        {
+          "source": "schema.org",
+          "label": "hasRepresentation",
+          "signature": "BioChemEntity → PropertyValue/Text/URL",
+          "parent": null,
+          "inverse_of": null,
+          "score": -9.0798,
+          "matched_anchor": null,
+          "comment": "A representation relation between a biochemical entity and its common symbolic or structural representation. Also called represented by, symbolic form, structural representation. Examples: \"A BioChemEntity has a representation as a chemical structure.\", \"The entity has a representation as a text sequence.\", \"This biochemical entity has a URL representation.\"",
+          "embed_score": 0.785,
+          "embed_rank": 41
+        },
+        {
+          "source": "schema.org",
+          "label": "about",
+          "signature": "Certification/CommunicateAction/CreativeWork/DefinedTerm/DefinedTermSet/Event → Thing",
+          "parent": null,
+          "inverse_of": "subjectOf",
+          "score": -9.6374,
+          "matched_anchor": null,
+          "comment": "A subject matter relation between an entity (e.g., a creative work, event, or communication) and the topic it concerns. Also called concerning, regarding, on the topic of, related to. Examples: \"A book about quantum physics.\", \"A lecture about climate change.\", \"A certification about data privacy.\"",
+          "embed_score": 0.806,
+          "embed_rank": 6
+        },
+        {
+          "source": "schema.org",
+          "label": "transmissionMethod",
+          "signature": "InfectiousDisease → Text",
+          "parent": null,
+          "inverse_of": null,
+          "score": -9.7484,
+          "matched_anchor": null,
+          "comment": "A transmission method relation between an infectious disease and how it spreads, such as a route or vector. Also called mode of transmission, spread mechanism, vector. Examples: \"InfectiousDisease transmissionMethod 'direct contact'\", \"InfectiousDisease transmissionMethod 'Aedes aegypti'\", \"InfectiousDisease transmissionMethod 'airborne droplets'\".",
+          "embed_score": 0.783,
+          "embed_rank": 44
+        }
+      ]
+    },
+    {
+      "relation_phrase": "occurred in",
+      "definition": null,
+      "embedding_query_text": "occurred in:",
+      "observed_signatures": [
+        "Event → Continent"
+      ],
+      "n_assignments": 1,
+      "assignments": [
+        {
+          "instances": [
+            "Drought Intensification in Europe -> Europe"
+          ],
+          "chosen_property": {
+            "label": "occurredInLocation",
+            "source": "vocab",
+            "direction": "as_is",
+            "vocab_id": "P0215",
+            "is_new_to_vocab": true,
+            "definition": "An event occurring in a specific location.",
+            "parent": "location",
+            "domain": [
+              "Event"
+            ],
+            "range": [
+              "Continent"
+            ],
+            "path": "location",
+            "justification": "No schema.org property directly links an Event to a Continent as a location, so a new property is minted."
+          },
+          "llm_proposed": {
+            "source": "new",
+            "label": "occurredInLocation",
+            "is_new": true,
+            "direction": "as_is"
+          }
+        }
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "appearance",
+          "signature": "Claim → CreativeWork",
+          "parent": "workExample",
+          "inverse_of": null,
+          "score": 1.1725,
+          "matched_anchor": null,
+          "comment": "An appearance relation between a claim and a creative work where that claim is found or occurs. Also called occurrence in, mentioned in, found in. Examples: \"A claim's appearance is in 'News Article X'.\", \"The factual claim's appearance is in 'Research Paper Y'.\"",
+          "embed_score": 0.771,
+          "embed_rank": 35
+        },
+        {
+          "source": "schema.org",
+          "label": "firstAppearance",
+          "signature": "Claim → CreativeWork",
+          "parent": "workExample",
+          "inverse_of": null,
+          "score": -2.0503,
+          "matched_anchor": null,
+          "comment": "A first appearance relation between a claim and the creative work where it was initially known to occur. Also called: initial publication, original mention, debut in. Examples: \"Claim: Earth is flat\" first appearance \"Ancient Greek Texts\", \"Claim: COVID-19 is a hoax\" first appearance \"Social Media Post\", \"Claim: New drug cures cancer\" first appearance \"Unverified Online Article\".",
+          "embed_score": 0.775,
+          "embed_rank": 24
+        },
+        {
+          "source": "schema.org",
+          "label": "timestamp",
+          "signature": "InstantaneousEvent → DateTime",
+          "parent": null,
+          "inverse_of": null,
+          "score": -2.1422,
+          "matched_anchor": null,
+          "comment": "A timestamp relation between an instantaneous event and the specific date and time it occurred. Also called event time, occurrence time, moment of event. Examples: \"Concert timestamp 2023-10-27T20:00:00\", \"Login timestamp 2023-11-01T09:30:15Z\", \"Photo timestamp 2023-05-15T14:22:00\".",
+          "embed_score": 0.774,
+          "embed_rank": 25
+        },
+        {
+          "source": "schema.org",
+          "label": "sportsEvent",
+          "signature": "ExerciseAction → SportsEvent",
+          "parent": "location",
+          "inverse_of": null,
+          "score": -2.2871,
+          "matched_anchor": null,
+          "comment": "A specific event relation between an exercise action and the sports event during which it occurred. Also called \"event of exercise\", \"competition event\", \"athletic event\". Examples: \"The sprint occurred during the sportsEvent Olympics\", \"The goal was scored in the sportsEvent World Cup match\", \"This action took place at a sportsEvent marathon.\". Distinct from event, which is a more general event property.",
+          "embed_score": 0.787,
+          "embed_rank": 4
+        },
+        {
+          "source": "schema.org",
+          "label": "byMonth",
+          "signature": "Schedule → Integer",
+          "parent": null,
+          "inverse_of": null,
+          "score": -3.4476,
+          "matched_anchor": null,
+          "comment": "A temporal specification for a schedule, indicating the month(s) of the year on which a recurring event occurs. Also called \"months of year\", \"monthly recurrence\", \"in month\". Examples: \"Annual conference schedule byMonth 10\", \"Quarterly report schedule byMonth 3,6,9,12\".",
+          "embed_score": 0.771,
+          "embed_rank": 36
+        },
+        {
+          "source": "schema.org",
+          "label": "source",
+          "signature": "InstantaneousEvent → Thing",
+          "parent": null,
+          "inverse_of": null,
+          "score": -4.6396,
+          "matched_anchor": null,
+          "comment": "A causal relation between an instantaneous event and the thing that initiated or caused it. Also called \"originates from\", \"caused by\", \"event trigger\", \"event origin\". Examples: \"The explosion's source was a gas leak\", \"The alarm's source was a smoke detector\", \"The data breach's source was a phishing attack.\"",
+          "embed_score": 0.788,
+          "embed_rank": 3
+        },
+        {
+          "source": "schema.org",
+          "label": "byMonthDay",
+          "signature": "Schedule → Integer",
+          "parent": null,
+          "inverse_of": null,
+          "score": -4.9026,
+          "matched_anchor": null,
+          "comment": "A temporal specification for a schedule, indicating the day(s) of the month on which a recurring event occurs. Also called \"day of month\", \"monthly day recurrence\", \"on day of month\". Examples: \"Rent payment schedule byMonthDay 1\", \"Board meeting schedule byMonthDay 15\".",
+          "embed_score": 0.776,
+          "embed_rank": 17
+        },
+        {
+          "source": "schema.org",
+          "label": "eventAttendanceMode",
+          "signature": "Event → EventAttendanceModeEnumeration",
+          "parent": null,
+          "inverse_of": null,
+          "score": -4.9506,
+          "matched_anchor": null,
+          "comment": "An event attendance mode relation between an event and the enumeration indicating whether it occurs online, offline, or a mix. Also called \"attendance format\", \"event delivery mode\", \"participation mode\". Examples: \"Event 'Conference' eventAttendanceMode 'OnlineEventAttendanceMode'\", \"Event 'Workshop' eventAttendanceMode 'OfflineEventAttendanceMode'\", \"Event 'Hybrid Meeting' eventAttendanceMode 'MixedEventAttendanceMode'\".",
+          "embed_score": 0.778,
+          "embed_rank": 14
+        },
+        {
+          "source": "schema.org",
+          "label": "foodEstablishment",
+          "signature": "CookAction → FoodEstablishment/Place",
+          "parent": "location",
+          "inverse_of": null,
+          "score": -5.4631,
+          "matched_anchor": null,
+          "comment": "A food establishment relation between a cook action and the specific place or food establishment where the cooking occurred. Also called: cooking location, restaurant, kitchen. Examples: \"Chef prepares meal\" food establishment \"Gourmet Restaurant\", \"Home Cook makes dinner\" food establishment \"My Kitchen\", \"Baker bakes bread\" food establishment \"Local Bakery\". Distinct from foodEvent, which is a specific event.",
+          "embed_score": 0.779,
+          "embed_rank": 11
+        },
+        {
+          "source": "schema.org",
+          "label": "eventSchedule",
+          "signature": "Event → Schedule",
+          "parent": null,
+          "inverse_of": null,
+          "score": -6.3133,
+          "matched_anchor": null,
+          "comment": "An event schedule relation between an event and a schedule that defines a series of repeating occurrences for it. Also called \"recurring schedule\", \"event timetable\", \"series schedule\". Examples: \"Gym class eventSchedule 'Weekly schedule for Yoga'\", \"Concert series eventSchedule 'Schedule for monthly performances'\", \"Webinar series eventSchedule 'Schedule for bi-weekly sessions'\". Distinct from schedule, which is a more general property for any schedule.",
+          "embed_score": 0.771,
+          "embed_rank": 37
+        }
+      ]
+    },
+    {
+      "relation_phrase": "hasDriver",
+      "definition": "Identifies the primary mechanism or factor driving an event",
+      "embedding_query_text": "hasDriver: Identifies the primary mechanism or factor driving an event",
+      "observed_signatures": [
+        "EnvironmentalProcess → Event"
+      ],
+      "n_assignments": 1,
+      "assignments": [
+        {
+          "instances": [
+            "climate change -> extreme heat"
+          ],
+          "chosen_property": {
+            "label": "hasDriver",
+            "source": "vocab",
+            "direction": "as_is",
+            "vocab_id": "P0216",
+            "is_new_to_vocab": true,
+            "definition": "Identifies the primary mechanism or factor driving an event.",
+            "parent": null,
+            "domain": [
+              "EnvironmentalProcess"
+            ],
+            "range": [
+              "Event"
+            ],
+            "path": "",
+            "justification": "No existing schema.org property captures the 'hasDriver' relation between EnvironmentalProcess and Event."
+          },
+          "llm_proposed": {
+            "source": "new",
+            "label": "hasDriver",
+            "is_new": true,
+            "direction": "as_is"
+          }
+        }
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "hasDriveThroughService",
+          "signature": "Place → Boolean",
+          "parent": null,
+          "inverse_of": null,
+          "score": -2.7832,
+          "matched_anchor": null,
+          "comment": "A drive-through service availability relation for a place, indicating whether it offers services accessible by driving through. Also called offers drive-through, drive-through available, drive-in service. Examples: \"A restaurant has drive-through service.\", \"A testing facility has drive-through service.\", \"The bank has drive-through service for transactions.\"",
+          "embed_score": 0.835,
+          "embed_rank": 1
+        },
+        {
+          "source": "schema.org",
+          "label": "driveWheelConfiguration",
+          "signature": "Vehicle → DriveWheelConfigurationValue/Text",
+          "parent": null,
+          "inverse_of": null,
+          "score": -7.679,
+          "matched_anchor": null,
+          "comment": "A drive wheel configuration relation between a vehicle and the value or text describing which roadwheels receive torque from the engine. Also called \"drivetrain type\", \"wheel drive system\". Examples: \"Car 'SUV' driveWheelConfiguration 'AllWheelDriveConfiguration'\", \"Truck driveWheelConfiguration '4x4'\", \"Sedan driveWheelConfiguration 'FrontWheelDriveConfiguration'\".",
+          "embed_score": 0.789,
+          "embed_rank": 12
+        },
+        {
+          "source": "schema.org",
+          "label": "hasDeliveryMethod",
+          "signature": "DeliveryEvent/ParcelDelivery → DeliveryMethod",
+          "parent": null,
+          "inverse_of": null,
+          "score": -9.4421,
+          "matched_anchor": null,
+          "comment": "A delivery method relation between a delivery event or parcel delivery and the method used for its delivery. Also called delivery via, shipping method, method of delivery. Examples: \"A parcel delivery has a delivery method of 'express shipping'.\", \"The delivery event has a delivery method of 'pickup'.\", \"The order uses a delivery method of 'standard mail'.\"",
+          "embed_score": 0.793,
+          "embed_rank": 8
+        },
+        {
+          "source": "schema.org",
+          "label": "hasParticipationOffer",
+          "signature": "Event → Offer",
+          "parent": null,
+          "inverse_of": null,
+          "score": -9.7587,
+          "matched_anchor": null,
+          "comment": "A participation offer relation between an event and an offer to participate in it. Also called call for participation, participation opportunity, event entry offer. Examples: \"An event has a participation offer for speakers.\", \"The conference has a participation offer for proposals.\", \"This festival includes a participation offer for performers.\". Distinct from hasSponsorshipOffer, which is an offer to sponsor the event.",
+          "embed_score": 0.798,
+          "embed_rank": 4
+        },
+        {
+          "source": "schema.org",
+          "label": "steeringPosition",
+          "signature": "Vehicle → SteeringPositionValue",
+          "parent": null,
+          "inverse_of": null,
+          "score": -9.8129,
+          "matched_anchor": null,
+          "comment": "A specification of the steering wheel's position in a vehicle, typically for cars. Also called \"steering wheel side\", \"driver's side\", \"left-hand drive\", \"right-hand drive\". Examples: \"The car has steeringPosition LeftHandDriving\", \"This vehicle's steeringPosition is RightHandDriving\", \"The steeringPosition indicates where the driver sits.\"",
+          "embed_score": 0.776,
+          "embed_rank": 38
+        },
+        {
+          "source": "schema.org",
+          "label": "hasSponsorshipOffer",
+          "signature": "Event → Offer",
+          "parent": null,
+          "inverse_of": null,
+          "score": -9.9969,
+          "matched_anchor": null,
+          "comment": "A sponsorship offer relation between an event and an offer to sponsor it. Also called sponsorship opportunity, sponsor package, call for sponsors. Examples: \"An event has a sponsorship offer for corporate partners.\", \"The conference has a sponsorship offer with different tiers.\", \"This festival includes a sponsorship offer.\". Distinct from hasParticipationOffer, which is an offer to participate in the event.",
+          "embed_score": 0.777,
+          "embed_rank": 34
+        },
+        {
+          "source": "schema.org",
+          "label": "eventAttendanceMode",
+          "signature": "Event → EventAttendanceModeEnumeration",
+          "parent": null,
+          "inverse_of": null,
+          "score": -10.4603,
+          "matched_anchor": null,
+          "comment": "An event attendance mode relation between an event and the enumeration indicating whether it occurs online, offline, or a mix. Also called \"attendance format\", \"event delivery mode\", \"participation mode\". Examples: \"Event 'Conference' eventAttendanceMode 'OnlineEventAttendanceMode'\", \"Event 'Workshop' eventAttendanceMode 'OfflineEventAttendanceMode'\", \"Event 'Hybrid Meeting' eventAttendanceMode 'MixedEventAttendanceMode'\".",
+          "embed_score": 0.786,
+          "embed_rank": 17
+        },
+        {
+          "source": "schema.org",
+          "label": "source",
+          "signature": "InstantaneousEvent → Thing",
+          "parent": null,
+          "inverse_of": null,
+          "score": -10.5053,
+          "matched_anchor": null,
+          "comment": "A causal relation between an instantaneous event and the thing that initiated or caused it. Also called \"originates from\", \"caused by\", \"event trigger\", \"event origin\". Examples: \"The explosion's source was a gas leak\", \"The alarm's source was a smoke detector\", \"The data breach's source was a phishing attack.\"",
+          "embed_score": 0.811,
+          "embed_rank": 2
+        },
+        {
+          "source": "schema.org",
+          "label": "eventStatus",
+          "signature": "Event → EventStatusType",
+          "parent": null,
+          "inverse_of": null,
+          "score": -10.5735,
+          "matched_anchor": null,
+          "comment": "An event status relation between an event and its current status type. Also called \"event condition\", \"status of event\", \"event state\". Examples: \"Event 'Concert' eventStatus 'EventCancelled'\", \"Event 'Meeting' eventStatus 'EventScheduled'\", \"Event 'Festival' eventStatus 'EventRescheduled'\".",
+          "embed_score": 0.794,
+          "embed_rank": 5
+        },
+        {
+          "source": "schema.org",
+          "label": "event",
+          "signature": "InformAction/InviteAction/JoinAction/LeaveAction/Organization/Place/PlayAction → Event",
+          "parent": null,
+          "inverse_of": null,
+          "score": -10.6009,
+          "matched_anchor": null,
+          "comment": "An event association relation between an action, organization, or place and an event connected to it. Also called \"associated event\", \"related event\", \"features event\". Examples: \"Organization 'Museum' event 'Art Exhibition'\", \"Place 'Park' event 'Summer Festival'\", \"Inform action event 'Meeting Reminder'\". Distinct from events, which is the plural form.",
+          "embed_score": 0.794,
+          "embed_rank": 7
+        }
+      ]
+    },
+    {
+      "relation_phrase": "hasConsequence",
+      "definition": null,
+      "embedding_query_text": "hasConsequence:",
+      "observed_signatures": [
+        "EnvironmentalProcess → Event",
+        "Event → Event",
+        "EnvironmentalProcess → EnvironmentalPhenomenon"
+      ],
+      "n_assignments": 1,
+      "assignments": [
+        {
+          "instances": [
+            "climate change -> drought",
+            "climate change -> moisture loss",
+            "climate change -> extreme heat",
+            "extreme heat -> wildfires",
+            "extreme heat -> excess deaths"
+          ],
+          "chosen_property": {
+            "label": "hasConsequence",
+            "source": "vocab",
+            "direction": "as_is",
+            "vocab_id": "P0217",
+            "is_new_to_vocab": true,
+            "definition": "A consequence relation between an environmental process and an event or phenomenon it causes.",
+            "parent": null,
+            "domain": [
+              "EnvironmentalProcess"
+            ],
+            "range": [
+              "Event",
+              "EnvironmentalPhenomenon"
+            ],
+            "path": "",
+            "justification": "No existing schema.org property matches the diverse range of consequences (Event/EnvironmentalPhenomenon) from an EnvironmentalProcess."
+          },
+          "llm_proposed": {
+            "source": "new",
+            "label": "hasConsequence",
+            "is_new": true,
+            "direction": "as_is"
+          }
+        }
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "hasBioPolymerSequence",
+          "signature": "Gene/Protein → Text",
+          "parent": "hasRepresentation",
+          "inverse_of": null,
+          "score": 2.1241,
+          "matched_anchor": null,
+          "comment": "A sequence representation relation between a gene or protein and its symbolic biopolymer sequence. Also called sequence is, contains sequence, biopolymer sequence of. Examples: \"A gene has a biopolymer sequence of 'ATGC...'.\", \"A protein has a biopolymer sequence of 'AGCT...'.\", \"The entity has a biopolymer sequence representing its structure.\"",
+          "embed_score": 0.844,
+          "embed_rank": 1
+        },
+        {
+          "source": "schema.org",
+          "label": "hasAdultConsideration",
+          "signature": "Offer/Product → AdultOrientedEnumeration",
+          "parent": null,
+          "inverse_of": null,
+          "score": 1.5787,
+          "matched_anchor": null,
+          "comment": "An adult suitability relation between an offer or product and its intended audience or content rating. Also called adult-oriented, age-restricted, mature content, for adults only. Examples: \"An offer has adult consideration for explicit content.\", \"A product is tagged with adult consideration.\", \"This item has adult consideration due to its theme.\"",
+          "embed_score": 0.805,
+          "embed_rank": 9
+        },
+        {
+          "source": "schema.org",
+          "label": "itemCondition",
+          "signature": "Demand/MerchantReturnPolicy/Offer/Product → OfferItemCondition",
+          "parent": null,
+          "inverse_of": null,
+          "score": -4.1654,
+          "matched_anchor": null,
+          "comment": "A product state relation indicating the physical condition of a product or service, or the condition required for returns. Also called product state, condition of item, quality status, return condition. Examples: An offer has an itemCondition of 'NewCondition'. A product has an itemCondition of 'UsedCondition'. A return policy specifies itemCondition 'SellerRefurbished'.",
+          "embed_score": 0.775,
+          "embed_rank": 45
+        },
+        {
+          "source": "schema.org",
+          "label": "hasCertification",
+          "signature": "Organization/Person/Place/Product/Service → Certification",
+          "parent": null,
+          "inverse_of": null,
+          "score": -5.569,
+          "matched_anchor": null,
+          "comment": "A certification relation between an entity (organization, person, place, product, or service) and its associated certification. Also called holds certification, certified by, possesses certification, has accreditation. Examples: \"An organization has a certification for quality management.\", \"A product has a certification for organic ingredients.\", \"A person has a certification in project management.\"",
+          "embed_score": 0.793,
+          "embed_rank": 17
+        },
+        {
+          "source": "schema.org",
+          "label": "hasCredential",
+          "signature": "Organization/Person → Credential",
+          "parent": null,
+          "inverse_of": null,
+          "score": -5.9193,
+          "matched_anchor": null,
+          "comment": "A credential relation between an organization or person and an awarded credential. Also called holds credential, awarded credential, possesses credential. Examples: \"A person has a credential as a licensed engineer.\", \"An organization has a credential for business excellence.\", \"The professional has a credential in data science.\"",
+          "embed_score": 0.795,
+          "embed_rank": 16
+        },
+        {
+          "source": "schema.org",
+          "label": "hasRepresentation",
+          "signature": "BioChemEntity → PropertyValue/Text/URL",
+          "parent": null,
+          "inverse_of": null,
+          "score": -6.0632,
+          "matched_anchor": null,
+          "comment": "A representation relation between a biochemical entity and its common symbolic or structural representation. Also called represented by, symbolic form, structural representation. Examples: \"A BioChemEntity has a representation as a chemical structure.\", \"The entity has a representation as a text sequence.\", \"This biochemical entity has a URL representation.\"",
+          "embed_score": 0.803,
+          "embed_rank": 10
+        },
+        {
+          "source": "schema.org",
+          "label": "expectsAcceptanceOf",
+          "signature": "ActionAccessSpecification/ConsumeAction/MediaSubscription → Offer",
+          "parent": null,
+          "inverse_of": null,
+          "score": -6.0854,
+          "matched_anchor": null,
+          "comment": "An expects acceptance of relation between an action access specification, consume action, or media subscription and an offer that must be accepted before the action can be performed. Also called: requires offer, prerequisite offer, conditional offer. Examples: \"Watch Movie Action\" expects acceptance of \"Movie Purchase Offer\", \"Download Software Action\" expects acceptance of \"Software License Offer\", \"Access Premium Content\" expects acceptance of \"Subscription Offer\".",
+          "embed_score": 0.793,
+          "embed_rank": 20
+        },
+        {
+          "source": "schema.org",
+          "label": "hasCourseInstance",
+          "signature": "Course → CourseInstance",
+          "parent": null,
+          "inverse_of": null,
+          "score": -6.1042,
+          "matched_anchor": null,
+          "comment": "A course offering relation between a course and a specific instance of that course. Also called course offering, instance of course, course session. Examples: \"A calculus course has a course instance for Fall 2023.\", \"The online course has a course instance for self-paced study.\", \"A cooking class has a course instance on Tuesdays at 6 PM.\"",
+          "embed_score": 0.833,
+          "embed_rank": 2
+        },
+        {
+          "source": "schema.org",
+          "label": "hasParticipationOffer",
+          "signature": "Event → Offer",
+          "parent": null,
+          "inverse_of": null,
+          "score": -6.2608,
+          "matched_anchor": null,
+          "comment": "A participation offer relation between an event and an offer to participate in it. Also called call for participation, participation opportunity, event entry offer. Examples: \"An event has a participation offer for speakers.\", \"The conference has a participation offer for proposals.\", \"This festival includes a participation offer for performers.\". Distinct from hasSponsorshipOffer, which is an offer to sponsor the event.",
+          "embed_score": 0.791,
+          "embed_rank": 22
+        },
+        {
+          "source": "schema.org",
+          "label": "hasBioChemEntityPart",
+          "signature": "BioChemEntity → BioChemEntity",
+          "parent": null,
+          "inverse_of": "isPartOfBioChemEntity",
+          "score": -6.4825,
+          "matched_anchor": null,
+          "comment": "A part-whole relation between a biochemical entity and one of its constituent biochemical entities. Also called composed of, contains, includes part, made of. Examples: \"A protein has a BioChemEntity part of an amino acid sequence.\", \"A cell has BioChemEntity parts like organelles.\", \"A molecule has BioChemEntity parts of atoms.\"",
+          "embed_score": 0.809,
+          "embed_rank": 5
+        }
+      ]
+    },
+    {
+      "relation_phrase": "hasImpactOn",
+      "definition": "Describes a secondary effect or consequence of an event",
+      "embedding_query_text": "hasImpactOn: Describes a secondary effect or consequence of an event",
+      "observed_signatures": [
+        "EnvironmentalProcess → Event"
+      ],
+      "n_assignments": 1,
+      "assignments": [
+        {
+          "instances": [
+            "climate change -> wildfires"
+          ],
+          "chosen_property": {
+            "label": "hasImpactOn",
+            "source": "vocab",
+            "direction": "as_is",
+            "vocab_id": "P0218",
+            "is_new_to_vocab": true,
+            "definition": "Describes a secondary effect or consequence of an environmental process.",
+            "parent": null,
+            "domain": [
+              "EnvironmentalProcess"
+            ],
+            "range": [
+              "Event"
+            ],
+            "path": "",
+            "justification": "No existing schema.org property captures the 'hasImpactOn' relation between EnvironmentalProcess and Event."
+          },
+          "llm_proposed": {
+            "source": "new",
+            "label": "hasImpactOn",
+            "is_new": true,
+            "direction": "as_is"
+          }
+        }
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "possibleComplication",
+          "signature": "MedicalCondition → Text",
+          "parent": null,
+          "inverse_of": null,
+          "score": -2.9113,
+          "matched_anchor": null,
+          "comment": "A medical attribute describing a potential unexpected and unfavorable evolution or outcome of a medical condition. Also called potential adverse event, risk, secondary condition, complication risk. Examples: Diabetes has a possible complication of 'kidney failure'. Surgery has a possible complication of 'infection'. A medical condition has a possible complication of 'worsening symptoms'.",
+          "embed_score": 0.795,
+          "embed_rank": 18
+        },
+        {
+          "source": "schema.org",
+          "label": "source",
+          "signature": "InstantaneousEvent → Thing",
+          "parent": null,
+          "inverse_of": null,
+          "score": -6.0266,
+          "matched_anchor": null,
+          "comment": "A causal relation between an instantaneous event and the thing that initiated or caused it. Also called \"originates from\", \"caused by\", \"event trigger\", \"event origin\". Examples: \"The explosion's source was a gas leak\", \"The alarm's source was a smoke detector\", \"The data breach's source was a phishing attack.\"",
+          "embed_score": 0.796,
+          "embed_rank": 17
+        },
+        {
+          "source": "schema.org",
+          "label": "secondaryPrevention",
+          "signature": "MedicalCondition → Drug/DrugClass/LifestyleModification/MedicalTherapy",
+          "parent": null,
+          "inverse_of": null,
+          "score": -6.7322,
+          "matched_anchor": null,
+          "comment": "A preventative therapy or intervention aimed at preventing the recurrence of a medical condition after an initial episode. Also called relapse prevention, post-episode prevention, reoccurrence therapy. Examples: `Heart Attack` secondaryPrevention `Aspirin Therapy`, `Stroke` secondaryPrevention `Lifestyle Modification: Diet and Exercise`, `Depression` secondaryPrevention `Medical Therapy: Cognitive Behavioral Therapy`. Distinct from `primaryPrevention`, which aims to prevent the *initial* occurrence.",
+          "embed_score": 0.816,
+          "embed_rank": 2
+        },
+        {
+          "source": "schema.org",
+          "label": "seriousAdverseOutcome",
+          "signature": "MedicalDevice/MedicalTherapy → MedicalEntity",
+          "parent": null,
+          "inverse_of": null,
+          "score": -7.1678,
+          "matched_anchor": null,
+          "comment": "A severe complication or side effect, such as death, disability, or life-threatening conditions, that may result from a medical device or therapy. Also called severe side effect, major complication, critical adverse event. Examples: `Chemotherapy` seriousAdverseOutcome `Severe Immunosuppression`, `Surgical Procedure` seriousAdverseOutcome `Infection`, `Medical Device Implant` seriousAdverseOutcome `Device Malfunction Leading to Injury`. Distinct from `adverseOutcome`, which is a more general adverse event.",
+          "embed_score": 0.806,
+          "embed_rank": 3
+        },
+        {
+          "source": "schema.org",
+          "label": "hasParticipationOffer",
+          "signature": "Event → Offer",
+          "parent": null,
+          "inverse_of": null,
+          "score": -7.7435,
+          "matched_anchor": null,
+          "comment": "A participation offer relation between an event and an offer to participate in it. Also called call for participation, participation opportunity, event entry offer. Examples: \"An event has a participation offer for speakers.\", \"The conference has a participation offer for proposals.\", \"This festival includes a participation offer for performers.\". Distinct from hasSponsorshipOffer, which is an offer to sponsor the event.",
+          "embed_score": 0.819,
+          "embed_rank": 1
+        },
+        {
+          "source": "schema.org",
+          "label": "contributor",
+          "signature": "CreativeWork/Event → Organization/Person",
+          "parent": null,
+          "inverse_of": null,
+          "score": -7.969,
+          "matched_anchor": null,
+          "comment": "A secondary participation relation for a creative work or event, indicating an organization or person who contributed to it. Also called \"additional contributor\", \"supporting role\", \"collaborator\". Examples: \"Book creative work contributor 'Editor Jane Doe'\", \"Conference event contributor 'Sponsor Acme Corp'\". Distinct from author or creator, which typically denote primary responsibility.",
+          "embed_score": 0.787,
+          "embed_rank": 34
+        },
+        {
+          "source": "schema.org",
+          "label": "event",
+          "signature": "InformAction/InviteAction/JoinAction/LeaveAction/Organization/Place/PlayAction → Event",
+          "parent": null,
+          "inverse_of": null,
+          "score": -8.5382,
+          "matched_anchor": null,
+          "comment": "An event association relation between an action, organization, or place and an event connected to it. Also called \"associated event\", \"related event\", \"features event\". Examples: \"Organization 'Museum' event 'Art Exhibition'\", \"Place 'Park' event 'Summer Festival'\", \"Inform action event 'Meeting Reminder'\". Distinct from events, which is the plural form.",
+          "embed_score": 0.786,
+          "embed_rank": 36
+        },
+        {
+          "source": "schema.org",
+          "label": "adverseOutcome",
+          "signature": "MedicalDevice/TherapeuticProcedure → MedicalEntity",
+          "parent": null,
+          "inverse_of": null,
+          "score": -8.6933,
+          "matched_anchor": null,
+          "comment": "An adverse outcome relation between a medical device or therapeutic procedure and a possible complication or side effect. Also called side effect, complication, negative reaction. Examples: \"A surgery's adverse outcome is 'infection'.\", \"A medical device's adverse outcome is 'skin irritation'.\" Distinct from seriousAdverseOutcome, which is specifically for life-threatening or severe complications.",
+          "embed_score": 0.796,
+          "embed_rank": 16
+        },
+        {
+          "source": "schema.org",
+          "label": "hasDeliveryMethod",
+          "signature": "DeliveryEvent/ParcelDelivery → DeliveryMethod",
+          "parent": null,
+          "inverse_of": null,
+          "score": -9.1808,
+          "matched_anchor": null,
+          "comment": "A delivery method relation between a delivery event or parcel delivery and the method used for its delivery. Also called delivery via, shipping method, method of delivery. Examples: \"A parcel delivery has a delivery method of 'express shipping'.\", \"The delivery event has a delivery method of 'pickup'.\", \"The order uses a delivery method of 'standard mail'.\"",
+          "embed_score": 0.805,
+          "embed_rank": 5
+        },
+        {
+          "source": "schema.org",
+          "label": "superEvent",
+          "signature": "Event → Event",
+          "parent": null,
+          "inverse_of": "subEvent",
+          "score": -9.2976,
+          "matched_anchor": null,
+          "comment": "A hierarchical relation between a smaller event and the larger event of which it is a part. Also called \"part of larger event\", \"parent event\", \"contained within event\", \"main event\". Examples: \"The concert has superEvent the music festival\", \"The presentation's superEvent is the conference\", \"This workshop is part of a superEvent summit.\". Distinct from subEvent, which points from the larger event to the smaller one.",
+          "embed_score": 0.786,
+          "embed_rank": 37
+        }
+      ]
+    },
+    {
+      "relation_phrase": "attributedTo",
+      "definition": "Links a claim to the individual or organization making it",
+      "embedding_query_text": "attributedTo: Links a claim to the individual or organization making it",
+      "observed_signatures": [
+        "ScientificClaim → Person",
+        "ScientificClaim → MedicalStudy"
+      ],
+      "n_assignments": 1,
+      "assignments": [
+        {
+          "instances": [
+            "Zachariah on Drought Drivers -> Mariam Zachariah",
+            "Schumacher on Heatwave Impact -> Dominik Schumacher",
+            "Study on Climate Change Effects -> World Weather Attribution group study"
+          ],
+          "chosen_property": {
+            "label": "creditedTo",
+            "source": "vocab",
+            "direction": "as_is",
+            "vocab_id": "P0049",
+            "is_new_to_vocab": false,
+            "definition": "A relation between a performance assessment and the person responsible for it.",
+            "parent": "hasRepresentation",
+            "domain": [
+              "PerformanceAssessment"
+            ],
+            "range": [
+              "Person"
+            ],
+            "path": "hasRepresentation",
+            "justification": "fallback: top candidate"
+          },
+          "llm_proposed": {
+            "source": "schema.org",
+            "label": "creditedTo",
+            "is_new": false,
+            "direction": "as_is"
+          }
+        }
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "creditedTo",
+          "signature": "MusicRelease → Organization/Person",
+          "parent": null,
+          "inverse_of": null,
+          "score": 0.2307,
+          "matched_anchor": null,
+          "comment": "An attribution relation between a music release and the group or artist it is credited to, if different from the primary artist. Also called: attributed to, release credit, presented by. Examples: \"Album 'Red and Blue'\" credited to \"Stefani Germanotta Band\", \"Single 'X'\" credited to \"The Session Musicians\", \"Soundtrack\" credited to \"Various Artists\".",
+          "embed_score": 0.868,
+          "embed_rank": 1
+        },
+        {
+          "source": "schema.org",
+          "label": "claimInterpreter",
+          "signature": "Claim → Organization/Person",
+          "parent": null,
+          "inverse_of": null,
+          "score": -0.6881,
+          "matched_anchor": null,
+          "comment": "An interpretation relation between a claim and the organization or person who interpreted it from media content. Also called \"interpreted by\", \"claim analyst\", \"fact-checker\". Examples: \"News claim claimInterpreter FactCheck.org\", \"Social media claim claimInterpreter Jane Doe\".",
+          "embed_score": 0.792,
+          "embed_rank": 21
+        },
+        {
+          "source": "schema.org",
+          "label": "spokenByCharacter",
+          "signature": "Quotation → Organization/Person",
+          "parent": null,
+          "inverse_of": null,
+          "score": -0.9811,
+          "matched_anchor": null,
+          "comment": "An attribution relation between a quotation and the character, person, or organization to whom it is attributed within a creative work. Also called \"attributed to\", \"quote speaker\", \"character says\", \"uttered by\". Examples: \"The quote is spokenByCharacter Hamlet\", \"The dialogue was spokenByCharacter the CEO\", \"This line is spokenByCharacter a fictional narrator.\"",
+          "embed_score": 0.794,
+          "embed_rank": 14
+        },
+        {
+          "source": "schema.org",
+          "label": "associatedClaimReview",
+          "signature": "Review → Review",
+          "parent": "associatedReview",
+          "inverse_of": null,
+          "score": -1.0799,
+          "matched_anchor": null,
+          "comment": "A claim review related to another review by common content, topic, or claim. Also called: related claim review, linked claim assessment. Examples: \"Review 'MediaReview of Article' associatedClaimReview 'ClaimReview of Statement'\", \"Review 'FactCheck' associatedClaimReview 'Another FactCheck'\". Distinct from associatedMediaReview, which links to a media review.",
+          "embed_score": 0.824,
+          "embed_rank": 2
+        },
+        {
+          "source": "schema.org",
+          "label": "connectedTo",
+          "signature": "AnatomicalStructure → AnatomicalStructure",
+          "parent": null,
+          "inverse_of": null,
+          "score": -3.5818,
+          "matched_anchor": null,
+          "comment": "A connection relation between an anatomical structure and other anatomical structures it is connected to. Also called \"linked to\", \"adjoins\", \"connects with\". Examples: \"Femur anatomical structure connectedTo Tibia\", \"Brain anatomical structure connectedTo Spinal cord\".",
+          "embed_score": 0.802,
+          "embed_rank": 7
+        },
+        {
+          "source": "schema.org",
+          "label": "associatedMediaReview",
+          "signature": "Review → Review",
+          "parent": "associatedReview",
+          "inverse_of": null,
+          "score": -3.6277,
+          "matched_anchor": null,
+          "comment": "A media review related to another review by common content, topic, or claim. Also called: related media review, linked media assessment. Examples: \"Review 'ClaimReview of Statement' associatedMediaReview 'MediaReview of Article'\", \"Review 'ProductReview' associatedMediaReview 'VideoReview'\". Distinct from associatedClaimReview, which links to a claim review.",
+          "embed_score": 0.779,
+          "embed_rank": 44
+        },
+        {
+          "source": "schema.org",
+          "label": "isRelatedTo",
+          "signature": "Product/Service → Product/Service",
+          "parent": null,
+          "inverse_of": null,
+          "score": -4.5678,
+          "matched_anchor": null,
+          "comment": "A general association relation between two products or services that have some unspecified connection. Also called associated with, connected to, linked to, relevant to. Examples: A smartphone isRelatedTo 'a smart watch'. A car service isRelatedTo 'car insurance'. A book isRelatedTo 'a movie adaptation'. Distinct from isSimilarTo, which implies functional similarity, and isAccessoryOrSparePartFor or isConsumableFor, which imply specific functional dependencies. This is a very general relation.",
+          "embed_score": 0.823,
+          "embed_rank": 3
+        },
+        {
+          "source": "schema.org",
+          "label": "sameAs",
+          "signature": "Thing → URL",
+          "parent": null,
+          "inverse_of": null,
+          "score": -5.8965,
+          "matched_anchor": null,
+          "comment": "A URL that identifies the same real-world entity as the item, providing an unambiguous reference to its identity. Also called equivalent to, identical to, linked identity, canonical URL. Examples: `Person: Albert Einstein` sameAs `Wikipedia URL`, `Organization: Google` sameAs `Official Website URL`, `Product: iPhone` sameAs `Wikidata URL`. Distinct from `url`, which is a general URL for the item, not necessarily an identity link.",
+          "embed_score": 0.797,
+          "embed_rank": 11
+        },
+        {
+          "source": "schema.org",
+          "label": "creditText",
+          "signature": "CreativeWork → Text",
+          "parent": null,
+          "inverse_of": null,
+          "score": -6.3249,
+          "matched_anchor": null,
+          "comment": "An attribution relation between a creative work and the text used to credit associated persons or organizations. Also called: attribution text, credit line, acknowledgment. Examples: \"Movie\" credit text \"Directed by...\", \"Photograph\" credit text \"Photo by John Doe\", \"Research Paper\" credit text \"Funding provided by...\". Distinct from creator, which identifies the primary author/creator.",
+          "embed_score": 0.799,
+          "embed_rank": 9
+        },
+        {
+          "source": "schema.org",
+          "label": "interpretedAsClaim",
+          "signature": "CreativeWork/MediaObject → Claim",
+          "parent": "description",
+          "inverse_of": null,
+          "score": -6.6494,
+          "matched_anchor": null,
+          "comment": "A claim extraction relation between a creative work or media object and a specific assertion or statement derived from its content. Also called contains claim, implies claim, claim extracted from, claim derived from. Examples: A news article is interpretedAsClaim 'The sky is blue'. A scientific paper is interpretedAsClaim 'Drug X cures Y'. A video is interpretedAsClaim 'Candidate Z made promise A'.",
+          "embed_score": 0.806,
+          "embed_rank": 6
+        }
+      ]
+    },
+    {
+      "relation_phrase": "relatesTo",
+      "definition": null,
+      "embedding_query_text": "relatesTo:",
+      "observed_signatures": [
+        "ScientificClaim → Event"
+      ],
+      "n_assignments": 1,
+      "assignments": [
+        {
+          "instances": [
+            "Zachariah on Drought Drivers -> Drought Intensification in Europe",
+            "Schumacher on Heatwave Impact -> Drought Intensification in Europe",
+            "Study on Climate Change Effects -> Drought Intensification in Europe"
+          ],
+          "chosen_property": {
+            "label": "relatedTo",
+            "source": "schema.org",
+            "direction": "as_is",
+            "vocab_id": null,
+            "is_new_to_vocab": false,
+            "definition": null,
+            "parent": null,
+            "domain": null,
+            "range": null,
+            "path": "",
+            "justification": "fallback: top candidate"
+          },
+          "llm_proposed": {
+            "source": "schema.org",
+            "label": "relatedTo",
+            "is_new": false,
+            "direction": "as_is"
+          }
+        }
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "relatedTo",
+          "signature": "Person → Person",
+          "parent": null,
+          "inverse_of": null,
+          "score": 8.9363,
+          "matched_anchor": null,
+          "comment": "A familial relation between two people, representing a generic family connection. Also called family member, kin, relative. Examples: \"John is related to 'Jane'.\", \"Mary is related to 'Tom'.\", \"Aunt Sally is related to 'Nephew Bob'.\"",
+          "embed_score": 0.859,
+          "embed_rank": 1
+        },
+        {
+          "source": "schema.org",
+          "label": "relatedCondition",
+          "signature": "AnatomicalStructure/AnatomicalSystem/SuperficialAnatomy → MedicalCondition",
+          "parent": null,
+          "inverse_of": null,
+          "score": 5.1229,
+          "matched_anchor": null,
+          "comment": "A related condition relation between an anatomical structure or system and a medical condition associated with it. Also called associated condition, condition of, affects condition. Examples: \"The knee joint has a related condition 'arthritis'.\", \"The respiratory system has a related condition 'asthma'.\", \"The skin has a related condition 'eczema'.\"",
+          "embed_score": 0.814,
+          "embed_rank": 9
+        },
+        {
+          "source": "schema.org",
+          "label": "connectedTo",
+          "signature": "AnatomicalStructure → AnatomicalStructure",
+          "parent": null,
+          "inverse_of": null,
+          "score": 5.0182,
+          "matched_anchor": null,
+          "comment": "A connection relation between an anatomical structure and other anatomical structures it is connected to. Also called \"linked to\", \"adjoins\", \"connects with\". Examples: \"Femur anatomical structure connectedTo Tibia\", \"Brain anatomical structure connectedTo Spinal cord\".",
+          "embed_score": 0.833,
+          "embed_rank": 2
+        },
+        {
+          "source": "schema.org",
+          "label": "relatedStructure",
+          "signature": "AnatomicalSystem → AnatomicalStructure",
+          "parent": null,
+          "inverse_of": null,
+          "score": 4.2793,
+          "matched_anchor": null,
+          "comment": "A related structure relation between an anatomical system and structures that connect to or are associated with it, but are not part of the system itself. Also called associated structure, connected structure. Examples: \"The circulatory system has a related structure 'the heart'.\", \"The nervous system has a related structure 'the brain'.\", \"The digestive system has a related structure 'the liver'.\"",
+          "embed_score": 0.798,
+          "embed_rank": 37
+        },
+        {
+          "source": "schema.org",
+          "label": "isRelatedTo",
+          "signature": "Product/Service → Product/Service",
+          "parent": null,
+          "inverse_of": null,
+          "score": 4.237,
+          "matched_anchor": null,
+          "comment": "A general association relation between two products or services that have some unspecified connection. Also called associated with, connected to, linked to, relevant to. Examples: A smartphone isRelatedTo 'a smart watch'. A car service isRelatedTo 'car insurance'. A book isRelatedTo 'a movie adaptation'. Distinct from isSimilarTo, which implies functional similarity, and isAccessoryOrSparePartFor or isConsumableFor, which imply specific functional dependencies. This is a very general relation.",
+          "embed_score": 0.827,
+          "embed_rank": 3
+        },
+        {
+          "source": "schema.org",
+          "label": "creditedTo",
+          "signature": "MusicRelease → Organization/Person",
+          "parent": null,
+          "inverse_of": null,
+          "score": 4.083,
+          "matched_anchor": null,
+          "comment": "An attribution relation between a music release and the group or artist it is credited to, if different from the primary artist. Also called: attributed to, release credit, presented by. Examples: \"Album 'Red and Blue'\" credited to \"Stefani Germanotta Band\", \"Single 'X'\" credited to \"The Session Musicians\", \"Soundtrack\" credited to \"Various Artists\".",
+          "embed_score": 0.815,
+          "embed_rank": 8
+        },
+        {
+          "source": "schema.org",
+          "label": "relatedLink",
+          "signature": "WebPage → URL",
+          "parent": null,
+          "inverse_of": null,
+          "score": 3.6197,
+          "matched_anchor": null,
+          "comment": "A related link relation between a web page and a URL pointing to another relevant web page. Also called external link, associated link, further reading. Examples: \"A news article has a related link to 'the source report'.\", \"A product page has a related link to 'customer reviews'.\", \"A blog post has a related link to 'a previous article'.\"",
+          "embed_score": 0.824,
+          "embed_rank": 4
+        },
+        {
+          "source": "schema.org",
+          "label": "relatedAnatomy",
+          "signature": "SuperficialAnatomy → AnatomicalStructure/AnatomicalSystem",
+          "parent": null,
+          "inverse_of": null,
+          "score": 3.1244,
+          "matched_anchor": null,
+          "comment": "A related anatomy relation between superficial anatomy and other anatomical structures or systems connected to it. Also called associated anatomy, connected to anatomy. Examples: \"The skin of the forearm has related anatomy 'radius bone'.\", \"The superficial muscles of the back have related anatomy 'vertebral column'.\", \"The scalp has related anatomy 'cranium'.\"",
+          "embed_score": 0.805,
+          "embed_rank": 16
+        },
+        {
+          "source": "schema.org",
+          "label": "relatedDrug",
+          "signature": "Drug → Drug",
+          "parent": null,
+          "inverse_of": null,
+          "score": 2.3125,
+          "matched_anchor": null,
+          "comment": "A related drug relation between a drug and other drugs that are similar or commonly prescribed alternatives. Also called alternative drug, similar medication, related medication. Examples: \"A pain reliever has a related drug 'ibuprofen'.\", \"An antidepressant has a related drug 'SSRI'.\", \"A blood pressure medication has a related drug 'diuretic'.\"",
+          "embed_score": 0.798,
+          "embed_rank": 34
+        },
+        {
+          "source": "schema.org",
+          "label": "relatedTherapy",
+          "signature": "AnatomicalStructure/AnatomicalSystem/SuperficialAnatomy → MedicalTherapy",
+          "parent": null,
+          "inverse_of": null,
+          "score": 1.399,
+          "matched_anchor": null,
+          "comment": "A related therapy relation between an anatomical structure or system and a medical therapy associated with it. Also called associated therapy, treatment for. Examples: \"The knee joint has a related therapy 'physical therapy'.\", \"The respiratory system has a related therapy 'inhaler treatment'.\", \"The skin has a related therapy 'topical cream application'.\"",
+          "embed_score": 0.818,
+          "embed_rank": 6
+        }
+      ]
+    },
+    {
+      "relation_phrase": "hasCause",
+      "definition": null,
+      "embedding_query_text": "hasCause:",
+      "observed_signatures": [
+        "EnvironmentalProcess → QuantitativeValue",
+        "EnvironmentalProcess → Event"
+      ],
+      "n_assignments": 2,
+      "assignments": [
+        {
+          "instances": [
+            "climate change -> 1.4C"
+          ],
+          "chosen_property": {
+            "label": "source",
+            "source": "schema.org",
+            "direction": "inverse",
+            "vocab_id": null,
+            "is_new_to_vocab": false,
+            "definition": null,
+            "parent": null,
+            "domain": null,
+            "range": null,
+            "path": "",
+            "justification": "Selected 'source' in inverse direction to represent 'hasCause' where the EnvironmentalProcess is the cause of the Event."
+          },
+          "llm_proposed": {
+            "source": "schema.org",
+            "label": "source",
+            "is_new": false,
+            "direction": "inverse"
+          }
+        },
+        {
+          "instances": [
+            "climate change -> extreme heat"
+          ],
+          "chosen_property": {
+            "label": "hasCause",
+            "source": "vocab",
+            "direction": "as_is",
+            "vocab_id": "P0219",
+            "is_new_to_vocab": true,
+            "definition": "A direct causal relation between an environmental process and a quantitative value representing its cause.",
+            "parent": null,
+            "domain": [
+              "EnvironmentalProcess"
+            ],
+            "range": [
+              "QuantitativeValue"
+            ],
+            "path": "",
+            "justification": "Minted a new property for the EnvironmentalProcess → QuantitativeValue pair as no schema.org property fits directly."
+          },
+          "llm_proposed": {
+            "source": "new",
+            "label": "hasCause",
+            "is_new": true,
+            "direction": "as_is"
+          }
+        }
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "hasMenuSection",
+          "signature": "Menu/MenuSection → MenuSection",
+          "parent": null,
+          "inverse_of": null,
+          "score": 0.6391,
+          "matched_anchor": null,
+          "comment": "A menu section inclusion relation between a menu or menu section and one of its contained menu sections. Also called includes section, menu subgroup, section of menu. Examples: \"A menu has a menu section for main courses.\", \"The dinner menu has a menu section for beverages.\", \"This menu section contains another menu section for side dishes.\"",
+          "embed_score": 0.806,
+          "embed_rank": 8
+        },
+        {
+          "source": "schema.org",
+          "label": "potentialUse",
+          "signature": "ChemicalSubstance/MolecularEntity → DefinedTerm",
+          "parent": null,
+          "inverse_of": null,
+          "score": -3.2215,
+          "matched_anchor": null,
+          "comment": "A descriptive attribute indicating the intended use of a chemical substance or molecular entity by humans. Also called intended application, human use, purpose. Examples: A chemical substance has a potential use as 'fertilizer'. A molecular entity has a potential use as 'drug component'. The compound has a potential use in 'food preservation'.",
+          "embed_score": 0.793,
+          "embed_rank": 22
+        },
+        {
+          "source": "schema.org",
+          "label": "educationalUse",
+          "signature": "CreativeWork/LearningResource → DefinedTerm/Text",
+          "parent": null,
+          "inverse_of": null,
+          "score": -3.7678,
+          "matched_anchor": null,
+          "comment": "An educational use relation between a creative work or learning resource and its purpose in an educational context. Also called \"learning purpose\", \"pedagogical use\", \"instructional application\". Examples: \"Worksheet educationalUse 'Assignment'\", \"Video educationalUse 'Group work'\", \"Simulation educationalUse 'Experiment'\".",
+          "embed_score": 0.788,
+          "embed_rank": 31
+        },
+        {
+          "source": "schema.org",
+          "label": "hasDigitalDocumentPermission",
+          "signature": "DigitalDocument → DigitalDocumentPermission",
+          "parent": null,
+          "inverse_of": null,
+          "score": -4.4597,
+          "matched_anchor": null,
+          "comment": "A document permission relation between a digital document and an associated access permission. Also called document access, permission for document, document rights. Examples: \"A digital document has a digital document permission to read.\", \"The file has a digital document permission for editing.\", \"This document has digital document permissions for public viewing.\"",
+          "embed_score": 0.8,
+          "embed_rank": 16
+        },
+        {
+          "source": "schema.org",
+          "label": "hasOfferCatalog",
+          "signature": "Organization/Person/Service → OfferCatalog",
+          "parent": null,
+          "inverse_of": null,
+          "score": -5.2085,
+          "matched_anchor": null,
+          "comment": "An offer catalog relation between an organization, person, or service and an associated offer catalog. Also called offers catalog, catalog of offers, product catalog. Examples: \"An organization has an offer catalog of its products.\", \"A service has an offer catalog of its packages.\", \"The person maintains an offer catalog.\"",
+          "embed_score": 0.804,
+          "embed_rank": 11
+        },
+        {
+          "source": "schema.org",
+          "label": "hasDefinedTerm",
+          "signature": "DefinedTermSet/Taxon → DefinedTerm",
+          "parent": null,
+          "inverse_of": null,
+          "score": -5.3447,
+          "matched_anchor": null,
+          "comment": "A term inclusion relation between a defined term set or taxon and one of its contained defined terms. Also called contains term, includes term, term within. Examples: \"A medical glossary has a defined term for 'hypertension'.\", \"A taxonomy has a defined term for 'Homo sapiens'.\", \"The dictionary has a defined term for 'algorithm'.\"",
+          "embed_score": 0.788,
+          "embed_rank": 30
+        },
+        {
+          "source": "schema.org",
+          "label": "hasAdultConsideration",
+          "signature": "Offer/Product → AdultOrientedEnumeration",
+          "parent": null,
+          "inverse_of": null,
+          "score": -5.5131,
+          "matched_anchor": null,
+          "comment": "An adult suitability relation between an offer or product and its intended audience or content rating. Also called adult-oriented, age-restricted, mature content, for adults only. Examples: \"An offer has adult consideration for explicit content.\", \"A product is tagged with adult consideration.\", \"This item has adult consideration due to its theme.\"",
+          "embed_score": 0.802,
+          "embed_rank": 13
+        },
+        {
+          "source": "schema.org",
+          "label": "hasCourse",
+          "signature": "EducationalOccupationalProgram → Course",
+          "parent": null,
+          "inverse_of": null,
+          "score": -5.5392,
+          "matched_anchor": null,
+          "comment": "A course inclusion relation between an educational or occupational program and one of its constituent courses. Also called includes course, program course, course part of. Examples: \"A degree program has a course in advanced calculus.\", \"An occupational program has a course on welding safety.\", \"The curriculum has a course on digital marketing.\"",
+          "embed_score": 0.811,
+          "embed_rank": 5
+        },
+        {
+          "source": "schema.org",
+          "label": "hasMeasurement",
+          "signature": "Certification/Offer/Product/SizeSpecification → QuantitativeValue",
+          "parent": null,
+          "inverse_of": null,
+          "score": -5.6194,
+          "matched_anchor": null,
+          "comment": "A measurement relation between a certification, offer, product, or size specification and a quantitative value representing a specific measurement. Also called item measurement, dimension, size value. Examples: \"A product has a measurement for its height.\", \"An offer includes a measurement for package weight.\", \"The certification has a measurement of carbon footprint.\"",
+          "embed_score": 0.801,
+          "embed_rank": 15
+        },
+        {
+          "source": "schema.org",
+          "label": "hasMenu",
+          "signature": "FoodEstablishment → Menu/Text/URL",
+          "parent": null,
+          "inverse_of": null,
+          "score": -5.7473,
+          "matched_anchor": null,
+          "comment": "A menu relation between a food establishment and its menu (structured, text, or URL). Also called offers menu, menu available, food menu. Examples: \"A restaurant has a menu with daily specials.\", \"The cafe has a menu URL.\", \"This food establishment provides its menu as text.\"",
+          "embed_score": 0.798,
+          "embed_rank": 17
+        }
+      ]
+    },
+    {
+      "relation_phrase": "hasTime",
+      "definition": "Associates an event with its temporal context",
+      "embedding_query_text": "hasTime: Associates an event with its temporal context",
+      "observed_signatures": [
+        "Event → DateTime"
+      ],
+      "n_assignments": 1,
+      "assignments": [
+        {
+          "instances": [
+            "Drought Intensification in Europe -> April 2026 to June 2026"
+          ],
+          "chosen_property": {
+            "label": "hasOccurrenceTime",
+            "source": "vocab",
+            "direction": "as_is",
+            "vocab_id": "P0220",
+            "is_new_to_vocab": true,
+            "definition": "The temporal context of an event.",
+            "parent": null,
+            "domain": [
+              "Event"
+            ],
+            "range": [
+              "DateTime"
+            ],
+            "path": "",
+            "justification": "Minted a new property for Event → DateTime as no existing schema.org property matches."
+          },
+          "llm_proposed": {
+            "source": "new",
+            "label": "hasOccurrenceTime",
+            "is_new": true,
+            "direction": "as_is"
+          }
+        }
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "contentReferenceTime",
+          "signature": "CreativeWork → DateTime",
+          "parent": null,
+          "inverse_of": null,
+          "score": 4.8673,
+          "matched_anchor": null,
+          "comment": "A temporal reference relation for a creative work, indicating the specific date and time described or emphasized within its content. Also called \"event time\", \"depicted time\", \"time of content\". Examples: \"News article contentReferenceTime '2023-10-26T14:00:00Z'\", \"Historical documentary contentReferenceTime '1945-09-02'\".",
+          "embed_score": 0.84,
+          "embed_rank": 3
+        },
+        {
+          "source": "schema.org",
+          "label": "temporal",
+          "signature": "CreativeWork → DateTime/Text",
+          "parent": null,
+          "inverse_of": null,
+          "score": 2.5746,
+          "matched_anchor": null,
+          "comment": "A general temporal relation between a creative work and a date or time, used when more specific temporal properties are not applicable. Also called \"related to time\", \"time context\", \"associated temporal period\", \"timeframe\". Examples: \"The novel has temporal the 19th century\", \"The painting's temporal is the Renaissance era\", \"This document's temporal is the year 2020.\". Distinct from temporalCoverage, which indicates the specific time period the content applies to.",
+          "embed_score": 0.864,
+          "embed_rank": 1
+        },
+        {
+          "source": "schema.org",
+          "label": "departureTime",
+          "signature": "Trip → DateTime/Time",
+          "parent": null,
+          "inverse_of": null,
+          "score": 0.4625,
+          "matched_anchor": null,
+          "comment": "A temporal event relation between a trip and its expected departure time. Also called: scheduled departure, leaving time, takeoff time. Examples: \"Flight\" departure time \"2023-11-01T08:00:00Z\", \"Bus Trip\" departure time \"14:30:00\", \"Train Journey\" departure time \"2023-12-25T10:00:00\". Distinct from arrivalTime, which is the expected arrival time.",
+          "embed_score": 0.831,
+          "embed_rank": 5
+        },
+        {
+          "source": "schema.org",
+          "label": "coverageEndTime",
+          "signature": "LiveBlogPosting → DateTime",
+          "parent": null,
+          "inverse_of": null,
+          "score": 0.133,
+          "matched_anchor": null,
+          "comment": "A temporal boundary relation between a live blog posting and the time when its event coverage concludes. Also called: coverage end, reporting end time, live blog conclusion. Examples: \"Election Night Live Blog\" coverage end time \"2024-11-06T04:00:00Z\", \"Sports Event Live Update\" coverage end time \"2023-07-15T19:30:00Z\", \"Conference Live Blog\" coverage end time \"2023-10-27T17:00:00Z\". Distinct from coverageStartTime, which indicates when coverage begins.",
+          "embed_score": 0.817,
+          "embed_rank": 12
+        },
+        {
+          "source": "schema.org",
+          "label": "startTime",
+          "signature": "Action/FoodEstablishmentReservation/InteractionCounter/MediaObject/Schedule → DateTime/Time",
+          "parent": null,
+          "inverse_of": null,
+          "score": -1.4484,
+          "matched_anchor": null,
+          "comment": "A temporal marker indicating the beginning time of an action, reservation, or media segment. Also called \"beginning time\", \"commencement time\", \"start of action\", \"reservation time\". Examples: \"The reservation has startTime 7:00 PM\", \"The action's startTime was 10:30 AM\", \"The media clip's startTime is 00:01:15.\". Distinct from startDate, which specifies a date, while startTime focuses on the time of day or an offset.",
+          "embed_score": 0.82,
+          "embed_rank": 11
+        },
+        {
+          "source": "schema.org",
+          "label": "coverageStartTime",
+          "signature": "LiveBlogPosting → DateTime",
+          "parent": null,
+          "inverse_of": null,
+          "score": -2.0034,
+          "matched_anchor": null,
+          "comment": "A temporal boundary relation between a live blog posting and the time when its event coverage begins. Also called: coverage start, reporting start time, live blog commencement. Examples: \"Election Night Live Blog\" coverage start time \"2024-11-05T18:00:00Z\", \"Sports Event Live Update\" coverage start time \"2023-07-15T14:00:00Z\", \"Conference Live Blog\" coverage start time \"2023-10-27T09:00:00Z\". Distinct from coverageEndTime, which indicates when coverage concludes.",
+          "embed_score": 0.803,
+          "embed_rank": 29
+        },
+        {
+          "source": "schema.org",
+          "label": "prepTime",
+          "signature": "HowTo/HowToDirection → Duration",
+          "parent": null,
+          "inverse_of": null,
+          "score": -2.17,
+          "matched_anchor": null,
+          "comment": "A temporal attribute indicating the duration required to prepare items for use in instructions or a direction. Also called preparation duration, setup time, readiness time. Examples: A recipe has a prep time of 'PT15M'. A DIY project has a prep time of 'PT30M'. A cooking instruction has a prep time of 'PT10M'. Distinct from performTime, which is the time to execute the instructions.",
+          "embed_score": 0.809,
+          "embed_rank": 16
+        },
+        {
+          "source": "schema.org",
+          "label": "pickupTime",
+          "signature": "RentalCarReservation/TaxiReservation → DateTime",
+          "parent": null,
+          "inverse_of": null,
+          "score": -2.5628,
+          "matched_anchor": null,
+          "comment": "A temporal attribute indicating the date and time when a taxi will pick up a passenger or a rental car can be collected. Also called collection time, pick-up time, embarkation time. Examples: A taxi reservation has a pickup time of '2023-12-25T08:00:00'. A rental car reservation has a pickup time of '2024-01-01T10:30:00'. The ride-share booking has a pickup time of 'now'.",
+          "embed_score": 0.795,
+          "embed_rank": 48
+        },
+        {
+          "source": "schema.org",
+          "label": "commentTime",
+          "signature": "UserComments → Date/DateTime",
+          "parent": null,
+          "inverse_of": null,
+          "score": -2.5702,
+          "matched_anchor": null,
+          "comment": "A temporal specification for user comments, indicating the date or date and time when the comment was made. Also called \"comment date\", \"posted time\", \"submission time\". Examples: \"User comment commentTime '2023-10-26T10:30:00'\", \"Review commentTime '2023-09-15'\".",
+          "embed_score": 0.803,
+          "embed_rank": 28
+        },
+        {
+          "source": "schema.org",
+          "label": "performTime",
+          "signature": "HowTo/HowToDirection → Duration",
+          "parent": null,
+          "inverse_of": null,
+          "score": -2.5851,
+          "matched_anchor": null,
+          "comment": "A temporal attribute indicating the duration required to execute instructions or a direction, excluding preparation time. Also called execution time, active time, task duration. Examples: A recipe's instructions have a perform time of 'PT30M'. A DIY project direction has a perform time of 'PT2H'. A workout routine has a perform time of 'PT45M'. Distinct from prepTime, which is the time to prepare supplies.",
+          "embed_score": 0.809,
+          "embed_rank": 15
+        }
+      ]
+    },
+    {
+      "relation_phrase": "occurredIn",
+      "definition": null,
+      "embedding_query_text": "occurredIn:",
+      "observed_signatures": [
+        "Event → DateTime"
+      ],
+      "n_assignments": 1,
+      "assignments": [
+        {
+          "instances": [
+            "extreme heat -> June 2026"
+          ],
+          "chosen_property": {
+            "label": "hasOccurrenceTime",
+            "source": "vocab",
+            "direction": "as_is",
+            "vocab_id": "P0220",
+            "is_new_to_vocab": false,
+            "definition": "The temporal context of an event.",
+            "parent": null,
+            "domain": [
+              "Event"
+            ],
+            "range": [
+              "DateTime"
+            ],
+            "path": "",
+            "justification": "Reused 'hasOccurrenceTime' from GROUP 7 as it fits the Event → DateTime pattern for 'occurredIn'."
+          },
+          "llm_proposed": {
+            "source": "schema.org",
+            "label": "hasOccurrenceTime",
+            "is_new": false,
+            "direction": "as_is"
+          }
+        }
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "appearance",
+          "signature": "Claim → CreativeWork",
+          "parent": "workExample",
+          "inverse_of": null,
+          "score": -1.5763,
+          "matched_anchor": null,
+          "comment": "An appearance relation between a claim and a creative work where that claim is found or occurs. Also called occurrence in, mentioned in, found in. Examples: \"A claim's appearance is in 'News Article X'.\", \"The factual claim's appearance is in 'Research Paper Y'.\"",
+          "embed_score": 0.776,
+          "embed_rank": 19
+        },
+        {
+          "source": "schema.org",
+          "label": "expressedIn",
+          "signature": "Gene → AnatomicalStructure/AnatomicalSystem/BioChemEntity/DefinedTerm",
+          "parent": null,
+          "inverse_of": null,
+          "score": -3.6647,
+          "matched_anchor": null,
+          "comment": "An expressed in relation between a gene and the anatomical structure, system, or biological entity where its activity has been experimentally observed. Also called: gene activity location, observed in, found in. Examples: \"Gene A\" expressed in \"Brain\", \"Gene B\" expressed in \"Liver\", \"Gene C\" expressed in \"Digestive System\".",
+          "embed_score": 0.782,
+          "embed_rank": 7
+        },
+        {
+          "source": "schema.org",
+          "label": "recordedIn",
+          "signature": "Event → CreativeWork",
+          "parent": null,
+          "inverse_of": "recordedAt",
+          "score": -4.0408,
+          "matched_anchor": null,
+          "comment": "A recording capture relation between an event and the creative work that captured all or part of it. Also called captured by, documented in, featured in. Examples: \"A concert event was recorded in 'a live album'.\", \"A historical event was recorded in 'a documentary film'.\", \"A speech event was recorded in 'a news broadcast'.\". Distinct from recordedAt, which is the inverse relation.",
+          "embed_score": 0.827,
+          "embed_rank": 1
+        },
+        {
+          "source": "schema.org",
+          "label": "firstAppearance",
+          "signature": "Claim → CreativeWork",
+          "parent": "workExample",
+          "inverse_of": null,
+          "score": -4.429,
+          "matched_anchor": null,
+          "comment": "A first appearance relation between a claim and the creative work where it was initially known to occur. Also called: initial publication, original mention, debut in. Examples: \"Claim: Earth is flat\" first appearance \"Ancient Greek Texts\", \"Claim: COVID-19 is a hoax\" first appearance \"Social Media Post\", \"Claim: New drug cures cancer\" first appearance \"Unverified Online Article\".",
+          "embed_score": 0.775,
+          "embed_rank": 27
+        },
+        {
+          "source": "schema.org",
+          "label": "containedIn",
+          "signature": "Place → Place",
+          "parent": null,
+          "inverse_of": null,
+          "score": -4.7111,
+          "matched_anchor": null,
+          "comment": "A spatial containment relation between a place and the larger place that contains it. Also called \"located in\", \"part of\", \"within\". Examples: \"City 'Paris' containedIn 'France'\", \"Building 'Eiffel Tower' containedIn 'Paris'\". Distinct from containedInPlace, which is a synonym, and containsPlace, which is the inverse.",
+          "embed_score": 0.809,
+          "embed_rank": 2
+        },
+        {
+          "source": "schema.org",
+          "label": "sportsEvent",
+          "signature": "ExerciseAction → SportsEvent",
+          "parent": "location",
+          "inverse_of": null,
+          "score": -4.9567,
+          "matched_anchor": null,
+          "comment": "A specific event relation between an exercise action and the sports event during which it occurred. Also called \"event of exercise\", \"competition event\", \"athletic event\". Examples: \"The sprint occurred during the sportsEvent Olympics\", \"The goal was scored in the sportsEvent World Cup match\", \"This action took place at a sportsEvent marathon.\". Distinct from event, which is a more general event property.",
+          "embed_score": 0.779,
+          "embed_rank": 10
+        },
+        {
+          "source": "schema.org",
+          "label": "source",
+          "signature": "InstantaneousEvent → Thing",
+          "parent": null,
+          "inverse_of": null,
+          "score": -5.2531,
+          "matched_anchor": null,
+          "comment": "A causal relation between an instantaneous event and the thing that initiated or caused it. Also called \"originates from\", \"caused by\", \"event trigger\", \"event origin\". Examples: \"The explosion's source was a gas leak\", \"The alarm's source was a smoke detector\", \"The data breach's source was a phishing attack.\"",
+          "embed_score": 0.791,
+          "embed_rank": 4
+        },
+        {
+          "source": "schema.org",
+          "label": "performerIn",
+          "signature": "Person → Event",
+          "parent": null,
+          "inverse_of": null,
+          "score": -6.1902,
+          "matched_anchor": null,
+          "comment": "A participation role relation between a person and an event in which they perform or participate. Also called performs in, participates in, acts in, presents at. Examples: John Doe is a performer in 'The Annual Gala'. Jane Smith is a performer in 'The City Marathon'. An actor is a performer in 'The New Play'. Distinct from performer, which points from an event to a person.",
+          "embed_score": 0.797,
+          "embed_rank": 3
+        },
+        {
+          "source": "schema.org",
+          "label": "validIn",
+          "signature": "Certification/Credential/Permit → AdministrativeArea",
+          "parent": null,
+          "inverse_of": null,
+          "score": -6.3017,
+          "matched_anchor": null,
+          "comment": "A valid in relation between a certification, credential, or permit and the geographic area where it is valid. Also called valid region, applicable area, geographic validity. Examples: \"Permit validIn 'California'\", \"Certification validIn 'European Union'\", \"Credential validIn 'United States'\".",
+          "embed_score": 0.774,
+          "embed_rank": 28
+        },
+        {
+          "source": "schema.org",
+          "label": "containedInPlace",
+          "signature": "Place → Place",
+          "parent": null,
+          "inverse_of": "containsPlace",
+          "score": -6.5655,
+          "matched_anchor": null,
+          "comment": "A spatial containment relation between a place and the larger place that contains it. Also called \"located in\", \"part of\", \"within\". Examples: \"City 'Paris' containedInPlace 'France'\", \"Building 'Eiffel Tower' containedInPlace 'Paris'\". Distinct from containedIn, which is a synonym, and containsPlace, which is the inverse.",
+          "embed_score": 0.775,
+          "embed_rank": 24
+        }
+      ]
+    },
+    {
+      "relation_phrase": "hasParticipant",
+      "definition": "Connects an entity to its role in a specific event or study",
+      "embedding_query_text": "hasParticipant: Connects an entity to its role in a specific event or study",
+      "observed_signatures": [
+        "MedicalStudy → Person"
+      ],
+      "n_assignments": 1,
+      "assignments": [
+        {
+          "instances": [
+            "World Weather Attribution group study -> Mariam Zachariah",
+            "World Weather Attribution group study -> Dominik Schumacher"
+          ],
+          "chosen_property": {
+            "label": "hasParticipant",
+            "source": "vocab",
+            "direction": "as_is",
+            "vocab_id": "P0221",
+            "is_new_to_vocab": true,
+            "definition": "A participant relation between a medical study and a person involved in it.",
+            "parent": null,
+            "domain": [
+              "MedicalStudy"
+            ],
+            "range": [
+              "Person"
+            ],
+            "path": "",
+            "justification": "Minted a new property for MedicalStudy → Person as no existing schema.org property matches."
+          },
+          "llm_proposed": {
+            "source": "new",
+            "label": "hasParticipant",
+            "is_new": true,
+            "direction": "as_is"
+          }
+        }
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "hasParticipationOffer",
+          "signature": "Event → Offer",
+          "parent": null,
+          "inverse_of": null,
+          "score": 1.7057,
+          "matched_anchor": null,
+          "comment": "A participation offer relation between an event and an offer to participate in it. Also called call for participation, participation opportunity, event entry offer. Examples: \"An event has a participation offer for speakers.\", \"The conference has a participation offer for proposals.\", \"This festival includes a participation offer for performers.\". Distinct from hasSponsorshipOffer, which is an offer to sponsor the event.",
+          "embed_score": 0.861,
+          "embed_rank": 1
+        },
+        {
+          "source": "schema.org",
+          "label": "hasPart",
+          "signature": "CreativeWork → CreativeWork",
+          "parent": null,
+          "inverse_of": "isPartOf",
+          "score": -2.2058,
+          "matched_anchor": null,
+          "comment": "A part-whole relation between a creative work and another creative work that is a component of it. Also called includes part, contains component, component of. Examples: \"A book has a part that is a chapter.\", \"A symphony has a part that is a movement.\", \"A website has a part that is a specific page.\". Distinct from includedComposition, which is specific to music compositions.",
+          "embed_score": 0.846,
+          "embed_rank": 2
+        },
+        {
+          "source": "schema.org",
+          "label": "hasSponsorshipOffer",
+          "signature": "Event → Offer",
+          "parent": null,
+          "inverse_of": null,
+          "score": -2.2531,
+          "matched_anchor": null,
+          "comment": "A sponsorship offer relation between an event and an offer to sponsor it. Also called sponsorship opportunity, sponsor package, call for sponsors. Examples: \"An event has a sponsorship offer for corporate partners.\", \"The conference has a sponsorship offer with different tiers.\", \"This festival includes a sponsorship offer.\". Distinct from hasParticipationOffer, which is an offer to participate in the event.",
+          "embed_score": 0.805,
+          "embed_rank": 29
+        },
+        {
+          "source": "schema.org",
+          "label": "hasBioChemEntityPart",
+          "signature": "BioChemEntity → BioChemEntity",
+          "parent": null,
+          "inverse_of": "isPartOfBioChemEntity",
+          "score": -2.2696,
+          "matched_anchor": null,
+          "comment": "A part-whole relation between a biochemical entity and one of its constituent biochemical entities. Also called composed of, contains, includes part, made of. Examples: \"A protein has a BioChemEntity part of an amino acid sequence.\", \"A cell has BioChemEntity parts like organelles.\", \"A molecule has BioChemEntity parts of atoms.\"",
+          "embed_score": 0.843,
+          "embed_rank": 3
+        },
+        {
+          "source": "schema.org",
+          "label": "isPartOf",
+          "signature": "CreativeWork → CreativeWork/URL",
+          "parent": null,
+          "inverse_of": "hasPart",
+          "score": -3.2501,
+          "matched_anchor": null,
+          "comment": "A part-whole relation indicating that an item or creative work is a component of a larger creative work or resource. Also called component of, member of, contained in, element of. Examples: A chapter isPartOf 'a book'. An episode isPartOf 'a TV series'. A web page isPartOf 'a website'. Distinct from hasPart, which expresses the inverse relationship (the whole *has* a part).",
+          "embed_score": 0.825,
+          "embed_rank": 7
+        },
+        {
+          "source": "schema.org",
+          "label": "hasMolecularFunction",
+          "signature": "BioChemEntity → DefinedTerm/PropertyValue/URL",
+          "parent": null,
+          "inverse_of": null,
+          "score": -4.0794,
+          "matched_anchor": null,
+          "comment": "A molecular function relation between a biochemical entity and its performed molecular function. Also called performs function, molecular role, functional activity. Examples: \"A protein has a molecular function of enzyme activity.\", \"This BioChemEntity has a molecular function described by a defined term.\", \"The entity's molecular function is specified.\"",
+          "embed_score": 0.816,
+          "embed_rank": 15
+        },
+        {
+          "source": "schema.org",
+          "label": "studySubject",
+          "signature": "MedicalStudy → MedicalEntity",
+          "parent": null,
+          "inverse_of": null,
+          "score": -4.6812,
+          "matched_anchor": null,
+          "comment": "An investigative relation between a medical study and the medical entity (condition, therapy, drug, etc.) that is being investigated. Also called \"subject of investigation\", \"research focus\", \"entity studied\", \"trial subject\". Examples: \"The medical study has studySubject a new drug\", \"The clinical trial's studySubject is a specific medical condition\", \"This study investigates a studySubject therapy.\"",
+          "embed_score": 0.818,
+          "embed_rank": 14
+        },
+        {
+          "source": "schema.org",
+          "label": "isPartOfBioChemEntity",
+          "signature": "BioChemEntity → BioChemEntity",
+          "parent": null,
+          "inverse_of": "hasBioChemEntityPart",
+          "score": -5.4338,
+          "matched_anchor": null,
+          "comment": "A biochemical part-whole relation indicating that one biochemical entity is a component of another larger biochemical entity. Also called component of biochem entity, contained within biochem entity, element of biochem entity. Examples: A protein domain isPartOfBioChemEntity 'a larger protein'. A subunit isPartOfBioChemEntity 'a protein complex'. A specific gene sequence isPartOfBioChemEntity 'a chromosome'.",
+          "embed_score": 0.824,
+          "embed_rank": 9
+        },
+        {
+          "source": "schema.org",
+          "label": "study",
+          "signature": "MedicalEntity → MedicalStudy",
+          "parent": null,
+          "inverse_of": null,
+          "score": -6.3924,
+          "matched_anchor": null,
+          "comment": "A relation between a medical entity and a medical study or trial that investigates it. Also called \"related study\", \"investigated by study\", \"medical trial\". Examples: \"The drug has study a clinical trial\", \"The medical condition is part of a study\", \"This therapy is being evaluated in a study.\"",
+          "embed_score": 0.818,
+          "embed_rank": 11
+        },
+        {
+          "source": "schema.org",
+          "label": "hasCertification",
+          "signature": "Organization/Person/Place/Product/Service → Certification",
+          "parent": null,
+          "inverse_of": null,
+          "score": -6.7431,
+          "matched_anchor": null,
+          "comment": "A certification relation between an entity (organization, person, place, product, or service) and its associated certification. Also called holds certification, certified by, possesses certification, has accreditation. Examples: \"An organization has a certification for quality management.\", \"A product has a certification for organic ingredients.\", \"A person has a certification in project management.\"",
+          "embed_score": 0.801,
+          "embed_rank": 36
+        }
+      ]
+    },
+    {
+      "relation_phrase": "hasInstitution",
+      "definition": "Links an individual to the organization they are affiliated with",
+      "embedding_query_text": "hasInstitution: Links an individual to the organization they are affiliated with",
+      "observed_signatures": [
+        "MedicalStudy → CollegeOrUniversity"
+      ],
+      "n_assignments": 1,
+      "assignments": [
+        {
+          "instances": [
+            "World Weather Attribution group study -> Imperial College London",
+            "World Weather Attribution group study -> ETH Zurich"
+          ],
+          "chosen_property": {
+            "label": "affiliation",
+            "source": "schema.org",
+            "direction": "as_is",
+            "vocab_id": null,
+            "is_new_to_vocab": false,
+            "definition": null,
+            "parent": null,
+            "domain": null,
+            "range": null,
+            "path": "memberOf",
+            "justification": "Selected 'affiliation' to link a MedicalStudy to an educational institution, aligning with the 'hasInstitution' relation."
+          },
+          "llm_proposed": {
+            "source": "schema.org",
+            "label": "affiliation",
+            "is_new": false,
+            "direction": "as_is"
+          }
+        }
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "affiliation",
+          "signature": "Person → Organization",
+          "parent": "memberOf",
+          "inverse_of": null,
+          "score": -0.0432,
+          "matched_anchor": null,
+          "comment": "An affiliation relation between a person and an organization they are associated with. Also called associated with, member of, works for, belongs to. Examples: \"A professor's affiliation is 'Harvard University'.\", \"A player's affiliation is 'Local Soccer Club'.\" Distinct from alumniOf, which specifies a past association with an educational organization.",
+          "embed_score": 0.862,
+          "embed_rank": 1
+        },
+        {
+          "source": "schema.org",
+          "label": "hasCertification",
+          "signature": "Organization/Person/Place/Product/Service → Certification",
+          "parent": null,
+          "inverse_of": null,
+          "score": -1.0802,
+          "matched_anchor": null,
+          "comment": "A certification relation between an entity (organization, person, place, product, or service) and its associated certification. Also called holds certification, certified by, possesses certification, has accreditation. Examples: \"An organization has a certification for quality management.\", \"A product has a certification for organic ingredients.\", \"A person has a certification in project management.\"",
+          "embed_score": 0.82,
+          "embed_rank": 14
+        },
+        {
+          "source": "schema.org",
+          "label": "memberOf",
+          "signature": "Organization/Person → MemberProgramTier/Organization/ProgramMembership",
+          "parent": null,
+          "inverse_of": "member",
+          "score": -1.429,
+          "matched_anchor": null,
+          "comment": "A membership relation between an organization or person and the organization or program membership they belong to. Also called: belongs to, is a member of, affiliated with. Examples: \"John Doe memberOf 'Local Sports Club'\", \"Acme Corp memberOf 'Industry Association'\", \"Jane Smith memberOf 'Premium Membership Tier'\". Distinct from member, which expresses the inverse relationship.",
+          "embed_score": 0.835,
+          "embed_rank": 7
+        },
+        {
+          "source": "schema.org",
+          "label": "hasGS1DigitalLink",
+          "signature": "Offer/Organization/Place/Product → URL",
+          "parent": "identifier",
+          "inverse_of": null,
+          "score": -2.2018,
+          "matched_anchor": null,
+          "comment": "A GS1 digital link relation between an offer, organization, place, or product and its associated GS1 digital link URL. Also called GS1 link, digital link, product link. Examples: \"A product has a GS1 digital link for traceability.\", \"An organization has a GS1 digital link for its profile.\", \"The offer includes a GS1 digital link.\"",
+          "embed_score": 0.837,
+          "embed_rank": 6
+        },
+        {
+          "source": "schema.org",
+          "label": "hasOfferCatalog",
+          "signature": "Organization/Person/Service → OfferCatalog",
+          "parent": null,
+          "inverse_of": null,
+          "score": -2.4231,
+          "matched_anchor": null,
+          "comment": "An offer catalog relation between an organization, person, or service and an associated offer catalog. Also called offers catalog, catalog of offers, product catalog. Examples: \"An organization has an offer catalog of its products.\", \"A service has an offer catalog of its packages.\", \"The person maintains an offer catalog.\"",
+          "embed_score": 0.822,
+          "embed_rank": 12
+        },
+        {
+          "source": "schema.org",
+          "label": "worksFor",
+          "signature": "Person → Organization",
+          "parent": null,
+          "inverse_of": null,
+          "score": -2.6951,
+          "matched_anchor": null,
+          "comment": "An employment relation between a person and an organization, indicating the organization for which the person is employed. Also called employed by, affiliated with, works at, employed at. Examples: Employee worksFor CompanyA, Consultant worksFor AgencyB, Professor worksFor UniversityC. Distinct from memberOf, which indicates general membership in a group, not necessarily employment.",
+          "embed_score": 0.804,
+          "embed_rank": 35
+        },
+        {
+          "source": "schema.org",
+          "label": "practicesAt",
+          "signature": "IndividualPhysician → MedicalOrganization",
+          "parent": null,
+          "inverse_of": null,
+          "score": -2.7768,
+          "matched_anchor": null,
+          "comment": "A professional affiliation relation between an individual physician and the medical organization where they practice. Also called works at, affiliated with, employed by, is a doctor at. Examples: Dr. Smith practices at 'General Hospital'. Dr. Jones practices at 'City Clinic'. The physician practices at 'Family Health Center'.",
+          "embed_score": 0.804,
+          "embed_rank": 32
+        },
+        {
+          "source": "schema.org",
+          "label": "subOrganization",
+          "signature": "Organization → Organization",
+          "parent": null,
+          "inverse_of": "parentOrganization",
+          "score": -4.2578,
+          "matched_anchor": null,
+          "comment": "A hierarchical relation between a parent organization and a smaller organization that is a part of it, such as a subsidiary. Also called \"subsidiary\", \"division\", \"affiliated organization\", \"part of organization\". Examples: \"Google has subOrganization YouTube\", \"The university's subOrganization is the Computer Science Department\", \"This company owns several subOrganization entities.\". Distinct from department, which is a more specific type of sub-organization.",
+          "embed_score": 0.802,
+          "embed_rank": 38
+        },
+        {
+          "source": "schema.org",
+          "label": "member",
+          "signature": "Organization/ProgramMembership → Organization/Person",
+          "parent": null,
+          "inverse_of": "memberOf",
+          "score": -4.6513,
+          "matched_anchor": null,
+          "comment": "A member relation between an organization or program membership and an organization or person belonging to it. Also called: belongs to, is a part of, participant in. Examples: \"Club Organization member John Doe\", \"Team ProgramMembership member Jane Smith\", \"Alliance Organization member Partner Company\". Distinct from memberOf, which expresses the inverse relationship.",
+          "embed_score": 0.842,
+          "embed_rank": 3
+        },
+        {
+          "source": "schema.org",
+          "label": "hasMemberProgram",
+          "signature": "Organization → MemberProgram",
+          "parent": null,
+          "inverse_of": null,
+          "score": -4.7968,
+          "matched_anchor": null,
+          "comment": "A member program relation between an organization and a member program it offers. Also called offers program, loyalty program, membership program. Examples: \"An airline has a member program for frequent flyers.\", \"An eCommerce merchant has a member program for discounts.\", \"The organization offers a member program.\"",
+          "embed_score": 0.845,
+          "embed_rank": 2
+        }
+      ]
+    },
+    {
+      "relation_phrase": "is instance of",
+      "definition": null,
+      "embedding_query_text": "is instance of:",
+      "observed_signatures": [
+        "Event → Event"
+      ],
+      "n_assignments": 1,
+      "assignments": [
+        {
+          "instances": [
+            "extreme heat -> hottest June"
+          ],
+          "chosen_property": {
+            "label": "exampleOfWork",
+            "source": "schema.org",
+            "direction": "as_is",
+            "vocab_id": null,
+            "is_new_to_vocab": false,
+            "definition": null,
+            "parent": null,
+            "domain": null,
+            "range": null,
+            "path": "",
+            "justification": "Selected 'exampleOfWork' as it fits the Event → Event pattern, indicating one event is an instance of another."
+          },
+          "llm_proposed": {
+            "source": "schema.org",
+            "label": "exampleOfWork",
+            "is_new": false,
+            "direction": "as_is"
+          }
+        }
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "exampleOfWork",
+          "signature": "CreativeWork → CreativeWork",
+          "parent": null,
+          "inverse_of": "workExample",
+          "score": 5.717,
+          "matched_anchor": null,
+          "comment": "An example relation between a creative work and another creative work that it is an instance, realization, or derivation of. Also called: instance of, realization of, derivation of, based on. Examples: \"Mona Lisa (print)\" example of work \"Mona Lisa (original painting)\", \"Hamlet (film)\" example of work \"Hamlet (play)\", \"Star Wars: A New Hope (novelization)\" example of work \"Star Wars: A New Hope (film)\".",
+          "embed_score": 0.807,
+          "embed_rank": 1
+        },
+        {
+          "source": "schema.org",
+          "label": "hasCourseInstance",
+          "signature": "Course → CourseInstance",
+          "parent": null,
+          "inverse_of": null,
+          "score": 3.3765,
+          "matched_anchor": null,
+          "comment": "A course offering relation between a course and a specific instance of that course. Also called course offering, instance of course, course session. Examples: \"A calculus course has a course instance for Fall 2023.\", \"The online course has a course instance for self-paced study.\", \"A cooking class has a course instance on Tuesdays at 6 PM.\"",
+          "embed_score": 0.799,
+          "embed_rank": 4
+        },
+        {
+          "source": "schema.org",
+          "label": "workExample",
+          "signature": "CreativeWork → CreativeWork",
+          "parent": null,
+          "inverse_of": "exampleOfWork",
+          "score": 2.6517,
+          "matched_anchor": null,
+          "comment": "An example relation between a creative work and another creative work, where the latter is a specific instance, realization, or derivation of the former. Also called instance, realization, derivation, edition, version. Examples: Novel workExample PaperbackEdition, Album workExample DeluxeEdition, Film workExample DirectorCut. Distinct from workTranslation, which is a linguistic rendition of the content in another language.",
+          "embed_score": 0.793,
+          "embed_rank": 15
+        },
+        {
+          "source": "schema.org",
+          "label": "domainIncludes",
+          "signature": "Property → Class",
+          "parent": null,
+          "inverse_of": null,
+          "score": -4.3002,
+          "matched_anchor": null,
+          "comment": "A domain inclusion relation between a property and a class, indicating that the property is expected to be used on instances of that class. Also called \"applies to type\", \"valid for class\", \"used with\". Examples: \"Property 'name' domainIncludes 'Thing'\", \"Property 'author' domainIncludes 'CreativeWork'\", \"Property 'price' domainIncludes 'Offer'\".",
+          "embed_score": 0.786,
+          "embed_rank": 40
+        },
+        {
+          "source": "schema.org",
+          "label": "isRelatedTo",
+          "signature": "Product/Service → Product/Service",
+          "parent": null,
+          "inverse_of": null,
+          "score": -4.6795,
+          "matched_anchor": null,
+          "comment": "A general association relation between two products or services that have some unspecified connection. Also called associated with, connected to, linked to, relevant to. Examples: A smartphone isRelatedTo 'a smart watch'. A car service isRelatedTo 'car insurance'. A book isRelatedTo 'a movie adaptation'. Distinct from isSimilarTo, which implies functional similarity, and isAccessoryOrSparePartFor or isConsumableFor, which imply specific functional dependencies. This is a very general relation.",
+          "embed_score": 0.806,
+          "embed_rank": 2
+        },
+        {
+          "source": "schema.org",
+          "label": "isPartOf",
+          "signature": "CreativeWork → CreativeWork/URL",
+          "parent": null,
+          "inverse_of": "hasPart",
+          "score": -5.1767,
+          "matched_anchor": null,
+          "comment": "A part-whole relation indicating that an item or creative work is a component of a larger creative work or resource. Also called component of, member of, contained in, element of. Examples: A chapter isPartOf 'a book'. An episode isPartOf 'a TV series'. A web page isPartOf 'a website'. Distinct from hasPart, which expresses the inverse relationship (the whole *has* a part).",
+          "embed_score": 0.804,
+          "embed_rank": 3
+        },
+        {
+          "source": "schema.org",
+          "label": "isGift",
+          "signature": "Order → Boolean",
+          "parent": null,
+          "inverse_of": null,
+          "score": -5.711,
+          "matched_anchor": null,
+          "comment": "A transaction intent relation indicating whether an order was placed as a gift for a recipient other than the buyer. Also called gift purchase, purchased as gift, gift order. Examples: An order has isGift set to 'true'. A purchase has isGift set to 'false'. A book order has isGift set to 'true' with gift wrapping.",
+          "embed_score": 0.79,
+          "embed_rank": 20
+        },
+        {
+          "source": "schema.org",
+          "label": "attendee",
+          "signature": "Event → Organization/Person",
+          "parent": null,
+          "inverse_of": null,
+          "score": -6.4632,
+          "matched_anchor": null,
+          "comment": "A person or organization present at an event. Also called: participant, guest, visitor. Examples: \"Event 'Concert' attendee 'John Doe'\", \"Event 'Conference' attendee 'Acme Corp'\", \"Event 'Meeting' attendee 'Jane Smith'\". Distinct from attendees, which is the plural form.",
+          "embed_score": 0.786,
+          "embed_rank": 41
+        },
+        {
+          "source": "schema.org",
+          "label": "isBasedOn",
+          "signature": "CreativeWork → CreativeWork/Product/URL",
+          "parent": null,
+          "inverse_of": null,
+          "score": -6.6312,
+          "matched_anchor": null,
+          "comment": "A derivation relation between a creative work and the resource (another work, product, or URL) from which it is adapted or modified. Also called derived from, adapted from, based on, inspired by, modification of. Examples: A movie isBasedOn 'a novel'. A software update isBasedOn 'previous version'. A remix isBasedOn 'original song'. Distinct from isBasedOnUrl, which specifically points to a URL as the source.",
+          "embed_score": 0.786,
+          "embed_rank": 37
+        },
+        {
+          "source": "schema.org",
+          "label": "event",
+          "signature": "InformAction/InviteAction/JoinAction/LeaveAction/Organization/Place/PlayAction → Event",
+          "parent": null,
+          "inverse_of": null,
+          "score": -6.744,
+          "matched_anchor": null,
+          "comment": "An event association relation between an action, organization, or place and an event connected to it. Also called \"associated event\", \"related event\", \"features event\". Examples: \"Organization 'Museum' event 'Art Exhibition'\", \"Place 'Park' event 'Summer Festival'\", \"Inform action event 'Meeting Reminder'\". Distinct from events, which is the plural form.",
+          "embed_score": 0.786,
+          "embed_rank": 38
+        }
+      ]
+    },
+    {
+      "relation_phrase": "hasTemperatureChange",
+      "definition": null,
+      "embedding_query_text": "hasTemperatureChange:",
+      "observed_signatures": [
+        "MedicalStudy → QuantitativeValue"
+      ],
+      "n_assignments": 1,
+      "assignments": [
+        {
+          "instances": [
+            "World Weather Attribution group study -> 1.4C"
+          ],
+          "chosen_property": {
+            "label": "hasTemperatureChange",
+            "source": "vocab",
+            "direction": "as_is",
+            "vocab_id": "P0222",
+            "is_new_to_vocab": true,
+            "definition": "A relation between a medical study and a quantitative value representing temperature change.",
+            "parent": null,
+            "domain": [
+              "MedicalStudy"
+            ],
+            "range": [
+              "QuantitativeValue"
+            ],
+            "path": "",
+            "justification": "Minted a new property for MedicalStudy → QuantitativeValue as no existing schema.org property matches."
+          },
+          "llm_proposed": {
+            "source": "new",
+            "label": "hasTemperatureChange",
+            "is_new": true,
+            "direction": "as_is"
+          }
+        }
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "legislationChanges",
+          "signature": "Legislation → Legislation",
+          "parent": null,
+          "inverse_of": null,
+          "score": -2.9852,
+          "matched_anchor": null,
+          "comment": "A legislative alteration relation between a piece of legislation and another legislation that it modifies, replaces, corrects, or repeals. Also called alters law, modifies statute, replaces act, repeals legislation. Examples: Legislation X legislationChanges 'Legislation Y'. The new regulation legislationChanges 'several existing laws'. This amendment legislationChanges 'the previous version of the act'. Distinct from legislationAmends, which is a specific type of change (introducing legal changes), and legislationConsolidates, which is about creating a consolidated version.",
+          "embed_score": 0.796,
+          "embed_rank": 1
+        },
+        {
+          "source": "schema.org",
+          "label": "legislationAmends",
+          "signature": "Legislation → Legislation",
+          "parent": "legislationChanges",
+          "inverse_of": null,
+          "score": -7.8279,
+          "matched_anchor": null,
+          "comment": "A legislative modification relation between a piece of legislation and another legislation that it alters or revises. Also called amends law, modifies legislation, revises act, changes statute. Examples: Legislation A legislationAmends 'Legislation B'. The new act legislationAmends 'the previous statute'. This bill legislationAmends 'the tax code'. Distinct from legislationChanges, which is a broader term for any change, whereas legislationAmends specifically introduces legal changes.",
+          "embed_score": 0.782,
+          "embed_rank": 14
+        },
+        {
+          "source": "schema.org",
+          "label": "currentExchangeRate",
+          "signature": "ExchangeRateSpecification → UnitPriceSpecification",
+          "parent": null,
+          "inverse_of": null,
+          "score": -8.5677,
+          "matched_anchor": null,
+          "comment": "A value relation between an exchange rate specification and the current price of a currency. Also called: exchange value, currency rate, conversion rate. Examples: \"USD to EUR\" current exchange rate \"0.92 EUR per USD\", \"GBP to JPY\" current exchange rate \"180 JPY per GBP\".",
+          "embed_score": 0.786,
+          "embed_rank": 7
+        },
+        {
+          "source": "schema.org",
+          "label": "timeRequired",
+          "signature": "CreativeWork → Duration",
+          "parent": null,
+          "inverse_of": null,
+          "score": -9.1951,
+          "matched_anchor": null,
+          "comment": "A duration representing the approximate time typically needed for an audience to engage with or complete a creative work. Also called \"completion time\", \"estimated duration\", \"reading time\", \"viewing time\". Examples: \"The article has timeRequired 10 minutes\", \"The course's timeRequired is 40 hours\", \"This creative work takes timeRequired 2 hours to watch.\"",
+          "embed_score": 0.775,
+          "embed_rank": 34
+        },
+        {
+          "source": "schema.org",
+          "label": "jobImmediateStart",
+          "signature": "JobPosting → Boolean",
+          "parent": null,
+          "inverse_of": null,
+          "score": -9.6541,
+          "matched_anchor": null,
+          "comment": "An employment timing relation indicating whether a job position is available for an immediate start. Also called immediate start, urgent hire, start now, ready to begin. Examples: A job posting has jobImmediateStart set to 'true'. A job posting has jobImmediateStart set to 'false'. This position has jobImmediateStart as 'true' for qualified candidates. Distinct from jobStartDate, which specifies a particular date.",
+          "embed_score": 0.796,
+          "embed_rank": 2
+        },
+        {
+          "source": "schema.org",
+          "label": "returnPolicySeasonalOverride",
+          "signature": "MerchantReturnPolicy → MerchantReturnPolicySeasonalOverride",
+          "parent": null,
+          "inverse_of": null,
+          "score": -9.9197,
+          "matched_anchor": null,
+          "comment": "A temporary modification or override of a standard merchant return policy for a specific season or period. Also called seasonal return policy change, temporary return policy, holiday return policy. Examples: `Standard Return Policy` returnPolicySeasonalOverride `Holiday Return Policy 2023`, `Summer Sale Policy` returnPolicySeasonalOverride `Extended Return Window`, `Black Friday Policy` returnPolicySeasonalOverride `Special Return Terms`.",
+          "embed_score": 0.79,
+          "embed_rank": 4
+        },
+        {
+          "source": "schema.org",
+          "label": "dateVehicleFirstRegistered",
+          "signature": "Vehicle → Date",
+          "parent": null,
+          "inverse_of": null,
+          "score": -9.996,
+          "matched_anchor": null,
+          "comment": "A temporal registration relation between a vehicle and the date of its first registration with public authorities. Also called: first registration date, initial registration, vehicle registration date. Examples: \"Car\" date vehicle first registered \"2018-03-15\", \"Motorcycle\" date vehicle first registered \"2020-07-01\", \"Truck\" date vehicle first registered \"2015-11-20\".",
+          "embed_score": 0.775,
+          "embed_rank": 33
+        },
+        {
+          "source": "schema.org",
+          "label": "eligibleTransactionVolume",
+          "signature": "Demand/Offer/PriceSpecification → PriceSpecification",
+          "parent": null,
+          "inverse_of": null,
+          "score": -10.0374,
+          "matched_anchor": null,
+          "comment": "An eligible transaction volume relation between a demand, offer, or price specification and the price specification representing the monetary volume for which it is valid. Also called \"valid transaction amount\", \"minimum purchase\", \"order value threshold\". Examples: \"Offer 'Free Shipping' eligibleTransactionVolume 'Min. $50'\", \"Price specification eligibleTransactionVolume 'Orders over $1000'\", \"Credit card acceptance eligibleTransactionVolume 'Min. $10'\".",
+          "embed_score": 0.778,
+          "embed_rank": 19
+        },
+        {
+          "source": "schema.org",
+          "label": "earlyPrepaymentPenalty",
+          "signature": "RepaymentSpecification → MonetaryAmount",
+          "parent": null,
+          "inverse_of": null,
+          "score": -10.1138,
+          "matched_anchor": null,
+          "comment": "An early prepayment penalty relation between a repayment specification and a monetary amount, representing the fee for paying off a loan ahead of schedule. Also called \"prepayment fee\", \"early payoff penalty\", \"exit fee\". Examples: \"Mortgage repayment earlyPrepaymentPenalty '$500'\", \"Loan agreement earlyPrepaymentPenalty '2% of remaining balance'\", \"Car loan earlyPrepaymentPenalty '$100'\".",
+          "embed_score": 0.776,
+          "embed_rank": 31
+        },
+        {
+          "source": "schema.org",
+          "label": "customerRemorseReturnFees",
+          "signature": "MerchantReturnPolicy → ReturnFeesEnumeration",
+          "parent": null,
+          "inverse_of": null,
+          "score": -10.2184,
+          "matched_anchor": null,
+          "comment": "A return policy relation between a merchant return policy and the type of fees applied when a product is returned due to customer remorse. Also called: remorse return fees, change-of-mind return fees, customer-initiated return charges. Examples: \"Electronics Store\" customer remorse return fees \"ReturnShippingFees\", \"Clothing Retailer\" customer remorse return fees \"RestockingFee\", \"Bookstore\" customer remorse return fees \"NoFees\".",
+          "embed_score": 0.785,
+          "embed_rank": 10
+        }
+      ]
+    }
+  ]
+}

@@ -14,7 +14,7 @@
         "definition": null,
         "parent": null,
         "path": "Thing > Place > AdministrativeArea",
-        "justification": "Schema.org's Country class directly matches the definition and examples of sovereign states."
+        "justification": "Matches the definition and examples of sovereign states."
       },
       "llm_proposed": {
         "source": "schema.org",
@@ -72,18 +72,18 @@
       "oie_type": "MilitaryGroup",
       "embedding_query_text": "MilitaryGroup: A non-state armed organization with military capabilities Also called Militant group, Guerrilla force, Insurgent group, Armed organization. Examples: Houthis, pro-Iranian militias in Iraq, Yemeni fighters hostile to the Houthis, Iranian-backed Houthis.",
       "chosen_type": {
-        "label": "MilitaryOrganization",
+        "label": "ArmedOrganization",
         "source": "vocab",
-        "vocab_id": "T0173",
+        "vocab_id": "T0165",
         "is_new_to_vocab": true,
-        "definition": "An armed organization engaged in military activities, distinct from state entities.",
+        "definition": "A non-state armed organization with military capabilities",
         "parent": "Organization",
         "path": "Thing > Organization",
-        "justification": "No schema.org class accurately represents non-state military groups; 'Organization' is the closest parent."
+        "justification": "No existing schema.org class captures non-state military groups like Houthis."
       },
       "llm_proposed": {
         "source": "new",
-        "label": "MilitaryOrganization",
+        "label": "ArmedOrganization",
         "is_new": true
       },
       "mentions": [
@@ -140,7 +140,7 @@
         "definition": null,
         "parent": null,
         "path": "Thing",
-        "justification": "Schema.org's Place class encompasses all examples of geographic locations, including regions and cities."
+        "justification": "Broadly covers physical locations including seas, chokepoints, and cities."
       },
       "llm_proposed": {
         "source": "schema.org",
@@ -198,13 +198,13 @@
       "embedding_query_text": "Date: A specific point in time marked by a calendar date Also called Day, Date, Calendar date, Temporal marker. Examples: 2023, 2015, 2019-09-14, 2022.",
       "chosen_type": {
         "label": "Date",
-        "source": "schema.org",
-        "vocab_id": null,
+        "source": "vocab",
+        "vocab_id": "T0094",
         "is_new_to_vocab": false,
-        "definition": null,
-        "parent": null,
-        "path": "",
-        "justification": "Schema.org's Date datatype matches the calendar date format in the examples."
+        "definition": "A calendar date without time component, representing a temporal marker for events.",
+        "parent": "Thing",
+        "path": "Thing",
+        "justification": "Matches calendar dates in ISO format without time components."
       },
       "llm_proposed": {
         "source": "schema.org",
@@ -270,7 +270,7 @@
         "definition": null,
         "parent": null,
         "path": "",
-        "justification": "Schema.org's Quantity class represents measurable amounts, fitting the example with units."
+        "justification": "Represents measurable amounts with units like 'barrels a day'."
       },
       "llm_proposed": {
         "source": "schema.org",
@@ -322,19 +322,19 @@
       "oie_type": "Facility",
       "embedding_query_text": "Facility: A physical structure or complex with specific functions Also called Installation, Complex, Infrastructure, Structure. Examples: Abqaiq refinery.",
       "chosen_type": {
-        "label": "CivicStructure",
-        "source": "schema.org",
-        "vocab_id": null,
-        "is_new_to_vocab": false,
-        "definition": null,
-        "parent": null,
-        "path": "Thing > Place",
-        "justification": "Schema.org's CivicStructure class best fits a physical facility like a refinery."
+        "label": "Refinery",
+        "source": "vocab",
+        "vocab_id": "T0166",
+        "is_new_to_vocab": true,
+        "definition": "A facility for processing crude oil into usable products",
+        "parent": "CivicStructure",
+        "path": "Thing > Place > CivicStructure",
+        "justification": "No existing schema.org class for industrial refineries."
       },
       "llm_proposed": {
-        "source": "schema.org",
-        "label": "CivicStructure",
-        "is_new": false
+        "source": "new",
+        "label": "Refinery",
+        "is_new": true
       },
       "mentions": [
         "Abqaiq refinery"
@@ -388,7 +388,7 @@
         "definition": null,
         "parent": null,
         "path": "Thing",
-        "justification": "Schema.org's Person class matches all examples of individual human names."
+        "justification": "Matches individual human names like 'Nawaf Obeid'."
       },
       "llm_proposed": {
         "source": "schema.org",
@@ -449,7 +449,7 @@
         "definition": null,
         "parent": null,
         "path": "Thing",
-        "justification": "Schema.org's Organization class fits general-purpose organizations like OPEC."
+        "justification": "Broadly captures groups like 'Popular Mobilization Forces' and OPEC."
       },
       "llm_proposed": {
         "source": "schema.org",
@@ -502,19 +502,19 @@
       "oie_type": "MilitaryOrganization",
       "embedding_query_text": "MilitaryOrganization: A formal organization responsible for military operations Also called Command, Forces, Military command, War organization. Examples: US Central Command (CENTCOM).",
       "chosen_type": {
-        "label": "MilitaryCommand",
-        "source": "vocab",
-        "vocab_id": "T0174",
-        "is_new_to_vocab": true,
-        "definition": "A formal military organization responsible for directing operations.",
-        "parent": "GovernmentOrganization",
-        "path": "Thing > Organization > GovernmentOrganization",
-        "justification": "Schema.org lacks a specific military command class; 'GovernmentOrganization' is the closest parent."
+        "label": "GovernmentOrganization",
+        "source": "schema.org",
+        "vocab_id": null,
+        "is_new_to_vocab": false,
+        "definition": null,
+        "parent": null,
+        "path": "Thing > Organization",
+        "justification": "Represents military commands as part of governmental bodies."
       },
       "llm_proposed": {
-        "source": "new",
-        "label": "MilitaryCommand",
-        "is_new": true
+        "source": "schema.org",
+        "label": "GovernmentOrganization",
+        "is_new": false
       },
       "mentions": [
         "US Central Command (CENTCOM)"
@@ -568,7 +568,7 @@
         "definition": null,
         "parent": null,
         "path": "Thing > Intangible > Trip",
-        "justification": "fallback: top candidate"
+        "justification": "Describes air travel journeys like 'Houthi delegation flight'."
       },
       "llm_proposed": {
         "source": "schema.org",

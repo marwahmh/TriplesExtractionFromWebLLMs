@@ -1,0 +1,1329 @@
+{
+  "article_id": "art56",
+  "match_model": "intfloat/e5-base-v2",
+  "expand_mode": true,
+  "relations": [
+    {
+      "relation_phrase": "has_participant",
+      "definition": "Indicates an entity involved in an event or claim.",
+      "embedding_query_text": "has_participant: Indicates an entity involved in an event or claim.",
+      "observed_signatures": [
+        "Event → Country",
+        "Event → PoliticalParty",
+        "Event → Date",
+        "Event → Decade",
+        "PoliticalStatement → Person",
+        "PoliticalStatement → Country",
+        "PoliticalStatement → PoliticalParty",
+        "Event → Language",
+        "Event → GovernmentOrganization"
+      ],
+      "n_assignments": 2,
+      "assignments": [
+        {
+          "instances": [
+            "New Zealand passes English Language Bill -> New Zealand First party",
+            "New Zealand passes English Language Bill -> Labour Party"
+          ],
+          "chosen_property": {
+            "label": "contributor",
+            "source": "schema.org",
+            "direction": "as_is",
+            "vocab_id": null,
+            "is_new_to_vocab": false,
+            "definition": null,
+            "parent": null,
+            "domain": null,
+            "range": null,
+            "path": "",
+            "justification": "The contributor property fits Event → PoliticalParty (PoliticalParty is an Organization)."
+          },
+          "llm_proposed": {
+            "source": "schema.org",
+            "label": "contributor",
+            "is_new": false,
+            "direction": "as_is"
+          }
+        },
+        {
+          "instances": [
+            "New Zealand passes English Language Bill -> New Zealand",
+            "New Zealand passes English Language Bill -> 2026-08-04",
+            "Tamatha Paul condemns English Language Bill -> Tamatha Paul",
+            "Casey Costello defends English Language Bill -> New Zealand",
+            "Casey Costello defends English Language Bill -> New Zealand First party",
+            "Māori language revival campaign in the 1970s -> New Zealand",
+            "Māori language revival campaign in the 1970s -> Māori",
+            "Māori language revival campaign in the 1970s -> Green party",
+            "Māori language revival campaign in the 1970s -> 1980s",
+            "Māori language revival campaign in the 1970s -> 1970s",
+            "Justice Committee receives 1,601 submissions on English Language Bill -> New Zealand",
+            "Justice Committee receives 1,601 submissions on English Language Bill -> Justice Committee",
+            "Justice Committee receives 1,601 submissions on English Language Bill -> 2023"
+          ],
+          "chosen_property": {
+            "label": "hasParticipant",
+            "source": "vocab",
+            "direction": "as_is",
+            "vocab_id": "P0172",
+            "is_new_to_vocab": true,
+            "definition": "Indicates an entity involved in an event or claim.",
+            "parent": "participant",
+            "domain": [
+              "Event",
+              "PoliticalStatement"
+            ],
+            "range": [
+              "Country",
+              "Date",
+              "Decade",
+              "Language",
+              "GovernmentOrganization",
+              "Person",
+              "PoliticalParty"
+            ],
+            "path": "participant",
+            "justification": "No schema.org property matches Event → Country/Date/Decade/GovernmentOrganization or PoliticalStatement → Person/Country. Minted new property 'hasParticipant' as a general participant relation."
+          },
+          "llm_proposed": {
+            "source": "new",
+            "label": "hasParticipant",
+            "is_new": true,
+            "direction": "as_is"
+          }
+        }
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "participant",
+          "signature": "Action → Organization/Person",
+          "parent": null,
+          "inverse_of": null,
+          "score": 2.0591,
+          "matched_anchor": null,
+          "comment": "A collaborative relation between an action and an organization or person who indirectly participated in it. Also called collaborated with, involved, assisted by, co-agent. Examples: A writing action has a participant co-author. A research project has a participant researcher. A meeting has a participant attendee. Distinct from agent, which is the primary actor of an action.",
+          "embed_score": 0.85,
+          "embed_rank": 1
+        },
+        {
+          "source": "schema.org",
+          "label": "hasParticipationOffer",
+          "signature": "Event → Offer",
+          "parent": null,
+          "inverse_of": null,
+          "score": 1.19,
+          "matched_anchor": null,
+          "comment": "A participation offer relation between an event and an offer to participate in it. Also called call for participation, participation opportunity, event entry offer. Examples: \"An event has a participation offer for speakers.\", \"The conference has a participation offer for proposals.\", \"This festival includes a participation offer for performers.\". Distinct from hasSponsorshipOffer, which is an offer to sponsor the event.",
+          "embed_score": 0.849,
+          "embed_rank": 2
+        },
+        {
+          "source": "schema.org",
+          "label": "competitor",
+          "signature": "SportsEvent → Person/SportsTeam",
+          "parent": null,
+          "inverse_of": null,
+          "score": 0.0027,
+          "matched_anchor": null,
+          "comment": "A participation relation in a sports event, indicating a person or sports team that is competing. Also called \"participant\", \"opponent\", \"rival\". Examples: \"Olympic race sports event competitor Usain Bolt\", \"Football match sports event competitor Manchester United\".",
+          "embed_score": 0.847,
+          "embed_rank": 3
+        },
+        {
+          "source": "schema.org",
+          "label": "contributor",
+          "signature": "CreativeWork/Event → Organization/Person",
+          "parent": null,
+          "inverse_of": null,
+          "score": -1.0164,
+          "matched_anchor": null,
+          "comment": "A secondary participation relation for a creative work or event, indicating an organization or person who contributed to it. Also called \"additional contributor\", \"supporting role\", \"collaborator\". Examples: \"Book creative work contributor 'Editor Jane Doe'\", \"Conference event contributor 'Sponsor Acme Corp'\". Distinct from author or creator, which typically denote primary responsibility.",
+          "embed_score": 0.808,
+          "embed_rank": 10
+        },
+        {
+          "source": "schema.org",
+          "label": "attendee",
+          "signature": "Event → Organization/Person",
+          "parent": null,
+          "inverse_of": null,
+          "score": -1.7958,
+          "matched_anchor": null,
+          "comment": "A person or organization present at an event. Also called: participant, guest, visitor. Examples: \"Event 'Concert' attendee 'John Doe'\", \"Event 'Conference' attendee 'Acme Corp'\", \"Event 'Meeting' attendee 'Jane Smith'\". Distinct from attendees, which is the plural form.",
+          "embed_score": 0.833,
+          "embed_rank": 4
+        },
+        {
+          "source": "schema.org",
+          "label": "attendees",
+          "signature": "Event → Organization/Person",
+          "parent": null,
+          "inverse_of": null,
+          "score": -2.6295,
+          "matched_anchor": null,
+          "comment": "A person present at an event. Also called: participants, guests, visitors. Examples: \"Event 'Concert' attendees 'John Doe'\", \"Event 'Conference' attendees 'Acme Corp'\", \"Event 'Meeting' attendees 'Jane Smith'\". Distinct from attendee, which is the singular form.",
+          "embed_score": 0.807,
+          "embed_rank": 11
+        },
+        {
+          "source": "schema.org",
+          "label": "sportsTeam",
+          "signature": "ExerciseAction → SportsTeam",
+          "parent": "participant",
+          "inverse_of": null,
+          "score": -2.8051,
+          "matched_anchor": null,
+          "comment": "A participation relation between an exercise action and the sports team involved in it. Also called \"team participated\", \"team involved\", \"athletic team\". Examples: \"The goal was scored by the sportsTeam Real Madrid\", \"The race involved sportsTeam Team USA\", \"This action was performed by a sportsTeam.\". Distinct from participant, which is a more general participant property.",
+          "embed_score": 0.796,
+          "embed_rank": 21
+        },
+        {
+          "source": "schema.org",
+          "label": "performer",
+          "signature": "Event → Organization/Person",
+          "parent": null,
+          "inverse_of": null,
+          "score": -3.3817,
+          "matched_anchor": null,
+          "comment": "A participation role relation between an event and an organization or person who performs at it. Also called artist, entertainer, presenter, actor. Examples: A concert has a performer 'Taylor Swift'. A play has a performer 'Meryl Streep'. A conference has a performer 'Dr. Jane Doe'. Distinct from performerIn, which points from a person to an event.",
+          "embed_score": 0.8,
+          "embed_rank": 16
+        },
+        {
+          "source": "schema.org",
+          "label": "buyer",
+          "signature": "SellAction → Organization/Person",
+          "parent": "participant",
+          "inverse_of": null,
+          "score": -3.4209,
+          "matched_anchor": null,
+          "comment": "A participation relation in a sell action, indicating the organization or person who purchased the object. Also called \"purchaser\", \"customer\", \"acquired by\". Examples: \"Online purchase sell action buyer Jane Doe\", \"Company acquisition sell action buyer Acme Corp\". Distinct from seller, which is the party offering the object for sale.",
+          "embed_score": 0.8,
+          "embed_rank": 17
+        },
+        {
+          "source": "schema.org",
+          "label": "eventAttendanceMode",
+          "signature": "Event → EventAttendanceModeEnumeration",
+          "parent": null,
+          "inverse_of": null,
+          "score": -3.7589,
+          "matched_anchor": null,
+          "comment": "An event attendance mode relation between an event and the enumeration indicating whether it occurs online, offline, or a mix. Also called \"attendance format\", \"event delivery mode\", \"participation mode\". Examples: \"Event 'Conference' eventAttendanceMode 'OnlineEventAttendanceMode'\", \"Event 'Workshop' eventAttendanceMode 'OfflineEventAttendanceMode'\", \"Event 'Hybrid Meeting' eventAttendanceMode 'MixedEventAttendanceMode'\".",
+          "embed_score": 0.793,
+          "embed_rank": 26
+        }
+      ]
+    },
+    {
+      "relation_phrase": "has_subject",
+      "definition": null,
+      "embedding_query_text": "has_subject:",
+      "observed_signatures": [
+        "Event → Language"
+      ],
+      "n_assignments": 1,
+      "assignments": [
+        {
+          "instances": [
+            "New Zealand passes English Language Bill -> English"
+          ],
+          "chosen_property": {
+            "label": "subjectOf",
+            "source": "schema.org",
+            "direction": "as_is",
+            "vocab_id": null,
+            "is_new_to_vocab": false,
+            "definition": null,
+            "parent": null,
+            "domain": null,
+            "range": null,
+            "path": "",
+            "justification": "fallback: top candidate"
+          },
+          "llm_proposed": {
+            "source": "schema.org",
+            "label": "subjectOf",
+            "is_new": false,
+            "direction": "as_is"
+          }
+        }
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "subjectOf",
+          "signature": "Thing → CreativeWork/Event",
+          "parent": null,
+          "inverse_of": "about",
+          "score": 2.1772,
+          "matched_anchor": null,
+          "comment": "A thematic relation between a thing and a creative work or event that is about it. Also called \"topic of\", \"depicted in\", \"featured in\", \"covered by\". Examples: \"The person is subjectOf a biography\", \"The historical event is subjectOf a documentary\", \"This concept is subjectOf a research paper.\"",
+          "embed_score": 0.838,
+          "embed_rank": 1
+        },
+        {
+          "source": "schema.org",
+          "label": "hasOccupation",
+          "signature": "Person → Occupation",
+          "parent": null,
+          "inverse_of": null,
+          "score": -1.1819,
+          "matched_anchor": null,
+          "comment": "An occupation relation between a person and their current occupation. Also called profession, job, employment. Examples: \"A person has an occupation as a software engineer.\", \"She has an occupation as a doctor.\", \"His occupation is a teacher.\"",
+          "embed_score": 0.806,
+          "embed_rank": 12
+        },
+        {
+          "source": "schema.org",
+          "label": "hasAdultConsideration",
+          "signature": "Offer/Product → AdultOrientedEnumeration",
+          "parent": null,
+          "inverse_of": null,
+          "score": -1.1982,
+          "matched_anchor": null,
+          "comment": "An adult suitability relation between an offer or product and its intended audience or content rating. Also called adult-oriented, age-restricted, mature content, for adults only. Examples: \"An offer has adult consideration for explicit content.\", \"A product is tagged with adult consideration.\", \"This item has adult consideration due to its theme.\"",
+          "embed_score": 0.799,
+          "embed_rank": 19
+        },
+        {
+          "source": "schema.org",
+          "label": "hasCredential",
+          "signature": "Organization/Person → Credential",
+          "parent": null,
+          "inverse_of": null,
+          "score": -1.444,
+          "matched_anchor": null,
+          "comment": "A credential relation between an organization or person and an awarded credential. Also called holds credential, awarded credential, possesses credential. Examples: \"A person has a credential as a licensed engineer.\", \"An organization has a credential for business excellence.\", \"The professional has a credential in data science.\"",
+          "embed_score": 0.798,
+          "embed_rank": 21
+        },
+        {
+          "source": "schema.org",
+          "label": "hasCourse",
+          "signature": "EducationalOccupationalProgram → Course",
+          "parent": null,
+          "inverse_of": null,
+          "score": -1.8799,
+          "matched_anchor": null,
+          "comment": "A course inclusion relation between an educational or occupational program and one of its constituent courses. Also called includes course, program course, course part of. Examples: \"A degree program has a course in advanced calculus.\", \"An occupational program has a course on welding safety.\", \"The curriculum has a course on digital marketing.\"",
+          "embed_score": 0.811,
+          "embed_rank": 9
+        },
+        {
+          "source": "schema.org",
+          "label": "hasOfferCatalog",
+          "signature": "Organization/Person/Service → OfferCatalog",
+          "parent": null,
+          "inverse_of": null,
+          "score": -2.4555,
+          "matched_anchor": null,
+          "comment": "An offer catalog relation between an organization, person, or service and an associated offer catalog. Also called offers catalog, catalog of offers, product catalog. Examples: \"An organization has an offer catalog of its products.\", \"A service has an offer catalog of its packages.\", \"The person maintains an offer catalog.\"",
+          "embed_score": 0.803,
+          "embed_rank": 16
+        },
+        {
+          "source": "schema.org",
+          "label": "hasCertification",
+          "signature": "Organization/Person/Place/Product/Service → Certification",
+          "parent": null,
+          "inverse_of": null,
+          "score": -2.5602,
+          "matched_anchor": null,
+          "comment": "A certification relation between an entity (organization, person, place, product, or service) and its associated certification. Also called holds certification, certified by, possesses certification, has accreditation. Examples: \"An organization has a certification for quality management.\", \"A product has a certification for organic ingredients.\", \"A person has a certification in project management.\"",
+          "embed_score": 0.803,
+          "embed_rank": 15
+        },
+        {
+          "source": "schema.org",
+          "label": "itemOffered",
+          "signature": "Demand/Offer → AggregateOffer/CreativeWork/Event/MenuItem/Product/Service/Trip",
+          "parent": null,
+          "inverse_of": "offers",
+          "score": -2.7226,
+          "matched_anchor": null,
+          "comment": "A transaction subject relation between a demand or offer and the specific item, product, service, or event being requested or provided. Also called offered item, demanded item, subject of offer, product/service offered. Examples: An offer has an itemOffered of 'a new car'. A demand has an itemOffered of 'web design service'. An offer has an itemOffered of 'a concert ticket'. Distinct from itemReviewed, which is the subject of a review, not an offer/demand.",
+          "embed_score": 0.781,
+          "embed_rank": 48
+        },
+        {
+          "source": "schema.org",
+          "label": "hasMeasurement",
+          "signature": "Certification/Offer/Product/SizeSpecification → QuantitativeValue",
+          "parent": null,
+          "inverse_of": null,
+          "score": -3.0377,
+          "matched_anchor": null,
+          "comment": "A measurement relation between a certification, offer, product, or size specification and a quantitative value representing a specific measurement. Also called item measurement, dimension, size value. Examples: \"A product has a measurement for its height.\", \"An offer includes a measurement for package weight.\", \"The certification has a measurement of carbon footprint.\"",
+          "embed_score": 0.782,
+          "embed_rank": 44
+        },
+        {
+          "source": "schema.org",
+          "label": "hasDigitalDocumentPermission",
+          "signature": "DigitalDocument → DigitalDocumentPermission",
+          "parent": null,
+          "inverse_of": null,
+          "score": -3.1333,
+          "matched_anchor": null,
+          "comment": "A document permission relation between a digital document and an associated access permission. Also called document access, permission for document, document rights. Examples: \"A digital document has a digital document permission to read.\", \"The file has a digital document permission for editing.\", \"This document has digital document permissions for public viewing.\"",
+          "embed_score": 0.804,
+          "embed_rank": 13
+        }
+      ]
+    },
+    {
+      "relation_phrase": "has_related_language",
+      "definition": "Indicates a language associated with an event or claim.",
+      "embedding_query_text": "has_related_language: Indicates a language associated with an event or claim.",
+      "observed_signatures": [
+        "Event → Language",
+        "PoliticalStatement → Language",
+        "PoliticalStatement → Country"
+      ],
+      "n_assignments": 1,
+      "assignments": [
+        {
+          "instances": [
+            "New Zealand passes English Language Bill -> Māori",
+            "Tamatha Paul condemns English Language Bill -> Māori",
+            "Tamatha Paul condemns English Language Bill -> New Zealand"
+          ],
+          "chosen_property": {
+            "label": "event",
+            "source": "schema.org",
+            "direction": "as_is",
+            "vocab_id": null,
+            "is_new_to_vocab": false,
+            "definition": null,
+            "parent": null,
+            "domain": null,
+            "range": null,
+            "path": "",
+            "justification": "fallback: top candidate"
+          },
+          "llm_proposed": {
+            "source": "schema.org",
+            "label": "event",
+            "is_new": false,
+            "direction": "as_is"
+          }
+        }
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "event",
+          "signature": "InformAction/InviteAction/JoinAction/LeaveAction/Organization/Place/PlayAction → Event",
+          "parent": null,
+          "inverse_of": null,
+          "score": 0.3688,
+          "matched_anchor": null,
+          "comment": "An event association relation between an action, organization, or place and an event connected to it. Also called \"associated event\", \"related event\", \"features event\". Examples: \"Organization 'Museum' event 'Art Exhibition'\", \"Place 'Park' event 'Summer Festival'\", \"Inform action event 'Meeting Reminder'\". Distinct from events, which is the plural form.",
+          "embed_score": 0.825,
+          "embed_rank": 1
+        },
+        {
+          "source": "schema.org",
+          "label": "associatedClaimReview",
+          "signature": "Review → Review",
+          "parent": "associatedReview",
+          "inverse_of": null,
+          "score": 0.1501,
+          "matched_anchor": null,
+          "comment": "A claim review related to another review by common content, topic, or claim. Also called: related claim review, linked claim assessment. Examples: \"Review 'MediaReview of Article' associatedClaimReview 'ClaimReview of Statement'\", \"Review 'FactCheck' associatedClaimReview 'Another FactCheck'\". Distinct from associatedMediaReview, which links to a media review.",
+          "embed_score": 0.817,
+          "embed_rank": 3
+        },
+        {
+          "source": "schema.org",
+          "label": "events",
+          "signature": "Organization/Place → Event",
+          "parent": null,
+          "inverse_of": null,
+          "score": -0.7407,
+          "matched_anchor": null,
+          "comment": "An events association relation between an organization or place and the events connected to it. Also called \"associated events\", \"related events\", \"features events\". Examples: \"Organization 'Museum' events 'Art Exhibition, Lecture Series'\", \"Place 'Park' events 'Summer Festival, Winter Fair'\", \"Company 'Tech Solutions' events 'Annual Conference, Product Launch'\". Distinct from event, which is the singular form.",
+          "embed_score": 0.821,
+          "embed_rank": 2
+        },
+        {
+          "source": "schema.org",
+          "label": "inLanguage",
+          "signature": "BroadcastService/CommunicateAction/CreativeWork/Event/LinkRole/PronounceableText/WriteAction → Language/Text",
+          "parent": null,
+          "inverse_of": null,
+          "score": -0.8371,
+          "matched_anchor": null,
+          "comment": "A language relation between a broadcast service, communicate action, creative work, event, link role, pronounceable text, or write action and the language used. Also called language of, written in, spoken in. Examples: \"A creative work is in language 'en-US'.\", \"The broadcast service is in language 'es'.\", \"This text is in language 'fr'.\"",
+          "embed_score": 0.816,
+          "embed_rank": 4
+        },
+        {
+          "source": "schema.org",
+          "label": "appearance",
+          "signature": "Claim → CreativeWork",
+          "parent": "workExample",
+          "inverse_of": null,
+          "score": -2.5792,
+          "matched_anchor": null,
+          "comment": "An appearance relation between a claim and a creative work where that claim is found or occurs. Also called occurrence in, mentioned in, found in. Examples: \"A claim's appearance is in 'News Article X'.\", \"The factual claim's appearance is in 'Research Paper Y'.\"",
+          "embed_score": 0.794,
+          "embed_rank": 19
+        },
+        {
+          "source": "schema.org",
+          "label": "interpretedAsClaim",
+          "signature": "CreativeWork/MediaObject → Claim",
+          "parent": "description",
+          "inverse_of": null,
+          "score": -2.7635,
+          "matched_anchor": null,
+          "comment": "A claim extraction relation between a creative work or media object and a specific assertion or statement derived from its content. Also called contains claim, implies claim, claim extracted from, claim derived from. Examples: A news article is interpretedAsClaim 'The sky is blue'. A scientific paper is interpretedAsClaim 'Drug X cures Y'. A video is interpretedAsClaim 'Candidate Z made promise A'.",
+          "embed_score": 0.807,
+          "embed_rank": 7
+        },
+        {
+          "source": "schema.org",
+          "label": "claimInterpreter",
+          "signature": "Claim → Organization/Person",
+          "parent": null,
+          "inverse_of": null,
+          "score": -3.1694,
+          "matched_anchor": null,
+          "comment": "An interpretation relation between a claim and the organization or person who interpreted it from media content. Also called \"interpreted by\", \"claim analyst\", \"fact-checker\". Examples: \"News claim claimInterpreter FactCheck.org\", \"Social media claim claimInterpreter Jane Doe\".",
+          "embed_score": 0.792,
+          "embed_rank": 22
+        },
+        {
+          "source": "schema.org",
+          "label": "eventStatus",
+          "signature": "Event → EventStatusType",
+          "parent": null,
+          "inverse_of": null,
+          "score": -3.2486,
+          "matched_anchor": null,
+          "comment": "An event status relation between an event and its current status type. Also called \"event condition\", \"status of event\", \"event state\". Examples: \"Event 'Concert' eventStatus 'EventCancelled'\", \"Event 'Meeting' eventStatus 'EventScheduled'\", \"Event 'Festival' eventStatus 'EventRescheduled'\".",
+          "embed_score": 0.79,
+          "embed_rank": 28
+        },
+        {
+          "source": "schema.org",
+          "label": "subtitleLanguage",
+          "signature": "BroadcastEvent/Movie/ScreeningEvent/TVEpisode → Language/Text",
+          "parent": null,
+          "inverse_of": null,
+          "score": -3.284,
+          "matched_anchor": null,
+          "comment": "An identification of the languages in which subtitles or captions are available for a broadcast event, movie, or TV episode. Also called \"caption language\", \"available subtitles\", \"subtitle options\". Examples: \"The movie has subtitleLanguage English\", \"The TV episode's subtitleLanguage is Spanish\", \"This broadcast event offers subtitles in multiple subtitleLanguage options.\"",
+          "embed_score": 0.792,
+          "embed_rank": 21
+        },
+        {
+          "source": "schema.org",
+          "label": "translator",
+          "signature": "CreativeWork/Event → Organization/Person",
+          "parent": null,
+          "inverse_of": null,
+          "score": -3.3951,
+          "matched_anchor": null,
+          "comment": "A translator relation between a creative work or event and the organization or person responsible for adapting it to different languages or translating during an event. Also called translated by, language adapter, interpreter. Examples: \"Book translator 'Edith Grossman'\", \"Conference translator 'Language Services Inc.'\", \"CreativeWork translator 'Google Translate'\".",
+          "embed_score": 0.792,
+          "embed_rank": 20
+        }
+      ]
+    },
+    {
+      "relation_phrase": "targets",
+      "definition": "Indicates the primary focus or subject of a claim.",
+      "embedding_query_text": "targets: Indicates the primary focus or subject of a claim.",
+      "observed_signatures": [
+        "PoliticalStatement → Event"
+      ],
+      "n_assignments": 1,
+      "assignments": [
+        {
+          "instances": [
+            "Tamatha Paul condemns English Language Bill -> New Zealand passes English Language Bill",
+            "Casey Costello defends English Language Bill -> New Zealand passes English Language Bill"
+          ],
+          "chosen_property": {
+            "label": "spatialCoverage",
+            "source": "schema.org",
+            "direction": "as_is",
+            "vocab_id": null,
+            "is_new_to_vocab": false,
+            "definition": null,
+            "parent": null,
+            "domain": null,
+            "range": null,
+            "path": "contentLocation",
+            "justification": "fallback: top candidate"
+          },
+          "llm_proposed": {
+            "source": "schema.org",
+            "label": "spatialCoverage",
+            "is_new": false,
+            "direction": "as_is"
+          }
+        }
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "spatialCoverage",
+          "signature": "CreativeWork → Place",
+          "parent": "contentLocation",
+          "inverse_of": null,
+          "score": -1.6274,
+          "matched_anchor": null,
+          "comment": "A geographic focus relation between a creative work and the place(s) that are the primary subject or focus of its content. Also called \"geographic scope\", \"covered area\", \"location focus\", \"content location\". Examples: \"A weather dataset has spatialCoverage New York State\", \"The historical map's spatialCoverage is ancient Rome\", \"This research paper's spatialCoverage is the Arctic region.\". Distinct from spatial, which is a more general spatial association when the specific focus is not known.",
+          "embed_score": 0.773,
+          "embed_rank": 16
+        },
+        {
+          "source": "schema.org",
+          "label": "target",
+          "signature": "Action → EntryPoint/URL",
+          "parent": null,
+          "inverse_of": null,
+          "score": -2.4844,
+          "matched_anchor": null,
+          "comment": "A destination relation between an action and its intended entry point or URL. Also called \"action destination\", \"target URL\", \"entry point for action\", \"leads to\". Examples: \"The search action has target a search results page\", \"The button's target is a specific URL\", \"This action points to a target entry point.\"",
+          "embed_score": 0.816,
+          "embed_rank": 1
+        },
+        {
+          "source": "schema.org",
+          "label": "permitAudience",
+          "signature": "Permit → Audience",
+          "parent": null,
+          "inverse_of": null,
+          "score": -4.3784,
+          "matched_anchor": null,
+          "comment": "A targeting relation between a permit and the specific audience it is intended for. Also called target group, eligible recipients, intended users. Examples: A fishing permit has a permit audience of 'Local Residents'. A building permit has a permit audience of 'Licensed Contractors'. A student permit has a permit audience of 'University Students'.",
+          "embed_score": 0.752,
+          "embed_rank": 39
+        },
+        {
+          "source": "schema.org",
+          "label": "targetCollection",
+          "signature": "UpdateAction → Thing",
+          "parent": "object",
+          "inverse_of": null,
+          "score": -4.6979,
+          "matched_anchor": null,
+          "comment": "A specific collection relation between an update action and the collection of things that is the target of the action. Also called \"collection to update\", \"target set\", \"destination collection\". Examples: \"The add action has targetCollection a list of items\", \"The update action's targetCollection is a database table\", \"This action modifies a targetCollection of documents.\". Distinct from object, which is a more general target of an action.",
+          "embed_score": 0.806,
+          "embed_rank": 2
+        },
+        {
+          "source": "schema.org",
+          "label": "targetName",
+          "signature": "AlignmentObject → Text",
+          "parent": null,
+          "inverse_of": null,
+          "score": -4.9709,
+          "matched_anchor": null,
+          "comment": "A textual name of a node within an established educational framework. Also called \"framework node name\", \"educational standard name\", \"learning objective name\". Examples: \"The alignment object has targetName 'Algebra I'\", \"The educational framework node's targetName is 'Critical Thinking'\", \"This targetName identifies a specific skill.\"",
+          "embed_score": 0.793,
+          "embed_rank": 5
+        },
+        {
+          "source": "schema.org",
+          "label": "targetUrl",
+          "signature": "AlignmentObject → URL",
+          "parent": null,
+          "inverse_of": null,
+          "score": -5.4294,
+          "matched_anchor": null,
+          "comment": "A URL identifying a node within an established educational framework. Also called \"framework node URL\", \"educational standard URL\", \"learning objective URL\". Examples: \"The alignment object has targetUrl 'http://example.com/algebra-standard'\", \"The educational framework node's targetUrl points to its definition\", \"This targetUrl links to a specific competency.\"",
+          "embed_score": 0.782,
+          "embed_rank": 12
+        },
+        {
+          "source": "schema.org",
+          "label": "claimReviewed",
+          "signature": "ClaimReview → Text",
+          "parent": null,
+          "inverse_of": null,
+          "score": -5.5486,
+          "matched_anchor": null,
+          "comment": "A summary relation for a claim review, providing a short text of the specific claims being reviewed. Also called \"reviewed claim\", \"claim summary\", \"subject of review\". Examples: \"Fact-check review claimReviewed 'Eating apples cures cancer'\", \"Product claim review claimReviewed 'This product doubles battery life'\".",
+          "embed_score": 0.796,
+          "embed_rank": 4
+        },
+        {
+          "source": "schema.org",
+          "label": "primaryPrevention",
+          "signature": "MedicalCondition → MedicalTherapy",
+          "parent": null,
+          "inverse_of": null,
+          "score": -5.5816,
+          "matched_anchor": null,
+          "comment": "A medical attribute indicating a preventative therapy used to avert the initial occurrence of a medical condition. Also called preventative measure, initial prevention, prophylactic therapy. Examples: A medical condition has a primary prevention of 'vaccination'. Heart disease has a primary prevention of 'healthy diet'. Infection has a primary prevention of 'hand washing'.",
+          "embed_score": 0.766,
+          "embed_rank": 20
+        },
+        {
+          "source": "schema.org",
+          "label": "mainEntity",
+          "signature": "CreativeWork → Thing",
+          "parent": "about",
+          "inverse_of": "mainEntityOfPage",
+          "score": -5.678,
+          "matched_anchor": null,
+          "comment": "A main entity relation between a creative work and the primary entity it describes. Also called: primary subject, about entity, central topic. Examples: \"Wikipedia Article mainEntity Albert Einstein\", \"News Report mainEntity The Election\", \"Research Paper mainEntity Quantum Physics\". Distinct from mainEntityOfPage, which indicates the page for which this thing is the main entity.",
+          "embed_score": 0.772,
+          "embed_rank": 17
+        },
+        {
+          "source": "schema.org",
+          "label": "targetPlatform",
+          "signature": "APIReference → Text",
+          "parent": null,
+          "inverse_of": null,
+          "score": -5.9075,
+          "matched_anchor": null,
+          "comment": "An identification of the type of platform for which an API reference is intended, such as phone or desktop. Also called \"platform type\", \"development platform\", \"operating system target\", \"device target\". Examples: \"The API reference has targetPlatform iOS\", \"The software's targetPlatform is Windows Desktop\", \"This API is designed for targetPlatform Android.\"",
+          "embed_score": 0.789,
+          "embed_rank": 8
+        }
+      ]
+    },
+    {
+      "relation_phrase": "has_official_language",
+      "definition": "Indicates a language recognized as official by a country.",
+      "embedding_query_text": "has_official_language: Indicates a language recognized as official by a country.",
+      "observed_signatures": [
+        "Country → Language"
+      ],
+      "n_assignments": 1,
+      "assignments": [
+        {
+          "instances": [
+            "New Zealand -> English",
+            "New Zealand -> Māori",
+            "New Zealand -> New Zealand Sign Language"
+          ],
+          "chosen_property": {
+            "label": "recognizingAuthority",
+            "source": "schema.org",
+            "direction": "as_is",
+            "vocab_id": null,
+            "is_new_to_vocab": false,
+            "definition": null,
+            "parent": null,
+            "domain": null,
+            "range": null,
+            "path": "",
+            "justification": "fallback: top candidate"
+          },
+          "llm_proposed": {
+            "source": "schema.org",
+            "label": "recognizingAuthority",
+            "is_new": false,
+            "direction": "as_is"
+          }
+        }
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "recognizingAuthority",
+          "signature": "MedicalEntity → Organization",
+          "parent": null,
+          "inverse_of": null,
+          "score": -5.1021,
+          "matched_anchor": null,
+          "comment": "A recognizing authority relation between a medical entity and the organization that officially endorses it within a system of medicine. Also called endorsed by, officially recognized by. Examples: \"A medical treatment is recognized by 'the World Health Organization'.\", \"A medical specialty is recognized by 'the American Medical Association'.\", \"A traditional medicine practice is recognized by 'a national health ministry'.\"",
+          "embed_score": 0.756,
+          "embed_rank": 48
+        },
+        {
+          "source": "schema.org",
+          "label": "knowsLanguage",
+          "signature": "Organization/Person → Language/Text",
+          "parent": null,
+          "inverse_of": null,
+          "score": -5.1273,
+          "matched_anchor": null,
+          "comment": "A language proficiency relation between an organization or person and a language they are able to communicate in. Also called speaks language, fluent in, understands language, conversant in. Examples: A person knowsLanguage 'English'. An organization knowsLanguage 'Spanish'. A diplomat knowsLanguage 'French' (fr).",
+          "embed_score": 0.803,
+          "embed_rank": 2
+        },
+        {
+          "source": "schema.org",
+          "label": "recognizedBy",
+          "signature": "Credential → Organization",
+          "parent": null,
+          "inverse_of": null,
+          "score": -6.3394,
+          "matched_anchor": null,
+          "comment": "A recognition relation between a credential and the organization that acknowledges its validity or value. Also called accredited by, validated by, acknowledged by. Examples: \"A university degree is recognized by 'the Ministry of Education'.\", \"A professional certification is recognized by 'an industry association'.\", \"A medical license is recognized by 'the Medical Board'.\"",
+          "embed_score": 0.762,
+          "embed_rank": 28
+        },
+        {
+          "source": "schema.org",
+          "label": "legalName",
+          "signature": "Organization → Text",
+          "parent": null,
+          "inverse_of": null,
+          "score": -7.1496,
+          "matched_anchor": null,
+          "comment": "An official identification relation between an organization and its formally registered name. Also called registered name, official company name, corporate name, full legal name. Examples: An organization has a legalName of 'Acme Corporation Inc.'. A company's legalName is 'Global Solutions LLC'. The charity's legalName is 'Helping Hands Foundation'. Distinct from name, which is the common or display name.",
+          "embed_score": 0.765,
+          "embed_rank": 24
+        },
+        {
+          "source": "schema.org",
+          "label": "nationality",
+          "signature": "Person → Country",
+          "parent": null,
+          "inverse_of": null,
+          "score": -7.2672,
+          "matched_anchor": null,
+          "comment": "A country representing the nationality of a person. Also called citizenship, country of origin, national identity. Examples: \"Person A nationality 'United States'\", \"Person B nationality 'France'\", \"Person C nationality 'Japan'\". Distinct from birthPlace, which is the location where a person was born.",
+          "embed_score": 0.792,
+          "embed_rank": 4
+        },
+        {
+          "source": "schema.org",
+          "label": "countryOfOrigin",
+          "signature": "CreativeWork/Movie/Product/TVEpisode/TVSeason/TVSeries → Country",
+          "parent": null,
+          "inverse_of": null,
+          "score": -7.2784,
+          "matched_anchor": null,
+          "comment": "A provenance relation between a creative work or product and its country of origin. Also called: origin country, produced in, made in. Examples: \"French Wine\" country of origin \"France\", \"Japanese Anime\" country of origin \"Japan\", \"German Car\" country of origin \"Germany\", \"Hollywood Movie\" country of origin \"United States\". Distinct from countryOfAssembly, which specifies where the product was put together.",
+          "embed_score": 0.79,
+          "embed_rank": 6
+        },
+        {
+          "source": "schema.org",
+          "label": "hasCertification",
+          "signature": "Organization/Person/Place/Product/Service → Certification",
+          "parent": null,
+          "inverse_of": null,
+          "score": -7.696,
+          "matched_anchor": null,
+          "comment": "A certification relation between an entity (organization, person, place, product, or service) and its associated certification. Also called holds certification, certified by, possesses certification, has accreditation. Examples: \"An organization has a certification for quality management.\", \"A product has a certification for organic ingredients.\", \"A person has a certification in project management.\"",
+          "embed_score": 0.769,
+          "embed_rank": 19
+        },
+        {
+          "source": "schema.org",
+          "label": "language",
+          "signature": "CommunicateAction/WriteAction → Language",
+          "parent": "instrument",
+          "inverse_of": null,
+          "score": -7.8992,
+          "matched_anchor": null,
+          "comment": "A communication medium relation between a communicate action or write action and the language employed in that action. Also called language used, medium of communication, spoken in, written in. Examples: A communicate action uses the language 'English'. A write action uses the language 'French'. A conversation has the language 'Spanish'. Distinct from inLanguage, which is for the language of a creative work itself, not the action of communicating/writing.",
+          "embed_score": 0.79,
+          "embed_rank": 7
+        },
+        {
+          "source": "schema.org",
+          "label": "subtitleLanguage",
+          "signature": "BroadcastEvent/Movie/ScreeningEvent/TVEpisode → Language/Text",
+          "parent": null,
+          "inverse_of": null,
+          "score": -8.0241,
+          "matched_anchor": null,
+          "comment": "An identification of the languages in which subtitles or captions are available for a broadcast event, movie, or TV episode. Also called \"caption language\", \"available subtitles\", \"subtitle options\". Examples: \"The movie has subtitleLanguage English\", \"The TV episode's subtitleLanguage is Spanish\", \"This broadcast event offers subtitles in multiple subtitleLanguage options.\"",
+          "embed_score": 0.79,
+          "embed_rank": 5
+        },
+        {
+          "source": "schema.org",
+          "label": "availableLanguage",
+          "signature": "ContactPoint/Course/LodgingBusiness/ServiceChannel/TouristAttraction → Language/Text",
+          "parent": null,
+          "inverse_of": null,
+          "score": -8.0405,
+          "matched_anchor": null,
+          "comment": "A language that can be used with or at an item, service, or place. Also called: supported language, language option, communication language. Examples: \"ContactPoint 'Support' availableLanguage 'en'\", \"Course 'Programming' availableLanguage 'es'\", \"LodgingBusiness 'Hotel' availableLanguage 'fr'\". Distinct from inLanguage, which specifies the language of the content itself.",
+          "embed_score": 0.826,
+          "embed_rank": 1
+        }
+      ]
+    },
+    {
+      "relation_phrase": "has_population_statistic",
+      "definition": null,
+      "embedding_query_text": "has_population_statistic:",
+      "observed_signatures": [
+        "Country → Percentage",
+        "Country → PopulationCount"
+      ],
+      "n_assignments": 1,
+      "assignments": [
+        {
+          "instances": [
+            "New Zealand -> 95%",
+            "New Zealand -> 4.8 million",
+            "New Zealand -> 4.3%"
+          ],
+          "chosen_property": {
+            "label": "populationType",
+            "source": "schema.org",
+            "direction": "as_is",
+            "vocab_id": null,
+            "is_new_to_vocab": false,
+            "definition": null,
+            "parent": null,
+            "domain": null,
+            "range": null,
+            "path": "",
+            "justification": "fallback: top candidate"
+          },
+          "llm_proposed": {
+            "source": "schema.org",
+            "label": "populationType",
+            "is_new": false,
+            "direction": "as_is"
+          }
+        }
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "populationType",
+          "signature": "StatisticalPopulation/StatisticalVariable → Class",
+          "parent": null,
+          "inverse_of": null,
+          "score": 0.4295,
+          "matched_anchor": null,
+          "comment": "A categorical attribute indicating the common type of individuals or cases within a statistical population or variable. Also called demographic group, target group, study population. Examples: A statistical population has a population type of 'Adults'. A statistical variable has a population type of 'Children aged 5-12'. The study focuses on a population type of 'Patients with Condition X'.",
+          "embed_score": 0.803,
+          "embed_rank": 1
+        },
+        {
+          "source": "schema.org",
+          "label": "statType",
+          "signature": "StatisticalVariable → Property/Text/URL",
+          "parent": null,
+          "inverse_of": null,
+          "score": -3.7427,
+          "matched_anchor": null,
+          "comment": "A classification of a statistical variable by the type of statistic it represents, such as mean or count. Also called \"statistic type\", \"measurement type\", \"data type\", \"statistical measure\". Examples: \"The variable has statType mean\", \"This statistical variable's statType is count\", \"The statType indicates a median value.\"",
+          "embed_score": 0.785,
+          "embed_rank": 8
+        },
+        {
+          "source": "schema.org",
+          "label": "diseaseSpreadStatistics",
+          "signature": "SpecialAnnouncement → Dataset/Observation/URL/WebContent",
+          "parent": null,
+          "inverse_of": null,
+          "score": -6.3737,
+          "matched_anchor": null,
+          "comment": "A disease spread statistics relation between a special announcement and a dataset, observation, URL, or web content containing statistical information about the spread of a disease. Also called \"epidemic data\", \"infection rates\", \"case statistics\". Examples: \"Special announcement diseaseSpreadStatistics 'Dataset of daily cases'\", \"Public health update diseaseSpreadStatistics 'WebContent on regional spread'\", \"COVID-19 alert diseaseSpreadStatistics 'URL to dashboard'\".",
+          "embed_score": 0.787,
+          "embed_rank": 6
+        },
+        {
+          "source": "schema.org",
+          "label": "epidemiology",
+          "signature": "MedicalCondition/PhysicalActivity → Text",
+          "parent": null,
+          "inverse_of": null,
+          "score": -7.5916,
+          "matched_anchor": null,
+          "comment": "An epidemiology relation between a medical condition or physical activity and the text describing the characteristics of associated patients. Also called \"patient demographics\", \"disease characteristics\", \"population data\". Examples: \"Medical condition 'Flu' epidemiology 'Affects all ages, higher risk in elderly and young children'\", \"Physical activity 'Running' epidemiology 'Common among young adults, higher injury rates in beginners'\", \"Disease 'Diabetes' epidemiology 'Higher prevalence in certain ethnic groups'\".",
+          "embed_score": 0.786,
+          "embed_rank": 7
+        },
+        {
+          "source": "schema.org",
+          "label": "interactionStatistic",
+          "signature": "CreativeWork/Organization/Person → InteractionCounter",
+          "parent": null,
+          "inverse_of": null,
+          "score": -8.5456,
+          "matched_anchor": null,
+          "comment": "An interaction metric relation between a creative work, organization, or person, and a counter that quantifies user interactions with it. Also called engagement metrics, user activity, interaction data, usage statistics. Examples: A blog post has an interactionStatistic of a 'LikeAction' counter. An organization has an interactionStatistic of a 'CommentAction' counter. A person has an interactionStatistic of a 'ShareAction' counter.",
+          "embed_score": 0.767,
+          "embed_rank": 34
+        },
+        {
+          "source": "schema.org",
+          "label": "agentInteractionStatistic",
+          "signature": "Organization/Person → InteractionCounter",
+          "parent": null,
+          "inverse_of": null,
+          "score": -8.5664,
+          "matched_anchor": null,
+          "comment": "An agent interaction statistic relation between an organization or person and a counter representing their completed interactions in a specific agent role and context. Also called interaction count, activity metric, engagement statistic. Examples: \"A customer service agent's interaction statistic shows '150 calls handled'.\", \"A company's agent interaction statistic indicates '1000 sales completed'.\"",
+          "embed_score": 0.782,
+          "embed_rank": 9
+        },
+        {
+          "source": "schema.org",
+          "label": "targetPopulation",
+          "signature": "DietarySupplement/DoseSchedule → Text",
+          "parent": null,
+          "inverse_of": null,
+          "score": -8.6258,
+          "matched_anchor": null,
+          "comment": "A textual description of the characteristics of the intended or typical population for a dietary supplement or dose schedule. Also called \"intended users\", \"demographic target\", \"user group\", \"audience characteristics\". Examples: \"The supplement has targetPopulation 'adults'\", \"The dose schedule's targetPopulation is 'children aged 6-12'\", \"This product is designed for a targetPopulation of athletes.\"",
+          "embed_score": 0.792,
+          "embed_rank": 3
+        },
+        {
+          "source": "schema.org",
+          "label": "ratingCount",
+          "signature": "AggregateRating → Integer",
+          "parent": null,
+          "inverse_of": null,
+          "score": -8.6646,
+          "matched_anchor": null,
+          "comment": "A rating count relation between an aggregate rating and the total number of individual ratings contributing to it. Also called number of ratings, total ratings. Examples: \"An aggregate rating has a rating count of 150.\", \"A product review summary has a rating count of 500.\", \"A movie's average rating has a rating count of 10,000.\"",
+          "embed_score": 0.768,
+          "embed_rank": 30
+        },
+        {
+          "source": "schema.org",
+          "label": "hasAdultConsideration",
+          "signature": "Offer/Product → AdultOrientedEnumeration",
+          "parent": null,
+          "inverse_of": null,
+          "score": -9.0758,
+          "matched_anchor": null,
+          "comment": "An adult suitability relation between an offer or product and its intended audience or content rating. Also called adult-oriented, age-restricted, mature content, for adults only. Examples: \"An offer has adult consideration for explicit content.\", \"A product is tagged with adult consideration.\", \"This item has adult consideration due to its theme.\"",
+          "embed_score": 0.766,
+          "embed_rank": 36
+        },
+        {
+          "source": "schema.org",
+          "label": "hasDefinedTerm",
+          "signature": "DefinedTermSet/Taxon → DefinedTerm",
+          "parent": null,
+          "inverse_of": null,
+          "score": -9.2999,
+          "matched_anchor": null,
+          "comment": "A term inclusion relation between a defined term set or taxon and one of its contained defined terms. Also called contains term, includes term, term within. Examples: \"A medical glossary has a defined term for 'hypertension'.\", \"A taxonomy has a defined term for 'Homo sapiens'.\", \"The dictionary has a defined term for 'algorithm'.\"",
+          "embed_score": 0.776,
+          "embed_rank": 15
+        }
+      ]
+    },
+    {
+      "relation_phrase": "is_part_of",
+      "definition": null,
+      "embedding_query_text": "is_part_of:",
+      "observed_signatures": [
+        "PoliticalParty → Country"
+      ],
+      "n_assignments": 1,
+      "assignments": [
+        {
+          "instances": [
+            "New Zealand First party -> New Zealand"
+          ],
+          "chosen_property": {
+            "label": "partOfSystem",
+            "source": "schema.org",
+            "direction": "as_is",
+            "vocab_id": null,
+            "is_new_to_vocab": false,
+            "definition": null,
+            "parent": null,
+            "domain": null,
+            "range": null,
+            "path": "",
+            "justification": "fallback: top candidate"
+          },
+          "llm_proposed": {
+            "source": "schema.org",
+            "label": "partOfSystem",
+            "is_new": false,
+            "direction": "as_is"
+          }
+        }
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "partOfSystem",
+          "signature": "AnatomicalStructure → AnatomicalSystem",
+          "parent": null,
+          "inverse_of": null,
+          "score": 1.3511,
+          "matched_anchor": null,
+          "comment": "A biological relation between an anatomical structure and the anatomical or organ system it is a component of. Also called is a component of, belongs to, is found in, forms part of. Examples: The heart is part of the circulatory system. The lungs are part of the respiratory system. A bone is part of the skeletal system.",
+          "embed_score": 0.81,
+          "embed_rank": 12
+        },
+        {
+          "source": "schema.org",
+          "label": "isPartOf",
+          "signature": "CreativeWork → CreativeWork/URL",
+          "parent": null,
+          "inverse_of": "hasPart",
+          "score": 0.5059,
+          "matched_anchor": null,
+          "comment": "A part-whole relation indicating that an item or creative work is a component of a larger creative work or resource. Also called component of, member of, contained in, element of. Examples: A chapter isPartOf 'a book'. An episode isPartOf 'a TV series'. A web page isPartOf 'a website'. Distinct from hasPart, which expresses the inverse relationship (the whole *has* a part).",
+          "embed_score": 0.819,
+          "embed_rank": 6
+        },
+        {
+          "source": "schema.org",
+          "label": "hasPart",
+          "signature": "CreativeWork → CreativeWork",
+          "parent": null,
+          "inverse_of": "isPartOf",
+          "score": 0.1023,
+          "matched_anchor": null,
+          "comment": "A part-whole relation between a creative work and another creative work that is a component of it. Also called includes part, contains component, component of. Examples: \"A book has a part that is a chapter.\", \"A symphony has a part that is a movement.\", \"A website has a part that is a specific page.\". Distinct from includedComposition, which is specific to music compositions.",
+          "embed_score": 0.824,
+          "embed_rank": 3
+        },
+        {
+          "source": "schema.org",
+          "label": "partOfSeason",
+          "signature": "Clip/Episode → CreativeWorkSeason",
+          "parent": "isPartOf",
+          "inverse_of": null,
+          "score": -0.2987,
+          "matched_anchor": null,
+          "comment": "A compositional relation between an episode or clip and the creative work season it belongs to. Also called belongs to, is featured in, is from, is a segment of. Examples: An episode is part of a season. A clip from a show is part of a season. The season finale is part of a season.",
+          "embed_score": 0.822,
+          "embed_rank": 4
+        },
+        {
+          "source": "schema.org",
+          "label": "partOfSeries",
+          "signature": "Clip/CreativeWorkSeason/Episode → CreativeWorkSeries",
+          "parent": "isPartOf",
+          "inverse_of": null,
+          "score": -0.9714,
+          "matched_anchor": null,
+          "comment": "A compositional relation between an episode, season, or clip and the creative work series it belongs to. Also called belongs to, is featured in, is from, is a segment of. Examples: An episode is part of a series. A season is part of a series. A clip from a show is part of a series. Distinct from partOfTVSeries, which is specifically for TV series.",
+          "embed_score": 0.835,
+          "embed_rank": 1
+        },
+        {
+          "source": "schema.org",
+          "label": "partOfEpisode",
+          "signature": "Clip → Episode",
+          "parent": "isPartOf",
+          "inverse_of": null,
+          "score": -1.2146,
+          "matched_anchor": null,
+          "comment": "A compositional relation between a clip and the episode it is a segment of. Also called is a segment of, is featured in, belongs to, is from. Examples: A highlight reel is part of an episode. A deleted scene is part of an episode. A short preview is part of an episode.",
+          "embed_score": 0.821,
+          "embed_rank": 5
+        },
+        {
+          "source": "schema.org",
+          "label": "partOfTrip",
+          "signature": "Trip → Trip",
+          "parent": null,
+          "inverse_of": "subTrip",
+          "score": -1.6287,
+          "matched_anchor": null,
+          "comment": "A hierarchical relation between a trip and a larger, multi-day trip it is a segment of. Also called is a segment of, is a day of, is a leg of, belongs to. Examples: Day 1 of a vacation is part of the overall trip. A specific excursion is part of a larger travel itinerary. A flight segment is part of a multi-leg journey.",
+          "embed_score": 0.809,
+          "embed_rank": 13
+        },
+        {
+          "source": "schema.org",
+          "label": "partOfInvoice",
+          "signature": "Order → Invoice",
+          "parent": "isPartOf",
+          "inverse_of": null,
+          "score": -1.7987,
+          "matched_anchor": null,
+          "comment": "A financial relation between an order and the invoice that includes it for payment. Also called is included in, is billed on, is covered by. Examples: An online purchase order is part of an invoice. A service request order is part of an invoice. Multiple orders can be part of a single invoice.",
+          "embed_score": 0.805,
+          "embed_rank": 17
+        },
+        {
+          "source": "schema.org",
+          "label": "partOfTVSeries",
+          "signature": "TVClip/TVEpisode/TVSeason → TVSeries",
+          "parent": "isPartOf",
+          "inverse_of": null,
+          "score": -2.0696,
+          "matched_anchor": null,
+          "comment": "A compositional relation between a TV episode, season, or clip and the TV series it belongs to. Also called belongs to, is featured in, is from, is a segment of. Examples: A TV episode is part of a TV series. A TV season is part of a TV series. A TV clip is part of a TV series. Distinct from partOfSeries, which is a more general property for any creative work series.",
+          "embed_score": 0.816,
+          "embed_rank": 8
+        },
+        {
+          "source": "schema.org",
+          "label": "subEvent",
+          "signature": "Event → Event",
+          "parent": null,
+          "inverse_of": "superEvent",
+          "score": -2.6671,
+          "matched_anchor": null,
+          "comment": "A hierarchical relation between a larger event and a smaller event that is a component or part of it. Also called \"part of event\", \"component event\", \"nested event\", \"event within event\". Examples: \"The conference has subEvent a keynote speech\", \"The festival's subEvent is a specific concert\", \"This event includes a subEvent workshop.\". Distinct from superEvent, which points from the smaller event to the larger one.",
+          "embed_score": 0.794,
+          "embed_rank": 32
+        }
+      ]
+    },
+    {
+      "relation_phrase": "is_member_of",
+      "definition": null,
+      "embedding_query_text": "is_member_of:",
+      "observed_signatures": [
+        "Person → PoliticalParty"
+      ],
+      "n_assignments": 1,
+      "assignments": [
+        {
+          "instances": [
+            "Tamatha Paul -> Green party"
+          ],
+          "chosen_property": {
+            "label": "member",
+            "source": "schema.org",
+            "direction": "as_is",
+            "vocab_id": null,
+            "is_new_to_vocab": false,
+            "definition": null,
+            "parent": null,
+            "domain": null,
+            "range": null,
+            "path": "",
+            "justification": "fallback: top candidate"
+          },
+          "llm_proposed": {
+            "source": "schema.org",
+            "label": "member",
+            "is_new": false,
+            "direction": "as_is"
+          }
+        }
+      ],
+      "candidates": [
+        {
+          "source": "schema.org",
+          "label": "member",
+          "signature": "Organization/ProgramMembership → Organization/Person",
+          "parent": null,
+          "inverse_of": "memberOf",
+          "score": 4.6958,
+          "matched_anchor": null,
+          "comment": "A member relation between an organization or program membership and an organization or person belonging to it. Also called: belongs to, is a part of, participant in. Examples: \"Club Organization member John Doe\", \"Team ProgramMembership member Jane Smith\", \"Alliance Organization member Partner Company\". Distinct from memberOf, which expresses the inverse relationship.",
+          "embed_score": 0.872,
+          "embed_rank": 1
+        },
+        {
+          "source": "schema.org",
+          "label": "memberOf",
+          "signature": "Organization/Person → MemberProgramTier/Organization/ProgramMembership",
+          "parent": null,
+          "inverse_of": "member",
+          "score": 4.613,
+          "matched_anchor": null,
+          "comment": "A membership relation between an organization or person and the organization or program membership they belong to. Also called: belongs to, is a member of, affiliated with. Examples: \"John Doe memberOf 'Local Sports Club'\", \"Acme Corp memberOf 'Industry Association'\", \"Jane Smith memberOf 'Premium Membership Tier'\". Distinct from member, which expresses the inverse relationship.",
+          "embed_score": 0.861,
+          "embed_rank": 3
+        },
+        {
+          "source": "schema.org",
+          "label": "members",
+          "signature": "Organization/ProgramMembership → Organization/Person",
+          "parent": null,
+          "inverse_of": null,
+          "score": 3.7951,
+          "matched_anchor": null,
+          "comment": "A member relation between an organization or program membership and an organization or person belonging to it. Also called: includes members, comprises, consists of. Examples: \"Club Organization members John Doe\", \"Team ProgramMembership members Jane Smith\", \"Alliance Organization members Partner Company\". Distinct from member, which is a singular form and essentially the same concept.",
+          "embed_score": 0.861,
+          "embed_rank": 2
+        },
+        {
+          "source": "schema.org",
+          "label": "musicGroupMember",
+          "signature": "MusicGroup → Person",
+          "parent": null,
+          "inverse_of": null,
+          "score": 1.3082,
+          "matched_anchor": null,
+          "comment": "A person who is a member of a music group. Also called band member, group member, musician in group. Examples: \"The Beatles musicGroupMember 'John Lennon'\", \"Queen musicGroupMember 'Freddie Mercury'\", \"Fleetwood Mac musicGroupMember 'Stevie Nicks'\". Distinct from member, which is a general property for any organization.",
+          "embed_score": 0.836,
+          "embed_rank": 4
+        },
+        {
+          "source": "schema.org",
+          "label": "isPartOf",
+          "signature": "CreativeWork → CreativeWork/URL",
+          "parent": null,
+          "inverse_of": "hasPart",
+          "score": 1.2077,
+          "matched_anchor": null,
+          "comment": "A part-whole relation indicating that an item or creative work is a component of a larger creative work or resource. Also called component of, member of, contained in, element of. Examples: A chapter isPartOf 'a book'. An episode isPartOf 'a TV series'. A web page isPartOf 'a website'. Distinct from hasPart, which expresses the inverse relationship (the whole *has* a part).",
+          "embed_score": 0.784,
+          "embed_rank": 29
+        },
+        {
+          "source": "schema.org",
+          "label": "affiliation",
+          "signature": "Person → Organization",
+          "parent": "memberOf",
+          "inverse_of": null,
+          "score": -0.1271,
+          "matched_anchor": null,
+          "comment": "An affiliation relation between a person and an organization they are associated with. Also called associated with, member of, works for, belongs to. Examples: \"A professor's affiliation is 'Harvard University'.\", \"A player's affiliation is 'Local Soccer Club'.\" Distinct from alumniOf, which specifies a past association with an educational organization.",
+          "embed_score": 0.825,
+          "embed_rank": 5
+        },
+        {
+          "source": "schema.org",
+          "label": "hasMemberProgram",
+          "signature": "Organization → MemberProgram",
+          "parent": null,
+          "inverse_of": null,
+          "score": -0.5417,
+          "matched_anchor": null,
+          "comment": "A member program relation between an organization and a member program it offers. Also called offers program, loyalty program, membership program. Examples: \"An airline has a member program for frequent flyers.\", \"An eCommerce merchant has a member program for discounts.\", \"The organization offers a member program.\"",
+          "embed_score": 0.815,
+          "embed_rank": 6
+        },
+        {
+          "source": "schema.org",
+          "label": "program",
+          "signature": "ProgramMembership → MemberProgram",
+          "parent": null,
+          "inverse_of": null,
+          "score": -1.3467,
+          "matched_anchor": null,
+          "comment": "An association between a program membership and the specific member program it belongs to. Also called part of program, associated program, membership program. Examples: \"A loyalty card membership is part of the 'Star Alliance Gold' program.\", \"A gym membership is part of the 'Premium Fitness' program.\", \"A frequent flyer membership is part of the 'SkyMiles' program.\". Distinct from programName, which is the textual name of the program.",
+          "embed_score": 0.815,
+          "embed_rank": 7
+        },
+        {
+          "source": "schema.org",
+          "label": "membershipNumber",
+          "signature": "ProgramMembership → Text",
+          "parent": null,
+          "inverse_of": null,
+          "score": -2.2143,
+          "matched_anchor": null,
+          "comment": "A membership number relation between a program membership and its unique identifier. Also called: member ID, membership ID, account number. Examples: \"Loyalty Program membershipNumber '123456789'\", \"Gym Membership membershipNumber 'M-98765'\", \"Library Card membershipNumber 'LIB-001'\".",
+          "embed_score": 0.804,
+          "embed_rank": 8
+        },
+        {
+          "source": "schema.org",
+          "label": "alumniOf",
+          "signature": "Person → EducationalOrganization/Organization",
+          "parent": null,
+          "inverse_of": "alumni",
+          "score": -2.2834,
+          "matched_anchor": null,
+          "comment": "An alumni of relation between a person and an educational organization or organization they are a former student or member of. Also called graduated from, formerly attended, past affiliation. Examples: \"A person is alumni of 'MIT'.\", \"John Doe is alumni of 'Boy Scouts of America'.\" Distinct from alumni, which describes the inverse relationship (organization to person).",
+          "embed_score": 0.793,
+          "embed_rank": 17
+        }
+      ]
+    }
+  ]
+}

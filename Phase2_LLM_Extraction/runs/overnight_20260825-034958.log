@@ -1,0 +1,31 @@
+[08-25 03:49] stopping MINE so 6e gets the cores and the RAM
+[08-25 03:50] 6e running: yes   consolidated graphs: 35/80
+[08-25 03:50] waiting for qwen 6e (checks every 5 min, gives up after 7h or if it dies)
+[08-25 06:55] 6e DONE — 80/80 consolidated graphs on disk
+[08-25 06:55] MINE validation (3 models, 4 variants, judge llama33-70b)
+  grounded variants were pruned by: gpt-oss-120b (219)
+
+  NOTE  llama33-70b is judging its OWN graphs on main_val_r1 — self-report
+[06:55] MINE main_val_r1 — models: gemini-2.5-flash,llama33-70b,qwen3-32b-think | judge llama33-70b | variants e2e_consolidated,e2e_grounded,staged_consolidated,staged_grounded
+./run_mine.sh: line 63: 90890 Terminated: 15          MINE_MODELS="$MODELS" MINE_TAG="$TAG" MINE_VARIANTS="$VARS" bash -c "cd '$HERE/notebooks/evaluation' && '$PY' -m jupyter nbconvert --to notebook --execute       --ExecutePreprocessor.timeout=-1 --ExecutePreprocessor.kernel_name=python3       --output-dir '$OUT' --output 10.ipynb '$NB'" > "$OUT/10.log" 2>&1
+[13:03]   FAILED main_val_r1 — see /Users/marwah/Documents/Thesis/TriplesExtractionFromWebLLMs/Phase2_LLM_Extraction/runs/20260825-065507__mine_main_val_r1_by_llama33-70b/10.log
+./run_mine.sh: line 109: unexpected EOF while looking for matching `"'
+./run_mine.sh: line 110: syntax error: unexpected end of file
+[08-25 13:03]   FAILED MINE val — see /Users/marwah/Documents/Thesis/TriplesExtractionFromWebLLMs/Phase2_LLM_Extraction/runs/overnight_20260825-034958.log
+[08-25 13:03] MINE test (3 models, 2 variants)
+  grounded variants were pruned by: gpt-oss-120b (219)
+
+  NOTE  llama33-70b is judging its OWN graphs on main_test_r1 — self-report
+[13:03] MINE main_test_r1 — models: gemini-2.5-flash,llama33-70b,qwen3-32b-think | judge llama33-70b | variants e2e_consolidated,e2e_grounded
+[13:03]   FAILED main_test_r1 — see /Users/marwah/Documents/Thesis/TriplesExtractionFromWebLLMs/Phase2_LLM_Extraction/runs/20260825-130334__mine_main_test_r1_by_llama33-70b/10.log
+
+MINE reports on disk:
+  gemini-2.5-flash/_global/evaluation/mine_report_llama33-70b_main_val_r1.json
+[08-25 13:03]   OK  MINE test
+[08-25 13:03] done. State:
+| e2e__dedup__main_test_r1 | qwen3-32b-think | main | 6c,6d,6e |  | 80 | 160 | 116 | 76.9 | 3,070,053 | `6c322b6d`+dirty | 2026-08-25T06:51 |
+| e2e__dedup__main_test_r1 | gemini-2.5-flash | main | 6c,6d,6e |  | 80 | 1439 | 1142 | 63.2 | 7,790,981 | `87b9b9aa`+dirty | 2026-08-24T15:42 |
+| e2e__dedup__main_test_r1 | llama33-70b | main | 6c,6d,6e |  | 80 | 138 | 470 | 42.2 | 1,261,664 | `76358a69`+dirty | 2026-08-23T16:48 |
+[08-25 13:03] MINE reports:
+results/gemini-2.5-flash/_global/evaluation/mine_report_llama33-70b_main_val_r1.json
+[08-25 13:03] full log: /Users/marwah/Documents/Thesis/TriplesExtractionFromWebLLMs/Phase2_LLM_Extraction/runs/overnight_20260825-034958.log
