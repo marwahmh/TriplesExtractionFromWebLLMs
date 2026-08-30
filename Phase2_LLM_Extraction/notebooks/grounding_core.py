@@ -118,7 +118,14 @@ def build_index(raw: str):
                 continue
             chars.append(" "); idx.append(i); prev_space = True
         else:
-            chars.append(ch.casefold()); idx.append(i); prev_space = False
+            # casefold() is not length-preserving: 'ß' -> 'ss', 'İ' -> 'i̇'. Appending one index per
+            # SOURCE character therefore leaves idx shorter than the joined text, so every offset
+            # after such a character is wrong and a quote matching near the end walks off the map
+            # (IndexError in locate_quote). art93 has a single 'ß' and failed grounding twice
+            # because of it. Emit one index per PRODUCED character instead; they all point back at
+            # the same raw offset, which is what a span resolved through them should report.
+            folded = ch.casefold()
+            chars.append(folded); idx.extend([i] * len(folded)); prev_space = False
     return "".join(chars), idx, raw
 
 

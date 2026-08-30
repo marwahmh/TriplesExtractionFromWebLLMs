@@ -67,7 +67,11 @@ EOF
 run_split() {   # $1 tag   $2 default variants
   local TAG="$1" VARS="${MINE_VARIANTS:-$2}"
   local present=()
-  for M in gemini-2.5-flash llama33-70b qwen3-32b-think; do
+  # The reported three by default. MINE_CANDIDATES widens it so an extra backend can be scored
+  # without editing this list -- MINE_MODELS alone cannot, because it only NARROWS what is
+  # found here, so a model missing from this loop is reported as "no graphs" even when its
+  # graphs exist.
+  for M in ${MINE_CANDIDATES:-gemini-2.5-flash llama33-70b qwen3-32b-think}; do
     n=$(ls "$HERE/results/$M/"art*/e2e/"nary_graph_dedup_${TAG}_extended_consolidated.json" 2>/dev/null | wc -l | tr -d ' ')
     if [ "$n" -gt 0 ]; then
       present+=("$M")
@@ -76,13 +80,36 @@ run_split() {   # $1 tag   $2 default variants
       echo "  SKIP  $M / $TAG — no consolidated graphs"
     fi
   done
+  # A caller-supplied MINE_MODELS narrows the set; anything it names that has no graphs on this
+  # split is dropped with a warning rather than failing silently inside the notebook.
+  if [ -n "${MINE_MODELS:-}" ]; then
+    local want=() keep=()
+    IFS=',' read -r -a want <<< "$MINE_MODELS"
+    for W in "${want[@]}"; do
+      local hit=0
+      for P in "${present[@]}"; do [ "$P" = "$W" ] && hit=1; done
+      if [ "$hit" = 1 ]; then keep+=("$W"); else echo "  SKIP  $W / $TAG — requested but no graphs"; fi
+    done
+    present=("${keep[@]+"${keep[@]}"}")
+  fi
   if [ ${#present[@]} -eq 0 ]; then echo "  nothing to score for $TAG"; return; fi
   local MODELS; MODELS=$(IFS=,; echo "${present[*]}")
+  # Scope to THIS split's articles. Required because the *_grounded variants read an untagged
+  # filename that exists for both splits once each has been grounded; without this, a val run
+  # silently scores test articles too (observed 2026-08-25: 12 val + 35 test under main_val_r1).
+  local ARTS; ARTS=$("$PY" - "$TAG" <<'EOF'
+import json, sys
+sp = json.load(open("dataset/splits.json"))
+key = "validation" if sys.argv[1].endswith("val_r1") else "test"
+print(",".join(r["art_id"] for r in sp[key]))
+EOF
+)
   echo "[$(date +%H:%M)] MINE $TAG — models: $MODELS | judge $JUDGE | variants $VARS"
+  echo "           scoped to $(echo "$ARTS" | tr ',' '\n' | wc -l | tr -d ' ') articles of the $TAG split"
   if [ -n "$DRY" ]; then echo "  (dry run — nothing judged)"; return; fi
   local OUT="$HERE/runs/$(date +%Y%m%d-%H%M%S)__mine_${TAG}_by_${JUDGE}"
   mkdir -p "$OUT"
-  MINE_MODELS="$MODELS" MINE_TAG="$TAG" MINE_VARIANTS="$VARS" \
+  MINE_MODELS="$MODELS" MINE_TAG="$TAG" MINE_VARIANTS="$VARS" MINE_ARTICLES="$ARTS" \
   bash -c "cd '$HERE/notebooks/evaluation' && '$PY' -m jupyter nbconvert --to notebook --execute \
       --ExecutePreprocessor.timeout=-1 --ExecutePreprocessor.kernel_name=python3 \
       --output-dir '$OUT' --output 10.ipynb '$NB'" >"$OUT/10.log" 2>&1 \

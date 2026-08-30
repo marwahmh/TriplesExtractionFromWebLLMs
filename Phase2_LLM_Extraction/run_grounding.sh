@@ -37,7 +37,10 @@ if [ -z "$JUDGE" ]; then
   exit 2
 fi
 
-MODELS="gemini-2.5-flash llama33-70b qwen3-32b-think"
+# Overridable so a single extra backend can be grounded without re-sweeping the reported three.
+# The per-arm completeness check below already skips anything this judge has covered, so widening
+# the list is safe; narrowing it is what avoids paying for a needless pass.
+MODELS="${GROUND_MODELS:-gemini-2.5-flash llama33-70b qwen3-32b-think}"
 # label | track dir | run tag
 COMBOS="test_e2e|e2e|main_test_r1
 val_e2e|e2e|main_val_r1
@@ -53,18 +56,44 @@ for MODEL in $MODELS; do
       echo "  SKIP  $MODEL / $LABEL — no consolidated graphs"
       skip=$((skip+1)); continue
     fi
+    # Judge only what THIS judge has not already covered. Each grounded graph records its judge
+    # and source graph in grounding_config, so completeness is read from the outputs rather than
+    # assumed. Without this the sweep re-grounds finished arms and pays for them twice.
+    MISSING=$("$PY" - "$MODEL" "$TRACK" "$GRAPH" "$JUDGE" <<'EOF'
+import json, sys, glob, os
+model, track, graph, judge = sys.argv[1:5]
+todo = []
+for src in sorted(glob.glob(f"results/{model}/art*/{track}/{graph}")):
+    art = src.split("/")[2]
+    out = f"results/{model}/{art}/{track}/nary_graph_grounded_fulltext.json"
+    if not os.path.exists(out):
+        todo.append(art); continue
+    try:
+        cfg = (json.load(open(out)).get("grounding_config") or {})
+    except Exception:
+        todo.append(art); continue
+    if cfg.get("backend") != judge or cfg.get("graph") != graph:
+        todo.append(art)
+print(",".join(todo))
+EOF
+)
+    if [ -z "$MISSING" ]; then
+      echo "  SKIP  $MODEL / $LABEL — all $n article(s) already judged by $JUDGE"
+      skip=$((skip+1)); continue
+    fi
+    n_missing=$(echo "$MISSING" | tr ',' '\n' | wc -l | tr -d ' ')
     if [ "$MODEL" = "$JUDGE" ]; then
       echo "  NOTE  $MODEL / $LABEL — judge is the model that WROTE these graphs (self-report)"
     fi
     if [ "$DRY" = "--dry-run" ]; then
-      echo "  WOULD $MODEL / $LABEL — $n articles, track $TRACK, tag $TAG"
+      echo "  WOULD $MODEL / $LABEL — $n_missing of $n articles need judging"
       ok=$((ok+1)); continue
     fi
     OUT="$HERE/runs/$(date +%Y%m%d-%H%M%S)__ground_${MODEL}_${LABEL}_by_${JUDGE}"
     mkdir -p "$OUT"
-    echo "[$(date +%H:%M)] $MODEL / $LABEL — $n articles, judge $JUDGE"
+    echo "[$(date +%H:%M)] $MODEL / $LABEL — judging $n_missing of $n articles with $JUDGE"
     GROUND_MODEL="$MODEL" GROUND_BACKEND="$JUDGE" GROUND_TAG="$TAG" \
-    GROUND_GRAPH="$GRAPH" GROUND_TRACK="$TRACK" \
+    GROUND_GRAPH="$GRAPH" GROUND_TRACK="$TRACK" GROUND_ARTICLES="$MISSING" \
     bash -c "cd '$HERE/notebooks/0_shared' && '$PY' -m jupyter nbconvert --to notebook --execute \
         --ExecutePreprocessor.timeout=-1 --ExecutePreprocessor.kernel_name=python3 \
         --output-dir '$OUT' --output 9b.ipynb '$NB'" >"$OUT/9b.log" 2>&1 \
