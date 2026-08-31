@@ -55,20 +55,47 @@ pools into `schema_org_files/` (already present in this repo).
 (`dataset/build_dataset.ipynb` rebuilds it from `dataset/articles.csv`). The corpus is split once
 into validation (20 articles) and test (80) by `python dataset/select_splits.py`.
 
-**3. Pick an experiment, run a track.** Every run is configured by one file in `configs/`
-(`main.json` is the reported configuration). Headless:
+**3. Run a track on Gemini (the default backend).** Every run is configured by one file in
+`configs/` — `main.json` is the reported configuration, and its base (`configs/_base.json`) already
+selects Gemini: `"backend": null` means "call the Gemini API directly via `google-genai`",
+`"gemini_model": "gemini-2.5-flash"` is the model, and `"results_model": "gemini-2.5-flash"` is the
+results tree the run writes to. So running on Gemini requires no backend setup at all — only the
+API key:
 
 ```bash
+export GEMINI_API_KEY=...             # or GOOGLE_API_KEY; from https://aistudio.google.com/apikey
 cd Phase2_LLM_Extraction
-EXPERIMENT=main ./run_e2e.sh          # e2e track:    6c -> 6d -> 6e  (one extraction call, then canonicalize)
-EXPERIMENT=main ./run_staged.sh       # staged track: 2 -> 4 -> 6 -> 7  (entities, types, relations, properties)
-SPLIT=val ./run_e2e.sh                # validation articles (SPLIT=test for the reported set)
-MODEL=qwen3-32b-think ./run_e2e.sh    # open-weight model via a vLLM server instead of Gemini
+python -m notebooks.experiment_config check main   # sanity-check the config before spending tokens
+
+# e2e track: one extraction call per article (6c), then type (6d) and relation (6e) canonicalization
+SPLIT=val  SKIP_SERVER_CHECK=1 ./run_e2e.sh        # 20 validation articles first (cheap dry run)
+SPLIT=test SKIP_SERVER_CHECK=1 ./run_e2e.sh        # the 80 reported test articles
+
+# staged track: entities (2) -> types (4) -> relations (6) -> properties (7)
+SPLIT=val SKIP_SERVER_CHECK=1 ./run_staged.sh      # or a subset: ./run_staged.sh 2 4 6b 7b
 ```
 
-Or interactively: open the notebooks under `notebooks/two_staged/` and `notebooks/e2e/` in order and
-set the `EXPERIMENT` name in the first cell. Sanity-check a config before spending tokens with
-`python -m experiment_config check main` (from `notebooks/`).
+`SKIP_SERVER_CHECK=1` matters on Gemini: the run scripts otherwise preflight a local vLLM server,
+which a Gemini run does not need. Useful overrides, each of which becomes part of the run tag so
+runs never overwrite each other: `EXPERIMENT=<name>` picks another config (an ablation),
+`REPEAT=2` re-runs the same arm under a new tag (temperature 0 is greedy, not deterministic), and
+`PHASE2_OVERWRITE=1` deliberately redoes a finished run in place — without it a stage refuses to
+start over an existing manifest.
+
+Which stages actually call Gemini: the extraction notebooks (2, 6, 6b, 6c) on every article; the
+enrichment notebooks (1, 5) once; and the judge + consolidation steps inside the canonicalization
+notebooks (4, 7, 7b, 6d, 6e). The embedding retrieval inside those same notebooks is local and
+free. Rate limits are handled by the `workers` config key (default 4): the Gemini paid tier is
+comfortable at 4–8 parallel articles, the free tier (10 requests/min) wants `"workers": 1–2` —
+override it in your experiment file rather than editing notebooks. Thinking is on
+(`thinking_budget: -1`, dynamic), and every notebook ends with a token report — prompt, output, and
+thinking tokens per article, thinking broken out because Gemini bills it as output but excludes it
+from the API's output count — persisted to `results/gemini-2.5-flash/_global/token_usage_<nb>.json`.
+
+To run interactively instead, open the notebooks under `notebooks/e2e/` or `notebooks/two_staged/`
+in order; the first cell of each is just `EXPERIMENT = "main"`. Note the canonicalization notebooks
+(4, 7, 7b, 6d, 6e) must run their articles sequentially — they grow one shared vocabulary, so order
+changes the output — while the extraction notebooks parallelize freely.
 
 Outputs land in `results/<model>/art<N>/` (per-article graphs) and `results/<model>/_global/`
 (grown vocabularies, consolidation reports). Every run writes a manifest to
