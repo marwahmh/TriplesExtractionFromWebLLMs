@@ -23,10 +23,7 @@ The work has two phases:
 | [WDC_download_analysis/](WDC_download_analysis/) | Phase 1: streaming/parallel analysis of the WDC JSON-LD dump — per-class and per-domain statistics, figures, and a LaTeX report ([wdc_analysis_report.tex](WDC_download_analysis/wdc_analysis_report.tex)). |
 | [CommonCrawlExtraction/](CommonCrawlExtraction/) | Phase 1: extracting embedded JSON-LD directly from Common Crawl HTML records ([extract_jsonld_commoncrawl.ipynb](CommonCrawlExtraction/extract_jsonld_commoncrawl.ipynb)). |
 | [SourceDomainsExtraction/](SourceDomainsExtraction/) | Curated news + fact-check domain lists used to filter WDC/Common Crawl and to pick article sources. |
-| [wdc_class_data/](wdc_class_data/) | Raw per-class WDC quad dumps (NewsArticle, ClaimReview, Event, …) used by the Phase 1 notebooks. |
-| [Master-Thesis-Document/](Master-Thesis-Document/) | The thesis manuscript (LaTeX, `Thesis.tex` + `ChapterN.tex`). |
-| [jdse2026/](jdse2026/) | LNCS extended abstract submitted to JDSE 2026. |
-| [poster_iswc2026/](poster_iswc2026/) | ISWC 2026 poster sources. |
+| [WDC_Analysis.pdf](WDC_Analysis.pdf) | The compiled Phase 1 analysis report. |
 
 ## Setup
 
@@ -117,10 +114,3 @@ interactive HTML.
 **Open-weight models.** Qwen3, Llama 3.3, etc. are served with vLLM on the Lab-IA GPU cluster; the
 notebooks swap backends via `notebooks/llm_backend.py`. Setup and per-session runbook:
 [Phase2_LLM_Extraction/cluster/README.md](Phase2_LLM_Extraction/cluster/README.md).
-
-## Building the thesis PDF
-
-```bash
-cd Master-Thesis-Document
-pdflatex -synctex=1 Thesis.tex && bibtex Thesis && pdflatex -synctex=1 Thesis.tex && pdflatex -synctex=1 Thesis.tex
-```
